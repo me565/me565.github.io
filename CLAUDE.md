@@ -17,6 +17,7 @@ The owner is a non-technical but AI-savvy builder working from a Chromebook. Exp
 - Never delete or rename `manifest.webmanifest`, `sw.js`, the icons, or anything in `.well-known/` — the Android app depends on them.
 - Keep `manifest.webmanifest` `id`, `start_url` and `scope` as `./`.
 - The game must stay playable on a phone in portrait: tap targets large enough for fingers, no hover-only interactions.
+- The whole game must always fit the screen, with no vertical or horizontal scrolling, on any phone, tablet or desktop window (portrait or landscape). The scene shrinks to fit the space left by the header, message line and inventory; keep messages to about three lines on a phone.
 - Respect `prefers-reduced-motion`.
 
 ## Files
