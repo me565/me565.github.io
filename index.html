@@ -22,44 +22,58 @@
   :root:not([data-theme="light"]){--bg:#1b1e19;--ink:#ddd6c6;--muted:#9a9384;--accent:#c4958a;--slot:#2b3027;}
 }
 :root[data-theme="dark"]{--bg:#1b1e19;--ink:#ddd6c6;--muted:#9a9384;--accent:#c4958a;--slot:#2b3027;}
-html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+html{height:100%;overflow:hidden}
 *,*::before,*::after{box-sizing:border-box}
-body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);
+body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);
   font-family:"IM Fell English",Georgia,"Times New Roman",serif;-webkit-tap-highlight-color:transparent}
-main{max-width:460px;margin:0 auto;padding:10px 14px 24px}
-header{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
-h1{font-size:1.7rem;font-weight:400;margin:6px 0 10px;line-height:1.1}
+main{height:100%;max-width:clamp(460px,calc((100dvh - 240px) * .75 + 32px),640px);margin:0 auto;padding:6px 16px 10px;display:flex;flex-direction:column}
+header{flex:none;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+h1{font-size:clamp(1.3rem,4.5dvh,1.7rem);font-weight:400;margin:4px 0 8px;line-height:1.1}
 .link{background:none;border:0;color:var(--muted);font:inherit;font-style:italic;font-size:1rem;cursor:pointer;padding:6px 2px}
 .link:focus-visible,.slot:focus-visible,.ob:focus-visible,.dial:focus-visible{outline:2px dashed var(--accent);outline-offset:2px}
-.stage{position:relative;border-radius:3px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.3),0 10px 30px -12px rgba(0,0,0,.5)}
+/* The scene keeps its 3:4 shape and is as big as the leftover space allows. */
+.stagebox{flex:1 1 0;min-height:0;container-type:size;display:flex;justify-content:center;align-items:center}
+.stage{width:min(100cqw,75cqh);aspect-ratio:3/4;container-type:inline-size;position:relative;border-radius:3px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.3),0 10px 30px -12px rgba(0,0,0,.5)}
 .stage>svg{display:block;width:100%;height:auto;touch-action:manipulation}
-.msg{min-height:4.4em;margin:12px 2px 10px;font-size:1.08rem;line-height:1.5}
+.panel{flex:none}
+.msg{height:4.2em;overflow:hidden;margin:8px 2px;font-size:clamp(.92rem,2.3dvh,1.08rem);line-height:1.4}
 .inv{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.slot{aspect-ratio:1;background:var(--slot);border:0;border-radius:3px;display:grid;place-items:center;padding:8px;cursor:pointer;font:inherit;color:inherit}
+.slot{height:clamp(48px,9dvh,84px);background:var(--slot);border:0;border-radius:3px;display:grid;place-items:center;padding:8px;cursor:pointer;font:inherit;color:inherit}
 .slot:disabled{cursor:default}
 .slot[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--accent)}
 .slot svg{width:100%;height:100%}
-.help{color:var(--muted);font-style:italic;font-size:.95rem;margin:14px 2px 0;line-height:1.45}
+.help{color:var(--muted);font-style:italic;font-size:.95rem;margin:10px 2px 0;line-height:1.4}
+@media (max-height:760px){.help{display:none}}
+/* Short, wide windows (landscape): scene on the left, words and inventory on the right. */
+@media (orientation:landscape) and (max-height:620px){
+  main{max-width:900px;display:grid;grid-template-columns:auto minmax(200px,1fr);grid-template-rows:auto minmax(0,1fr);column-gap:18px}
+  header{grid-column:1/-1}
+  .stagebox{height:100%;aspect-ratio:3/4}
+  .panel{align-self:center}
+  .msg{height:auto;max-height:8.4em}
+}
 .hs{cursor:pointer}
 .hs:focus{outline:none}
 .hs:focus-visible .hit{stroke:#f2c16b;stroke-width:1.5;stroke-dasharray:4 3}
 .off{display:none}
-.overlay{position:absolute;inset:0;background:rgba(16,13,11,.9);color:#e4dccb;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:20px;text-align:center}
+.overlay{position:absolute;inset:0;background:rgba(16,13,11,.9);color:#e4dccb;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(6px,3.4cqw,14px);padding:clamp(8px,4cqw,20px);text-align:center;font-size:clamp(13px,4.4cqw,17px)}
 .overlay[hidden]{display:none}
-.otitle{margin:0;font-size:1.15rem;font-style:italic}
-.ob{font:inherit;font-size:1rem;background:transparent;color:#e4dccb;border:1px solid rgba(228,220,203,.4);border-radius:3px;padding:9px 14px;cursor:pointer}
-.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
-.dials{display:flex;gap:10px}
-.dial{width:62px;height:62px;background:#2a221d;border:1px solid #a8844a;border-radius:50%;color:#c9a45e;padding:14px;cursor:pointer}
+.otitle{margin:0;font-size:1.1em;font-style:italic}
+.ob{font:inherit;min-height:44px;background:transparent;color:#e4dccb;border:1px solid rgba(228,220,203,.4);border-radius:3px;padding:.45em .8em;cursor:pointer}
+.row{display:flex;gap:clamp(6px,2.6cqw,10px);flex-wrap:wrap;justify-content:center}
+.dials{display:flex;gap:clamp(6px,2.6cqw,10px)}
+.dial{width:clamp(48px,17cqw,62px);height:clamp(48px,17cqw,62px);background:#2a221d;border:1px solid #a8844a;border-radius:50%;color:#c9a45e;padding:clamp(10px,3.8cqw,14px);cursor:pointer}
 .dial svg{width:100%;height:100%;display:block}
-.bigclock{width:min(58%,230px);height:auto}
+.bigclock{width:min(52%,220px);height:auto}
+.inscr{margin:-.4em 0 0;font-style:italic;color:#c9a45e;max-width:26ch;line-height:1.4}
+.ofb{margin:0;min-height:1.4em;font-style:italic;color:#c9bfae;max-width:28ch}
 .end{background:rgba(0,0,0,.95);gap:14px}
-.end p{margin:0;max-width:30ch;font-size:1.12rem;line-height:1.5}
-.end .last{font-size:1.5rem;font-style:italic;color:#f2c16b}
+.end p{margin:0;max-width:30ch;font-size:1.05em;line-height:1.45}
+.end .last{font-size:1.4em;font-style:italic;color:#f2c16b}
 .fade{opacity:0;animation:fadein 1.4s ease forwards}
 @keyframes fadein{to{opacity:1}}
 #mothFly{transform-box:view-box;transform-origin:125px 240px;animation:orbit 4.5s linear infinite}
-@keyframes orbit{to{transform:rotate(360deg)}}
+@keyframes orbit{to{transform:rotate(-360deg)}}
 #flame{transform-box:fill-box;transform-origin:50% 100%;animation:flicker 1.6s ease-in-out infinite alternate}
 @keyframes flicker{0%{transform:scaleY(1)}50%{transform:scaleY(.86) skewX(4deg)}100%{transform:scaleY(1.07) skewX(-2deg)}}
 #shadows{animation:waver 2.4s ease-in-out infinite alternate}
@@ -79,6 +93,7 @@ h1{font-size:1.7rem;font-weight:400;margin:6px 0 10px;line-height:1.1}
   <button class="link" id="restart">Start over</button>
 </header>
 
+<div class="stagebox">
 <div class="stage">
 <svg id="scene" viewBox="0 0 360 480" aria-label="A dim parlour">
 <defs>
@@ -177,7 +192,7 @@ h1{font-size:1.7rem;font-weight:400;margin:6px 0 10px;line-height:1.1}
 
 <!-- wall where the shadows fall -->
 <g class="hs" data-id="wall" role="button" tabindex="0" aria-label="Wall">
-  <rect class="hit" x="150" y="182" width="94" height="96" fill="transparent"/>
+  <rect class="hit" x="150" y="182" width="98" height="96" fill="transparent"/>
 </g>
 
 <!-- door -->
@@ -232,10 +247,10 @@ h1{font-size:1.7rem;font-weight:400;margin:6px 0 10px;line-height:1.1}
 <rect id="glow" width="360" height="480" fill="url(#glowG)" opacity="0" pointer-events="none"/>
 
 <g id="shadows" class="off" pointer-events="none" style="color:rgba(12,9,7,.72)">
-  <use href="#sym-eye" x="155" y="200" width="20" height="20"/>
-  <use href="#sym-moon" x="178" y="200" width="20" height="20"/>
-  <use href="#sym-hand" x="201" y="200" width="20" height="20"/>
-  <use href="#sym-key" x="224" y="200" width="20" height="20"/>
+  <use href="#sym-hand" x="195" y="194" width="20" height="20"/>
+  <use href="#sym-eye" x="225" y="222" width="20" height="20"/>
+  <use href="#sym-key" x="195" y="250" width="20" height="20"/>
+  <use href="#sym-moon" x="165" y="222" width="20" height="20"/>
 </g>
 
 <ellipse id="flame" class="off" cx="125" cy="243" rx="3" ry="7" fill="#f2c16b" pointer-events="none"/>
@@ -245,9 +260,14 @@ h1{font-size:1.7rem;font-weight:400;margin:6px 0 10px;line-height:1.1}
 </svg>
 
 <div class="overlay" id="lockUI" hidden>
-  <p class="otitle">Four brass dials, stiff with age.</p>
+  <p class="otitle">Four brass dials. Engraved beneath them:</p>
+  <p class="inscr">Begin with what the moth wears. Then follow it.</p>
   <div class="dials" id="dials"></div>
-  <button class="ob" data-close>Step back</button>
+  <div class="row">
+    <button class="ob" id="pull">Pull the drawer</button>
+    <button class="ob" data-close>Step back</button>
+  </div>
+  <p class="ofb" id="lockFb" aria-live="polite"></p>
 </div>
 
 <div class="overlay" id="clockUI" hidden>
@@ -255,15 +275,20 @@ h1{font-size:1.7rem;font-weight:400;margin:6px 0 10px;line-height:1.1}
   <svg class="bigclock" viewBox="0 0 120 120" aria-label="Clock face">
     <circle cx="60" cy="60" r="55" fill="#d9ccb0" stroke="#a8844a" stroke-width="4"/>
     <g id="ticks"></g>
+    <text transform="translate(60 86) scale(-1 1)" text-anchor="middle" font-family="IM Fell English, Georgia, serif" font-style="italic" font-size="6.5" fill="#8c7d64">it stopped when she left</text>
     <line id="bh" x1="60" y1="60" x2="60" y2="33" stroke="#2a221d" stroke-width="4.5" stroke-linecap="round"/>
     <line id="bm" x1="60" y1="60" x2="60" y2="16" stroke="#2a221d" stroke-width="2.5" stroke-linecap="round"/>
     <circle cx="60" cy="60" r="3.5" fill="#a8844a"/>
   </svg>
   <div class="row">
-    <button class="ob" id="turnH">Turn the short hand</button>
-    <button class="ob" id="turnM">Turn the long hand</button>
+    <button class="ob" id="turnH">Turn short hand</button>
+    <button class="ob" id="turnM">Turn long hand</button>
   </div>
-  <button class="ob" data-close>Step back</button>
+  <div class="row">
+    <button class="ob" id="runClock">Let it run</button>
+    <button class="ob" data-close>Step back</button>
+  </div>
+  <p class="ofb" id="clockFb" aria-live="polite"></p>
 </div>
 
 <div class="overlay end" id="endUI" hidden>
@@ -274,16 +299,21 @@ h1{font-size:1.7rem;font-weight:400;margin:6px 0 10px;line-height:1.1}
   <button class="ob fade" id="restart2" style="animation-delay:7.5s">Start over</button>
 </div>
 </div>
+</div>
 
+<div class="panel">
 <p class="msg" id="msg" aria-live="polite"></p>
 <div class="inv" id="inv" aria-label="Things you are carrying"></div>
 <p class="help">Tap things to look closer. To use something you are carrying, tap it, then tap where it goes.</p>
+</div>
 </main>
 
 <script>
 const $ = id => document.getElementById(id);
 const SYMS = ['moon','eye','key','feather','hand'];
-const SOLUTION = [1,0,4,2]; // eye, moon, hand, key
+// Wall ring: hand above, eye right, key below, moon left. Start at the eye (the moth's wings),
+// then follow the moth, which circles anticlockwise: eye, hand, moon, key.
+const SOLUTION = [1,4,0,2];
 const ITEMS = {
   matches:{name:'matchbox', icon:'<svg viewBox="0 0 40 40"><line x1="24" y1="14" x2="29" y2="4" stroke="#d8c7a0" stroke-width="2"/><circle cx="29.5" cy="4" r="2.2" fill="#9e3a2e"/><rect x="6" y="14" width="28" height="16" rx="1" fill="#7a4e34"/><rect x="6" y="14" width="28" height="5" fill="#c9b48a"/></svg>'},
   hands:{name:'clock hands', icon:'<svg viewBox="0 0 40 40"><line x1="8" y1="32" x2="30" y2="7" stroke="#b8924a" stroke-width="2.4" stroke-linecap="round"/><line x1="14" y1="34" x2="25" y2="19" stroke="#b8924a" stroke-width="4" stroke-linecap="round"/><circle cx="8" cy="32" r="2.6" fill="#7d6236"/></svg>'},
@@ -295,7 +325,7 @@ let S, clk, dials;
 
 function fresh(){
   S = {rug:false, lit:false, jar:false, drawer:false, handsOn:false, clock:false, face:false, door:false, inv:[], sel:null};
-  clk = {h:12, m:0};
+  clk = {h:10, m:10}; // wherever the hands happen to land
   dials = [0,0,0,0];
 }
 function say(t){ $('msg').innerHTML = t; }
@@ -303,11 +333,13 @@ function tog(id, show){ $(id).classList.toggle('off', !show); }
 function add(it){ S.inv.push(it); }
 function use(it){ S.inv = S.inv.filter(x => x !== it); if (S.sel === it) S.sel = null; }
 
+// A looking-glass clock: its face is mirrored, so the hands turn anticlockwise.
 function setSceneHands(h, m){
-  $('sh').setAttribute('transform', `rotate(${(h%12)*30 + m*0.5} 190 80)`);
-  $('sm').setAttribute('transform', `rotate(${m*6} 190 80)`);
-  $('bh').setAttribute('transform', `rotate(${(h%12)*30 + m*0.5} 60 60)`);
-  $('bm').setAttribute('transform', `rotate(${m*6} 60 60)`);
+  const ha = -((h%12)*30 + m*0.5), ma = -m*6;
+  $('sh').setAttribute('transform', `rotate(${ha} 190 80)`);
+  $('sm').setAttribute('transform', `rotate(${ma} 190 80)`);
+  $('bh').setAttribute('transform', `rotate(${ha} 60 60)`);
+  $('bm').setAttribute('transform', `rotate(${ma} 60 60)`);
 }
 
 function render(){
@@ -358,24 +390,24 @@ function act(id){
       else say('An oil lamp, still full. The wick is dry and waiting.');
       break;
     case 'jar':
-      if (S.jar) say('The moth circles the flame, around and around. Its wings throw shapes onto the wall.');
+      if (S.jar) say('The moth circles the flame, always backwards, like a clock unwinding.');
       else if (!S.lit) say('A moth sleeps under the glass. Its wings are patterned with eyes.');
-      else { S.jar = true; say('The moth has woken and is beating against the glass. You lift the jar and it goes straight for the light. Shapes begin to flicker across the wall.'); }
+      else { S.jar = true; say('The moth wakes, the eyes on its wings opening and closing. You lift the jar. It flies to the flame and circles it backwards.'); }
       break;
     case 'wall':
-      if (S.jar) say('The moth\u2019s shadow keeps making the same four shapes, left to right: an eye, a moon, a hand, a key.');
+      if (S.jar) say('Four shadows hang in a ring, as if around a second flame. Above, a hand. To the right, an eye. Below, a key. To the left, a moon.');
       else if (S.lit) say('Faded wallpaper. In this light the pattern looks like moths, if you stare too long.');
       else say('Too dark to make anything out.');
       break;
     case 'drawer':
       if (S.drawer) say('Empty now, except for a smell of cloves.');
-      else { openLock(); say('The drawer is held shut by a lock with four dials.'); }
+      else { openLock(); say('The drawer is held shut by four dials. Something is engraved beneath them.'); }
       break;
     case 'clock':
       if (S.clock) say('It ticks now. You wish it wouldn\u2019t.');
       else if (!S.handsOn){
-        if (item === 'hands'){ S.handsOn = true; use('hands'); say('The hands click onto the spindle as if they had been waiting.'); openClock(); }
-        else say('A tall clock with no hands. Someone has scratched words into the face: it stopped when she left.');
+        if (item === 'hands'){ S.handsOn = true; use('hands'); say('The hands click onto the spindle and point wherever they please.'); openClock(); }
+        else say('A tall clock with no hands. Words are scratched into the face, backwards, as if meant for a mirror.');
       } else { openClock(); say('What time did she leave?'); }
       break;
     case 'painting':
@@ -399,37 +431,49 @@ function drawDials(){
     b.className = 'dial';
     b.setAttribute('aria-label', `Dial ${i+1}: ${SYMS[v]}`);
     b.innerHTML = `<svg viewBox="0 0 24 24"><use href="#sym-${SYMS[v]}"/></svg>`;
-    b.onclick = () => { dials[i] = (dials[i] + 1) % SYMS.length; drawDials(); $('dials').children[i].focus(); checkLock(); };
+    b.onclick = () => { dials[i] = (dials[i] + 1) % SYMS.length; $('lockFb').textContent = ''; drawDials(); $('dials').children[i].focus(); };
     box.appendChild(b);
   });
 }
-function openLock(){ drawDials(); $('lockUI').hidden = false; }
+function openLock(){ drawDials(); $('lockFb').textContent = ''; $('lockUI').hidden = false; }
 function checkLock(){
-  if (dials.every((v, i) => v === SOLUTION[i])){
-    setTimeout(() => {
-      $('lockUI').hidden = true;
-      S.drawer = true; add('hands');
-      say('Something clicks. Inside the drawer, wrapped in a handkerchief, are two clock hands.');
-      render();
-    }, 600);
+  if (S.drawer) return;
+  if (!dials.every((v, i) => v === SOLUTION[i])){
+    $('lockFb').textContent = 'The drawer holds. Behind the wallpaper, something shifts its weight.';
+    return;
   }
+  S.drawer = true;
+  $('lockFb').textContent = 'Something clicks.';
+  setTimeout(() => {
+    $('lockUI').hidden = true;
+    add('hands');
+    say('Something clicks. Inside the drawer, wrapped in a handkerchief, are two clock hands.');
+    render();
+  }, 600);
 }
 
 /* clock */
-function openClock(){ setSceneHands(clk.h, clk.m); $('clockUI').hidden = false; }
+function openClock(){ setSceneHands(clk.h, clk.m); $('clockFb').textContent = ''; $('clockUI').hidden = false; }
+function turned(){ $('clockFb').textContent = ''; setSceneHands(clk.h, clk.m); }
 function checkClock(){
-  setSceneHands(clk.h, clk.m);
-  if (clk.h === 2 && clk.m === 45 && !S.clock){
-    setTimeout(() => {
-      $('clockUI').hidden = true;
-      S.clock = true; add('face');
-      say('A quarter to three. The clock strikes the wrong number of times. A little door opens at its base and a porcelain face falls out.');
-      render();
-    }, 800);
+  if (S.clock) return;
+  if (!(clk.h === 2 && clk.m === 45)){
+    $('clockFb').textContent = 'It ticks twice and stops again. Not then.';
+    return;
   }
+  S.clock = true;
+  $('clockFb').textContent = 'It ticks, and keeps ticking.';
+  setTimeout(() => {
+    $('clockUI').hidden = true;
+    add('face');
+    say('A quarter to three. The clock strikes the wrong number of times. A little door opens at its base and a porcelain face falls out.');
+    render();
+  }, 800);
 }
-$('turnH').onclick = () => { clk.h = clk.h % 12 + 1; checkClock(); };
-$('turnM').onclick = () => { clk.m = (clk.m + 15) % 60; checkClock(); };
+$('turnH').onclick = () => { clk.h = clk.h % 12 + 1; turned(); };
+$('turnM').onclick = () => { clk.m = (clk.m + 5) % 60; turned(); };
+$('runClock').onclick = checkClock;
+$('pull').onclick = checkLock;
 
 (function ticks(){
   const g = $('ticks'); const R = ['XII','III','VI','IX'];
@@ -437,8 +481,8 @@ $('turnM').onclick = () => { clk.m = (clk.m + 15) % 60; checkClock(); };
   for (let i = 0; i < 12; i++){
     const a = i * Math.PI / 6;
     if (i % 3 === 0){
-      const x = 60 + Math.sin(a) * 41, y = 60 - Math.cos(a) * 41 + 4;
-      s += `<text x="${x}" y="${y}" text-anchor="middle" font-family="IM Fell English, Georgia, serif" font-size="11" fill="#2a221d">${R[i/3]}</text>`;
+      const x = 60 - Math.sin(a) * 41, y = 60 - Math.cos(a) * 41 + 4;
+      s += `<text transform="translate(${x} ${y}) scale(-1 1)" text-anchor="middle" font-family="IM Fell English, Georgia, serif" font-size="11" fill="#2a221d">${R[i/3]}</text>`;
     } else {
       s += `<line x1="${60+Math.sin(a)*47}" y1="${60-Math.cos(a)*47}" x2="${60+Math.sin(a)*51}" y2="${60-Math.cos(a)*51}" stroke="#2a221d" stroke-width="1.5"/>`;
     }
