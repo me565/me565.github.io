@@ -33,13 +33,13 @@ Setting: a Victorian parlour. Opening line: you wake with a note pinned to your 
 Puzzle chain:
 1. Rug → lift corner → matchbox.
 2. Matchbox on oil lamp → room lights up.
-3. Bell jar (only once lit) → moth flies to the lamp; its shadow casts four symbols on the wall.
-4. Wall shows, left to right: eye, moon, hand, key. Drawer lock (4 dials cycling moon/eye/key/feather/hand) → clock hands.
-5. Clock hands on clock → set to 2:45 (painting plaque: "Ada, who went out at a quarter to three") → hatch opens → porcelain face.
+3. Bell jar (only once lit) → moth flies to the lamp and circles it anticlockwise ("always backwards, like a clock unwinding"); four shadows appear on the wall in a ring.
+4. Wall ring: hand above, eye right, key below, moon left. Drawer lock (4 dials cycling moon/eye/key/feather/hand, checked only when you tap "Pull the drawer") is engraved "Begin with what the moth wears. Then follow it." → start at the eye (the moth's wings have eyes), go anticlockwise like the moth → eye, hand, moon, key → clock hands.
+5. Clock hands on clock → it is a looking-glass clock: numerals mirrored (XII reads IIX, IX reads XI, VI reads IV), scratched words backwards, hands turn anticlockwise, hands start at 10:10, long hand moves 5 minutes per tap. Set it to 2:45 (painting plaque: "Ada, who went out at a quarter to three") *as seen in a mirror* — it looks like 9:15 on a normal clock — then tap "Let it run" → hatch opens → porcelain face. Setting a normal-looking 2:45 fails.
 6. Face on faceless portrait → Ada opens her mouth → moth key.
 7. Moth key on door → ending: the moth goes out into the dark, Ada is home, the portrait has a face again — "It is yours."
 
-Interaction model: tap an object to look; tap an inventory item to select it, then tap where it goes. Wrong item gives "The X does not belong there." Messages appear in the `#msg` line under the scene. Close-ups (drawer lock, clock) are overlays inside `.stage`.
+Interaction model: tap an object to look; tap an inventory item to select it, then tap where it goes. Wrong item gives "The X does not belong there." Messages appear in the `#msg` line under the scene. Close-ups (drawer lock, clock) are overlays inside `.stage`, with their own feedback line; neither checks the answer until the player commits (Pull the drawer / Let it run), so answers cannot be found by watching for a click.
 
 ## Visual style
 
