@@ -78,7 +78,7 @@ Drawn in code as SVG, to a polished flat-illustration standard. Rules for every 
 - **Side-wall items** are angled gently and zoom when tapped.
 - **Clues are pictures where possible:** the timetable uses a coloured icon per subject, with a key in the close-up.
 - **Palette:** Singapore bright and tidy (cream and mint walls, pale wood, teal and purple accents, warm afternoon sun); Enfield and Trent Park in long golden evenings (deeper greens and browns); the Moth House in dusk blues with lantern glow.
-- **Type:** Caprasimo for titles, Atkinson Hyperlegible for game text, Caveat for handwriting.
+- **Type:** two faces only. Caprasimo for titles, room labels and menus; Atkinson Hyperlegible for everything the game says, including notes (italic for a handwritten note).
 - **Clocks and details must match the story:** the classroom clock reads twenty to three, before the last bell at three.
 
 ## Characters

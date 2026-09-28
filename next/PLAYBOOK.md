@@ -50,6 +50,17 @@ The working rules for every room in the landscape game, distilled from the owner
 - Clues arrive in order. A book (or drawer, or box) that holds the next clue gives it up only once the previous clue has pointed at it; before that it is just a book, with a friendly line. Reading "that's all three" while missing one feels like cheating. Parallel streams are fine when the story says so; a chain is a chain.
 - Things inside close-ups (books on a shelf, dials, cards) are pictures to the same standard as the walls, never flat coloured buttons. Titles are drawn by the game along the spines so the words stay exact.
 
+## 4a-ii. Doors and rooms, the Dark Dome way
+
+- A room is a square box of four walls. If a room needs more, split it into two rooms; never stretch a room to six views.
+- A doorway you can walk through is drawn **open**, with a glimpse of the next room through it. A closed door means locked: permanently, or until a puzzle or key opens it. Tapping a closed door says so.
+- Walking through zooms into the doorway and dims, then the new room settles in from slightly large. Turning a corner fades.
+- Close-ups of shelves, boxes and drawers are generated pictures of the real thing, with tap targets and the game's text laid over them. Never flat buttons.
+- Two typefaces in the whole game: Caprasimo for titles and menus, Atkinson Hyperlegible for everything the game says.
+- Cut-outs are hardened to fully opaque or fully clear before saving (colour reduction otherwise leaves a quarter of the pixels half-transparent, which is why the trolley, lid and hat looked see-through). No sunlight overlay on small things; it reads as transparency.
+- Things that turn (a globe) really turn: the map slides round the sphere under a still arc.
+- On a phone or tablet in a browser, offer full screen once and keep a toggle in the menu; inside the Android app the game is already full screen.
+
 ## 4b. No empty walls
 
 - Every wall must earn its place in the critical path or the bonus path: a clue, an item, a hint-giver, a door, or a piece of the puzzle's information. A wall that is only atmosphere is wasted time; the owner's yardstick is that in the games he loves everything feels connected. Before generating a wall, write down what it contributes.
@@ -86,4 +97,5 @@ The working rules for every room in the landscape game, distilled from the owner
 10. Item sounds fine, no music. → retry on real taps.
 11. Tap outside to close; no scrolling in close-ups; box crisper than the blurred room; no sunlight on the coat. → all fixed in build o.
 12. (Full stage test) No build number for a child; no empty walls (the whiteboard had no value); bin lid looked transparent (the sunlight overlay); doors should show intent; water squirt unrealistic; plain notices should be in-page lines, not pop-ups. → build r: debug-only diagnostics, the timetable key moved onto the whiteboard, lid overlay removed, door lean-in, drawn water arc, in-page lines for notices, rules and the card.
+14. Books still didn't fit graphically; two fonts max; globe should spin; trolley see-through; the rectangular room and door animation unconvincing (open doorways = walkable, closed = locked, as in Dark Dome); mobile browser needs full screen. → build t: shelf close-ups are generated pictures with titles on the spines; Caprasimo + Atkinson only; globe spins; alpha hardened on every cut-out; library rebuilt as a square room, doorways drawn open with a glimpse beyond, zoom-through transition; full-screen prompt and toggle.
 13. Shelf books were flat buttons, a mismatch with the art; the Art slip could be taken before the Music one ("That's all three" while missing one); the hat looked transparent; the library felt six-sided. → build s: generated book spines with titles along them, slips in strict order, hat re-cut with a true-white key and no sunlight overlay, the library rebuilt as a rectangle with two-view long walls that pan.
