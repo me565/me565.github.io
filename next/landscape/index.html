@@ -92,6 +92,26 @@ button{font:inherit;color:inherit;cursor:pointer}
 .layer{position:absolute;pointer-events:none;display:block}
 .slot img{width:100%;height:100%;object-fit:contain;display:block}
 
+#walls{position:absolute;inset:0}
+.scene.fade #walls,.scene.fade #hots{opacity:0}
+#walls,#hots{transition:opacity .35s ease, filter .3s ease}
+/* a shelf of books, and a locker with three dials */
+.card.shelf{width:calc(var(--u)*72);display:flex;flex-direction:column;gap:calc(var(--u)*1.2);align-items:stretch}
+.card .otitle{margin:0;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2.8);color:#2f7c83;text-align:center}
+.books{display:flex;gap:calc(var(--u)*1);justify-content:center;align-items:flex-end;flex-wrap:wrap;padding:calc(var(--u)*1) 0 0;border-bottom:calc(var(--u)*.9) solid #a8744a}
+.book{flex:1 1 0;min-width:calc(var(--u)*9);max-width:calc(var(--u)*13);min-height:calc(var(--u)*17);border:0;border-radius:calc(var(--u)*.6) calc(var(--u)*.6) 0 0;background:var(--sp,#3b78b8);color:#fffaf0;font:inherit;font-weight:700;font-size:calc(var(--u)*1.8);line-height:1.15;padding:calc(var(--u)*1) calc(var(--u)*.8);box-shadow:inset calc(var(--u)*-.5) 0 0 rgba(0,0,0,.18);cursor:pointer;text-wrap:balance}
+.book.gap{background:#f7e9a8;color:#5b4a2e;font-family:Caveat,cursive;font-weight:500;font-size:calc(var(--u)*2);min-height:calc(var(--u)*12);align-self:flex-end;box-shadow:none;border-radius:calc(var(--u)*.4)}
+.book:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
+.ofb{margin:0;min-height:calc(var(--u)*2.6);font-size:calc(var(--u)*2);text-align:center;color:var(--ink)}
+.spell{margin:0;text-align:center;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*3.6);letter-spacing:.25em;color:#6d4fb8;min-height:calc(var(--u)*4)}
+.row{display:flex;gap:calc(var(--u)*1.2);justify-content:center;flex-wrap:wrap}
+.card.locker{width:calc(var(--u)*52);display:flex;flex-direction:column;gap:calc(var(--u)*1.4);align-items:center}
+.dials{display:flex;gap:calc(var(--u)*2)}
+.dial{width:calc(var(--u)*10);height:calc(var(--u)*13);border-radius:calc(var(--u)*1);border:0;background:#2b2836;color:#fffaf0;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*6);cursor:pointer;box-shadow:inset 0 calc(var(--u)*-.8) 0 rgba(0,0,0,.4), inset 0 calc(var(--u)*.6) 0 rgba(255,255,255,.12)}
+.dial:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
+.card.locker .ob{min-height:44px}
+.menu.end .card p{margin:0;max-width:calc(var(--u)*60)}
+
 /* the inventory strip */
 .inv{display:grid;grid-template-columns:repeat(10,1fr);gap:calc(var(--u)*1);padding:0 calc(var(--u)*.2)}
 .slot{aspect-ratio:1/1;border-radius:calc(var(--u)*1.2);background:var(--slot);box-shadow:inset 0 0 0 calc(var(--u)*.22) var(--slot-line);border:0;padding:12%;display:grid;place-items:center}
@@ -120,11 +140,8 @@ button{font:inherit;color:inherit;cursor:pointer}
 <div id="app">
 <div class="stage" id="stage">
   <div class="scene" id="scene">
-    <div class="loading" id="loading">Opening the classroom…</div>
-    <img class="wall" id="w-c1" alt="" src="../art/classroom/landscape-c1-front-whiteboard.jpg?v=2026-09-28i">
-    <img class="wall" id="w-c2" alt="" src="../art/classroom/landscape-c2-window.jpg?v=2026-09-28i">
-    <img class="wall" id="w-c3" alt="" src="../art/classroom/landscape-c3-door.jpg?v=2026-09-28i">
-    <img class="wall" id="w-c4" alt="" src="../art/classroom/landscape-c4-timetable-desk.jpg?v=2026-09-28i">
+    <div class="loading" id="loading">Opening the school…</div>
+    <div id="walls"></div>
     <div id="hots"></div>
     <button class="arrow l" id="left" aria-label="Turn left"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     <button class="arrow r" id="right" aria-label="Turn right"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 4 8 8-8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -133,10 +150,18 @@ button{font:inherit;color:inherit;cursor:pointer}
     <button class="ctl" id="menuBtn" aria-label="Menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button>
     <p class="msg" id="msg" aria-live="polite"></p>
     <div class="closeup" id="closeup" hidden></div>
+    <div class="menu end" id="endUI" hidden>
+      <div class="card">
+        <h2>The last bell rings!</h2>
+        <p id="endText"></p>
+        <p class="small" id="endBonus"></p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center"><button class="ob" id="endAgain">Play again</button></div>
+      </div>
+    </div>
     <div class="menu" id="menu" hidden>
       <div class="card">
         <h2>The Moth House</h2>
-        <p>Landscape test: Mary's classroom, drawn as pictures. The corridor and library are not in this version yet.</p>
+        <p>Mary's last day of school: the classroom, the corridor and the library.</p>
         <p class="small">This is a work of fiction. Its characters, schools and events are imaginary.</p>
         <p class="small" id="diag" style="font-family:monospace;font-size:calc(var(--u)*1.5)"></p>
         <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center"><button class="ob quiet" id="soundBtn">Sound: on</button><button class="ob quiet" id="restart">Start again</button><button class="ob" id="closeMenu">Back to the room</button></div>
@@ -163,7 +188,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-28o';
+const BUILD = '2026-09-28p';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -174,8 +199,22 @@ function fit(){
 }
 addEventListener('resize', fit); fit();
 
-/* ---------- the room: four walls in turning order, tap targets as picture percentages ---------- */
-const VIEWS = ['c1','c2','c3','c4'];
+/* ---------- rooms: each is a box, its views in turning order; a door names the room and the view you arrive facing ---------- */
+const ROOMS = {
+  classroom:{name:'Classroom 5H', into:'your classroom', views:['c1','c2','c3','c4']},
+  corridor:{name:'Corridor', into:'the corridor', views:['h1','h2','h3','h4']},
+  library:{name:'Library', into:'the library', views:['l1','l2','l3','l4','l5','l6']}
+};
+const WALLS = {
+  c1:'../art/classroom/landscape-c1-front-whiteboard.jpg', c2:'../art/classroom/landscape-c2-window.jpg', c3:'../art/classroom/landscape-c3-door.jpg', c4:'../art/classroom/landscape-c4-timetable-desk.jpg',
+  /* placeholder walls until the corridor and library art is generated (see PLAYBOOK.md) */
+  h1:'../art/school/placeholder-h1.jpg', h2:'../art/school/placeholder-h2.jpg', h3:'../art/school/placeholder-h3.jpg', h4:'../art/school/placeholder-h4.jpg',
+  l1:'../art/school/placeholder-l1.jpg', l2:'../art/school/placeholder-l2.jpg', l3:'../art/school/placeholder-l3.jpg', l4:'../art/school/placeholder-l4.jpg', l5:'../art/school/placeholder-l5.jpg', l6:'../art/school/placeholder-l6.jpg'
+};
+/* door hotspot -> [room, index of the view you arrive facing (away from the door you came through)] */
+const DOORS = {door:['corridor', 1], h_door5H:['classroom', 0], h_libdoors:['library', 2], l_doors:['corridor', 3]};
+/* The corridor and library open only when their art is in, or with ?rooms in the address for testing. */
+const OPEN_DOORS = new URLSearchParams(location.search).has('rooms') || false;
 const HOTS = {
   c1:[
     {id:'cupboard', l:8, t:34, w:20, h:54, label:'Supplies cupboard', anim:'peek', layer:'doors', sound:'knock'},
@@ -198,10 +237,54 @@ const HOTS = {
     {id:'clock', l:67, t:23, w:8.5, h:16, label:'Clock', sound:'tick'},
     {id:'bookshelf', l:21, t:59, w:17.5, h:29, label:'Bookshelf', sound:'knock'},
     {id:'desk', l:41, t:61, w:18, h:33, label:"Mary's desk", sound:'tap'},
-    {id:'envelope', l:50, t:65, w:8, h:8.5, label:"Envelope on Mary's desk", key:true, anim:'lift', layer:'envelope', sound:'paper'},
+    {id:'envelope', l:50, t:65, w:8, h:8.5, label:"Envelope on Mary's desk", key:true, anim:'lift', layer:'envelope', sound:'paper', hideWhen:() => S.got.includes('envelope')},
     {id:'bag', l:55.5, t:77, w:9, h:17, label:"Mary's schoolbag", anim:'wobble', layer:'backpack', sound:'tap'},
     {id:'hamster', l:67, t:51.5, w:11, h:11, label:'Nutmeg the hamster', anim:'sniff', layer:'hamster', sound:'squeak'},
-    {id:'cabinet', l:66, t:62.5, w:13, h:27, label:'Filing cabinet', sound:'knock'}]
+    {id:'cabinet', l:66, t:62.5, w:13, h:27, label:'Filing cabinet', sound:'knock'}],
+  /* corridor */
+  h1:[
+    {id:'h_lockers', l:8, t:30, w:84, h:45, label:'The lockers', sound:'knock'},
+    {id:'h_locker', l:30, t:30, w:12, h:45, label:"Mary's locker", sound:'knock', key:true},
+    {id:'h_certs', l:20, t:10, w:60, h:14, label:'Certificates', sound:'paper'},
+    {id:'h_bench', l:20, t:78, w:60, h:12, label:'Bench', sound:'knock'}],
+  h2:[
+    {id:'h_libdoors', l:37, t:22, w:26, h:70, label:'Library doors', sound:'knock'},
+    {id:'h_fountain', l:12, t:45, w:12, h:25, label:'Water fountain', sound:'tap'},
+    {id:'h_trophies', l:72, t:25, w:16, h:62, label:'Trophy cabinet', sound:'tap'}],
+  h3:[
+    {id:'h_notices', l:25, t:20, w:50, h:45, label:'Notice board', sound:'paper'},
+    {id:'h_bonus', l:60, t:50, w:13, h:13, label:'Bonus riddle card', sound:'paper'},
+    {id:'h_radiator', l:33, t:72, w:34, h:18, label:'Radiator', sound:'knock'}],
+  h4:[
+    {id:'h_door5H', l:22, t:25, w:20, h:66, label:'Door to classroom 5H', sound:'knock'},
+    {id:'h_door5K', l:58, t:25, w:20, h:66, label:'Door to classroom 5K', sound:'knock'},
+    {id:'h_bunting', l:15, t:8, w:70, h:12, label:'Bunting', sound:'leaf'}],
+  /* library */
+  l1:[
+    {id:'l_shelfSci', l:10, t:18, w:35, h:72, label:'Science shelf', sound:'paper'},
+    {id:'l_globe', l:55, t:45, w:12, h:20, label:'Globe', sound:'tap'},
+    {id:'l_rocks', l:70, t:52, w:20, h:14, label:'Rock collection', sound:'knock'}],
+  l2:[
+    {id:'l_shelfMus', l:10, t:18, w:35, h:72, label:'Music shelf', sound:'paper'},
+    {id:'l_headphones', l:60, t:55, w:14, h:12, label:'Headphones', sound:'tap'},
+    {id:'l_beanbag', l:72, t:60, w:20, h:28, label:'Beanbag', sound:'knock'}],
+  l3:[
+    {id:'l_window', l:30, t:12, w:40, h:38, label:'Library window', sound:'tap'},
+    {id:'l_seat', l:28, t:52, w:44, h:20, label:'Window seat', sound:'knock'},
+    {id:'l_rug', l:30, t:76, w:40, h:14, label:'Rug', sound:'leaf'}],
+  l4:[
+    {id:'l_shelfArt', l:10, t:18, w:35, h:72, label:'Art shelf', sound:'paper'},
+    {id:'l_trolley', l:60, t:50, w:22, h:40, label:'Returns trolley', sound:'knock'},
+    {id:'l_notice', l:58, t:22, w:26, h:18, label:'Notice about the trolley', sound:'paper'}],
+  l5:[
+    {id:'l_shelfSto', l:10, t:18, w:35, h:72, label:'Stories shelf', sound:'paper'},
+    {id:'l_chair', l:60, t:45, w:26, h:45, label:'Storytime chair', sound:'knock'},
+    {id:'l_rug2', l:50, t:80, w:40, h:12, label:'Reading rug', sound:'leaf'}],
+  l6:[
+    {id:'l_doors', l:12, t:22, w:26, h:70, label:'Doors to the corridor', sound:'knock'},
+    {id:'l_desk', l:55, t:48, w:34, h:40, label:"Librarian's desk", sound:'paper'},
+    {id:'l_quiet', l:60, t:15, w:24, h:14, label:'QUIET PLEASE sign', sound:'tap'},
+    {id:'l_bell', l:76, t:50, w:8, h:9, label:'Desk bell', sound:'tick'}]
 };
 /* Cut-out layers drawn over each wall: the wall pictures have these things removed, so the cut-out is the only copy.
    l,t,w,h are the cut-out's box in picture percentages; clipBottom hides anything below that line (things inside a box). */
@@ -234,7 +317,11 @@ const LAYERS = {
 /* every picture is loaded once, up front, so cut-outs never appear late */
 const IMG = {};
 function preload(src){ return IMG[src] || (IMG[src] = new Promise(res => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(im); im.src = src + '?v=' + BUILD; })); }
-function allArt(){ const list = []; Object.values(LAYERS).forEach(v => v.forEach(L => list.push(L.src))); return list; }
+function roomArt(room){ const list = []; ROOMS[room].views.forEach(v => { list.push(WALLS[v]); (LAYERS[v] || []).forEach(L => list.push(L.src)); }); return list; }
+/* the walls are pictures stacked in the scene; the current one shows */
+Object.entries(WALLS).forEach(([k, src]) => { const im = document.createElement('img'); im.className = 'wall'; im.id = 'w-' + k; im.alt = ''; im.src = src + '?v=' + BUILD; $('walls').appendChild(im); });
+const wallReady = k => preload(WALLS[k]);
+/* preload() and the wall <img> share a URL, so the browser fetches each picture once */
 
 /* ---------- the animator: each layer is a canvas; a tap starts a short, damped, organic movement ----------
    bend: base fixed, tip moves most (plants). swing: hangs from the top, hem lags (a coat). lift: rises and settles (paper).
@@ -265,7 +352,7 @@ function drawLayer(c, t){
     ctx.save(); ctx.filter = `blur(${Math.max(2, W*0.03)}px)`; ctx.fillStyle = `rgba(30,25,40,${0.28*L.shadow})`;
     ctx.beginPath(); ctx.ellipse(ox + W/2, oy + H - H*0.01, W*0.46, Math.max(3, W*0.07), 0, 0, Math.PI*2); ctx.fill(); ctx.restore(); }
   const finish = () => {
-    const wall = $('w-'+VIEWS[S.view]); if (!wall || !wall.naturalWidth) return;
+    const wall = $('w-'+curView()); if (!wall || !wall.naturalWidth) return;
     if (L.lit){ /* the room's light falls on the cut-out: the wall's light and shade behind it, as brightness only, laid over the drawing */
       const off = st.off || (st.off = document.createElement('canvas')); off.width = c.width; off.height = c.height; const o = off.getContext('2d');
       const bl = L.l - L.w*PAD_X, bt = L.t - L.h*PAD_Y, bw = L.w*(1+2*PAD_X), bh = L.h*(1+PAD_Y+0.15);
@@ -277,7 +364,10 @@ function drawLayer(c, t){
     if (!glassRect) return;
     ctx.filter = 'none'; ctx.globalAlpha = 0.5; ctx.drawImage(wall, L.glass[0]/100*wall.naturalWidth, L.glass[1]/100*wall.naturalHeight, L.glass[2]/100*wall.naturalWidth, L.glass[3]/100*wall.naturalHeight, ...glassRect); ctx.globalAlpha = 1; };
   const damp = (f, tau) => Math.sin(2*Math.PI*f*t) * Math.exp(-t/tau);
-  if (!anim){ ctx.drawImage(img, ox, oy); finish(); ctx.restore(); return; }
+  if (!anim){
+    if (st.open || (L.openWhen && L.openWhen())){ ctx.save(); ctx.translate(ox, oy); ctx.scale(0.12, 1); ctx.drawImage(img, 0, 0); ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.fillRect(0, 0, W, H); ctx.restore(); }
+    else ctx.drawImage(img, ox, oy);
+    finish(); ctx.restore(); return; }
   const N = 40;
   ctx.save(); /* every movement below shifts the drawing origin; undo that before the glass is painted */
   switch(anim){
@@ -324,6 +414,11 @@ function drawLayer(c, t){
       const breath = 1 + 0.035*Math.sin(2*Math.PI*1.6*t)*Math.exp(-t/1.4), twitch = 0.04*Math.sin(2*Math.PI*6*t)*Math.exp(-t/0.35), shuffle = W*0.03*Math.sin(Math.PI*Math.min(t, 0.6)/0.6);
       ctx.translate(ox + W/2 + shuffle, oy + H); ctx.rotate(twitch); ctx.scale(1/breath, breath); ctx.drawImage(img, -W/2, -H);
       break; }
+    case 'openDoor': { /* a locker door swings open on its left hinge and stays open */
+      const T = 0.7; const k = Math.min(1, t/T); const open = 0.88*Math.sin(Math.PI/2*k);
+      if (t > T + 0.05){ st.anim = null; st.open = true; }
+      ctx.translate(ox, oy); ctx.scale(1-open, 1); ctx.drawImage(img, 0, 0); ctx.fillStyle = `rgba(0,0,0,${0.25*k})`; ctx.fillRect(0, 0, W, H);
+      break; }
     case 'wobble': { /* rocks on its base and settles */
       const ang = 0.14*damp(1.6, 0.6);
       ctx.translate(ox + W/2, oy + H); ctx.rotate(ang); ctx.drawImage(img, -W/2, -H);
@@ -360,52 +455,108 @@ function animate(h){
   if (!animFrame) animFrame = requestAnimationFrame(tick);
 }
 
-/* ---------- text: notes, timetable, hints (same puzzle as the portrait draft) ---------- */
+/* ---------- text: notes, shelves, timetable, items, hints (the same puzzle as the story plan) ---------- */
 const NOTES = {
   envelope:{hand:true, html:'<span class="head">For Mary</span><span>It’s our last-day treasure hunt! Three riddles lead to three library books, each hiding a slip with a lesson and a day. Look each one up on our timetable: its period number is one number of your locker code, in order.</span><span class="big">Riddle 1: At night I’m full of lights, but I’m not a city.</span><span>Mr Hollis</span>'},
-  rules:{hand:false, html:'<span class="head">Class 5H rules</span><span>1. Be kind.</span><span>2. Listen with your whole face.</span><span>3. Feed Nutmeg once a day, never twice.</span><span>4. Nobody goes home without their jumper.</span>'}
+  slipSc:{hand:true, html:'<span class="head">Slip 1 of 3</span><span class="big">SCIENCE on THURSDAY</span><span>Riddle 2: I have eighty-eight keys, but I can’t open a single door.</span>'},
+  slipMu:{hand:true, html:'<span class="head">Slip 2 of 3</span><span class="big">MUSIC on TUESDAY</span><span>Riddle 3: I’m full of colour, but I’m not a rainbow. Brushes are my best friends.</span>'},
+  slipAr:{hand:true, html:'<span class="head">Slip 3 of 3</span><span class="big">ART on WEDNESDAY</span><span>That’s all three! Now the timetable, then your locker. Happy holidays! Mr H</span>'},
+  rules:{hand:false, html:'<span class="head">Class 5H rules</span><span>1. Be kind.</span><span>2. Listen with your whole face.</span><span>3. Feed Nutmeg once a day, never twice.</span><span>4. Nobody goes home without their jumper.</span>'},
+  bonus:{hand:false, html:'<span class="head">Bonus riddle for super-sleuths</span><span>Someone in London loves postcards and moths. Spell her name with the first letters of four stories.</span>'},
+  notices:{hand:false, html:'<span class="head">Notice board</span><span><b>Summer fair</b>, Saturday: cake stall, a bouncy castle, and a raffle.</span><span><b>Swimming gala</b>: Kingfishers 2nd, Herons 3rd. Well done everyone.</span><span><b>Lost cat: Biscuit.</b> Ginger, very fluffy, answers to nothing.</span><span><b>House points</b>: Kingfishers lead by four.</span>'},
+  backsoon:{hand:true, html:'<span class="head">Back soon!</span><span>I’m at the party in the playground. Please put books back where you found them.</span><span>Mrs Ng</span>'}
+};
+const SHELVES = {
+  sci:{title:'Science shelf', color:'#3b78b8', books:[
+    ['Volcanoes!','Hot, rocky and a bit loud. No slip inside.'],
+    ['The Night Sky','slipSc'],
+    ['Bugs Up Close','Very close. Too close! No slip inside.'],
+    ['Weather Watch','All about rain. Singapore has plenty. No slip inside.']]},
+  mus:{title:'Music shelf', color:'#7a5cc2', books:[
+    ['Drums for Beginners','Boom, boom, tish! No slip inside.'],
+    ['Songs of the Sea','Sailors’ songs. No slip inside.'],
+    ['gap','A gap on the shelf, with a sticky note: “Returned today. See the trolley.”']]},
+  art:{title:'Art shelf', color:'#d0602f', books:[
+    ['Clay Creatures','Squishy animals to make. No slip inside.'],
+    ['The Big Book of Painting','slipAr'],
+    ['Paper Folding','How to fold paper birds, boats and moths. No slip inside.']]},
+  trolley:{title:'Returns trolley', color:'#5b6f7a', books:[
+    ['Dinosaur Days','Roar! No slip inside.'],
+    ['Playing the Piano','slipMu'],
+    ['Football Stars','No slip inside.']]},
+  sto:{title:'Stories shelf', color:'#3a8f5c', books:[
+    ['Nobody’s Garden','A secret garden story.'],
+    ['Jam for Tea','A story about a greedy bear.'],
+    ['A Quiet Moon','A bedtime story.'],
+    ['Owls at Dusk','A story about night birds.'],
+    ['Nine Lanterns','A story about a festival of lights.'],
+    ['Along the River','A story about a boat trip.']]}
 };
 const TIMETABLE = {Mon:['En','Ma','Sc','Ar','PE','Mu'], Tue:['Ma','En','Mu','Ge','Sc','Li'], Wed:['Sc','Ma','En','PE','Mu','Ar'], Thu:['En','Ar','Ma','Sc','Li','PE'], Fri:['Ma','Mu','Ar','En','PE','Sc']};
+const CODE = [4, 3, 6]; /* Science on Thursday = 4, Music on Tuesday = 3, Art on Wednesday = 6 */
 const SUBJECT = {Ma:['i-ma','#2f7c83','Maths'], En:['i-en','#d9a622','English'], Sc:['i-sc','#3b78b8','Science'], Mu:['i-mu','#7a5cc2','Music'], Ar:['i-ar','#d0602f','Art'], PE:['i-pe','#27794c','PE'], Ge:['i-ge','#a8744a','Geography'], Li:['i-li','#c4589a','Library']};
+/* the slips' pictures are drawn until the generated ones exist (see PLAYBOOK: icons must be pictures to the walls' standard) */
+const slipIcon = col => `<svg viewBox="0 0 24 24"><path d="M4 4h14l3 3v13H4Z" fill="${col}" stroke="#2b2836" stroke-width="1.3" stroke-linejoin="round"/><path d="M7 10h10M7 13h8M7 16h9" stroke="#2b2836" stroke-width="1" opacity=".55"/></svg>`;
 const ITEMS = {
-  envelope:{name:'riddle envelope', note:'envelope', icon:'<img src="../art/classroom/item-envelope.png" alt="">'}
+  envelope:{name:'riddle envelope', note:'envelope', icon:'<img src="../art/classroom/item-envelope.png" alt="">'},
+  slipSc:{name:'Science slip', note:'slipSc', icon:slipIcon('#bcd6f2')},
+  slipMu:{name:'Music slip', note:'slipMu', icon:slipIcon('#d9ccf5')},
+  slipAr:{name:'Art slip', note:'slipAr', icon:slipIcon('#f6d3bd')}
 };
 const HINTS = [
   {goal:() => S.got.includes('envelope'), tips:[
     'Mr Hollis left something on your desk.',
     'Turn to the timetable wall and look at your desk.',
     'Tap the envelope on your desk.']},
-  {goal:() => false, tips:[
+  {goal:() => S.got.includes('slipSc'), tips:[
     'Riddle 1: what is full of lights at night, but isn’t a city?',
-    'The night sky! The answer is a book in the library.',
-    'The corridor and library aren’t built in this landscape test yet. The classroom is the first room; the rest follow once the owner says yes.']}
+    'The night sky! Find a book about it in the library.',
+    'Go through the corridor to the library. Open The Night Sky on the blue Science shelf.']},
+  {goal:() => S.got.includes('slipMu'), tips:[
+    'Riddle 2: eighty-eight keys, and no doors. What could it be?',
+    'A piano! But the Music shelf has a gap. Where do returned books go?',
+    'In the library, find the returns trolley next to the Art shelf. Open Playing the Piano.']},
+  {goal:() => S.got.includes('slipAr'), tips:[
+    'Riddle 3: full of colour, and brushes are its best friends.',
+    'It’s a book about painting. Try the orange Art shelf.',
+    'Open The Big Book of Painting on the Art shelf.']},
+  {goal:() => S.opened, tips:[
+    'You have three lessons and three days. The class timetable turns each into a number.',
+    'Find each lesson on its day. The period number at the top is one number of your locker code.',
+    'Science Thursday is 4, Music Tuesday is 3, Art Wednesday is 6. Set your locker in the corridor to 4, 3, 6.']},
+  {goal:() => S.done, tips:[
+    'Your locker is open. What did Mr Hollis leave inside?',
+    'Look inside your locker in the corridor.',
+    'Tap the report and the postcard in your open locker.']}
 ];
 
 /* ---------- state ---------- */
 const KEY = 'mothhouse.landscape.' + BUILD; /* each build starts a fresh game; Start again is in the menu */
 let S;
-function fresh(){ return {view:3, got:[], hint:{}}; }
-function load(){ try{ const s = JSON.parse(localStorage.getItem(KEY)); if (s && Array.isArray(s.got)) return s; }catch(e){} return fresh(); }
+function fresh(){ return {room:'classroom', view:3, got:[], hint:{}, opened:false, bonus:false, spell:'', nightMoth:false, dials:[0,0,0], done:false}; }
+function load(){ try{ const s = JSON.parse(localStorage.getItem(KEY)); if (s && Array.isArray(s.got) && ROOMS[s.room]) return Object.assign(fresh(), s); }catch(e){} return fresh(); }
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+const curView = () => ROOMS[S.room].views[S.view];
 
 /* ---------- drawing ---------- */
 function say(html){ $('msg').innerHTML = html; }
 function render(){
-  const v = VIEWS[S.view];
-  VIEWS.forEach(k => $('w-'+k).classList.toggle('on', k === v));
+  const v = curView();
+  Object.keys(WALLS).forEach(k => $('w-'+k).classList.toggle('on', k === v));
+  $('where').textContent = ROOMS[S.room].name;
   const hots = $('hots'); hots.innerHTML = '';
   layerState.clear();
-  (LAYERS[v] || []).forEach(L => { if (L.hideWhen && L.hideWhen()) return; hots.appendChild(makeLayer(L)); });
+  (LAYERS[v] || []).forEach(L => { if (L.hideWhen && L.hideWhen()) return; if (L.showWhen && !L.showWhen()) return; hots.appendChild(makeLayer(L)); });
   if (v === 'c4') hots.appendChild(wallTimetable());
   /* bigger targets first, so a small thing on a big thing (the mug on the desk) stays tappable */
   [...HOTS[v]].sort((a, b) => b.w*b.h - a.w*a.h).forEach(h => {
-    if (h.id === 'envelope' && S.got.includes('envelope')) return;
+    if (h.hideWhen && h.hideWhen()) return;
     const b = document.createElement('button');
     b.className = 'hs'; b.dataset.id = h.id; b.setAttribute('aria-label', h.label);
     b.style.cssText = `left:${h.l}%;top:${h.t}%;width:${h.w}%;height:${h.h}%`;
     b.onclick = () => { animate(h); sfx(h.sound || 'tap'); act(h.id); };
     hots.appendChild(b);
-    if (h.key){
+    if (h.key && sparkle(h.id)){
       const s = document.createElement('span'); s.className = 'spark';
       s.style.cssText = `left:${h.l + h.w - 1.5}%;top:${h.t - 1.5}%`;
       s.innerHTML = '<svg viewBox="0 0 10 10"><path d="M5 0 6 4 10 5 6 6 5 10 4 6 0 5 4 4Z" fill="currentColor"/></svg>';
@@ -422,13 +573,26 @@ function render(){
   }
   save();
 }
-function turn(d){ if (!$('closeup').hidden) return; S.view = (S.view + d + 4) % 4; say(''); sfx('turn'); render(); }
+/* the key thing sparkles only while it is the next thing to do */
+function sparkle(id){
+  if (id === 'envelope') return !S.got.includes('envelope');
+  if (id === 'h_locker') return S.got.includes('slipAr') && !S.done;
+  return false;
+}
+function turn(d){ if (!$('closeup').hidden) return; const n = ROOMS[S.room].views.length; S.view = (S.view + d + n) % n; say(''); sfx('turn'); render(); }
+/* walking through a door: the scene dips out, the new room's pictures are made sure of, and we arrive facing away from the door */
+function go(room, view){
+  const scene = $('scene'); scene.classList.add('fade'); sfx('turn');
+  Promise.all(roomArt(room).map(preload)).then(() => setTimeout(() => {
+    S.room = room; S.view = view; render(); say(`Into ${ROOMS[room].into}.`);
+    requestAnimationFrame(() => scene.classList.remove('fade'));
+  }, 200));
+}
 
 /* The timetable poster on the wall is the real grid, drawn over the picture's poster in the same paper and ink,
    so what you see on the wall is exactly what the close-up shows. */
 function wallTimetable(){
   const wrap = document.createElement('div'); wrap.className = 'layer'; wrap.style.cssText = 'left:38.6%;top:25.3%;width:22.9%;height:29.4%';
-  let key = '';
   wrap.innerHTML = `<svg viewBox="0 0 230 166" width="100%" height="100%" preserveAspectRatio="none" aria-hidden="true"><rect x="1" y="1" width="228" height="164" rx="2" fill="#fffdf6" stroke="#2b2836" stroke-width="2"/><rect x="1" y="1" width="228" height="20" fill="#2f7c83" stroke="#2b2836" stroke-width="2"/><text x="115" y="15.5" text-anchor="middle" font-size="12" font-weight="700" fill="#fffdf6" letter-spacing="1.5" font-family="Atkinson Hyperlegible,Verdana,sans-serif">5H TIMETABLE</text><g>${ttGrid(8, 27, 34, 28, 22, 16, 9.5)}</g></svg>`;
   return wrap;
 }
@@ -436,7 +600,7 @@ function wallTimetable(){
 /* ---------- close-ups ---------- */
 function openCloseup(inner){
   $('closeup').innerHTML = `${inner}<span class="stepback">Tap anywhere to step back</span>`;
-  $('closeup').onclick = e => { if (!e.target.closest('.card')) closeCloseup(); };
+  $('closeup').onclick = e => { if (e.target.isConnected && !e.target.closest('.card')) closeCloseup(); };
   $('closeup').hidden = false; $('scene').classList.add('zoomed'); sfx('open');
 }
 function closeCloseup(){ if ($('closeup').hidden) return; $('closeup').hidden = true; $('scene').classList.remove('zoomed'); sfx('close'); }
@@ -461,9 +625,63 @@ function openTimetable(){
   openCloseup(`<div class="card tt"><svg viewBox="0 0 230 176" aria-label="The class timetable, with a picture for each lesson"><rect width="230" height="176" rx="4" fill="#fffdf6"/><rect width="230" height="18" fill="#2f7c83"/><text x="115" y="13" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fffdf6" letter-spacing="1" font-family="Atkinson Hyperlegible,Verdana,sans-serif">5H TIMETABLE</text><g>${ttGrid(8, 24, 34, 28, 17, 13, 9)}${key}</g></svg></div>`);
   say('The class timetable. Days go down the side, and period numbers go along the top.');
 }
+/* a shelf: the books are big buttons; one of them hides a slip. The Stories shelf can also spell a name. */
+let shelfKey = null;
+function openShelf(key){
+  shelfKey = key;
+  const sh = SHELVES[key], spelling = key === 'sto' && S.bonus && !S.nightMoth;
+  const books = sh.books.map(([title], i) => title === 'gap'
+    ? `<button class="book gap" data-i="${i}">Returned today. See the trolley.</button>`
+    : `<button class="book" style="--sp:${sh.color}" data-i="${i}">${title}</button>`).join('');
+  openCloseup(`<div class="card shelf"><p class="otitle">${sh.title}</p><div class="books" id="books">${books}</div>${spelling ? `<p class="spell" id="spell">${S.spell || '· · · ·'}</p>` : ''}<p class="ofb" id="shelfFb">${spelling ? 'Tap four stories in order to spell a name.' : 'Tap a book to open it.'}</p>${spelling ? '<div class="row"><button class="ob quiet" id="spellReset">Start the spelling again</button></div>' : ''}</div>`);
+  $('books').querySelectorAll('.book').forEach(b => b.onclick = () => pickBook(+b.dataset.i));
+  const r = $('spellReset'); if (r) r.onclick = () => { S.spell = ''; $('spell').textContent = '· · · ·'; $('shelfFb').textContent = 'Tap four stories in order to spell a name.'; save(); };
+}
+function pickBook(i){
+  const sh = SHELVES[shelfKey], [title, what] = sh.books[i], fb = $('shelfFb');
+  sfx('paper');
+  if (title === 'gap'){ fb.textContent = what; say('Someone returned a book today. Returned books go on the trolley.'); return; }
+  if (shelfKey === 'sto' && S.bonus && !S.nightMoth){
+    S.spell += title[0]; $('spell').textContent = S.spell.split('').join(' ');
+    if (S.spell.length === 4){
+      if (S.spell === 'NANA'){ S.nightMoth = true; fb.textContent = 'NANA! Nana loves postcards and moths. You are a super-sleuth.'; sfx('pickup'); say('★ Bonus riddle solved: NANA.'); }
+      else { fb.textContent = `“${S.spell}” isn’t a name. Start the spelling again.`; }
+    } else fb.textContent = what;
+    save(); return;
+  }
+  if (ITEMS[what]){
+    if (S.got.includes(what)){ fb.textContent = 'You already have the slip from this one.'; return; }
+    S.got.push(what); sfx('pickup'); fb.textContent = `A slip falls out of ${title}!`;
+    setTimeout(() => { render(); openNote(what); }, 500); say(`A slip from ${title}. It goes in the strip below.`);
+    return;
+  }
+  fb.textContent = what;
+}
+/* the locker: three dials, checked only when Open is tapped, so the answer cannot be found by watching for a click */
+function openLock(){
+  openCloseup(`<div class="card locker"><p class="otitle">Mary’s locker. Three numbers.</p><div class="dials" id="dials"></div><p class="ofb" id="lockFb">Tap a dial to turn it.</p><div class="row"><button class="ob" id="openLocker">Open</button></div></div>`);
+  /* the dials update in place: rebuilding them inside the tap would detach the tapped button and count as a tap outside the card */
+  $('dials').innerHTML = S.dials.map((d, i) => `<button class="dial" data-i="${i}" aria-label="Dial ${i+1}, showing ${d}">${d}</button>`).join('');
+  $('dials').querySelectorAll('.dial').forEach(b => b.onclick = () => { const i = +b.dataset.i; S.dials[i] = (S.dials[i] + 1) % 10; b.textContent = S.dials[i]; b.setAttribute('aria-label', `Dial ${i+1}, showing ${S.dials[i]}`); sfx('tick'); save(); });
+  $('openLocker').onclick = () => {
+    if (S.dials.join() === CODE.join()){ S.opened = true; sfx('pickup'); $('lockFb').textContent = 'Click! The locker opens.'; setTimeout(() => { closeCloseup(); render(); animate({anim:'openDoor', layer:'lockerdoor'}); say('Your locker swings open. Something is inside.'); }, 700); }
+    else { sfx('knock'); $('lockFb').textContent = 'It doesn’t budge. Not those numbers.'; }
+  };
+}
+function ending(){
+  S.done = true; save(); sfx('pickup');
+  $('endText').innerHTML = 'In your locker: your report (“a brilliant detective”) and a postcard from Nana. “Not long now! Love, Nana x.” The little moth in its corner seems to glow.';
+  $('endBonus').textContent = S.nightMoth ? '★ You solved the bonus riddle too!' : 'Want a challenge? Try the bonus riddle on the corridor notice board.';
+  setTimeout(() => { $('endUI').hidden = false; }, 600);
+}
 
 /* ---------- what happens when you tap things ---------- */
 function act(id){
+  if (DOORS[id]){
+    if (!OPEN_DOORS && S.room === 'classroom'){ say('The corridor is through here. <b>Its pictures aren’t drawn yet</b>, so the door stays shut for now.'); return; }
+    if (id === 'door' && !S.got.includes('envelope')){ say('Not yet. Mr Hollis left something on your desk first.'); return; }
+    go(...DOORS[id]); return;
+  }
   switch(id){
     case 'envelope': S.got.push('envelope'); sfx('pickup'); setTimeout(() => { render(); openNote('envelope'); }, 700); say('An envelope from Mr Hollis! Tap it in the strip below any time to read it again.'); return;
     case 'desk': say(S.got.includes('envelope') ? 'Your desk, cleared out for the summer. Just your pencil case.' : 'Your desk. There’s an envelope on it with your name.'); break;
@@ -477,19 +695,55 @@ function act(id){
     case 'cupboard': say('Glue sticks, glitter, and a smell of poster paint.'); break;
     case 'board': say('Wiped clean for the summer. A ghost of last week’s spelling test is still there if you squint.'); break;
     case 'tdesk': say('Mr Hollis’s desk. His mug says TEACHER OF THE YEAR (nearly).'); break;
+    case 'mug': say('Mr Hollis’s mug. Cold tea, as usual.'); break;
+    case 'apple': say('An apple for the teacher. Slightly bruised.'); break;
     case 'window': say('Sunshine, the sound of the party, and a plane climbing into the sky. Tomorrow, that’s you.'); break;
     case 'beans': say('The class bean plants. Mary’s is the tallest, of course.'); break;
     case 'radiator': say('Off, obviously. It is Singapore.'); break;
     case 'bin': say('Paper, and one sandwich crust that should not be in there.'); break;
     case 'pegs': say('Everyone has taken their coats. One forgotten raincoat drips quietly.'); break;
     case 'lost': say('A shoe, a hat, and a lunchbox that has been here since March.'); break;
-    case 'door': say('The corridor is through here. <b>Not built in this landscape test yet</b>: the classroom comes first.'); break;
+    /* corridor */
+    case 'h_lockers': say('Other people’s lockers. Yours is the purple one with your name on.'); break;
+    case 'h_locker':
+      if (S.done) say('Your empty locker. See you after the summer!');
+      else if (S.opened){ ending(); return; }
+      else openLock();
+      return;
+    case 'h_certs': say('Certificates: attendance, kindness, and one for “most improved handwriting”. Not Mary’s.'); break;
+    case 'h_bench': say('The bench where you wait for your turn at everything.'); break;
+    case 'h_fountain': say('A drink of cold water. Lovely.'); break;
+    case 'h_trophies': say('The house cup. This year: Kingfishers. Mary’s house!'); break;
+    case 'h_notices': openNote('notices'); say('The summer fair, the swimming gala, house points, and a lost cat called Biscuit.'); return;
+    case 'h_bonus': S.bonus = true; save(); openNote('bonus'); say('A bonus riddle! This one is optional, for super-sleuths.'); return;
+    case 'h_radiator': say('Off. Still Singapore.'); break;
+    case 'h_door5K': say('5K’s door. They’re at the party too. Locked.'); break;
+    case 'h_bunting': say('Bunting from the summer fair. Nobody has taken it down, and nobody will.'); break;
+    /* library */
+    case 'l_shelfSci': openShelf('sci'); return;
+    case 'l_shelfMus': openShelf('mus'); return;
+    case 'l_shelfArt': openShelf('art'); return;
+    case 'l_shelfSto': openShelf('sto'); return;
+    case 'l_trolley': openShelf('trolley'); return;
+    case 'l_globe': say('The globe. Singapore is a tiny red dot. London is a long way up and to the left.'); break;
+    case 'l_rocks': say('The rock collection. Nine shiny rocks and one that Mary suspects is a toffee.'); break;
+    case 'l_headphones': say('The listening corner. Story time is on Fridays, but today is the last day, so no story.'); break;
+    case 'l_beanbag': say('The squashiest beanbag in the school. Not now, Mary.'); break;
+    case 'l_window': say('Trees, sunshine and a butterfly on the glass. Only a few hours until the holidays.'); break;
+    case 'l_seat': say('The window seat, with the squashiest cushions in the school.'); break;
+    case 'l_rug': case 'l_rug2': say('A rug. Good for lying on with a book.'); break;
+    case 'l_notice': say('“Returned books go on the trolley.” Worth remembering.'); break;
+    case 'l_chair': say('The storytime chair. Someone has left a knitted hamster on it. It is not Nutmeg.'); break;
+    case 'l_desk': openNote('backsoon'); say('A sign on the librarian’s desk.'); return;
+    case 'l_quiet': say('QUIET PLEASE. Mary is being very quiet.'); break;
+    case 'l_bell': say('Ding! Nobody comes. Mrs Ng is at the party.'); break;
   }
 }
 function hint(){
   const i = HINTS.findIndex(h => !h.goal());
+  if (i < 0){ say('<b>Nutmeg squeaks:</b> That’s everything. Happy holidays!'); return; }
   S.hint[i] = Math.min((S.hint[i] ?? -1) + 1, 2);
-  say('<b>Nutmeg squeaks:</b> ' + HINTS[i].tips[S.hint[i]]);
+  say(`<b>${S.room === 'classroom' ? 'Nutmeg squeaks' : 'The moth whispers'}:</b> ` + HINTS[i].tips[S.hint[i]]);
   save();
 }
 
@@ -622,15 +876,19 @@ $('menuBtn').onclick = () => { closeCloseup(); $('menu').hidden = false; $('diag
 $('closeMenu').onclick = () => { $('menu').hidden = true; };
 $('soundBtn').onclick = () => setSound(!soundOn);
 $('soundBtn').textContent = 'Sound: ' + (soundOn ? 'on' : 'off');
-$('restart').onclick = () => { S = fresh(); $('menu').hidden = true; closeCloseup(); render(); say('<b>Last day of school.</b> Everyone is at the party, but Mr Hollis left something on your desk. Nutmeg knows something.'); };
+const INTRO = '<b>Last day of school.</b> Everyone is at the party, but Mr Hollis left something on your desk. Nutmeg knows something.';
+const restart = () => { S = fresh(); $('menu').hidden = true; $('endUI').hidden = true; closeCloseup(); render(); say(INTRO); };
+$('restart').onclick = restart; $('endAgain').onclick = restart;
 $('app').addEventListener('click', e => { if (e.target === $('app')) closeCloseup(); }); /* a tap on the dark margin also steps back */
 addEventListener('keydown', e => { if (e.key === 'ArrowLeft') turn(-1); if (e.key === 'ArrowRight') turn(1); if (e.key === 'Escape'){ closeCloseup(); $('menu').hidden = true; } });
 
 S = load();
-Promise.all([...VIEWS.map(k => new Promise(res => { const im = $('w-'+k); if (im.complete) res(); else { im.onload = res; im.onerror = res; } })), ...allArt().map(preload)]).then(() => {
+Promise.all(roomArt(S.room).map(preload)).then(() => {
   $('loading').remove();
   render();
-  say(S.got.length ? 'Back in the classroom.' : '<b>Last day of school.</b> Everyone is at the party, but Mr Hollis left something on your desk. Nutmeg knows something.');
+  say(S.got.length ? `Back in ${ROOMS[S.room].into}.` : INTRO);
+  /* the other rooms load quietly in the background */
+  Object.keys(ROOMS).filter(r => r !== S.room).forEach(r => roomArt(r).forEach(preload));
 });
 </script>
 </body>
