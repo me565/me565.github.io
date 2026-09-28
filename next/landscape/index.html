@@ -87,8 +87,9 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 /* micro-animations: a patch of the wall picture is lifted and moved for a moment */
 .sprite{position:absolute;pointer-events:none;background-repeat:no-repeat;will-change:transform}
+.layer{position:absolute;pointer-events:none;display:block;will-change:transform}
 @media (prefers-reduced-motion:no-preference){
-  .sprite.sway{transform-origin:50% 100%;animation:sway 1.8s ease-in-out}
+  .sprite.sway,.layer.sway{transform-origin:50% 100%;animation:sway 1.8s ease-in-out}
   .sprite.swing{transform-origin:50% 0%;animation:swing 2s ease-in-out}
   .sprite.lift{animation:lift .9s ease-out}
   .sprite.hop{animation:hop .8s ease-out}
@@ -197,7 +198,7 @@ const HOTS = {
     {id:'tdesk', l:71, t:62, w:24, h:27, label:"Mr Hollis's desk", anim:'jiggle', patch:[72,64.5,5,8], sound:'tap'}],
   c2:[
     {id:'window', l:30, t:17, w:40, h:31, label:'Classroom window', sound:'tap'},
-    {id:'beans', l:34, t:48, w:32, h:19, label:'Bean plants on the window sill', anim:'sway', patch:[[34.5,52,6,14.5],[42,45,7,21.5],[50.8,34,7.6,32.5],[59.5,32,7.5,34.5]], sound:'leaf'},
+    {id:'beans', l:33, t:30, w:35, h:37, label:'Bean plants on the window sill', anim:'sway', layer:'plant', sound:'leaf'},
     {id:'radiator', l:36, t:71, w:28, h:19, label:'Radiator', anim:'rattle', patch:[35.5,70.5,29,21], sound:'knock'}],
   c3:[
     {id:'bin', l:27, t:70, w:11, h:22, label:'Recycling bin', anim:'bob', patch:[27.5,69.5,10,8.5], sound:'knock'},
@@ -215,9 +216,26 @@ const HOTS = {
     {id:'hamster', l:66.5, t:52, w:11.5, h:11.5, label:'Nutmeg the hamster', anim:'hop', patch:[66.5,52,11.5,11.5], sound:'squeak'},
     {id:'cabinet', l:66, t:64, w:12.5, h:25, label:'Filing cabinet', anim:'rattle', patch:[65.5,63.5,13,26], sound:'knock'}]
 };
+/* Cut-out layers drawn over a wall: things that must move against a busy background (the plants against the window). */
+const LAYERS = {
+  c2:[
+    {src:'../art/classroom/layer-plant1.png', group:'plant', l:34.4, t:54.0, w:5.6, h:12.5},
+    {src:'../art/classroom/layer-plant2.png', group:'plant', l:42.4, t:49.5, w:5.5, h:17.0},
+    {src:'../art/classroom/layer-plant3.png', group:'plant', l:51.0, t:36.1, w:6.8, h:30.4},
+    {src:'../art/classroom/layer-plant4.png', group:'plant', l:59.3, t:31.5, w:7.7, h:35.0}]
+};
 /* Lift a patch of the current wall and play it: the same picture, cropped and moved, so the room never changes underneath. */
 function animate(h){
-  if (!h.anim || !h.patch || matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  if (!h.anim || matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  if (h.layer){
+    document.querySelectorAll(`.layer[data-group="${h.layer}"]`).forEach((el, i) => {
+      el.classList.remove(h.anim); void el.offsetWidth;
+      el.style.animationDelay = (i * 110) + 'ms'; el.classList.add(h.anim);
+      el.addEventListener('animationend', () => el.classList.remove(h.anim), {once:true});
+    });
+    return;
+  }
+  if (!h.patch) return;
   const v = VIEWS[S.view], patches = Array.isArray(h.patch[0]) ? h.patch : [h.patch];
   patches.forEach(([l,t,w,ht], i) => {
     const el = document.createElement('div'); el.className = 'sprite ' + h.anim;
@@ -262,6 +280,11 @@ function render(){
   const v = VIEWS[S.view];
   VIEWS.forEach(k => $('w-'+k).classList.toggle('on', k === v));
   const hots = $('hots'); hots.innerHTML = '';
+  (LAYERS[v] || []).forEach(L => {
+    const im = document.createElement('img'); im.className = 'layer'; im.src = L.src; im.alt = ''; im.dataset.group = L.group;
+    im.style.cssText = `left:${L.l}%;top:${L.t}%;width:${L.w}%;height:${L.h}%`;
+    hots.appendChild(im);
+  });
   HOTS[v].forEach(h => {
     if (h.id === 'envelope' && S.got.includes('envelope')) return;
     const b = document.createElement('button');
