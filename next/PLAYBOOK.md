@@ -43,6 +43,14 @@ The working rules for every room in the landscape game, distilled from the owner
 - Under reduce-motion, tap feedback still plays, shorter and gentler; only ambient motion (the sparkle) stops.
 - Tap animations must never be skipped silently on the owner's device: the tablet reports reduce-motion, and the early version showed nothing at all.
 
+## 4b. No empty walls
+
+- Every wall must earn its place in the critical path or the bonus path: a clue, an item, a hint-giver, a door, or a piece of the puzzle's information. A wall that is only atmosphere is wasted time; the owner's yardstick is that in the games he loves everything feels connected. Before generating a wall, write down what it contributes.
+- Split information across walls and rooms so the player has to look: the timetable is on one wall, the key to its pictures on the whiteboard on another.
+- A tap on something with no clue gets one short in-page line, never a close-up. Close-ups are for reading something that matters (a note, a riddle, a key) or working something (a lock, a shelf).
+- Never show technical details (build id, sound state) to a player; the menu's diagnostics line appears only with `?debug` in the address.
+- Going through a door leans the picture in towards the door before the room changes, so the player sees the intent.
+
 ## 5. Sound and music
 
 - Effects are made in the browser (Web Audio) and must be loud enough for a tablet speaker: taps 0.3, knocks 0.4, chimes 0.25. They start on the first real tap.
@@ -70,3 +78,4 @@ The working rules for every room in the landscape game, distilled from the owner
 9. Items looked in front of the box; a fresh link resumed old progress. → box front cut-out drawn over them; saves keyed by build.
 10. Item sounds fine, no music. → retry on real taps.
 11. Tap outside to close; no scrolling in close-ups; box crisper than the blurred room; no sunlight on the coat. → all fixed in build o.
+12. (Full stage test) No build number for a child; no empty walls (the whiteboard had no value); bin lid looked transparent (the sunlight overlay); doors should show intent; water squirt unrealistic; plain notices should be in-page lines, not pop-ups. → build r: debug-only diagnostics, the timetable key moved onto the whiteboard, lid overlay removed, door lean-in, drawn water arc, in-page lines for notices, rules and the card.

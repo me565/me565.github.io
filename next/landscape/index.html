@@ -83,7 +83,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .card.note .big{font-size:calc(var(--u)*3.2);font-weight:700;color:#2f7c83}
 .card.note.print{font-family:inherit;font-size:calc(var(--u)*2.2);line-height:1.35}
 .card.note.print .head{font-family:Caprasimo,Georgia,serif;font-weight:400;font-size:calc(var(--u)*2.8);color:#2f7c83}
-.card.tt{padding:calc(var(--u)*1.2);width:calc(var(--u)*60)} /* 60 wide keeps its 230:176 shape inside the scene's height */
+.card.tt{padding:calc(var(--u)*1.2);width:calc(var(--u)*64)}
 .card.tt svg{display:block;width:100%;height:auto}
 .back{position:absolute;right:calc(var(--u)*1.4);top:calc(var(--u)*1.2);width:calc(var(--u)*6);height:calc(var(--u)*6);border-radius:50%;border:0;background:rgba(20,26,40,.85);color:#fffaf0;display:grid;place-items:center;font-size:calc(var(--u)*3);z-index:2}
 .back:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
@@ -188,7 +188,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-28q';
+const BUILD = '2026-09-28r';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -309,7 +309,7 @@ const LAYERS = {
     {src:'../art/classroom/layer-lost.png', group:'lost', l:78.2, t:77.4, w:9.2, h:8.2, lit:.7},
     /* the front of the box, cut from the wall picture itself, drawn over the things inside it */
     {src:'../art/classroom/layer-boxfront.png', l:77.50, t:80.83, w:11.77, h:14.81},
-    {src:'../art/classroom/layer-lid.png', group:'lid', l:27.6, t:67.3, w:10, h:10.3, lit:.7}],
+    {src:'../art/classroom/layer-lid.png', group:'lid', l:27.6, t:67.3, w:10, h:10.3}],
   c4:[
     {src:'../art/classroom/layer-envelope.png', group:'envelope', l:50.5, t:66.5, w:6.5, h:5.5, hideWhen:() => S.got.includes('envelope')},
     /* the hamster lives inside the cage: it is clipped to the cage and the cage's glass is drawn faintly over it */
@@ -321,7 +321,7 @@ const LAYERS = {
     {src:'../art/school/layer-report.png', group:'report', l:35.4, t:61.4, w:6.2, h:8.0, showWhen:() => S.opened && !S.done},
     /* Mary's locker door: cut from the wall's own lockers and coloured purple, so it matches exactly; open once the code is right */
     {src:'../art/school/layer-lockerdoor.png', group:'lockerdoor', l:34.75, t:31.6, w:7.4, h:50.8, openWhen:() => S.opened}],
-  h2:[{src:'../art/school/layer-water.png', group:'water', l:21.2, t:60.6, w:3.2, h:5.8, flash:true}],
+  h2:[{draw:'water', group:'water', l:20.6, t:62.5, w:5.4, h:9.2, flash:true}],
   h3:[{src:'../art/school/layer-bonuscard.png', group:'bonuscard', l:60.4, t:50.2, w:6.4, h:8.6, lit:.6}],
   h4:[{src:'../art/school/layer-bunting.png', group:'bunting', l:25, t:14, w:50, h:19.9}],
   /* library */
@@ -335,7 +335,7 @@ const LAYERS = {
 /* every picture is loaded once, up front, so cut-outs never appear late */
 const IMG = {};
 function preload(src){ return IMG[src] || (IMG[src] = new Promise(res => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(im); im.src = src + '?v=' + BUILD; })); }
-function roomArt(room){ const list = []; ROOMS[room].views.forEach(v => { list.push(WALLS[v]); (LAYERS[v] || []).forEach(L => list.push(L.src)); }); return list; }
+function roomArt(room){ const list = []; ROOMS[room].views.forEach(v => { list.push(WALLS[v]); (LAYERS[v] || []).forEach(L => { if (L.src) list.push(L.src); }); }); return list; }
 /* the walls are pictures stacked in the scene; the current one shows */
 Object.entries(WALLS).forEach(([k, src]) => { const im = document.createElement('img'); im.className = 'wall'; im.id = 'w-' + k; im.alt = ''; im.src = src + '?v=' + BUILD; $('walls').appendChild(im); });
 const wallReady = k => preload(WALLS[k]);
@@ -352,6 +352,8 @@ function makeLayer(L){
   c.style.cssText = `left:${L.l - L.w*PAD_X}%;top:${L.t - L.h*PAD_Y}%;width:${L.w*(1+2*PAD_X)}%;height:${L.h*(1+PAD_Y+0.15)}%`;
   if (L.group) c.dataset.group = L.group;
   const st = {img:null, L, anim:null, t0:0}; layerState.set(c, st);
+  if (L.draw){ /* drawn by code rather than a picture: a stand-in size, the drawing happens in drawLayer */
+    st.img = {naturalWidth:300, naturalHeight:300}; c.width = Math.round(300*(1+2*PAD_X)); c.height = Math.round(300*(1+PAD_Y+0.15)); drawLayer(c, 0); return c; }
   preload(L.src).then(img => { if (!img.naturalWidth) return; st.img = img; c.width = Math.round(img.naturalWidth*(1+2*PAD_X)); c.height = Math.round(img.naturalHeight*(1+PAD_Y+0.15)); drawLayer(c, 0); });
   return c;
 }
@@ -442,10 +444,19 @@ function drawLayer(c, t){
       if (st.open || (L.openWhen && L.openWhen())){ st.anim = null; ctx.save(); ctx.translate(ox, oy); ctx.scale(0.12, 1); ctx.drawImage(img, 0, 0); ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.fillRect(0, 0, W, H); ctx.restore(); break; }
       if (t > 0.6){ st.anim = null; ctx.drawImage(img, ox, oy); break; }
       ctx.drawImage(img, ox + W*0.03*damp(9, 0.18), oy); break; }
-    case 'squirt': { /* an arc of water from a fountain: rises, holds, and drops away */
-      const T = 1.1; if (t > T){ st.anim = null; break; }
-      const k = t < 0.25 ? Math.sin(Math.PI/2*t/0.25) : (t < 0.75 ? 1 : Math.cos(Math.PI/2*(t-0.75)/0.35));
-      ctx.globalAlpha = Math.max(0, k); ctx.translate(ox, oy + H); ctx.scale(1, Math.max(0.01, k)); ctx.drawImage(img, 0, -H); break; }
+    case 'squirt': { /* a drinking fountain: a thin arc of water rises from the spout, curves over and falls into the basin, then stops */
+      const T = 1.5; if (t > T){ st.anim = null; break; }
+      const grow = Math.min(1, t/0.35), fade = t > 1.1 ? 1 - (t-1.1)/0.4 : 1;
+      const x0 = ox + W*0.30, y0 = oy + H*0.62, cx = ox + W*0.06, cy = oy + H*0.12, x1 = ox - W*0.16, y1 = oy + H*0.74; /* spout, apex, basin: the water rises from the spout and falls left into the basin */
+      const pt = u => [ (1-u)*(1-u)*x0 + 2*(1-u)*u*cx + u*u*x1, (1-u)*(1-u)*y0 + 2*(1-u)*u*cy + u*u*y1 ];
+      ctx.globalAlpha = fade; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      const path = () => { ctx.beginPath(); ctx.moveTo(x0, y0); for (let i = 1; i <= 24; i++){ const [x, y] = pt(grow*i/24); ctx.lineTo(x, y); } };
+      path(); ctx.strokeStyle = 'rgba(70,130,180,.9)'; ctx.lineWidth = W*0.055; ctx.stroke();
+      path(); ctx.strokeStyle = 'rgba(190,225,240,.95)'; ctx.lineWidth = W*0.028; ctx.stroke();
+      path(); ctx.strokeStyle = 'rgba(255,255,255,.8)'; ctx.lineWidth = W*0.01; ctx.stroke();
+      if (grow === 1){ /* a few droplets flicking off the top of the arc */
+        const wob = Math.sin(t*22); [[0.35,-0.05,-0.06],[0.5,0.04,-0.09],[0.62,0.08,-0.04]].forEach(([u,dx,dy],i) => { const [x,y] = pt(u); ctx.fillStyle = 'rgba(190,225,240,.9)'; ctx.beginPath(); ctx.arc(x + W*dx + W*0.01*wob*(i%2?1:-1), y + H*dy - H*0.01*wob, W*0.012, 0, Math.PI*2); ctx.fill(); }); }
+      break; }
     case 'roll': { /* a trolley nudged along a little and back, wheels first */
       if (t > 1.5){ st.anim = null; ctx.drawImage(img, ox, oy); break; }
       const dx = W*0.12*Math.sin(Math.PI*Math.min(t, 1.4)/1.4), tilt = -0.03*Math.sin(2*Math.PI*t/1.4);
@@ -500,10 +511,7 @@ const NOTES = {
   slipSc:{hand:true, html:'<span class="head">Slip 1 of 3</span><span class="big">SCIENCE on THURSDAY</span><span>Riddle 2: I have eighty-eight keys, but I can’t open a single door.</span>'},
   slipMu:{hand:true, html:'<span class="head">Slip 2 of 3</span><span class="big">MUSIC on TUESDAY</span><span>Riddle 3: I’m full of colour, but I’m not a rainbow. Brushes are my best friends.</span>'},
   slipAr:{hand:true, html:'<span class="head">Slip 3 of 3</span><span class="big">ART on WEDNESDAY</span><span>That’s all three! Now the timetable, then your locker. Happy holidays! Mr H</span>'},
-  rules:{hand:false, html:'<span class="head">Class 5H rules</span><span>1. Be kind.</span><span>2. Listen with your whole face.</span><span>3. Feed Nutmeg once a day, never twice.</span><span>4. Nobody goes home without their jumper.</span>'},
   bonus:{hand:false, html:'<span class="head">Bonus riddle for super-sleuths</span><span>Someone in London loves postcards and moths. Spell her name with the first letters of four stories.</span>'},
-  notices:{hand:false, html:'<span class="head">Notice board</span><span><b>Summer fair</b>, Saturday: cake stall, a bouncy castle, and a raffle.</span><span><b>Swimming gala</b>: Kingfishers 2nd, Herons 3rd. Well done everyone.</span><span><b>Lost cat: Biscuit.</b> Ginger, very fluffy, answers to nothing.</span><span><b>House points</b>: Kingfishers lead by four.</span>'},
-  backsoon:{hand:true, html:'<span class="head">Back soon!</span><span>I’m at the party in the playground. Please put books back where you found them.</span><span>Mrs Ng</span>'}
 };
 const SHELVES = {
   sci:{title:'Science shelf', color:'#3b78b8', books:[
@@ -560,7 +568,7 @@ const HINTS = [
     'Open The Big Book of Painting on the Art shelf.']},
   {goal:() => S.opened, tips:[
     'You have three lessons and three days. The class timetable turns each into a number.',
-    'Find each lesson on its day. The period number at the top is one number of your locker code.',
+    'The whiteboard says which picture is which lesson. Find each lesson on its day: the period number at the top is one number of your locker code.',
     'Science Thursday is 4, Music Tuesday is 3, Art Wednesday is 6. Set your locker in the corridor to 4, 3, 6.']},
   {goal:() => S.done, tips:[
     'Your locker is open. What did Mr Hollis leave inside?',
@@ -586,6 +594,7 @@ function render(){
   layerState.clear();
   (LAYERS[v] || []).forEach(L => { if (L.hideWhen && L.hideWhen()) return; if (L.showWhen && !L.showWhen()) return; hots.appendChild(makeLayer(L)); });
   if (v === 'c4') hots.appendChild(wallTimetable());
+  if (v === 'c1') hots.appendChild(wallBoard());
   /* bigger targets first, so a small thing on a big thing (the mug on the desk) stays tappable */
   [...HOTS[v]].sort((a, b) => b.w*b.h - a.w*a.h).forEach(h => {
     if (h.hideWhen && h.hideWhen()) return;
@@ -619,12 +628,18 @@ function sparkle(id){
 }
 function turn(d){ if (!$('closeup').hidden) return; const n = ROOMS[S.room].views.length; S.view = (S.view + d + n) % n; say(''); sfx('turn'); render(); }
 /* walking through a door: the scene dips out, the new room's pictures are made sure of, and we arrive facing away from the door */
-function go(room, view){
-  const scene = $('scene'); scene.classList.add('fade'); sfx('turn');
+function go(room, view, from){
+  const scene = $('scene'); sfx('turn');
+  if (from){ /* lean in towards the door for a moment: the picture zooms on the door and dips out */
+    const cx = from.l + from.w/2, cy = from.t + from.h/2;
+    ['walls','hots'].forEach(id => { const el = $(id); el.style.transformOrigin = `${cx}% ${cy}%`; el.style.transition = 'transform .45s ease-in, opacity .35s ease-in .15s'; el.style.transform = 'scale(1.22)'; });
+  }
+  scene.classList.add('fade');
   Promise.all(roomArt(room).map(preload)).then(() => setTimeout(() => {
+    ['walls','hots'].forEach(id => { const el = $(id); el.style.transition = 'none'; el.style.transform = 'none'; });
     S.room = room; S.view = view; render(); say(`Into ${ROOMS[room].into}.`);
-    requestAnimationFrame(() => scene.classList.remove('fade'));
-  }, 200));
+    requestAnimationFrame(() => { ['walls','hots'].forEach(id => { $(id).style.transition = ''; }); scene.classList.remove('fade'); });
+  }, from ? 420 : 200));
 }
 
 /* The timetable poster on the wall is the real grid, drawn over the picture's poster in the same paper and ink,
@@ -655,13 +670,27 @@ function ttGrid(x0, y0, dayW, cw, rh, ic, fs){
   return out;
 }
 function openTimetable(){
+  openCloseup(`<div class="card tt"><svg viewBox="0 0 230 140" aria-label="The class timetable, with a picture for each lesson"><rect width="230" height="140" rx="4" fill="#fffdf6"/><rect width="230" height="18" fill="#2f7c83"/><text x="115" y="13" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fffdf6" letter-spacing="1" font-family="Atkinson Hyperlegible,Verdana,sans-serif">5H TIMETABLE</text><g>${ttGrid(8, 24, 34, 28, 17, 13, 9)}</g></svg></div>`);
+  say('The class timetable: days down the side, period numbers along the top. But which picture is which lesson? Mr Hollis drew the key on the whiteboard.');
+}
+/* the whiteboard: Mr Hollis's key to the timetable pictures, in his marker pen. Without it the timetable cannot be read, so the front wall matters. */
+function boardKey(x0, y0, colW, rowH, ic, fs){
   let key = '';
   Object.values(SUBJECT).forEach(([id,col,name],i) => {
-    const x = 10 + (i%4)*54, y = 142 + Math.floor(i/4)*16;
-    key += `<use href="#${id}" x="${x}" y="${y}" width="12" height="12" style="color:${col}"/><text x="${x+15}" y="${y+9.5}" font-size="8" fill="#2b2836" font-family="Atkinson Hyperlegible,Verdana,sans-serif">${name}</text>`;
+    const x = x0 + (i%3)*colW, y = y0 + Math.floor(i/3)*rowH;
+    key += `<use href="#${id}" x="${x}" y="${y}" width="${ic}" height="${ic}" style="color:${col}"/><text x="${x+ic+4}" y="${y+ic*0.8}" font-size="${fs}" fill="#2f5f8a" font-family="Caveat,cursive" font-weight="700">${name}</text>`;
   });
-  openCloseup(`<div class="card tt"><svg viewBox="0 0 230 176" aria-label="The class timetable, with a picture for each lesson"><rect width="230" height="176" rx="4" fill="#fffdf6"/><rect width="230" height="18" fill="#2f7c83"/><text x="115" y="13" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fffdf6" letter-spacing="1" font-family="Atkinson Hyperlegible,Verdana,sans-serif">5H TIMETABLE</text><g>${ttGrid(8, 24, 34, 28, 17, 13, 9)}${key}</g></svg></div>`);
-  say('The class timetable. Days go down the side, and period numbers go along the top.');
+  return key;
+}
+function openBoard(){
+  openCloseup(`<div class="card tt"><svg viewBox="0 0 230 136" aria-label="The whiteboard: which picture means which lesson"><rect width="230" height="136" rx="3" fill="#fffdf6" stroke="#8a97a3" stroke-width="3"/><text x="115" y="22" text-anchor="middle" font-size="13" fill="#2f5f8a" font-family="Caveat,cursive" font-weight="700">Our timetable pictures</text><g>${boardKey(16, 32, 72, 26, 15, 11)}</g><text x="115" y="126" text-anchor="middle" font-size="10" fill="#c0541f" font-family="Caveat,cursive">Happy holidays, Year 5!  Mr H</text></svg></div>`);
+  say('Mr Hollis has drawn the timetable pictures on the board, with what each one means.');
+}
+/* the same key, drawn small on the whiteboard itself so the wall and the close-up agree */
+function wallBoard(){
+  const wrap = document.createElement('div'); wrap.className = 'layer'; wrap.style.cssText = 'left:33%;top:36%;width:35%;height:33%';
+  wrap.innerHTML = `<svg viewBox="0 0 230 136" width="100%" height="100%" preserveAspectRatio="none" aria-hidden="true"><text x="115" y="22" text-anchor="middle" font-size="13" fill="#2f5f8a" font-family="Caveat,cursive" font-weight="700">Our timetable pictures</text><g>${boardKey(16, 32, 72, 26, 15, 11)}</g><text x="115" y="126" text-anchor="middle" font-size="10" fill="#c0541f" font-family="Caveat,cursive">Happy holidays, Year 5!  Mr H</text></svg>`;
+  return wrap;
 }
 /* a shelf: the books are big buttons; one of them hides a slip. The Stories shelf can also spell a name. */
 let shelfKey = null;
@@ -717,20 +746,20 @@ function ending(){
 function act(id){
   if (DOORS[id]){
     if (id === 'door' && !S.got.includes('envelope')){ say('Not yet. Mr Hollis left something on your desk first.'); return; }
-    go(...DOORS[id]); return;
+    go(...DOORS[id], HOTS[curView()].find(h => h.id === id)); return;
   }
   switch(id){
     case 'envelope': S.got.push('envelope'); sfx('pickup'); setTimeout(() => { render(); openNote('envelope'); }, 700); say('An envelope from Mr Hollis! Tap it in the strip below any time to read it again.'); return;
     case 'desk': say(S.got.includes('envelope') ? 'Your desk, cleared out for the summer. Just your pencil case.' : 'Your desk. There’s an envelope on it with your name.'); break;
     case 'hamster': hint(); return;
-    case 'rules': openNote('rules'); say('The class rules. Rule 3 is about Nutmeg.'); return;
+    case 'rules': say('<b>Class rules.</b> 1. Be kind. 2. Listen with your whole face. 3. Feed Nutmeg once a day, never twice. 4. Nobody goes home without their jumper.'); break;
     case 'timetable': openTimetable(); return;
     case 'clock': say('Twenty to three. The last bell goes at three.'); break;
     case 'bookshelf': say('Reading books, dictionaries, and a box of comics that everyone pretends not to read.'); break;
     case 'bag': say('Mary’s bag, packed and ready. Only the report and Nana’s postcard still to collect.'); break;
     case 'cabinet': say('Mr Hollis’s filing cabinet. Locked, and Nutmeg is sitting on it anyway.'); break;
     case 'cupboard': say('Glue sticks, glitter, and a smell of poster paint.'); break;
-    case 'board': say('Wiped clean for the summer. A ghost of last week’s spelling test is still there if you squint.'); break;
+    case 'board': openBoard(); return;
     case 'tdesk': say('Mr Hollis’s desk. His mug says TEACHER OF THE YEAR (nearly).'); break;
     case 'mug': say('Mr Hollis’s mug. Cold tea, as usual.'); break;
     case 'apple': say('An apple for the teacher. Slightly bruised.'); break;
@@ -751,7 +780,7 @@ function act(id){
     case 'h_bench': say('The bench where you wait for your turn at everything.'); break;
     case 'h_fountain': say('A drink of cold water. Lovely.'); break;
     case 'h_trophies': say('The house cup. This year: Kingfishers. Mary’s house!'); break;
-    case 'h_notices': openNote('notices'); say('The summer fair, the swimming gala, house points, and a lost cat called Biscuit.'); return;
+    case 'h_notices': say('The summer fair, the swimming gala, house points, and a lost cat called Biscuit. Ginger, very fluffy, answers to nothing.'); break;
     case 'h_bonus': S.bonus = true; save(); openNote('bonus'); say('A bonus riddle! This one is optional, for super-sleuths.'); return;
     case 'h_radiator': say('Off. Still Singapore.'); break;
     case 'h_door5K': say('5K’s door. They’re at the party too. Locked.'); break;
@@ -774,7 +803,7 @@ function act(id){
     case 'l_desk': say('Mrs Ng’s desk: a computer, a bell, and a sign.'); break;
     case 'l_quiet': say('QUIET PLEASE. Mary is being very quiet.'); break;
     case 'l_bell': say('Ding! Nobody comes. Mrs Ng is at the party.'); break;
-    case 'l_card': openNote('backsoon'); say('A sign on the librarian’s desk.'); return;
+    case 'l_card': say('<b>Back soon!</b> “I’m at the party in the playground. Please put books back where you found them. Mrs Ng”'); break;
     case 'l_knit': say('A knitted hamster. It is not Nutmeg, but it has his eyebrows.'); break;
     case 'l_cushions': say('Squashy cushions. Someone has plumped them for the holidays.'); break;
   }
@@ -912,7 +941,8 @@ document.addEventListener('visibilitychange', () => { if (!AC) return; if (docum
 /* ---------- wiring ---------- */
 $('left').onclick = () => turn(-1); $('right').onclick = () => turn(1);
 $('hintBtn').onclick = hint;
-$('menuBtn').onclick = () => { closeCloseup(); $('menu').hidden = false; $('diag').textContent = `build ${BUILD} · sound: ${AC ? AC.state : 'not started'} · music: ${musicState} · reduced motion: ${matchMedia('(prefers-reduced-motion:reduce)').matches ? 'ON (gentle taps)' : 'off'} · ${innerWidth}×${innerHeight} · ${navigator.userAgent.replace(/^.*\((.*?)\).*$/, '$1').slice(0, 40)}`; };
+const DEBUG = new URLSearchParams(location.search).has('debug');
+$('menuBtn').onclick = () => { closeCloseup(); $('menu').hidden = false; $('diag').hidden = !DEBUG; $('diag').textContent = `build ${BUILD} · sound: ${AC ? AC.state : 'not started'} · music: ${musicState} · reduced motion: ${matchMedia('(prefers-reduced-motion:reduce)').matches ? 'ON (gentle taps)' : 'off'} · ${innerWidth}×${innerHeight} · ${navigator.userAgent.replace(/^.*\((.*?)\).*$/, '$1').slice(0, 40)}`; };
 $('closeMenu').onclick = () => { $('menu').hidden = true; };
 $('soundBtn').onclick = () => setSound(!soundOn);
 $('soundBtn').textContent = 'Sound: ' + (soundOn ? 'on' : 'off');
