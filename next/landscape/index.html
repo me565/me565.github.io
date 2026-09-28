@@ -160,7 +160,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-28g';
+const BUILD = '2026-09-28h';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -175,7 +175,8 @@ addEventListener('resize', fit); fit();
 const VIEWS = ['c1','c2','c3','c4'];
 const HOTS = {
   c1:[
-    {id:'cupboard', l:8, t:34, w:20, h:54, label:'Supplies cupboard', sound:'knock'},
+    {id:'cupboard', l:8, t:34, w:20, h:54, label:'Supplies cupboard', anim:'peek', layer:'doors', sound:'knock'},
+    {id:'mug', l:70.5, t:61.5, w:6.5, h:9.5, label:"Mr Hollis's mug", anim:'wobble', layer:'mug', sound:'tap'},
     {id:'board', l:32, t:34, w:37, h:37, label:'Whiteboard', sound:'tap'},
     {id:'apple', l:87.5, t:57.5, w:6.5, h:8.5, label:'Apple on the books', anim:'wobble', layer:'apple', sound:'tap'},
     {id:'tdesk', l:71, t:62, w:24, h:27, label:"Mr Hollis's desk", sound:'tap'}],
@@ -184,7 +185,7 @@ const HOTS = {
     {id:'beans', l:33, t:30, w:35, h:37, label:'Bean plants on the window sill', anim:'bend', layer:'plant', sound:'leaf'},
     {id:'radiator', l:36, t:71, w:28, h:19, label:'Radiator', sound:'knock'}],
   c3:[
-    {id:'bin', l:27.5, t:70, w:10, h:22, label:'Recycling bin', sound:'knock'},
+    {id:'bin', l:27, t:69, w:11, h:23, label:'Recycling bin', anim:'flip', layer:'lid', sound:'knock'},
     {id:'door', l:40, t:26.5, w:20.5, h:66, label:'Door to the corridor', sound:'knock'},
     {id:'pegs', l:61, t:46, w:29, h:36, label:'Coat pegs', anim:'swing', layer:'coat', sound:'leaf'},
     {id:'lost', l:75, t:73, w:15, h:19, label:'Lost property box', anim:'pop', layer:'lost', sound:'paper'}],
@@ -202,20 +203,33 @@ const HOTS = {
 /* Cut-out layers drawn over each wall: the wall pictures have these things removed, so the cut-out is the only copy.
    l,t,w,h are the cut-out's box in picture percentages; clipBottom hides anything below that line (things inside a box). */
 const LAYERS = {
-  c1:[{src:'../art/classroom/layer-apple.png', group:'apple', l:89.7, t:59.5, w:2.6, h:5.5}],
-  c2:[
-    {src:'../art/classroom/layer-plant1.png', group:'plant', l:34.4, t:54.0, w:5.6, h:12.5},
-    {src:'../art/classroom/layer-plant2.png', group:'plant', l:42.4, t:49.5, w:5.5, h:17.0},
-    {src:'../art/classroom/layer-plant3.png', group:'plant', l:51.0, t:36.1, w:6.8, h:30.4},
-    {src:'../art/classroom/layer-plant4.png', group:'plant', l:59.3, t:31.5, w:7.7, h:35.0}],
+  c1:[
+    {src:'../art/classroom/layer-doors.png', group:'doors', l:8.6, t:36, w:17, h:51},
+    {src:'../art/classroom/layer-mug.png', group:'mug', l:71.7, t:62.8, w:4.2, h:7.2},
+    {src:'../art/classroom/layer-apple.png', group:'apple', l:89.9, t:57.8, w:2.6, h:5.5}],
+  c2:[ /* each plant is split at the rim: the plant bends, the pot below it never moves and is drawn in front */
+    {src:'../art/classroom/layer-plant1-top.png', group:'plant', l:34.4, t:54.0, w:5.6, h:3.82},
+    {src:'../art/classroom/layer-plant2-top.png', group:'plant', l:42.4, t:49.5, w:5.5, h:8.26},
+    {src:'../art/classroom/layer-plant3-top.png', group:'plant', l:51.0, t:36.1, w:6.8, h:21.7},
+    {src:'../art/classroom/layer-plant4-top.png', group:'plant', l:59.3, t:31.5, w:7.7, h:26.31},
+    {src:'../art/classroom/layer-plant1-pot.png', l:34.4, t:57.71, w:5.6, h:8.79},
+    {src:'../art/classroom/layer-plant2-pot.png', l:42.4, t:57.65, w:5.5, h:8.85},
+    {src:'../art/classroom/layer-plant3-pot.png', l:51.0, t:57.69, w:6.8, h:8.81},
+    {src:'../art/classroom/layer-plant4-pot.png', l:59.3, t:57.70, w:7.7, h:8.80}],
   c3:[
     {src:'../art/classroom/layer-coat.png', group:'coat', l:61.2, t:49.5, w:10.6, h:32},
-    {src:'../art/classroom/layer-lost.png', group:'lost', l:77.5, t:74.5, w:10, h:8.9, clipBottom:81}],
+    {src:'../art/classroom/layer-lost.png', group:'lost', l:77.5, t:74.5, w:10, h:8.9, clipBottom:81},
+    {src:'../art/classroom/layer-lid.png', group:'lid', l:27.6, t:67.3, w:10, h:10.3}],
   c4:[
     {src:'../art/classroom/layer-envelope.png', group:'envelope', l:50.5, t:66.5, w:6.5, h:5.5, hideWhen:() => S.got.includes('envelope')},
-    {src:'../art/classroom/layer-hamster.png', group:'hamster', l:67.8, t:53.8, w:5.2, h:7.7},
+    /* the hamster lives inside the cage: it is clipped to the cage and the cage's glass is drawn faintly over it */
+    {src:'../art/classroom/layer-hamster.png', group:'hamster', l:67.8, t:54.2, w:5.2, h:7.3, glass:[67.3, 52.2, 10.2, 9.3]},
     {src:'../art/classroom/layer-backpack.png', group:'backpack', l:56.5, t:78, w:7, h:15.3}]
 };
+/* every picture is loaded once, up front, so cut-outs never appear late */
+const IMG = {};
+function preload(src){ return IMG[src] || (IMG[src] = new Promise(res => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(im); im.src = src; })); }
+function allArt(){ const list = []; Object.values(LAYERS).forEach(v => v.forEach(L => list.push(L.src))); return list; }
 
 /* ---------- the animator: each layer is a canvas; a tap starts a short, damped, organic movement ----------
    bend: base fixed, tip moves most (plants). swing: hangs from the top, hem lags (a coat). lift: rises and settles (paper).
@@ -226,21 +240,26 @@ let animFrame = null;
 function makeLayer(L){
   const c = document.createElement('canvas'); c.className = 'layer';
   c.style.cssText = `left:${L.l - L.w*PAD_X}%;top:${L.t - L.h*PAD_Y}%;width:${L.w*(1+2*PAD_X)}%;height:${L.h*(1+PAD_Y+0.15)}%`;
-  c.dataset.group = L.group;
-  const img = new Image(); img.src = L.src;
-  const st = {img, L, anim:null, t0:0}; layerState.set(c, st);
-  img.onload = () => { c.width = Math.round(img.naturalWidth*(1+2*PAD_X)); c.height = Math.round(img.naturalHeight*(1+PAD_Y+0.15)); drawLayer(c, 0); };
-  if (img.complete && img.naturalWidth) img.onload();
+  if (L.group) c.dataset.group = L.group;
+  const st = {img:null, L, anim:null, t0:0}; layerState.set(c, st);
+  preload(L.src).then(img => { if (!img.naturalWidth) return; st.img = img; c.width = Math.round(img.naturalWidth*(1+2*PAD_X)); c.height = Math.round(img.naturalHeight*(1+PAD_Y+0.15)); drawLayer(c, 0); });
   return c;
 }
+/* scene percentages -> this layer's canvas pixels */
+function toCanvas(c, L, px, py){ return [ (px - (L.l - L.w*PAD_X)) / (L.w*(1+2*PAD_X)) * c.width, (py - (L.t - L.h*PAD_Y)) / (L.h*(1+PAD_Y+0.15)) * c.height ]; }
 function drawLayer(c, t){
-  const st = layerState.get(c); if (!st || !st.img.naturalWidth) return;
+  const st = layerState.get(c); if (!st || !st.img || !st.img.naturalWidth) return;
   const {img, L, anim} = st, ctx = c.getContext('2d'), W = img.naturalWidth, H = img.naturalHeight, ox = W*PAD_X, oy = H*PAD_Y;
   ctx.clearRect(0, 0, c.width, c.height);
   ctx.save();
-  if (L.clipBottom != null){ const yClip = (L.clipBottom - (L.t - L.h*PAD_Y)) / (L.h*(1+PAD_Y+0.15)) * c.height; ctx.beginPath(); ctx.rect(0, 0, c.width, yClip); ctx.clip(); }
+  if (L.clipBottom != null){ const yClip = toCanvas(c, L, 0, L.clipBottom)[1]; ctx.beginPath(); ctx.rect(0, 0, c.width, yClip); ctx.clip(); }
+  let glassRect = null;
+  if (L.glass){ const [gx, gy] = toCanvas(c, L, L.glass[0], L.glass[1]), [gx2, gy2] = toCanvas(c, L, L.glass[0]+L.glass[2], L.glass[1]+L.glass[3]); glassRect = [gx, gy, gx2-gx, gy2-gy]; ctx.beginPath(); ctx.rect(...glassRect); ctx.clip(); }
+  const finish = () => { /* the glass front of a cage, drawn faintly over whatever is inside */
+    if (!glassRect) return; const wall = $('w-'+VIEWS[S.view]); if (!wall || !wall.naturalWidth) return;
+    ctx.globalAlpha = 0.32; ctx.drawImage(wall, L.glass[0]/100*wall.naturalWidth, L.glass[1]/100*wall.naturalHeight, L.glass[2]/100*wall.naturalWidth, L.glass[3]/100*wall.naturalHeight, ...glassRect); ctx.globalAlpha = 1; };
   const damp = (f, tau) => Math.sin(2*Math.PI*f*t) * Math.exp(-t/tau);
-  if (!anim){ ctx.drawImage(img, ox, oy); ctx.restore(); return; }
+  if (!anim){ ctx.drawImage(img, ox, oy); finish(); ctx.restore(); return; }
   const N = 40;
   switch(anim){
     case 'bend': { /* a plant: displacement grows with the square of the distance from the base, so the tip whips and the stem barely moves */
@@ -260,10 +279,26 @@ function drawLayer(c, t){
       const hop = (t, T, h) => { if (t < 0 || t > T) return {dy:0, sx:1, sy:1};
         if (t < T*0.18){ const k = t/(T*0.18); return {dy:0, sx:1+0.12*k, sy:1-0.16*k}; }
         const u = (t - T*0.18)/(T*0.82); const arc = Math.sin(Math.PI*u); return {dy:-h*arc, sx:1-0.08*arc, sy:1+0.12*arc}; };
-      const a = hop(t, 0.55, H*0.75), b = hop(t-0.62, 0.42, H*0.35); const land = (t > 0.55 && t < 0.62) ? 0.85 : (t > 1.04 && t < 1.12 ? 0.9 : 1);
+      const a = hop(t, 0.55, H*0.45), b = hop(t-0.62, 0.42, H*0.22); const land = (t > 0.55 && t < 0.62) ? 0.85 : (t > 1.04 && t < 1.12 ? 0.9 : 1);
       if (t > 1.25){ st.anim = null; ctx.drawImage(img, ox, oy); break; }
       const dy = a.dy + b.dy, sx = a.sx*b.sx*(2-land), sy = a.sy*b.sy*land;
       ctx.translate(ox + W/2, oy + H + dy); ctx.scale(sx, sy); ctx.drawImage(img, -W/2, -H);
+      break; }
+    case 'peek': { /* cupboard doors: each swings open a crack on its own hinge, then shuts */
+      const T = 1.3; if (t > T){ st.anim = null; ctx.drawImage(img, ox, oy); break; }
+      const k = t < 0.45 ? Math.sin(Math.PI/2*t/0.45) : (t < 0.8 ? 1 : Math.cos(Math.PI/2*(t-0.8)/0.5)); const open = 0.22*k;
+      ctx.save(); ctx.translate(ox, oy); ctx.scale(1-open, 1); ctx.drawImage(img, 0, 0, W/2, H, 0, 0, W/2, H); ctx.fillStyle = `rgba(0,0,0,${0.18*k})`; ctx.fillRect(0, 0, W/2, H); ctx.restore();
+      ctx.save(); ctx.translate(ox + W, oy); ctx.scale(1-open, 1); ctx.drawImage(img, W/2, 0, W/2, H, -W/2, 0, W/2, H); ctx.fillStyle = `rgba(0,0,0,${0.18*k})`; ctx.fillRect(-W/2, 0, W/2, H); ctx.restore();
+      break; }
+    case 'turn': { /* a door knob turns and springs back */
+      const ang = 0.45*Math.sin(Math.PI*Math.min(t, 0.5)/0.5)*(t < 0.5 ? 1 : 0) + (t >= 0.5 ? 0.08*damp(3, 0.25) : 0);
+      if (t > 1.2){ st.anim = null; ctx.drawImage(img, ox, oy); break; }
+      ctx.translate(ox + W/2, oy + H/2); ctx.rotate(ang); ctx.drawImage(img, -W/2, -H/2);
+      break; }
+    case 'flip': { /* a bin lid tips up at the back and drops shut */
+      const T = 0.7; if (t > T + 0.3){ st.anim = null; ctx.drawImage(img, ox, oy); break; }
+      const k = t < T ? Math.sin(Math.PI*t/T) : 0, settle = t >= T ? 0.05*damp(4, 0.15) : 0;
+      ctx.translate(ox + W/2, oy + H); ctx.rotate(-0.35*k + settle); ctx.translate(0, -H*0.25*k); ctx.drawImage(img, -W/2, -H);
       break; }
     case 'wobble': { /* rocks on its base and settles */
       const ang = 0.14*damp(1.6, 0.6);
@@ -276,6 +311,7 @@ function drawLayer(c, t){
       ctx.translate(ox + W/2, oy + H + dy); ctx.rotate(rot); ctx.drawImage(img, -W/2, -H);
       break; }
   }
+  finish();
   ctx.restore();
 }
 function tick(){
@@ -335,7 +371,8 @@ function render(){
   const hots = $('hots'); hots.innerHTML = '';
   layerState.clear();
   (LAYERS[v] || []).forEach(L => { if (L.hideWhen && L.hideWhen()) return; hots.appendChild(makeLayer(L)); });
-  HOTS[v].forEach(h => {
+  /* bigger targets first, so a small thing on a big thing (the mug on the desk) stays tappable */
+  [...HOTS[v]].sort((a, b) => b.w*b.h - a.w*a.h).forEach(h => {
     if (h.id === 'envelope' && S.got.includes('envelope')) return;
     const b = document.createElement('button');
     b.className = 'hs'; b.dataset.id = h.id; b.setAttribute('aria-label', h.label);
@@ -463,7 +500,7 @@ function sfx(kind){
 }
 /* Background music: a composed sixteen-bar music-box waltz, played by a scheduler and looped.
    To use a recorded track instead, set TRACK to its file (an mp3 that loops cleanly) and the tune below is not used. */
-const TRACK = null;
+const TRACK = '../art/music/classroom.mp3'; /* made with Google's Lyria through the Gemini key; see art/music/README.md */
 const TEMPO = 84, BEATS_PER_BAR = 3;
 const TUNE = {
   bars: ['C','Am','F','G','C','Am','F','G','Am','F','C','G','F','G','C','C'],
@@ -499,7 +536,15 @@ function softNote(midi, t, dur, vol, type){
 }
 function startMusic(){
   if (music || !soundOn || !audio()) return;
-  if (TRACK){ const el = new Audio(TRACK); el.loop = true; el.volume = .6; el.play().catch(() => {}); music = {stop(){ el.pause(); }}; return; }
+  if (TRACK){
+    const el = new Audio(TRACK); el.loop = true; el.volume = .5;
+    let fallen = false; el.onerror = () => { if (fallen) return; fallen = true; music = null; startTune(); };
+    el.play().catch(() => {}); music = {stop(){ el.pause(); el.src = ''; }}; return;
+  }
+  startTune();
+}
+function startTune(){
+  if (music || !soundOn || !audio()) return;
   const ac = AC; musicBus = musicGraph();
   musicBus.master.gain.exponentialRampToValueAtTime(1, ac.currentTime + 2.5);
   const beat = 60/TEMPO, loopBeats = TUNE.bars.length*BEATS_PER_BAR, start = ac.currentTime + 0.3;
@@ -538,7 +583,7 @@ $('restart').onclick = () => { S = fresh(); $('menu').hidden = true; closeCloseu
 addEventListener('keydown', e => { if (e.key === 'ArrowLeft') turn(-1); if (e.key === 'ArrowRight') turn(1); if (e.key === 'Escape'){ closeCloseup(); $('menu').hidden = true; } });
 
 S = load();
-Promise.all(VIEWS.map(k => new Promise(res => { const im = $('w-'+k); if (im.complete) res(); else { im.onload = res; im.onerror = res; } }))).then(() => {
+Promise.all([...VIEWS.map(k => new Promise(res => { const im = $('w-'+k); if (im.complete) res(); else { im.onload = res; im.onerror = res; } })), ...allArt().map(preload)]).then(() => {
   $('loading').remove();
   render();
   say(S.got.length ? 'Back in the classroom.' : '<b>Last day of school.</b> Everyone is at the party, but Mr Hollis left something on your desk. Nutmeg knows something.');

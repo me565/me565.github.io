@@ -1,0 +1,5 @@
+# Music
+
+`classroom.mp3` — background music for the classroom, generated on 28 Sept 2026 with Google's Lyria (`lyria-3.5`) through the same Gemini API key the pictures use, then faded in and out and re-encoded at 112 kbps. Prompt: "Gentle, cosy background music for a children's point-and-click mystery game set in a sunny classroom on the last day of school: a slow music-box waltz with a simple memorable melody, soft celesta and plucked strings, light and warm, no drums, no vocals, seamless loop, about 30 seconds." The model returned 2 minutes 42 seconds; the game loops it.
+
+The engine plays whatever `TRACK` in `next/landscape/index.html` points to, and falls back to its built-in composed tune if the file fails to load. Before a paid launch, check the Gemini API terms for music output.
