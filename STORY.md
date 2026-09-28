@@ -121,7 +121,7 @@ Puzzles:
 Built as a playable draft in `next/index.html`. Three rooms:
 - **Mary's bedroom** (square, 4 views): bed with the open suitcase (where everything is packed); wardrobe; door to the living room; her desk (quiet wall). She starts here.
 - **Living room** (long, 6 views): window and Dad's desk with the key hooks and wrapping paper; shelf above the sofa; fridge with Nana's postcard beside the kitchen doorway; front door with Mum's rain boots; TV and family photos (quiet wall); door to Mary's bedroom (quiet wall).
-- **Kitchen** (square, 4 views): Mum at the stove; sink and window (quiet wall); doorway back; cupboard and calendar ("FLIGHT TO LONDON! 14 hours").
+- **Kitchen** (square, 4 views): Mum at the stove, seen from behind, stirring (she is drawn in the game); sink and rainy window (quiet wall); doorway back; cupboard, calendar ("FLIGHT! 14 hrs") and a fruit bowl.
 
 Puzzles:
 - Nana's postcard on the fridge (close-up): "Bring the little torch, you'll need it! P.S. I've run out of kaya."
@@ -238,3 +238,4 @@ Back to school in Singapore. A big Atlas moth (a real Southeast Asian species) l
 ## Open decisions
 
 1. The moth's name, or let each player name it.
+2. What the children (and Mum) look like: hair, skin tone, glasses, anything they always wear. The portraits and Mum's figure use placeholder colouring until then.
