@@ -32,7 +32,7 @@ The owner is a non-technical but AI-savvy builder working from a Chromebook. Exp
 - `manifest.webmanifest` — app name, colours, icons.
 - `sw.js` — network-first service worker: players get the latest version when online; the last version still works offline. Keep this behaviour.
 - `icon-192.png`, `icon-512.png` — moth icon (also used as maskable).
-- `next/index.html` — the children's version being built, not yet what players get. Currently a rough draft of packing day, with all three children playable; it will become Mary's packing day once the choose-a-child screen is built. It doesn't register the service worker. When the launch rooms are ready, it replaces the live game.
+- `next/index.html` — the children's version being built, not yet what players get. It opens on the choose-a-child screen (with the fiction notice under "About this game"). Mary's packing day is playable as a rough draft; Elliot and Zaina are "coming soon". Rooms follow "How rooms work" in `STORY.md`: `ROOMS` lists each room's views in turning order, `DOORS` maps a door to the room and view you arrive at, and each view is a `<g class="view" id="v-…">` in the SVG. Keep hotspots away from the middle of the left and right edges, where the turn arrows sit. Finished stages are saved per child in localStorage (`mothhouse.next.v1`). It doesn't register the service worker. When the launch rooms are ready, it replaces the live game.
 - `STORY.md` — the story plan: characters, places, every scene with its puzzle map, rules for every chapter, open decisions.
 - `.well-known/assetlinks.json`, `.nojekyll` — Android app verification (see Launch status).
 

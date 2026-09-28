@@ -3,50 +3,65 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>The Moth House: Packing day (draft)</title>
-<meta name="theme-color" content="#f3eadb">
+<title>The Moth House (draft)</title>
+<meta name="theme-color" content="#edf1e7">
 <link rel="icon" href="../icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Atkinson+Hyperlegible:wght@400;700&family=Caveat:wght@500&display=swap" rel="stylesheet">
 <style>
-/* Rough draft of the children's version: Prologue, Packing day (see STORY.md). */
+/* Draft of the children's version (see STORY.md). Rooms are boxes: turn to face each wall, walk through doors. */
 :root{
-  --bg:#edf1e7;--ink:#1d2629;--muted:#55635d;--slot:#dde4d6;--accent:#c98320;
-  --mary:#7a5cc2;--elliot:#d0602f;--zaina:#2f8a57;
+  --bg:#edf1e7;--ink:#1d2629;--muted:#55635d;--slot:#dde4d6;--accent:#c98320;--card:#f8faf4;
+  --mary:#6d4fb8;--mary-soft:#e7e0f5;--elliot:#c0541f;--elliot-soft:#f7e2d6;--zaina:#27794c;--zaina-soft:#d8ecdf;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){--bg:#141a28;--ink:#e8ecef;--muted:#9ea9b8;--slot:#232c40;--accent:#f0b44c;--mary:#a58ae6;--elliot:#ef8a5a;--zaina:#5fc08a}
+  :root:not([data-theme="light"]){--bg:#141a28;--ink:#e8ecef;--muted:#9ea9b8;--slot:#232c40;--accent:#f0b44c;--card:#1c2336;
+    --mary:#b09ae8;--mary-soft:#2b2445;--elliot:#f08c5c;--elliot-soft:#3a2720;--zaina:#6cc893;--zaina-soft:#1d3327}
 }
-:root[data-theme="dark"]{--bg:#141a28;--ink:#e8ecef;--muted:#9ea9b8;--slot:#232c40;--accent:#f0b44c;--mary:#a58ae6;--elliot:#ef8a5a;--zaina:#5fc08a}
+:root[data-theme="dark"]{--bg:#141a28;--ink:#e8ecef;--muted:#9ea9b8;--slot:#232c40;--accent:#f0b44c;--card:#1c2336;
+  --mary:#b09ae8;--mary-soft:#2b2445;--elliot:#f08c5c;--elliot-soft:#3a2720;--zaina:#6cc893;--zaina-soft:#1d3327}
 html{height:100%;overflow:hidden}
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);
   font-family:"Atkinson Hyperlegible",Verdana,"Segoe UI",sans-serif;-webkit-tap-highlight-color:transparent}
-main{height:100%;max-width:clamp(460px,calc((100dvh - 290px) * .75 + 32px),640px);margin:0 auto;padding:6px 16px 10px;display:flex;flex-direction:column}
+main{height:100%;max-width:clamp(460px,calc((100dvh - 230px) * .75 + 32px),640px);margin:0 auto;padding:6px 16px 10px;display:flex;flex-direction:column}
 header{flex:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
 h1{font-family:Caprasimo,"Cooper Black",Georgia,serif;font-weight:400;font-size:clamp(1.1rem,4dvh,1.6rem);margin:4px 0 6px;line-height:1.1;white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
 .hbtns{display:flex;gap:4px;align-items:center;flex:none}
-@media (max-width:370px){.hint .t{display:none}.hint{padding:4px 8px}h1{font-size:1.05rem}.long{display:none}}
-@media (min-width:371px){.short{display:none}}
 .link{white-space:nowrap;background:none;border:0;color:var(--muted);font:inherit;font-size:.95rem;cursor:pointer;padding:8px 4px;min-height:44px}
 .hint{display:flex;align-items:center;gap:6px;background:none;border:1px solid var(--accent);color:var(--ink);border-radius:999px;font:inherit;font-size:.9rem;padding:4px 12px 4px 6px;min-height:40px;cursor:pointer}
 .hint svg{width:30px;height:20px}
+@media (max-width:370px){.hint .t{display:none}.hint{padding:4px 8px}h1{font-size:1.05rem}}
 button:focus-visible,.hs:focus-visible .hit{outline:3px solid var(--accent);outline-offset:2px}
+[hidden]{display:none!important}
+
+/* home: choose a child */
+#home{flex:1 1 0;min-height:0;display:flex;flex-direction:column;gap:clamp(8px,1.6dvh,14px);justify-content:center}
+#home .intro{margin:0;color:var(--muted);font-size:clamp(.9rem,2.2dvh,1.05rem);line-height:1.4}
+.kid{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:center;text-align:left;border-radius:16px;border:2px solid var(--c);background:var(--cs);color:var(--ink);font:inherit;padding:clamp(8px,1.8dvh,16px);cursor:pointer;min-height:64px}
+.kid[data-k="mary"]{--c:var(--mary);--cs:var(--mary-soft)} .kid[data-k="elliot"]{--c:var(--elliot);--cs:var(--elliot-soft)} .kid[data-k="zaina"]{--c:var(--zaina);--cs:var(--zaina-soft)}
+.kid .badge{grid-row:span 2;width:clamp(40px,7dvh,56px);height:clamp(40px,7dvh,56px);border-radius:50%;background:var(--c);color:#fff;display:grid;place-items:center;font-family:Caprasimo,Georgia,serif;font-size:1.4rem}
+.kid b{font-family:Caprasimo,"Cooper Black",Georgia,serif;font-weight:400;font-size:clamp(1.05rem,2.8dvh,1.35rem)}
+.kid span.sub{font-size:clamp(.8rem,2dvh,.95rem);color:var(--muted)}
+.kid:disabled{cursor:default;opacity:.62}
+.about{align-self:center}
+.aboutbox{background:var(--card);border-radius:14px;padding:14px 16px;font-size:.9rem;line-height:1.45;color:var(--ink)}
+.aboutbox p{margin:0 0 6px}
+
+/* game */
+#game{flex:1 1 0;min-height:0;display:flex;flex-direction:column}
 .stagebox{flex:1 1 0;min-height:0;container-type:size;display:flex;justify-content:center;align-items:center}
 .stage{width:min(100cqw,75cqh);aspect-ratio:3/4;container-type:inline-size;position:relative;border-radius:10px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.15),0 10px 30px -14px rgba(0,0,0,.4)}
 .stage>svg{display:block;width:100%;height:auto;touch-action:manipulation}
+.nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:60px;border:0;border-radius:12px;background:rgba(255,253,248,.6);color:#1d2629;display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.nav svg{width:22px;height:22px}
+#left{left:6px} #right{right:6px}
+.where{position:absolute;top:8px;left:8px;background:rgba(255,253,248,.82);color:#1d2629;border-radius:999px;padding:3px 10px;font-size:clamp(11px,3.4cqw,14px);font-weight:700;pointer-events:none}
 .panel{flex:none}
-.kids{display:flex;gap:8px;margin-top:8px}
-.kid{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;border-radius:999px;border:2px solid transparent;background:var(--slot);color:var(--ink);font:inherit;font-weight:700;font-size:.95rem;cursor:pointer;padding:4px 8px}
-.kid i{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;color:#fff;font-style:normal;font-size:.85rem;flex:none}
-.kid[data-k="mary"] i{background:var(--mary)} .kid[data-k="elliot"] i{background:var(--elliot)} .kid[data-k="zaina"] i{background:var(--zaina)}
-.kid[aria-pressed="true"][data-k="mary"]{border-color:var(--mary)}
-.kid[aria-pressed="true"][data-k="elliot"]{border-color:var(--elliot)}
-.kid[aria-pressed="true"][data-k="zaina"]{border-color:var(--zaina)}
 .msg{height:4.2em;overflow:hidden;margin:8px 2px;font-size:clamp(.92rem,2.3dvh,1.05rem);line-height:1.4}
 .msg b{font-weight:700}
 .inv{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
@@ -56,32 +71,46 @@ button:focus-visible,.hs:focus-visible .hit{outline:3px solid var(--accent);outl
 .slot svg{width:100%;height:100%}
 .hs{cursor:pointer}
 .hs:focus{outline:none}
+.view{display:none}
+.view.on{display:inline}
 .off{display:none}
+
+/* close-ups and ending live inside the stage */
 .overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:clamp(8px,3cqw,14px);padding:clamp(12px,6cqw,28px);font-size:clamp(13px,4.4cqw,17px)}
-.overlay[hidden]{display:none}
+.closeup{background:rgba(29,38,41,.88);color:#fffdf8}
+.card{background:#fffdf8;color:#2b3431;border-radius:6px;width:100%;max-width:92cqw;aspect-ratio:3/2;display:grid;grid-template-columns:1fr 1.25fr;box-shadow:0 10px 24px rgba(0,0,0,.35);transform:rotate(-2deg);overflow:hidden}
+.card .pic{background:linear-gradient(#f2c89a,#9dc59a 70%);display:flex;align-items:flex-end;justify-content:center;padding:6%}
+.card .pic svg{width:100%;height:auto}
+.card .words{font-family:Caveat,"Comic Sans MS",cursive;font-size:clamp(15px,5.4cqw,24px);line-height:1.15;text-align:left;padding:6% 7%;display:flex;flex-direction:column;gap:.3em;border-left:1px dashed #cbbfa9}
+.card .words .ps{margin-top:auto}
+.ob{font:inherit;min-height:44px;padding:.4em 1.1em;border-radius:999px;border:2px solid currentColor;background:transparent;color:inherit;cursor:pointer}
 .end{background:linear-gradient(#8fb8d6,#dcebf2 60%,#fff);color:#1d2629}
 .end p{margin:0;max-width:28ch;line-height:1.45}
 .end .big{font-family:Caprasimo,"Cooper Black",Georgia,serif;font-size:1.5em}
 .end .next{font-size:.9em;color:#3d4b52}
-.end button{font:inherit;min-height:44px;padding:.4em 1em;border-radius:999px;border:2px solid #1d2629;background:#fff;color:#1d2629;cursor:pointer}
+.end .ob{background:#fff;border-color:#1d2629}
 .fade{opacity:0;animation:fadein 1.2s ease forwards}
 @keyframes fadein{to{opacity:1}}
-#rain{animation:rain .9s linear infinite}
+.rain{animation:rain .9s linear infinite}
 @keyframes rain{from{transform:translateY(-12px)}to{transform:translateY(0)}}
 #blades{transform-origin:180px 22px;animation:spin 6s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+.steam{animation:steam 2.4s ease-in-out infinite alternate}
+@keyframes steam{from{opacity:.4;transform:translateY(2px)}to{opacity:.95;transform:translateY(-3px)}}
 #planeGo{animation:fly 6s ease-in-out forwards}
 @keyframes fly{from{transform:translate(-40px,40px)}to{transform:translate(40px,-30px)}}
-@media (max-height:520px){.kid span{display:none}}
 @media (orientation:landscape) and (max-height:620px){
-  main{max-width:900px;display:grid;grid-template-columns:auto minmax(220px,1fr);grid-template-rows:auto minmax(0,1fr);column-gap:18px}
-  header{grid-column:1/-1}
+  main{max-width:900px}
+  #game{display:grid;grid-template-columns:auto minmax(220px,1fr);grid-template-rows:minmax(0,1fr);column-gap:18px}
   .stagebox{height:100%;aspect-ratio:3/4}
   .panel{align-self:center}
   .msg{height:auto;max-height:8.4em}
+  #home{flex-direction:row;flex-wrap:wrap;align-content:center}
+  #home .kid{flex:1 1 30%}
+  #home .intro{flex-basis:100%}
 }
 @media (prefers-reduced-motion:reduce){
-  #rain,#blades,#planeGo{animation:none}
+  .rain,#blades,#planeGo,.steam{animation:none}
   .fade{animation:none;opacity:1}
 }
 </style>
@@ -91,255 +120,421 @@ button:focus-visible,.hs:focus-visible .hit{outline:3px solid var(--accent);outl
 <header>
   <h1>The Moth House</h1>
   <div class="hbtns">
-    <button class="hint" id="hintBtn" aria-label="Ask the moth for a hint">
+    <button class="hint" id="hintBtn" aria-label="Ask the moth for a hint" hidden>
       <svg viewBox="-14 -10 28 20" aria-hidden="true"><path d="M0 0C-4-9-13-9-13-2-13 3-5 3 0 0Z" fill="#f0b44c"/><path d="M0 0C4-9 13-9 13-2 13 3 5 3 0 0Z" fill="#f0b44c"/><path d="M0 1C-3 7-9 8-9 4-9 1-4 1 0 1Z" fill="#e9b98a"/><path d="M0 1C3 7 9 8 9 4 9 1 4 1 0 1Z" fill="#e9b98a"/><ellipse cx="0" cy="1" rx="1.3" ry="5" fill="#2b3431"/></svg>
       <span class="t">Hint</span>
     </button>
-    <button class="link" id="restart" aria-label="Start over"><span class="long">Start over</span><span class="short">Restart</span></button>
+    <button class="link" id="homeBtn" hidden>Children</button>
   </div>
 </header>
 
+<!-- choose a child -->
+<section id="home" aria-label="Choose whose story to play">
+  <p class="intro">One summer, three stories. Whose will you play?</p>
+  <button class="kid" data-k="mary"><span class="badge">M</span><b>Mary's story</b><span class="sub" id="marySub">Age 10 · Packing day (draft)</span></button>
+  <button class="kid" data-k="elliot" disabled><span class="badge">E</span><b>Elliot's story</b><span class="sub">Age 7 · Coming soon</span></button>
+  <button class="kid" data-k="zaina" disabled><span class="badge">Z</span><b>Zaina's story</b><span class="sub">Age 4 · Coming soon</span></button>
+  <button class="link about" id="aboutBtn">About this game</button>
+  <div class="aboutbox" id="aboutBox" hidden>
+    <p>This is a work of fiction. Its characters, schools and events are imaginary. Real places appear in a fictional way, and no organisation is connected with or endorses this game.</p>
+    <p>Rough draft: simple drawings, one playable story so far.</p>
+  </div>
+</section>
+
+<!-- playing -->
+<section id="game" hidden>
 <div class="stagebox">
 <div class="stage">
-<svg id="scene" viewBox="0 0 360 480" aria-label="The family flat in Singapore on a rainy afternoon">
+<svg id="scene" viewBox="0 0 360 480" aria-label="The scene">
 <defs>
   <symbol id="pm" viewBox="-7 -5 14 10">
     <path d="M0 1L-7-5-5 4Z" fill="#fffdf6" stroke="#b3a58c" stroke-width=".6" stroke-linejoin="round"/>
     <path d="M0 1L7-5 5 4Z" fill="#f4efe2" stroke="#b3a58c" stroke-width=".6" stroke-linejoin="round"/>
   </symbol>
-  <clipPath id="glass"><rect x="24" y="50" width="106" height="116"/></clipPath>
   <pattern id="planks" width="360" height="28" patternUnits="userSpaceOnUse">
     <rect width="360" height="28" fill="#d2a574"/>
     <line x1="0" y1="27.5" x2="360" y2="27.5" stroke="#b98a5a"/>
     <line x1="90" y1="0" x2="90" y2="28" stroke="#b98a5a"/><line x1="250" y1="0" x2="250" y2="28" stroke="#b98a5a"/>
   </pattern>
+  <pattern id="tiles" width="30" height="30" patternUnits="userSpaceOnUse">
+    <rect width="30" height="30" fill="#e7e2d6"/><rect width="15" height="15" fill="#d6cfbf"/><rect x="15" y="15" width="15" height="15" fill="#d6cfbf"/>
+  </pattern>
   <pattern id="giftpaper" width="10" height="10" patternUnits="userSpaceOnUse">
     <rect width="10" height="10" fill="#7fb5c9"/><path d="M5 5c-1-2-3-2-3 0 0 1 2 1 3 0 1 1 3 1 3 0 0-2-2-2-3 0z" fill="#f0b44c"/>
   </pattern>
+  <clipPath id="glass1"><rect x="46" y="56" width="148" height="128"/></clipPath>
+  <clipPath id="glass2"><rect x="96" y="66" width="168" height="118"/></clipPath>
+  <g id="raindrops" stroke="#e8f0f4" stroke-width="1.2" stroke-linecap="round" opacity=".8">
+    <line x1="10" y1="0" x2="7" y2="10"/><line x1="34" y1="22" x2="31" y2="32"/><line x1="58" y1="4" x2="55" y2="14"/><line x1="82" y1="30" x2="79" y2="40"/><line x1="106" y1="10" x2="103" y2="20"/><line x1="130" y1="26" x2="127" y2="36"/><line x1="154" y1="6" x2="151" y2="16"/>
+    <line x1="20" y1="60" x2="17" y2="70"/><line x1="46" y1="80" x2="43" y2="90"/><line x1="70" y1="58" x2="67" y2="68"/><line x1="94" y1="88" x2="91" y2="98"/><line x1="118" y1="64" x2="115" y2="74"/><line x1="142" y1="90" x2="139" y2="100"/>
+    <line x1="14" y1="110" x2="11" y2="120"/><line x1="50" y1="116" x2="47" y2="126"/><line x1="88" y1="110" x2="85" y2="120"/><line x1="126" y1="118" x2="123" y2="128"/><line x1="160" y1="112" x2="157" y2="122"/>
+  </g>
 </defs>
 
-<!-- room -->
-<rect width="360" height="340" fill="#f3eadb"/>
-<rect y="336" width="360" height="6" fill="#e2d4bd"/>
-<rect y="340" width="360" height="140" fill="url(#planks)"/>
-
-<!-- window with rain -->
-<g class="hs" data-id="window" role="button" tabindex="0" aria-label="Window">
-  <rect x="18" y="44" width="118" height="128" rx="3" fill="#fffdf8" stroke="#d8cbb5" stroke-width="2"/>
-  <rect x="24" y="50" width="106" height="116" fill="#a9bcc6"/>
-  <g clip-path="url(#glass)">
-    <g fill="#8497a2"><rect x="30" y="96" width="22" height="70"/><rect x="58" y="80" width="18" height="86"/><rect x="82" y="104" width="26" height="62"/><rect x="112" y="90" width="16" height="76"/></g>
-    <g fill="#9fb0ba"><rect x="34" y="104" width="4" height="4"/><rect x="44" y="104" width="4" height="4"/><rect x="62" y="90" width="4" height="4"/><rect x="68" y="100" width="4" height="4"/><rect x="88" y="112" width="4" height="4"/><rect x="98" y="120" width="4" height="4"/></g>
-    <g id="rain" stroke="#e8f0f4" stroke-width="1.2" stroke-linecap="round" opacity=".8">
-      <line x1="32" y1="40" x2="29" y2="50"/><line x1="48" y1="62" x2="45" y2="72"/><line x1="64" y1="44" x2="61" y2="54"/><line x1="80" y1="70" x2="77" y2="80"/><line x1="96" y1="50" x2="93" y2="60"/><line x1="112" y1="66" x2="109" y2="76"/><line x1="126" y1="46" x2="123" y2="56"/>
-      <line x1="40" y1="100" x2="37" y2="110"/><line x1="58" y1="120" x2="55" y2="130"/><line x1="74" y1="98" x2="71" y2="108"/><line x1="90" y1="128" x2="87" y2="138"/><line x1="106" y1="104" x2="103" y2="114"/><line x1="122" y1="130" x2="119" y2="140"/>
-      <line x1="34" y1="150" x2="31" y2="160"/><line x1="66" y1="156" x2="63" y2="166"/><line x1="100" y1="150" x2="97" y2="160"/>
+<!-- ============ LIVING ROOM (long room: six views) ============ -->
+<!-- lr1: window and Dad's desk -->
+<g class="view" id="v-lr1">
+  <rect width="360" height="340" fill="#f3eadb"/><rect y="336" width="360" height="6" fill="#e2d4bd"/><rect y="340" width="360" height="140" fill="url(#planks)"/>
+  <g class="hs" data-id="window" role="button" tabindex="0" aria-label="Window">
+    <rect x="40" y="50" width="160" height="140" rx="3" fill="#fffdf8" stroke="#d8cbb5" stroke-width="2"/>
+    <rect x="46" y="56" width="148" height="128" fill="#a9bcc6"/>
+    <g clip-path="url(#glass1)">
+      <g fill="#8497a2"><rect x="52" y="104" width="28" height="80"/><rect x="86" y="88" width="22" height="96"/><rect x="114" y="112" width="32" height="72"/><rect x="152" y="96" width="22" height="88"/><rect x="178" y="120" width="16" height="64"/></g>
+      <use href="#raindrops" class="rain" x="40" y="54"/>
     </g>
+    <line x1="120" y1="56" x2="120" y2="184" stroke="#fffdf8" stroke-width="3"/>
+    <rect x="34" y="188" width="172" height="7" rx="2" fill="#e8dcc6"/>
+    <rect class="hit" x="38" y="46" width="166" height="152" fill="transparent"/>
   </g>
-  <line x1="77" y1="50" x2="77" y2="166" stroke="#fffdf8" stroke-width="3"/>
-  <rect x="12" y="170" width="130" height="7" rx="2" fill="#e8dcc6"/>
-  <rect class="hit" x="16" y="42" width="122" height="134" fill="transparent"/>
-</g>
-
-<!-- ceiling fan -->
-<g class="hs" data-id="fan" role="button" tabindex="0" aria-label="Ceiling fan">
-  <line x1="180" y1="0" x2="180" y2="18" stroke="#b9ad99" stroke-width="3"/>
-  <g id="blades" fill="#e6ddcc" stroke="#cbbfa9">
-    <ellipse cx="152" cy="22" rx="26" ry="5"/><ellipse cx="208" cy="22" rx="26" ry="5"/>
+  <g class="hs" data-id="keys" role="button" tabindex="0" aria-label="Key hooks">
+    <rect x="236" y="176" width="60" height="16" rx="3" fill="#a8744a"/>
+    <g stroke="#6b4a2d" stroke-width="2" stroke-linecap="round"><line x1="250" y1="190" x2="250" y2="196"/><line x1="266" y1="190" x2="266" y2="196"/><line x1="282" y1="190" x2="282" y2="196"/></g>
+    <g fill="#9aa5ab"><rect x="247" y="196" width="6" height="13" rx="2"/><rect x="279" y="196" width="6" height="13" rx="2"/></g>
+    <g id="deskKey"><rect x="263" y="196" width="6" height="14" rx="2" fill="#c9a24a"/><rect x="268" y="200" width="10" height="6" rx="1" fill="#fffdf8" stroke="#c9a24a" stroke-width=".8"/></g>
+    <rect class="hit" x="228" y="168" width="76" height="48" fill="transparent"/>
   </g>
-  <circle cx="180" cy="22" r="7" fill="#d9ccb4"/>
-  <rect class="hit" x="126" y="0" width="108" height="34" fill="transparent"/>
-</g>
-
-<!-- kitchen hatch, Mum is cooking -->
-<g class="hs" data-id="mum" role="button" tabindex="0" aria-label="Kitchen hatch, Mum is in the kitchen">
-  <rect x="152" y="44" width="112" height="70" rx="3" fill="#fffdf8" stroke="#d8cbb5" stroke-width="2"/>
-  <rect x="158" y="50" width="100" height="58" fill="#f6d9a6"/>
-  <rect x="158" y="92" width="100" height="16" fill="#e3c08a"/>
-  <rect x="190" y="78" width="34" height="16" rx="3" fill="#6c7c86"/><rect x="186" y="76" width="42" height="4" rx="2" fill="#56646c"/>
-  <path d="M198 72c-4-5 4-8 0-13M208 72c-4-5 4-8 0-13M218 72c-4-5 4-8 0-13" stroke="#fffdf8" stroke-width="2" fill="none" stroke-linecap="round" opacity=".9"/>
-  <rect x="148" y="112" width="120" height="6" rx="2" fill="#e8dcc6"/>
-  <rect class="hit" x="148" y="40" width="120" height="80" fill="transparent"/>
-</g>
-
-<!-- shelf with presents -->
-<rect x="148" y="160" width="124" height="7" rx="2" fill="#a8744a"/>
-<g class="hs" data-id="jar" role="button" tabindex="0" aria-label="Jar of kaya">
-  <g id="jarArt">
-    <rect x="158" y="138" width="22" height="22" rx="4" fill="#d9b25a"/>
-    <rect x="156" y="132" width="26" height="8" rx="2" fill="#3b8a4e"/>
-    <rect x="161" y="145" width="16" height="9" rx="1" fill="#fffdf8"/>
+  <g class="hs" data-id="desk" role="button" tabindex="0" aria-label="Dad's desk drawer">
+    <rect x="30" y="250" width="210" height="12" rx="2" fill="#2f7c83"/>
+    <rect x="38" y="262" width="194" height="78" fill="#3a8b92"/>
+    <rect x="70" y="274" width="130" height="34" rx="3" fill="#2f7c83" stroke="#256369"/>
+    <rect x="122" y="288" width="26" height="7" rx="3" fill="#f0e6d2"/>
+    <circle cx="135" cy="281" r="2.2" fill="#1c4e53"/>
+    <rect id="drawerOpen" class="off" x="70" y="308" width="130" height="12" fill="#1c4e53"/>
+    <rect class="hit" x="36" y="262" width="198" height="78" fill="transparent"/>
   </g>
-  <rect class="hit" x="152" y="126" width="34" height="36" fill="transparent"/>
-</g>
-<g class="hs" data-id="globe" role="button" tabindex="0" aria-label="Snow globe">
-  <rect x="196" y="152" width="26" height="8" rx="2" fill="#5b6f7a"/>
-  <circle cx="209" cy="140" r="13" fill="#d6e9f0" stroke="#aac7d2"/>
-  <circle cx="209" cy="143" r="6" fill="#9cb04a"/><path d="M203 143l-2-1M215 143l2-1M209 137v-2M205 138l-1-2M213 138l1-2M205 148l-1 2M213 148l1 2" stroke="#6f8233" stroke-width="1.4" stroke-linecap="round"/><path d="M209 137c1-2 2-3 3-3" stroke="#6b4a2d" stroke-width="1.2" fill="none"/>
-  <rect class="hit" x="190" y="124" width="38" height="38" fill="transparent"/>
-</g>
-<g class="hs" data-id="orchid" role="button" tabindex="0" aria-label="Orchid">
-  <path d="M246 148 238 160h20l-8-12Z" fill="#c9755a"/>
-  <path d="M248 148c0-14 2-22 6-26" stroke="#4d8a4f" stroke-width="2" fill="none"/>
-  <g fill="#b06bc4"><circle cx="252" cy="126" r="5"/><circle cx="258" cy="120" r="4"/><circle cx="246" cy="132" r="4"/></g>
-  <rect class="hit" x="232" y="112" width="34" height="50" fill="transparent"/>
-</g>
-
-<!-- sofa -->
-<g class="hs" data-id="sofa" role="button" tabindex="0" aria-label="Sofa">
-  <rect x="150" y="236" width="120" height="50" rx="10" fill="#e0a84a"/>
-  <rect x="146" y="270" width="128" height="52" rx="10" fill="#d69a3c"/>
-  <rect x="140" y="258" width="18" height="64" rx="8" fill="#c98d30"/>
-  <rect x="262" y="258" width="18" height="64" rx="8" fill="#c98d30"/>
-  <rect x="176" y="248" width="32" height="26" rx="6" fill="#7fb5c9" transform="rotate(-8 192 261)"/>
-  <rect x="150" y="322" width="6" height="12" fill="#8a6440"/><rect x="264" y="322" width="6" height="12" fill="#8a6440"/>
-  <rect class="hit" x="138" y="232" width="144" height="100" fill="transparent"/>
-</g>
-
-<!-- key board above desk -->
-<g class="hs" data-id="keys" role="button" tabindex="0" aria-label="Key hooks">
-  <rect x="94" y="186" width="44" height="14" rx="3" fill="#a8744a"/>
-  <g stroke="#6b4a2d" stroke-width="2" stroke-linecap="round"><line x1="104" y1="198" x2="104" y2="203"/><line x1="116" y1="198" x2="116" y2="203"/><line x1="128" y1="198" x2="128" y2="203"/></g>
-  <g fill="#9aa5ab"><rect x="101" y="203" width="6" height="11" rx="2"/><rect x="125" y="203" width="6" height="11" rx="2"/></g>
-  <g id="deskKey"><rect x="113" y="203" width="6" height="12" rx="2" fill="#c9a24a"/><rect x="118" y="206" width="8" height="5" rx="1" fill="#fffdf8" stroke="#c9a24a" stroke-width=".8"/></g>
-  <rect class="hit" x="88" y="182" width="56" height="38" fill="transparent"/>
-</g>
-
-<!-- Dad's desk -->
-<g class="hs" data-id="desk" role="button" tabindex="0" aria-label="Dad's desk drawer">
-  <rect x="14" y="226" width="128" height="10" rx="2" fill="#2f7c83"/>
-  <rect x="20" y="236" width="116" height="100" fill="#3a8b92"/>
-  <rect x="30" y="250" width="96" height="30" rx="3" fill="#2f7c83" stroke="#256369"/>
-  <rect x="68" y="262" width="20" height="6" rx="3" fill="#f0e6d2"/>
-  <circle cx="78" cy="256" r="2" fill="#1c4e53"/>
-  <rect id="drawerOpen" class="off" x="30" y="280" width="96" height="10" fill="#1c4e53"/>
-  <rect class="hit" x="20" y="238" width="116" height="96" fill="transparent"/>
-</g>
-<!-- wrapping paper on the desk -->
-<g class="hs" data-id="paper" role="button" tabindex="0" aria-label="Wrapping paper">
-  <rect x="30" y="212" width="70" height="14" rx="7" fill="url(#giftpaper)" stroke="#5e97ab"/>
-  <ellipse cx="100" cy="219" rx="4" ry="7" fill="#5e97ab"/>
-  <rect class="hit" x="24" y="204" width="82" height="24" fill="transparent"/>
-</g>
-
-<!-- fridge with Nana's postcard -->
-<g class="hs" data-id="fridge" role="button" tabindex="0" aria-label="Fridge">
-  <rect x="278" y="96" width="70" height="244" rx="6" fill="#eef3f4" stroke="#b9c7cb" stroke-width="2"/>
-  <line x1="278" y1="176" x2="348" y2="176" stroke="#b9c7cb" stroke-width="2"/>
-  <rect x="284" y="186" width="5" height="40" rx="2" fill="#b9c7cb"/>
-  <circle cx="330" cy="206" r="6" fill="#8fb85c"/><path d="M326 202l3 2M333 201l-2 3M330 211l1-3" stroke="#6e9443" stroke-width="1.2"/>
-  <rect x="316" y="236" width="20" height="26" fill="#fffdf8" transform="rotate(5 326 249)"/>
-  <rect class="hit" x="276" y="94" width="74" height="248" fill="transparent"/>
-</g>
-<g class="hs" data-id="postcard" role="button" tabindex="0" aria-label="Nana's postcard on the fridge">
-  <g transform="rotate(-6 311 128)">
-    <rect x="288" y="112" width="46" height="32" fill="#fffdf8" stroke="#d3c6ae"/>
-    <rect x="291" y="115" width="18" height="26" fill="#9dc59a"/>
-    <path d="M293 136c4-8 8-12 14-12" stroke="#5b8f55" stroke-width="2" fill="none"/>
-    <path d="M314 120h16M314 125h14M314 130h16M314 135h10" stroke="#9aa5ab" stroke-width="1.2"/>
-    <path d="M326 139c-1-2-4-2-4 0 0 1 3 1 4 0 1 1 4 1 4 0 0-2-3-2-4 0z" fill="#c98320"/>
+  <g class="hs" data-id="paper" role="button" tabindex="0" aria-label="Wrapping paper">
+    <rect x="70" y="234" width="96" height="16" rx="8" fill="url(#giftpaper)" stroke="#5e97ab"/>
+    <ellipse cx="166" cy="242" rx="4" ry="8" fill="#5e97ab"/>
+    <rect class="hit" x="62" y="224" width="112" height="28" fill="transparent"/>
   </g>
-  <circle cx="311" cy="112" r="3.5" fill="#d0602f"/>
-  <rect class="hit" x="282" y="104" width="58" height="46" fill="transparent"/>
+  <g class="hs pmoth" data-id="m1" role="button" tabindex="0" aria-label="Something small on the window frame"><use href="#pm" x="186" y="40" width="14" height="10"/><rect class="hit" x="178" y="32" width="30" height="22" fill="transparent"/></g>
 </g>
 
-<!-- rain boots -->
-<g class="hs" data-id="boots" role="button" tabindex="0" aria-label="Rain boots">
-  <path d="M26 388h18v40h8c4 0 6 3 6 6v6H26Z" fill="#f2c23c" stroke="#d9a622"/>
-  <path d="M50 392h18v36h8c4 0 6 3 6 6v6H50Z" fill="#f5cd52" stroke="#d9a622"/>
-  <ellipse cx="59" cy="392" rx="9" ry="3" fill="#b88a14"/>
-  <rect class="hit" x="18" y="376" width="72" height="72" fill="transparent"/>
-</g>
-
-<!-- suitcase -->
-<g class="hs" data-id="suitcase" role="button" tabindex="0" aria-label="Suitcase">
-  <g id="caseOpen">
-    <path d="M114 372 124 326h116l10 46Z" fill="#c9503c"/>
-    <path d="M120 368 128 332h108l8 36Z" fill="#f1c7b4"/>
-    <rect x="112" y="372" width="140" height="66" rx="8" fill="#e0664f"/>
-    <rect x="120" y="378" width="124" height="52" rx="5" fill="#f1c7b4"/>
-    <g id="packed"></g>
+<!-- lr2: shelf, sofa, fan -->
+<g class="view" id="v-lr2">
+  <rect width="360" height="340" fill="#f3eadb"/><rect y="336" width="360" height="6" fill="#e2d4bd"/><rect y="340" width="360" height="140" fill="url(#planks)"/>
+  <g class="hs" data-id="fan" role="button" tabindex="0" aria-label="Ceiling fan">
+    <line x1="180" y1="0" x2="180" y2="18" stroke="#b9ad99" stroke-width="3"/>
+    <g id="blades" fill="#e6ddcc" stroke="#cbbfa9"><ellipse cx="146" cy="22" rx="32" ry="5"/><ellipse cx="214" cy="22" rx="32" ry="5"/></g>
+    <circle cx="180" cy="22" r="7" fill="#d9ccb4"/>
+    <rect class="hit" x="112" y="0" width="136" height="36" fill="transparent"/>
   </g>
-  <g id="caseShut" class="off">
-    <rect x="112" y="378" width="140" height="62" rx="8" fill="#e0664f"/>
-    <rect x="112" y="400" width="140" height="4" fill="#c9503c"/>
-    <rect x="166" y="370" width="32" height="10" rx="4" fill="none" stroke="#8a3526" stroke-width="4"/>
-    <rect x="124" y="396" width="8" height="12" rx="2" fill="#f0b44c"/><rect x="232" y="396" width="8" height="12" rx="2" fill="#f0b44c"/>
+  <rect x="70" y="176" width="220" height="8" rx="2" fill="#a8744a"/>
+  <g class="hs" data-id="jar" role="button" tabindex="0" aria-label="Jar of kaya">
+    <g id="jarArt"><rect x="92" y="148" width="28" height="28" rx="5" fill="#d9b25a"/><rect x="89" y="140" width="34" height="10" rx="2" fill="#3b8a4e"/><rect x="97" y="157" width="18" height="11" rx="1" fill="#fffdf8"/></g>
+    <rect class="hit" x="82" y="132" width="48" height="46" fill="transparent"/>
   </g>
-  <rect class="hit" x="108" y="324" width="148" height="120" fill="transparent"/>
+  <g class="hs" data-id="globe" role="button" tabindex="0" aria-label="Snow globe">
+    <rect x="166" y="166" width="32" height="10" rx="2" fill="#5b6f7a"/>
+    <circle cx="182" cy="150" r="17" fill="#d6e9f0" stroke="#aac7d2"/>
+    <circle cx="182" cy="153" r="7" fill="#9cb04a"/><path d="M175 153l-2-1M189 153l2-1M182 146v-2M177 148l-1-2M187 148l1-2M177 158l-1 2M187 158l1 2" stroke="#6f8233" stroke-width="1.4" stroke-linecap="round"/>
+    <rect class="hit" x="158" y="128" width="48" height="50" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="orchid" role="button" tabindex="0" aria-label="Orchid">
+    <path d="M246 160 236 176h24l-10-16Z" fill="#c9755a"/>
+    <path d="M248 160c0-16 3-26 8-30" stroke="#4d8a4f" stroke-width="2" fill="none"/>
+    <g fill="#b06bc4"><circle cx="254" cy="132" r="6"/><circle cx="262" cy="124" r="5"/><circle cx="246" cy="140" r="5"/></g>
+    <rect class="hit" x="230" y="114" width="42" height="64" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="sofa" role="button" tabindex="0" aria-label="Sofa">
+    <rect x="70" y="240" width="220" height="54" rx="12" fill="#e0a84a"/>
+    <rect x="62" y="276" width="236" height="56" rx="12" fill="#d69a3c"/>
+    <rect x="52" y="262" width="22" height="70" rx="9" fill="#c98d30"/><rect x="286" y="262" width="22" height="70" rx="9" fill="#c98d30"/>
+    <rect x="110" y="252" width="40" height="30" rx="7" fill="#7fb5c9" transform="rotate(-8 130 267)"/>
+    <rect x="210" y="254" width="40" height="30" rx="7" fill="#b06bc4" transform="rotate(6 230 269)"/>
+    <rect x="66" y="332" width="7" height="10" fill="#8a6440"/><rect x="287" y="332" width="7" height="10" fill="#8a6440"/>
+    <rect class="hit" x="52" y="236" width="256" height="100" fill="transparent"/>
+  </g>
+  <g class="hs pmoth" data-id="m2" role="button" tabindex="0" aria-label="Something small under the sofa"><use href="#pm" x="232" y="334" width="12" height="9"/><rect class="hit" x="224" y="328" width="28" height="18" fill="transparent"/></g>
 </g>
 
-<!-- six hidden paper moths (optional) -->
-<g class="hs pmoth" data-id="m1" role="button" tabindex="0" aria-label="Something small on the window frame"><use href="#pm" x="26" y="34" width="14" height="10"/><rect class="hit" x="18" y="28" width="30" height="20" fill="transparent"/></g>
-<g class="hs pmoth" data-id="m2" role="button" tabindex="0" aria-label="Something small under the sofa"><use href="#pm" x="200" y="328" width="12" height="9"/><rect class="hit" x="192" y="322" width="28" height="18" fill="transparent"/></g>
-<g class="hs pmoth" data-id="m3" role="button" tabindex="0" aria-label="Something small on top of the fridge"><use href="#pm" x="318" y="86" width="14" height="10"/><rect class="hit" x="310" y="78" width="30" height="20" fill="transparent"/></g>
-<g class="hs pmoth" data-id="m4" role="button" tabindex="0" aria-label="Something small in the suitcase lid"><use href="#pm" x="222" y="338" width="12" height="9"/><rect class="hit" x="214" y="332" width="28" height="20" fill="transparent"/></g>
-<g class="hs pmoth" data-id="m5" role="button" tabindex="0" aria-label="Something small on the window sill"><use href="#pm" x="118" y="164" width="14" height="10"/><rect class="hit" x="110" y="158" width="30" height="20" fill="transparent"/></g>
-<g class="hs pmoth" data-id="m6" role="button" tabindex="0" aria-label="Something small by the fridge"><use href="#pm" x="300" y="348" width="14" height="10"/><rect class="hit" x="292" y="342" width="30" height="20" fill="transparent"/></g>
+<!-- lr3: fridge and kitchen doorway -->
+<g class="view" id="v-lr3">
+  <rect width="360" height="340" fill="#f3eadb"/><rect y="336" width="360" height="6" fill="#e2d4bd"/><rect y="340" width="360" height="140" fill="url(#planks)"/>
+  <g class="hs" data-id="fridge" role="button" tabindex="0" aria-label="Fridge">
+    <rect x="60" y="80" width="100" height="260" rx="8" fill="#eef3f4" stroke="#b9c7cb" stroke-width="2"/>
+    <line x1="60" y1="170" x2="160" y2="170" stroke="#b9c7cb" stroke-width="2"/>
+    <rect x="68" y="182" width="6" height="50" rx="3" fill="#b9c7cb"/>
+    <circle cx="138" cy="210" r="8" fill="#8fb85c"/><path d="M133 205l4 3M143 204l-3 4M138 216l1-4" stroke="#6e9443" stroke-width="1.4"/>
+    <rect x="118" y="240" width="26" height="32" fill="#fffdf8" transform="rotate(5 131 256)"/>
+    <rect class="hit" x="58" y="78" width="104" height="264" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="postcard" role="button" tabindex="0" aria-label="Nana's postcard on the fridge">
+    <g transform="rotate(-6 110 118)"><rect x="80" y="98" width="60" height="40" fill="#fffdf8" stroke="#d3c6ae"/><rect x="84" y="102" width="22" height="32" fill="#9dc59a"/><path d="M111 108h24M111 114h20M111 120h24M111 126h14" stroke="#9aa5ab" stroke-width="1.4"/><path d="M130 132c-1-2-4-2-4 0 0 1 3 1 4 0 1 1 4 1 4 0 0-2-3-2-4 0z" fill="#c98320"/></g>
+    <circle cx="110" cy="98" r="4" fill="#d0602f"/>
+    <rect class="hit" x="72" y="88" width="76" height="58" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="toKitchen" role="button" tabindex="0" aria-label="Doorway to the kitchen">
+    <rect x="200" y="70" width="120" height="270" fill="#fffdf8"/>
+    <rect x="208" y="78" width="104" height="262" fill="#eaf1ee"/>
+    <rect x="208" y="280" width="104" height="60" fill="url(#tiles)"/>
+    <rect x="228" y="190" width="64" height="70" fill="#cfd9d3"/><rect x="236" y="176" width="48" height="14" fill="#5b6f7a"/>
+    <path class="steam" d="M252 170c-4-6 4-9 0-15M264 170c-4-6 4-9 0-15" stroke="#9aa5ab" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <text x="260" y="120" text-anchor="middle" font-size="14" fill="#55635d" font-family="Atkinson Hyperlegible, Verdana, sans-serif">Kitchen</text>
+    <rect class="hit" x="198" y="68" width="124" height="274" fill="transparent"/>
+  </g>
+  <g class="hs pmoth" data-id="m3" role="button" tabindex="0" aria-label="Something small on top of the fridge"><use href="#pm" x="128" y="68" width="14" height="10"/><rect class="hit" x="120" y="60" width="30" height="20" fill="transparent"/></g>
+</g>
+
+<!-- lr4: front door and the rain boots -->
+<g class="view" id="v-lr4">
+  <rect width="360" height="340" fill="#f3eadb"/><rect y="336" width="360" height="6" fill="#e2d4bd"/><rect y="340" width="360" height="140" fill="url(#planks)"/>
+  <g class="hs" data-id="frontdoor" role="button" tabindex="0" aria-label="Front door">
+    <rect x="168" y="64" width="130" height="276" fill="#fffdf8"/>
+    <rect x="176" y="72" width="114" height="268" fill="#8a6440"/>
+    <rect x="188" y="88" width="90" height="100" rx="3" fill="#7a5636"/><rect x="188" y="204" width="90" height="120" rx="3" fill="#7a5636"/>
+    <circle cx="233" cy="110" r="4" fill="#c9a24a"/><circle cx="274" cy="214" r="6" fill="#c9a24a"/>
+    <rect class="hit" x="166" y="62" width="134" height="280" fill="transparent"/>
+  </g>
+  <rect x="40" y="300" width="110" height="40" rx="3" fill="#a8744a"/><line x1="40" y1="318" x2="150" y2="318" stroke="#8a6440" stroke-width="2"/>
+  <g fill="#5b6f7a"><rect x="50" y="306" width="24" height="10" rx="4"/><rect x="80" y="306" width="24" height="10" rx="4"/><rect x="110" y="324" width="28" height="10" rx="4" fill="#d0602f"/></g>
+  <g class="hs" data-id="boots" role="button" tabindex="0" aria-label="Rain boots">
+    <path d="M60 372h22v44h10c5 0 7 3 7 7v7H60Z" fill="#f2c23c" stroke="#d9a622"/>
+    <path d="M92 376h22v40h10c5 0 7 3 7 7v7H92Z" fill="#f5cd52" stroke="#d9a622"/>
+    <ellipse cx="103" cy="376" rx="11" ry="3.5" fill="#b88a14"/>
+    <rect class="hit" x="52" y="360" width="88" height="80" fill="transparent"/>
+  </g>
+  <g><rect x="314" y="220" width="18" height="120" rx="4" fill="#d0602f"/><path d="M314 220c0-20 18-20 18 0" fill="#b8493f"/></g>
+</g>
+
+<!-- lr5: TV and family photos (a quiet wall) -->
+<g class="view" id="v-lr5">
+  <rect width="360" height="340" fill="#f3eadb"/><rect y="336" width="360" height="6" fill="#e2d4bd"/><rect y="340" width="360" height="140" fill="url(#planks)"/>
+  <g class="hs" data-id="photos" role="button" tabindex="0" aria-label="Family photos">
+    <rect x="60" y="70" width="60" height="46" fill="#fffdf8" stroke="#a8744a" stroke-width="3"/><rect x="66" y="76" width="48" height="34" fill="#bfe0ea"/><circle cx="82" cy="94" r="6" fill="#6d4fb8"/><circle cx="96" cy="97" r="5" fill="#c0541f"/><circle cx="106" cy="100" r="4" fill="#27794c"/>
+    <rect x="140" y="60" width="80" height="56" fill="#fffdf8" stroke="#a8744a" stroke-width="3"/><rect x="146" y="66" width="68" height="44" fill="#9dc59a"/><path d="M150 110c10-20 30-26 60-18" stroke="#6f8233" stroke-width="3" fill="none"/>
+    <rect x="240" y="72" width="56" height="44" fill="#fffdf8" stroke="#a8744a" stroke-width="3"/><rect x="246" y="78" width="44" height="32" fill="#f2c89a"/>
+    <rect class="hit" x="54" y="54" width="248" height="68" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="tv" role="button" tabindex="0" aria-label="Television">
+    <rect x="104" y="150" width="152" height="92" rx="4" fill="#2b3431"/><rect x="110" y="156" width="140" height="80" fill="#3d4a55"/>
+    <rect x="70" y="258" width="220" height="70" rx="4" fill="#a8744a"/><rect x="80" y="270" width="96" height="48" rx="3" fill="#8a6440"/><rect x="184" y="270" width="96" height="48" rx="3" fill="#8a6440"/>
+    <rect class="hit" x="68" y="146" width="224" height="186" fill="transparent"/>
+  </g>
+  <g class="hs pmoth" data-id="m4" role="button" tabindex="0" aria-label="Something small behind a photo"><use href="#pm" x="222" y="112" width="12" height="9"/><rect class="hit" x="214" y="106" width="28" height="20" fill="transparent"/></g>
+</g>
+
+<!-- lr6: corridor door to Mary's bedroom (a quiet wall) -->
+<g class="view" id="v-lr6">
+  <rect width="360" height="340" fill="#f3eadb"/><rect y="336" width="360" height="6" fill="#e2d4bd"/><rect y="340" width="360" height="140" fill="url(#planks)"/>
+  <g class="hs" data-id="toBedroom" role="button" tabindex="0" aria-label="Door to Mary's bedroom">
+    <rect x="110" y="64" width="140" height="276" fill="#fffdf8"/>
+    <rect x="118" y="72" width="124" height="268" fill="#efe6f5"/>
+    <path d="M118 72 176 90v240l-58 10Z" fill="#d9c9ea"/>
+    <rect x="186" y="110" width="44" height="22" rx="4" fill="#6d4fb8"/><text x="208" y="126" text-anchor="middle" font-size="13" font-weight="700" fill="#fffdf8" font-family="Atkinson Hyperlegible, Verdana, sans-serif">MARY</text>
+    <rect class="hit" x="108" y="62" width="144" height="280" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="plant" role="button" tabindex="0" aria-label="Plant">
+    <path d="M238 300h44l-6 40h-32Z" fill="#c9755a"/>
+    <g fill="#4d8a4f"><path d="M260 300c-20-20-24-50-10-70 4 30 8 50 10 70Z"/><path d="M260 300c16-24 30-40 40-44-8 20-20 34-40 44Z"/><path d="M260 300c-14-12-30-16-40-14 10 10 24 14 40 14Z"/></g>
+    <rect class="hit" x="216" y="224" width="88" height="118" fill="transparent"/>
+  </g>
+</g>
+
+<!-- ============ KITCHEN (square: four views) ============ -->
+<!-- k1: the stove, where Mum is cooking -->
+<g class="view" id="v-k1">
+  <rect width="360" height="340" fill="#eaf1ee"/><rect y="300" width="360" height="40" fill="#cfd9d3"/><rect y="340" width="360" height="140" fill="url(#tiles)"/>
+  <g class="hs" data-id="mum" role="button" tabindex="0" aria-label="Mum at the stove">
+    <rect x="60" y="230" width="240" height="110" fill="#5b6f7a"/><rect x="60" y="222" width="240" height="12" rx="2" fill="#8497a2"/>
+    <g fill="#2b3431"><circle cx="120" cy="228" r="14"/><circle cx="240" cy="228" r="14"/></g>
+    <rect x="96" y="176" width="52" height="46" rx="6" fill="#c9503c"/><rect x="90" y="172" width="64" height="8" rx="3" fill="#a8412f"/>
+    <path class="steam" d="M110 164c-5-8 5-12 0-20M122 164c-5-8 5-12 0-20M134 164c-5-8 5-12 0-20" stroke="#9aa5ab" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    <rect x="214" y="196" width="50" height="30" rx="8" fill="#eef3f4" stroke="#b9c7cb"/>
+    <rect x="170" y="60" width="8" height="140" fill="#b9c7cb"/><path d="M160 200h28l-6 12h-16Z" fill="#b9c7cb"/>
+    <rect x="236" y="70" width="80" height="60" rx="8" fill="#fffdf8" stroke="#d3c6ae"/><text x="276" y="96" text-anchor="middle" font-size="12" fill="#55635d" font-family="Atkinson Hyperlegible, Verdana, sans-serif">Mum is</text><text x="276" y="112" text-anchor="middle" font-size="12" fill="#55635d" font-family="Atkinson Hyperlegible, Verdana, sans-serif">humming</text>
+    <rect class="hit" x="58" y="60" width="264" height="282" fill="transparent"/>
+  </g>
+</g>
+<!-- k2: sink and window (a quiet wall) -->
+<g class="view" id="v-k2">
+  <rect width="360" height="340" fill="#eaf1ee"/><rect y="300" width="360" height="40" fill="#cfd9d3"/><rect y="340" width="360" height="140" fill="url(#tiles)"/>
+  <g class="hs" data-id="sink" role="button" tabindex="0" aria-label="Sink and window">
+    <rect x="90" y="60" width="180" height="130" rx="3" fill="#fffdf8" stroke="#d8cbb5" stroke-width="2"/>
+    <rect x="96" y="66" width="168" height="118" fill="#a9bcc6"/>
+    <g clip-path="url(#glass2)"><use href="#raindrops" class="rain" x="96" y="60"/></g>
+    <rect x="70" y="236" width="220" height="64" fill="#b9c7cb"/><rect x="120" y="240" width="120" height="24" rx="4" fill="#8497a2"/>
+    <path d="M180 212v28" stroke="#8497a2" stroke-width="5"/><path d="M180 212h14" stroke="#8497a2" stroke-width="5"/>
+    <rect class="hit" x="68" y="56" width="224" height="246" fill="transparent"/>
+  </g>
+</g>
+<!-- k3: doorway back to the living room -->
+<g class="view" id="v-k3">
+  <rect width="360" height="340" fill="#eaf1ee"/><rect y="300" width="360" height="40" fill="#cfd9d3"/><rect y="340" width="360" height="140" fill="url(#tiles)"/>
+  <g class="hs" data-id="toLivingK" role="button" tabindex="0" aria-label="Doorway to the living room">
+    <rect x="110" y="64" width="140" height="276" fill="#fffdf8"/>
+    <rect x="118" y="72" width="124" height="268" fill="#f3eadb"/>
+    <rect x="118" y="300" width="124" height="40" fill="url(#planks)"/>
+    <rect x="140" y="220" width="80" height="50" rx="10" fill="#e0a84a"/>
+    <text x="180" y="120" text-anchor="middle" font-size="14" fill="#55635d" font-family="Atkinson Hyperlegible, Verdana, sans-serif">Living room</text>
+    <rect class="hit" x="108" y="62" width="144" height="280" fill="transparent"/>
+  </g>
+</g>
+<!-- k4: cupboard and the calendar -->
+<g class="view" id="v-k4">
+  <rect width="360" height="340" fill="#eaf1ee"/><rect y="300" width="360" height="40" fill="#cfd9d3"/><rect y="340" width="360" height="140" fill="url(#tiles)"/>
+  <g class="hs" data-id="calendar" role="button" tabindex="0" aria-label="Calendar">
+    <rect x="70" y="80" width="90" height="110" rx="4" fill="#fffdf8" stroke="#d3c6ae"/><rect x="70" y="80" width="90" height="22" rx="4" fill="#d0602f"/>
+    <g fill="#9aa5ab"><rect x="80" y="112" width="10" height="8"/><rect x="96" y="112" width="10" height="8"/><rect x="112" y="112" width="10" height="8"/><rect x="128" y="112" width="10" height="8"/><rect x="144" y="112" width="10" height="8"/><rect x="80" y="128" width="10" height="8"/><rect x="96" y="128" width="10" height="8"/><rect x="112" y="128" width="10" height="8"/><rect x="128" y="128" width="10" height="8"/></g>
+    <circle cx="149" cy="132" r="9" fill="none" stroke="#d0602f" stroke-width="2.4"/>
+    <rect class="hit" x="64" y="74" width="102" height="122" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="cupboard" role="button" tabindex="0" aria-label="Cupboard">
+    <rect x="190" y="60" width="130" height="240" rx="4" fill="#9dc5b8"/>
+    <line x1="255" y1="60" x2="255" y2="300" stroke="#7fa99b" stroke-width="2"/>
+    <circle cx="247" cy="180" r="4" fill="#fffdf8"/><circle cx="263" cy="180" r="4" fill="#fffdf8"/>
+    <rect class="hit" x="188" y="58" width="134" height="244" fill="transparent"/>
+  </g>
+  <g class="hs pmoth" data-id="m5" role="button" tabindex="0" aria-label="Something small on the cupboard"><use href="#pm" x="290" y="48" width="14" height="10"/><rect class="hit" x="282" y="40" width="30" height="20" fill="transparent"/></g>
+</g>
+
+<!-- ============ MARY'S BEDROOM (square: four views) ============ -->
+<!-- b1: bed and the suitcase -->
+<g class="view" id="v-b1">
+  <rect width="360" height="340" fill="#efe6f5"/><rect y="336" width="360" height="6" fill="#dccdea"/><rect y="340" width="360" height="140" fill="url(#planks)"/>
+  <rect x="40" y="200" width="280" height="130" rx="10" fill="#fffdf8"/><rect x="40" y="170" width="40" height="160" rx="8" fill="#a8744a"/><rect x="280" y="170" width="40" height="160" rx="8" fill="#a8744a"/>
+  <rect x="80" y="210" width="200" height="40" rx="6" fill="#b09ae8"/><rect x="90" y="186" width="60" height="26" rx="10" fill="#fffdf8" stroke="#dccdea"/>
+  <g class="hs" data-id="suitcase" role="button" tabindex="0" aria-label="Suitcase">
+    <g id="caseOpen">
+      <path d="M118 262 128 216h116l10 46Z" fill="#c9503c"/><path d="M124 258 132 222h108l8 36Z" fill="#f1c7b4"/>
+      <rect x="116" y="262" width="140" height="66" rx="8" fill="#e0664f"/><rect x="124" y="268" width="124" height="52" rx="5" fill="#f1c7b4"/>
+      <g id="packed"></g>
+    </g>
+    <g id="caseShut" class="off">
+      <rect x="116" y="266" width="140" height="62" rx="8" fill="#e0664f"/><rect x="116" y="288" width="140" height="4" fill="#c9503c"/>
+      <rect x="170" y="258" width="32" height="10" rx="4" fill="none" stroke="#8a3526" stroke-width="4"/>
+      <rect x="128" y="284" width="8" height="12" rx="2" fill="#f0b44c"/><rect x="236" y="284" width="8" height="12" rx="2" fill="#f0b44c"/>
+    </g>
+    <rect class="hit" x="112" y="212" width="148" height="120" fill="transparent"/>
+  </g>
+  <g><rect x="150" y="60" width="60" height="80" rx="4" fill="#fffdf8" stroke="#b09ae8" stroke-width="3"/><g fill="#f0b44c"><circle cx="168" cy="84" r="3"/><circle cx="190" cy="96" r="2"/><circle cx="176" cy="116" r="2.5"/><circle cx="196" cy="76" r="1.8"/></g></g>
+</g>
+<!-- b2: wardrobe -->
+<g class="view" id="v-b2">
+  <rect width="360" height="340" fill="#efe6f5"/><rect y="336" width="360" height="6" fill="#dccdea"/><rect y="340" width="360" height="140" fill="url(#planks)"/>
+  <g class="hs" data-id="wardrobe" role="button" tabindex="0" aria-label="Wardrobe">
+    <rect x="90" y="60" width="180" height="280" rx="6" fill="#c8b3e6"/>
+    <line x1="180" y1="60" x2="180" y2="340" stroke="#a88fcf" stroke-width="2"/>
+    <circle cx="170" cy="200" r="5" fill="#fffdf8"/><circle cx="190" cy="200" r="5" fill="#fffdf8"/>
+    <rect class="hit" x="88" y="58" width="184" height="284" fill="transparent"/>
+  </g>
+  <g class="hs pmoth" data-id="m6" role="button" tabindex="0" aria-label="Something small on top of the wardrobe"><use href="#pm" x="232" y="48" width="14" height="10"/><rect class="hit" x="224" y="40" width="30" height="20" fill="transparent"/></g>
+</g>
+<!-- b3: door back to the living room -->
+<g class="view" id="v-b3">
+  <rect width="360" height="340" fill="#efe6f5"/><rect y="336" width="360" height="6" fill="#dccdea"/><rect y="340" width="360" height="140" fill="url(#planks)"/>
+  <g class="hs" data-id="toLivingB" role="button" tabindex="0" aria-label="Door to the living room">
+    <rect x="110" y="64" width="140" height="276" fill="#fffdf8"/>
+    <rect x="118" y="72" width="124" height="268" fill="#f3eadb"/>
+    <path d="M242 72 184 90v240l58 10Z" fill="#e8dcc6"/>
+    <rect x="118" y="300" width="124" height="40" fill="url(#planks)"/>
+    <text x="150" y="120" text-anchor="middle" font-size="14" fill="#55635d" font-family="Atkinson Hyperlegible, Verdana, sans-serif">Living</text><text x="150" y="138" text-anchor="middle" font-size="14" fill="#55635d" font-family="Atkinson Hyperlegible, Verdana, sans-serif">room</text>
+    <rect class="hit" x="108" y="62" width="144" height="280" fill="transparent"/>
+  </g>
+</g>
+<!-- b4: Mary's desk (a quiet wall) -->
+<g class="view" id="v-b4">
+  <rect width="360" height="340" fill="#efe6f5"/><rect y="336" width="360" height="6" fill="#dccdea"/><rect y="340" width="360" height="140" fill="url(#planks)"/>
+  <g class="hs" data-id="marydesk" role="button" tabindex="0" aria-label="Mary's desk">
+    <rect x="70" y="240" width="220" height="12" rx="2" fill="#a8744a"/><rect x="80" y="252" width="12" height="88" fill="#8a6440"/><rect x="268" y="252" width="12" height="88" fill="#8a6440"/>
+    <rect x="120" y="220" width="70" height="20" rx="2" fill="#fffdf8" stroke="#d3c6ae" transform="rotate(-4 155 230)"/>
+    <g fill="#6d4fb8"><rect x="210" y="200" width="12" height="40"/><rect x="224" y="206" width="12" height="34" fill="#27794c"/><rect x="238" y="196" width="12" height="44" fill="#c0541f"/></g>
+    <rect x="110" y="70" width="140" height="100" rx="4" fill="#2c3357"/><g fill="#f0b44c"><circle cx="140" cy="100" r="3"/><circle cx="180" cy="90" r="2"/><circle cx="220" cy="120" r="3"/><circle cx="160" cy="140" r="2"/><circle cx="200" cy="150" r="2.5"/></g>
+    <rect class="hit" x="68" y="64" width="224" height="190" fill="transparent"/>
+  </g>
+</g>
 </svg>
 
+<span class="where" id="where"></span>
+<button class="nav" id="left" aria-label="Turn left"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<button class="nav" id="right" aria-label="Turn right"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 4 8 8-8 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+
+<!-- close-up: Nana's postcard -->
+<div class="overlay closeup" id="cardUI" hidden>
+  <div class="card" role="img" aria-label="Nana's postcard">
+    <div class="pic"><svg viewBox="0 0 100 70" aria-hidden="true"><circle cx="24" cy="36" r="16" fill="#5b8f55"/><circle cx="44" cy="30" r="18" fill="#6f9f63"/><circle cx="76" cy="38" r="15" fill="#5b8f55"/><rect y="50" width="100" height="20" fill="#7fae74"/><path d="M60 22c-3-5-9-5-9-1 0 3 6 3 9 1 3 2 9 2 9-1 0-4-6-4-9 1z" fill="#f0b44c"/></svg></div>
+    <div class="words">
+      <span>My darlings,</span>
+      <span>Bring the little torch, you'll need it!</span>
+      <span class="ps">P.S. I've run out of kaya.</span>
+      <span>Love, Nana x</span>
+    </div>
+  </div>
+  <button class="ob" data-close>Put it back</button>
+</div>
+
+<!-- ending -->
 <div class="overlay end" id="endUI" hidden>
   <svg viewBox="0 0 200 80" width="60%" aria-hidden="true"><g id="planeGo"><path d="M20 50 70 44 100 18h12L96 44l40-3 12-14h9l-6 22 6 22h-9l-12-14-40-3 16 26h-12L70 54 20 50Z" fill="#fffdf8" stroke="#5b6f7a" stroke-width="2" stroke-linejoin="round"/></g></svg>
   <p class="fade big" style="animation-delay:.2s">Off to London!</p>
-  <p class="fade" style="animation-delay:1.4s">The plane rises through the rain and into the sunshine above the clouds.</p>
+  <p class="fade" style="animation-delay:1.4s">The taxi splashes through the rain to the airport. Fourteen hours to go.</p>
   <p class="fade" style="animation-delay:3s">Back home on the fridge, the moth on Nana's postcard flickers, just once.</p>
   <p class="fade next" id="endMoths" style="animation-delay:4.4s"></p>
-  <p class="fade next" style="animation-delay:5.2s">Next: Chapter 1, Nana and Jedi's. Coming soon.</p>
-  <button class="fade" id="again" style="animation-delay:6s">Play again</button>
+  <p class="fade next" style="animation-delay:5.2s">Next for Mary: the 14-hour flight. Coming soon.</p>
+  <button class="ob fade" id="endHome" style="animation-delay:6s">Back to the children</button>
 </div>
 </div>
 </div>
 
 <div class="panel">
-  <div class="kids" id="kids" role="group" aria-label="Who is playing">
-    <button class="kid" data-k="mary"><i>M</i><span>Mary</span></button>
-    <button class="kid" data-k="elliot"><i>E</i><span>Elliot</span></button>
-    <button class="kid" data-k="zaina"><i>Z</i><span>Zaina</span></button>
-  </div>
   <p class="msg" id="msg" aria-live="polite"></p>
   <div class="inv" id="inv" aria-label="Things you are carrying"></div>
 </div>
+</section>
 </main>
 
 <script>
 const $ = id => document.getElementById(id);
-// Talents are placeholders until the owner decides (STORY.md, open decisions).
-const KIDS = {
-  mary:{name:'Mary', talent:'good at reading tricky writing'},
-  elliot:{name:'Elliot', talent:'good at fixing things'},
-  zaina:{name:'Zaina', talent:'great at spotting tiny things'}
+
+/* Rooms are rings of views, in the order you see them turning right.
+   A long room has more views (two per long wall); a door takes you to a view in another room. */
+const ROOMS = {
+  living:{name:'Living room', into:'the living room', views:['lr1','lr2','lr3','lr4','lr5','lr6']},
+  kitchen:{name:'Kitchen', into:'the kitchen', views:['k1','k2','k3','k4']},
+  bedroom:{name:'Mary’s bedroom', into:'your bedroom', views:['b1','b2','b3','b4']}
 };
+// door id → [room, view you arrive facing]. You walk through and face into the new room.
+const DOORS = {
+  toKitchen:['kitchen','k1'], toLivingK:['living','lr6'],
+  toBedroom:['bedroom','b1'], toLivingB:['living','lr3']
+};
+
 const ITEMS = {
   key:{name:'desk key', icon:'<svg viewBox="0 0 40 40"><circle cx="13" cy="20" r="7" fill="none" stroke="#c9a24a" stroke-width="4"/><path d="M20 18h16v4h-3v5h-4v-5h-3v4h-4v-4h-2z" fill="#c9a24a"/></svg>'},
   torch:{name:'little torch', icon:'<svg viewBox="0 0 40 40"><rect x="6" y="15" width="20" height="10" rx="3" fill="#2f7c83"/><path d="M26 13h6l3-3v20l-3-3h-6z" fill="#5b6f7a"/><path d="M36 14l3-2M36 20h3M36 26l3 2" stroke="#f0b44c" stroke-width="2"/></svg>'},
   passports:{name:'passports', icon:'<svg viewBox="0 0 40 40"><rect x="12" y="6" width="20" height="28" rx="2" fill="#8a2f3a"/><rect x="9" y="8" width="20" height="28" rx="2" fill="#a33a46"/><rect x="6" y="10" width="20" height="26" rx="2" fill="#b8434f"/><circle cx="16" cy="21" r="4" fill="none" stroke="#f0d28a" stroke-width="1.5"/></svg>'},
   kaya:{name:'jar of kaya', icon:'<svg viewBox="0 0 40 40"><rect x="10" y="13" width="20" height="21" rx="4" fill="#d9b25a"/><rect x="8" y="7" width="24" height="8" rx="2" fill="#3b8a4e"/><rect x="13" y="19" width="14" height="8" fill="#fffdf8"/></svg>'},
-  present:{name:"Nana's present", icon:'<svg viewBox="0 0 40 40"><defs><pattern id="gp2" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#7fb5c9"/><circle cx="4" cy="4" r="1.5" fill="#f0b44c"/></pattern></defs><rect x="7" y="14" width="26" height="20" rx="2" fill="url(#gp2)"/><rect x="18" y="14" width="4" height="20" fill="#d0602f"/><path d="M20 14c-4-6-10-4-6 0M20 14c4-6 10-4 6 0" stroke="#d0602f" stroke-width="2.5" fill="none"/></svg>'}
+  present:{name:'present for Nana', icon:'<svg viewBox="0 0 40 40"><rect x="7" y="14" width="26" height="20" rx="2" fill="#7fb5c9"/><circle cx="12" cy="20" r="1.5" fill="#f0b44c"/><circle cx="28" cy="28" r="1.5" fill="#f0b44c"/><circle cx="14" cy="30" r="1.5" fill="#f0b44c"/><rect x="18" y="14" width="4" height="20" fill="#d0602f"/><path d="M20 14c-4-6-10-4-6 0M20 14c4-6 10-4 6 0" stroke="#d0602f" stroke-width="2.5" fill="none"/></svg>'}
 };
-// Which item may be used on which thing.
 const USES = {key:'desk', kaya:'paper', torch:'suitcase', passports:'suitcase', present:'suitcase'};
 const PACK = ['torch','passports','present'];
 
+/* Saves: one postcard per finished stage, per child. */
+const SAVE_KEY = 'mothhouse.next.v1';
+function loadSave(){ try { return JSON.parse(localStorage.getItem(SAVE_KEY)) || {}; } catch(e){ return {}; } }
+function writeSave(s){ try { localStorage.setItem(SAVE_KEY, JSON.stringify(s)); } catch(e){} }
+
 let S;
 function fresh(){
-  S = {who:'mary', read:false, gotTorch:false, gotKey:false, unlocked:false, gotPassports:false, gotKaya:false, wrapped:false,
-       packed:[], moths:[], inv:[], sel:null, done:false, hint:{}};
+  S = {room:'bedroom', view:0, read:false, gotTorch:false, gotKey:false, unlocked:false, mumTip:false, gotPassports:false,
+       gotKaya:false, wrapped:false, packed:[], moths:[], inv:[], sel:null, done:false, hint:{}};
 }
 const say = t => { $('msg').innerHTML = t; };
 const tog = (id, show) => $(id).classList.toggle('off', !show);
 const add = it => S.inv.push(it);
 const use = it => { S.inv = S.inv.filter(x => x !== it); };
-const kid = () => KIDS[S.who].name;
+const viewId = () => ROOMS[S.room].views[S.view];
 
 function render(){
+  document.querySelectorAll('.view').forEach(v => v.classList.toggle('on', v.id === 'v-' + viewId()));
+  $('where').textContent = ROOMS[S.room].name;
   tog('deskKey', !S.gotKey);
   tog('drawerOpen', S.gotPassports);
   tog('jarArt', !S.gotKaya);
   tog('caseOpen', !S.done); tog('caseShut', S.done);
   document.querySelectorAll('.pmoth').forEach(g => g.classList.toggle('off', S.moths.includes(g.dataset.id)));
   $('packed').innerHTML = S.packed.map((it, i) =>
-    `<svg x="${128 + i*38}" y="386" width="34" height="34" viewBox="0 0 40 40">${ITEMS[it].icon.replace(/^<svg[^>]*>|<\/svg>$/g,'')}</svg>`).join('');
-  document.querySelectorAll('.kid').forEach(b => b.setAttribute('aria-pressed', b.dataset.k === S.who ? 'true' : 'false'));
+    `<svg x="${132 + i*38}" y="276" width="34" height="34" viewBox="0 0 40 40">${ITEMS[it].icon.replace(/^<svg[^>]*>|<\/svg>$/g,'')}</svg>`).join('');
   const inv = $('inv'); inv.innerHTML = '';
   for (let i = 0; i < 4; i++){
     const it = S.inv[i];
@@ -359,6 +554,18 @@ function render(){
   }
 }
 
+function turn(step){
+  const n = ROOMS[S.room].views.length;
+  S.view = (S.view + step + n) % n;
+  render();
+}
+function go(door){
+  const [room, view] = DOORS[door];
+  S.room = room; S.view = ROOMS[room].views.indexOf(view);
+  say(`You go into ${ROOMS[room].into}.`);
+  render();
+}
+
 function stillToPack(){
   const need = [];
   if (!S.packed.includes('passports')) need.push('the passports');
@@ -375,6 +582,7 @@ function act(id){
   if (item && USES[item] !== id){
     say(`The ${ITEMS[item].name} doesn't go there. Try somewhere else!`); render(); return;
   }
+  if (DOORS[id]){ go(id); return; }
   if (/^m\d$/.test(id)){
     if (!S.moths.includes(id)){
       S.moths.push(id);
@@ -385,39 +593,39 @@ function act(id){
     render(); return;
   }
   switch(id){
-    case 'postcard':
-      if (S.read) say('“Bring the little torch, you’ll need it! P.S. I’ve run out of kaya.” The moth in the corner seems to shimmer.');
-      else if (S.who === 'mary'){ S.read = true; say('Mary reads: “Bring the little torch, you’ll need it! P.S. I’ve run out of kaya.” A moth is doodled in the corner.'); }
-      else say(`A postcard from Nana, but her joined-up writing is too loopy for ${kid()}. Mary is good at reading tricky writing.`);
-      break;
+    case 'postcard': openCard(); return;
     case 'boots':
       if (S.gotTorch) say('Mum’s yellow rain boots. Just boots now.');
       else if (!S.read) say('Mum’s yellow rain boots, still wet from this morning.');
-      else if (S.who === 'zaina'){ S.gotTorch = true; add('torch'); say('Zaina spots something shiny, deep inside a boot. It’s the little torch!'); }
-      else say(`Is something in there? ${kid()} can’t quite see. Zaina is great at spotting tiny things.`);
+      else { S.gotTorch = true; add('torch'); say('Nana wants the little torch. Mary tips up a boot, and out it rolls! Elliot must have hidden it there.'); }
       break;
     case 'keys':
       if (S.gotKey) say('Just the spare door keys now.');
-      else { S.gotKey = true; add('key'); say('A little brass key with a paper tag. The tag says: DESK.'); }
+      else { S.gotKey = true; add('key'); say('Three keys. The small brass one has a paper tag that says DESK.'); }
       break;
     case 'desk':
       if (S.gotPassports) say('Dad’s desk, tidy for once.');
       else if (!S.unlocked){
-        if (item === 'key'){ S.unlocked = true; use('key'); say('The key turns with a click. But the drawer is stuck!'); }
+        if (item === 'key'){ S.unlocked = true; use('key'); say('The key turns with a click. But the drawer is stuck fast!'); }
         else say('Dad keeps the passports in this drawer. It’s locked, and it needs a small key.');
       }
-      else if (S.who === 'elliot'){ S.gotPassports = true; add('passports'); say('Elliot lifts the drawer and gives it a wiggle, just like Dad does. It slides open: the passports!'); }
-      else say(`The drawer is stuck and ${kid()} can’t shift it. Elliot is good at fixing things.`);
+      else if (S.mumTip){ S.gotPassports = true; add('passports'); say('Mary lifts the drawer a little and pulls, just like Mum said. It slides open: the passports!'); }
+      else say('The drawer won’t budge. Dad always manages it somehow. Maybe Mum knows the trick.');
+      break;
+    case 'mum':
+      if (S.unlocked && !S.gotPassports){ S.mumTip = true; say('Mum laughs: “Dad’s drawer sticking again? Lift it up a little while you pull. Works every time.”'); }
+      else if (S.gotPassports && S.packed.length < 3) say('Mum stirs the pot: “Passports found? Well done. Is that suitcase shut yet?”');
+      else say('Mum calls from the stove: “Passports, a present for Nana, and whatever Nana asked for. The suitcase is on your bed!”');
       break;
     case 'jar':
       if (S.gotKaya) say('A gap on the shelf where the kaya was.');
       else if (!S.read) say('A jar of kaya, sweet coconut jam. Which present would Nana like best? Maybe her postcard says.');
-      else { S.gotKaya = true; add('kaya'); say(`Nana has run out of kaya! ${kid()} takes the jar down from the shelf.`); }
+      else { S.gotKaya = true; add('kaya'); say('Nana has run out of kaya! Mary takes the jar down from the shelf.'); }
       break;
     case 'globe': say('A snow globe with a tiny durian inside. Nana says durians are far too smelly for her.'); break;
-    case 'orchid': say('A purple orchid. Lovely, but it wouldn’t like thirteen hours on a plane.'); break;
+    case 'orchid': say('A purple orchid. Lovely, but it wouldn’t like fourteen hours on a plane.'); break;
     case 'paper':
-      if (item === 'kaya'){ S.wrapped = true; use('kaya'); add('present'); say('You wrap the kaya in paper covered in little moths, and add a bow. Perfect!'); }
+      if (item === 'kaya'){ S.wrapped = true; use('kaya'); add('present'); say('Mary wraps the kaya in paper covered in little moths, and adds a bow. Perfect!'); }
       else say('A roll of wrapping paper with a pattern of little moths.');
       break;
     case 'suitcase':
@@ -428,19 +636,36 @@ function act(id){
         say(`In ${item === 'passports' ? 'go' : 'goes'} the ${ITEMS[item].name}. Still to pack: ${list(need)}.`);
       } else say(`Summer clothes, all folded. Still to pack: ${list(stillToPack())}.`);
       break;
-    case 'mum': say('Mum calls from the kitchen: “Passports, a present for Nana, and whatever Nana asked for. Suitcase shut by teatime!”'); break;
     case 'window': say('Rain drums on the window. In London it’s summer, and the evenings stay light until late.'); break;
     case 'fan': say('The ceiling fan turns lazily round and round.'); break;
     case 'sofa': say('The comfy sofa. Elliot lost a sock under there once and never found it.'); break;
     case 'fridge': say('Cold drinks, and a fridge magnet shaped like a durian.'); break;
+    case 'frontdoor': say('The front door. Not yet! The taxi comes when the suitcase is shut.'); break;
+    case 'photos': say('Photos of last summer at Nana and Jedi’s. Jedi is asleep in every single one.'); break;
+    case 'tv': say('The television is off. No cartoons on packing day, says Mum.'); break;
+    case 'plant': say('Dad’s big leafy plant. Mum will water it while we’re away.'); break;
+    case 'sink': say('Rain on the kitchen window, and a pile of washing-up.'); break;
+    case 'calendar': say('Tomorrow is circled in red. It says: FLIGHT TO LONDON! 14 hours.'); break;
+    case 'cupboard': say('Rice, noodles and Elliot’s secret biscuit stash.'); break;
+    case 'wardrobe': say('Summer clothes are already in the suitcase. Only winter jumpers left in here.'); break;
+    case 'marydesk': say('Mary’s desk, her star poster, and her school report from the last day of term.'); break;
   }
   render();
+}
+
+function openCard(){
+  $('cardUI').hidden = false;
+  if (!S.read){ S.read = true; say('Nana’s loopy writing takes a moment. She wants the little torch, and she’s run out of kaya!'); }
+  else say('Nana’s postcard. There’s a tiny moth drawn in the corner of the picture.');
 }
 
 function finish(){
   S.done = true;
   say('The suitcase clicks shut. Mum calls out: “Taxi’s here!”');
   render();
+  const save = loadSave();
+  save.mary = Object.assign({}, save.mary, {packing:true, moths:Math.max(S.moths.length, (save.mary && save.mary.moths) || 0)});
+  writeSave(save);
   const n = S.moths.length;
   $('endMoths').textContent = n === 6 ? 'You found all six paper moths!' : `You found ${n} of the 6 hidden paper moths. Can you find them all next time?`;
   setTimeout(() => { $('endUI').hidden = false; }, 1200);
@@ -450,66 +675,82 @@ function finish(){
 const HINTS = [
   {goal:() => S.read, tips:[
     'Mum said to bring whatever Nana asked for. Where do families stick their postcards?',
-    'Nana’s postcard is on the fridge. Her writing is loopy, so someone good at reading should look.',
-    'Tap Mary at the bottom, then tap the postcard on the fridge.']},
+    'Nana’s postcard is on the fridge, in the living room.',
+    'Go to the living room and turn until you see the fridge. Tap the postcard.']},
   {goal:() => S.gotTorch, tips:[
-    'Nana asked for the little torch. Small things like to hide low down, near the floor.',
-    'Have a look in Mum’s rain boots. Someone good at spotting tiny things should look.',
-    'Tap Zaina at the bottom, then tap the yellow rain boots.']},
+    'Nana asked for the little torch. Elliot likes hiding things near the front door.',
+    'Look in Mum’s rain boots by the front door.',
+    'In the living room, turn to the front door and tap the yellow rain boots.']},
   {goal:() => S.gotKey, tips:[
     'Dad keeps the passports locked in his desk. Where would a key hang?',
-    'Look above Dad’s desk.',
-    'Tap the key hooks on the wall above Dad’s desk.']},
+    'Look beside the window, above Dad’s desk.',
+    'In the living room, turn to the window and tap the key hooks.']},
   {goal:() => S.unlocked, tips:[
     'You have Dad’s desk key.',
     'Use the key on Dad’s desk.',
     'Tap the key at the bottom, then tap the desk drawer.']},
+  {goal:() => S.mumTip, tips:[
+    'The drawer is stuck. Who might know the trick?',
+    'Ask Mum. She’s cooking in the kitchen.',
+    'Go through the kitchen doorway beside the fridge and tap the stove.']},
   {goal:() => S.gotPassports, tips:[
-    'The drawer is stuck. Who in the family is good at fixing things?',
-    'Elliot is good at fixing things.',
-    'Tap Elliot at the bottom, then tap the desk drawer.']},
+    'Now you know Mum’s trick.',
+    'Go back to Dad’s desk.',
+    'Tap the desk drawer again.']},
   {goal:() => S.gotKaya, tips:[
     'Nana’s postcard has a P.S. What has she run out of?',
-    'Nana has run out of kaya. Look on the shelf.',
-    'Tap the jar of kaya on the shelf.']},
+    'Nana has run out of kaya. Look on the shelf above the sofa.',
+    'In the living room, turn to the sofa and tap the jar of kaya on the shelf.']},
   {goal:() => S.wrapped, tips:[
     'A present needs wrapping!',
     'There’s wrapping paper on Dad’s desk.',
-    'Tap the kaya at the bottom, then tap the wrapping paper.']},
+    'Tap the kaya at the bottom, then tap the wrapping paper on the desk.']},
   {goal:() => false, tips:[
     'Everything is ready. Where does it all go?',
-    'Put each thing into the suitcase.',
-    'Tap each thing at the bottom, then tap the suitcase.']}
+    'The suitcase is on your bed.',
+    'Go to your bedroom, then tap each thing at the bottom and then the suitcase.']}
 ];
 function hint(){
   if (S.done) return;
-  // Pack whatever is ready first, otherwise the first unfinished step.
-  const ready = S.inv.some(it => PACK.includes(it));
-  const i = ready ? HINTS.length - 1 : HINTS.findIndex(h => !h.goal());
+  const i = HINTS.findIndex(h => !h.goal());
   const level = S.hint[i] = Math.min((S.hint[i] ?? -1) + 1, 2);
   say('<b>The moth whispers:</b> ' + HINTS[i].tips[level]);
 }
 
-document.querySelectorAll('.kid').forEach(b => b.onclick = () => {
-  S.who = b.dataset.k; S.sel = null;
-  say(`Now playing as ${kid()}, who is ${KIDS[S.who].talent}.`);
+/* screens */
+function showHome(){
+  $('home').hidden = false; $('game').hidden = true;
+  $('hintBtn').hidden = true; $('homeBtn').hidden = true;
+  const m = loadSave().mary;
+  $('marySub').textContent = m && m.packing ? 'Age 10 · Packing day done ✓ · Play again' : 'Age 10 · Packing day (draft)';
+}
+function startMary(){
+  fresh();
+  $('home').hidden = true; $('game').hidden = false;
+  $('hintBtn').hidden = false; $('homeBtn').hidden = false;
+  document.querySelectorAll('.overlay').forEach(o => o.hidden = true);
+  say('<b>Packing day.</b> The last day of school is over, and the suitcase must be shut by teatime. Use the arrows to look around.');
   render();
-});
+}
+
 document.querySelectorAll('.hs').forEach(el => {
   el.addEventListener('click', () => act(el.dataset.id));
   el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); act(el.dataset.id); } });
 });
+document.querySelectorAll('[data-close]').forEach(b => b.onclick = () => { b.closest('.overlay').hidden = true; });
+$('left').onclick = () => turn(-1);
+$('right').onclick = () => turn(1);
+document.addEventListener('keydown', e => {
+  if ($('game').hidden || e.target.closest('.hs')) return;
+  if (e.key === 'ArrowLeft') turn(-1);
+  if (e.key === 'ArrowRight') turn(1);
+});
 $('hintBtn').onclick = hint;
-
-function start(){
-  fresh();
-  $('endUI').hidden = true;
-  say('<b>Packing day.</b> School’s out, rain is drumming, and the suitcase must be shut by teatime. Tap things to look closer.');
-  render();
-}
-$('restart').onclick = start;
-$('again').onclick = start;
-start();
+$('homeBtn').onclick = showHome;
+$('endHome').onclick = showHome;
+$('aboutBtn').onclick = () => { $('aboutBox').hidden = !$('aboutBox').hidden; };
+document.querySelector('.kid[data-k="mary"]').onclick = startMary;
+showHome();
 </script>
 </body>
 </html>

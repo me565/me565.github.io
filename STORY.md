@@ -39,6 +39,17 @@ The game opens on the three children. Tapping one starts that child's story. Eac
 | Hints from the moth | A nudge in words. | A picture of what to try. | The moth flies to the right spot. |
 | Difficulty | 3 to 5 dots, plus Night Moth challenges | 2 to 3 dots | 1 to 2 dots |
 
+## How rooms work
+
+The owner's rule for every room in the game:
+
+- **Each room is a box.** The player faces one wall at a time and turns with left and right arrows at the edges of the scene. Things the player needs can be on any wall of the room.
+- **Rooms can be square or rectangular.** A square room has 4 views. In a rectangular room each long wall has two views, so a long room has 6: turning right steps along a long wall, then round the corner.
+- **Walls don't have to be equally busy.** Some hold puzzles; some are quiet, with just a picture, a line of description, or a hidden paper moth.
+- **Doors link rooms, one door per wall at most.** Tapping a door walks through it, and the player arrives facing into the new room (away from the door they came through, as in real life). Outdoor places work the same way, with a gate or path as the "door".
+- **Close-ups** zoom into one object, such as reading a postcard or working a lock, with a button to step back.
+- A small label on the scene always says which room the player is in.
+
 ## Characters
 
 - **Mary (10).** Notices patterns, reads everything.
@@ -80,13 +91,18 @@ Decided on 28 Sept 2026 (the owner left it to Claude):
 - **Night Moth:** one riddle's answer is hidden in the first letters of the book titles.
 
 ### Stage 2: Packing day — the family flat — difficulty 3
-- Mum makes Mary responsible for the passports and Nana's present.
-- Nana's postcard (on the fridge): "Bring the little torch, you'll need it! P.S. I've run out of kaya."
-- Rain boots → the little torch. Key hooks above Dad's desk → desk key → the drawer is stuck and needs a trick → passports.
-- Postcard P.S. → pick the kaya from the shelf (a durian snow globe and an orchid are wrong, with friendly replies) → wrap it in the moth-pattern paper on Dad's desk.
-- Torch, passports and present into the suitcase → "Taxi's here!"
-- **Night Moth:** six paper moths hidden around the flat.
-- **Draft exists** in `next/index.html`, currently with all three children playable. It becomes Mary's alone when the choose-a-child screen is built; the talent puzzles (reading, spotting, fixing) turn into Mary's own reasoning puzzles.
+Built as a playable draft in `next/index.html`. Three rooms:
+- **Mary's bedroom** (square, 4 views): bed with the open suitcase (where everything is packed); wardrobe; door to the living room; her desk (quiet wall). She starts here.
+- **Living room** (long, 6 views): window and Dad's desk with the key hooks and wrapping paper; shelf above the sofa; fridge with Nana's postcard beside the kitchen doorway; front door with Mum's rain boots; TV and family photos (quiet wall); door to Mary's bedroom (quiet wall).
+- **Kitchen** (square, 4 views): Mum at the stove; sink and window (quiet wall); doorway back; cupboard and calendar ("FLIGHT TO LONDON! 14 hours").
+
+Puzzles:
+- Nana's postcard on the fridge (close-up): "Bring the little torch, you'll need it! P.S. I've run out of kaya."
+- Postcard read → Mum's rain boots by the front door → the torch (Elliot hid it there).
+- Key hooks → desk key → unlock Dad's desk drawer → it's stuck → ask Mum in the kitchen: "Lift it up a little while you pull" → passports. (A clue in one room opens a puzzle in another.)
+- Postcard P.S. → the kaya on the shelf (the durian snow globe and the orchid are wrong, with friendly replies) → wrap it in the moth-pattern paper on Dad's desk → Nana's present.
+- Torch, passports and present into the suitcase in Mary's bedroom → "Taxi's here!" → saved as a postcard on the home screen.
+- **Night Moth:** six paper moths across the three rooms (living-room window frame, under the sofa, top of the fridge, behind a photo, top of the kitchen cupboard, top of the wardrobe).
 
 ### Stage 3: The flight — her seat, the flight map, the magazine — difficulty 4
 - Work out what time it will be in London when they land. Singapore is 7 hours ahead of London in the British summer.
