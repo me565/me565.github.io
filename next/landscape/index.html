@@ -160,7 +160,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-28l';
+const BUILD = '2026-09-28m';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -218,7 +218,9 @@ const LAYERS = {
     {src:'../art/classroom/layer-plant4-pot.png', l:59.3, t:57.70, w:7.7, h:8.80, shadow:.5}],
   c3:[
     {src:'../art/classroom/layer-coat.png', group:'coat', l:59.9, t:50.4, w:10.8, h:24.2},
-    {src:'../art/classroom/layer-lost.png', group:'lost', l:77.6, t:78.2, w:9.6, h:8.5, clipBottom:85.2},
+    {src:'../art/classroom/layer-lost.png', group:'lost', l:78.2, t:77.4, w:9.2, h:8.2},
+    /* the front of the box, cut from the wall picture itself, drawn over the things inside it */
+    {src:'../art/classroom/layer-boxfront.png', l:77.50, t:80.83, w:11.77, h:14.81},
     {src:'../art/classroom/layer-lid.png', group:'lid', l:27.6, t:67.3, w:10, h:10.3}],
   c4:[
     {src:'../art/classroom/layer-envelope.png', group:'envelope', l:50.5, t:66.5, w:6.5, h:5.5, hideWhen:() => S.got.includes('envelope')},
@@ -368,7 +370,7 @@ const HINTS = [
 ];
 
 /* ---------- state ---------- */
-const KEY = 'mothhouse.landscape.v1';
+const KEY = 'mothhouse.landscape.' + BUILD; /* each build starts a fresh game; Start again is in the menu */
 let S;
 function fresh(){ return {view:3, got:[], hint:{}}; }
 function load(){ try{ const s = JSON.parse(localStorage.getItem(KEY)); if (s && Array.isArray(s.got)) return s; }catch(e){} return fresh(); }
