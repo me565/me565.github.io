@@ -15,6 +15,7 @@ The owner is a non-technical but AI-savvy builder working from a Chromebook. Exp
 ## Working rules
 
 - Never commit directly to `main`. Work on a branch, share a preview or test steps, and merge only after the owner has tested and said yes.
+- **Always give the owner the play link.** Every reply that builds or changes something playable ends with the link to play it (the preview artifact while on a branch, https://me565.github.io once merged). Never make him ask for it.
 - Never commit the Android signing keystore, its passwords or `signing-key-info.txt`. This repo is public.
 - Never delete or rename `manifest.webmanifest`, `sw.js`, the icons, or anything in `.well-known/` — the Android app depends on them.
 - Keep `manifest.webmanifest` `id`, `start_url` and `scope` as `./`.
