@@ -160,7 +160,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-28m';
+const BUILD = '2026-09-28n';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -560,14 +560,22 @@ function softNote(midi, t, dur, vol, type){
 function startMusic(){
   if (music || !soundOn || !audio()) return;
   if (TRACK){
-    const el = new Audio(TRACK + '?v=' + BUILD); el.loop = true; el.volume = .5;
-    let fallen = false; el.onerror = () => { if (fallen) return; fallen = true; music = null; startTune(); };
-    el.play().catch(() => {}); music = {stop(){ el.pause(); el.src = ''; }}; return;
+    /* A recorded track needs a real tap before the browser lets it play. If this attempt is refused,
+       nothing is kept, so the next tap tries again; once it plays, it stays. */
+    if (!trackEl){ trackEl = new Audio(TRACK + '?v=' + BUILD); trackEl.loop = true; trackEl.volume = .5; trackEl.preload = 'auto';
+      trackEl.onerror = () => { musicState = 'file failed, using the built-in tune'; trackEl = null; music = null; startTune(); }; }
+    if (musicState === 'starting') return;
+    musicState = 'starting';
+    trackEl.play().then(() => { musicState = 'playing'; music = {stop(){ trackEl.pause(); musicState = 'off'; }}; })
+      .catch(err => { musicState = 'blocked until a tap (' + (err && err.name) + ')'; music = null; });
+    return;
   }
   startTune();
 }
+let trackEl = null, musicState = 'not started';
 function startTune(){
   if (music || !soundOn || !audio()) return;
+  musicState = 'built-in tune';
   const ac = AC; musicBus = musicGraph();
   musicBus.master.gain.exponentialRampToValueAtTime(1, ac.currentTime + 2.5);
   const beat = 60/TEMPO, loopBeats = TUNE.bars.length*BEATS_PER_BAR, start = ac.currentTime + 0.3;
@@ -592,13 +600,13 @@ function setSound(on){
 }
 /* Browsers only allow sound after the player has tapped, so the first tap anywhere wakes it. */
 function wake(){ if (!soundOn) return; audio(); if (AC && AC.state !== 'running') AC.resume(); startMusic(); }
-['pointerdown','touchend','click'].forEach(ev => addEventListener(ev, wake, {passive:true})); addEventListener('keydown', wake);
+['touchend','click'].forEach(ev => addEventListener(ev, wake, {passive:true})); addEventListener('keydown', wake);
 document.addEventListener('visibilitychange', () => { if (!AC) return; if (document.hidden) AC.suspend(); else if (soundOn) AC.resume(); });
 
 /* ---------- wiring ---------- */
 $('left').onclick = () => turn(-1); $('right').onclick = () => turn(1);
 $('hintBtn').onclick = hint;
-$('menuBtn').onclick = () => { $('menu').hidden = false; $('diag').textContent = `build ${BUILD} · sound: ${AC ? AC.state : 'not started'}${music ? ', music playing' : ''} · reduced motion: ${matchMedia('(prefers-reduced-motion:reduce)').matches ? 'ON (gentle taps)' : 'off'} · ${innerWidth}×${innerHeight} · ${navigator.userAgent.replace(/^.*\((.*?)\).*$/, '$1').slice(0, 40)}`; };
+$('menuBtn').onclick = () => { $('menu').hidden = false; $('diag').textContent = `build ${BUILD} · sound: ${AC ? AC.state : 'not started'} · music: ${musicState} · reduced motion: ${matchMedia('(prefers-reduced-motion:reduce)').matches ? 'ON (gentle taps)' : 'off'} · ${innerWidth}×${innerHeight} · ${navigator.userAgent.replace(/^.*\((.*?)\).*$/, '$1').slice(0, 40)}`; };
 $('closeMenu').onclick = () => { $('menu').hidden = true; };
 $('soundBtn').onclick = () => setSound(!soundOn);
 $('soundBtn').textContent = 'Sound: ' + (soundOn ? 'on' : 'off');
