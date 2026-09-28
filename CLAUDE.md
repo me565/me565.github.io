@@ -1,6 +1,8 @@
 # The Moth House
 
-An eerie, surreal point-and-click escape-room game in the spirit of Rusty Lake and Dark Dome. All characters, art and story are original — never borrow names, characters or imagery from Rusty Lake, Dark Dome or any other game.
+A point-and-click adventure for children: a warm, cosy mystery that works as a first taste of modern point-and-click games, while still satisfying grown-up puzzle fans. Three children, Mary, Elliot and Zaina, spend their summer holidays from Singapore with Nana and Jedi in Enfield, where Trent Park and the hidden Moth House bring their adventures to life. All characters, art and story are original — never borrow names, characters or imagery from any other game.
+
+**The story plan lives in `STORY.md`.** Read it before designing or building any room. Build new rooms from it, update it when the owner changes the story, and never fill in its "TO DECIDE" items without asking him.
 
 The owner is a non-technical but AI-savvy builder working from a Chromebook. Explain what you are about to do in plain language, and keep him in the loop before anything goes live.
 
@@ -19,6 +21,9 @@ The owner is a non-technical but AI-savvy builder working from a Chromebook. Exp
 - The game must stay playable on a phone in portrait: tap targets large enough for fingers, no hover-only interactions.
 - The whole game must always fit the screen, with no vertical or horizontal scrolling, on any phone, tablet or desktop window (portrait or landscape). The scene shrinks to fit the space left by the header, message line and inventory; keep messages to about three lines on a phone.
 - Respect `prefers-reduced-motion`.
+- Child-appropriate: cosy mystery, never frightening. Nothing unsafe to copy (no matches, fire, knives, dangerous climbing, going into water). No failing and no timers; wrong tries get a friendly line.
+- Any clue given by sound must also be shown visually.
+- Before putting real Trent Park or Enfield history into the game, check the facts and tell the owner what you checked.
 
 ## Files
 
@@ -26,8 +31,12 @@ The owner is a non-technical but AI-savvy builder working from a Chromebook. Exp
 - `manifest.webmanifest` — app name, colours, icons.
 - `sw.js` — network-first service worker: players get the latest version when online; the last version still works offline. Keep this behaviour.
 - `icon-192.png`, `icon-512.png` — moth icon (also used as maskable).
+- `STORY.md` — the story plan: characters, places, every scene with its puzzle map, rules for every chapter, open decisions.
+- `.well-known/assetlinks.json`, `.nojekyll` — Android app verification (see Launch status).
 
-## Current game (version 1: one room)
+## What is live now (before the rebuild)
+
+The live game is still the original single room, written for adults. It will be replaced by the children's version in `STORY.md`; this section describes the current code until then. Chapter 2 in `STORY.md` lists what changes when this room is rebuilt (matches become a winding handle, the porcelain face becomes a paint pot, Ada becomes the girl in the portrait); the ring lock and the looking-glass clock stay.
 
 Setting: a Victorian parlour. Opening line: you wake with a note pinned to your sleeve — "return what this house has lost".
 
@@ -44,6 +53,8 @@ Interaction model: tap an object to look; tap an inventory item to select it, th
 
 ## Visual style
 
+The live room uses the style below. The children's version needs a warmer, brighter storybook look, with Singapore scenes bright and tidy and Enfield scenes lit by long summer evenings; agree the new palette and typeface with the owner before rebuilding.
+
 - Muted, uncanny, flat illustration. Olive moth-pattern wallpaper (#4b5037), dark wood (#4a352a, #3a2f28), brass (#a8844a), dusty rose rug (#5e3434), bone (#d9ccb0), candle glow (#f2c16b).
 - Typeface: IM Fell English (Google Fonts) with Georgia fallback. Sentence case, short, dry, unsettling copy.
 - Darkness overlay before the lamp is lit; warm radial glow after.
@@ -59,9 +70,12 @@ Interaction model: tap an object to look; tap an inventory item to select it, th
 
 ## What's next for the game
 
-The owner has finished every Rusty Lake and Dark Dome game, so version 1's puzzles are too easy for him. Priorities:
-- Harder, more layered puzzles (multi-step, cross-room clues, observation and deduction).
-- More rooms (target 3–5 before public launch), keeping the one-file simplicity only as long as it stays manageable.
-- Optional atmosphere: sound (ticking, wingbeats), only after a tap so browsers allow it.
-- Save progress between sessions (localStorage is fine here).
-- Longer term: a short series with a recurring house or character.
+Priorities:
+- Get the open decisions in `STORY.md` answered (the children's ages and personalities, Nana's name, the moth's name, launch scope, real names).
+- Agree the new visual style.
+- Build the launch rooms in order: the Singapore prologue, Nana and Jedi's house, then the Moth House (a rebuild of the current room).
+- Game systems every chapter needs: switching between the three children, the hint moth, Nana's notebook, and postcard saves (localStorage is fine).
+- Keep puzzles layered for grown-ups: branching paths, clues carried between chapters, and one optional hard Night Moth challenge per chapter. The owner has finished every Rusty Lake and Dark Dome game and wants a real challenge there.
+- Keep the one-file simplicity only while it stays manageable. With several rooms, splitting into separate files is fine.
+- Optional atmosphere: sound (wingbeats, birdsong, rain), only after a tap so browsers allow it.
+- Longer term: a series, with more summers at the Moth House.
