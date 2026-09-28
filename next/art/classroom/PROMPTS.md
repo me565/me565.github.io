@@ -2,6 +2,10 @@
 
 Made with Gemini (`gemini-3-pro-image`, 2K) through the API key in the environment (`GEMINI_API_KEY`). Each wall is one `generateContent` call with `responseModalities: ["TEXT","IMAGE"]` and `imageConfig: {aspectRatio, imageSize}`. The first wall is generated alone; the others get a crop of it (with its objects mostly cut off) as a style reference, so the walls feel like one room without copying each other's furniture. Never name other games in a prompt; describe qualities.
 
+## Cut-outs and cleaned walls (evening, 28 Sept 2026)
+
+Moving things are separate pictures: `layer-plant1..4.png`, `layer-coat.png`, `layer-lost.png`, `layer-envelope.png`, `layer-hamster.png`, `layer-backpack.png`, `layer-apple.png`. Each was made by giving Gemini a crop of the object from the wall with "Redraw exactly the … from the attached crop, alone, on a pure flat white background, same style, nothing else", then flood-filling the white away from the edges (so white inside the object stays). The walls were then edited with the same model ("Edit the attached picture: remove …; keep absolutely everything else exactly as it is"), and the `landscape-*.jpg` files now carry those cleaned versions. The edited wall shifts a little, so cut-out positions were measured again on the new wall with a 5% grid. Inventory icons (`item-*.png`) are made the same way.
+
 ## Landscape set (owner's brief, 28 Sept 2026 afternoon): `landscape-*.jpg`, 16:9, saved at 1920×1080
 
 ### Shared style text
