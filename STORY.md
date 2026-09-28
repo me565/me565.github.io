@@ -84,11 +84,23 @@ Decided on 28 Sept 2026 (the owner left it to Claude):
 
 ## Mary's story (age 10)
 
-### Stage 1: Last day of school — her classroom and the school library — difficulty 3
-- Her teacher sets an end-of-year treasure hunt. Riddles lead to books on the library shelves.
-- Each clue gives one number of her locker code, taken from the class timetable.
-- Inside the locker: her report, and a postcard from Nana with a moth drawn on it.
-- **Night Moth:** one riddle's answer is hidden in the first letters of the book titles.
+### Stage 1: Last day of school — Knightsbrook International School — difficulty 3
+Built as a playable draft in `next/index.html`. Three rooms:
+- **Classroom 5H** (square, 4 views): whiteboard and Mr Hollis's desk; window and the class bean plants (quiet wall); door to the corridor and coat pegs; the class timetable above Mary's desk. She starts facing her desk.
+- **Corridor** (square, 4 views): the lockers (Mary's is the purple one); the library doors; the notice board with a bonus riddle card; the door back to 5H.
+- **Library** (long, 6 views): Science shelf and globe; Music shelf with a gap; window and beanbags (quiet wall); Art shelf and the returns trolley; Stories shelf; doors to the corridor and the librarian's desk ("Back soon!").
+
+Mr Hollis is Mary's (invented) teacher. Everyone else is at the goodbye party in the playground.
+
+Puzzles:
+- Envelope on Mary's desk: the rules, and Riddle 1 ("At night I'm full of lights, but I'm not a city"). Notes stay in the inventory and can be re-read.
+- Riddle 1 → *The Night Sky* on the Science shelf → slip "SCIENCE on THURSDAY" + Riddle 2 ("eighty-eight keys, but I can't open a single door").
+- Riddle 2 → the Music shelf has a gap: "Returned today. See the trolley." → *Playing the Piano* on the returns trolley → slip "MUSIC on TUESDAY" + Riddle 3 ("full of colour, but I'm not a rainbow; brushes are my best friends").
+- Riddle 3 → *The Big Book of Painting* on the Art shelf → slip "ART on WEDNESDAY".
+- Back in the classroom, the timetable (days down the side, periods 1 to 6 along the top) turns each lesson into a number: Science Thursday 4, Music Tuesday 3, Art Wednesday 6.
+- Mary's locker (three dials, checked only when she taps Open) → 4 3 6 → her report and a postcard from Nana with a moth in the corner.
+- Timetable: Mon En Ma Sc Ar PE Mu · Tue Ma En Mu Ge Sc Li · Wed Sc Ma En PE Mu Ar · Thu En Ar Ma Sc Li PE · Fri Ma Mu Ar En PE Sc.
+- **Night Moth:** the bonus riddle on the corridor notice board: "Someone in London loves postcards and moths. Spell her name with the first letters of four stories." On the Stories shelf, tapping *Nobody's Garden*, *A Quiet Moon*, *Nine Lanterns* and *Along the River* spells NANA (the other two, *Jam for Tea* and *Owls at Dusk*, are decoys).
 
 ### Stage 2: Packing day — the family flat — difficulty 3
 Built as a playable draft in `next/index.html`. Three rooms:
