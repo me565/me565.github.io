@@ -85,7 +85,7 @@ button:focus-visible,.hs:focus-visible .hit{outline:3px solid var(--accent);outl
 .kid span.sub,.stagebtn span.sub{font-size:clamp(.8rem,2dvh,.95rem);color:var(--muted)}
 .kid:disabled,.stagebtn:disabled{cursor:default;opacity:.62}
 .center{align-self:center}
-.aboutbox{background:var(--card);border-radius:14px;padding:14px 16px;font-size:.9rem;line-height:1.45;color:var(--ink);max-height:28dvh;overflow:auto}
+.aboutbox{position:fixed;left:16px;right:16px;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);z-index:5;max-width:600px;margin:0 auto;background:var(--card);border:1px solid var(--slot);border-radius:14px;padding:14px 16px;font-size:.9rem;line-height:1.45;color:var(--ink);max-height:45dvh;overflow:auto;box-shadow:0 10px 30px rgba(0,0,0,.25)}
 .aboutbox p{margin:0 0 6px}
 
 /* game */
@@ -178,8 +178,7 @@ table.tt td.day{font-weight:700;text-align:left;background:#eaf1ee}
   .msg{height:auto;max-height:8.4em}
   .screen{flex-direction:row;flex-wrap:wrap;align-content:center}
   .screen .kid,.screen .stagebtn{flex:1 1 30%}
-  .screen .intro,.screen h2,.screen .aboutbox,.screen .homehead,.screen .row{flex-basis:100%}
-  .screen .aboutbox{max-height:22dvh}
+  .screen .intro,.screen h2,.screen .homehead,.screen .row{flex-basis:100%}
 }
 @media (prefers-reduced-motion:reduce){
   .rain,#blades,.steam,.spark,.bubble{animation:none}
