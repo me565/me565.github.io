@@ -1,157 +1,197 @@
 # The Moth House — story plan
 
-Draft agreed in principle on 28 Sept 2026. This is the plan every new room is built from. Items marked **TO DECIDE** are still open; don't invent answers for them, ask the owner.
+Version 2, agreed with the owner on 28 Sept 2026. This is the plan every room is built from. Items marked **TO DECIDE** are still open; don't invent answers for them, ask the owner.
 
 Visual storyboard (private to the owner): https://claude.ai/artifact/GSA3zJy7cGeYvket4dReeA
 
 ## The story in one line
 
-Every summer, Mary, Elliot and Zaina fly from Singapore to stay with Nana and Jedi in Enfield. This summer a glowing moth leads them into the woods of Trent Park, to a little house that isn't on any map. Its lights have gone out and its moths have scattered. The children spend the summer bringing the moth-lights home. At the end they find out that Nana found the house first, when she was a girl: the girl in the portrait is her.
+Players choose whose story to play: Mary's, Elliot's or Zaina's. All three follow the same summer: the last day of school in Singapore, packing, a 14-hour flight to London, then Nana and Jedi's house in Enfield, Trent Park and the hidden Moth House, whose lights have gone out. Each child meets different places and puzzles made for their age and character. When all three stories are finished they come together for one shared finale, where the children find out that Nana found the Moth House first, when she was a girl.
 
 ## Audience and tone
 
 - For children, as a first taste of modern point-and-click games, while still satisfying grown-ups who have finished every escape game going.
-- Cosy mystery: curious, warm, a little magical. Never frightening, sad in a gentle way at most.
-- Two worlds:
-  - **Singapore, the ordinary world.** Home with Mum and Dad, school, the rainy season. Bright, tidy, familiar. Short scenes that teach how to play. Where the story starts and ends.
-  - **Enfield and Trent Park, where magic happens.** Nana and Jedi's house and the country park nearby. Long summer evenings, woods, lakes, mist. The Moth House appears only at dusk.
+- Cosy mystery: curious, warm, a little magical. Never frightening.
+- **Singapore is the ordinary world:** home with Mum and Dad, school, the rainy season. Bright, tidy and familiar.
+- **Enfield and Trent Park are where magic happens:** long summer evenings, woods, lakes, mist. The Moth House appears only at dusk.
+
+## Fiction and legal safety
+
+The owner's rule: stay as close as possible to real life without anything that could get him sued.
+
+- **Fictional schools, close in spirit to the real ones.** Mary and Elliot go to **Knightsbrook International School**. Zaina goes to **Little Waves Kindergarten**. Never use the real schools' names, logos, uniforms, crests, staff names or addresses.
+- **No real brands or trademarks** in art, text or item names: no airline names or liveries, no toy brands, no shop names. In particular, **never show the Merlion**: it is a protected symbol in Singapore and using it without permission can be an offence. Generic Singapore things are fine (kaya, durian, orchids, hawker food, HDB-style flats, rain).
+- **Real places used fictionally.** Trent Park, Enfield, Camlet Moat, the Obelisk and Trent Park House are real public places and can appear. Show them in general terms, don't imply any organisation endorses the game, and check facts before stating any history. The Moth House is invented.
+- **No real people** other than the family characters the owner chose. Teachers, flight attendants and other characters are invented, with invented names.
+- **A fiction notice** in the game's credits or about screen: "This is a work of fiction. Its characters, schools and events are imaginary. Real places appear in a fictional way, and no organisation is connected with or endorses this game."
+- For a paid or large-scale commercial launch, the owner may want a lawyer to take a quick look. These rules reduce risk but aren't legal advice.
+
+## Choosing a story
+
+The game opens on the three children. Tapping one starts that child's story. Each story can be played on its own and in any order. Progress is saved per child (postcards home act as saves). The finale opens only when all three stories are finished.
+
+| | Mary | Elliot | Zaina |
+|---|---|---|---|
+| Age | 10 | 7 | 4 |
+| School | Knightsbrook International School | Knightsbrook International School | Little Waves Kindergarten |
+| Plays like | A proper puzzle game: reading, codes, maps, working things out. The hardest story; grown-ups will enjoy it. | Hands-on puzzles you can see working: building, fixing, gears, levers, plugs, counting, patterns. | Tap, find and match: colours, shapes, counting to five, hidden things, animals. The gentlest story. |
+| Reading | Full sentences, notes, riddles, mirror writing. | Short simple words; pictures carry every clue. | None needed; every clue is a picture; lines can be read aloud. |
+| Hints from the moth | A nudge in words. | A picture of what to try. | The moth flies to the right spot. |
+| Difficulty | 3 to 5 dots, plus Night Moth challenges | 2 to 3 dots | 1 to 2 dots |
 
 ## Characters
 
-| Character | Who they are | Talent in the game |
-|---|---|---|
-| Mary | Sister. Notices patterns, reads everything. | Reads and decodes: old writing, map symbols, mirror writing. **TO DECIDE:** age, personality. |
-| Elliot | Brother. Wants to know how things work. | Fixes and builds: combines two things into a tool. **TO DECIDE:** age, personality. |
-| Zaina | Sister. Sees the small things; animals trust her. | Spots tiny hidden details, befriends animals. **TO DECIDE:** age, personality. |
-| Nana | Grandmother in Enfield. Warm, mischievous, knows more than she says. Found the Moth House as a girl. | — **TO DECIDE:** her first name (it goes on the portrait). |
-| Jedi | Grandfather in Enfield. Shed full of useful things; knows the park's history. | — **TO DECIDE:** is he in on Nana's secret? |
-| Mum and Dad | At home in Singapore. | Receive a postcard at the end of each chapter. |
-| The moth | Gentle guide whose wings glow like a night light. Tap it for hints. | **TO DECIDE:** its name, or let players name it (ideas: Lumo, Pip). |
-| The Moth House | A character in its own right. Appears at dusk to people who are looking. Each moth-light returned wakes a room. | — |
+- **Mary (10).** Notices patterns, reads everything.
+- **Elliot (7).** Wants to know how things work.
+- **Zaina (4).** Sees the small things; animals trust her. Never without **Peanut**, her small soft toy elephant (generic design; no brand shown).
+- **Nana.** Grandmother in Enfield. Always just "Nana". Warm, knows more than she says. Found the Moth House as a girl; the faded portrait in the Moth House is her.
+- **Jedi.** Grandfather in Enfield. Cheeky but lazy: always "just resting his eyes", bargains with biscuits, and takes the credit for everything the children do. Secretly on their side.
+- **Mum and Dad.** At home in Singapore. Each child sends them a postcard at the end of each stage.
+- **The moth.** A gentle guide whose wings glow like a night light. Gives hints. **TO DECIDE:** its name, or let each player name it.
+- **The Moth House.** Appears at dusk to people who are looking. Each moth-light brought home wakes a room.
 
-The talents are placeholders until the owner confirms what each child is really like.
+## The journey
 
-**Privacy note:** the game is public. If the children are real, their first names together with Enfield, Singapore and a family story will be visible to anyone. The owner decides whether to keep or change names.
+Every story passes through six stages in the same order. The finale and epilogue are shared.
 
-## Places
+1. Last day of school (Singapore)
+2. Packing day (Singapore)
+3. The 14-hour flight to London
+4. Nana and Jedi's (Enfield)
+5. Into Trent Park
+6. The Moth House (Trent Park woods)
+7. Finale: all the lights (together, after all three stories)
+8. Epilogue: home again (Singapore)
 
-A storybook map, not to scale. The Moth House is fictional; the other Trent Park places are real, so check facts before putting any history into the game.
+## Launch plan
 
-- Nana and Jedi's house (Enfield, near the park).
-- The Moth House, in a clearing in the Trent Park woods.
-- The lake.
-- The Obelisk.
-- Camlet Moat, the moated island in the woods.
-- Trent Park House, the mansion and its museum.
-- Singapore: the family's home (prologue and epilogue).
+Decided on 28 Sept 2026 (the owner left it to Claude):
 
-## Scenes
+- **Part 1: Leaving Singapore** is the first release: stages 1 to 3 for all three children, so nine small rooms. Each story ends with a small magical moment on the plane, and all three end with a short shared teaser: as the plane comes down over London at dusk, a glow flickers in the woods below.
+- **Part 2: The Moth House** follows as an update: stages 4 to 6, the finale and the epilogue.
+- Build order: the choose-a-child screen and shared systems (hints, saves, postcards), then Mary's stages 1 to 3 (her packing draft already exists), then Elliot's, then Zaina's. Owner testing after each room.
 
-Difficulty is for the main path, 1 (easiest) to 5. "Launch" means planned for version 1. The rest arrive as updates.
+## Mary's story (age 10)
 
-### Prologue: Packing day — Singapore — difficulty 1 — Launch
-- **When:** afternoon, rain on the windows, the last school day done.
-- **Story:** the suitcase must be shut by teatime. Nana's postcard, with a moth drawn in the corner, asks them to bring "the little torch". Short tutorial: tapping, picking up, using one thing on another. Ends with the plane rising through the clouds; the moth on the postcard flickers once.
-- **They learn:** Nana has a secret.
-- **Puzzles (as built in the `next/` draft; branches in any order):**
-  - Nana's postcard on the fridge (Mary reads it): "Bring the little torch, you'll need it! P.S. I've run out of kaya."
-  - Postcard read → Mum's rain boots → Zaina spots the torch.
-  - Key hooks above Dad's desk → desk key → unlock the drawer → it's stuck → Elliot wiggles it open → passports.
-  - Postcard P.S. → pick the kaya from the shelf (the snow globe and orchid are wrong, with friendly replies) → wrap it in the moth-pattern paper on Dad's desk → Nana's present.
-  - Torch, passports and present into the suitcase → it clicks shut → "Taxi's here!" → plane to London.
-- **Optional:** find six hidden paper moths folded around the flat (window frame, window sill, top of the fridge, by the fridge, under the sofa, in the suitcase lid).
+### Stage 1: Last day of school — her classroom and the school library — difficulty 3
+- Her teacher sets an end-of-year treasure hunt. Riddles lead to books on the library shelves.
+- Each clue gives one number of her locker code, taken from the class timetable.
+- Inside the locker: her report, and a postcard from Nana with a moth drawn on it.
+- **Night Moth:** one riddle's answer is hidden in the first letters of the book titles.
 
-### Chapter 1: Nana and Jedi's — Enfield — difficulty 2 — Launch
-- **When:** first evening, long summer light.
-- **Story:** hugs and tea. The moth from the postcard is real, circling the porch light. Jedi's shed key is "where the robin sleeps". Inside the shed is Nana's childhood tin, with a number lock whose code is hidden in the hallway photos. Inside the tin: Nana's hand-drawn map of Trent Park, showing a house in the woods that isn't on any real map.
-- **They learn:** Nana drew this map at their age; the house was real to her.
-- **Restored:** the moth decides to trust them.
-- **Puzzles:**
-  - Moth at the porch light → it flies to the garden → robin's nest box (Zaina) → shed key → Jedi's shed.
-  - Hallway photos with dates → work out the code (Mary) → Nana's tin → hand-drawn map.
-  - Shed → bike lamp with a loose wire; the battery from the Singapore torch → fix the lamp (Elliot).
-  - Map + lamp → dusk walk into Trent Park.
-- **Optional:** Nana's crossword on the kitchen table has one answer that points to a hidden drawer.
+### Stage 2: Packing day — the family flat — difficulty 3
+- Mum makes Mary responsible for the passports and Nana's present.
+- Nana's postcard (on the fridge): "Bring the little torch, you'll need it! P.S. I've run out of kaya."
+- Rain boots → the little torch. Key hooks above Dad's desk → desk key → the drawer is stuck and needs a trick → passports.
+- Postcard P.S. → pick the kaya from the shelf (a durian snow globe and an orchid are wrong, with friendly replies) → wrap it in the moth-pattern paper on Dad's desk.
+- Torch, passports and present into the suitcase → "Taxi's here!"
+- **Night Moth:** six paper moths hidden around the flat.
+- **Draft exists** in `next/index.html`, currently with all three children playable. It becomes Mary's alone when the choose-a-child screen is built; the talent puzzles (reading, spotting, fixing) turn into Mary's own reasoning puzzles.
 
-### Chapter 2: The Moth House — Trent Park woods — difficulty 3 — Launch
-- **When:** dusk into night.
-- **Story:** the current room, rewritten to be cosy instead of creepy. The house is quiet and a little sad because its lights have gone out. The children wind the lamp back on, set the trapped moth free, read the ring of shadows it throws, and set the looking-glass clock (the house sees things back to front). The portrait isn't faceless, just faded like an old photo. Painting her smile back earns the first moth-light. Her plaque shows only an initial.
-- **They learn:** the house lost its moths when the girl in the portrait stopped visiting. Who was she?
-- **Restored:** moth-light 1 of 4; the Lamp Room glows again.
-- **Changes from the current game:**
-  - The matchbox becomes a winding handle; the oil lamp becomes a wind-up lamp.
-  - The porcelain face becomes a paint pot.
-  - "Ada" becomes the girl in the portrait (young Nana). The plaque keeps "a quarter to three".
-  - The drawer's ring lock and the looking-glass clock stay as they are now.
-- **Puzzles:**
-  - Lift the rug (Zaina) → winding handle → wind the lamp (Elliot) → room lights up → free the moth → ring of shadows.
-  - Drawer engraving (Mary) + ring of shadows → ring lock (eye, hand, moon, key) → clock hands.
-  - Portrait plaque ("a quarter to three") + clock hands → looking-glass clock → paint pot → paint the girl's smile → moth-light 1.
-- **Night Moth challenge:** the wallpaper hides a second message, visible only when the clock shows the time Nana was born.
+### Stage 3: The flight — her seat, the flight map, the magazine — difficulty 4
+- Work out what time it will be in London when they land. Singapore is 7 hours ahead of London in the British summer.
+- A note in the seat pocket is in mirror writing; the dark seat-back screen works as a mirror.
+- The note points to the flight map, where a tiny moth marks Enfield.
+- **Night Moth:** the magazine crossword spells a word Nana used on her postcard.
 
-### Chapter 3: The lake and the Obelisk — Trent Park — difficulty 3 — Later
-- **When:** sunny morning, a picnic with Jedi.
-- **Story:** the Obelisk's shadow sweeps the grass like a giant sundial. The Moth House clock, now running, tells them when to come back, at the moment the shadow points to a hidden tin. The lake's reflection shows mirror words. The ducks guard the stepping stones, and Zaina knows oats are better for ducks than bread.
-- **They learn:** someone left clues around the park long ago, each signed with a moth.
-- **Restored:** moth-light 2 of 4.
-- **Puzzles:**
-  - Moth House clock (from Chapter 2) → visit at 11:10 → the Obelisk's shadow points to a bench → tin under the bench → string and hook.
-  - Nana's kitchen oats → feed the ducks (Zaina) → ducks move off the stones.
-  - Reflection in the lake → read the mirror words (Mary) → "look up": moth-light in the tree.
-  - String and hook + clear stones + moth-light located → build a grabber (Elliot) → moth-light 2.
-- **Night Moth challenge:** work out the shadow for any time from the angle alone, with no clock.
+### Stage 4: Nana and Jedi's — Nana's attic and the hallway photos — difficulty 3
+- The dates on the family photos give the code to Nana's childhood tin.
+- Inside: Nana's hand-drawn map of Trent Park, with a house that isn't on any real map. Nana just smiles: "Well, go on then."
 
-### Chapter 4: Camlet Moat — Trent Park woods — difficulty 4 — Later
-- **When:** misty early morning.
-- **Story:** Jedi tells the local legend of a knight who hid treasure by the moat, as a fun story, not a ghost story. The stepping-stone path shows only where the moth lands. The first teamwork puzzle: one child holds a lever stone while another crosses. The well echoes whatever they call; the right words raise the treasure, a lantern with a moth-light inside.
-- **They learn:** the "treasure" was a moth-light all along. Someone hid them to keep them safe.
-- **Restored:** moth-light 3 of 4.
-- **Puzzles:**
-  - Nana's map (stepping-stone symbols) + moth landing spots → read the stone pattern (Mary) → cross to the island → lever stone → one child holds, another crosses.
-  - Carvings round the well (Zaina) + crossing done → words to call down the well → the echo answers and a chain rises → mend the chain hook (Elliot) → moth-light 3.
-- **Night Moth challenge:** the echoes come back in a different order each time; find the rule.
+### Stage 5: Trent Park — Trent Park House — difficulty 4
+- Real history told gently: people once listened carefully here to learn secrets. **Check the facts before writing any in-game text.**
+- Old listening pipes carry a code between rooms, also shown as flashes so no one misses it.
+- Decoding it leads to a note from the girl in the portrait: "If you're reading this, bring them home."
+- **Night Moth:** read the Obelisk's shadow as a clock from its angle alone.
 
-### Chapter 5: The Listening Rooms — Trent Park House — difficulty 4 — Later
-- **When:** rainy afternoon; Jedi takes them to the mansion's museum.
-- **Story:** real history, told gently. During the Second World War, people at Trent Park House secretly listened to conversations to learn important secrets. The old listening pipes still carry sounds between rooms. The moth's wingbeats flash in a pattern (seen as well as heard, so deaf players aren't shut out). Mary decodes it; the last moth-light is behind a bookcase.
-- **They learn:** a note from the girl in the portrait, dated years ago: "If you're reading this, bring them home."
-- **Restored:** moth-light 4 of 4.
-- **History check:** confirm the facts about Trent Park House and its museum before writing in-game text.
-- **Puzzles:**
-  - Museum leaflet (room names) + listening pipes → which pipe goes to which room → hear or see the wingbeat pattern → decode it (Mary).
-  - Loose floorboard (Zaina) → old key.
-  - Code + key → bookcase with a moth symbol → note from the girl in the portrait, and moth-light 4.
-- **Night Moth challenge:** a second hidden message is spread across every chapter's postcards.
+### Stage 6: The Moth House — the Lamp Room — difficulty 5
+- The current live room, made cosy: wind the lamp (no matches), free the moth from the jar, read the ring of shadows.
+- The drawer's ring lock and the looking-glass clock stay at full difficulty.
+- The faded portrait gets its smile painted back (a paint pot replaces the porcelain face). She gives Mary a moth-light.
 
-### Finale: All the lights — the Moth House — difficulty 3 — Later
-- **When:** last night of summer.
-- **Story:** the children set each moth-light in its place, matching its colour to where it was found. The house wakes room by room. The name on the portrait finally shows: it's Nana. She is standing in the doorway with Jedi, holding the porch lantern: "I wondered when you'd find it."
-- **They learn:** Nana found the house when she was a girl; now it belongs to the three of them too.
-- **Restored:** the whole house.
-- **Puzzles:** moth-lights 1 to 4 + postcards from every chapter → match each colour to its place → the house wakes → the portrait's name appears → Nana at the door.
-- **Night Moth challenge:** light the rooms in the order Nana first found them (dates on her map).
+## Elliot's story (age 7)
 
-### Epilogue: Home again — Singapore — difficulty 1 — Later
-- **When:** first day back at school, rain.
-- **Story:** ordinary again. As they leave for school, a big Atlas moth, a real Southeast Asian species, settles on the balcony railing. Its wing pattern matches the Moth House. Next summer…
-- **Purpose:** hook for the series.
+### Stage 1: Last day of school — his classroom and the playground — difficulty 2
+- The class marble run is broken for the goodbye party: put the missing pieces back so the marble reaches the bell.
+- Find his jumper in the lost-property box: the one with an E on the label.
+- Collect the goodbye card his class made him.
 
-## Rules for every chapter
+### Stage 2: Packing day — his bedroom — difficulty 2
+- His building kit must fit in its box: turn and slot the pieces until the lid closes.
+- His torch has no batteries: find the spares in the kitchen drawer and match the + and − ends.
+- Pack the torch for Nana.
 
-- **Gentle for children, deep for grown-ups.** The main path teaches point-and-click step by step. Each chapter hides one optional, properly hard Night Moth challenge.
-- **Switch between the children.** Players can switch between Mary, Elliot and Zaina at any time. Each has a talent, and some puzzles need two of them working together.
-- **The moth gives hints** in three steps: where to look, what to try, then the answer.
-- **No failing, no timers.** A wrong try gets a friendly line back; nothing is lost.
-- **Safe to copy.** No matches, fire, knives or dangerous climbing. Lamps are wound up or switched on. Children stay on paths and stepping stones and never go into water.
-- **A postcard home** ends each chapter: it recaps the story, saves the game and links the two worlds.
-- **Nana's notebook** records the clues found, so younger players don't have to remember them and older ones can study them.
+### Stage 3: The flight — his seat and the aisle — difficulty 2
+- His headphones won't work: match the plug shape to the right socket.
+- His toy car rolls down the aisle during the bumpy bit: follow where it went.
+- Help a flight attendant straighten the snack trolley's wobbly wheel.
+
+### Stage 4: Nana and Jedi's — Jedi's shed — difficulty 2
+- Jedi is "just resting his eyes" in his deckchair. He'll lend his toolbox, but only after Elliot fetches him a biscuit and the TV remote.
+- Fix Jedi's old bike lamp for the walk at dusk. Jedi takes the credit, with a wink.
+
+### Stage 5: Trent Park — Camlet Moat — difficulty 3
+- Jedi tells the legend of the knight's treasure, as a fun story, not a scary one.
+- Build a little lever bridge to the island. Stay on the stones, never in the water.
+- Mend the old well's winding handle to raise the "treasure": a lantern.
+
+### Stage 6: The Moth House — the Clockwork Room — difficulty 3
+- The house's lights run on clockwork: put the gears back so each turns the next.
+- Oil the stiff handle and wind it. The room lights and Elliot gets a moth-light.
+
+## Zaina's story (age 4)
+
+### Stage 1: Last day of school — Little Waves Kindergarten's goodbye party — difficulty 1
+- Find her water bottle by her colour sticker.
+- Pick her painting off the drying line by her sticker.
+- Play the goodbye song: tap the instruments in the order the pictures show.
+- Her teacher gives her a shiny moth sticker.
+
+### Stage 2: Packing day — her bedroom — difficulty 1
+- Mum's picture checklist shows a sun hat, a swimsuit and Peanut. Match each thing to its outline in the case.
+- Peanut is hiding: the moth sticker glows warmer as she gets closer.
+- Count five pairs of socks into the case.
+
+### Stage 3: The flight — her window seat — difficulty 1
+- Cloud spotting: tap the cloud shaped like each picture (a bunny, a boat, an elephant like Peanut).
+- Peanut drops under the seats: follow the moth's glow to find him.
+- Sleepy time: switch the reading lights off one by one until the cabin is cosy and dark.
+
+### Stage 4: Nana and Jedi's — Nana's garden — difficulty 1
+- Meet the robin and find the right snack for it by tapping what robins eat.
+- Jedi has fallen asleep in the hammock: tickle his toes to wake him.
+- Water Nana's flowers in the order of the colours on her watering can.
+
+### Stage 5: Trent Park — the lake and the meadow — difficulty 2
+- Feed the ducks oats; Zaina knows oats are better for ducks than bread.
+- Count five ducklings hiding in the reeds.
+- Follow the moth across the meadow, stepping only on flowers the colour of its wings.
+
+### Stage 6: The Moth House — the Moth Nursery — difficulty 2
+- Sleepy baby moths in cosy cocoons: match each cocoon to the lantern of the same colour.
+- Sing them awake by tapping the notes in the order the moth shows (shown as pictures and light as well as sound).
+- The baby moths light up and Zaina gets a moth-light.
+
+## Together
+
+### Finale: all the lights (unlocks after all three stories)
+The three children bring their moth-lights home and the whole house wakes. The faded portrait shows its face at last: it's Nana, as a girl. She is standing in the doorway holding the porch lantern: "I wondered when you'd find it." Behind her, Jedi pretends to be asleep on the garden bench, and opens one eye to wink. Each child's story carries a different part of Nana's secret, so playing all three reveals the whole mystery.
+
+### Epilogue: home again
+Back to school in Singapore. A big Atlas moth (a real Southeast Asian species) lands on the balcony railing, and its wings carry the Moth House pattern. Next summer… (hook for the series).
+
+## Rules for every room
+
+- **Built for the child's age:** see the table in "Choosing a story". Zaina's rooms never need reading, and counting goes no higher than 5.
+- **No failing and no timers.** A wrong try gets a friendly line; nothing is lost.
+- **Nothing unsafe to copy:** no matches, fire, knives or dangerous climbing. Lamps are wound up or switched on. Children stay on paths and stepping stones and never go into water.
+- **The moth always has a hint,** in three steps: where to look, what to try, then the answer.
 - **Accessibility:** any clue given by sound is also shown visually.
+- **Postcards home** end each stage: they recap, save the game and link the two worlds.
+- **Night Moth challenges** are optional and hard, for grown-ups, mostly in Mary's story.
+- **Fiction and legal safety:** follow the section above.
 - **Original work only:** no names, characters or imagery from other games.
 
 ## Open decisions
 
-1. Each child's age and personality (their talents are placeholders).
-2. Nana's first name, and whether Jedi is in on the secret.
-3. The moth's name, or let players name it.
-4. Launch scope: are the prologue, Nana and Jedi's house and the Moth House enough for version 1?
-5. Whether to keep the children's real names in a public game.
+1. The moth's name, or let each player name it.

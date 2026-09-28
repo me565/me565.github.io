@@ -175,7 +175,7 @@ button:focus-visible,.hs:focus-visible .hit{outline:3px solid var(--accent);outl
 <g class="hs" data-id="globe" role="button" tabindex="0" aria-label="Snow globe">
   <rect x="196" y="152" width="26" height="8" rx="2" fill="#5b6f7a"/>
   <circle cx="209" cy="140" r="13" fill="#d6e9f0" stroke="#aac7d2"/>
-  <path d="M203 150c0-8 3-13 7-13 3 0 4 3 3 5l-3 1 3 3c0 2-2 4-5 4Z" fill="#e7e2d6"/>
+  <circle cx="209" cy="143" r="6" fill="#9cb04a"/><path d="M203 143l-2-1M215 143l2-1M209 137v-2M205 138l-1-2M213 138l1-2M205 148l-1 2M213 148l1 2" stroke="#6f8233" stroke-width="1.4" stroke-linecap="round"/><path d="M209 137c1-2 2-3 3-3" stroke="#6b4a2d" stroke-width="1.2" fill="none"/>
   <rect class="hit" x="190" y="124" width="38" height="38" fill="transparent"/>
 </g>
 <g class="hs" data-id="orchid" role="button" tabindex="0" aria-label="Orchid">
@@ -414,7 +414,7 @@ function act(id){
       else if (!S.read) say('A jar of kaya, sweet coconut jam. Which present would Nana like best? Maybe her postcard says.');
       else { S.gotKaya = true; add('kaya'); say(`Nana has run out of kaya! ${kid()} takes the jar down from the shelf.`); }
       break;
-    case 'globe': say('A Merlion snow globe. Nana already has three of these.'); break;
+    case 'globe': say('A snow globe with a tiny durian inside. Nana says durians are far too smelly for her.'); break;
     case 'orchid': say('A purple orchid. Lovely, but it wouldn’t like thirteen hours on a plane.'); break;
     case 'paper':
       if (item === 'kaya'){ S.wrapped = true; use('kaya'); add('present'); say('You wrap the kaya in paper covered in little moths, and add a bow. Perfect!'); }

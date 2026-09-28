@@ -1,6 +1,6 @@
 # The Moth House
 
-A point-and-click adventure for children: a warm, cosy mystery that works as a first taste of modern point-and-click games, while still satisfying grown-up puzzle fans. Three children, Mary, Elliot and Zaina, spend their summer holidays from Singapore with Nana and Jedi in Enfield, where Trent Park and the hidden Moth House bring their adventures to life. All characters, art and story are original — never borrow names, characters or imagery from any other game.
+A point-and-click adventure for children: a warm, cosy mystery that works as a first taste of modern point-and-click games, while still satisfying grown-up puzzle fans. Players choose one of three storylines, Mary's (10), Elliot's (7) or Zaina's (4). Each follows the same summer, from the last day of school in Singapore, through packing and the flight, to Nana and Jedi's in Enfield, Trent Park and the hidden Moth House, with rooms and puzzles made for that child's age. The three stories meet in a shared finale. All characters, art and story are original — never borrow names, characters or imagery from any other game.
 
 **The story plan lives in `STORY.md`.** Read it before designing or building any room. Build new rooms from it, update it when the owner changes the story, and never fill in its "TO DECIDE" items without asking him.
 
@@ -24,6 +24,7 @@ The owner is a non-technical but AI-savvy builder working from a Chromebook. Exp
 - Child-appropriate: cosy mystery, never frightening. Nothing unsafe to copy (no matches, fire, knives, dangerous climbing, going into water). No failing and no timers; wrong tries get a friendly line.
 - Any clue given by sound must also be shown visually.
 - Before putting real Trent Park or Enfield history into the game, check the facts and tell the owner what you checked.
+- Legal safety: follow "Fiction and legal safety" in `STORY.md`. Use the fictional school names (Knightsbrook International School, Little Waves Kindergarten), never the real ones. No real brands, logos or airline names, and never the Merlion, which is a protected symbol in Singapore. Keep the fiction notice in the game's credits.
 
 ## Files
 
@@ -31,7 +32,7 @@ The owner is a non-technical but AI-savvy builder working from a Chromebook. Exp
 - `manifest.webmanifest` — app name, colours, icons.
 - `sw.js` — network-first service worker: players get the latest version when online; the last version still works offline. Keep this behaviour.
 - `icon-192.png`, `icon-512.png` — moth icon (also used as maskable).
-- `next/index.html` — the children's version being built, not yet what players get. Currently a rough draft of the Singapore prologue. It doesn't register the service worker. When the launch rooms are ready, it replaces the live game.
+- `next/index.html` — the children's version being built, not yet what players get. Currently a rough draft of packing day, with all three children playable; it will become Mary's packing day once the choose-a-child screen is built. It doesn't register the service worker. When the launch rooms are ready, it replaces the live game.
 - `STORY.md` — the story plan: characters, places, every scene with its puzzle map, rules for every chapter, open decisions.
 - `.well-known/assetlinks.json`, `.nojekyll` — Android app verification (see Launch status).
 
@@ -72,10 +73,10 @@ The live room uses the style below. The children's version needs a warmer, brigh
 ## What's next for the game
 
 Priorities:
-- Get the open decisions in `STORY.md` answered (the children's ages and personalities, Nana's name, the moth's name, launch scope, real names).
-- Agree the new visual style.
-- Build the launch rooms in order: the Singapore prologue, Nana and Jedi's house, then the Moth House (a rebuild of the current room).
-- Game systems every chapter needs: switching between the three children, the hint moth, Nana's notebook, and postcard saves (localStorage is fine).
+- Part 1, "Leaving Singapore" (see Launch plan in `STORY.md`): the choose-a-child screen and shared systems (the hint moth, postcard saves per child in localStorage, the fiction notice), then Mary's, Elliot's and Zaina's stages 1 to 3.
+- Agree the new visual style with the owner.
+- Part 2, "The Moth House": stages 4 to 6, the finale and the epilogue.
+- Still open: the moth's name.
 - Keep puzzles layered for grown-ups: branching paths, clues carried between chapters, and one optional hard Night Moth challenge per chapter. The owner has finished every Rusty Lake and Dark Dome game and wants a real challenge there.
 - Keep the one-file simplicity only while it stays manageable. With several rooms, splitting into separate files is fine.
 - Optional atmosphere: sound (wingbeats, birdsong, rain), only after a tap so browsers allow it.
