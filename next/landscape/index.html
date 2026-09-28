@@ -160,7 +160,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-28j';
+const BUILD = '2026-09-28k';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -217,13 +217,13 @@ const LAYERS = {
     {src:'../art/classroom/layer-plant3-pot.png', l:51.0, t:57.69, w:6.8, h:8.81, shadow:.5},
     {src:'../art/classroom/layer-plant4-pot.png', l:59.3, t:57.70, w:7.7, h:8.80, shadow:.5}],
   c3:[
-    {src:'../art/classroom/layer-coat.png', group:'coat', l:60.4, t:50.2, w:9.8, h:30.8},
+    {src:'../art/classroom/layer-coat.png', group:'coat', l:59.9, t:50.4, w:10.8, h:24.2},
     {src:'../art/classroom/layer-lost.png', group:'lost', l:77.5, t:74.5, w:10, h:8.9, clipBottom:81},
     {src:'../art/classroom/layer-lid.png', group:'lid', l:27.6, t:67.3, w:10, h:10.3}],
   c4:[
     {src:'../art/classroom/layer-envelope.png', group:'envelope', l:50.5, t:66.5, w:6.5, h:5.5, hideWhen:() => S.got.includes('envelope')},
     /* the hamster lives inside the cage: it is clipped to the cage and the cage's glass is drawn faintly over it */
-    {src:'../art/classroom/layer-hamster.png', group:'hamster', l:68.1, t:56.3, w:3.9, h:5.5, glass:[67.3, 52.2, 10.2, 9.3], shadow:.5},
+    {src:'../art/classroom/layer-hamster.png', group:'hamster', l:68.1, t:56.3, w:3.9, h:5.5, glass:[67.3, 52.2, 10.2, 9.3], shadow:.5, tone:'saturate(.72) brightness(.94) contrast(.92)'},
     {src:'../art/classroom/layer-backpack.png', group:'backpack', l:58.2, t:78.5, w:7, h:15.3, shadow:.8}]
 };
 /* every picture is loaded once, up front, so cut-outs never appear late */
@@ -255,12 +255,13 @@ function drawLayer(c, t){
   if (L.clipBottom != null){ const yClip = toCanvas(c, L, 0, L.clipBottom)[1]; ctx.beginPath(); ctx.rect(0, 0, c.width, yClip); ctx.clip(); }
   let glassRect = null;
   if (L.glass){ const [gx, gy] = toCanvas(c, L, L.glass[0], L.glass[1]), [gx2, gy2] = toCanvas(c, L, L.glass[0]+L.glass[2], L.glass[1]+L.glass[3]); glassRect = [gx, gy, gx2-gx, gy2-gy]; ctx.beginPath(); ctx.rect(...glassRect); ctx.clip(); }
+  if (L.tone) ctx.filter = L.tone; /* things behind glass are drawn a little duller, so they sit inside rather than on top */
   if (L.shadow){ /* a soft contact shadow under things that stand on a surface, so nothing floats */
     ctx.save(); ctx.filter = `blur(${Math.max(2, W*0.03)}px)`; ctx.fillStyle = `rgba(30,25,40,${0.28*L.shadow})`;
     ctx.beginPath(); ctx.ellipse(ox + W/2, oy + H - H*0.01, W*0.46, Math.max(3, W*0.07), 0, 0, Math.PI*2); ctx.fill(); ctx.restore(); }
   const finish = () => { /* the glass front of a cage, drawn faintly over whatever is inside */
     if (!glassRect) return; const wall = $('w-'+VIEWS[S.view]); if (!wall || !wall.naturalWidth) return;
-    ctx.globalAlpha = 0.32; ctx.drawImage(wall, L.glass[0]/100*wall.naturalWidth, L.glass[1]/100*wall.naturalHeight, L.glass[2]/100*wall.naturalWidth, L.glass[3]/100*wall.naturalHeight, ...glassRect); ctx.globalAlpha = 1; };
+    ctx.filter = 'none'; ctx.globalAlpha = 0.5; ctx.drawImage(wall, L.glass[0]/100*wall.naturalWidth, L.glass[1]/100*wall.naturalHeight, L.glass[2]/100*wall.naturalWidth, L.glass[3]/100*wall.naturalHeight, ...glassRect); ctx.globalAlpha = 1; };
   const damp = (f, tau) => Math.sin(2*Math.PI*f*t) * Math.exp(-t/tau);
   if (!anim){ ctx.drawImage(img, ox, oy); finish(); ctx.restore(); return; }
   const N = 40;
