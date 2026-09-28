@@ -50,6 +50,20 @@ The owner's rule for every room in the game:
 - **Close-ups** zoom into one object, such as reading a postcard or working a lock, with a button to step back.
 - A small label on the scene always says which room the player is in.
 
+## Visual style (agreed 28 Sept 2026)
+
+Drawn in code as SVG, to a polished flat-illustration standard. Rules for every wall:
+- **A box in one-point perspective:** ceiling, side walls, back wall and a floor band, drawn by the engine; the horizon sits low so the floor is a band, not a field.
+- **Ink outlines** on everything (heavier at the front), a shadow side on every object, cast shadows, one light source per wall, paper grain and a vignette over the whole picture.
+- **Lived in:** every room has ordinary clutter and life (pictures, plants, pets, shelves), which also gives clues places to hide.
+- **Everything tappable breathes** with a soft golden glow, the key item sparkles, and no tap target is smaller than a fingertip. Doors and hidden paper moths don't glow.
+- **The bottom corners of every wall stay clear** for the turn arrows, which sit in the floor band.
+- **Side-wall items** are angled gently and zoom when tapped.
+- **Clues are pictures where possible:** the timetable uses a coloured icon per subject, with a key in the close-up.
+- **Palette:** Singapore bright and tidy (cream and mint walls, pale wood, teal and purple accents, warm afternoon sun); Enfield and Trent Park in long golden evenings (deeper greens and browns); the Moth House in dusk blues with lantern glow.
+- **Type:** Caprasimo for titles, Atkinson Hyperlegible for game text, Caveat for handwriting.
+- **Clocks and details must match the story:** the classroom clock reads twenty to three, before the last bell at three.
+
 ## Characters
 
 - **Mary (10).** Notices patterns, reads everything.
@@ -58,7 +72,8 @@ The owner's rule for every room in the game:
 - **Nana.** Grandmother in Enfield. Always just "Nana". Warm, knows more than she says. Found the Moth House as a girl; the faded portrait in the Moth House is her.
 - **Jedi.** Grandfather in Enfield. Cheeky but lazy: always "just resting his eyes", bargains with biscuits, and takes the credit for everything the children do. Secretly on their side.
 - **Mum and Dad.** At home in Singapore. Each child sends them a postcard at the end of each stage.
-- **The moth.** A gentle guide whose wings glow like a night light. Gives hints. **TO DECIDE:** its name, or let each player name it.
+- **The moth.** A gentle guide whose wings glow like a night light. Gives hints from Enfield onwards (the Hint button). **TO DECIDE:** its name, or let each player name it.
+- **Nutmeg.** Class 5H's hamster. In Mary's school stage he is the hint-giver: tapping his cage gives the same three-step hints as the Hint button. Rule 3 of the class rules: feed Nutmeg once a day, never twice.
 - **The Moth House.** Appears at dusk to people who are looking. Each moth-light brought home wakes a room.
 
 ## The journey
@@ -86,8 +101,8 @@ Decided on 28 Sept 2026 (the owner left it to Claude):
 
 ### Stage 1: Last day of school — Knightsbrook International School — difficulty 3
 Built as a playable draft in `next/index.html`. Three rooms:
-- **Classroom 5H** (square, 4 views): whiteboard and Mr Hollis's desk; window and the class bean plants (quiet wall); door to the corridor and coat pegs; the class timetable above Mary's desk. She starts facing her desk.
-- **Corridor** (square, 4 views): the lockers (Mary's is the purple one); the library doors; the notice board with a bonus riddle card; the door back to 5H.
+- **Classroom 5H** (square, 4 views): whiteboard, supplies cupboard and Mr Hollis's desk; the window wall with the bean plants and a plane in the sky; door to the corridor, coat pegs and the lost-property box; the timetable wall with the class's paintings, a clock, a bookshelf, Nutmeg's cage on a cabinet, a plant, Mary's desk with the envelope, and her bag. Class rules and a world map hang on the side walls and zoom when tapped. She starts facing her desk.
+- **Corridor** (square, 4 views): the lockers (Mary's is the purple one) with certificates above and a bench; the library doors with a water fountain and the trophy cabinet; the notice board (summer fair, swimming gala, lost cat Biscuit, house points) with the bonus riddle card; the doors to 5H and 5K under bunting.
 - **Library** (long, 6 views): Science shelf and globe; Music shelf with a gap; window and beanbags (quiet wall); Art shelf and the returns trolley; Stories shelf; doors to the corridor and the librarian's desk ("Back soon!").
 
 Mr Hollis is Mary's (invented) teacher. Everyone else is at the goodbye party in the playground.

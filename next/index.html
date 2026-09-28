@@ -910,7 +910,7 @@ table.tt td.day{font-weight:700;text-align:left;background:#eaf1ee}
 <!-- close-up: the timetable -->
 <div class="overlay closeup" id="ttUI" hidden>
   <p class="otitle">5H timetable. Period numbers along the top.</p>
-  <svg class="ttz" viewBox="0 0 220 176" aria-label="The class timetable, with a picture for each lesson"><rect width="220" height="176" rx="4" fill="#fffdf6"/><g id="tt"></g></svg>
+  <svg class="ttz" viewBox="0 0 220 190" aria-label="The class timetable, with a picture for each lesson"><rect width="220" height="190" rx="4" fill="#fffdf6"/><g id="tt"></g></svg>
   <button class="ob" data-close>Step back</button>
 </div>
 
@@ -1132,7 +1132,7 @@ $('ttWall').innerHTML = ttGrid(60, 148, 30, 26, 17, 13, 8);
 function openTimetable(){
   let key = '';
   Object.values(SUBJECT).forEach(([id,col,name],i) => {
-    const x = 8 + (i%4)*53, y = 138 + Math.floor(i/4)*18;
+    const x = 10 + (i%3)*70, y = 138 + Math.floor(i/3)*16;
     key += `<use href="#${id}" x="${x}" y="${y}" width="12" height="12" style="color:${col}"/><text x="${x+15}" y="${y+9.5}" font-size="8" fill="#2b2836" class="lbl">${name}</text>`;
   });
   $('tt').innerHTML = ttGrid(8, 6, 34, 28, 21, 16, 9) + key;
