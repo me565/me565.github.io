@@ -78,7 +78,9 @@ button:focus-visible,.hs:focus-visible .hit{outline:3px solid var(--accent);outl
 .screen .intro{margin:0;color:var(--muted);font-size:clamp(.9rem,2.2dvh,1.05rem);line-height:1.4}
 .screen h2{margin:0;font-family:Caprasimo,"Cooper Black",Georgia,serif;font-weight:400;font-size:clamp(1.3rem,3.6dvh,1.8rem);color:var(--mary)}
 .kid,.stagebtn{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:center;text-align:left;border-radius:16px;border:2px solid var(--c);background:var(--cs);color:var(--ink);font:inherit;padding:clamp(8px,1.8dvh,16px);cursor:pointer;min-height:64px}
-.kid[data-k="mary"],.stagebtn{--c:var(--mary);--cs:var(--mary-soft)} .kid[data-k="elliot"]{--c:var(--elliot);--cs:var(--elliot-soft)} .kid[data-k="zaina"]{--c:var(--zaina);--cs:var(--zaina-soft)}
+.kid[data-k="mary"],.stagebtn{--c:var(--mary);--cs:var(--mary-soft)}
+#story[data-child="elliot"] .stagebtn{--c:var(--elliot);--cs:var(--elliot-soft)} #story[data-child="elliot"] h2{color:var(--elliot)}
+#story[data-child="zaina"] .stagebtn{--c:var(--zaina);--cs:var(--zaina-soft)} #story[data-child="zaina"] h2{color:var(--zaina)} .kid[data-k="elliot"]{--c:var(--elliot);--cs:var(--elliot-soft)} .kid[data-k="zaina"]{--c:var(--zaina);--cs:var(--zaina-soft)}
 .kid .portrait{grid-row:span 3}
 .kid .badge,.stagebtn .badge{grid-row:span 2;width:clamp(40px,7dvh,56px);height:clamp(40px,7dvh,56px);border-radius:50%;background:var(--c);color:#fff;display:grid;place-items:center;font-family:Caprasimo,Georgia,serif;font-size:1.3rem}
 .kid b,.stagebtn b{font-family:Caprasimo,"Cooper Black",Georgia,serif;font-weight:400;font-size:clamp(1.05rem,2.8dvh,1.35rem)}
@@ -114,6 +116,8 @@ button:focus-visible,.hs:focus-visible .hit{outline:3px solid var(--accent);outl
 .hand{font-family:Caveat,"Comic Sans MS",cursive}
 .glow{fill:#ffd977;opacity:0;animation:breathe 2.8s ease-in-out infinite;pointer-events:none}
 @keyframes breathe{0%,100%{opacity:0}50%{opacity:.42}}
+.hs.pointed .glow{animation:pointpulse .7s ease-in-out infinite alternate;fill:#ffb347}
+@keyframes pointpulse{from{opacity:.3}to{opacity:.95}}
 .spark{fill:#fff2b0;stroke:#e0a020;stroke-width:.6;transform-box:fill-box;transform-origin:center;animation:twinkle 1.8s ease-in-out infinite;pointer-events:none}
 .spark:nth-child(2){animation-delay:.6s}.spark:nth-child(3){animation-delay:1.2s}
 @keyframes twinkle{0%,100%{transform:scale(.4);opacity:.2}50%{transform:scale(1.15);opacity:1}}
@@ -182,7 +186,8 @@ table.tt td.day{font-weight:700;text-align:left;background:#eaf1ee}
 }
 @media (prefers-reduced-motion:reduce){
   .rain,#blades,.steam,.spark,.bubble{animation:none}
-  .glow{animation:none;opacity:.35}
+  .glow,.hs.pointed .glow{animation:none;opacity:.35}
+  .hs.pointed .glow{opacity:.9}
   .fade{animation:none;opacity:1}
 }
 </style>
@@ -248,12 +253,10 @@ table.tt td.day{font-weight:700;text-align:left;background:#eaf1ee}
 </section>
 
 <!-- Mary's stages -->
-<section id="story" class="screen" aria-label="Mary's story" hidden>
-  <div class="storyhead"><span class="portrait"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#p-mary"/></svg></span><h2>Mary's story</h2></div>
+<section id="story" class="screen" aria-label="A child's story" hidden>
+  <div class="storyhead"><span class="portrait"><svg viewBox="0 0 100 100" aria-hidden="true"><use id="storyPortrait" href="#p-mary"/></svg></span><h2 id="storyTitle">Mary's story</h2></div>
   <p class="intro">Choose where to play.</p>
-  <button class="stagebtn" data-stage="marySchool"><span class="badge">1</span><b>Last day of school</b><span class="sub" data-sub="marySchool">Knightsbrook International School</span></button>
-  <button class="stagebtn" data-stage="maryPacking"><span class="badge">2</span><b>Packing day</b><span class="sub" data-sub="maryPacking">The family flat</span></button>
-  <button class="stagebtn" disabled><span class="badge">3</span><b>The 14-hour flight</b><span class="sub">Coming soon</span></button>
+  <div id="stageList" style="display:contents"></div>
 </section>
 
 <!-- playing -->
@@ -1094,10 +1097,11 @@ table.tt td.day{font-weight:700;text-align:left;background:#eaf1ee}
 </div>
 
 <!-- ending -->
+<!--STAGE_CLOSEUPS-->
 <div class="overlay end" id="endUI" hidden>
   <svg viewBox="-14 -10 28 20" width="28%" aria-hidden="true"><path d="M0 0C-4-9-13-9-13-2-13 3-5 3 0 0Z" fill="#f0b44c"/><path d="M0 0C4-9 13-9 13-2 13 3 5 3 0 0Z" fill="#f0b44c"/><path d="M0 1C-3 7-9 8-9 4-9 1-4 1 0 1Z" fill="#e9b98a"/><path d="M0 1C3 7 9 8 9 4 9 1 4 1 0 1Z" fill="#e9b98a"/><ellipse cx="0" cy="1" rx="1.3" ry="5" fill="#2b3431"/></svg>
   <div id="endText" style="display:flex;flex-direction:column;gap:inherit;align-items:center"></div>
-  <button class="ob fade" id="endBack" style="animation-delay:5.2s">Back to Mary's story</button>
+  <button class="ob fade" id="endBack" style="animation-delay:5.2s">Back to the story</button>
 </div>
 </div>
 </div>
@@ -1109,6 +1113,10 @@ table.tt td.day{font-weight:700;text-align:left;background:#eaf1ee}
 </section>
 </main>
 
+<script>window.STAGE_DEFS = []; function registerStage(key, def){ STAGE_DEFS.push([key, def]); }</script>
+<script src="stages/mary-flight.js"></script>
+<script src="stages/elliot.js"></script>
+<script src="stages/zaina.js"></script>
 <script>
 const $ = id => document.getElementById(id);
 
@@ -1116,9 +1124,16 @@ const $ = id => document.getElementById(id);
 const SAVE_KEY = 'mothhouse.next.v1';
 function loadSave(){ try { return JSON.parse(localStorage.getItem(SAVE_KEY)) || {}; } catch(e){ return {}; } }
 function writeSave(s){ try { localStorage.setItem(SAVE_KEY, JSON.stringify(s)); } catch(e){} }
+const STORYLINES = {
+  mary:{name:'Mary\u2019s story', portrait:'p-mary', stages:[['marySchool','Last day of school','Knightsbrook International School'],['maryPacking','Packing day','The family flat'],['maryFlight','The 14-hour flight','Singapore to London']]},
+  elliot:{name:'Elliot\u2019s story', portrait:'p-elliot', stages:[['elliotSchool','Last day of school','Knightsbrook International School'],['elliotPacking','Packing day','His bedroom'],['elliotFlight','The 14-hour flight','Singapore to London']]},
+  zaina:{name:'Zaina\u2019s story', portrait:'p-zaina', stages:[['zainaSchool','Last day of school','Little Waves Kindergarten'],['zainaPacking','Packing day','Her bedroom'],['zainaFlight','The 14-hour flight','Singapore to London']]}
+};
+const childOf = key => Object.keys(STORYLINES).find(c => STORYLINES[c].stages.some(st => st[0] === key));
+let currentChild = 'mary';
 function saveStage(key, extra){
-  const save = loadSave();
-  save.mary = Object.assign({}, save.mary, {[key]:true}, extra || {});
+  const save = loadSave(), child = childOf(key);
+  save[child] = Object.assign({}, save[child], {[key]:true}, extra || {});
   writeSave(save);
 }
 
@@ -1275,7 +1290,7 @@ const STAGE_SCHOOL = {
   }
 };
 
-function openNote(key){ $('noteBody').innerHTML = NOTES[key]; $('noteUI').hidden = false; }
+function openNote(key, mirror){ $('noteBody').innerHTML = NOTES[key]; $('noteBody').classList.toggle('mirror', !!mirror); $('noteUI').hidden = false; }
 const SUBJECT = {Ma:['i-ma','#2f7c83','Maths'], En:['i-en','#d9a622','English'], Sc:['i-sc','#3b78b8','Science'], Mu:['i-mu','#7a5cc2','Music'], Ar:['i-ar','#d0602f','Art'], PE:['i-pe','#27794c','PE'], Ge:['i-ge','#a8744a','Geography'], Li:['i-li','#c4589a','Library']};
 function ttGrid(x0, y0, dayW, cw, rh, ic, fs){
   let out = '';
@@ -1550,19 +1565,31 @@ function roomBox(name, light){
   s += `<rect x="40" y="62" width="280" height="298" fill="url(#${id}-back)"/><rect x="40" y="272" width="280" height="4" fill="#000" opacity=".06"/>`;
   s += `<polygon points="0,404 40,360 320,360 360,404 360,480 0,480" fill="url(#${id}-floor)"/>`;
   const rays = [75,110,145,180,215,250,285].map(x => `<line x1="${x}" y1="360" x2="${(180+(x-180)*1.774).toFixed(0)}" y2="480"/>`).join('');
-  if (c.boards === 'wood') s += `<g stroke="#8f7350" stroke-width="1" opacity=".5">${rays}</g><g stroke="#8f7350" stroke-width=".8" opacity=".35"><line x1="0" y1="382" x2="360" y2="382"/><line x1="0" y1="412" x2="360" y2="412"/><line x1="0" y1="450" x2="360" y2="450"/></g>`;
+  if (c.boards === 'tarmac') s += `<g stroke="#fffdf6" stroke-width="2" opacity=".5"><line x1="60" y1="400" x2="300" y2="400"/><line x1="100" y1="440" x2="260" y2="440"/></g><circle cx="180" cy="440" r="26" fill="none" stroke="#fffdf6" stroke-width="2" opacity=".5"/>`;
+  else if (c.boards === 'wood') s += `<g stroke="#8f7350" stroke-width="1" opacity=".5">${rays}</g><g stroke="#8f7350" stroke-width=".8" opacity=".35"><line x1="0" y1="382" x2="360" y2="382"/><line x1="0" y1="412" x2="360" y2="412"/><line x1="0" y1="450" x2="360" y2="450"/></g>`;
   else if (c.boards === 'lino') s += `<g stroke="#7f8d98" stroke-width="1" opacity=".35">${rays}</g>` + (name === 'corridor' ? `<polygon points="150,360 210,360 233,480 127,480" fill="#3f8f96" opacity=".35"/>` : `<g stroke="#7f8d98" stroke-width=".8" opacity=".25"><line x1="0" y1="382" x2="360" y2="382"/><line x1="0" y1="412" x2="360" y2="412"/><line x1="0" y1="450" x2="360" y2="450"/></g>`);
   else s += `<g stroke="#6f8560" stroke-width="1" opacity=".14">${rays}</g><rect x="40" y="360" width="280" height="6" fill="#6f8560" opacity=".18"/>`;
   if (light === 'left') s += `<g filter="url(#blur6)" opacity=".36"><polygon points="24,410 96,380 214,398 170,478 60,480" fill="#fff1bd"/></g><polygon points="40,62 40,360 66,346 66,96" fill="#fff1bd" opacity=".14"/>`;
   if (light === 'right') s += `<g filter="url(#blur6)" opacity=".36"><polygon points="336,410 264,380 146,398 190,478 300,480" fill="#fff1bd"/></g><polygon points="320,62 320,360 294,346 294,96" fill="#fff1bd" opacity=".14"/>`;
   if (light === 'front') s += `<g filter="url(#blur6)" opacity=".4"><polygon points="70,372 290,372 330,470 30,470" fill="#fff1bd"/></g>`;
   if (light === 'back') s += `<g filter="url(#blur6)" opacity=".22"><polygon points="60,400 300,400 330,480 30,480" fill="#fff1bd"/></g>`;
+  if (c.outdoor) s += `<g fill="none" stroke="#2b2836" stroke-width="1.6" stroke-linejoin="round"><polyline points="0,404 40,360 320,360 360,404"/></g>`;
+  else {
   s += `<polygon points="0,396 40,352 40,360 0,404" fill="${c.skirt[0]}" class="t"/><rect x="40" y="352" width="280" height="8" fill="${c.skirt[1]}" class="t"/><polygon points="360,396 320,352 320,360 360,404" fill="${c.skirt[2]}" class="t"/>`;
   s += `<g fill="none" stroke="#2b2836" stroke-width="1.6" stroke-linejoin="round"><polyline points="0,21 40,62 320,62 360,21"/><line x1="40" y1="62" x2="40" y2="360"/><line x1="320" y1="62" x2="320" y2="360"/><polyline points="0,404 40,360 320,360 360,404"/></g>`;
-  if (!c.lamp) s += `<ellipse cx="180" cy="20" rx="70" ry="18" fill="url(#lampGlow)"/><circle cx="180" cy="16" r="9" fill="#fffdf4" class="o"/><line x1="180" y1="0" x2="180" y2="8" stroke="#2b2836" stroke-width="1.6"/>`;
+  }
+  if (!c.lamp && !c.outdoor) s += `<ellipse cx="180" cy="20" rx="70" ry="18" fill="url(#lampGlow)"/><circle cx="180" cy="16" r="9" fill="#fffdf4" class="o"/><line x1="180" y1="0" x2="180" y2="8" stroke="#2b2836" stroke-width="1.6"/>`;
   if (c.lamp) s += `<ellipse cx="180" cy="26" rx="90" ry="22" fill="url(#lampGlow)"/><rect x="118" y="12" width="124" height="14" rx="5" fill="#fffdf4" class="o"/><rect x="124" y="16" width="112" height="5" rx="2" fill="#fff6c8"/>`;
   return s;
 }
+const sceneSvg = $('scene'), grainRect = sceneSvg.querySelector('[filter="url(#grain)"]');
+STAGE_DEFS.forEach(([key, d]) => {
+  if (d.css){ const st = document.createElement('style'); st.textContent = d.css; document.head.appendChild(st); }
+  if (d.views){ const tmp = document.createElementNS('http://www.w3.org/2000/svg', 'g'); tmp.innerHTML = d.views; [...tmp.childNodes].forEach(n => sceneSvg.insertBefore(n, grainRect)); }
+  if (d.closeups){ const tmp = document.createElement('div'); tmp.innerHTML = d.closeups; [...tmp.children].forEach(n => $('endUI').before(n)); }
+  if (d.boxes) Object.assign(BOXES, d.boxes);
+  d.stage.key = key; STAGES[key] = d.stage;
+});
 document.querySelectorAll('.view[data-box]').forEach(v => {
   const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
   g.innerHTML = roomBox(v.dataset.box, v.dataset.light);
@@ -1602,6 +1629,7 @@ const BOOKCASES = {
   'bc-sto':{x:52, y:70, w:186, h:282, colours:['#3a8f5c','#5fc08a','#27794c','#f5d76e'], label:'STORIES', labelColour:'#3a8f5c'}
 };
 Object.entries(BOOKCASES).forEach(([id, o]) => { $(id).innerHTML = bookcase(o); });
+STAGE_DEFS.forEach(([key, d]) => { if (d.setup) d.setup(); });
 /* Everything tappable gets a soft breathing glow behind it, worked out from its tap area. Doors and hidden paper moths don't. */
 document.querySelectorAll('.hs:not(.door):not(.pmoth)').forEach(el => {
   const hit = el.querySelector('.hit'); if (!hit) return;
@@ -1625,6 +1653,7 @@ function sparkles(){
 
 function render(){
   document.querySelectorAll('.view').forEach(v => v.classList.toggle('on', v.id === 'v-' + viewId()));
+  document.querySelectorAll('.hs[data-stage]').forEach(el => el.classList.toggle('off', el.dataset.stage !== ST.key));
   sparkles();
   $('where').textContent = ST.rooms[S.room].name;
   ST.draw(S);
@@ -1640,6 +1669,7 @@ function render(){
       b.setAttribute('aria-pressed', S.sel === it ? 'true' : 'false');
       b.onclick = () => {
         if (def.note){ S.sel = null; openNote(def.note); render(); return; }
+        if (def.open){ S.sel = null; def.open(); render(); return; }
         S.sel = S.sel === it ? null : it;
         if (S.sel) say(`You're holding the ${def.name}. Where should it go?`);
         render();
@@ -1679,6 +1709,21 @@ function hint(){
   if (!S || S.done) return;
   const i = ST.hints.findIndex(h => !h.goal());
   S.hint[i] = Math.min((S.hint[i] ?? -1) + 1, 2);
+  if (ST.hintStyle === 'point'){
+    /* For the youngest player the moth points: turn to the thing, make it pulse, say one short line. */
+    const id = ((ST.spark && ST.spark(S)) || [])[0];
+    const el = id && document.querySelector(`.hs[data-id="${id}"]`), view = el && el.closest('.view');
+    if (view){
+      const vid = view.id.slice(2);
+      Object.entries(ST.rooms).forEach(([r, room]) => { const vi = room.views.indexOf(vid); if (vi >= 0 && r === S.room) S.view = vi; });
+      render();
+      document.querySelectorAll('.pointed').forEach(x => x.classList.remove('pointed'));
+      el.classList.add('pointed'); setTimeout(() => el.classList.remove('pointed'), 4500);
+    }
+    const tips = ST.hints[i].tips.filter(Boolean);
+    say(`<b>${ST.hinter || 'The moth points'}:</b> ` + tips[Math.min(S.hint[i], tips.length - 1)]);
+    return;
+  }
   say(`<b>${ST.hinter || 'The moth whispers'}:</b> ` + ST.hints[i].tips[S.hint[i]]);
 }
 
@@ -1688,16 +1733,29 @@ function show(screen){
   $('hintBtn').hidden = screen !== 'game';
   $('backBtn').hidden = screen === 'home';
   $('backBtn').textContent = 'Back';
-  if (screen === 'home' || screen === 'story'){
-    const m = loadSave().mary || {};
-    const done = ['marySchool','maryPacking'].filter(k => m[k]).length;
-    $('marySub').textContent = `Age 10 · ${done} of 3 stages done`;
-    document.querySelector('[data-sub="marySchool"]').textContent = m.marySchool ? 'Done ✓ · Play again' : 'Knightsbrook International School';
-    document.querySelector('[data-sub="maryPacking"]').textContent = m.maryPacking ? 'Done ✓ · Play again' : 'The family flat';
+  const save = loadSave();
+  if (screen === 'home'){
+    Object.entries(STORYLINES).forEach(([c, line]) => {
+      const btn = document.querySelector(`.kid[data-k="${c}"]`), sub = btn.querySelector('.sub');
+      const built = line.stages.filter(st => STAGES[st[0]]).length, done = line.stages.filter(st => (save[c] || {})[st[0]]).length;
+      const age = {mary:10, elliot:7, zaina:4}[c];
+      btn.disabled = !built;
+      sub.textContent = built ? `Age ${age} \u00b7 ${done} of ${line.stages.length} stages done` : `Age ${age} \u00b7 Coming soon`;
+    });
+  }
+  if (screen === 'story'){
+    const line = STORYLINES[currentChild], got = save[currentChild] || {};
+    $('storyTitle').textContent = line.name; $('story').dataset.child = currentChild;
+    $('storyPortrait').setAttribute('href', '#' + line.portrait);
+    $('stageList').innerHTML = line.stages.map(([key, title, place], i) => {
+      const built = !!STAGES[key];
+      return `<button class="stagebtn" data-stage="${key}" ${built ? '' : 'disabled'}><span class="badge">${i+1}</span><b>${title}</b><span class="sub" data-sub="${key}">${!built ? 'Coming soon' : (got[key] ? 'Done \u2713 \u00b7 Play again' : place)}</span></button>`;
+    }).join('');
+    $('stageList').querySelectorAll('.stagebtn[data-stage]').forEach(b => b.onclick = () => startStage(b.dataset.stage));
   }
 }
 function startStage(key){
-  ST = STAGES[key];
+  ST = STAGES[key]; currentChild = childOf(key) || currentChild;
   S = Object.assign({room:null, view:0, inv:[], sel:null, done:false, hint:{}}, ST.fresh());
   place(...ST.start);
   document.querySelectorAll('.overlay').forEach(o => o.hidden = true);
@@ -1742,8 +1800,7 @@ $('intro').onclick = () => { if (introDone) endIntro(); };
 $('replayIntro').onclick = playIntro;
 let seenIntro = false; try { seenIntro = !!localStorage.getItem(INTRO_KEY); } catch(e){}
 if (!seenIntro && !matchMedia('(prefers-reduced-motion: reduce)').matches) playIntro();
-document.querySelector('.kid[data-k="mary"]').onclick = () => show('story');
-document.querySelectorAll('.stagebtn[data-stage]').forEach(b => b.onclick = () => startStage(b.dataset.stage));
+document.querySelectorAll('.kid[data-k]').forEach(b => b.onclick = () => { currentChild = b.dataset.k; show('story'); });
 show('home');
 </script>
 </body>

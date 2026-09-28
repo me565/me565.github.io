@@ -73,6 +73,7 @@ Drawn in code as SVG, to a polished flat-illustration standard. Rules for every 
 - **Jedi.** Grandfather in Enfield. Cheeky but lazy: always "just resting his eyes", bargains with biscuits, and takes the credit for everything the children do. Secretly on their side.
 - **Mum and Dad.** At home in Singapore. Each child sends them a postcard at the end of each stage.
 - **The moth.** A gentle guide whose wings glow like a night light. Gives hints from Enfield onwards (the Hint button). **TO DECIDE:** its name, or let each player name it.
+- **Miss Okafor** is Elliot's (invented) teacher in class 2P; **Captain**, the class goldfish, is his hint-giver (tapping the tank gives the hints). **Miss Lin** runs Little Waves and gives Zaina her moth sticker. **Priya** is the flight attendant all three children meet on the plane. All invented.
 - **Nutmeg.** Class 5H's hamster. In Mary's school stage he is the hint-giver: tapping his cage gives the same three-step hints as the Hint button. Rule 3 of the class rules: feed Nutmeg once a day, never twice.
 - **The Moth House.** Appears at dusk to people who are looking. Each moth-light brought home wakes a room.
 
@@ -96,6 +97,7 @@ Decided on 28 Sept 2026 (the owner left it to Claude):
 - **Part 1: Leaving Singapore** is the first release: stages 1 to 3 for all three children, so nine small rooms. Each story ends with a small magical moment on the plane, and all three end with a short shared teaser: as the plane comes down over London at dusk, a glow flickers in the woods below.
 - **Part 2: The Moth House** follows as an update: stages 4 to 6, the finale and the epilogue.
 - Build order: the choose-a-child screen and shared systems (hints, saves, postcards), then Mary's stages 1 to 3 (her packing draft already exists), then Elliot's, then Zaina's. Owner testing after each room.
+- **Built (28 Sept 2026):** all nine Part 1 stages are playable in `next/`. Mary's flight, Elliot's three stages and Zaina's three stages live in `next/stages/`. Elliot's packing day reuses the family flat's living room and kitchen (the batteries are in the kitchen drawer); all three flights share the same cabin, each child seeing their own things in it. Zaina's hints are different: the moth turns her to the right wall and makes the thing pulse, with one short line, because she can't read yet.
 
 ## Mary's story (age 10)
 
@@ -239,3 +241,4 @@ Back to school in Singapore. A big Atlas moth (a real Southeast Asian species) l
 
 1. The moth's name, or let each player name it.
 2. What the children (and Mum) look like: hair, skin tone, glasses, anything they always wear. The portraits and Mum's figure use placeholder colouring until then.
+3. Who flies with the children. The flight stages don't say yet: Mum could fly with them, or Nana and Jedi could collect them at the airport. Stage 4 (arriving in Enfield) needs this decided.
