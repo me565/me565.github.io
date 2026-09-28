@@ -88,15 +88,21 @@ button{font:inherit;color:inherit;cursor:pointer}
 /* micro-animations: a patch of the wall picture is lifted and moved for a moment */
 .sprite{position:absolute;pointer-events:none;background-repeat:no-repeat;will-change:transform}
 .layer{position:absolute;pointer-events:none;display:block;will-change:transform}
-@media (prefers-reduced-motion:no-preference){
-  .sprite.sway,.layer.sway{transform-origin:50% 100%;animation:sway 1.8s ease-in-out}
-  .sprite.swing{transform-origin:50% 0%;animation:swing 2s ease-in-out}
-  .sprite.lift{animation:lift .9s ease-out}
-  .sprite.hop{animation:hop .8s ease-out}
-  .sprite.jiggle{animation:jiggle .7s ease-in-out}
-  .sprite.rattle{animation:rattle .6s ease-in-out}
-  .sprite.flutter{transform-origin:50% 0%;animation:flutter 1.3s ease-in-out}
-  .sprite.bob{animation:bob 1s ease-in-out}
+/* Tap feedback plays everywhere; on a reduce-motion device it is shorter and gentler rather than absent. */
+.sprite.sway,.layer.sway{transform-origin:50% 100%;animation:sway 1.8s ease-in-out}
+.sprite.swing{transform-origin:50% 0%;animation:swing 2s ease-in-out}
+.sprite.lift{animation:lift .9s ease-out}
+.sprite.hop{animation:hop .8s ease-out}
+.sprite.jiggle{animation:jiggle .7s ease-in-out}
+.sprite.rattle{animation:rattle .6s ease-in-out}
+.sprite.flutter{transform-origin:50% 0%;animation:flutter 1.3s ease-in-out}
+.sprite.bob{animation:bob 1s ease-in-out}
+@media (prefers-reduced-motion:reduce){
+  .sprite,.layer{animation-duration:.5s!important;animation-iteration-count:1!important}
+  .sprite.sway,.layer.sway{animation-name:sway-soft}
+  .sprite.swing{animation-name:swing-soft}
+  @keyframes sway-soft{0%,100%{transform:skewX(0)}50%{transform:skewX(-4deg)}}
+  @keyframes swing-soft{0%,100%{transform:rotate(0)}50%{transform:rotate(4deg)}}
 }
 @keyframes sway{0%,100%{transform:skewX(0)}20%{transform:skewX(-10deg)}50%{transform:skewX(8deg)}75%{transform:skewX(-4deg)}}
 @keyframes swing{0%,100%{transform:rotate(0)}20%{transform:rotate(12deg)}50%{transform:rotate(-9deg)}75%{transform:rotate(4deg)}}
@@ -226,7 +232,7 @@ const LAYERS = {
 };
 /* Lift a patch of the current wall and play it: the same picture, cropped and moved, so the room never changes underneath. */
 function animate(h){
-  if (!h.anim || matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  if (!h.anim) return;
   if (h.layer){
     document.querySelectorAll(`.layer[data-group="${h.layer}"]`).forEach((el, i) => {
       el.classList.remove(h.anim); void el.offsetWidth;
@@ -442,7 +448,7 @@ document.addEventListener('visibilitychange', () => { if (!AC) return; if (docum
 /* ---------- wiring ---------- */
 $('left').onclick = () => turn(-1); $('right').onclick = () => turn(1);
 $('hintBtn').onclick = hint;
-$('menuBtn').onclick = () => { $('menu').hidden = false; $('diag').textContent = `sound: ${AC ? AC.state : 'not started'}${music ? ', music playing' : ''} · reduced motion: ${matchMedia('(prefers-reduced-motion:reduce)').matches ? 'ON (animations off)' : 'off'} · ${innerWidth}×${innerHeight} · ${navigator.userAgent.replace(/^.*\((.*?)\).*$/, '$1').slice(0, 40)}`; };
+$('menuBtn').onclick = () => { $('menu').hidden = false; $('diag').textContent = `sound: ${AC ? AC.state : 'not started'}${music ? ', music playing' : ''} · reduced motion: ${matchMedia('(prefers-reduced-motion:reduce)').matches ? 'ON (gentle taps)' : 'off'} · ${innerWidth}×${innerHeight} · ${navigator.userAgent.replace(/^.*\((.*?)\).*$/, '$1').slice(0, 40)}`; };
 $('closeMenu').onclick = () => { $('menu').hidden = true; };
 $('soundBtn').onclick = () => setSound(!soundOn);
 $('soundBtn').textContent = 'Sound: ' + (soundOn ? 'on' : 'off');
