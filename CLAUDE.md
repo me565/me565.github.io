@@ -55,7 +55,7 @@ Interaction model: tap an object to look; tap an inventory item to select it, th
 
 ## Visual style
 
-The children's version follows "Visual style" in `STORY.md` (agreed with the owner on 28 Sept 2026): rooms as perspective boxes drawn by the engine, ink outlines, shading, paper grain, lived-in rooms, breathing glows on tappables, arrows in the bottom corners. In `next/index.html`, a new-style view is `<g class="view" data-box="classroom" data-light="left">` and the engine adds the box; add new rooms to `BOXES`. The classroom and corridor are done; the library and the flat still use the old flat art below and are next to redraw. The live room (the old game) uses the style below.
+The children's version follows "Visual style" in `STORY.md` (agreed with the owner on 28 Sept 2026): rooms as perspective boxes drawn by the engine, ink outlines, shading, paper grain, lived-in rooms, breathing glows on tappables, arrows in the bottom corners. In `next/index.html`, a new-style view is `<g class="view" data-box="classroom" data-light="left">` and the engine adds the box; add new rooms to `BOXES`. The school (classroom, corridor, library) is done; the flat (packing day) still uses the old flat art and is next to redraw. Bookcases come from `BOOKCASES` and `bookcase()`. The live room (the old game) uses the style below.
 
 - Muted, uncanny, flat illustration. Olive moth-pattern wallpaper (#4b5037), dark wood (#4a352a, #3a2f28), brass (#a8844a), dusty rose rug (#5e3434), bone (#d9ccb0), candle glow (#f2c16b).
 - Typeface: IM Fell English (Google Fonts) with Georgia fallback. Sentence case, short, dry, unsettling copy.

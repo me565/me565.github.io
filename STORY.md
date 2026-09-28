@@ -103,7 +103,7 @@ Decided on 28 Sept 2026 (the owner left it to Claude):
 Built as a playable draft in `next/index.html`. Three rooms:
 - **Classroom 5H** (square, 4 views): whiteboard, supplies cupboard and Mr Hollis's desk; the window wall with the bean plants and a plane in the sky; door to the corridor, coat pegs and the lost-property box; the timetable wall with the class's paintings, a clock, a bookshelf, Nutmeg's cage on a cabinet, a plant, Mary's desk with the envelope, and her bag. Class rules and a world map hang on the side walls and zoom when tapped. She starts facing her desk.
 - **Corridor** (square, 4 views): the lockers (Mary's is the purple one) with certificates above and a bench; the library doors with a water fountain and the trophy cabinet; the notice board (summer fair, swimming gala, lost cat Biscuit, house points) with the bonus riddle card; the doors to 5H and 5K under bunting.
-- **Library** (long, 6 views): Science shelf and globe; Music shelf with a gap; window and beanbags (quiet wall); Art shelf and the returns trolley; Stories shelf; doors to the corridor and the librarian's desk ("Back soon!").
+- **Library** (long, 6 views): Science shelf, the globe and a rock collection; Music shelf (with the gap and sticky note) and the listening corner; the window wall with the window seat and a rug; Art shelf and the returns trolley under a "returned books go on the trolley" notice; Stories shelf, a reading rug and the storytime chair; doors to the corridor and the librarian's desk ("Back soon!") under a QUIET PLEASE sign.
 
 Mr Hollis is Mary's (invented) teacher. Everyone else is at the goodbye party in the playground.
 
