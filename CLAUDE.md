@@ -2,7 +2,7 @@
 
 A point-and-click adventure for children: a warm, cosy mystery that works as a first taste of modern point-and-click games, while still satisfying grown-up puzzle fans. Players choose one of three storylines, Mary's (10), Elliot's (7) or Zaina's (4). Each follows the same summer, from the last day of school in Singapore, through packing and the flight, to Nana and Jedi's in Enfield, Trent Park and the hidden Moth House, with rooms and puzzles made for that child's age. The three stories meet in a shared finale. All characters, art and story are original — never borrow names, characters or imagery from any other game.
 
-**The story plan lives in `STORY.md`.** Read it before designing or building any room. Build new rooms from it, update it when the owner changes the story, and never fill in its "TO DECIDE" items without asking him.
+**The story plan lives in `STORY.md`, and the building rules in `next/PLAYBOOK.md`.** Read both before designing or building any room; the playbook holds every rule and every piece of the owner's feedback, and is the standard each room must meet. Build new rooms from it, update it when the owner changes the story, and never fill in its "TO DECIDE" items without asking him.
 
 The owner is a non-technical but AI-savvy builder working from a Chromebook. Explain what you are about to do in plain language, and keep him in the loop before anything goes live.
 
