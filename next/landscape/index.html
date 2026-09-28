@@ -33,7 +33,8 @@ button{font:inherit;color:inherit;cursor:pointer}
 .scene{position:relative;width:100%;aspect-ratio:16/9;border-radius:calc(var(--u) * 1.6);overflow:hidden;background:#e9e2d2;box-shadow:0 calc(var(--u)*1.2) calc(var(--u)*3) rgba(0,0,0,.5)}
 .wall{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .28s ease}
 .wall.on{opacity:1}
-.scene.zoomed .wall.on{filter:blur(calc(var(--u)*.5)) brightness(.72) saturate(.85)}
+.scene.zoomed .wall.on,.scene.zoomed #hots{filter:blur(calc(var(--u)*.5)) brightness(.72) saturate(.85)}
+#hots{position:absolute;inset:0;transition:filter .3s ease}
 .wall{transition:opacity .28s ease, filter .3s ease}
 
 /* tap targets: invisible, drawn on top of the picture */
@@ -69,18 +70,20 @@ button{font:inherit;color:inherit;cursor:pointer}
 .msg b{color:#f3c26a}
 
 /* close-ups: the object comes forward, the room stays behind, softened */
-.closeup{position:absolute;inset:0;display:grid;place-items:center;padding:calc(var(--u)*4) calc(var(--u)*10)}
+.closeup{position:absolute;inset:0;display:grid;place-items:center;padding:calc(var(--u)*3) calc(var(--u)*10) calc(var(--u)*5.5);cursor:pointer}
+.closeup .card{cursor:auto}
+.closeup .stepback{position:absolute;left:0;right:0;bottom:calc(var(--u)*1.4);text-align:center;color:#fffaf0;opacity:.8;font-size:calc(var(--u)*1.8);pointer-events:none;text-shadow:0 1px 3px rgba(0,0,0,.6)}
 .closeup .card{position:relative;max-width:100%;max-height:100%;background:var(--paper);color:var(--ink);border-radius:calc(var(--u)*1);
-  box-shadow:0 calc(var(--u)*1.5) calc(var(--u)*4) rgba(0,0,0,.45), inset 0 0 0 1px rgba(0,0,0,.08);padding:calc(var(--u)*2.4) calc(var(--u)*3);overflow:auto;
+  box-shadow:0 calc(var(--u)*1.5) calc(var(--u)*4) rgba(0,0,0,.45), inset 0 0 0 1px rgba(0,0,0,.08);padding:calc(var(--u)*2.4) calc(var(--u)*3);overflow:hidden;
   transform-origin:center;animation:forward .28s ease-out}
 @media (prefers-reduced-motion:reduce){.closeup .card{animation:none}}
 @keyframes forward{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
-.card.note{font-family:Caveat,"Segoe Print",cursive;font-size:calc(var(--u)*2.9);line-height:1.25;display:flex;flex-direction:column;gap:calc(var(--u)*.9);width:calc(var(--u)*62)}
+.card.note{font-family:Caveat,"Segoe Print",cursive;font-size:calc(var(--u)*2.7);line-height:1.22;display:flex;flex-direction:column;gap:calc(var(--u)*.8);width:calc(var(--u)*62)}
 .card.note .head{font-weight:700;font-size:calc(var(--u)*3.4);color:#6d4fb8}
 .card.note .big{font-size:calc(var(--u)*3.2);font-weight:700;color:#2f7c83}
 .card.note.print{font-family:inherit;font-size:calc(var(--u)*2.2);line-height:1.35}
 .card.note.print .head{font-family:Caprasimo,Georgia,serif;font-weight:400;font-size:calc(var(--u)*2.8);color:#2f7c83}
-.card.tt{padding:calc(var(--u)*1.6);width:calc(var(--u)*70)}
+.card.tt{padding:calc(var(--u)*1.2);width:calc(var(--u)*60)} /* 60 wide keeps its 230:176 shape inside the scene's height */
 .card.tt svg{display:block;width:100%;height:auto}
 .back{position:absolute;right:calc(var(--u)*1.4);top:calc(var(--u)*1.2);width:calc(var(--u)*6);height:calc(var(--u)*6);border-radius:50%;border:0;background:rgba(20,26,40,.85);color:#fffaf0;display:grid;place-items:center;font-size:calc(var(--u)*3);z-index:2}
 .back:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
@@ -160,7 +163,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-28n';
+const BUILD = '2026-09-28o';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -217,11 +220,11 @@ const LAYERS = {
     {src:'../art/classroom/layer-plant3-pot.png', l:51.0, t:57.69, w:6.8, h:8.81, shadow:.5},
     {src:'../art/classroom/layer-plant4-pot.png', l:59.3, t:57.70, w:7.7, h:8.80, shadow:.5}],
   c3:[
-    {src:'../art/classroom/layer-coat.png', group:'coat', l:59.9, t:50.4, w:10.8, h:24.2},
-    {src:'../art/classroom/layer-lost.png', group:'lost', l:78.2, t:77.4, w:9.2, h:8.2},
+    {src:'../art/classroom/layer-coat.png', group:'coat', l:59.9, t:50.4, w:10.8, h:24.2, lit:.9},
+    {src:'../art/classroom/layer-lost.png', group:'lost', l:78.2, t:77.4, w:9.2, h:8.2, lit:.7},
     /* the front of the box, cut from the wall picture itself, drawn over the things inside it */
     {src:'../art/classroom/layer-boxfront.png', l:77.50, t:80.83, w:11.77, h:14.81},
-    {src:'../art/classroom/layer-lid.png', group:'lid', l:27.6, t:67.3, w:10, h:10.3}],
+    {src:'../art/classroom/layer-lid.png', group:'lid', l:27.6, t:67.3, w:10, h:10.3, lit:.7}],
   c4:[
     {src:'../art/classroom/layer-envelope.png', group:'envelope', l:50.5, t:66.5, w:6.5, h:5.5, hideWhen:() => S.got.includes('envelope')},
     /* the hamster lives inside the cage: it is clipped to the cage and the cage's glass is drawn faintly over it */
@@ -261,8 +264,17 @@ function drawLayer(c, t){
   if (L.shadow){ /* a soft contact shadow under things that stand on a surface, so nothing floats */
     ctx.save(); ctx.filter = `blur(${Math.max(2, W*0.03)}px)`; ctx.fillStyle = `rgba(30,25,40,${0.28*L.shadow})`;
     ctx.beginPath(); ctx.ellipse(ox + W/2, oy + H - H*0.01, W*0.46, Math.max(3, W*0.07), 0, 0, Math.PI*2); ctx.fill(); ctx.restore(); }
-  const finish = () => { /* the glass front of a cage, drawn faintly over whatever is inside */
-    if (!glassRect) return; const wall = $('w-'+VIEWS[S.view]); if (!wall || !wall.naturalWidth) return;
+  const finish = () => {
+    const wall = $('w-'+VIEWS[S.view]); if (!wall || !wall.naturalWidth) return;
+    if (L.lit){ /* the room's light falls on the cut-out: the wall's light and shade behind it, as brightness only, laid over the drawing */
+      const off = st.off || (st.off = document.createElement('canvas')); off.width = c.width; off.height = c.height; const o = off.getContext('2d');
+      const bl = L.l - L.w*PAD_X, bt = L.t - L.h*PAD_Y, bw = L.w*(1+2*PAD_X), bh = L.h*(1+PAD_Y+0.15);
+      o.filter = 'grayscale(1) contrast(2.2) brightness(.72)'; o.drawImage(wall, bl/100*wall.naturalWidth, bt/100*wall.naturalHeight, bw/100*wall.naturalWidth, bh/100*wall.naturalHeight, 0, 0, off.width, off.height); o.filter = 'none';
+      o.globalCompositeOperation = 'destination-in'; o.drawImage(c, 0, 0); o.globalCompositeOperation = 'source-over';
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.filter = 'none'; ctx.globalCompositeOperation = 'overlay'; ctx.globalAlpha = L.lit; ctx.drawImage(off, 0, 0); ctx.restore();
+    }
+    /* the glass front of a cage, drawn faintly over whatever is inside */
+    if (!glassRect) return;
     ctx.filter = 'none'; ctx.globalAlpha = 0.5; ctx.drawImage(wall, L.glass[0]/100*wall.naturalWidth, L.glass[1]/100*wall.naturalHeight, L.glass[2]/100*wall.naturalWidth, L.glass[3]/100*wall.naturalHeight, ...glassRect); ctx.globalAlpha = 1; };
   const damp = (f, tau) => Math.sin(2*Math.PI*f*t) * Math.exp(-t/tau);
   if (!anim){ ctx.drawImage(img, ox, oy); finish(); ctx.restore(); return; }
@@ -423,8 +435,8 @@ function wallTimetable(){
 
 /* ---------- close-ups ---------- */
 function openCloseup(inner){
-  $('closeup').innerHTML = `<button class="back" aria-label="Step back">×</button>${inner}`;
-  $('closeup').querySelector('.back').onclick = closeCloseup;
+  $('closeup').innerHTML = `${inner}<span class="stepback">Tap anywhere to step back</span>`;
+  $('closeup').onclick = e => { if (!e.target.closest('.card')) closeCloseup(); };
   $('closeup').hidden = false; $('scene').classList.add('zoomed'); sfx('open');
 }
 function closeCloseup(){ if ($('closeup').hidden) return; $('closeup').hidden = true; $('scene').classList.remove('zoomed'); sfx('close'); }
@@ -606,11 +618,12 @@ document.addEventListener('visibilitychange', () => { if (!AC) return; if (docum
 /* ---------- wiring ---------- */
 $('left').onclick = () => turn(-1); $('right').onclick = () => turn(1);
 $('hintBtn').onclick = hint;
-$('menuBtn').onclick = () => { $('menu').hidden = false; $('diag').textContent = `build ${BUILD} · sound: ${AC ? AC.state : 'not started'} · music: ${musicState} · reduced motion: ${matchMedia('(prefers-reduced-motion:reduce)').matches ? 'ON (gentle taps)' : 'off'} · ${innerWidth}×${innerHeight} · ${navigator.userAgent.replace(/^.*\((.*?)\).*$/, '$1').slice(0, 40)}`; };
+$('menuBtn').onclick = () => { closeCloseup(); $('menu').hidden = false; $('diag').textContent = `build ${BUILD} · sound: ${AC ? AC.state : 'not started'} · music: ${musicState} · reduced motion: ${matchMedia('(prefers-reduced-motion:reduce)').matches ? 'ON (gentle taps)' : 'off'} · ${innerWidth}×${innerHeight} · ${navigator.userAgent.replace(/^.*\((.*?)\).*$/, '$1').slice(0, 40)}`; };
 $('closeMenu').onclick = () => { $('menu').hidden = true; };
 $('soundBtn').onclick = () => setSound(!soundOn);
 $('soundBtn').textContent = 'Sound: ' + (soundOn ? 'on' : 'off');
 $('restart').onclick = () => { S = fresh(); $('menu').hidden = true; closeCloseup(); render(); say('<b>Last day of school.</b> Everyone is at the party, but Mr Hollis left something on your desk. Nutmeg knows something.'); };
+$('app').addEventListener('click', e => { if (e.target === $('app')) closeCloseup(); }); /* a tap on the dark margin also steps back */
 addEventListener('keydown', e => { if (e.key === 'ArrowLeft') turn(-1); if (e.key === 'ArrowRight') turn(1); if (e.key === 'Escape'){ closeCloseup(); $('menu').hidden = true; } });
 
 S = load();
