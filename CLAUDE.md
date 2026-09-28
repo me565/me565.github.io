@@ -53,7 +53,7 @@ Interaction model: tap an object to look; tap an inventory item to select it, th
 1. Google Play developer account (personal) — opened, awaiting verification.
 2. Website live at https://me565.github.io — done.
 3. PWABuilder Android package — in progress.
-4. Upload `assetlinks.json` to `.well-known/assetlinks.json` (needs an empty `.nojekyll` file at the repo root so GitHub Pages serves the folder), later add Google Play's app-signing SHA-256 fingerprint to it.
+4. `.well-known/assetlinks.json` and the empty `.nojekyll` file are in place, with the PWABuilder signing key's SHA-256 fingerprint. Still to do: once the app is on Google Play, add Play's app-signing SHA-256 fingerprint (Play Console → Test and release → App integrity → App signing) as a second entry in `sha256_cert_fingerprints`.
 5. Closed test: 12+ testers opted in for 14 continuous days (aim for 14–15 in case some drop out), then apply for production access.
 6. Store listing: icon, feature graphic, screenshots, descriptions, privacy policy page, content rating, data safety form.
 

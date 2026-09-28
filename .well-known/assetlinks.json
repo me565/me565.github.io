@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "io.github.me565.mothhouse",
+        "sha256_cert_fingerprints": ["23:05:CB:F5:FD:76:D8:E4:9C:46:DB:69:1C:B9:06:4A:E5:E7:C8:1F:1C:2B:E2:3B:78:02:53:45:67:06:0E:FA"]
+      }
+    }]
