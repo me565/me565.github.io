@@ -160,7 +160,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-28k';
+const BUILD = '2026-09-28l';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -188,7 +188,7 @@ const HOTS = {
     {id:'bin', l:27, t:69, w:11, h:23, label:'Recycling bin', anim:'flip', layer:'lid', sound:'knock'},
     {id:'door', l:40, t:26.5, w:20.5, h:66, label:'Door to the corridor', sound:'knock'},
     {id:'pegs', l:61, t:46, w:29, h:36, label:'Coat pegs', anim:'swing', layer:'coat', sound:'leaf'},
-    {id:'lost', l:75, t:73, w:15, h:19, label:'Lost property box', anim:'pop', layer:'lost', sound:'paper'}],
+    {id:'lost', l:74.5, t:73, w:15.5, h:21, label:'Lost property box', anim:'pop', layer:'lost', sound:'paper'}],
   c4:[
     {id:'rules', l:26, t:30, w:8.5, h:18, label:'Class rules', sound:'paper'},
     {id:'timetable', l:38.5, t:25, w:23, h:30, label:'Class timetable', sound:'paper'},
@@ -218,7 +218,7 @@ const LAYERS = {
     {src:'../art/classroom/layer-plant4-pot.png', l:59.3, t:57.70, w:7.7, h:8.80, shadow:.5}],
   c3:[
     {src:'../art/classroom/layer-coat.png', group:'coat', l:59.9, t:50.4, w:10.8, h:24.2},
-    {src:'../art/classroom/layer-lost.png', group:'lost', l:77.5, t:74.5, w:10, h:8.9, clipBottom:81},
+    {src:'../art/classroom/layer-lost.png', group:'lost', l:77.6, t:78.2, w:9.6, h:8.5, clipBottom:85.2},
     {src:'../art/classroom/layer-lid.png', group:'lid', l:27.6, t:67.3, w:10, h:10.3}],
   c4:[
     {src:'../art/classroom/layer-envelope.png', group:'envelope', l:50.5, t:66.5, w:6.5, h:5.5, hideWhen:() => S.got.includes('envelope')},
@@ -265,6 +265,7 @@ function drawLayer(c, t){
   const damp = (f, tau) => Math.sin(2*Math.PI*f*t) * Math.exp(-t/tau);
   if (!anim){ ctx.drawImage(img, ox, oy); finish(); ctx.restore(); return; }
   const N = 40;
+  ctx.save(); /* every movement below shifts the drawing origin; undo that before the glass is painted */
   switch(anim){
     case 'bend': { /* a plant: displacement grows with the square of the distance from the base, so the tip whips and the stem barely moves */
       const A = W*0.32*damp(1.1, 0.75), lag = W*0.10*Math.sin(2*Math.PI*1.1*t - 1.2)*Math.exp(-t/0.75);
@@ -320,6 +321,7 @@ function drawLayer(c, t){
       ctx.translate(ox + W/2, oy + H + dy); ctx.rotate(rot); ctx.drawImage(img, -W/2, -H);
       break; }
   }
+  ctx.restore();
   finish();
   ctx.restore();
 }
