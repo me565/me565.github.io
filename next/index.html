@@ -30,7 +30,7 @@ body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);
   font-family:"Atkinson Hyperlegible",Verdana,"Segoe UI",sans-serif;-webkit-tap-highlight-color:transparent}
 main{height:100%;max-width:clamp(460px,calc((100dvh - 230px) * .75 + 32px),640px);margin:0 auto;padding:6px 16px 10px;display:flex;flex-direction:column}
 header{flex:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
-h1{font-family:Caprasimo,"Cooper Black",Georgia,serif;font-weight:400;font-size:clamp(1.1rem,4dvh,1.6rem);margin:4px 0 6px;line-height:1.1;white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
+h1{font-family:Caprasimo,"Cooper Black",Georgia,serif;font-weight:400;font-size:clamp(1rem,min(4dvh,5.2vw),1.6rem);margin:4px 0 6px;line-height:1.1;white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
 .hbtns{display:flex;gap:4px;align-items:center;flex:none}
 .link{white-space:nowrap;background:none;border:0;color:var(--muted);font:inherit;font-size:.95rem;cursor:pointer;padding:8px 4px;min-height:44px}
 .hint{display:flex;align-items:center;gap:6px;background:none;border:1px solid var(--accent);color:var(--ink);border-radius:999px;font:inherit;font-size:.9rem;padding:4px 12px 4px 6px;min-height:40px;cursor:pointer}
@@ -58,7 +58,7 @@ button:focus-visible,.hs:focus-visible .hit{outline:3px solid var(--accent);outl
 .stagebox{flex:1 1 0;min-height:0;container-type:size;display:flex;justify-content:center;align-items:center}
 .stage{width:min(100cqw,75cqh);aspect-ratio:3/4;container-type:inline-size;position:relative;border-radius:10px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.15),0 10px 30px -14px rgba(0,0,0,.4)}
 .stage>svg{display:block;width:100%;height:auto;touch-action:manipulation}
-.nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:60px;border:0;border-radius:12px;background:rgba(255,253,248,.6);color:#1d2629;display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.nav{position:absolute;bottom:10px;width:44px;height:54px;border:0;border-radius:12px;background:rgba(255,253,248,.6);color:#1d2629;display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.18)}
 .nav svg{width:22px;height:22px}
 #left{left:6px} #right{right:6px}
 .where{position:absolute;top:8px;left:8px;background:rgba(255,253,248,.82);color:#1d2629;border-radius:999px;padding:3px 10px;font-size:clamp(11px,3.4cqw,14px);font-weight:700;pointer-events:none}
@@ -72,6 +72,18 @@ button:focus-visible,.hs:focus-visible .hit{outline:3px solid var(--accent);outl
 .slot svg{width:100%;height:100%}
 .hs{cursor:pointer}
 .hs:focus{outline:none}
+/* the new art: ink lines, and things you can tap breathe softly */
+.o{stroke:#2b2836;stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round}
+.t{stroke:#2b2836;stroke-width:1.1;stroke-linejoin:round;stroke-linecap:round}
+.lbl{font-family:"Atkinson Hyperlegible",Verdana,sans-serif}
+.hand{font-family:Caveat,"Comic Sans MS",cursive}
+.glow{fill:#ffd977;opacity:0;animation:breathe 2.8s ease-in-out infinite;pointer-events:none}
+@keyframes breathe{0%,100%{opacity:0}50%{opacity:.42}}
+.spark{fill:#fff2b0;stroke:#e0a020;stroke-width:.6;transform-box:fill-box;transform-origin:center;animation:twinkle 1.8s ease-in-out infinite;pointer-events:none}
+.spark:nth-child(2){animation-delay:.6s}.spark:nth-child(3){animation-delay:1.2s}
+@keyframes twinkle{0%,100%{transform:scale(.4);opacity:.2}50%{transform:scale(1.15);opacity:1}}
+.bubble{animation:bob 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 .view{display:none}
 .view.on{display:inline}
 .off{display:none}
@@ -95,6 +107,7 @@ button:focus-visible,.hs:focus-visible .hit{outline:3px solid var(--accent);outl
 .spell{font-family:"Atkinson Hyperlegible",Verdana,sans-serif;letter-spacing:.4em;font-weight:700;font-size:1.3em;min-height:1.3em;color:#f0b44c}
 .row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 .ob{font:inherit;min-height:44px;padding:.35em 1.1em;border-radius:999px;border:2px solid currentColor;background:transparent;color:inherit;cursor:pointer}
+.ttz{width:100%;max-width:92cqw;height:auto;display:block}
 table.tt{border-collapse:collapse;background:#fffdf8;color:#2b3431;font-size:clamp(11px,3.7cqw,15px);box-shadow:0 10px 24px rgba(0,0,0,.35)}
 table.tt th,table.tt td{border:1px solid #d3c6ae;padding:.3em .4em;text-align:center;min-width:2.1em}
 table.tt th{background:#2f7c83;color:#fffdf8}
@@ -133,7 +146,8 @@ table.tt td.day{font-weight:700;text-align:left;background:#eaf1ee}
   .screen .intro,.screen h2{flex-basis:100%}
 }
 @media (prefers-reduced-motion:reduce){
-  .rain,#blades,.steam{animation:none}
+  .rain,#blades,.steam,.spark,.bubble{animation:none}
+  .glow{animation:none;opacity:.35}
   .fade{animation:none;opacity:1}
 }
 </style>
@@ -196,6 +210,21 @@ table.tt td.day{font-weight:700;text-align:left;background:#eaf1ee}
   </pattern>
   <clipPath id="glass1"><rect x="46" y="56" width="148" height="128"/></clipPath>
   <clipPath id="glass2"><rect x="96" y="66" width="168" height="118"/></clipPath>
+  <linearGradient id="deskTop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2e3bd"/><stop offset="1" stop-color="#e2cd9c"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="75%"><stop offset=".55" stop-color="#1f1b33" stop-opacity="0"/><stop offset="1" stop-color="#1f1b33" stop-opacity=".4"/></radialGradient>
+  <radialGradient id="lampGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff6d6" stop-opacity=".9"/><stop offset="1" stop-color="#fff6d6" stop-opacity="0"/></radialGradient>
+  <filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 .1  0 0 0 0 .08  0 0 0 0 .12  0 0 0 .55 0"/></filter>
+  <filter id="blur6"><feGaussianBlur stdDeviation="6"/></filter>
+  <filter id="blur3"><feGaussianBlur stdDeviation="3"/></filter>
+  <symbol id="i-ar" viewBox="0 0 12 12"><path d="M1.5 10.5 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M6.5 2.5c1-1.5 3.5-1.5 4 0s-.5 3.5-2 3.5S5.5 4 6.5 2.5Z" fill="currentColor"/></symbol>
+  <symbol id="i-mu" viewBox="0 0 12 12"><circle cx="4" cy="9" r="2.4" fill="currentColor"/><path d="M6.2 9V1.5l4 1.5v2l-4-1.5" fill="currentColor"/><path d="M6.2 9V1.5" stroke="currentColor" stroke-width="1.4"/></symbol>
+  <symbol id="i-pe" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M6 3.6l2.2 1.6-.8 2.6H4.6l-.8-2.6Z" fill="currentColor"/><path d="M6 1v2.6M1.2 5.2l2.6 0M10.8 5.2l-2.6 0M3.2 10.4l1.4-2.6M8.8 10.4 7.4 7.8" stroke="currentColor" stroke-width="1"/></symbol>
+  <symbol id="i-sc" viewBox="0 0 12 12"><path d="M4.5 1h3M5 1v3.5L2 10a1 1 0 0 0 .9 1.5h6.2A1 1 0 0 0 10 10L7 4.5V1" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M3.4 8.5h5.2L9.3 10.3H2.7Z" fill="currentColor"/></symbol>
+  <symbol id="i-ma" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-en" viewBox="0 0 12 12"><path d="M2.5 9.5 3.5 6.5 8.5 1.5l2 2-5 5Z" fill="currentColor"/><path d="M2.5 9.5l1-3 2 2Z" fill="#fffdf6"/></symbol>
+  <symbol id="i-ge" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/><ellipse cx="6" cy="6" rx="2.2" ry="5" fill="none" stroke="currentColor" stroke-width="1"/><path d="M1 6h10" stroke="currentColor" stroke-width="1"/></symbol>
+  <symbol id="i-li" viewBox="0 0 12 12"><rect x="1.5" y="8" width="9" height="2.6" rx=".6" fill="currentColor"/><rect x="2.5" y="4.8" width="8" height="2.6" rx=".6" fill="currentColor" opacity=".75"/><rect x="1.8" y="1.6" width="7" height="2.6" rx=".6" fill="currentColor" opacity=".5"/></symbol>
+  <symbol id="star" viewBox="0 0 10 10"><path d="M5 0 6 4 10 5 6 6 5 10 4 6 0 5 4 4Z"/></symbol>
   <g id="raindrops" stroke="#e8f0f4" stroke-width="1.2" stroke-linecap="round" opacity=".8">
     <line x1="10" y1="0" x2="7" y2="10"/><line x1="34" y1="22" x2="31" y2="32"/><line x1="58" y1="4" x2="55" y2="14"/><line x1="82" y1="30" x2="79" y2="40"/><line x1="106" y1="10" x2="103" y2="20"/><line x1="130" y1="26" x2="127" y2="36"/><line x1="154" y1="6" x2="151" y2="16"/>
     <line x1="20" y1="60" x2="17" y2="70"/><line x1="46" y1="80" x2="43" y2="90"/><line x1="70" y1="58" x2="67" y2="68"/><line x1="94" y1="88" x2="91" y2="98"/><line x1="118" y1="64" x2="115" y2="74"/><line x1="142" y1="90" x2="139" y2="100"/>
@@ -204,142 +233,280 @@ table.tt td.day{font-weight:700;text-align:left;background:#eaf1ee}
 </defs>
 
 <!-- ================= MARY · STAGE 1 · LAST DAY OF SCHOOL ================= -->
-<!-- CLASSROOM (square: four views) -->
-<!-- c1: whiteboard and Mr Hollis's desk -->
-<g class="view" id="v-c1">
-  <rect width="360" height="340" fill="#e4eef4"/><rect y="336" width="360" height="6" fill="#c9d7df"/><rect y="340" width="360" height="140" fill="#c3ced6"/>
-  <g stroke="#b3bfc8"><line x1="0" y1="380" x2="360" y2="380"/><line x1="0" y1="420" x2="360" y2="420"/><line x1="0" y1="460" x2="360" y2="460"/></g>
+<!-- CLASSROOM (square: four views). Each view is drawn inside a room box the engine adds. -->
+<!-- c1: the front of the class: whiteboard and Mr Hollis's desk -->
+<g class="view" id="v-c1" data-box="classroom" data-light="right">
+  <g class="hs" data-id="s_cupboardC" role="button" tabindex="0" aria-label="Supplies cupboard">
+    <rect x="46" y="150" width="66" height="210" fill="#3f8f96" class="o"/>
+    <line x1="79" y1="150" x2="79" y2="360" stroke="#2f7c83" stroke-width="2"/>
+    <rect x="52" y="160" width="54" height="26" rx="3" fill="#fffdf6" class="t"/><text x="79" y="177" text-anchor="middle" font-size="9" font-weight="700" fill="#2f7c83" class="lbl">SUPPLIES</text>
+    <circle cx="72" cy="260" r="3.2" fill="#fffdf6" class="t"/><circle cx="86" cy="260" r="3.2" fill="#fffdf6" class="t"/>
+    <rect class="hit" x="44" y="148" width="70" height="214" fill="transparent"/>
+  </g>
+  <g fill="#fffdf6"><rect x="122" y="70" width="12" height="12" fill="#d0602f" class="t"/><rect x="138" y="70" width="12" height="12" fill="#f0b44c" class="t"/><rect x="154" y="70" width="12" height="12" fill="#3a8f5c" class="t"/><rect x="170" y="70" width="12" height="12" fill="#3b78b8" class="t"/><rect x="186" y="70" width="12" height="12" fill="#7a5cc2" class="t"/><rect x="202" y="70" width="12" height="12" fill="#c4589a" class="t"/><rect x="218" y="70" width="12" height="12" fill="#d0602f" class="t"/><rect x="234" y="70" width="12" height="12" fill="#f0b44c" class="t"/></g>
   <g class="hs" data-id="s_board" role="button" tabindex="0" aria-label="Whiteboard">
-    <rect x="40" y="56" width="280" height="120" rx="4" fill="#fffdf8" stroke="#9aa5ab" stroke-width="4"/>
-    <text x="180" y="108" text-anchor="middle" font-size="26" fill="#2f7c83" font-family="Caveat, 'Comic Sans MS', cursive">Happy holidays, Year 5!</text>
-    <circle cx="270" cy="146" r="12" fill="none" stroke="#f0b44c" stroke-width="3"/><g stroke="#f0b44c" stroke-width="3" stroke-linecap="round"><line x1="270" y1="126" x2="270" y2="130"/><line x1="290" y1="146" x2="286" y2="146"/><line x1="250" y1="146" x2="254" y2="146"/></g>
-    <rect x="60" y="176" width="240" height="6" rx="2" fill="#9aa5ab"/>
-    <rect class="hit" x="36" y="52" width="288" height="134" fill="transparent"/>
+    <rect x="120" y="90" width="192" height="128" rx="3" fill="#fffdf6" stroke="#8a97a3" stroke-width="5" stroke-linejoin="round"/>
+    <rect x="120" y="90" width="192" height="128" rx="3" fill="none" class="o"/>
+    <text x="216" y="140" text-anchor="middle" font-size="19" fill="#2f7c83" class="hand">Happy holidays,</text>
+    <text x="216" y="166" text-anchor="middle" font-size="19" fill="#2f7c83" class="hand">Year 5!</text>
+    <circle cx="288" cy="196" r="9" fill="none" stroke="#f0b44c" stroke-width="2.4"/><g stroke="#f0b44c" stroke-width="2.4" stroke-linecap="round"><line x1="288" y1="181" x2="288" y2="184"/><line x1="303" y1="196" x2="300" y2="196"/><line x1="276" y1="196" x2="273" y2="196"/><line x1="299" y1="185" x2="297" y2="187"/></g>
+    <rect x="134" y="218" width="164" height="6" rx="2" fill="#9aa5ab" class="t"/>
+    <rect x="150" y="212" width="16" height="5" rx="2" fill="#d0602f"/><rect x="170" y="212" width="16" height="5" rx="2" fill="#3b78b8"/>
+    <rect class="hit" x="116" y="86" width="200" height="140" fill="transparent"/>
   </g>
   <g class="hs" data-id="s_tdesk" role="button" tabindex="0" aria-label="Mr Hollis's desk">
-    <rect x="130" y="252" width="200" height="12" rx="2" fill="#a8744a"/><rect x="140" y="264" width="180" height="76" fill="#b98a5a"/>
-    <rect x="160" y="226" width="22" height="26" rx="4" fill="#d0602f"/><path d="M182 232c8 0 8 12 0 12" stroke="#d0602f" stroke-width="4" fill="none"/>
-    <g><rect x="230" y="238" width="70" height="8" fill="#2f7c83"/><rect x="234" y="230" width="62" height="8" fill="#f0b44c"/><rect x="228" y="244" width="74" height="8" fill="#6d4fb8"/></g>
-    <rect class="hit" x="128" y="220" width="204" height="120" fill="transparent"/>
+    <ellipse cx="262" cy="446" rx="86" ry="10" fill="#2b2836" opacity=".16" filter="url(#blur6)"/>
+    <rect x="200" y="356" width="124" height="76" fill="#b98a5a" class="o"/>
+    <rect x="208" y="366" width="50" height="24" rx="2" fill="#a8744a" class="t"/><rect x="208" y="398" width="50" height="24" rx="2" fill="#a8744a" class="t"/>
+    <rect x="228" y="376" width="10" height="4" rx="2" fill="#fffdf6"/><rect x="228" y="408" width="10" height="4" rx="2" fill="#fffdf6"/>
+    <polygon points="212,300 320,300 334,344 196,344" fill="#d8b98a" stroke="#2b2836" stroke-width="2.2" stroke-linejoin="round"/>
+    <rect x="196" y="344" width="138" height="12" fill="#b98a5a" stroke="#2b2836" stroke-width="2.2" stroke-linejoin="round"/>
+    <rect x="220" y="280" width="22" height="22" rx="3" fill="#d0602f" class="o"/><path d="M242 286c8 0 8 12 0 12" fill="none" class="o"/>
+    <g><rect x="256" y="292" width="54" height="7" fill="#2f7c83" class="t"/><rect x="260" y="285" width="46" height="7" fill="#f0b44c" class="t"/><rect x="254" y="299" width="58" height="6" fill="#7a5cc2" class="t"/></g>
+    <circle cx="300" cy="292" r="6" fill="#d0602f" class="t"/><path d="M300 286c1-3 3-4 5-4" fill="none" class="t"/>
+    <rect class="hit" x="194" y="276" width="142" height="160" fill="transparent"/>
   </g>
+  <g>
+    <ellipse cx="104" cy="426" rx="64" ry="18" fill="#d0602f" class="o"/><ellipse cx="104" cy="426" rx="46" ry="12" fill="#f0b44c"/><ellipse cx="104" cy="426" rx="26" ry="7" fill="#3f8f96"/>
+    <ellipse cx="80" cy="412" rx="18" ry="9" fill="#7a5cc2" class="t"/>
+  </g>
+  <g><rect x="160" y="404" width="26" height="34" rx="3" fill="#8a97a3" class="o"/><rect x="156" y="400" width="34" height="6" rx="2" fill="#6f7c88" class="t"/></g>
 </g>
-<!-- c2: the classroom window (a quiet wall) -->
-<g class="view" id="v-c2">
-  <rect width="360" height="340" fill="#e4eef4"/><rect y="336" width="360" height="6" fill="#c9d7df"/><rect y="340" width="360" height="140" fill="#c3ced6"/>
-  <g stroke="#b3bfc8"><line x1="0" y1="380" x2="360" y2="380"/><line x1="0" y1="420" x2="360" y2="420"/><line x1="0" y1="460" x2="360" y2="460"/></g>
+
+<!-- c2: the window wall -->
+<g class="view" id="v-c2" data-box="classroom" data-light="front">
   <g class="hs" data-id="s_cwindow" role="button" tabindex="0" aria-label="Classroom window">
-    <rect x="50" y="60" width="260" height="150" rx="3" fill="#fffdf8" stroke="#c9d7df" stroke-width="2"/>
-    <rect x="56" y="66" width="248" height="138" fill="#bfe0ea"/>
-    <circle cx="260" cy="100" r="18" fill="#f5d76e"/>
-    <g fill="#7fae74"><circle cx="100" cy="190" r="30"/><circle cx="140" cy="200" r="24"/><circle cx="220" cy="196" r="28"/></g>
-    <line x1="180" y1="66" x2="180" y2="204" stroke="#fffdf8" stroke-width="4"/>
-    <rect class="hit" x="46" y="56" width="268" height="158" fill="transparent"/>
+    <rect x="52" y="72" width="256" height="164" rx="3" fill="#fffdf6" class="o"/>
+    <rect x="60" y="80" width="240" height="148" fill="#bfe0ea"/>
+    <circle cx="248" cy="112" r="16" fill="#fbe78a" class="t"/>
+    <g fill="#fffdf6" opacity=".9"><ellipse cx="110" cy="104" rx="22" ry="8"/><ellipse cx="124" cy="100" rx="14" ry="7"/></g>
+    <path d="M170 96l10-4 6 2-4 4 8 2-12 3-6-3Z" fill="#fffdf6" class="t"/>
+    <g fill="#6fa36a"><circle cx="96" cy="206" r="30"/><circle cx="150" cy="214" r="26"/><circle cx="220" cy="204" r="34"/><circle cx="276" cy="216" r="24"/></g>
+    <g fill="#8a6440"><rect x="92" y="214" width="8" height="14"/><rect x="216" y="216" width="8" height="12"/></g>
+    <line x1="140" y1="80" x2="140" y2="228" stroke="#fffdf6" stroke-width="5"/><line x1="220" y1="80" x2="220" y2="228" stroke="#fffdf6" stroke-width="5"/>
+    <rect class="hit" x="50" y="70" width="260" height="168" fill="transparent"/>
   </g>
+  <rect x="44" y="236" width="272" height="10" rx="2" fill="#e8dcc6" class="t"/>
   <g class="hs" data-id="s_beans" role="button" tabindex="0" aria-label="Bean plants on the window sill">
-    <rect x="44" y="210" width="272" height="8" rx="2" fill="#d8cbb5"/>
-    <g><path d="M90 250h24l-4 22h-16Z" fill="#c9755a"/><path d="M102 250c0-20 6-30 12-34" stroke="#4d8a4f" stroke-width="3" fill="none"/>
-       <path d="M170 250h24l-4 22h-16Z" fill="#c9755a"/><path d="M182 250c0-26 -4-36 -10-40" stroke="#4d8a4f" stroke-width="3" fill="none"/>
-       <path d="M250 250h24l-4 22h-16Z" fill="#c9755a"/><path d="M262 250c0-14 4-20 8-22" stroke="#4d8a4f" stroke-width="3" fill="none"/></g>
-    <rect x="44" y="272" width="272" height="8" rx="2" fill="#d8cbb5"/>
-    <rect class="hit" x="70" y="206" width="220" height="78" fill="transparent"/>
+    <g><path d="M74 214h22l-3 22H77Z" fill="#c9755a" class="t"/><path d="M85 214c0-20 5-30 10-34" stroke="#4d8a4f" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M92 190c-6-2-8-8-6-12 6 2 8 8 6 12Z" fill="#6fa36a" class="t"/></g>
+    <g><path d="M130 214h22l-3 22h-16Z" fill="#c9755a" class="t"/><path d="M141 214c0-30-6-44-12-50" stroke="#4d8a4f" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M136 186c-8 0-12-6-12-12 8 0 12 6 12 12Z" fill="#6fa36a" class="t"/><path d="M133 172c6-4 12-2 14 4-6 4-12 2-14-4Z" fill="#6fa36a" class="t"/></g>
+    <g><path d="M186 214h22l-3 22h-16Z" fill="#c9755a" class="t"/><path d="M197 214c0-14 4-22 8-26" stroke="#4d8a4f" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M204 194c-6-2-8-8-6-12 6 2 8 8 6 12Z" fill="#6fa36a" class="t"/></g>
+    <g><path d="M242 214h22l-3 22h-16Z" fill="#c9755a" class="t"/><path d="M253 214c0-10 2-16 4-18" stroke="#4d8a4f" stroke-width="2.6" fill="none" stroke-linecap="round"/></g>
+    <g fill="#fffdf6"><rect x="78" y="224" width="14" height="8" class="t"/><rect x="134" y="224" width="14" height="8" class="t"/><rect x="190" y="224" width="14" height="8" class="t"/><rect x="246" y="224" width="14" height="8" class="t"/></g>
+    <text x="141" y="231" text-anchor="middle" font-size="5.5" font-weight="700" fill="#6d4fb8" class="lbl">MARY</text>
+    <rect class="hit" x="66" y="160" width="206" height="80" fill="transparent"/>
   </g>
+  <g><rect x="96" y="264" width="168" height="64" rx="4" fill="#e6e3d6" class="o"/><g stroke="#cfcbbd" stroke-width="3"><line x1="112" y1="270" x2="112" y2="322"/><line x1="130" y1="270" x2="130" y2="322"/><line x1="148" y1="270" x2="148" y2="322"/><line x1="166" y1="270" x2="166" y2="322"/><line x1="184" y1="270" x2="184" y2="322"/><line x1="202" y1="270" x2="202" y2="322"/><line x1="220" y1="270" x2="220" y2="322"/><line x1="238" y1="270" x2="238" y2="322"/></g></g>
+  <g><ellipse cx="86" cy="414" rx="30" ry="14" fill="#d0602f" class="o"/><ellipse cx="86" cy="408" rx="30" ry="12" fill="#e0664f"/><ellipse cx="270" cy="418" rx="32" ry="14" fill="#7a5cc2" class="o"/><ellipse cx="270" cy="412" rx="32" ry="12" fill="#9a80dc"/></g>
 </g>
-<!-- c3: door to the corridor and the coat pegs -->
-<g class="view" id="v-c3">
-  <rect width="360" height="340" fill="#e4eef4"/><rect y="336" width="360" height="6" fill="#c9d7df"/><rect y="340" width="360" height="140" fill="#c3ced6"/>
-  <g stroke="#b3bfc8"><line x1="0" y1="380" x2="360" y2="380"/><line x1="0" y1="420" x2="360" y2="420"/><line x1="0" y1="460" x2="360" y2="460"/></g>
-  <g class="hs" data-id="s_toCorridor" role="button" tabindex="0" aria-label="Door to the corridor">
-    <rect x="80" y="64" width="130" height="276" fill="#fffdf8"/><rect x="88" y="72" width="114" height="268" fill="#2f7c83"/>
-    <rect x="104" y="90" width="82" height="60" rx="3" fill="#bfe0ea"/><circle cx="188" cy="220" r="6" fill="#f0b44c"/>
-    <rect x="118" y="164" width="54" height="24" rx="4" fill="#fffdf8"/><text x="145" y="181" text-anchor="middle" font-size="14" font-weight="700" fill="#2f7c83" font-family="Atkinson Hyperlegible, Verdana, sans-serif">5H</text>
-    <rect class="hit" x="78" y="62" width="134" height="280" fill="transparent"/>
+
+<!-- c3: door to the corridor, coat pegs and lost property -->
+<g class="view" id="v-c3" data-box="classroom" data-light="left">
+  <g class="hs door" data-id="s_toCorridor" role="button" tabindex="0" aria-label="Door to the corridor">
+    <rect x="90" y="72" width="112" height="288" fill="#fffdf6" class="o"/>
+    <rect x="98" y="80" width="96" height="280" fill="#2f7c83" class="o"/>
+    <rect x="112" y="96" width="68" height="64" rx="3" fill="#dfe9ea" class="t"/><rect x="118" y="102" width="56" height="52" fill="#c9d7df"/>
+    <rect x="118" y="176" width="56" height="26" rx="4" fill="#fffdf6" class="t"/><text x="146" y="194" text-anchor="middle" font-size="14" font-weight="700" fill="#2f7c83" class="lbl">5H</text>
+    <rect x="112" y="220" width="68" height="120" rx="3" fill="#3f8f96" class="t"/>
+    <circle cx="186" cy="232" r="5.5" fill="#f0b44c" class="t"/>
+    <rect class="hit" x="88" y="70" width="116" height="292" fill="transparent"/>
   </g>
   <g class="hs" data-id="s_pegs" role="button" tabindex="0" aria-label="Coat pegs">
-    <rect x="228" y="110" width="80" height="10" rx="3" fill="#a8744a"/>
-    <g fill="#8a6440"><circle cx="240" cy="126" r="4"/><circle cx="260" cy="126" r="4"/><circle cx="280" cy="126" r="4"/><circle cx="300" cy="126" r="4"/></g>
-    <path d="M276 128c-6 10-8 22-4 30h10c3-8 0-20-6-30Z" fill="#7fb5c9"/>
-    <rect class="hit" x="222" y="100" width="92" height="70" fill="transparent"/>
+    <rect x="214" y="116" width="98" height="10" rx="3" fill="#a8744a" class="o"/>
+    <g fill="#8a6440"><circle cx="226" cy="133" r="4" class="t"/><circle cx="246" cy="133" r="4" class="t"/><circle cx="266" cy="133" r="4" class="t"/><circle cx="286" cy="133" r="4" class="t"/><circle cx="304" cy="133" r="4" class="t"/></g>
+    <path d="M262 136c-8 14-10 30-4 40h14c4-10 2-26-6-40Z" fill="#7fb5c9" class="o"/><path d="M262 136h8" class="t"/>
+    <g fill="#fffdf6"><rect x="220" y="102" width="12" height="8" class="t"/><rect x="240" y="102" width="12" height="8" class="t"/><rect x="260" y="102" width="12" height="8" class="t"/><rect x="280" y="102" width="12" height="8" class="t"/><rect x="298" y="102" width="12" height="8" class="t"/></g>
+    <rect class="hit" x="210" y="98" width="106" height="84" fill="transparent"/>
   </g>
+  <g class="hs" data-id="s_lostC" role="button" tabindex="0" aria-label="Lost property box">
+    <rect x="224" y="296" width="80" height="64" fill="#c9a26b" class="o"/><rect x="224" y="296" width="80" height="12" fill="#b08a58" class="t"/>
+    <text x="264" y="336" text-anchor="middle" font-size="7.5" font-weight="700" fill="#5b4a2e" class="lbl">LOST PROPERTY</text>
+    <path d="M232 296c2-10 10-14 16-10l-2 10Z" fill="#d0602f" class="t"/><path d="M272 296c-2-8 6-16 14-14 2 6-2 12-6 14Z" fill="#3b78b8" class="t"/>
+    <rect class="hit" x="220" y="278" width="88" height="86" fill="transparent"/>
+  </g>
+  <g><rect x="48" y="300" width="30" height="60" rx="3" fill="#3a8f5c" class="o"/><rect x="46" y="296" width="34" height="8" rx="2" fill="#27794c" class="t"/><rect x="82" y="304" width="26" height="56" rx="3" fill="#3b78b8" class="o"/><rect x="80" y="300" width="30" height="8" rx="2" fill="#2c5f93" class="t"/></g>
 </g>
-<!-- c4: the class timetable and Mary's desk -->
-<g class="view" id="v-c4">
-  <rect width="360" height="340" fill="#e4eef4"/><rect y="336" width="360" height="6" fill="#c9d7df"/><rect y="340" width="360" height="140" fill="#c3ced6"/>
-  <g stroke="#b3bfc8"><line x1="0" y1="380" x2="360" y2="380"/><line x1="0" y1="420" x2="360" y2="420"/><line x1="0" y1="460" x2="360" y2="460"/></g>
-  <g class="hs" data-id="s_timetable" role="button" tabindex="0" aria-label="Class timetable">
-    <rect x="60" y="56" width="200" height="140" rx="4" fill="#fffdf8" stroke="#2f7c83" stroke-width="3"/>
-    <rect x="60" y="56" width="200" height="22" rx="4" fill="#2f7c83"/>
-    <text x="160" y="72" text-anchor="middle" font-size="12" font-weight="700" fill="#fffdf8" font-family="Atkinson Hyperlegible, Verdana, sans-serif">5H TIMETABLE</text>
-    <g fill="#d6e9eb"><rect x="70" y="86" width="180" height="16"/><rect x="70" y="108" width="180" height="16"/><rect x="70" y="130" width="180" height="16"/><rect x="70" y="152" width="180" height="16"/><rect x="70" y="174" width="180" height="16"/></g>
-    <g stroke="#2f7c83" stroke-width="1"><line x1="100" y1="86" x2="100" y2="190"/><line x1="125" y1="86" x2="125" y2="190"/><line x1="150" y1="86" x2="150" y2="190"/><line x1="175" y1="86" x2="175" y2="190"/><line x1="200" y1="86" x2="200" y2="190"/><line x1="225" y1="86" x2="225" y2="190"/></g>
-    <rect class="hit" x="56" y="52" width="208" height="148" fill="transparent"/>
+
+<!-- c4: the timetable wall, Mary's desk and Nutmeg -->
+<g class="view" id="v-c4" data-box="classroom" data-light="back">
+  <g class="hs" data-id="s_rules" role="button" tabindex="0" aria-label="Class rules poster">
+    <polygon points="6,146 36,156 36,238 6,248" fill="#fff9e8" class="o"/><polygon points="6,146 36,156 36,168 6,158" fill="#d0602f"/>
+    <text transform="matrix(1 .33 0 1 10 159)" font-size="5.6" font-weight="700" fill="#fffdf6" class="lbl">RULES</text>
+    <g stroke="#9aa5ab" stroke-width="1.4" stroke-linecap="round"><line x1="10" y1="182" x2="32" y2="189"/><line x1="10" y1="196" x2="32" y2="203"/><line x1="10" y1="210" x2="26" y2="215"/><line x1="10" y1="224" x2="30" y2="230"/></g>
+    <rect class="hit" x="2" y="140" width="40" height="112" fill="transparent"/>
   </g>
+  <g class="hs" data-id="s_map" role="button" tabindex="0" aria-label="Map poster">
+    <polygon points="324,156 354,146 354,228 324,238" fill="#dbe9f0" class="o"/>
+    <path d="M330 184c6-8 12-2 18-8s8 10 4 16-10 2-14 8-10-2-10-8 0-6 2-8Z" fill="#7fae74" class="t"/>
+    <circle cx="345" cy="205" r="2.4" fill="#d0602f" class="t"/>
+    <text transform="matrix(1 -.33 0 1 331 166)" font-size="5.6" font-weight="700" fill="#3b5b78" class="lbl">MAP</text>
+    <rect class="hit" x="318" y="140" width="40" height="104" fill="transparent"/>
+  </g>
+  <path d="M44 74Q160 90 262 74" fill="none" stroke="#8a6440" stroke-width="1.4"/>
+  <g class="hs" data-id="s_paintings" role="button" tabindex="0" aria-label="The class's paintings">
+    <g transform="rotate(-3 68 100)"><rect x="52" y="84" width="34" height="30" fill="#fffdf6" class="t"/><path d="M58 104V96l11-8 11 8v8Z" fill="#e0a84a" class="t"/><rect x="66" y="98" width="6" height="6" fill="#3b78b8"/><circle cx="80" cy="90" r="3" fill="#f5d76e"/></g>
+    <g transform="rotate(2 118 100)"><rect x="101" y="85" width="34" height="30" fill="#fffdf6" class="t"/><circle cx="110" cy="93" r="4" fill="#f5d76e"/><circle cx="125" cy="103" r="4" fill="#d0602f"/><circle cx="125" cy="103" r="1.6" fill="#f5d76e"/><path d="M125 107v6" stroke="#4d8a4f" stroke-width="1.4"/></g>
+    <g transform="rotate(-2 168 100)"><rect x="151" y="86" width="34" height="30" fill="#fffdf6" class="t"/><ellipse cx="168" cy="106" rx="8" ry="5" fill="#8a6440"/><circle cx="168" cy="97" r="5" fill="#8a6440"/><path d="M164 94l-1-4 3 2M172 94l1-4-3 2" fill="#8a6440"/><circle cx="166" cy="97" r=".8" fill="#fffdf6"/><circle cx="170" cy="97" r=".8" fill="#fffdf6"/></g>
+    <g transform="rotate(3 218 100)"><rect x="201" y="85" width="34" height="30" fill="#fffdf6" class="t"/><path d="M218 88l5 10v8h-10v-8Z" fill="#7a5cc2"/><path d="M213 106l-3 4h6M223 106l3 4h-6" fill="#d0602f"/><circle cx="218" cy="97" r="2" fill="#bfe0ea"/><path d="M216 110l2 4 2-4" fill="#f0b44c"/></g>
+    <g fill="#c9a24a"><rect x="66" y="78" width="4" height="9" rx="1.5" class="t"/><rect x="116" y="80" width="4" height="9" rx="1.5" class="t"/><rect x="166" y="81" width="4" height="9" rx="1.5" class="t"/><rect x="216" y="80" width="4" height="9" rx="1.5" class="t"/></g>
+    <rect class="hit" x="48" y="76" width="192" height="44" fill="transparent"/>
+  </g>
+  <g>
+    <circle cx="296" cy="104" r="20" fill="#fffdf6" class="o"/><circle cx="296" cy="104" r="16.5" fill="none" stroke="#cfc8b4" stroke-width="1"/>
+    <g stroke="#2b2836" stroke-width="1.5" stroke-linecap="round"><line x1="296" y1="90" x2="296" y2="93"/><line x1="310" y1="104" x2="307" y2="104"/><line x1="296" y1="118" x2="296" y2="115"/><line x1="282" y1="104" x2="285" y2="104"/></g>
+    <line x1="296" y1="104" x2="304" y2="99" stroke="#2b2836" stroke-width="2.4" stroke-linecap="round"/><line x1="296" y1="104" x2="285" y2="110" stroke="#2b2836" stroke-width="1.6" stroke-linecap="round"/><circle cx="296" cy="104" r="1.8" fill="#d0602f"/>
+  </g>
+  <g class="hs" data-id="s_timetable" role="button" tabindex="0" aria-label="Class timetable">
+    <rect x="52" y="122" width="198" height="130" fill="#fffdf6" class="o"/>
+    <rect x="52" y="122" width="198" height="20" fill="#2f7c83" class="o"/>
+    <text x="151" y="136" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fffdf6" class="lbl" letter-spacing="1">5H TIMETABLE</text>
+    <g id="ttWall"></g>
+    <circle cx="57" cy="127" r="3" fill="#d0602f" class="t"/><circle cx="245" cy="127" r="3" fill="#3b78b8" class="t"/>
+    <rect class="hit" x="48" y="118" width="206" height="138" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="s_bookshelfC" role="button" tabindex="0" aria-label="Bookshelf">
+    <rect x="46" y="266" width="72" height="94" fill="#a8744a" class="o"/><rect x="50" y="270" width="64" height="86" fill="#8a6440"/>
+    <g><rect x="53" y="276" width="9" height="24" fill="#3b78b8" class="t"/><rect x="63" y="279" width="7" height="21" fill="#d0602f" class="t"/><rect x="71" y="274" width="10" height="26" fill="#f0b44c" class="t"/><rect x="82" y="280" width="8" height="20" fill="#7a5cc2" class="t"/><rect x="91" y="277" width="9" height="23" fill="#3a8f5c" class="t"/><rect x="101" y="282" width="10" height="18" fill="#c4589a" class="t"/></g>
+    <rect x="50" y="300" width="64" height="4" fill="#a8744a"/>
+    <g><rect x="53" y="308" width="12" height="22" fill="#2f7c83" class="t"/><rect x="66" y="312" width="8" height="18" fill="#d9a622" class="t"/><rect x="75" y="306" width="9" height="24" fill="#d0602f" class="t"/><rect x="86" y="314" width="24" height="16" fill="#e8dcc6" class="t"/><path d="M90 318h16M90 322h12" stroke="#9aa5ab" stroke-width="1.2"/></g>
+    <rect x="50" y="330" width="64" height="4" fill="#a8744a"/>
+    <g><rect x="53" y="338" width="20" height="18" fill="#7fb5c9" class="t"/><rect x="75" y="338" width="20" height="18" fill="#b09ae8" class="t"/><rect x="97" y="338" width="14" height="18" fill="#f5d76e" class="t"/></g>
+    <rect class="hit" x="44" y="264" width="76" height="98" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="s_hamster" role="button" tabindex="0" aria-label="Nutmeg the hamster">
+    <rect x="256" y="282" width="64" height="78" fill="#7fb5c9" class="o"/><rect x="256" y="278" width="64" height="6" fill="#a9d0de" class="t"/>
+    <rect x="262" y="292" width="52" height="28" rx="2" fill="#6aa3b8" class="t"/><rect x="262" y="326" width="52" height="28" rx="2" fill="#6aa3b8" class="t"/>
+    <rect x="284" y="303" width="8" height="5" rx="2" fill="#fffdf6" class="t"/><rect x="284" y="337" width="8" height="5" rx="2" fill="#fffdf6" class="t"/>
+    <rect x="260" y="270" width="58" height="8" rx="2" fill="#5b6f7a" class="t"/>
+    <rect x="262" y="228" width="54" height="44" rx="3" fill="#eef5f7" opacity=".5"/>
+    <g stroke="#7a8794" stroke-width="1"><line x1="268" y1="228" x2="268" y2="270"/><line x1="276" y1="228" x2="276" y2="270"/><line x1="284" y1="228" x2="284" y2="270"/><line x1="292" y1="228" x2="292" y2="270"/><line x1="300" y1="228" x2="300" y2="270"/><line x1="308" y1="228" x2="308" y2="270"/></g>
+    <rect x="262" y="228" width="54" height="44" rx="3" fill="none" class="o"/><rect x="262" y="262" width="54" height="10" fill="#d9c69a" class="t"/>
+    <circle cx="304" cy="248" r="10" fill="none" stroke="#c9a24a" stroke-width="2.4"/><line x1="304" y1="238" x2="304" y2="258" stroke="#c9a24a" stroke-width="1.4"/><line x1="294" y1="248" x2="314" y2="248" stroke="#c9a24a" stroke-width="1.4"/>
+    <rect x="266" y="234" width="5" height="12" rx="2" fill="#bfe0ea" class="t"/>
+    <ellipse cx="281" cy="258" rx="9" ry="6.5" fill="#e0a84a" class="t"/><circle cx="288" cy="255" r="4.6" fill="#e0a84a" class="t"/>
+    <circle cx="286" cy="251" r="1.8" fill="#f2c89a" class="t"/><circle cx="291" cy="251" r="1.8" fill="#f2c89a" class="t"/>
+    <circle cx="289.5" cy="255" r=".9" fill="#2b2836"/><circle cx="292.5" cy="256.5" r=".8" fill="#d97a8a"/><ellipse cx="279" cy="260" rx="4" ry="2.5" fill="#fff3d6"/>
+    <g class="bubble"><path d="M272 214h20a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4h-9l-5 5v-5h-6a4 4 0 0 1-4-4v-8a4 4 0 0 1 4-4Z" fill="#fffdf6" class="t"/><text x="282" y="226" text-anchor="middle" font-size="10" font-weight="700" fill="#c98320" class="lbl">?</text></g>
+    <rect class="hit" x="254" y="210" width="68" height="152" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="s_plantC" role="button" tabindex="0" aria-label="Plant">
+    <ellipse cx="296" cy="454" rx="20" ry="4" fill="#2b2836" opacity=".18" filter="url(#blur3)"/>
+    <path d="M282 420h30l-4 32h-22Z" fill="#c9755a" class="o"/><rect x="280" y="416" width="34" height="7" rx="2" fill="#d98a6e" class="t"/>
+    <g fill="#4d8a4f" class="t"><path d="M296 418c-24-10-30-40-16-58 6 22 12 40 16 58Z"/><path d="M297 418c8-24 22-40 36-44-8 20-20 34-36 44Z"/><path d="M296 418c-16-6-30-8-38-4 10 8 24 10 38 4Z"/><path d="M297 418c2-20 10-34 20-40-2 16-8 30-20 40Z" fill="#6fa36a"/></g>
+    <rect class="hit" x="250" y="362" width="58" height="56" fill="transparent"/>
+  </g>
+  <g><rect x="152" y="270" width="56" height="52" rx="8" fill="#3f8f96" class="o"/><rect x="160" y="286" width="40" height="8" rx="3" fill="#2f7c83"/><rect x="152" y="270" width="56" height="12" rx="6" fill="#4c9ea6"/></g>
+  <ellipse cx="180" cy="458" rx="112" ry="12" fill="#2b2836" opacity=".16" filter="url(#blur6)"/>
   <g class="hs" data-id="s_mdesk" role="button" tabindex="0" aria-label="Mary's desk">
-    <rect x="110" y="256" width="170" height="12" rx="2" fill="#f0b44c"/><rect x="120" y="268" width="10" height="72" fill="#9aa5ab"/><rect x="260" y="268" width="10" height="72" fill="#9aa5ab"/>
-    <rect x="130" y="238" width="40" height="18" rx="2" fill="#6d4fb8"/>
-    <rect class="hit" x="108" y="232" width="176" height="108" fill="transparent"/>
+    <rect x="106" y="368" width="6" height="62" fill="#6f7c88" class="t"/><rect x="248" y="368" width="6" height="62" fill="#6f7c88" class="t"/>
+    <rect x="156" y="368" width="5" height="52" fill="#8a97a3" class="t"/><rect x="199" y="368" width="5" height="52" fill="#8a97a3" class="t"/>
+    <polygon points="100,318 260,318 276,356 84,356" fill="url(#deskTop)" stroke="#2b2836" stroke-width="2.2" stroke-linejoin="round"/>
+    <rect x="84" y="356" width="192" height="12" fill="#c9ad7a" stroke="#2b2836" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="100,318 260,318 258,322 102,322" fill="#fff8df" opacity=".8"/>
+    <rect x="88" y="368" width="8" height="84" fill="#7a8794" class="o"/><rect x="264" y="368" width="8" height="84" fill="#7a8794" class="o"/>
+    <rect x="88" y="368" width="3" height="84" fill="#9aa7b3"/><rect x="264" y="368" width="3" height="84" fill="#9aa7b3"/>
+    <rect x="108" y="330" width="48" height="20" rx="7" fill="#7a5cc2" class="o"/><rect x="108" y="330" width="48" height="8" rx="6" fill="#9a80dc"/>
+    <line x1="114" y1="338" x2="150" y2="338" stroke="#e9e2f5" stroke-width="1.6" stroke-dasharray="2 1.5"/><circle cx="150" cy="338" r="2.4" fill="#f0b44c" class="t"/>
+    <g><line x1="174" y1="298" x2="172" y2="322" stroke="#d0602f" stroke-width="3.2" stroke-linecap="round"/><line x1="180" y1="296" x2="180" y2="322" stroke="#f0b44c" stroke-width="3.2" stroke-linecap="round"/><line x1="186" y1="300" x2="188" y2="322" stroke="#3b78b8" stroke-width="3.2" stroke-linecap="round"/><rect x="166" y="320" width="28" height="26" rx="3" fill="#2f7c83" class="o"/><ellipse cx="180" cy="320" rx="14" ry="4" fill="#3f8f96" class="t"/><rect x="166" y="320" width="6" height="26" rx="3" fill="#4c9ea6" opacity=".7"/></g>
+    <rect class="hit" x="84" y="296" width="110" height="74" fill="transparent"/>
   </g>
   <g class="hs" data-id="s_envelope" role="button" tabindex="0" aria-label="Envelope on Mary's desk">
-    <g id="envArt"><rect x="196" y="232" width="56" height="34" rx="2" fill="#fffdf8" stroke="#c9a24a" stroke-width="2" transform="rotate(-6 224 249)"/><path d="M198 234 224 252 250 232" fill="none" stroke="#c9a24a" stroke-width="2" transform="rotate(-6 224 249)"/><text x="224" y="262" text-anchor="middle" font-size="10" fill="#6d4fb8" font-family="Caveat, cursive" transform="rotate(-6 224 249)">Mary</text></g>
-    <rect class="hit" x="190" y="222" width="68" height="50" fill="transparent"/>
+    <g id="envArt" transform="rotate(-7 226 340)"><rect x="200" y="326" width="54" height="30" rx="2" fill="#fff9e8" class="o"/><polyline points="200,326 227,346 254,326" fill="none" class="t"/><line x1="200" y1="356" x2="220" y2="342" class="t"/><line x1="254" y1="356" x2="234" y2="342" class="t"/><text x="227" y="354" text-anchor="middle" font-size="9" fill="#6d4fb8" class="hand" font-weight="700">Mary</text></g>
+    <rect class="hit" x="196" y="318" width="64" height="46" fill="transparent"/>
+  </g>
+  <ellipse cx="90" cy="458" rx="36" ry="6" fill="#2b2836" opacity=".18" filter="url(#blur6)"/>
+  <g class="hs" data-id="s_bag" role="button" tabindex="0" aria-label="Mary's schoolbag" transform="translate(24 0)">
+    <path d="M38 394c0-14 10-22 28-22s28 8 28 22v50a6 6 0 0 1-6 6H44a6 6 0 0 1-6-6Z" fill="#7a5cc2" class="o"/>
+    <path d="M40 400h52v16H40Z" fill="#9a80dc"/><path d="M46 418h40v24H46Z" fill="#6d4fb8" class="t"/>
+    <path d="M56 372c2-9 18-9 20 0" fill="none" class="o"/><circle cx="66" cy="430" r="3.4" fill="#f0b44c" class="t"/>
+    <path d="M38 394c-7 10-7 34 0 46" fill="none" class="t"/><path d="M60 428c4-2 8-2 12 0" fill="none" stroke="#e9e2f5" stroke-width="1.4" stroke-dasharray="2 1.5"/>
+    <rect class="hit" x="34" y="366" width="64" height="88" fill="transparent"/>
   </g>
 </g>
 
 <!-- CORRIDOR (square: four views) -->
 <!-- h1: the lockers -->
-<g class="view" id="v-h1">
-  <rect width="360" height="340" fill="#f4efe4"/><rect y="336" width="360" height="6" fill="#ded5c3"/><rect y="340" width="360" height="140" fill="#c9d3d8"/>
+<g class="view" id="v-h1" data-box="corridor" data-light="none">
+  <g fill="#fffdf6"><rect x="70" y="80" width="46" height="34" class="o"/><rect x="157" y="80" width="46" height="34" class="o"/><rect x="244" y="80" width="46" height="34" class="o"/></g>
+  <g fill="#f0b44c"><circle cx="93" cy="93" r="7" class="t"/><circle cx="180" cy="93" r="7" class="t"/><circle cx="267" cy="93" r="7" class="t"/></g>
+  <g stroke="#9aa5ab" stroke-width="1.2"><line x1="78" y1="106" x2="108" y2="106"/><line x1="165" y1="106" x2="195" y2="106"/><line x1="252" y1="106" x2="282" y2="106"/></g>
   <g class="hs" data-id="s_lockers" role="button" tabindex="0" aria-label="Other lockers">
-    <g fill="#7fb5c9" stroke="#5e97ab" stroke-width="2"><rect x="30" y="90" width="58" height="250"/><rect x="92" y="90" width="58" height="250"/><rect x="216" y="90" width="58" height="250"/><rect x="278" y="90" width="58" height="250"/></g>
-    <g fill="#5e97ab"><rect x="40" y="110" width="38" height="4"/><rect x="40" y="118" width="38" height="4"/><rect x="102" y="110" width="38" height="4"/><rect x="102" y="118" width="38" height="4"/><rect x="226" y="110" width="38" height="4"/><rect x="226" y="118" width="38" height="4"/><rect x="288" y="110" width="38" height="4"/><rect x="288" y="118" width="38" height="4"/></g>
-    <rect class="hit" x="28" y="88" width="310" height="254" fill="transparent"/>
+    <g fill="#7fb5c9"><rect x="44" y="120" width="45" height="240" class="o"/><rect x="89" y="120" width="45" height="240" class="o"/><rect x="179" y="120" width="45" height="240" class="o"/><rect x="224" y="120" width="45" height="240" class="o"/><rect x="269" y="120" width="47" height="240" class="o"/></g>
+    <g fill="#5e97ab"><rect x="52" y="136" width="29" height="4"/><rect x="52" y="144" width="29" height="4"/><rect x="97" y="136" width="29" height="4"/><rect x="97" y="144" width="29" height="4"/><rect x="187" y="136" width="29" height="4"/><rect x="187" y="144" width="29" height="4"/><rect x="232" y="136" width="29" height="4"/><rect x="232" y="144" width="29" height="4"/><rect x="277" y="136" width="31" height="4"/><rect x="277" y="144" width="31" height="4"/></g>
+    <g fill="#5b6f7a"><rect x="76" y="236" width="6" height="14" rx="2" class="t"/><rect x="121" y="236" width="6" height="14" rx="2" class="t"/><rect x="211" y="236" width="6" height="14" rx="2" class="t"/><rect x="256" y="236" width="6" height="14" rx="2" class="t"/><rect x="303" y="236" width="6" height="14" rx="2" class="t"/></g>
+    <rect x="96" y="170" width="30" height="20" fill="#fffdf6" class="t"/><path d="M100 176h22M100 182h14" stroke="#9aa5ab" stroke-width="1.4"/>
+    <rect class="hit" x="42" y="118" width="88" height="244" fill="transparent"/><rect class="hit" x="177" y="118" width="141" height="244" fill="transparent"/>
   </g>
   <g class="hs" data-id="s_locker" role="button" tabindex="0" aria-label="Mary's locker">
-    <rect x="154" y="90" width="58" height="250" fill="#b09ae8" stroke="#6d4fb8" stroke-width="2"/>
-    <g fill="#6d4fb8"><rect x="164" y="110" width="38" height="4"/><rect x="164" y="118" width="38" height="4"/></g>
-    <rect x="160" y="140" width="46" height="18" rx="3" fill="#fffdf8"/><text x="183" y="153" text-anchor="middle" font-size="11" font-weight="700" fill="#6d4fb8" font-family="Atkinson Hyperlegible, Verdana, sans-serif">MARY</text>
-    <rect x="170" y="200" width="26" height="36" rx="4" fill="#5b6f7a"/><g fill="#fffdf8"><rect x="174" y="206" width="5" height="8"/><rect x="181" y="206" width="5" height="8"/><rect x="188" y="206" width="5" height="8"/></g>
-    <rect id="lockerOpen" class="off" x="156" y="92" width="54" height="246" fill="#3d4a55"/>
-    <rect class="hit" x="152" y="88" width="62" height="254" fill="transparent"/>
+    <rect x="134" y="120" width="45" height="240" fill="#b09ae8" class="o"/>
+    <g fill="#6d4fb8"><rect x="142" y="136" width="29" height="4"/><rect x="142" y="144" width="29" height="4"/></g>
+    <rect x="139" y="164" width="35" height="18" rx="3" fill="#fffdf6" class="t"/><text x="156.5" y="177" text-anchor="middle" font-size="9.5" font-weight="700" fill="#6d4fb8" class="lbl">MARY</text>
+    <rect x="145" y="212" width="24" height="36" rx="4" fill="#5b6f7a" class="o"/><g fill="#fffdf6"><rect x="149" y="218" width="4.5" height="8"/><rect x="155" y="218" width="4.5" height="8"/><rect x="161" y="218" width="4.5" height="8"/></g>
+    <path d="M150 196c-1-3 2-4 3-2l1 2" fill="none" stroke="#f0b44c" stroke-width="1.4"/>
+    <rect id="lockerOpen" class="off" x="136" y="122" width="41" height="236" fill="#3d4a55"/>
+    <rect class="hit" x="130" y="118" width="53" height="244" fill="transparent"/>
   </g>
+  <ellipse cx="180" cy="452" rx="120" ry="10" fill="#2b2836" opacity=".14" filter="url(#blur6)"/>
+  <g><polygon points="76,382 284,382 296,400 64,400" fill="#c9a26b" stroke="#2b2836" stroke-width="2.2" stroke-linejoin="round"/><rect x="72" y="400" width="8" height="40" fill="#8a6440" class="o"/><rect x="280" y="400" width="8" height="40" fill="#8a6440" class="o"/><rect x="176" y="400" width="6" height="34" fill="#a8744a" class="t"/></g>
 </g>
+
 <!-- h2: the library doors -->
-<g class="view" id="v-h2">
-  <rect width="360" height="340" fill="#f4efe4"/><rect y="336" width="360" height="6" fill="#ded5c3"/><rect y="340" width="360" height="140" fill="#c9d3d8"/>
-  <g class="hs" data-id="s_toLibrary" role="button" tabindex="0" aria-label="Doors to the library">
-    <rect x="90" y="64" width="180" height="276" fill="#fffdf8"/>
-    <rect x="98" y="72" width="80" height="268" fill="#3b8a4e"/><rect x="182" y="72" width="80" height="268" fill="#3b8a4e"/>
-    <rect x="112" y="96" width="52" height="70" rx="3" fill="#bfe0ea"/><rect x="196" y="96" width="52" height="70" rx="3" fill="#bfe0ea"/>
-    <rect x="130" y="190" width="100" height="28" rx="4" fill="#fffdf8"/><text x="180" y="209" text-anchor="middle" font-size="14" font-weight="700" fill="#3b8a4e" font-family="Atkinson Hyperlegible, Verdana, sans-serif">LIBRARY</text>
-    <rect class="hit" x="88" y="62" width="184" height="280" fill="transparent"/>
+<g class="view" id="v-h2" data-box="corridor" data-light="none">
+  <g class="hs" data-id="s_fountain" role="button" tabindex="0" aria-label="Water fountain">
+    <rect x="46" y="262" width="40" height="98" rx="3" fill="#dfe6ea" class="o"/><rect x="42" y="256" width="48" height="12" rx="3" fill="#b9c7cb" class="o"/>
+    <path d="M62 250c0-6 4-8 8-6" fill="none" stroke="#5e97ab" stroke-width="2.4" stroke-linecap="round"/><circle cx="58" cy="262" r="3" fill="#7fb5c9" class="t"/>
+    <rect class="hit" x="40" y="236" width="52" height="126" fill="transparent"/>
+  </g>
+  <g class="hs door" data-id="s_toLibrary" role="button" tabindex="0" aria-label="Doors to the library">
+    <rect x="96" y="72" width="172" height="288" fill="#fffdf6" class="o"/>
+    <rect x="104" y="80" width="78" height="280" fill="#3b8a4e" class="o"/><rect x="182" y="80" width="78" height="280" fill="#3b8a4e" class="o"/>
+    <circle cx="143" cy="150" r="24" fill="#dfe9ea" class="t"/><circle cx="221" cy="150" r="24" fill="#dfe9ea" class="t"/>
+    <circle cx="143" cy="150" r="18" fill="#c9d7df"/><circle cx="221" cy="150" r="18" fill="#c9d7df"/>
+    <rect x="118" y="230" width="50" height="110" rx="3" fill="#4a9e5e" class="t"/><rect x="196" y="230" width="50" height="110" rx="3" fill="#4a9e5e" class="t"/>
+    <rect x="172" y="250" width="6" height="34" rx="3" fill="#f0b44c" class="t"/><rect x="186" y="250" width="6" height="34" rx="3" fill="#f0b44c" class="t"/>
+    <rect x="130" y="190" width="104" height="26" rx="4" fill="#fffdf6" class="t"/><text x="182" y="208" text-anchor="middle" font-size="13" font-weight="700" fill="#3b8a4e" class="lbl" letter-spacing="1.5">LIBRARY</text>
+    <rect class="hit" x="94" y="70" width="176" height="292" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="s_trophies" role="button" tabindex="0" aria-label="Trophy cabinet">
+    <rect x="278" y="150" width="40" height="210" fill="#a8744a" class="o"/><rect x="283" y="156" width="30" height="198" fill="#eaf1ee" class="t"/>
+    <g fill="#f0b44c"><path d="M292 186h12l-2 12h-8Z" class="t"/><rect x="295" y="198" width="6" height="4"/><rect x="292" y="202" width="12" height="3" class="t"/><path d="M290 236h16l-3 14h-10Z" class="t"/><rect x="295" y="250" width="6" height="4"/><rect x="291" y="254" width="14" height="3" class="t"/><path d="M294 300h8l-1 10h-6Z" class="t"/><rect x="295" y="310" width="6" height="3"/></g>
+    <rect x="283" y="216" width="30" height="3" fill="#c9bfa9"/><rect x="283" y="270" width="30" height="3" fill="#c9bfa9"/>
+    <rect class="hit" x="274" y="146" width="48" height="216" fill="transparent"/>
   </g>
 </g>
+
 <!-- h3: the notice board -->
-<g class="view" id="v-h3">
-  <rect width="360" height="340" fill="#f4efe4"/><rect y="336" width="360" height="6" fill="#ded5c3"/><rect y="340" width="360" height="140" fill="#c9d3d8"/>
+<g class="view" id="v-h3" data-box="corridor" data-light="none">
   <g class="hs" data-id="s_notices" role="button" tabindex="0" aria-label="Notice board">
-    <rect x="60" y="70" width="240" height="170" rx="4" fill="#c9a26b" stroke="#a8744a" stroke-width="5"/>
-    <rect x="76" y="86" width="60" height="70" fill="#fffdf8" transform="rotate(-3 106 121)"/><rect x="84" y="96" width="44" height="6" fill="#d0602f" transform="rotate(-3 106 121)"/>
-    <rect x="150" y="160" width="70" height="60" fill="#d6e9eb" transform="rotate(2 185 190)"/>
-    <rect x="232" y="90" width="54" height="64" fill="#fffdf8" transform="rotate(4 259 122)"/>
-    <rect class="hit" x="56" y="66" width="248" height="178" fill="transparent"/>
+    <rect x="52" y="82" width="256" height="172" rx="4" fill="#c9a26b" stroke="#a8744a" stroke-width="6" stroke-linejoin="round"/>
+    <rect x="52" y="82" width="256" height="172" rx="4" fill="none" class="o"/>
+    <g transform="rotate(-3 100 132)"><rect x="66" y="96" width="68" height="72" fill="#fffdf6" class="t"/><rect x="72" y="102" width="56" height="12" fill="#d0602f"/><text x="100" y="111" text-anchor="middle" font-size="7" font-weight="700" fill="#fffdf6" class="lbl">SUMMER FAIR</text><circle cx="88" cy="140" r="10" fill="#f0b44c" class="t"/><circle cx="112" cy="146" r="8" fill="#7fb5c9" class="t"/><path d="M88 150v14M112 154v10" stroke="#2b2836" stroke-width="1.2"/></g>
+    <g transform="rotate(2 258 128)"><rect x="228" y="98" width="60" height="60" fill="#dbe9f0" class="t"/><text x="258" y="112" text-anchor="middle" font-size="6.5" font-weight="700" fill="#2c5f93" class="lbl">SWIMMING</text><text x="258" y="121" text-anchor="middle" font-size="6.5" font-weight="700" fill="#2c5f93" class="lbl">GALA</text><path d="M236 138c6-6 10 6 16 0s10 6 16 0s8 4 12 0" fill="none" stroke="#3b78b8" stroke-width="2"/><path d="M236 148c6-6 10 6 16 0s10 6 16 0s8 4 12 0" fill="none" stroke="#3b78b8" stroke-width="2"/></g>
+    <g transform="rotate(-2 100 214)"><rect x="66" y="184" width="68" height="58" fill="#fffdf6" class="t"/><text x="100" y="196" text-anchor="middle" font-size="6.5" font-weight="700" fill="#2b2836" class="lbl">LOST: BISCUIT</text><ellipse cx="100" cy="220" rx="12" ry="8" fill="#e0a84a" class="t"/><circle cx="110" cy="214" r="6" fill="#e0a84a" class="t"/><path d="M106 210l-1-5 4 3M114 210l1-5-4 3" fill="#e0a84a" class="t"/><circle cx="109" cy="213" r=".9" fill="#2b2836"/><circle cx="112" cy="213" r=".9" fill="#2b2836"/><text x="100" y="238" text-anchor="middle" font-size="5.5" fill="#55635d" class="lbl">ginger, very fluffy</text></g>
+    <g transform="rotate(1 258 210)"><rect x="228" y="178" width="60" height="64" fill="#fffdf6" class="t"/><text x="258" y="190" text-anchor="middle" font-size="6.5" font-weight="700" fill="#2b2836" class="lbl">HOUSE POINTS</text><rect x="236" y="196" width="10" height="40" fill="#d0602f" class="t"/><rect x="250" y="206" width="10" height="30" fill="#3b78b8" class="t"/><rect x="264" y="200" width="10" height="36" fill="#3a8f5c" class="t"/><rect x="278" y="214" width="6" height="22" fill="#f0b44c" class="t"/></g>
+    <g fill="#d0602f"><circle cx="72" cy="100" r="3" class="t"/><circle cx="282" cy="102" r="3" fill="#3b78b8" class="t"/><circle cx="70" cy="188" r="3" fill="#3a8f5c" class="t"/><circle cx="284" cy="182" r="3" fill="#f0b44c" class="t"/></g>
+    <rect class="hit" x="48" y="78" width="84" height="180" fill="transparent"/><rect class="hit" x="224" y="78" width="88" height="180" fill="transparent"/>
   </g>
   <g class="hs" data-id="s_bonus" role="button" tabindex="0" aria-label="Bonus riddle card">
-    <rect x="150" y="84" width="70" height="60" fill="#f5d76e" transform="rotate(-2 185 114)"/>
-    <text x="185" y="110" text-anchor="middle" font-size="11" font-weight="700" fill="#8a6440" font-family="Atkinson Hyperlegible, Verdana, sans-serif" transform="rotate(-2 185 114)">BONUS</text>
-    <text x="185" y="126" text-anchor="middle" font-size="11" font-weight="700" fill="#8a6440" font-family="Atkinson Hyperlegible, Verdana, sans-serif" transform="rotate(-2 185 114)">RIDDLE</text>
-    <circle cx="185" cy="88" r="3" fill="#d0602f"/>
-    <rect class="hit" x="146" y="80" width="78" height="68" fill="transparent"/>
+    <g transform="rotate(-2 180 150)"><rect x="146" y="118" width="68" height="64" fill="#f5d76e" class="o"/><text x="180" y="140" text-anchor="middle" font-size="9" font-weight="700" fill="#8a6440" class="lbl">BONUS</text><text x="180" y="154" text-anchor="middle" font-size="9" font-weight="700" fill="#8a6440" class="lbl">RIDDLE</text><path d="M166 166c4-6 24-6 28 0" fill="none" stroke="#8a6440" stroke-width="1.4"/><circle cx="180" cy="122" r="3" fill="#d0602f" class="t"/></g>
+    <rect class="hit" x="140" y="112" width="80" height="76" fill="transparent"/>
   </g>
+  <g><rect x="60" y="280" width="240" height="80" rx="4" fill="#e6e3d6" class="o"/><g stroke="#cfcbbd" stroke-width="3"><line x1="80" y1="288" x2="80" y2="352"/><line x1="104" y1="288" x2="104" y2="352"/><line x1="128" y1="288" x2="128" y2="352"/><line x1="152" y1="288" x2="152" y2="352"/><line x1="176" y1="288" x2="176" y2="352"/><line x1="200" y1="288" x2="200" y2="352"/><line x1="224" y1="288" x2="224" y2="352"/><line x1="248" y1="288" x2="248" y2="352"/><line x1="272" y1="288" x2="272" y2="352"/></g></g>
 </g>
-<!-- h4: door back to the classroom -->
-<g class="view" id="v-h4">
-  <rect width="360" height="340" fill="#f4efe4"/><rect y="336" width="360" height="6" fill="#ded5c3"/><rect y="340" width="360" height="140" fill="#c9d3d8"/>
-  <g class="hs" data-id="s_toClassroom" role="button" tabindex="0" aria-label="Door to classroom 5H">
-    <rect x="115" y="64" width="130" height="276" fill="#fffdf8"/><rect x="123" y="72" width="114" height="268" fill="#2f7c83"/>
-    <rect x="139" y="90" width="82" height="60" rx="3" fill="#bfe0ea"/><circle cx="130" cy="220" r="6" fill="#f0b44c"/>
-    <rect x="153" y="164" width="54" height="24" rx="4" fill="#fffdf8"/><text x="180" y="181" text-anchor="middle" font-size="14" font-weight="700" fill="#2f7c83" font-family="Atkinson Hyperlegible, Verdana, sans-serif">5H</text>
-    <rect class="hit" x="113" y="62" width="134" height="280" fill="transparent"/>
+
+<!-- h4: doors to 5H and 5K -->
+<g class="view" id="v-h4" data-box="corridor" data-light="none">
+  <g><path d="M40 70Q180 100 320 70" fill="none" stroke="#8a6440" stroke-width="1.4"/><g class="t"><path d="M70 78l7 16 7-16Z" fill="#d0602f"/><path d="M104 84l7 16 7-16Z" fill="#f0b44c"/><path d="M138 88l7 16 7-16Z" fill="#3a8f5c"/><path d="M172 89l7 16 7-16Z" fill="#3b78b8"/><path d="M206 88l7 16 7-16Z" fill="#7a5cc2"/><path d="M240 84l7 16 7-16Z" fill="#c4589a"/><path d="M274 78l7 16 7-16Z" fill="#d0602f"/></g></g>
+  <g class="hs door" data-id="s_toClassroom" role="button" tabindex="0" aria-label="Door to classroom 5H">
+    <rect x="104" y="106" width="112" height="254" fill="#fffdf6" class="o"/>
+    <rect x="112" y="114" width="96" height="246" fill="#2f7c83" class="o"/>
+    <rect x="126" y="128" width="68" height="56" rx="3" fill="#dfe9ea" class="t"/><rect x="132" y="134" width="56" height="44" fill="#e4eef4"/>
+    <rect x="132" y="196" width="56" height="26" rx="4" fill="#fffdf6" class="t"/><text x="160" y="214" text-anchor="middle" font-size="14" font-weight="700" fill="#2f7c83" class="lbl">5H</text>
+    <rect x="126" y="236" width="68" height="104" rx="3" fill="#3f8f96" class="t"/><circle cx="120" cy="250" r="5.5" fill="#f0b44c" class="t"/>
+    <rect class="hit" x="102" y="104" width="116" height="258" fill="transparent"/>
   </g>
+  <g><rect x="244" y="106" width="76" height="254" fill="#fffdf6" class="o"/><rect x="252" y="114" width="68" height="246" fill="#c9755a" class="o"/><rect x="264" y="128" width="46" height="56" rx="3" fill="#f6e3d6" class="t"/><rect x="266" y="196" width="42" height="26" rx="4" fill="#fffdf6" class="t"/><text x="287" y="214" text-anchor="middle" font-size="14" font-weight="700" fill="#c9755a" class="lbl">5K</text><circle cx="260" cy="250" r="5.5" fill="#f0b44c" class="t"/></g>
+  <polygon points="118,384 202,384 212,404 108,404" fill="#8a6440" class="o"/><text x="160" y="398" text-anchor="middle" font-size="8" font-weight="700" fill="#f0b44c" class="lbl">WELCOME</text>
 </g>
 
 <!-- LIBRARY (long room: six views) -->
@@ -717,6 +884,8 @@ table.tt td.day{font-weight:700;text-align:left;background:#eaf1ee}
   </g>
 </g>
 
+<rect width="360" height="480" filter="url(#grain)" opacity=".2" style="mix-blend-mode:multiply" pointer-events="none"/>
+<rect width="360" height="480" fill="url(#vig)" pointer-events="none"/>
 </svg>
 
 <span class="where" id="where"></span>
@@ -740,9 +909,8 @@ table.tt td.day{font-weight:700;text-align:left;background:#eaf1ee}
 
 <!-- close-up: the timetable -->
 <div class="overlay closeup" id="ttUI" hidden>
-  <p class="otitle">5H timetable · period numbers along the top</p>
-  <table class="tt" id="tt"></table>
-  <p class="legend">Ma Maths · En English · Sc Science · Mu Music · Ar Art · PE Sport · Ge Geography · Li Library</p>
+  <p class="otitle">5H timetable. Period numbers along the top.</p>
+  <svg class="ttz" viewBox="0 0 220 176" aria-label="The class timetable, with a picture for each lesson"><rect width="220" height="176" rx="4" fill="#fffdf6"/><g id="tt"></g></svg>
   <button class="ob" data-close>Step back</button>
 </div>
 
@@ -822,6 +990,8 @@ const NOTES = {
   slipSc:'<span class="head">Slip 1 of 3</span><span class="big">SCIENCE on THURSDAY</span><span>Riddle 2: I have eighty-eight keys, but I can’t open a single door.</span>',
   slipMu:'<span class="head">Slip 2 of 3</span><span class="big">MUSIC on TUESDAY</span><span>Riddle 3: I’m full of colour, but I’m not a rainbow. Brushes are my best friends.</span>',
   slipAr:'<span class="head">Slip 3 of 3</span><span class="big">ART on WEDNESDAY</span><span>That’s all three! Now the timetable, then your locker. Happy holidays! Mr H</span>',
+  rules:'<span class="head">Class 5H rules</span><span>1. Be kind.</span><span>2. Listen with your whole face.</span><span>3. Feed Nutmeg once a day, never twice.</span><span>4. Nobody goes home without their jumper.</span>',
+  map:'<span class="head">Our world</span><span>A world map. Someone has stuck a red dot on Singapore, and a tiny gold star on London.</span><span class="big">14 hours apart by plane.</span>',
   bonus:'<span class="head">Bonus riddle for super-sleuths</span><span>Someone in London loves postcards and moths. Spell her name with the first letters of four stories.</span>'
 };
 const SHELVES = {
@@ -859,7 +1029,9 @@ const STAGE_SCHOOL = {
   },
   doors:{s_toCorridor:['corridor','h2'], s_toClassroom:['classroom','c1'], s_toLibrary:['library','l3'], s_toCorridorL:['corridor','h4']},
   start:['classroom','c4'],
-  intro:'<b>Last day of school.</b> Everyone is at the goodbye party, but Mr Hollis has left something on your desk.',
+  intro:'<b>Last day of school.</b> Everyone is at the party, but Mr Hollis left something on your desk. Nutmeg knows something.',
+  hinter:'Nutmeg squeaks',
+  spark:S => S.got.includes('envelope') ? [] : ['s_envelope'],
   items:{
     envelope:{name:'riddle envelope', icon:ICON.envelope, note:'envelope'},
     slipSc:{name:'Science slip', icon:ICON.slip('#3b78b8'), note:'slipSc'},
@@ -878,16 +1050,27 @@ const STAGE_SCHOOL = {
         if (S.got.includes('envelope')) say('Just your desk now, and a few pencil shavings.');
         else { S.got.push('envelope'); add('envelope'); openNote('envelope'); say('An envelope from Mr Hollis! Tap it at the bottom any time to read it again.'); }
         break;
-      case 's_mdesk': say(S.got.includes('envelope') ? 'Your desk, cleared out for the summer.' : 'Your desk. There’s an envelope on it with your name.'); break;
+      case 's_mdesk': say(S.got.includes('envelope') ? 'Your desk, cleared out for the summer. Just your pencil case and pot.' : 'Your desk. There\u2019s an envelope on it with your name.'); break;
+      case 's_hamster': hint(); return;
+      case 's_rules': openNote('rules'); say('The class rules. Rule 3 is about Nutmeg.'); break;
+      case 's_map': openNote('map'); say('A map of the world, with Singapore and London marked.'); break;
+      case 's_paintings': say('The class\u2019s paintings: a house, a flower, a cat and a rocket. The rocket is Mary\u2019s.'); break;
+      case 's_bookshelfC': say('Reading books, dictionaries, and a box of comics that everyone pretends not to read.'); break;
+      case 's_bag': say('Mary\u2019s bag, packed and ready. Only the report and Nana\u2019s postcard still to collect.'); break;
+      case 's_plantC': say('The class plant. It is called Gerald. Nobody knows why.'); break;
+      case 's_cupboardC': say('Glue sticks, glitter, and a smell of poster paint.'); break;
+      case 's_lostC': say('A sock, a hat, and a lunchbox that has been here since March.'); break;
+      case 's_fountain': say('A drink of cold water. Lovely.'); break;
+      case 's_trophies': say('The house cup. This year: Kingfishers. Mary\u2019s house!'); break;
       case 's_timetable': openTimetable(); return;
       case 's_board': say('Mr Hollis has written “Happy holidays, Year 5!” and drawn a slightly wonky sun.'); break;
       case 's_tdesk': say('Mr Hollis’s desk. His mug says TEACHER OF THE YEAR (nearly).'); break;
-      case 's_cwindow': say('Sunshine, and the sound of the goodbye party in the playground.'); break;
+      case 's_cwindow': say('Sunshine, the sound of the party, and a plane climbing into the sky. Tomorrow, that\u2019s you.'); break;
       case 's_beans': say('The class bean plants. Mary’s is the tallest, of course.'); break;
-      case 's_pegs': say('Everyone has taken their bags. Only one swimming sock is left behind.'); break;
+      case 's_pegs': say('Everyone has taken their coats. One forgotten swimming bag drips quietly.'); break;
       case 's_lockers': say('Other people’s lockers. Yours is the purple one with your name on.'); break;
       case 's_locker': if (S.opened) say('Your empty locker. See you after the summer!'); else openLock(); return;
-      case 's_notices': say('Posters for the summer fair, the swimming gala and a lost cat called Biscuit.'); break;
+      case 's_notices': say('The summer fair, the swimming gala, house points, and a lost cat called Biscuit. Ginger, very fluffy.'); break;
       case 's_bonus': S.bonus = true; openNote('bonus'); say('A bonus riddle! This one is optional, for super-sleuths.'); break;
       case 's_shelfSci': openShelf('sci'); return;
       case 's_shelfMus': openShelf('mus'); return;
@@ -903,7 +1086,7 @@ const STAGE_SCHOOL = {
   },
   hints:[
     {goal:() => S.got.includes('envelope'), tips:[
-      'Mr Hollis left something for you in the classroom.',
+      'Mr Hollis left something on your desk in the classroom.',
       'Look at your desk, under the timetable.',
       'Turn to the timetable wall and tap the envelope on your desk.']},
     {goal:() => S.got.includes('slipSc'), tips:[
@@ -933,10 +1116,26 @@ const STAGE_SCHOOL = {
 };
 
 function openNote(key){ $('noteBody').innerHTML = NOTES[key]; $('noteUI').hidden = false; }
+const SUBJECT = {Ma:['i-ma','#2f7c83','Maths'], En:['i-en','#d9a622','English'], Sc:['i-sc','#3b78b8','Science'], Mu:['i-mu','#7a5cc2','Music'], Ar:['i-ar','#d0602f','Art'], PE:['i-pe','#27794c','PE'], Ge:['i-ge','#a8744a','Geography'], Li:['i-li','#c4589a','Library']};
+function ttGrid(x0, y0, dayW, cw, rh, ic, fs){
+  let out = '';
+  [1,2,3,4,5,6].forEach((n,i) => out += `<text x="${x0+dayW+cw*i+cw/2}" y="${y0+fs}" text-anchor="middle" font-size="${fs}" font-weight="700" fill="#2f7c83" class="lbl">${n}</text>`);
+  Object.entries(TIMETABLE).forEach(([d,row],r) => {
+    const y = y0 + fs + 4 + r*rh;
+    out += `<rect x="${x0}" y="${y}" width="${dayW+cw*6}" height="${rh}" fill="${r%2?'#eef3ee':'#f7f9f3'}" stroke="#cfc8b4" stroke-width=".6"/>`;
+    out += `<text x="${x0+4}" y="${y+rh/2+fs*.36}" font-size="${fs}" font-weight="700" fill="#2b2836" class="lbl">${d}</text>`;
+    row.forEach((c,i) => { const [id,col] = SUBJECT[c]; out += `<use href="#${id}" x="${x0+dayW+cw*i+(cw-ic)/2}" y="${y+(rh-ic)/2}" width="${ic}" height="${ic}" style="color:${col}"/>`; });
+  });
+  return out;
+}
+$('ttWall').innerHTML = ttGrid(60, 148, 30, 26, 17, 13, 8);
 function openTimetable(){
-  const t = $('tt');
-  t.innerHTML = '<tr><th></th>' + [1,2,3,4,5,6].map(n => `<th>${n}</th>`).join('') + '</tr>' +
-    Object.entries(TIMETABLE).map(([d, row]) => `<tr><td class="day">${d}</td>${row.map(c => `<td>${c}</td>`).join('')}</tr>`).join('');
+  let key = '';
+  Object.values(SUBJECT).forEach(([id,col,name],i) => {
+    const x = 8 + (i%4)*53, y = 138 + Math.floor(i/4)*18;
+    key += `<use href="#${id}" x="${x}" y="${y}" width="12" height="12" style="color:${col}"/><text x="${x+15}" y="${y+9.5}" font-size="8" fill="#2b2836" class="lbl">${name}</text>`;
+  });
+  $('tt').innerHTML = ttGrid(8, 6, 34, 28, 21, 16, 9) + key;
   $('ttUI').hidden = false;
   say('The class timetable. Days go down the side, and period numbers go along the top.');
 }
@@ -1172,8 +1371,60 @@ const use = it => { S.inv = S.inv.filter(x => x !== it); };
 const listOf = a => a.length === 1 ? a[0] : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1];
 const viewId = () => ST.rooms[S.room].views[S.view];
 
+/* Every new-style view sits inside a room box: ceiling, walls, floor, drawn in one-point perspective. */
+const BOXES = {
+  classroom:{ceil:['#f9f7ee','#ece9dc'], back:['#f4f1e3','#e1e3d5'], left:['#c3c7ba','#d3d6c8'], right:['#ecebdd','#dcdccd'], floor:['#c9ad86','#ad8e66'], boards:'wood', skirt:['#b6ad9b','#c5bca8','#aaa290'], lamp:true},
+  corridor:{ceil:['#f7f4ea','#e9e4d6'], back:['#f7f1e2','#e4dcc8'], left:['#cfc8b6','#dcd5c4'], right:['#eee8d8','#e0d9c8'], floor:['#b9c6cf','#96a8b4'], boards:'lino', skirt:['#8d9aa5','#9fb0bb','#7f8d98'], lamp:true}
+};
+function roomBox(name, light){
+  const c = BOXES[name], id = 'g-' + name;
+  const grad = (k, dir) => `<linearGradient id="${id}-${k}" ${dir}><stop offset="0" stop-color="${c[k][0]}"/><stop offset="1" stop-color="${c[k][1]}"/></linearGradient>`;
+  let s = `<defs>${grad('ceil','x1="0" y1="0" x2="0" y2="1"')}${grad('back','x1="0" x2="1"')}${grad('left','x1="0" x2="1"')}${grad('right','x1="0" x2="1"')}${grad('floor','x1="0" y1="0" x2="0" y2="1"')}</defs>`;
+  s += `<polygon points="0,0 360,0 360,21 320,62 40,62 0,21" fill="url(#${id}-ceil)"/>`;
+  s += `<polygon points="0,21 40,62 40,360 0,404" fill="url(#${id}-left)"/><polygon points="360,21 320,62 320,360 360,404" fill="url(#${id}-right)"/>`;
+  s += `<rect x="40" y="62" width="280" height="298" fill="url(#${id}-back)"/><rect x="40" y="272" width="280" height="4" fill="#000" opacity=".06"/>`;
+  s += `<polygon points="0,404 40,360 320,360 360,404 360,480 0,480" fill="url(#${id}-floor)"/>`;
+  const rays = [75,110,145,180,215,250,285].map(x => `<line x1="${x}" y1="360" x2="${(180+(x-180)*1.774).toFixed(0)}" y2="480"/>`).join('');
+  if (c.boards === 'wood') s += `<g stroke="#8f7350" stroke-width="1" opacity=".5">${rays}</g><g stroke="#8f7350" stroke-width=".8" opacity=".35"><line x1="0" y1="382" x2="360" y2="382"/><line x1="0" y1="412" x2="360" y2="412"/><line x1="0" y1="450" x2="360" y2="450"/></g>`;
+  else s += `<g stroke="#7f8d98" stroke-width="1" opacity=".35">${rays}</g><polygon points="150,360 210,360 233,480 127,480" fill="#3f8f96" opacity=".35"/>`;
+  if (light === 'left') s += `<g filter="url(#blur6)" opacity=".36"><polygon points="24,410 96,380 214,398 170,478 60,480" fill="#fff1bd"/></g><polygon points="40,62 40,360 66,346 66,96" fill="#fff1bd" opacity=".14"/>`;
+  if (light === 'right') s += `<g filter="url(#blur6)" opacity=".36"><polygon points="336,410 264,380 146,398 190,478 300,480" fill="#fff1bd"/></g><polygon points="320,62 320,360 294,346 294,96" fill="#fff1bd" opacity=".14"/>`;
+  if (light === 'front') s += `<g filter="url(#blur6)" opacity=".4"><polygon points="70,372 290,372 330,470 30,470" fill="#fff1bd"/></g>`;
+  if (light === 'back') s += `<g filter="url(#blur6)" opacity=".22"><polygon points="60,400 300,400 330,480 30,480" fill="#fff1bd"/></g>`;
+  s += `<polygon points="0,396 40,352 40,360 0,404" fill="${c.skirt[0]}" class="t"/><rect x="40" y="352" width="280" height="8" fill="${c.skirt[1]}" class="t"/><polygon points="360,396 320,352 320,360 360,404" fill="${c.skirt[2]}" class="t"/>`;
+  s += `<g fill="none" stroke="#2b2836" stroke-width="1.6" stroke-linejoin="round"><polyline points="0,21 40,62 320,62 360,21"/><line x1="40" y1="62" x2="40" y2="360"/><line x1="320" y1="62" x2="320" y2="360"/><polyline points="0,404 40,360 320,360 360,404"/></g>`;
+  if (c.lamp) s += `<ellipse cx="180" cy="26" rx="90" ry="22" fill="url(#lampGlow)"/><rect x="118" y="12" width="124" height="14" rx="5" fill="#fffdf4" class="o"/><rect x="124" y="16" width="112" height="5" rx="2" fill="#fff6c8"/>`;
+  return s;
+}
+document.querySelectorAll('.view[data-box]').forEach(v => {
+  const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  g.innerHTML = roomBox(v.dataset.box, v.dataset.light);
+  v.insertBefore(g, v.firstChild);
+});
+/* Everything tappable gets a soft breathing glow behind it, worked out from its tap area. Doors and hidden paper moths don't. */
+document.querySelectorAll('.hs:not(.door):not(.pmoth)').forEach(el => {
+  const hit = el.querySelector('.hit'); if (!hit) return;
+  const x = +hit.getAttribute('x'), y = +hit.getAttribute('y'), w = +hit.getAttribute('width'), h = +hit.getAttribute('height');
+  const e = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+  e.setAttribute('class', 'glow'); e.setAttribute('cx', x + w/2); e.setAttribute('cy', y + h/2);
+  e.setAttribute('rx', w*.55 + 6); e.setAttribute('ry', h*.55 + 6); e.setAttribute('filter', 'url(#blur6)');
+  el.insertBefore(e, el.firstChild);
+});
+function sparkles(){
+  document.querySelectorAll('.sparks').forEach(g => g.remove());
+  const ids = (ST.spark && ST.spark(S)) || [];
+  ids.forEach(id => {
+    const el = document.querySelector(`.hs[data-id="${id}"]`), hit = el && el.querySelector('.hit'); if (!hit) return;
+    const x = +hit.getAttribute('x'), y = +hit.getAttribute('y'), w = +hit.getAttribute('width'), h = +hit.getAttribute('height');
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.setAttribute('class', 'sparks');
+    g.innerHTML = `<use href="#star" class="spark" x="${x+w-6}" y="${y-4}" width="9" height="9"/><use href="#star" class="spark" x="${x-4}" y="${y+2}" width="7" height="7"/><use href="#star" class="spark" x="${x+w-12}" y="${y+h-4}" width="6" height="6"/>`;
+    el.appendChild(g);
+  });
+}
+
 function render(){
   document.querySelectorAll('.view').forEach(v => v.classList.toggle('on', v.id === 'v-' + viewId()));
+  sparkles();
   $('where').textContent = ST.rooms[S.room].name;
   ST.draw(S);
   const inv = $('inv'); inv.innerHTML = '';
@@ -1227,7 +1478,7 @@ function hint(){
   if (!S || S.done) return;
   const i = ST.hints.findIndex(h => !h.goal());
   S.hint[i] = Math.min((S.hint[i] ?? -1) + 1, 2);
-  say('<b>The moth whispers:</b> ' + ST.hints[i].tips[S.hint[i]]);
+  say(`<b>${ST.hinter || 'The moth whispers'}:</b> ` + ST.hints[i].tips[S.hint[i]]);
 }
 
 /* ---------- screens ---------- */
@@ -1235,7 +1486,7 @@ function show(screen){
   ['home','story','game'].forEach(s => $(s).hidden = s !== screen);
   $('hintBtn').hidden = screen !== 'game';
   $('backBtn').hidden = screen === 'home';
-  $('backBtn').textContent = screen === 'game' ? 'Mary’s story' : 'Children';
+  $('backBtn').textContent = 'Back';
   if (screen === 'home' || screen === 'story'){
     const m = loadSave().mary || {};
     const done = ['marySchool','maryPacking'].filter(k => m[k]).length;
