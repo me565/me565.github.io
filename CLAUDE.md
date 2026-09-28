@@ -15,7 +15,7 @@ The owner is a non-technical but AI-savvy builder working from a Chromebook. Exp
 ## Working rules
 
 - Never commit directly to `main`. Work on a branch, share a preview or test steps, and merge only after the owner has tested and said yes.
-- **Always give the owner the play link.** Every reply that builds or changes something playable ends with the githack link to the branch's page, in the form `https://raw.githack.com/me565/me565.github.io/<branch>/next/landscape/index.html` (it serves the branch straight from GitHub, with the pictures). Once merged, the address is https://me565.github.io/next/landscape/. Never make him ask for it.
+- **Always give the owner a fresh play link.** Every reply that builds or changes something playable ends with a githack link pinned to the new commit, in the form `https://rawcdn.githack.com/me565/me565.github.io/<full commit id>/next/landscape/index.html`. A new commit means a new address, so his tablet can never show a cached copy; never reuse a link or give the branch-name form. Bump `BUILD` in the page with each change so the menu's diagnostics line shows which version he is on. Once merged, the address is https://me565.github.io/next/landscape/. Never make him ask for it.
 - Never commit the Android signing keystore, its passwords or `signing-key-info.txt`. This repo is public.
 - Never delete or rename `manifest.webmanifest`, `sw.js`, the icons, or anything in `.well-known/` — the Android app depends on them.
 - Keep `manifest.webmanifest` `id`, `start_url` and `scope` as `./`.

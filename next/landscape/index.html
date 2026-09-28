@@ -118,10 +118,10 @@ button{font:inherit;color:inherit;cursor:pointer}
 <div class="stage" id="stage">
   <div class="scene" id="scene">
     <div class="loading" id="loading">Opening the classroom…</div>
-    <img class="wall" id="w-c1" alt="" src="../art/classroom/landscape-c1-front-whiteboard.jpg">
-    <img class="wall" id="w-c2" alt="" src="../art/classroom/landscape-c2-window.jpg">
-    <img class="wall" id="w-c3" alt="" src="../art/classroom/landscape-c3-door.jpg">
-    <img class="wall" id="w-c4" alt="" src="../art/classroom/landscape-c4-timetable-desk.jpg">
+    <img class="wall" id="w-c1" alt="" src="../art/classroom/landscape-c1-front-whiteboard.jpg?v=2026-09-28i">
+    <img class="wall" id="w-c2" alt="" src="../art/classroom/landscape-c2-window.jpg?v=2026-09-28i">
+    <img class="wall" id="w-c3" alt="" src="../art/classroom/landscape-c3-door.jpg?v=2026-09-28i">
+    <img class="wall" id="w-c4" alt="" src="../art/classroom/landscape-c4-timetable-desk.jpg?v=2026-09-28i">
     <div id="hots"></div>
     <button class="arrow l" id="left" aria-label="Turn left"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     <button class="arrow r" id="right" aria-label="Turn right"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 4 8 8-8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -160,7 +160,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-28h';
+const BUILD = '2026-09-28i';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -228,7 +228,7 @@ const LAYERS = {
 };
 /* every picture is loaded once, up front, so cut-outs never appear late */
 const IMG = {};
-function preload(src){ return IMG[src] || (IMG[src] = new Promise(res => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(im); im.src = src; })); }
+function preload(src){ return IMG[src] || (IMG[src] = new Promise(res => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(im); im.src = src + '?v=' + BUILD; })); }
 function allArt(){ const list = []; Object.values(LAYERS).forEach(v => v.forEach(L => list.push(L.src))); return list; }
 
 /* ---------- the animator: each layer is a canvas; a tap starts a short, damped, organic movement ----------
@@ -390,7 +390,7 @@ function render(){
   for (let i = 0; i < 10; i++){
     const key = S.got[i];
     const b = document.createElement('button'); b.className = 'slot';
-    if (key){ b.innerHTML = ITEMS[key].icon; b.setAttribute('aria-label', ITEMS[key].name); b.onclick = () => { sfx('paper'); openNote(ITEMS[key].note); }; }
+    if (key){ b.innerHTML = ITEMS[key].icon.replace('.png"', '.png?v=' + BUILD + '"'); b.setAttribute('aria-label', ITEMS[key].name); b.onclick = () => { sfx('paper'); openNote(ITEMS[key].note); }; }
     else b.setAttribute('aria-hidden', 'true');
     inv.appendChild(b);
   }
@@ -537,7 +537,7 @@ function softNote(midi, t, dur, vol, type){
 function startMusic(){
   if (music || !soundOn || !audio()) return;
   if (TRACK){
-    const el = new Audio(TRACK); el.loop = true; el.volume = .5;
+    const el = new Audio(TRACK + '?v=' + BUILD); el.loop = true; el.volume = .5;
     let fallen = false; el.onerror = () => { if (fallen) return; fallen = true; music = null; startTune(); };
     el.play().catch(() => {}); music = {stop(){ el.pause(); el.src = ''; }}; return;
   }
