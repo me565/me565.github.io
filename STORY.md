@@ -60,7 +60,10 @@ The owner's rule for every room in the game:
 4. **Close-ups bring the object towards the player** while the room stays visible behind it, softened, so the sense of place is never lost.
 5. **Characters have expressive faces** (surprise, worry, delight) drawn in the same flat-ink style. For children: warm, never gory, no blood, nothing frightening.
 6. **Small arrows at the left and right edges** of the scene, halfway up, show where to tap to turn. The middle of each side edge stays clear for them.
-7. Inspiration is the feel of modern point-and-click escape games in general. Never copy their characters, rooms, names or imagery; the prompts for generated art describe qualities, never other games.
+7. **Micro-animations.** Not everything, but the things a child would poke move when tapped: a plant sways, a coat swings, a hamster hops, a poster flutters. (Owner's feedback on the classroom test, 28 Sept 2026.)
+8. **Inventory pictures** are drawn to the same standard as the walls, never small vector icons.
+9. **Sound and music** while playing: soft tap and paper sounds, and a gentle background track, starting after the first tap as browsers require, with an on/off switch. Every sound clue is also shown. The current track is a music box made in the browser; a composed track can replace it later.
+10. Inspiration is the feel of modern point-and-click escape games in general. Never copy their characters, rooms, names or imagery; the prompts for generated art describe qualities, never other games.
 
 Pictures can be generated (see `next/art/`, prompts in `PROMPTS.md`) or drawn in code; the same rules apply to both. The rules below from the earlier version still hold except where the brief above changes them.
 
