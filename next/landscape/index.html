@@ -95,12 +95,23 @@ button{font:inherit;color:inherit;cursor:pointer}
 #walls{position:absolute;inset:0}
 .scene.fade #walls,.scene.fade #hots{opacity:0}
 #walls,#hots{transition:opacity .35s ease, filter .3s ease}
+.scene.pan-l #walls,.scene.pan-l #hots{animation:panOutL .24s ease-in forwards}
+.scene.pan-r #walls,.scene.pan-r #hots{animation:panOutR .24s ease-in forwards}
+.scene.pan-in-l #walls,.scene.pan-in-l #hots{animation:panInL .38s ease-out}
+.scene.pan-in-r #walls,.scene.pan-in-r #hots{animation:panInR .38s ease-out}
+@keyframes panOutL{to{transform:translateX(-18%);opacity:0}}
+@keyframes panOutR{to{transform:translateX(18%);opacity:0}}
+@keyframes panInL{from{transform:translateX(18%);opacity:0}}
+@keyframes panInR{from{transform:translateX(-18%);opacity:0}}
+@media (prefers-reduced-motion:reduce){.scene.pan-l #walls,.scene.pan-l #hots,.scene.pan-r #walls,.scene.pan-r #hots,.scene.pan-in-l #walls,.scene.pan-in-l #hots,.scene.pan-in-r #walls,.scene.pan-in-r #hots{animation-duration:.01s}}
 /* a shelf of books, and a locker with three dials */
 .card.shelf{width:calc(var(--u)*72);display:flex;flex-direction:column;gap:calc(var(--u)*1.2);align-items:stretch}
 .card .otitle{margin:0;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2.8);color:#2f7c83;text-align:center}
-.books{display:flex;gap:calc(var(--u)*1);justify-content:center;align-items:flex-end;flex-wrap:wrap;padding:calc(var(--u)*1) 0 0;border-bottom:calc(var(--u)*.9) solid #a8744a}
-.book{flex:1 1 0;min-width:calc(var(--u)*9);max-width:calc(var(--u)*13);min-height:calc(var(--u)*17);border:0;border-radius:calc(var(--u)*.6) calc(var(--u)*.6) 0 0;background:var(--sp,#3b78b8);color:#fffaf0;font:inherit;font-weight:700;font-size:calc(var(--u)*1.8);line-height:1.15;padding:calc(var(--u)*1) calc(var(--u)*.8);box-shadow:inset calc(var(--u)*-.5) 0 0 rgba(0,0,0,.18);cursor:pointer;text-wrap:balance}
-.book.gap{background:#f7e9a8;color:#5b4a2e;font-family:Caveat,cursive;font-weight:500;font-size:calc(var(--u)*2);min-height:calc(var(--u)*12);align-self:flex-end;box-shadow:none;border-radius:calc(var(--u)*.4)}
+.books{display:flex;gap:calc(var(--u)*.6);justify-content:center;align-items:flex-end;padding:calc(var(--u)*1) calc(var(--u)*2) 0;border-bottom:calc(var(--u)*1.4) solid #c99a5b;box-shadow:0 calc(var(--u)*1.4) 0 #a8744a}
+.book{position:relative;width:calc(var(--u)*8.5);height:calc(var(--u)*26);border:0;padding:0;background:url(../art/school/book-blue.png) center bottom / 100% auto no-repeat;background-color:transparent;cursor:pointer;display:grid;place-items:center}
+.book span{writing-mode:vertical-rl;color:#fffaf0;font:inherit;font-weight:700;font-size:calc(var(--u)*1.75);line-height:1;letter-spacing:.02em;text-shadow:0 1px 2px rgba(0,0,0,.45);max-height:calc(var(--u)*22);overflow:hidden;padding-top:calc(var(--u)*1.5)}
+.book.gap{width:calc(var(--u)*11);height:calc(var(--u)*11);align-self:center;background:url(../art/school/layer-sticky.png) center / contain no-repeat;display:grid;place-items:center}
+.book.gap span{writing-mode:horizontal-tb;color:#5b4a2e;font-family:Caveat,cursive;font-weight:500;font-size:calc(var(--u)*1.9);text-shadow:none;transform:rotate(-4deg);padding:0 calc(var(--u)*1.2);line-height:1.1;text-align:center}
 .book:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
 .ofb{margin:0;min-height:calc(var(--u)*2.6);font-size:calc(var(--u)*2);text-align:center;color:var(--ink)}
 .spell{margin:0;text-align:center;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*3.6);letter-spacing:.25em;color:#6d4fb8;min-height:calc(var(--u)*4)}
@@ -188,7 +199,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-28r';
+const BUILD = '2026-09-28s';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -203,7 +214,8 @@ addEventListener('resize', fit); fit();
 const ROOMS = {
   classroom:{name:'Classroom 5H', into:'your classroom', views:['c1','c2','c3','c4']},
   corridor:{name:'Corridor', into:'the corridor', views:['h1','h2','h3','h4']},
-  library:{name:'Library', into:'the library', views:['l1','l2','l3','l4','l5','l6']}
+  /* a long room: the window and the entrance are its short walls; each long wall is two views you step along */
+  library:{name:'Library', into:'the library', views:['l3','l4','l5','l6','l2','l1'], long:[['l4','l5'],['l2','l1']]}
 };
 const WALLS = {
   c1:'../art/classroom/landscape-c1-front-whiteboard.jpg', c2:'../art/classroom/landscape-c2-window.jpg', c3:'../art/classroom/landscape-c3-door.jpg', c4:'../art/classroom/landscape-c4-timetable-desk.jpg',
@@ -211,7 +223,7 @@ const WALLS = {
   l1:'../art/school/l1.jpg', l2:'../art/school/l2.jpg', l3:'../art/school/l3.jpg', l4:'../art/school/l4.jpg', l5:'../art/school/l5.jpg', l6:'../art/school/l6.jpg'
 };
 /* door hotspot -> [room, index of the view you arrive facing (away from the door you came through)] */
-const DOORS = {door:['corridor', 1], h_door5H:['classroom', 0], h_libdoors:['library', 2], l_doors:['corridor', 3]};
+const DOORS = {door:['corridor', 1], h_door5H:['classroom', 0], h_libdoors:['library', 0], l_doors:['corridor', 3]};
 /* The corridor and library open only when their art is in, or with ?rooms in the address for testing. */
 const OPEN_DOORS = true;
 const HOTS = {
@@ -260,27 +272,29 @@ const HOTS = {
     {id:'h_bunting', l:25, t:13, w:50, h:20, label:'Bunting', sound:'leaf', anim:'swing', layer:'bunting'}],
   /* library */
   l1:[
-    {id:'l_shelfSci', l:14, t:30, w:36, h:54, label:'Science shelf', sound:'paper'},
-    {id:'l_globe', l:51.5, t:50, w:10, h:17, label:'Globe', sound:'tap', anim:'wobble', layer:'globe'},
-    {id:'l_rocks', l:68, t:56, w:17, h:10, label:'Rock collection', sound:'knock'}],
+    {id:'l_shelfSci', l:46, t:33, w:22, h:57, label:'Science shelf', sound:'paper'},
+    {id:'l_globe', l:68, t:54, w:10, h:17, label:'Globe', sound:'tap', anim:'wobble', layer:'globe'},
+    {id:'l_rocks', l:80, t:66, w:13, h:8, label:'Rock collection', sound:'knock'},
+    {id:'l_cabinet', l:68, t:69, w:27, h:22, label:'Cabinet', sound:'knock'}],
   l2:[
-    {id:'l_shelfMus', l:13, t:31, w:21, h:56, label:'Music shelf', sound:'paper'},
-    {id:'l_headphones', l:48, t:78, w:10, h:12, label:'Headphones', sound:'tap', anim:'wobble', layer:'headphones'},
-    {id:'l_beanbag', l:72, t:62, w:20, h:30, label:'Beanbag', sound:'knock'}],
+    {id:'l_shelfMus', l:14, t:27, w:25, h:60, label:'Music shelf', sound:'paper'},
+    {id:'l_headphones', l:35, t:78, w:9, h:11, label:'Headphones', sound:'tap', anim:'wobble', layer:'headphones'},
+    {id:'l_table', l:42, t:68, w:17, h:20, label:'Table with the CD player', sound:'tap'},
+    {id:'l_beanbag', l:60, t:59, w:22, h:33, label:'Beanbag', sound:'knock'}],
   l3:[
     {id:'l_window', l:33, t:20, w:33, h:43, label:'Library window', sound:'tap'},
     {id:'l_cushions', l:32, t:54, w:16, h:13, label:'Cushions on the window seat', sound:'leaf', anim:'plump', layer:'cushions'},
     {id:'l_seat', l:29, t:64, w:42, h:20, label:'Window seat', sound:'knock'},
     {id:'l_rug', l:15, t:86, w:66, h:13, label:'Rug', sound:'leaf'}],
   l4:[
-    {id:'l_shelfArt', l:13, t:30, w:21, h:58, label:'Art shelf', sound:'paper'},
-    {id:'l_trolley', l:43, t:62, w:15, h:27, label:'Returns trolley', sound:'knock', anim:'roll', layer:'trolley'},
-    {id:'l_notice', l:70, t:31, w:15, h:27, label:'Notice about the trolley', sound:'paper'}],
+    {id:'l_shelfArt', l:7.5, t:27, w:23, h:63, label:'Art shelf', sound:'paper'},
+    {id:'l_trolley', l:49, t:62, w:15, h:27, label:'Returns trolley', sound:'knock', anim:'roll', layer:'trolley'},
+    {id:'l_notice', l:33.5, t:35, w:12.5, h:21, label:'Notice about the trolley', sound:'paper'}],
   l5:[
-    {id:'l_shelfSto', l:22, t:32, w:22, h:51, label:'Stories shelf', sound:'paper'},
-    {id:'l_knit', l:61.5, t:64, w:7, h:11, label:'Knitted hamster on the chair', sound:'squeak', anim:'wobble', layer:'knit'},
-    {id:'l_chair', l:55, t:52, w:23, h:36, label:'Storytime chair', sound:'knock'},
-    {id:'l_rug2', l:42, t:82, w:36, h:12, label:'Reading rug', sound:'leaf'}],
+    {id:'l_shelfSto', l:0, t:26, w:31.5, h:60, label:'Stories shelf', sound:'paper'},
+    {id:'l_knit', l:76.5, t:63.5, w:7, h:11, label:'Knitted hamster on the chair', sound:'squeak', anim:'wobble', layer:'knit'},
+    {id:'l_chair', l:69, t:52, w:23, h:37, label:'Storytime chair', sound:'knock'},
+    {id:'l_rug2', l:58, t:84, w:38, h:12, label:'Reading rug', sound:'leaf'}],
   l6:[
     {id:'l_doors', l:15.5, t:21, w:29, h:60, label:'Doors to the corridor', sound:'knock'},
     {id:'l_bell', l:64.5, t:54, w:7.5, h:9, label:'Desk bell', sound:'tick', anim:'ding', layer:'bell'},
@@ -306,7 +320,7 @@ const LAYERS = {
     {src:'../art/classroom/layer-plant4-pot.png', l:59.3, t:57.70, w:7.7, h:8.80, shadow:.5}],
   c3:[
     {src:'../art/classroom/layer-coat.png', group:'coat', l:59.9, t:50.4, w:10.8, h:24.2, lit:.9},
-    {src:'../art/classroom/layer-lost.png', group:'lost', l:78.2, t:77.4, w:9.2, h:8.2, lit:.7},
+    {src:'../art/classroom/layer-lost.png', group:'lost', l:78.2, t:77.4, w:9.2, h:8.2},
     /* the front of the box, cut from the wall picture itself, drawn over the things inside it */
     {src:'../art/classroom/layer-boxfront.png', l:77.50, t:80.83, w:11.77, h:14.81},
     {src:'../art/classroom/layer-lid.png', group:'lid', l:27.6, t:67.3, w:10, h:10.3}],
@@ -325,11 +339,12 @@ const LAYERS = {
   h3:[{src:'../art/school/layer-bonuscard.png', group:'bonuscard', l:60.4, t:50.2, w:6.4, h:8.6, lit:.6}],
   h4:[{src:'../art/school/layer-bunting.png', group:'bunting', l:25, t:14, w:50, h:19.9}],
   /* library */
-  l1:[{src:'../art/school/layer-globe.png', group:'globe', l:53, t:51, w:6.5, h:14.5, shadow:.6}],
-  l2:[{src:'../art/school/layer-headphones.png', group:'headphones', l:49.5, t:81, w:7, h:8.3, shadow:.5}],
+  l1:[{src:'../art/school/layer-globe.png', group:'globe', l:70, t:56, w:6.5, h:14.5, shadow:.6}],
+  l2:[{src:'../art/school/layer-headphones.png', group:'headphones', l:36, t:80, w:7, h:8.3, shadow:.5},
+      {src:'../art/school/layer-sticky.png', l:27.3, t:45.5, w:3.2, h:5.8}],
   l3:[{src:'../art/school/layer-cushions.png', group:'cushions', l:33, t:56, w:14, h:10.6, shadow:.5}],
-  l4:[{src:'../art/school/layer-trolley.png', group:'trolley', l:44, t:64, w:13, h:24, shadow:.7, lit:.5}],
-  l5:[{src:'../art/school/layer-knithamster.png', group:'knit', l:63, t:66, w:3.5, h:8.6, shadow:.5}],
+  l4:[{src:'../art/school/layer-trolley.png', group:'trolley', l:50, t:64, w:13, h:24, shadow:.7, lit:.5}],
+  l5:[{src:'../art/school/layer-knithamster.png', group:'knit', l:78, t:65.5, w:3.5, h:8.6, shadow:.5}],
   l6:[{src:'../art/school/layer-bell.png', group:'bell', l:66, t:56.5, w:4, h:5.8, shadow:.6}]
 };
 /* every picture is loaded once, up front, so cut-outs never appear late */
@@ -514,24 +529,24 @@ const NOTES = {
   bonus:{hand:false, html:'<span class="head">Bonus riddle for super-sleuths</span><span>Someone in London loves postcards and moths. Spell her name with the first letters of four stories.</span>'},
 };
 const SHELVES = {
-  sci:{title:'Science shelf', color:'#3b78b8', books:[
+  sci:{title:'Science shelf', colours:['blue','teal','green','purple'], books:[
     ['Volcanoes!','Hot, rocky and a bit loud. No slip inside.'],
     ['The Night Sky','slipSc'],
     ['Bugs Up Close','Very close. Too close! No slip inside.'],
     ['Weather Watch','All about rain. Singapore has plenty. No slip inside.']]},
-  mus:{title:'Music shelf', color:'#7a5cc2', books:[
+  mus:{title:'Music shelf', colours:['purple','pink','yellow'], books:[
     ['Drums for Beginners','Boom, boom, tish! No slip inside.'],
     ['Songs of the Sea','Sailors’ songs. No slip inside.'],
     ['gap','A gap on the shelf, with a sticky note: “Returned today. See the trolley.”']]},
-  art:{title:'Art shelf', color:'#d0602f', books:[
+  art:{title:'Art shelf', colours:['orange','red','yellow'], books:[
     ['Clay Creatures','Squishy animals to make. No slip inside.'],
     ['The Big Book of Painting','slipAr'],
     ['Paper Folding','How to fold paper birds, boats and moths. No slip inside.']]},
-  trolley:{title:'Returns trolley', color:'#5b6f7a', books:[
+  trolley:{title:'Returns trolley', colours:['green','blue','red'], books:[
     ['Dinosaur Days','Roar! No slip inside.'],
     ['Playing the Piano','slipMu'],
     ['Football Stars','No slip inside.']]},
-  sto:{title:'Stories shelf', color:'#3a8f5c', books:[
+  sto:{title:'Stories shelf', colours:['green','teal','blue','purple','orange','yellow'], books:[
     ['Nobody’s Garden','A secret garden story.'],
     ['Jam for Tea','A story about a greedy bear.'],
     ['A Quiet Moon','A bedtime story.'],
@@ -626,7 +641,17 @@ function sparkle(id){
   if (id === 'h_locker') return S.got.includes('slipAr') && !S.done;
   return false;
 }
-function turn(d){ if (!$('closeup').hidden) return; const n = ROOMS[S.room].views.length; S.view = (S.view + d + n) % n; say(''); sfx('turn'); render(); }
+function turn(d){
+  if (!$('closeup').hidden) return;
+  const room = ROOMS[S.room], n = room.views.length, from = room.views[S.view], to = room.views[(S.view + d + n) % n];
+  const along = (room.long || []).some(pair => pair.includes(from) && pair.includes(to));
+  if (along){ /* stepping along a long wall: the picture pans rather than turns */
+    const scene = $('scene'); scene.classList.add(d > 0 ? 'pan-l' : 'pan-r');
+    setTimeout(() => { S.view = (S.view + d + n) % n; say(''); render(); scene.classList.remove('pan-l', 'pan-r'); scene.classList.add(d > 0 ? 'pan-in-l' : 'pan-in-r'); setTimeout(() => scene.classList.remove('pan-in-l', 'pan-in-r'), 400); }, 230);
+    sfx('turn'); return;
+  }
+  S.view = (S.view + d + n) % n; say(''); sfx('turn'); render();
+}
 /* walking through a door: the scene dips out, the new room's pictures are made sure of, and we arrive facing away from the door */
 function go(room, view, from){
   const scene = $('scene'); sfx('turn');
@@ -698,8 +723,8 @@ function openShelf(key){
   shelfKey = key;
   const sh = SHELVES[key], spelling = key === 'sto' && S.bonus && !S.nightMoth;
   const books = sh.books.map(([title], i) => title === 'gap'
-    ? `<button class="book gap" data-i="${i}">Returned today. See the trolley.</button>`
-    : `<button class="book" style="--sp:${sh.color}" data-i="${i}">${title}</button>`).join('');
+    ? `<button class="book gap" data-i="${i}"><span>Returned today. See the trolley.</span></button>`
+    : `<button class="book" style="background-image:url(../art/school/book-${sh.colours[i % sh.colours.length]}.png?v=${BUILD})" data-i="${i}"><span>${title}</span></button>`).join('');
   openCloseup(`<div class="card shelf"><p class="otitle">${sh.title}</p><div class="books" id="books">${books}</div>${spelling ? `<p class="spell" id="spell">${S.spell || '· · · ·'}</p>` : ''}<p class="ofb" id="shelfFb">${spelling ? 'Tap four stories in order to spell a name.' : 'Tap a book to open it.'}</p>${spelling ? '<div class="row"><button class="ob quiet" id="spellReset">Start the spelling again</button></div>' : ''}</div>`);
   $('books').querySelectorAll('.book').forEach(b => b.onclick = () => pickBook(+b.dataset.i));
   const r = $('spellReset'); if (r) r.onclick = () => { S.spell = ''; $('spell').textContent = '· · · ·'; $('shelfFb').textContent = 'Tap four stories in order to spell a name.'; save(); };
@@ -718,6 +743,8 @@ function pickBook(i){
   }
   if (ITEMS[what]){
     if (S.got.includes(what)){ fb.textContent = 'You already have the slip from this one.'; return; }
+    const needs = {slipMu:'slipSc', slipAr:'slipMu'}[what];
+    if (needs && !S.got.includes(needs)){ fb.textContent = `${title}. A good book, but no riddle has pointed here yet.`; say('Mary flicks through it and puts it back. One riddle at a time.'); return; }
     S.got.push(what); sfx('pickup'); fb.textContent = `A slip falls out of ${title}!`;
     setTimeout(() => { render(); openNote(what); }, 500); say(`A slip from ${title}. It goes in the strip below.`);
     return;
@@ -795,6 +822,8 @@ function act(id){
     case 'l_rocks': say('The rock collection. Nine shiny rocks and one that Mary suspects is a toffee.'); break;
     case 'l_headphones': say('The listening corner. Story time is on Fridays, but today is the last day, so no story.'); break;
     case 'l_beanbag': say('The squashiest beanbag in the school. Not now, Mary.'); break;
+    case 'l_table': say('The CD player for story time. Nothing in it.'); break;
+    case 'l_cabinet': say('Cupboards of old worksheets. Nobody has opened them since Easter.'); break;
     case 'l_window': say('Trees, sunshine and a butterfly on the glass. Only a few hours until the holidays.'); break;
     case 'l_seat': say('The window seat, with the squashiest cushions in the school.'); break;
     case 'l_rug': case 'l_rug2': say('A rug. Good for lying on with a book.'); break;

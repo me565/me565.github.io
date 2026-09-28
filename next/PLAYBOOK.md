@@ -43,6 +43,13 @@ The working rules for every room in the landscape game, distilled from the owner
 - Under reduce-motion, tap feedback still plays, shorter and gentler; only ambient motion (the sparkle) stops.
 - Tap animations must never be skipped silently on the owner's device: the tablet reports reduce-motion, and the early version showed nothing at all.
 
+## 4a. Rooms are boxes with four sides, or rectangles
+
+- A room has four walls. A square room is four views. A long room has two short walls and two long walls, and each long wall is two views that continue into each other: the first half shows one corner and runs off the far edge, the second half shows the other corner. Stepping between the two halves pans the picture sideways; turning a corner fades. Never draw six closed boxes and call it a room: it reads as a hexagon.
+- Prompt the halves as "the LEFT half of one long wall: the left side wall visible, the back wall and floor running straight off the right edge with no corner" and the mirror for the right half. Declare the room's `long` pairs in `ROOMS` so the engine pans.
+- Clues arrive in order. A book (or drawer, or box) that holds the next clue gives it up only once the previous clue has pointed at it; before that it is just a book, with a friendly line. Reading "that's all three" while missing one feels like cheating. Parallel streams are fine when the story says so; a chain is a chain.
+- Things inside close-ups (books on a shelf, dials, cards) are pictures to the same standard as the walls, never flat coloured buttons. Titles are drawn by the game along the spines so the words stay exact.
+
 ## 4b. No empty walls
 
 - Every wall must earn its place in the critical path or the bonus path: a clue, an item, a hint-giver, a door, or a piece of the puzzle's information. A wall that is only atmosphere is wasted time; the owner's yardstick is that in the games he loves everything feels connected. Before generating a wall, write down what it contributes.
@@ -79,3 +86,4 @@ The working rules for every room in the landscape game, distilled from the owner
 10. Item sounds fine, no music. → retry on real taps.
 11. Tap outside to close; no scrolling in close-ups; box crisper than the blurred room; no sunlight on the coat. → all fixed in build o.
 12. (Full stage test) No build number for a child; no empty walls (the whiteboard had no value); bin lid looked transparent (the sunlight overlay); doors should show intent; water squirt unrealistic; plain notices should be in-page lines, not pop-ups. → build r: debug-only diagnostics, the timetable key moved onto the whiteboard, lid overlay removed, door lean-in, drawn water arc, in-page lines for notices, rules and the card.
+13. Shelf books were flat buttons, a mismatch with the art; the Art slip could be taken before the Music one ("That's all three" while missing one); the hat looked transparent; the library felt six-sided. → build s: generated book spines with titles along them, slips in strict order, hat re-cut with a true-white key and no sunlight overlay, the library rebuilt as a rectangle with two-view long walls that pan.
