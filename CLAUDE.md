@@ -31,6 +31,7 @@ The owner is a non-technical but AI-savvy builder working from a Chromebook. Exp
 - `manifest.webmanifest` — app name, colours, icons.
 - `sw.js` — network-first service worker: players get the latest version when online; the last version still works offline. Keep this behaviour.
 - `icon-192.png`, `icon-512.png` — moth icon (also used as maskable).
+- `next/index.html` — the children's version being built, not yet what players get. Currently a rough draft of the Singapore prologue. It doesn't register the service worker. When the launch rooms are ready, it replaces the live game.
 - `STORY.md` — the story plan: characters, places, every scene with its puzzle map, rules for every chapter, open decisions.
 - `.well-known/assetlinks.json`, `.nojekyll` — Android app verification (see Launch status).
 

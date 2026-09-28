@@ -53,12 +53,13 @@ Difficulty is for the main path, 1 (easiest) to 5. "Launch" means planned for ve
 - **When:** afternoon, rain on the windows, the last school day done.
 - **Story:** the suitcase must be shut by teatime. Nana's postcard, with a moth drawn in the corner, asks them to bring "the little torch". Short tutorial: tapping, picking up, using one thing on another. Ends with the plane rising through the clouds; the moth on the postcard flickers once.
 - **They learn:** Nana has a secret.
-- **Puzzles (three branches in any order):**
-  - Nana's postcard on the fridge → "bring the little torch" → find the torch in the rain boot (Zaina).
-  - Key on the hook by the door → Dad's desk drawer → passports.
-  - Mum asks them to pick Nana's present → wrap it.
-  - All three → close the suitcase → plane to London.
-- **Optional:** find six hidden paper moths folded around the flat.
+- **Puzzles (as built in the `next/` draft; branches in any order):**
+  - Nana's postcard on the fridge (Mary reads it): "Bring the little torch, you'll need it! P.S. I've run out of kaya."
+  - Postcard read → Mum's rain boots → Zaina spots the torch.
+  - Key hooks above Dad's desk → desk key → unlock the drawer → it's stuck → Elliot wiggles it open → passports.
+  - Postcard P.S. → pick the kaya from the shelf (the snow globe and orchid are wrong, with friendly replies) → wrap it in the moth-pattern paper on Dad's desk → Nana's present.
+  - Torch, passports and present into the suitcase → it clicks shut → "Taxi's here!" → plane to London.
+- **Optional:** find six hidden paper moths folded around the flat (window frame, window sill, top of the fridge, by the fridge, under the sofa, in the suitcase lid).
 
 ### Chapter 1: Nana and Jedi's — Enfield — difficulty 2 — Launch
 - **When:** first evening, long summer light.
