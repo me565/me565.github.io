@@ -509,104 +509,131 @@ table.tt td.day{font-weight:700;text-align:left;background:#eaf1ee}
   <polygon points="118,384 202,384 212,404 108,404" fill="#8a6440" class="o"/><text x="160" y="398" text-anchor="middle" font-size="8" font-weight="700" fill="#f0b44c" class="lbl">WELCOME</text>
 </g>
 
-<!-- LIBRARY (long room: six views) -->
-<!-- l1: Science shelf and the globe -->
-<g class="view" id="v-l1">
-  <rect width="360" height="340" fill="#f6ecdd"/><rect y="336" width="360" height="6" fill="#e2d4bd"/><rect y="340" width="360" height="140" fill="#b9c7a8"/>
+<!-- LIBRARY (long room: six views). Bookcases are drawn by the engine into the bc-* groups. -->
+<!-- l1: Science shelf, the globe and the rock table -->
+<g class="view" id="v-l1" data-box="library" data-light="right">
   <g class="hs" data-id="s_shelfSci" role="button" tabindex="0" aria-label="Science shelf">
-    <rect x="40" y="70" width="180" height="270" fill="#a8744a"/><rect x="48" y="78" width="164" height="254" fill="#8a6440"/>
-    <rect x="80" y="54" width="100" height="22" rx="4" fill="#3b78b8"/><text x="130" y="70" text-anchor="middle" font-size="12" font-weight="700" fill="#fffdf8" font-family="Atkinson Hyperlegible, Verdana, sans-serif">SCIENCE</text>
-    <g fill="#3b78b8"><rect x="54" y="92" width="14" height="60"/><rect x="70" y="100" width="12" height="52"/><rect x="84" y="88" width="16" height="64" fill="#5b9bd5"/><rect x="102" y="96" width="12" height="56"/><rect x="116" y="92" width="18" height="60" fill="#2c5f93"/><rect x="136" y="100" width="12" height="52" fill="#5b9bd5"/></g>
-    <rect x="48" y="152" width="164" height="6" fill="#a8744a"/>
-    <g fill="#3b78b8"><rect x="54" y="176" width="16" height="60" fill="#5b9bd5"/><rect x="72" y="170" width="12" height="66"/><rect x="86" y="180" width="18" height="56" fill="#2c5f93"/><rect x="106" y="176" width="14" height="60"/></g>
-    <rect x="48" y="236" width="164" height="6" fill="#a8744a"/>
-    <rect class="hit" x="38" y="50" width="184" height="292" fill="transparent"/>
+    <g id="bc-sci"></g>
+    <rect class="hit" x="42" y="50" width="164" height="312" fill="transparent"/>
   </g>
   <g class="hs" data-id="s_globe" role="button" tabindex="0" aria-label="Globe">
-    <circle cx="270" cy="250" r="30" fill="#7fb5c9"/><path d="M252 236c10-6 18 2 26-4 6 8-4 14 2 22-8 6-18 0-24 8-8-8 2-18-4-26Z" fill="#7fae74"/>
-    <path d="M270 280v36M252 318h36" stroke="#a8744a" stroke-width="5"/>
-    <rect class="hit" x="236" y="214" width="68" height="110" fill="transparent"/>
+    <ellipse cx="268" cy="346" rx="30" ry="5" fill="#2b2836" opacity=".16" filter="url(#blur3)"/>
+    <path d="M268 300v30M250 334h36" stroke="#a8744a" stroke-width="5" stroke-linecap="round" class="t"/>
+    <path d="M292 232a34 34 0 0 1 0 70" fill="none" stroke="#a8744a" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="268" cy="266" r="30" fill="#7fb5c9" class="o"/>
+    <path d="M250 252c10-6 18 2 26-4 6 8-4 14 2 22-8 6-18 0-24 8-8-8 2-18-4-26Z" fill="#7fae74" class="t"/>
+    <circle cx="272" cy="284" r="2.4" fill="#d0602f" class="t"/>
+    <rect class="hit" x="232" y="226" width="72" height="120" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="s_rocks" role="button" tabindex="0" aria-label="Rock collection">
+    <polygon points="222,368 316,368 326,392 212,392" fill="#d8b98a" stroke="#2b2836" stroke-width="2" stroke-linejoin="round"/>
+    <rect x="216" y="392" width="6" height="40" fill="#8a6440" class="t"/><rect x="316" y="392" width="6" height="40" fill="#8a6440" class="t"/>
+    <g class="t"><ellipse cx="240" cy="366" rx="8" ry="5" fill="#8a97a3"/><ellipse cx="258" cy="364" rx="6" ry="4" fill="#c9a26b"/><ellipse cx="276" cy="366" rx="9" ry="5" fill="#5b6f7a"/><ellipse cx="296" cy="365" rx="6" ry="4" fill="#e0a84a"/><circle cx="288" cy="352" r="7" fill="none" stroke="#2b2836" stroke-width="1.6"/><line x1="293" y1="357" x2="300" y2="364" stroke="#2b2836" stroke-width="2.2"/></g>
+    <rect class="hit" x="212" y="344" width="116" height="52" fill="transparent"/>
   </g>
 </g>
-<!-- l2: Music shelf, with a gap -->
-<g class="view" id="v-l2">
-  <rect width="360" height="340" fill="#f6ecdd"/><rect y="336" width="360" height="6" fill="#e2d4bd"/><rect y="340" width="360" height="140" fill="#b9c7a8"/>
+
+<!-- l2: Music shelf, with a gap, and the listening corner -->
+<g class="view" id="v-l2" data-box="library" data-light="right">
   <g class="hs" data-id="s_shelfMus" role="button" tabindex="0" aria-label="Music shelf">
-    <rect x="80" y="70" width="200" height="270" fill="#a8744a"/><rect x="88" y="78" width="184" height="254" fill="#8a6440"/>
-    <rect x="130" y="54" width="100" height="22" rx="4" fill="#7a5cc2"/><text x="180" y="70" text-anchor="middle" font-size="12" font-weight="700" fill="#fffdf8" font-family="Atkinson Hyperlegible, Verdana, sans-serif">MUSIC</text>
-    <g fill="#7a5cc2"><rect x="94" y="92" width="16" height="60"/><rect x="112" y="98" width="12" height="54" fill="#a58ae6"/><rect x="126" y="90" width="14" height="62"/></g>
-    <rect x="168" y="118" width="12" height="16" fill="#f5d76e"/>
-    <g fill="#7a5cc2"><rect x="196" y="94" width="14" height="58" fill="#a58ae6"/><rect x="212" y="98" width="16" height="54"/></g>
-    <rect x="88" y="152" width="184" height="6" fill="#a8744a"/>
-    <g fill="#7a5cc2"><rect x="94" y="176" width="14" height="60" fill="#a58ae6"/><rect x="110" y="170" width="16" height="66"/><rect x="128" y="180" width="12" height="56"/></g>
-    <rect x="88" y="236" width="184" height="6" fill="#a8744a"/>
-    <rect class="hit" x="78" y="50" width="204" height="292" fill="transparent"/>
+    <g id="bc-mus"></g>
+    <rect class="hit" x="66" y="50" width="176" height="312" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="s_headphones" role="button" tabindex="0" aria-label="Listening corner">
+    <rect x="256" y="90" width="60" height="70" fill="#fffdf6" class="o"/><rect x="256" y="90" width="60" height="16" fill="#7a5cc2"/>
+    <text x="286" y="102" text-anchor="middle" font-size="7.5" font-weight="700" fill="#fffdf6" class="lbl">STORY TIME</text>
+    <text x="286" y="128" text-anchor="middle" font-size="12" fill="#7a5cc2" class="hand">Fridays 2pm</text>
+    <path d="M270 148c4-8 28-8 32 0" fill="none" stroke="#7a5cc2" stroke-width="2"/>
+    <g class="t"><rect x="258" y="184" width="60" height="8" rx="3" fill="#a8744a"/><path d="M270 192v10a8 8 0 0 0 16 0v-10" fill="none" stroke="#2b2836" stroke-width="2.4"/><rect x="266" y="200" width="7" height="12" rx="3" fill="#d0602f"/><rect x="283" y="200" width="7" height="12" rx="3" fill="#d0602f"/><path d="M296 192v10a8 8 0 0 0 16 0v-10" fill="none" stroke="#2b2836" stroke-width="2.4"/><rect x="292" y="200" width="7" height="12" rx="3" fill="#3b78b8"/><rect x="309" y="200" width="7" height="12" rx="3" fill="#3b78b8"/></g>
+    <rect x="262" y="270" width="52" height="90" rx="4" fill="#9dc5b8" class="o"/><rect x="270" y="280" width="36" height="24" rx="3" fill="#2b2836" class="t"/><g fill="#5fc08a"><rect x="274" y="284" width="4" height="4"/><rect x="282" y="284" width="4" height="4"/><rect x="290" y="284" width="4" height="4"/></g><circle cx="288" cy="330" r="10" fill="#e6e3d6" class="t"/><circle cx="288" cy="330" r="3" fill="#2b2836"/>
+    <rect class="hit" x="252" y="84" width="70" height="280" fill="transparent"/>
   </g>
 </g>
-<!-- l3: window and beanbags (a quiet wall) -->
-<g class="view" id="v-l3">
-  <rect width="360" height="340" fill="#f6ecdd"/><rect y="336" width="360" height="6" fill="#e2d4bd"/><rect y="340" width="360" height="140" fill="#b9c7a8"/>
+
+<!-- l3: the window wall and the window seat -->
+<g class="view" id="v-l3" data-box="library" data-light="front">
   <g class="hs" data-id="s_lwindow" role="button" tabindex="0" aria-label="Library window">
-    <rect x="70" y="60" width="220" height="150" rx="3" fill="#fffdf8" stroke="#d8cbb5" stroke-width="2"/>
-    <rect x="76" y="66" width="208" height="138" fill="#bfe0ea"/>
-    <g fill="#7fae74"><circle cx="110" cy="200" r="34"/><circle cx="170" cy="210" r="28"/><circle cx="240" cy="196" r="36"/></g>
-    <rect class="hit" x="66" y="56" width="228" height="158" fill="transparent"/>
+    <rect x="52" y="72" width="256" height="150" rx="3" fill="#fffdf6" class="o"/>
+    <rect x="60" y="80" width="240" height="134" fill="#bfe0ea"/>
+    <g fill="#fffdf6" opacity=".9"><ellipse cx="96" cy="104" rx="20" ry="7"/><ellipse cx="228" cy="96" rx="26" ry="8"/><ellipse cx="244" cy="92" rx="14" ry="7"/></g>
+    <g fill="#6fa36a"><circle cx="100" cy="192" r="30"/><circle cx="160" cy="200" r="24"/><circle cx="230" cy="190" r="34"/><circle cx="284" cy="204" r="22"/></g>
+    <g fill="#8a6440"><rect x="96" y="200" width="8" height="14"/><rect x="226" y="204" width="8" height="10"/></g>
+    <path d="M150 140c-3-5 4-6 3-1 3-3 8-1 5 3-2 2-6 2-8-2Z" fill="#f0b44c" class="t"/>
+    <line x1="140" y1="80" x2="140" y2="214" stroke="#fffdf6" stroke-width="5"/><line x1="220" y1="80" x2="220" y2="214" stroke="#fffdf6" stroke-width="5"/>
+    <rect class="hit" x="50" y="70" width="260" height="154" fill="transparent"/>
   </g>
-  <g class="hs" data-id="s_beanbags" role="button" tabindex="0" aria-label="Beanbags">
-    <ellipse cx="120" cy="330" rx="60" ry="34" fill="#d0602f"/><ellipse cx="240" cy="334" rx="56" ry="30" fill="#f0b44c"/>
-    <rect class="hit" x="58" y="292" width="244" height="76" fill="transparent"/>
+  <g class="hs" data-id="s_beanbags" role="button" tabindex="0" aria-label="Window seat">
+    <rect x="52" y="226" width="256" height="14" rx="3" fill="#c9a26b" class="o"/>
+    <rect x="60" y="240" width="240" height="70" fill="#a8744a" class="o"/><rect x="72" y="252" width="100" height="46" rx="3" fill="#8a6440" class="t"/><rect x="188" y="252" width="100" height="46" rx="3" fill="#8a6440" class="t"/>
+    <rect x="52" y="214" width="256" height="16" rx="6" fill="#e0664f" class="o"/>
+    <g class="t"><rect x="70" y="180" width="44" height="36" rx="8" fill="#f0b44c" transform="rotate(-8 92 198)"/><rect x="130" y="184" width="44" height="34" rx="8" fill="#7fb5c9" transform="rotate(5 152 201)"/><rect x="226" y="182" width="44" height="36" rx="8" fill="#b09ae8" transform="rotate(-4 248 200)"/></g>
+    <rect class="hit" x="50" y="176" width="260" height="136" fill="transparent"/>
   </g>
+  <g><ellipse cx="180" cy="424" rx="120" ry="30" fill="#d0602f" class="o"/><ellipse cx="180" cy="424" rx="92" ry="22" fill="#e0a84a"/><ellipse cx="180" cy="424" rx="60" ry="14" fill="#f5d76e"/><ellipse cx="180" cy="424" rx="26" ry="6" fill="#3f8f96"/></g>
+  <g><ellipse cx="36" cy="376" rx="24" ry="5" fill="#2b2836" opacity=".16" filter="url(#blur3)"/><path d="M22 340h30l-4 34H26Z" fill="#c9755a" class="o"/><g fill="#4d8a4f" class="t"><path d="M37 338c-20-12-24-40-8-56 4 22 6 40 8 56Z"/><path d="M38 338c8-22 20-36 32-40-8 18-18 32-32 40Z"/><path d="M37 338c-12-6-26-8-34-4 10 8 22 10 34 4Z"/></g></g>
 </g>
+
 <!-- l4: Art shelf and the returns trolley -->
-<g class="view" id="v-l4">
-  <rect width="360" height="340" fill="#f6ecdd"/><rect y="336" width="360" height="6" fill="#e2d4bd"/><rect y="340" width="360" height="140" fill="#b9c7a8"/>
+<g class="view" id="v-l4" data-box="library" data-light="left">
   <g class="hs" data-id="s_shelfArt" role="button" tabindex="0" aria-label="Art shelf">
-    <rect x="56" y="70" width="150" height="270" fill="#a8744a"/><rect x="64" y="78" width="134" height="254" fill="#8a6440"/>
-    <rect x="81" y="54" width="100" height="22" rx="4" fill="#d0602f"/><text x="131" y="70" text-anchor="middle" font-size="12" font-weight="700" fill="#fffdf8" font-family="Atkinson Hyperlegible, Verdana, sans-serif">ART</text>
-    <g fill="#d0602f"><rect x="70" y="92" width="16" height="60"/><rect x="88" y="98" width="14" height="54" fill="#ef8a5a"/><rect x="104" y="86" width="20" height="66" fill="#b8493f"/><rect x="126" y="96" width="12" height="56"/></g>
-    <rect x="64" y="152" width="134" height="6" fill="#a8744a"/>
-    <g fill="#d0602f"><rect x="70" y="176" width="14" height="60" fill="#ef8a5a"/><rect x="86" y="170" width="16" height="66"/></g>
-    <rect x="64" y="236" width="134" height="6" fill="#a8744a"/>
-    <rect class="hit" x="54" y="50" width="154" height="292" fill="transparent"/>
+    <g id="bc-art"></g>
+    <rect class="hit" x="42" y="50" width="156" height="312" fill="transparent"/>
   </g>
+  <g><rect x="228" y="90" width="82" height="60" fill="#fffdf6" class="o"/><rect x="228" y="90" width="82" height="14" fill="#5b6f7a"/><text x="269" y="100" text-anchor="middle" font-size="7" font-weight="700" fill="#fffdf6" class="lbl">RETURNED BOOKS</text><text x="269" y="122" text-anchor="middle" font-size="11" fill="#5b6f7a" class="hand">go on the trolley,</text><text x="269" y="138" text-anchor="middle" font-size="11" fill="#5b6f7a" class="hand">not the shelf!</text></g>
   <g class="hs" data-id="s_trolley" role="button" tabindex="0" aria-label="Returns trolley">
-    <rect x="218" y="232" width="90" height="8" fill="#5b6f7a"/><rect x="218" y="290" width="90" height="8" fill="#5b6f7a"/>
-    <rect x="220" y="240" width="6" height="90" fill="#5b6f7a"/><rect x="300" y="240" width="6" height="90" fill="#5b6f7a"/>
-    <g><rect x="226" y="208" width="14" height="24" fill="#2f7c83"/><rect x="242" y="204" width="12" height="28" fill="#7a5cc2"/><rect x="256" y="212" width="16" height="20" fill="#d9a622"/></g>
-    <circle cx="224" cy="334" r="6" fill="#2b3431"/><circle cx="302" cy="334" r="6" fill="#2b3431"/>
-    <rect x="232" y="256" width="62" height="20" rx="3" fill="#fffdf8"/><text x="263" y="270" text-anchor="middle" font-size="10" font-weight="700" fill="#5b6f7a" font-family="Atkinson Hyperlegible, Verdana, sans-serif">RETURNS</text>
-    <rect class="hit" x="212" y="196" width="100" height="148" fill="transparent"/>
+    <ellipse cx="268" cy="452" rx="56" ry="7" fill="#2b2836" opacity=".16" filter="url(#blur6)"/>
+    <g class="o" fill="#5b6f7a"><rect x="216" y="252" width="104" height="8"/><rect x="216" y="326" width="104" height="8"/><rect x="216" y="400" width="104" height="8"/></g>
+    <rect x="218" y="258" width="7" height="184" fill="#6f7c88" class="o"/><rect x="311" y="258" width="7" height="184" fill="#6f7c88" class="o"/>
+    <g class="t"><rect x="228" y="226" width="14" height="26" fill="#2f7c83"/><rect x="244" y="220" width="12" height="32" fill="#7a5cc2"/><rect x="258" y="230" width="16" height="22" fill="#d9a622"/><rect x="276" y="224" width="12" height="28" fill="#3a8f5c"/><rect x="290" y="232" width="18" height="20" fill="#d0602f"/></g>
+    <g class="t"><rect x="230" y="302" width="18" height="24" fill="#3b78b8"/><rect x="250" y="308" width="14" height="18" fill="#c4589a"/><rect x="266" y="298" width="12" height="28" fill="#f0b44c"/></g>
+    <rect x="236" y="352" width="64" height="20" rx="3" fill="#fffdf6" class="t"/><text x="268" y="366" text-anchor="middle" font-size="10" font-weight="700" fill="#5b6f7a" class="lbl">RETURNS</text>
+    <circle cx="224" cy="446" r="7" fill="#2b2836"/><circle cx="312" cy="446" r="7" fill="#2b2836"/><circle cx="224" cy="446" r="2.5" fill="#9aa5ab"/><circle cx="312" cy="446" r="2.5" fill="#9aa5ab"/>
+    <rect class="hit" x="212" y="214" width="112" height="200" fill="transparent"/>
   </g>
 </g>
-<!-- l5: Stories shelf -->
-<g class="view" id="v-l5">
-  <rect width="360" height="340" fill="#f6ecdd"/><rect y="336" width="360" height="6" fill="#e2d4bd"/><rect y="340" width="360" height="140" fill="#b9c7a8"/>
-  <ellipse cx="180" cy="420" rx="120" ry="30" fill="#e0a84a" opacity=".6"/>
+
+<!-- l5: Stories shelf, the reading rug and the storytime chair -->
+<g class="view" id="v-l5" data-box="library" data-light="left">
   <g class="hs" data-id="s_shelfSto" role="button" tabindex="0" aria-label="Stories shelf">
-    <rect x="70" y="70" width="220" height="270" fill="#a8744a"/><rect x="78" y="78" width="204" height="254" fill="#8a6440"/>
-    <rect x="130" y="54" width="100" height="22" rx="4" fill="#3a8f5c"/><text x="180" y="70" text-anchor="middle" font-size="12" font-weight="700" fill="#fffdf8" font-family="Atkinson Hyperlegible, Verdana, sans-serif">STORIES</text>
-    <g fill="#3a8f5c"><rect x="84" y="92" width="16" height="60"/><rect x="102" y="98" width="14" height="54" fill="#5fc08a"/><rect x="118" y="86" width="18" height="66" fill="#27794c"/><rect x="138" y="96" width="14" height="56"/><rect x="154" y="90" width="16" height="62" fill="#5fc08a"/><rect x="172" y="98" width="12" height="54" fill="#27794c"/></g>
-    <rect x="78" y="152" width="204" height="6" fill="#a8744a"/>
-    <g fill="#3a8f5c"><rect x="84" y="176" width="16" height="60" fill="#27794c"/><rect x="102" y="170" width="14" height="66"/><rect x="118" y="180" width="18" height="56" fill="#5fc08a"/></g>
-    <rect x="78" y="236" width="204" height="6" fill="#a8744a"/>
-    <rect class="hit" x="68" y="50" width="224" height="292" fill="transparent"/>
+    <g id="bc-sto"></g>
+    <rect class="hit" x="48" y="50" width="196" height="312" fill="transparent"/>
   </g>
+  <g class="hs" data-id="s_chair" role="button" tabindex="0" aria-label="The storytime chair">
+    <ellipse cx="290" cy="416" rx="46" ry="8" fill="#2b2836" opacity=".16" filter="url(#blur6)"/>
+    <rect x="254" y="236" width="72" height="90" rx="14" fill="#7a5cc2" class="o"/>
+    <rect x="246" y="316" width="88" height="44" rx="10" fill="#9a80dc" class="o"/>
+    <rect x="240" y="300" width="20" height="70" rx="8" fill="#6d4fb8" class="o"/><rect x="320" y="300" width="20" height="70" rx="8" fill="#6d4fb8" class="o"/>
+    <rect x="262" y="250" width="56" height="60" rx="8" fill="#9a80dc"/>
+    <rect x="250" y="370" width="8" height="24" fill="#8a6440" class="t"/><rect x="322" y="370" width="8" height="24" fill="#8a6440" class="t"/>
+    <g class="t"><ellipse cx="290" cy="340" rx="14" ry="10" fill="#e0a84a"/><circle cx="302" cy="334" r="7" fill="#e0a84a"/><path d="M298 328l-1-5 4 3M306 328l1-5-4 3" fill="#e0a84a"/><circle cx="301" cy="333" r="1" fill="#2b2836"/><circle cx="304" cy="333" r="1" fill="#2b2836"/><path d="M276 344c-8-2-10-8-6-12" fill="none" stroke="#2b2836" stroke-width="1.6"/></g>
+    <rect class="hit" x="238" y="232" width="102" height="140" fill="transparent"/>
+  </g>
+  <g><ellipse cx="130" cy="428" rx="96" ry="26" fill="#3a8f5c" class="o"/><ellipse cx="130" cy="428" rx="72" ry="19" fill="#5fc08a"/><ellipse cx="130" cy="428" rx="46" ry="12" fill="#27794c"/><ellipse cx="130" cy="428" rx="20" ry="5" fill="#f5d76e"/></g>
+  <g class="t"><ellipse cx="72" cy="404" rx="22" ry="11" fill="#f0b44c"/><ellipse cx="72" cy="398" rx="22" ry="9" fill="#f5d76e"/></g>
 </g>
-<!-- l6: door to the corridor and the librarian's desk -->
-<g class="view" id="v-l6">
-  <rect width="360" height="340" fill="#f6ecdd"/><rect y="336" width="360" height="6" fill="#e2d4bd"/><rect y="340" width="360" height="140" fill="#b9c7a8"/>
-  <g class="hs" data-id="s_toCorridorL" role="button" tabindex="0" aria-label="Doors to the corridor">
-    <rect x="60" y="64" width="120" height="276" fill="#fffdf8"/><rect x="68" y="72" width="104" height="268" fill="#3b8a4e"/>
-    <rect x="84" y="96" width="72" height="70" rx="3" fill="#f4efe4"/>
-    <text x="120" y="136" text-anchor="middle" font-size="12" fill="#55635d" font-family="Atkinson Hyperlegible, Verdana, sans-serif">Corridor</text>
-    <rect class="hit" x="58" y="62" width="124" height="280" fill="transparent"/>
+
+<!-- l6: the doors to the corridor and the librarian's desk -->
+<g class="view" id="v-l6" data-box="library" data-light="back">
+  <g class="hs door" data-id="s_toCorridorL" role="button" tabindex="0" aria-label="Doors to the corridor">
+    <rect x="46" y="72" width="150" height="288" fill="#fffdf6" class="o"/>
+    <rect x="54" y="80" width="67" height="280" fill="#3b8a4e" class="o"/><rect x="121" y="80" width="67" height="280" fill="#3b8a4e" class="o"/>
+    <circle cx="87" cy="150" r="21" fill="#dfe9ea" class="t"/><circle cx="154" cy="150" r="21" fill="#dfe9ea" class="t"/><circle cx="87" cy="150" r="15" fill="#e8e3d3"/><circle cx="154" cy="150" r="15" fill="#e8e3d3"/>
+    <rect x="66" y="230" width="42" height="110" rx="3" fill="#4a9e5e" class="t"/><rect x="134" y="230" width="42" height="110" rx="3" fill="#4a9e5e" class="t"/>
+    <rect x="112" y="250" width="6" height="34" rx="3" fill="#f0b44c" class="t"/><rect x="124" y="250" width="6" height="34" rx="3" fill="#f0b44c" class="t"/>
+    <rect x="86" y="190" width="70" height="22" rx="4" fill="#fffdf6" class="t"/><text x="121" y="205" text-anchor="middle" font-size="9" font-weight="700" fill="#3b8a4e" class="lbl">CORRIDOR</text>
+    <rect class="hit" x="44" y="70" width="154" height="292" fill="transparent"/>
   </g>
+  <g><rect x="216" y="86" width="96" height="34" rx="4" fill="#fffdf6" class="o"/><text x="264" y="108" text-anchor="middle" font-size="10" font-weight="700" fill="#d0602f" class="lbl" letter-spacing="1">QUIET PLEASE</text></g>
+  <g><circle cx="264" cy="164" r="18" fill="#fffdf6" class="o"/><circle cx="264" cy="164" r="14.5" fill="none" stroke="#cfc8b4" stroke-width="1"/><line x1="264" y1="164" x2="271" y2="159.5" stroke="#2b2836" stroke-width="2.2" stroke-linecap="round"/><line x1="264" y1="164" x2="254" y2="169.5" stroke="#2b2836" stroke-width="1.5" stroke-linecap="round"/><circle cx="264" cy="164" r="1.6" fill="#d0602f"/></g>
   <g class="hs" data-id="s_libdesk" role="button" tabindex="0" aria-label="Librarian's desk">
-    <rect x="196" y="240" width="110" height="100" fill="#b98a5a"/><rect x="190" y="232" width="122" height="10" rx="2" fill="#a8744a"/>
-    <rect x="210" y="196" width="80" height="36" rx="4" fill="#fffdf8" stroke="#d3c6ae"/>
-    <text x="250" y="212" text-anchor="middle" font-size="11" font-weight="700" fill="#3b8a4e" font-family="Atkinson Hyperlegible, Verdana, sans-serif">Back soon!</text>
-    <text x="250" y="226" text-anchor="middle" font-size="9" fill="#55635d" font-family="Atkinson Hyperlegible, Verdana, sans-serif">Party in the playground</text>
-    <rect class="hit" x="188" y="190" width="126" height="152" fill="transparent"/>
+    <ellipse cx="268" cy="452" rx="70" ry="9" fill="#2b2836" opacity=".16" filter="url(#blur6)"/>
+    <rect x="212" y="300" width="116" height="140" fill="#b98a5a" class="o"/><rect x="220" y="312" width="100" height="16" rx="2" fill="#a8744a" class="t"/>
+    <polygon points="222,262 330,262 340,300 206,300" fill="#d8b98a" stroke="#2b2836" stroke-width="2.2" stroke-linejoin="round"/>
+    <rect x="232" y="214" width="60" height="44" rx="4" fill="#2b2836" class="o"/><rect x="238" y="220" width="48" height="32" fill="#3d4a55"/><rect x="254" y="258" width="16" height="6" fill="#5b6f7a"/>
+    <g class="t"><rect x="298" y="236" width="26" height="24" rx="3" fill="#fffdf6"/><text x="311" y="246" text-anchor="middle" font-size="6" font-weight="700" fill="#3b8a4e" class="lbl">BACK</text><text x="311" y="254" text-anchor="middle" font-size="6" font-weight="700" fill="#3b8a4e" class="lbl">SOON!</text></g>
+    <g class="t"><path d="M216 262a8 8 0 0 1 16 0" fill="#f0b44c"/><rect x="214" y="262" width="20" height="4" rx="2" fill="#c9a24a"/></g>
+    <g><rect x="284" y="268" width="14" height="14" rx="2" fill="#2f7c83" class="t"/><line x1="288" y1="268" x2="288" y2="256" stroke="#d0602f" stroke-width="2.6" stroke-linecap="round"/><line x1="294" y1="268" x2="294" y2="254" stroke="#3b78b8" stroke-width="2.6" stroke-linecap="round"/></g>
+    <rect class="hit" x="206" y="210" width="136" height="150" fill="transparent"/>
   </g>
 </g>
 
@@ -1077,9 +1104,12 @@ const STAGE_SCHOOL = {
       case 's_shelfArt': openShelf('art'); return;
       case 's_shelfSto': openShelf('sto'); return;
       case 's_trolley': openShelf('trolley'); return;
-      case 's_globe': say('The globe. Singapore is tiny. London is a long way up and to the left.'); break;
-      case 's_lwindow': say('Trees and sunshine. Only a few hours until the summer holidays begin.'); break;
-      case 's_beanbags': say('The reading beanbags. Very squashy, very comfy.'); break;
+      case 's_globe': say('The globe. Singapore is a tiny red dot. London is a long way up and to the left.'); break;
+      case 's_rocks': say('The rock collection. Nine shiny rocks and one that Mary suspects is a toffee.'); break;
+      case 's_headphones': say('The listening corner. Story time is on Fridays, but today is the last day, so no story.'); break;
+      case 's_chair': say('The storytime chair. Someone has left a knitted hamster on it. It is not Nutmeg.'); break;
+      case 's_lwindow': say('Trees, sunshine and a butterfly on the glass. Only a few hours until the holidays.'); break;
+      case 's_beanbags': say('The window seat, with the squashiest cushions in the school.'); break;
       case 's_libdesk': say('A sign: “Back soon! I’m at the party in the playground. Please put books back where you found them.”'); break;
     }
     render();
@@ -1374,7 +1404,8 @@ const viewId = () => ST.rooms[S.room].views[S.view];
 /* Every new-style view sits inside a room box: ceiling, walls, floor, drawn in one-point perspective. */
 const BOXES = {
   classroom:{ceil:['#f9f7ee','#ece9dc'], back:['#f4f1e3','#e1e3d5'], left:['#c3c7ba','#d3d6c8'], right:['#ecebdd','#dcdccd'], floor:['#c9ad86','#ad8e66'], boards:'wood', skirt:['#b6ad9b','#c5bca8','#aaa290'], lamp:true},
-  corridor:{ceil:['#f7f4ea','#e9e4d6'], back:['#f7f1e2','#e4dcc8'], left:['#cfc8b6','#dcd5c4'], right:['#eee8d8','#e0d9c8'], floor:['#b9c6cf','#96a8b4'], boards:'lino', skirt:['#8d9aa5','#9fb0bb','#7f8d98'], lamp:true}
+  corridor:{ceil:['#f7f4ea','#e9e4d6'], back:['#f7f1e2','#e4dcc8'], left:['#cfc8b6','#dcd5c4'], right:['#eee8d8','#e0d9c8'], floor:['#b9c6cf','#96a8b4'], boards:'lino', skirt:['#8d9aa5','#9fb0bb','#7f8d98'], lamp:true},
+  library:{ceil:['#fbf6ea','#efe8d8'], back:['#f9efdc','#ebdfc6'], left:['#d9cbb0','#e4d8c0'], right:['#f1e7d2','#e6dac2'], floor:['#b9c7a8','#93a682'], boards:'carpet', skirt:['#a58a62','#b8996c','#96794f'], lamp:true}
 };
 function roomBox(name, light){
   const c = BOXES[name], id = 'g-' + name;
@@ -1386,7 +1417,8 @@ function roomBox(name, light){
   s += `<polygon points="0,404 40,360 320,360 360,404 360,480 0,480" fill="url(#${id}-floor)"/>`;
   const rays = [75,110,145,180,215,250,285].map(x => `<line x1="${x}" y1="360" x2="${(180+(x-180)*1.774).toFixed(0)}" y2="480"/>`).join('');
   if (c.boards === 'wood') s += `<g stroke="#8f7350" stroke-width="1" opacity=".5">${rays}</g><g stroke="#8f7350" stroke-width=".8" opacity=".35"><line x1="0" y1="382" x2="360" y2="382"/><line x1="0" y1="412" x2="360" y2="412"/><line x1="0" y1="450" x2="360" y2="450"/></g>`;
-  else s += `<g stroke="#7f8d98" stroke-width="1" opacity=".35">${rays}</g><polygon points="150,360 210,360 233,480 127,480" fill="#3f8f96" opacity=".35"/>`;
+  else if (c.boards === 'lino') s += `<g stroke="#7f8d98" stroke-width="1" opacity=".35">${rays}</g><polygon points="150,360 210,360 233,480 127,480" fill="#3f8f96" opacity=".35"/>`;
+  else s += `<g stroke="#6f8560" stroke-width="1" opacity=".14">${rays}</g><rect x="40" y="360" width="280" height="6" fill="#6f8560" opacity=".18"/>`;
   if (light === 'left') s += `<g filter="url(#blur6)" opacity=".36"><polygon points="24,410 96,380 214,398 170,478 60,480" fill="#fff1bd"/></g><polygon points="40,62 40,360 66,346 66,96" fill="#fff1bd" opacity=".14"/>`;
   if (light === 'right') s += `<g filter="url(#blur6)" opacity=".36"><polygon points="336,410 264,380 146,398 190,478 300,480" fill="#fff1bd"/></g><polygon points="320,62 320,360 294,346 294,96" fill="#fff1bd" opacity=".14"/>`;
   if (light === 'front') s += `<g filter="url(#blur6)" opacity=".4"><polygon points="70,372 290,372 330,470 30,470" fill="#fff1bd"/></g>`;
@@ -1401,6 +1433,40 @@ document.querySelectorAll('.view[data-box]').forEach(v => {
   g.innerHTML = roomBox(v.dataset.box, v.dataset.light);
   v.insertBefore(g, v.firstChild);
 });
+/* Bookcases: a case, three shelves, and rows of books in a colour family. gap marks a missing book. */
+function bookcase(o){
+  const {x, y, w, h, colours, label, labelColour, gap} = o;
+  const side = 10, shelfH = (h - 30) / 3;
+  let out = `<rect x="${x+w}" y="${y+8}" width="${side}" height="${h-8}" fill="#6b4a2d" class="o"/>`;
+  out += `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#a8744a" class="o"/><rect x="${x+6}" y="${y+6}" width="${w-12}" height="${h-12}" fill="#7d5636"/>`;
+  out += `<rect x="${x+w/2-50}" y="${y-18}" width="100" height="24" rx="5" fill="${labelColour}" class="o"/><text x="${x+w/2}" y="${y-1}" text-anchor="middle" font-size="11" font-weight="700" fill="#fffdf6" class="lbl" letter-spacing="1">${label}</text>`;
+  let seed = x * 7 + w;
+  const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+  for (let r = 0; r < 3; r++){
+    const top = y + 8 + r * (shelfH + 6), base = top + shelfH;
+    out += `<rect x="${x+6}" y="${base}" width="${w-12}" height="6" fill="#a8744a"/>`;
+    let bx = x + 12, slot = 0;
+    while (bx < x + w - 22){
+      const bw = 9 + Math.floor(rnd() * 9), bh = shelfH - 10 - Math.floor(rnd() * 12);
+      if (gap && gap.shelf === r && gap.slot === slot){
+        out += `<rect x="${bx}" y="${base-14}" width="18" height="14" fill="#f5d76e" class="t" transform="rotate(-6 ${bx+9} ${base-7})"/><path d="M${bx+3} ${base-9}h12M${bx+3} ${base-5}h8" stroke="#8a6440" stroke-width="1.2" transform="rotate(-6 ${bx+9} ${base-7})"/>`;
+        bx += 24; slot++; continue;
+      }
+      const c = colours[Math.floor(rnd() * colours.length)];
+      out += `<rect x="${bx}" y="${base-bh}" width="${bw}" height="${bh}" rx="1" fill="${c}" class="t"/><rect x="${bx+2}" y="${base-bh+4}" width="${bw-4}" height="3" fill="#fffdf6" opacity=".55"/>`;
+      if (rnd() > .7) out += `<rect x="${bx+2}" y="${base-bh+10}" width="${bw-4}" height="2" fill="#fffdf6" opacity=".4"/>`;
+      bx += bw + 2; slot++;
+    }
+  }
+  return out;
+}
+const BOOKCASES = {
+  'bc-sci':{x:46, y:70, w:150, h:282, colours:['#3b78b8','#5b9bd5','#2c5f93','#7fb5c9'], label:'SCIENCE', labelColour:'#3b78b8'},
+  'bc-mus':{x:70, y:70, w:166, h:282, colours:['#7a5cc2','#a58ae6','#6d4fb8','#c4589a'], label:'MUSIC', labelColour:'#7a5cc2', gap:{shelf:1, slot:3}},
+  'bc-art':{x:46, y:70, w:142, h:282, colours:['#d0602f','#ef8a5a','#b8493f','#f0b44c'], label:'ART', labelColour:'#d0602f'},
+  'bc-sto':{x:52, y:70, w:186, h:282, colours:['#3a8f5c','#5fc08a','#27794c','#f5d76e'], label:'STORIES', labelColour:'#3a8f5c'}
+};
+Object.entries(BOOKCASES).forEach(([id, o]) => { $(id).innerHTML = bookcase(o); });
 /* Everything tappable gets a soft breathing glow behind it, worked out from its tap area. Doors and hidden paper moths don't. */
 document.querySelectorAll('.hs:not(.door):not(.pmoth)').forEach(el => {
   const hit = el.querySelector('.hit'); if (!hit) return;
