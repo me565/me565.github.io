@@ -160,7 +160,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-28i';
+const BUILD = '2026-09-28j';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -197,7 +197,7 @@ const HOTS = {
     {id:'desk', l:41, t:61, w:18, h:33, label:"Mary's desk", sound:'tap'},
     {id:'envelope', l:50, t:65, w:8, h:8.5, label:"Envelope on Mary's desk", key:true, anim:'lift', layer:'envelope', sound:'paper'},
     {id:'bag', l:55.5, t:77, w:9, h:17, label:"Mary's schoolbag", anim:'wobble', layer:'backpack', sound:'tap'},
-    {id:'hamster', l:67, t:51.5, w:11, h:11, label:'Nutmeg the hamster', anim:'hop', layer:'hamster', sound:'squeak'},
+    {id:'hamster', l:67, t:51.5, w:11, h:11, label:'Nutmeg the hamster', anim:'sniff', layer:'hamster', sound:'squeak'},
     {id:'cabinet', l:66, t:62.5, w:13, h:27, label:'Filing cabinet', sound:'knock'}]
 };
 /* Cut-out layers drawn over each wall: the wall pictures have these things removed, so the cut-out is the only copy.
@@ -205,26 +205,26 @@ const HOTS = {
 const LAYERS = {
   c1:[
     {src:'../art/classroom/layer-doors.png', group:'doors', l:8.6, t:36, w:17, h:51},
-    {src:'../art/classroom/layer-mug.png', group:'mug', l:71.7, t:62.8, w:4.2, h:7.2},
-    {src:'../art/classroom/layer-apple.png', group:'apple', l:89.9, t:57.8, w:2.6, h:5.5}],
+    {src:'../art/classroom/layer-mug.png', group:'mug', l:71.7, t:62.8, w:4.2, h:7.2, shadow:.6},
+    {src:'../art/classroom/layer-apple.png', group:'apple', l:89.5, t:59.3, w:2.6, h:5.5, shadow:.5}],
   c2:[ /* each plant is split at the rim: the plant bends, the pot below it never moves and is drawn in front */
     {src:'../art/classroom/layer-plant1-top.png', group:'plant', l:34.4, t:54.0, w:5.6, h:3.82},
     {src:'../art/classroom/layer-plant2-top.png', group:'plant', l:42.4, t:49.5, w:5.5, h:8.26},
     {src:'../art/classroom/layer-plant3-top.png', group:'plant', l:51.0, t:36.1, w:6.8, h:21.7},
     {src:'../art/classroom/layer-plant4-top.png', group:'plant', l:59.3, t:31.5, w:7.7, h:26.31},
-    {src:'../art/classroom/layer-plant1-pot.png', l:34.4, t:57.71, w:5.6, h:8.79},
-    {src:'../art/classroom/layer-plant2-pot.png', l:42.4, t:57.65, w:5.5, h:8.85},
-    {src:'../art/classroom/layer-plant3-pot.png', l:51.0, t:57.69, w:6.8, h:8.81},
-    {src:'../art/classroom/layer-plant4-pot.png', l:59.3, t:57.70, w:7.7, h:8.80}],
+    {src:'../art/classroom/layer-plant1-pot.png', l:34.4, t:57.71, w:5.6, h:8.79, shadow:.5},
+    {src:'../art/classroom/layer-plant2-pot.png', l:42.4, t:57.65, w:5.5, h:8.85, shadow:.5},
+    {src:'../art/classroom/layer-plant3-pot.png', l:51.0, t:57.69, w:6.8, h:8.81, shadow:.5},
+    {src:'../art/classroom/layer-plant4-pot.png', l:59.3, t:57.70, w:7.7, h:8.80, shadow:.5}],
   c3:[
-    {src:'../art/classroom/layer-coat.png', group:'coat', l:61.2, t:49.5, w:10.6, h:32},
+    {src:'../art/classroom/layer-coat.png', group:'coat', l:60.4, t:50.2, w:9.8, h:30.8},
     {src:'../art/classroom/layer-lost.png', group:'lost', l:77.5, t:74.5, w:10, h:8.9, clipBottom:81},
     {src:'../art/classroom/layer-lid.png', group:'lid', l:27.6, t:67.3, w:10, h:10.3}],
   c4:[
     {src:'../art/classroom/layer-envelope.png', group:'envelope', l:50.5, t:66.5, w:6.5, h:5.5, hideWhen:() => S.got.includes('envelope')},
     /* the hamster lives inside the cage: it is clipped to the cage and the cage's glass is drawn faintly over it */
-    {src:'../art/classroom/layer-hamster.png', group:'hamster', l:67.8, t:54.2, w:5.2, h:7.3, glass:[67.3, 52.2, 10.2, 9.3]},
-    {src:'../art/classroom/layer-backpack.png', group:'backpack', l:56.5, t:78, w:7, h:15.3}]
+    {src:'../art/classroom/layer-hamster.png', group:'hamster', l:68.1, t:56.3, w:3.9, h:5.5, glass:[67.3, 52.2, 10.2, 9.3], shadow:.5},
+    {src:'../art/classroom/layer-backpack.png', group:'backpack', l:58.2, t:78.5, w:7, h:15.3, shadow:.8}]
 };
 /* every picture is loaded once, up front, so cut-outs never appear late */
 const IMG = {};
@@ -255,6 +255,9 @@ function drawLayer(c, t){
   if (L.clipBottom != null){ const yClip = toCanvas(c, L, 0, L.clipBottom)[1]; ctx.beginPath(); ctx.rect(0, 0, c.width, yClip); ctx.clip(); }
   let glassRect = null;
   if (L.glass){ const [gx, gy] = toCanvas(c, L, L.glass[0], L.glass[1]), [gx2, gy2] = toCanvas(c, L, L.glass[0]+L.glass[2], L.glass[1]+L.glass[3]); glassRect = [gx, gy, gx2-gx, gy2-gy]; ctx.beginPath(); ctx.rect(...glassRect); ctx.clip(); }
+  if (L.shadow){ /* a soft contact shadow under things that stand on a surface, so nothing floats */
+    ctx.save(); ctx.filter = `blur(${Math.max(2, W*0.03)}px)`; ctx.fillStyle = `rgba(30,25,40,${0.28*L.shadow})`;
+    ctx.beginPath(); ctx.ellipse(ox + W/2, oy + H - H*0.01, W*0.46, Math.max(3, W*0.07), 0, 0, Math.PI*2); ctx.fill(); ctx.restore(); }
   const finish = () => { /* the glass front of a cage, drawn faintly over whatever is inside */
     if (!glassRect) return; const wall = $('w-'+VIEWS[S.view]); if (!wall || !wall.naturalWidth) return;
     ctx.globalAlpha = 0.32; ctx.drawImage(wall, L.glass[0]/100*wall.naturalWidth, L.glass[1]/100*wall.naturalHeight, L.glass[2]/100*wall.naturalWidth, L.glass[3]/100*wall.naturalHeight, ...glassRect); ctx.globalAlpha = 1; };
@@ -299,6 +302,11 @@ function drawLayer(c, t){
       const T = 0.7; if (t > T + 0.3){ st.anim = null; ctx.drawImage(img, ox, oy); break; }
       const k = t < T ? Math.sin(Math.PI*t/T) : 0, settle = t >= T ? 0.05*damp(4, 0.15) : 0;
       ctx.translate(ox + W/2, oy + H); ctx.rotate(-0.35*k + settle); ctx.translate(0, -H*0.25*k); ctx.drawImage(img, -W/2, -H);
+      break; }
+    case 'sniff': { /* a hamster: a breath, a nose twitch and a tiny shuffle, all inside its cage */
+      if (t > 1.6){ st.anim = null; ctx.drawImage(img, ox, oy); break; }
+      const breath = 1 + 0.035*Math.sin(2*Math.PI*1.6*t)*Math.exp(-t/1.4), twitch = 0.04*Math.sin(2*Math.PI*6*t)*Math.exp(-t/0.35), shuffle = W*0.03*Math.sin(Math.PI*Math.min(t, 0.6)/0.6);
+      ctx.translate(ox + W/2 + shuffle, oy + H); ctx.rotate(twitch); ctx.scale(1/breath, breath); ctx.drawImage(img, -W/2, -H);
       break; }
     case 'wobble': { /* rocks on its base and settles */
       const ang = 0.14*damp(1.6, 0.6);
@@ -371,6 +379,7 @@ function render(){
   const hots = $('hots'); hots.innerHTML = '';
   layerState.clear();
   (LAYERS[v] || []).forEach(L => { if (L.hideWhen && L.hideWhen()) return; hots.appendChild(makeLayer(L)); });
+  if (v === 'c4') hots.appendChild(wallTimetable());
   /* bigger targets first, so a small thing on a big thing (the mug on the desk) stays tappable */
   [...HOTS[v]].sort((a, b) => b.w*b.h - a.w*a.h).forEach(h => {
     if (h.id === 'envelope' && S.got.includes('envelope')) return;
@@ -397,6 +406,15 @@ function render(){
   save();
 }
 function turn(d){ if (!$('closeup').hidden) return; S.view = (S.view + d + 4) % 4; say(''); sfx('turn'); render(); }
+
+/* The timetable poster on the wall is the real grid, drawn over the picture's poster in the same paper and ink,
+   so what you see on the wall is exactly what the close-up shows. */
+function wallTimetable(){
+  const wrap = document.createElement('div'); wrap.className = 'layer'; wrap.style.cssText = 'left:38.6%;top:25.3%;width:22.9%;height:29.4%';
+  let key = '';
+  wrap.innerHTML = `<svg viewBox="0 0 230 166" width="100%" height="100%" preserveAspectRatio="none" aria-hidden="true"><rect x="1" y="1" width="228" height="164" rx="2" fill="#fffdf6" stroke="#2b2836" stroke-width="2"/><rect x="1" y="1" width="228" height="20" fill="#2f7c83" stroke="#2b2836" stroke-width="2"/><text x="115" y="15.5" text-anchor="middle" font-size="12" font-weight="700" fill="#fffdf6" letter-spacing="1.5" font-family="Atkinson Hyperlegible,Verdana,sans-serif">5H TIMETABLE</text><g>${ttGrid(8, 27, 34, 28, 22, 16, 9.5)}</g></svg>`;
+  return wrap;
+}
 
 /* ---------- close-ups ---------- */
 function openCloseup(inner){
