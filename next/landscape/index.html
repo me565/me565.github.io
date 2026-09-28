@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Moth House (landscape test)</title>
+<meta name="theme-color" content="#141a28">
+<link rel="icon" href="../../icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Atkinson+Hyperlegible:wght@400;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* Landscape engine, first test room: Mary's classroom 5H drawn as generated pictures (see ../art/classroom).
+   Layout follows the owner's brief of 28 Sept 2026: a 16:9 scene, small turn arrows halfway up each side,
+   the inventory as a strip of slots under the scene, close-ups brought forward over the softened room. */
+:root{
+  --bg:#141a28; --frame:#0c101a; --ink:#1d2629; --paper:#fffaf0; --muted:#55635d;
+  --accent:#c98320; --accent-soft:#f6e6c8; --slot:#e6e1d3; --slot-line:#b9b2a1;
+  --u:6px; /* one hundredth of the scene width, set by script */
+  box-sizing:border-box;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%;margin:0;overflow:hidden;background:var(--bg);color:var(--ink);
+  font-family:"Atkinson Hyperlegible",Verdana,"Segoe UI",sans-serif;-webkit-tap-highlight-color:transparent;
+  -webkit-user-select:none;user-select:none}
+button{font:inherit;color:inherit;cursor:pointer}
+[hidden]{display:none!important}
+
+#app{height:100%;display:grid;place-items:center;padding:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0)}
+.stage{width:calc(var(--u) * 100);display:flex;flex-direction:column;gap:calc(var(--u) * 1.2)}
+
+/* the scene */
+.scene{position:relative;width:100%;aspect-ratio:16/9;border-radius:calc(var(--u) * 1.6);overflow:hidden;background:#e9e2d2;box-shadow:0 calc(var(--u)*1.2) calc(var(--u)*3) rgba(0,0,0,.5)}
+.wall{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .28s ease}
+.wall.on{opacity:1}
+.scene.zoomed .wall.on{filter:blur(calc(var(--u)*.5)) brightness(.72) saturate(.85)}
+.wall{transition:opacity .28s ease, filter .3s ease}
+
+/* tap targets: invisible, drawn on top of the picture */
+.hs{position:absolute;background:transparent;border:0;padding:0;border-radius:calc(var(--u)*1);outline-offset:calc(var(--u)*-.6)}
+.hs:focus-visible{outline:calc(var(--u)*.5) solid var(--accent)}
+.hs.hidden{display:none}
+.spark{position:absolute;width:calc(var(--u)*2.2);height:calc(var(--u)*2.2);pointer-events:none;color:var(--accent);filter:drop-shadow(0 0 calc(var(--u)*.6) #fff2c8)}
+.spark svg{width:100%;height:100%;display:block}
+@media (prefers-reduced-motion:no-preference){
+  .spark{animation:twinkle 2.4s ease-in-out infinite}
+  @keyframes twinkle{0%,100%{opacity:.35;transform:scale(.85) rotate(0)}50%{opacity:1;transform:scale(1.1) rotate(20deg)}}
+}
+
+/* turn arrows, halfway up each side */
+.arrow{position:absolute;top:50%;transform:translateY(-50%);width:calc(var(--u)*6.5);height:calc(var(--u)*11);display:grid;place-items:center;background:none;border:0;color:#2b2d33;opacity:.85}
+.arrow.l{left:calc(var(--u)*.4)} .arrow.r{right:calc(var(--u)*.4)}
+.arrow svg{width:calc(var(--u)*3.6);height:calc(var(--u)*3.6);filter:drop-shadow(0 0 calc(var(--u)*.5) rgba(255,255,255,.9))}
+.arrow:focus-visible{outline:calc(var(--u)*.4) solid var(--accent);border-radius:999px}
+.scene.zoomed .arrow,.scene.zoomed .msg{display:none}
+
+/* corner controls */
+.where{position:absolute;left:calc(var(--u)*1.6);top:calc(var(--u)*1.4);background:rgba(20,26,40,.78);color:#fffaf0;border-radius:999px;padding:calc(var(--u)*.55) calc(var(--u)*1.6);font-size:calc(var(--u)*1.9);font-family:Caprasimo,"Cooper Black",Georgia,serif;letter-spacing:.02em}
+.ctl{position:absolute;top:calc(var(--u)*1.2);width:calc(var(--u)*6);height:calc(var(--u)*6);border-radius:50%;border:0;background:rgba(20,26,40,.78);color:#fffaf0;display:grid;place-items:center}
+.ctl svg{width:60%;height:60%}
+#hintBtn{right:calc(var(--u)*8.2)} #menuBtn{right:calc(var(--u)*1.4)}
+.ctl:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
+
+/* the line the game speaks */
+.msg{position:absolute;left:calc(var(--u)*9);right:calc(var(--u)*9);bottom:calc(var(--u)*1.6);margin:0;padding:calc(var(--u)*1) calc(var(--u)*1.8);
+  background:rgba(20,26,40,.8);color:#fffaf0;border-radius:calc(var(--u)*1.2);font-size:calc(var(--u)*2);line-height:1.3;text-align:center;
+  transition:opacity .25s;pointer-events:none}
+.msg:empty{opacity:0}
+.msg b{color:#f3c26a}
+
+/* close-ups: the object comes forward, the room stays behind, softened */
+.closeup{position:absolute;inset:0;display:grid;place-items:center;padding:calc(var(--u)*4) calc(var(--u)*10)}
+.closeup .card{position:relative;max-width:100%;max-height:100%;background:var(--paper);color:var(--ink);border-radius:calc(var(--u)*1);
+  box-shadow:0 calc(var(--u)*1.5) calc(var(--u)*4) rgba(0,0,0,.45), inset 0 0 0 1px rgba(0,0,0,.08);padding:calc(var(--u)*2.4) calc(var(--u)*3);overflow:auto;
+  transform-origin:center;animation:forward .28s ease-out}
+@media (prefers-reduced-motion:reduce){.closeup .card{animation:none}}
+@keyframes forward{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+.card.note{font-family:Caveat,"Segoe Print",cursive;font-size:calc(var(--u)*2.9);line-height:1.25;display:flex;flex-direction:column;gap:calc(var(--u)*.9);width:calc(var(--u)*62)}
+.card.note .head{font-weight:700;font-size:calc(var(--u)*3.4);color:#6d4fb8}
+.card.note .big{font-size:calc(var(--u)*3.2);font-weight:700;color:#2f7c83}
+.card.note.print{font-family:inherit;font-size:calc(var(--u)*2.2);line-height:1.35}
+.card.note.print .head{font-family:Caprasimo,Georgia,serif;font-weight:400;font-size:calc(var(--u)*2.8);color:#2f7c83}
+.card.tt{padding:calc(var(--u)*1.6);width:calc(var(--u)*70)}
+.card.tt svg{display:block;width:100%;height:auto}
+.back{position:absolute;right:calc(var(--u)*1.4);top:calc(var(--u)*1.2);width:calc(var(--u)*6);height:calc(var(--u)*6);border-radius:50%;border:0;background:rgba(20,26,40,.85);color:#fffaf0;display:grid;place-items:center;font-size:calc(var(--u)*3);z-index:2}
+.back:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
+
+/* the inventory strip */
+.inv{display:grid;grid-template-columns:repeat(10,1fr);gap:calc(var(--u)*1);padding:0 calc(var(--u)*.2)}
+.slot{aspect-ratio:1/1;border-radius:calc(var(--u)*1.2);background:var(--slot);box-shadow:inset 0 0 0 calc(var(--u)*.22) var(--slot-line);border:0;padding:12%;display:grid;place-items:center}
+.slot:empty{pointer-events:none}
+.slot svg{width:100%;height:100%;display:block}
+.slot.sel{box-shadow:inset 0 0 0 calc(var(--u)*.4) var(--accent);background:var(--accent-soft)}
+.slot:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
+
+/* menu */
+.menu{position:absolute;inset:0;display:grid;place-items:center;background:rgba(20,26,40,.55)}
+.menu .card{background:var(--paper);border-radius:calc(var(--u)*1.4);padding:calc(var(--u)*3) calc(var(--u)*4);display:flex;flex-direction:column;gap:calc(var(--u)*1.4);align-items:center;font-size:calc(var(--u)*2.1);text-align:center;max-width:calc(var(--u)*70)}
+.menu h2{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*3.6)}
+.menu .small{color:var(--muted);font-size:calc(var(--u)*1.8)}
+.ob{background:var(--ink);color:#fffaf0;border:0;border-radius:999px;padding:calc(var(--u)*1) calc(var(--u)*2.6);font-size:calc(var(--u)*2.1);min-height:44px}
+.ob.quiet{background:none;color:var(--ink);box-shadow:inset 0 0 0 1px var(--slot-line)}
+
+/* held in portrait: ask for a turn rather than squeezing the scene */
+.rotate{display:none;position:fixed;inset:0;background:var(--bg);color:#fffaf0;place-items:center;text-align:center;padding:24px;font-size:1.2rem;line-height:1.4;z-index:9}
+.rotate svg{width:72px;height:72px;margin-bottom:12px}
+@media (orientation:portrait) and (max-width:820px){.rotate{display:grid}}
+@media (prefers-reduced-motion:no-preference){.rotate svg{animation:turn 2.4s ease-in-out infinite}@keyframes turn{0%,20%{transform:rotate(0)}60%,100%{transform:rotate(-90deg)}}}
+.loading{position:absolute;inset:0;display:grid;place-items:center;background:#e9e2d2;color:var(--muted);font-size:calc(var(--u)*2.4)}
+</style>
+</head>
+<body>
+<div id="app">
+<div class="stage" id="stage">
+  <div class="scene" id="scene">
+    <div class="loading" id="loading">Opening the classroom…</div>
+    <img class="wall" id="w-c1" alt="" src="../art/classroom/landscape-c1-front-whiteboard.jpg">
+    <img class="wall" id="w-c2" alt="" src="../art/classroom/landscape-c2-window.jpg">
+    <img class="wall" id="w-c3" alt="" src="../art/classroom/landscape-c3-door.jpg">
+    <img class="wall" id="w-c4" alt="" src="../art/classroom/landscape-c4-timetable-desk.jpg">
+    <div id="hots"></div>
+    <button class="arrow l" id="left" aria-label="Turn left"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="arrow r" id="right" aria-label="Turn right"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 4 8 8-8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <span class="where" id="where">Classroom 5H</span>
+    <button class="ctl" id="hintBtn" aria-label="Ask the moth for a hint" title="Hint"><svg viewBox="-14 -10 28 20" aria-hidden="true"><path d="M0 0C-4-9-13-9-13-2-13 3-5 3 0 0Z" fill="#f0b44c"/><path d="M0 0C4-9 13-9 13-2 13 3 5 3 0 0Z" fill="#f0b44c"/><path d="M0 1C-3 7-9 8-9 4-9 1-4 1 0 1Z" fill="#e9b98a"/><path d="M0 1C3 7 9 8 9 4 9 1 4 1 0 1Z" fill="#e9b98a"/><ellipse cx="0" cy="1" rx="1.3" ry="5" fill="#2b3431"/></svg></button>
+    <button class="ctl" id="menuBtn" aria-label="Menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button>
+    <p class="msg" id="msg" aria-live="polite"></p>
+    <div class="closeup" id="closeup" hidden></div>
+    <div class="menu" id="menu" hidden>
+      <div class="card">
+        <h2>The Moth House</h2>
+        <p>Landscape test: Mary's classroom, drawn as pictures. The corridor and library are not in this version yet.</p>
+        <p class="small">This is a work of fiction. Its characters, schools and events are imaginary.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center"><button class="ob" id="restart">Start again</button><button class="ob quiet" id="closeMenu">Back to the room</button></div>
+      </div>
+    </div>
+  </div>
+  <div class="inv" id="inv" aria-label="Things you are carrying"></div>
+</div>
+</div>
+<div class="rotate"><div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2" fill="none" stroke="#fffaf0" stroke-width="1.6"/><circle cx="12" cy="18.5" r="1" fill="#fffaf0"/></svg><br>Turn your phone sideways to play.</div></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-pe" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M6 3.6l2.2 1.6-.8 2.6H4.6l-.8-2.6Z" fill="currentColor"/><path d="M6 1v2.6M1.2 5.2l2.6 0M10.8 5.2l-2.6 0M3.2 10.4l1.4-2.6M8.8 10.4 7.4 7.8" stroke="currentColor" stroke-width="1"/></symbol>
+    <symbol id="i-sc" viewBox="0 0 12 12"><path d="M4.5 1h3M5 1v3.5L2 10a1 1 0 0 0 .9 1.5h6.2A1 1 0 0 0 10 10L7 4.5V1" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M3.4 8.5h5.2L9.3 10.3H2.7Z" fill="currentColor"/></symbol>
+    <symbol id="i-ma" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-en" viewBox="0 0 12 12"><path d="M2.5 9.5 3.5 6.5 8.5 1.5l2 2-5 5Z" fill="currentColor"/><path d="M2.5 9.5l1-3 2 2Z" fill="#fffdf6"/></symbol>
+    <symbol id="i-ge" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/><ellipse cx="6" cy="6" rx="2.2" ry="5" fill="none" stroke="currentColor" stroke-width="1"/><path d="M1 6h10" stroke="currentColor" stroke-width="1"/></symbol>
+    <symbol id="i-li" viewBox="0 0 12 12"><rect x="1.5" y="8" width="9" height="2.6" rx=".6" fill="currentColor"/><rect x="2.5" y="4.8" width="8" height="2.6" rx=".6" fill="currentColor" opacity=".75"/><rect x="1.8" y="1.6" width="7" height="2.6" rx=".6" fill="currentColor" opacity=".5"/></symbol>
+    <symbol id="i-mu" viewBox="0 0 12 12"><path d="M4.5 9.5V2.5l5-1.2v6.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="3" cy="9.5" r="1.7" fill="currentColor"/><circle cx="8" cy="8" r="1.7" fill="currentColor"/></symbol>
+    <symbol id="i-ar" viewBox="0 0 12 12"><path d="M1.5 10.5c0-2 1-3 2.5-3.5L9.5 1.5l1 1L5 8c-.5 1.5-1.5 2.5-3.5 2.5Z" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+
+/* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
+function fit(){
+  const vw = innerWidth - 16, vh = innerHeight - 12;
+  const w = Math.min(vw, vh / 0.6725, 1400);   /* scene 9/16 tall plus the strip and gap */
+  document.documentElement.style.setProperty('--u', (w / 100) + 'px');
+}
+addEventListener('resize', fit); fit();
+
+/* ---------- the room: four walls in turning order, tap targets as picture percentages ---------- */
+const VIEWS = ['c1','c2','c3','c4'];
+const HOTS = {
+  c1:[
+    {id:'cupboard', l:8, t:34, w:19.5, h:54, label:'Supplies cupboard'},
+    {id:'board', l:32, t:34, w:37, h:37, label:'Whiteboard'},
+    {id:'tdesk', l:71, t:62, w:24, h:27, label:"Mr Hollis's desk"}],
+  c2:[
+    {id:'window', l:30, t:17, w:40, h:31, label:'Classroom window'},
+    {id:'beans', l:34, t:48, w:32, h:19, label:'Bean plants on the window sill'},
+    {id:'radiator', l:36, t:71, w:28, h:19, label:'Radiator'}],
+  c3:[
+    {id:'bin', l:27, t:70, w:11, h:22, label:'Recycling bin'},
+    {id:'door', l:40, t:26, w:21, h:66, label:'Door to the corridor'},
+    {id:'pegs', l:62, t:46, w:28, h:27, label:'Coat pegs'},
+    {id:'lost', l:75, t:74, w:15, h:18, label:'Lost property box'}],
+  c4:[
+    {id:'rules', l:26, t:30, w:9, h:18, label:'Class rules'},
+    {id:'timetable', l:38, t:25, w:24, h:30, label:'Class timetable'},
+    {id:'clock', l:66.5, t:23.5, w:9.5, h:16, label:'Clock'},
+    {id:'bookshelf', l:20.5, t:59, w:18, h:30, label:'Bookshelf'},
+    {id:'desk', l:41, t:62, w:18, h:32, label:"Mary's desk"},
+    {id:'envelope', l:48.5, t:62, w:8.5, h:9.5, label:"Envelope on Mary's desk", key:true},
+    {id:'bag', l:55.5, t:77, w:7.5, h:16, label:"Mary's schoolbag"},
+    {id:'hamster', l:66.5, t:52, w:11.5, h:11.5, label:'Nutmeg the hamster'},
+    {id:'cabinet', l:66, t:64, w:12.5, h:25, label:'Filing cabinet'}]
+};
+
+/* ---------- text: notes, timetable, hints (same puzzle as the portrait draft) ---------- */
+const NOTES = {
+  envelope:{hand:true, html:'<span class="head">For Mary</span><span>It’s our last-day treasure hunt! Three riddles lead to three library books, each hiding a slip with a lesson and a day. Look each one up on our timetable: its period number is one number of your locker code, in order.</span><span class="big">Riddle 1: At night I’m full of lights, but I’m not a city.</span><span>Mr Hollis</span>'},
+  rules:{hand:false, html:'<span class="head">Class 5H rules</span><span>1. Be kind.</span><span>2. Listen with your whole face.</span><span>3. Feed Nutmeg once a day, never twice.</span><span>4. Nobody goes home without their jumper.</span>'}
+};
+const TIMETABLE = {Mon:['En','Ma','Sc','Ar','PE','Mu'], Tue:['Ma','En','Mu','Ge','Sc','Li'], Wed:['Sc','Ma','En','PE','Mu','Ar'], Thu:['En','Ar','Ma','Sc','Li','PE'], Fri:['Ma','Mu','Ar','En','PE','Sc']};
+const SUBJECT = {Ma:['i-ma','#2f7c83','Maths'], En:['i-en','#d9a622','English'], Sc:['i-sc','#3b78b8','Science'], Mu:['i-mu','#7a5cc2','Music'], Ar:['i-ar','#d0602f','Art'], PE:['i-pe','#27794c','PE'], Ge:['i-ge','#a8744a','Geography'], Li:['i-li','#c4589a','Library']};
+const ITEMS = {
+  envelope:{name:'riddle envelope', note:'envelope', icon:'<svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" fill="#fff9e8" stroke="#2b2836" stroke-width="1.4"/><path d="M2 7l10 7 10-7" fill="none" stroke="#c98320" stroke-width="1.6" stroke-linejoin="round"/></svg>'}
+};
+const HINTS = [
+  {goal:() => S.got.includes('envelope'), tips:[
+    'Mr Hollis left something on your desk.',
+    'Turn to the timetable wall and look at your desk.',
+    'Tap the envelope on your desk.']},
+  {goal:() => false, tips:[
+    'Riddle 1: what is full of lights at night, but isn’t a city?',
+    'The night sky! The answer is a book in the library.',
+    'The corridor and library aren’t built in this landscape test yet. The classroom is the first room; the rest follow once the owner says yes.']}
+];
+
+/* ---------- state ---------- */
+const KEY = 'mothhouse.landscape.v1';
+let S;
+function fresh(){ return {view:3, got:[], hint:{}}; }
+function load(){ try{ const s = JSON.parse(localStorage.getItem(KEY)); if (s && Array.isArray(s.got)) return s; }catch(e){} return fresh(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+
+/* ---------- drawing ---------- */
+function say(html){ $('msg').innerHTML = html; }
+function render(){
+  const v = VIEWS[S.view];
+  VIEWS.forEach(k => $('w-'+k).classList.toggle('on', k === v));
+  const hots = $('hots'); hots.innerHTML = '';
+  HOTS[v].forEach(h => {
+    if (h.id === 'envelope' && S.got.includes('envelope')) return;
+    const b = document.createElement('button');
+    b.className = 'hs'; b.dataset.id = h.id; b.setAttribute('aria-label', h.label);
+    b.style.cssText = `left:${h.l}%;top:${h.t}%;width:${h.w}%;height:${h.h}%`;
+    b.onclick = () => act(h.id);
+    hots.appendChild(b);
+    if (h.key){
+      const s = document.createElement('span'); s.className = 'spark';
+      s.style.cssText = `left:${h.l + h.w - 1.5}%;top:${h.t - 1.5}%`;
+      s.innerHTML = '<svg viewBox="0 0 10 10"><path d="M5 0 6 4 10 5 6 6 5 10 4 6 0 5 4 4Z" fill="currentColor"/></svg>';
+      hots.appendChild(s);
+    }
+  });
+  const inv = $('inv'); inv.innerHTML = '';
+  for (let i = 0; i < 10; i++){
+    const key = S.got[i];
+    const b = document.createElement('button'); b.className = 'slot';
+    if (key){ b.innerHTML = ITEMS[key].icon; b.setAttribute('aria-label', ITEMS[key].name); b.onclick = () => openNote(ITEMS[key].note); }
+    else b.setAttribute('aria-hidden', 'true');
+    inv.appendChild(b);
+  }
+  save();
+}
+function turn(d){ if (!$('closeup').hidden) return; S.view = (S.view + d + 4) % 4; say(''); render(); }
+
+/* ---------- close-ups ---------- */
+function openCloseup(inner){
+  $('closeup').innerHTML = `<button class="back" aria-label="Step back">×</button>${inner}`;
+  $('closeup').querySelector('.back').onclick = closeCloseup;
+  $('closeup').hidden = false; $('scene').classList.add('zoomed');
+}
+function closeCloseup(){ $('closeup').hidden = true; $('scene').classList.remove('zoomed'); }
+function openNote(key){ const n = NOTES[key]; openCloseup(`<div class="card note${n.hand ? '' : ' print'}">${n.html}</div>`); }
+function ttGrid(x0, y0, dayW, cw, rh, ic, fs){
+  let out = '';
+  [1,2,3,4,5,6].forEach((n,i) => out += `<text x="${x0+dayW+cw*i+cw/2}" y="${y0+fs}" text-anchor="middle" font-size="${fs}" font-weight="700" fill="#2f7c83" font-family="Atkinson Hyperlegible,Verdana,sans-serif">${n}</text>`);
+  Object.entries(TIMETABLE).forEach(([d,row],r) => {
+    const y = y0 + fs + 4 + r*rh;
+    out += `<rect x="${x0}" y="${y}" width="${dayW+cw*6}" height="${rh}" fill="${r%2?'#eef3ee':'#f7f9f3'}" stroke="#cfc8b4" stroke-width=".6"/>`;
+    out += `<text x="${x0+4}" y="${y+rh/2+fs*.36}" font-size="${fs}" font-weight="700" fill="#2b2836" font-family="Atkinson Hyperlegible,Verdana,sans-serif">${d}</text>`;
+    row.forEach((c,i) => { const [id,col] = SUBJECT[c]; out += `<use href="#${id}" x="${x0+dayW+cw*i+(cw-ic)/2}" y="${y+(rh-ic)/2}" width="${ic}" height="${ic}" style="color:${col}"/>`; });
+  });
+  return out;
+}
+function openTimetable(){
+  let key = '';
+  Object.values(SUBJECT).forEach(([id,col,name],i) => {
+    const x = 10 + (i%4)*54, y = 142 + Math.floor(i/4)*16;
+    key += `<use href="#${id}" x="${x}" y="${y}" width="12" height="12" style="color:${col}"/><text x="${x+15}" y="${y+9.5}" font-size="8" fill="#2b2836" font-family="Atkinson Hyperlegible,Verdana,sans-serif">${name}</text>`;
+  });
+  openCloseup(`<div class="card tt"><svg viewBox="0 0 230 176" aria-label="The class timetable, with a picture for each lesson"><rect width="230" height="176" rx="4" fill="#fffdf6"/><rect width="230" height="18" fill="#2f7c83"/><text x="115" y="13" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fffdf6" letter-spacing="1" font-family="Atkinson Hyperlegible,Verdana,sans-serif">5H TIMETABLE</text><g>${ttGrid(8, 24, 34, 28, 17, 13, 9)}${key}</g></svg></div>`);
+  say('The class timetable. Days go down the side, and period numbers go along the top.');
+}
+
+/* ---------- what happens when you tap things ---------- */
+function act(id){
+  switch(id){
+    case 'envelope': S.got.push('envelope'); render(); openNote('envelope'); say('An envelope from Mr Hollis! Tap it in the strip below any time to read it again.'); return;
+    case 'desk': say(S.got.includes('envelope') ? 'Your desk, cleared out for the summer. Just your pencil case.' : 'Your desk. There’s an envelope on it with your name.'); break;
+    case 'hamster': hint(); return;
+    case 'rules': openNote('rules'); say('The class rules. Rule 3 is about Nutmeg.'); return;
+    case 'timetable': openTimetable(); return;
+    case 'clock': say('Twenty to three. The last bell goes at three.'); break;
+    case 'bookshelf': say('Reading books, dictionaries, and a box of comics that everyone pretends not to read.'); break;
+    case 'bag': say('Mary’s bag, packed and ready. Only the report and Nana’s postcard still to collect.'); break;
+    case 'cabinet': say('Mr Hollis’s filing cabinet. Locked, and Nutmeg is sitting on it anyway.'); break;
+    case 'cupboard': say('Glue sticks, glitter, and a smell of poster paint.'); break;
+    case 'board': say('Wiped clean for the summer. A ghost of last week’s spelling test is still there if you squint.'); break;
+    case 'tdesk': say('Mr Hollis’s desk. His mug says TEACHER OF THE YEAR (nearly).'); break;
+    case 'window': say('Sunshine, the sound of the party, and a plane climbing into the sky. Tomorrow, that’s you.'); break;
+    case 'beans': say('The class bean plants. Mary’s is the tallest, of course.'); break;
+    case 'radiator': say('Off, obviously. It is Singapore.'); break;
+    case 'bin': say('Paper, and one sandwich crust that should not be in there.'); break;
+    case 'pegs': say('Everyone has taken their coats. One forgotten raincoat drips quietly.'); break;
+    case 'lost': say('A shoe, a hat, and a lunchbox that has been here since March.'); break;
+    case 'door': say('The corridor is through here. <b>Not built in this landscape test yet</b>: the classroom comes first.'); break;
+  }
+}
+function hint(){
+  const i = HINTS.findIndex(h => !h.goal());
+  S.hint[i] = Math.min((S.hint[i] ?? -1) + 1, 2);
+  say('<b>Nutmeg squeaks:</b> ' + HINTS[i].tips[S.hint[i]]);
+  save();
+}
+
+/* ---------- wiring ---------- */
+$('left').onclick = () => turn(-1); $('right').onclick = () => turn(1);
+$('hintBtn').onclick = hint;
+$('menuBtn').onclick = () => { $('menu').hidden = false; };
+$('closeMenu').onclick = () => { $('menu').hidden = true; };
+$('restart').onclick = () => { S = fresh(); $('menu').hidden = true; closeCloseup(); render(); say('<b>Last day of school.</b> Everyone is at the party, but Mr Hollis left something on your desk. Nutmeg knows something.'); };
+addEventListener('keydown', e => { if (e.key === 'ArrowLeft') turn(-1); if (e.key === 'ArrowRight') turn(1); if (e.key === 'Escape'){ closeCloseup(); $('menu').hidden = true; } });
+
+S = load();
+Promise.all(VIEWS.map(k => new Promise(res => { const im = $('w-'+k); if (im.complete) res(); else { im.onload = res; im.onerror = res; } }))).then(() => {
+  $('loading').remove();
+  render();
+  say(S.got.length ? 'Back in the classroom.' : '<b>Last day of school.</b> Everyone is at the party, but Mr Hollis left something on your desk. Nutmeg knows something.');
+});
+</script>
+</body>
+</html>
