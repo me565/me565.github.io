@@ -1,10 +1,46 @@
 # Classroom 5H, generated art
 
-Four walls of Mary's classroom, generated on 28 Sept 2026 with Gemini (`gemini-3-pro-image`, portrait 3:4, 2K, saved here at 1200×1600 JPEG). The walls match the four views the game already draws in code (`v-c1` to `v-c4` in `next/index.html`), so the hotspots could sit on top of them if the owner prefers this look. Not wired into the game yet.
+Made with Gemini (`gemini-3-pro-image`, 2K) through the API key in the environment (`GEMINI_API_KEY`). Each wall is one `generateContent` call with `responseModalities: ["TEXT","IMAGE"]` and `imageConfig: {aspectRatio, imageSize}`. The first wall is generated alone; the others get a crop of it (with its objects mostly cut off) as a style reference, so the walls feel like one room without copying each other's furniture. Never name other games in a prompt; describe qualities.
 
-The first wall was generated on its own; the other three were given a crop of it as a style reference so the room feels like one place. Below are the prompts used, so the same look can be reproduced for other rooms.
+## Landscape set (owner's brief, 28 Sept 2026 afternoon): `landscape-*.jpg`, 16:9, saved at 1920×1080
 
-## Shared style text
+### Shared style text
+
+> Background art for a children's point-and-click adventure game, landscape 16:9, seen straight on. One wall of a room drawn as a shallow box in one-point perspective: a wide back wall, narrow side walls, a thin strip of ceiling and a low floor band. The camera is a child's eye height. No people, no characters.
+> 
+> Style: clean, calm flat illustration with thin, even dark-ink outlines, flat colour fills, very little shading, a faint hand-drawn hatch or paper texture, and a soft dark vignette at the edges. Sparse and purposeful: draw only the objects listed, with generous empty wall space between them, and no extra clutter, no posters, no decoration that is not listed. Cosy, warm and tidy: a Singapore international school classroom in the afternoon. Palette: cream and pale mint walls, pale wood, teal and purple accents, warm afternoon sunlight. Not photorealistic, not 3D render, no glossy shading, no watercolour bleed.
+> 
+> The floor band is plain wood-coloured floor from edge to edge. Keep the middle of the left edge and the middle of the right edge of the picture clear (bare wall), because the game draws small turn arrows there. Never draw boxes, panels, buttons, frames, arrows or placeholder shapes. Keep any lettering to a bare minimum and keep it simple and legible; no other text anywhere.
+
+### L4
+
+> The floor band is plain wood-coloured floor from edge to edge. Keep the middle of the left edge and the middle of the right edge of the picture clear (bare wall), because the game draws small turn arrows there. Never draw boxes, panels, buttons, frames, arrows or placeholder shapes. Keep any lettering to a bare minimum and keep it simple and legible; no other text anywhere.
+> 
+> This wall (the back wall of Classroom 5H, where the player starts). On the wall, left to right: a small poster headed RULES; a large timetable poster with a teal header bar reading 5H TIMETABLE and a grid of five rows for the school days and six columns of small coloured subject icons (pencil, atlas, flask, paintbrush, football, music note); a round white wall clock reading twenty to three (short hand between 2 and 3, long hand on the 8). Against the wall, left to right: a low wooden bookshelf with a few colourful books; a child's school desk with a pale wooden top and grey legs, a teal plastic chair behind it, on the desk a purple pencil case and a plain white envelope, and a purple school backpack on the floor beside it; a blue two-drawer filing cabinet with a hamster cage on top, a golden hamster inside with a wheel and a water bottle. Light comes from behind the viewer.
+
+### L1
+
+> The floor band is plain wood-coloured floor from edge to edge. Keep the middle of the left edge and the middle of the right edge of the picture clear (bare wall), because the game draws small turn arrows there. Never draw boxes, panels, buttons, frames, arrows or placeholder shapes. Keep any lettering to a bare minimum and keep it simple and legible; no other text anywhere.
+> 
+> This wall (the front of Classroom 5H, the teacher's end). Left: a tall teal double-door supplies cupboard with a small white label reading SUPPLIES. Middle: a wide whiteboard, almost empty, with a marker tray holding a red and a blue marker. Right: the teacher's desk, pale wood with two drawers, with a red mug, a small stack of books and an apple on it. Sunlight comes from the right.
+
+### L2
+
+> The floor band is plain wood-coloured floor from edge to edge. Keep the middle of the left edge and the middle of the right edge of the picture clear (bare wall), because the game draws small turn arrows there. Never draw boxes, panels, buttons, frames, arrows or placeholder shapes. Keep any lettering to a bare minimum and keep it simple and legible; no other text anywhere.
+> 
+> This wall (the window wall of Classroom 5H). A wide window with white frames filling the middle of the wall, showing a bright blue afternoon sky with a sun, one small cloud, a tiny distant aeroplane and round green tropical treetops. On the white window sill, four terracotta pots with bean plants at different heights (one just a shoot, one tall and leafy), each with a small white name label. A cream radiator with vertical ribs under the window. Nothing else. Light comes through the window.
+
+### L3
+
+> The floor band is plain wood-coloured floor from edge to edge. Keep the middle of the left edge and the middle of the right edge of the picture clear (bare wall), because the game draws small turn arrows there. Never draw boxes, panels, buttons, frames, arrows or placeholder shapes. Keep any lettering to a bare minimum and keep it simple and legible; no other text anywhere.
+> 
+> This wall (the door wall of Classroom 5H). Middle: a teal classroom door, closed, with a square window in its upper half, a small white sign reading 5H and a round brass handle. Right of the door: a wooden rail of coat pegs with one pale blue raincoat hanging from it, and below it a cardboard box on the floor labelled LOST PROPERTY with a red shoe and a blue hat poking out. Left of the door: a green recycling bin. Sunlight comes from the left.
+
+Lessons: don't mention the turn arrows at all (the model draws them); tell it to keep the side walls, ceiling strip and vignette "exactly like the reference" or it flattens the wall.
+
+## Portrait set (earlier the same day, before the brief): `c1-*.jpg` to `c4-*.jpg`, 3:4, kept for comparison
+
+### Shared style text
 
 > Background art for a children's point-and-click adventure game, portrait 3:4. One wall of a room seen straight on as a box in one-point perspective: the ceiling, both side walls and a floor band are visible, the horizon sits low so the floor is a band, not a field. The camera is a child's eye height. No people, no characters.
 > 
@@ -12,7 +48,7 @@ The first wall was generated on its own; the other three were given a crop of it
 > 
 > The floor band at the bottom is plain warm wood-coloured floor from edge to edge. Nothing stands in the bottom left or bottom right corners. Do not draw any white boxes, rounded rectangles, panels, buttons, frames or placeholder shapes anywhere; the bottom corners are bare floor only. Keep any lettering to a bare minimum and keep it simple and legible; no other text anywhere.
 
-## c1
+### c1
 
 > Style: polished flat illustration with clean dark-ink outlines on everything (heavier at the front), a shadow side on every object, soft cast shadows, one light source, a faint paper-grain texture and a gentle vignette. Cosy, warm, tidy and bright: a Singapore international school classroom in the afternoon. Palette: cream and pale mint walls, pale wood, teal and purple accents, warm afternoon sunlight. Lived in: ordinary clutter, children's things, plants. Not photorealistic, not 3D render, no glossy shading, no watercolour bleed.
 > 
@@ -20,7 +56,7 @@ The first wall was generated on its own; the other three were given a crop of it
 > 
 > This wall (the front of Classroom 5H, the teacher's end): a tall teal double-door supplies cupboard on the left with a small white label reading SUPPLIES. A large whiteboard in the middle with a strip of coloured squares pinned above it, a marker tray with red and blue markers below; the board is almost empty, just a small doodled sun in the corner. The teacher's desk on the right, pale wood with two drawers, a red mug, a small stack of books and an apple on it. A small round rug in orange, yellow and teal on the floor to the left of the middle, and a grey metal waste bin. Sunlight comes from the right.
 
-## c2
+### c2
 
 > Style: polished flat illustration with clean dark-ink outlines on everything (heavier at the front), a shadow side on every object, soft cast shadows, one light source, a faint paper-grain texture and a gentle vignette. Cosy, warm, tidy and bright: a Singapore international school classroom in the afternoon. Palette: cream and pale mint walls, pale wood, teal and purple accents, warm afternoon sunlight. Lived in: ordinary clutter, children's things, plants. Not photorealistic, not 3D render, no glossy shading, no watercolour bleed.
 > 
@@ -28,7 +64,7 @@ The first wall was generated on its own; the other three were given a crop of it
 > 
 > This wall (the window wall of Classroom 5H): a wide window with white frames filling the middle of the wall, showing a bright blue afternoon sky with a sun, one small cloud, a tiny distant aeroplane and round green tropical treetops. On the white window sill, four terracotta pots with bean plants at different heights (one just a shoot, one tall and leafy), each pot with a small white name label. A cream radiator with vertical ribs under the window. Two floor cushions on the floor, one red on the left and one purple on the right, well away from the corners. Light comes through the window.
 
-## c3
+### c3
 
 > Style: polished flat illustration with clean dark-ink outlines on everything (heavier at the front), a shadow side on every object, soft cast shadows, one light source, a faint paper-grain texture and a gentle vignette. Cosy, warm, tidy and bright: a Singapore international school classroom in the afternoon. Palette: cream and pale mint walls, pale wood, teal and purple accents, warm afternoon sunlight. Lived in: ordinary clutter, children's things, plants. Not photorealistic, not 3D render, no glossy shading, no watercolour bleed.
 > 
@@ -36,7 +72,7 @@ The first wall was generated on its own; the other three were given a crop of it
 > 
 > This wall (the door wall of Classroom 5H): a teal classroom door in the middle with a square window in its upper half, a small white sign reading 5H, and a round brass handle; the door is closed. To the right, a wooden rail of coat pegs with one pale blue raincoat hanging from it. Below the pegs, a cardboard box on the floor labelled LOST PROPERTY with a red shoe and a blue hat poking out. To the left of the door, a green recycling bin and a blue bin against the wall. Sunlight comes from the left.
 
-## c4
+### c4
 
 > Style: polished flat illustration with clean dark-ink outlines on everything (heavier at the front), a shadow side on every object, soft cast shadows, one light source, a faint paper-grain texture and a gentle vignette. Cosy, warm, tidy and bright: a Singapore international school classroom in the afternoon. Palette: cream and pale mint walls, pale wood, teal and purple accents, warm afternoon sunlight. Lived in: ordinary clutter, children's things, plants. Not photorealistic, not 3D render, no glossy shading, no watercolour bleed.
 > 

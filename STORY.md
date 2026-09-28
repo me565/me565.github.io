@@ -50,14 +50,28 @@ The owner's rule for every room in the game:
 - **Close-ups** zoom into one object, such as reading a postcard or working a lock, with a button to step back.
 - A small label on the scene always says which room the player is in.
 
-## Visual style (agreed 28 Sept 2026)
+## Visual style
+
+### Brief, version 3 (owner, 28 Sept 2026, being written up point by point)
+
+1. **Landscape.** The game is played in landscape, so every scene picture is drawn for a wide screen (16:9), with the inventory in a strip of slots along the bottom edge, outside the picture.
+2. **Clean and purposeful.** Rooms are sparse and tidy: almost everything on screen is part of a puzzle or a hint. No decorative clutter for its own sake. (This replaces the earlier "lived in" rule below.)
+3. **Inventory always visible** as a row of empty slots under the scene, so the player always knows what they are carrying.
+4. **Close-ups bring the object towards the player** while the room stays visible behind it, softened, so the sense of place is never lost.
+5. **Characters have expressive faces** (surprise, worry, delight) drawn in the same flat-ink style. For children: warm, never gory, no blood, nothing frightening.
+6. **Small arrows at the left and right edges** of the scene, halfway up, show where to tap to turn. The middle of each side edge stays clear for them.
+7. Inspiration is the feel of modern point-and-click escape games in general. Never copy their characters, rooms, names or imagery; the prompts for generated art describe qualities, never other games.
+
+Pictures can be generated (see `next/art/`, prompts in `PROMPTS.md`) or drawn in code; the same rules apply to both. The rules below from the earlier version still hold except where the brief above changes them.
+
+### Earlier rules (agreed 28 Sept 2026, morning)
 
 Drawn in code as SVG, to a polished flat-illustration standard. Rules for every wall:
 - **A box in one-point perspective:** ceiling, side walls, back wall and a floor band, drawn by the engine; the horizon sits low so the floor is a band, not a field.
 - **Ink outlines** on everything (heavier at the front), a shadow side on every object, cast shadows, one light source per wall, paper grain and a vignette over the whole picture.
-- **Lived in:** every room has ordinary clutter and life (pictures, plants, pets, shelves), which also gives clues places to hide.
+- ~~Lived in~~ Replaced by brief point 2: sparse and purposeful. A pet or plant may stay where it is part of a puzzle or hint (Nutmeg, the bean plants).
 - **Everything tappable breathes** with a soft golden glow, the key item sparkles, and no tap target is smaller than a fingertip. Doors and hidden paper moths don't glow.
-- **The bottom corners of every wall stay clear** for the turn arrows, which sit in the floor band.
+- **The turn arrows sit at the left and right edges, halfway up** (brief point 6). Keep those edges clear.
 - **Side-wall items** are angled gently and zoom when tapped.
 - **Clues are pictures where possible:** the timetable uses a coloured icon per subject, with a key in the close-up.
 - **Palette:** Singapore bright and tidy (cream and mint walls, pale wood, teal and purple accents, warm afternoon sun); Enfield and Trent Park in long golden evenings (deeper greens and browns); the Moth House in dusk blues with lantern glow.
