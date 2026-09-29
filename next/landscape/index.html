@@ -207,7 +207,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-28t';
+const BUILD = '2026-09-29a';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -618,7 +618,7 @@ const HINTS = [
 /* ---------- state ---------- */
 const KEY = 'mothhouse.landscape.' + BUILD; /* each build starts a fresh game; Start again is in the menu */
 let S;
-function fresh(){ return {room:'classroom', view:3, got:[], hint:{}, opened:false, bonus:false, spell:'', nightMoth:false, dials:[0,0,0], done:false}; }
+function fresh(){ return {room:'classroom', view:3, got:[], held:null, hint:{}, opened:false, bonus:false, spell:'', nightMoth:false, dials:[0,0,0], done:false}; }
 function load(){ try{ const s = JSON.parse(localStorage.getItem(KEY)); if (s && Array.isArray(s.got) && ROOMS[s.room]) return Object.assign(fresh(), s); }catch(e){} return fresh(); }
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
 const curView = () => ROOMS[S.room].views[S.view];
@@ -640,7 +640,7 @@ function render(){
     const b = document.createElement('button');
     b.className = 'hs'; b.dataset.id = h.id; b.setAttribute('aria-label', h.label);
     b.style.cssText = `left:${h.l}%;top:${h.t}%;width:${h.w}%;height:${h.h}%`;
-    b.onclick = () => { animate(h); sfx(h.sound || 'tap'); act(h.id); };
+    b.onclick = () => { if (S.held){ const item = S.held; S.held = null; useItem(item, h.id, h); return; } animate(h); sfx(h.sound || 'tap'); act(h.id); };
     hots.appendChild(b);
     if (h.key && sparkle(h.id)){
       const s = document.createElement('span'); s.className = 'spark';
@@ -653,7 +653,9 @@ function render(){
   for (let i = 0; i < 10; i++){
     const key = S.got[i];
     const b = document.createElement('button'); b.className = 'slot';
-    if (key){ b.innerHTML = ITEMS[key].icon.replace('.png"', '.png?v=' + BUILD + '"'); b.setAttribute('aria-label', ITEMS[key].name); b.onclick = () => { sfx('paper'); openNote(ITEMS[key].note); }; }
+    if (key){ b.innerHTML = ITEMS[key].icon.replace('.png"', '.png?v=' + BUILD + '"'); b.setAttribute('aria-label', ITEMS[key].name); if (S.held === key) b.classList.add('sel');
+      /* a note is read by tapping it; anything else is picked up in hand, then used by tapping where it goes */
+      b.onclick = () => { if (ITEMS[key].note && !ITEMS[key].usable){ sfx('paper'); openNote(ITEMS[key].note); return; } sfx('tap'); S.held = S.held === key ? null : key; render(); say(S.held ? `Holding the ${ITEMS[key].name}. Tap where it goes.` : ''); }; }
     else b.setAttribute('aria-hidden', 'true');
     inv.appendChild(b);
   }
@@ -792,6 +794,14 @@ function ending(){
   $('endBonus').textContent = S.nightMoth ? '★ You solved the bonus riddle too!' : 'Want a challenge? Try the bonus riddle on the corridor notice board.';
   setTimeout(() => { $('endUI').hidden = false; }, 600);
 }
+
+/* ---------- using a held item on something: USES maps "item>target" to what happens; anything else gets a friendly line ---------- */
+function useItem(item, id, h){
+  const fn = USES[item + '>' + id];
+  if (fn){ animate(h); fn(); render(); return; }
+  sfx('knock'); render(); say(`The ${ITEMS[item].name} doesn’t go there.`);
+}
+const USES = {};
 
 /* ---------- what happens when you tap things ---------- */
 function act(id){
