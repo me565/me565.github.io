@@ -94,6 +94,24 @@ The working rules for every room in the landscape game, distilled from the owner
 - When the owner sends a video, pull frames at 15 fps around each tap and measure the audio track; it shows exactly what moved and whether any sound played.
 - The owner's feedback log lives at the end of this file; add to it, never delete from it.
 
+## 7. Lessons from the genre's reviews (owner's research, 29 Sept 2026)
+
+Distilled from player and critic reviews of Rusty Lake, Machinarium, Samorost, Day of the Tentacle, Monkey Island, Grim Fandango, Broken Sword, Agent A, Dark Dome and Forgotten Hill. What we adopt, and where it now lives:
+
+- **Several puzzles open at once**, in any order, after a short linear opening that teaches the mechanic. → Section 4c; the classroom is the linear opening, the corridor is the hub.
+- **Fair puzzles**: every step follows from something the game has shown; the player knows *why* as well as *what*. For every lock, write down the in-game clues that point to its answer before building it. → Each trail's note says what to look for and why; nothing needs outside knowledge.
+- **Tiered hints the player chooses**: nudge, then what to try, then the answer, for the puzzle they pick, with instant access and no gatekeeping. → Mary's notebook (the moth button, or Nutmeg): a to-do list of the riddles with how far each has got, tap one for that trail's hint; three taps reach the answer.
+- **An in-game notebook records clues** so nobody has to write things down or photograph the screen. → The notebook's "Noticed" line records the tune, the moth's stripes and the bonus riddle as soon as they have been seen; the notes and the page stay in the strip and can be reread.
+- **No pixel-hunting**: challenge comes from thinking, not finding. Big tap targets, a way to reveal hotspots, key things never hidden in clutter. → A long press on the room (or "Show what I can tap" in the menu) glows every tappable thing for a moment; sparse walls by design.
+- **Wrong tries teach**: a useful line, never a punishment. → Using the star key on the colour padlock says it has dials, not a keyhole.
+- **Minimise backtracking**: compact maps, and once a route or mechanism is solved it stays solved. → Five rooms round one corridor; opened padlocks and drawers stay open; taken slips are never shown again.
+- **Never the same puzzle twice**: cap each puzzle type at two per stage. → Number dials (locker) and colour dials (cupboard) are the only pair; sequence, key and observation locks are each used once.
+- **Autosave** after every change; animations short enough never to need skipping. → Every render saves; the longest animation is the tumble (2.4 s).
+- **One signature mechanic** per game, deepening as it goes. **TO DECIDE** with the owner: what The Moth House's is (the moth itself? clues carried between chapters? the three children's views of one summer?).
+- **Two difficulty modes** by adding or removing steps, not changing puzzles: a cheap way to make replay worth it. Noted for later; the Night Moth bonus is the hard layer for now.
+- **Post-game secrets** for dedicated players, always solvable in-game. → The Night Moth riddle per chapter.
+- Monetisation: never gate hints or progress behind ads. Not relevant yet (no ads planned).
+
 ## Feedback log (owner, 28 Sept 2026)
 
 1. Landscape; Dark-Dome-like cleanliness; inventory strip; close-ups over the room; expressive but gentle faces; side arrows.
@@ -111,3 +129,4 @@ The working rules for every room in the landscape game, distilled from the owner
 14. Books still didn't fit graphically; two fonts max; globe should spin; trolley see-through; the rectangular room and door animation unconvincing (open doorways = walkable, closed = locked, as in Dark Dome); mobile browser needs full screen. → build t: shelf close-ups are generated pictures with titles on the spines; Caprasimo + Atkinson only; globe spins; alpha hardened on every cut-out; library rebuilt as a square room, doorways drawn open with a glimpse beyond, zoom-through transition; full-screen prompt and toggle.
 13. Shelf books were flat buttons, a mismatch with the art; the Art slip could be taken before the Music one ("That's all three" while missing one); the hat looked transparent; the library felt six-sided. → build s: generated book spines with titles along them, slips in strict order, hat re-cut with a true-white key and no sunlight overlay, the library rebuilt as a rectangle with two-view long walls that pan.
 15. The level felt too linear and too short. → Stage 1 rebuilt as five rooms (art room and hall added) with three parallel trails, each ending in a two-input lock, after reading how Rusty Lake and Dark Dome structure their puzzles; the real school researched for flavour only (an indoor hall, house points, STEM week, an art room), with no names, mottos, house names or staff. Rules in 4c.
+16. Research on the genre's best practices (hints chosen per puzzle, to-do list, clue notebook, hotspot reveal, no repeated puzzle types). → build 2026-09-29c: Mary's notebook behind the moth button, long-press reveal, rules in section 7.
