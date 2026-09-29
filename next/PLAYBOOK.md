@@ -80,6 +80,15 @@ The working rules for every room in the landscape game, distilled from the owner
 - Padlocks and drawers are cut-outs over a wall that has only a hasp; an opened padlock springs, falls and is gone. Inside a cabinet or cupboard is a generated close-up with the slip on its shelf; once the slip is taken the close-up is not shown again (a tap gives a line), so the picture never shows a slip the player already has.
 - Anything the puzzle depends on (the coloured notes on the page, the three stripes under the moth, the colour of each dial) is drawn by the game over the pictures, so wall, close-up and inventory always agree exactly.
 
+## 4d. Stages (29 Sept 2026)
+
+- The engine (`next/landscape/index.html`) knows nothing about any room. Each stage is a file in `next/landscape/stages/` that calls `registerStage(key, {…})` with its rooms, walls, doors, tap targets, cut-out layers, close-up pictures to preload, notes, items, hints, item uses, `act(id)` (return `false` for a door the engine should open), `rows()` and `noticed()` for the notebook, `sparkle(id)`, `fresh()` state, `start`, `intro`, `blurb`, `track` and `next`. Overlays the game draws on a wall (a timetable, three stripes) are `overlays:{view: fn}`.
+- A stage ends with `showEnd(title, text, small)`; the card offers "Play this stage again" and the way on to `next`. Stages run on one save, keyed by build.
+- Items can be used on each other in the strip: hold one, tap the other; `USES['a>item:b']` says what happens (the paper on the kaya, the tape on the parcel). Both orders must be listed.
+- A person can give a clue (Mum's tip), but only once the player has met the problem it solves, so the line lands as an answer and not as a spoiler.
+- A stage's optional hunt (the six paper moths) uses `secret:true` hotspots, which the long-press reveal leaves out.
+- Nothing is shared between the three children's stories: no clue, item or hiding place appears in two of them (owner, 29 Sept 2026).
+
 ## 5. Sound and music
 
 - Effects are made in the browser (Web Audio) and must be loud enough for a tablet speaker: taps 0.3, knocks 0.4, chimes 0.25. They start on the first real tap.
@@ -130,3 +139,4 @@ Distilled from player and critic reviews of Rusty Lake, Machinarium, Samorost, D
 13. Shelf books were flat buttons, a mismatch with the art; the Art slip could be taken before the Music one ("That's all three" while missing one); the hat looked transparent; the library felt six-sided. → build s: generated book spines with titles along them, slips in strict order, hat re-cut with a true-white key and no sunlight overlay, the library rebuilt as a rectangle with two-view long walls that pan.
 15. The level felt too linear and too short. → Stage 1 rebuilt as five rooms (art room and hall added) with three parallel trails, each ending in a two-input lock, after reading how Rusty Lake and Dark Dome structure their puzzles; the real school researched for flavour only (an indoor hall, house points, STEM week, an art room), with no names, mottos, house names or staff. Rules in 4c.
 16. Research on the genre's best practices (hints chosen per puzzle, to-do list, clue notebook, hotspot reveal, no repeated puzzle types). → build 2026-09-29c: Mary's notebook behind the moth button, long-press reveal, rules in section 7.
+17. Packing day: the owner sent Mum's photo (her look is now in STORY.md, the photo is not kept), asked for no shared clues across the children's stories, and agreed to the six paper moths. → build 2026-09-29d: stage 2 built as three rooms and three trails; the engine split into engine plus one file per stage.

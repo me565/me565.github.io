@@ -141,18 +141,23 @@ Version 2 (29 Sept 2026), designed after reading how Rusty Lake and Dark Dome st
 - Mr Hollis is Mary's (invented) teacher; Mrs Ng the (invented) librarian. Everyone else is at the party in the hall's playground… no: at the goodbye party outside. Nutmeg gives hints in the classroom; the moth everywhere else.
 
 ### Stage 2: Packing day — the family flat — difficulty 3
-Built as a playable draft in `next/index.html`. Three rooms:
-- **Mary's bedroom** (square, 4 views): bed with the open suitcase (where everything is packed); wardrobe; door to the living room; her desk (quiet wall). She starts here.
-- **Living room** (long, 6 views): window and Dad's desk with the key hooks and wrapping paper; shelf above the sofa; fridge with Nana's postcard beside the kitchen doorway; front door with Mum's rain boots; TV and family photos (quiet wall); door to Mary's bedroom (quiet wall).
-- **Kitchen** (square, 4 views): Mum at the stove, seen from behind, stirring (she is drawn in the game); sink and rainy window (quiet wall); doorway back; cupboard, calendar ("FLIGHT! 14 hrs") and a fruit bowl.
 
-Puzzles:
-- Nana's postcard on the fridge (close-up): "Bring the little torch, you'll need it! P.S. I've run out of kaya."
-- Postcard read → Mum's rain boots by the front door → the torch (Elliot hid it there).
-- Key hooks → desk key → unlock Dad's desk drawer → it's stuck → ask Mum in the kitchen: "Lift it up a little while you pull" → passports. (A clue in one room opens a puzzle in another.)
-- Postcard P.S. → the kaya on the shelf (the durian snow globe and the orchid are wrong, with friendly replies) → wrap it in the moth-pattern paper on Dad's desk → Nana's present.
-- Torch, passports and present into the suitcase in Mary's bedroom → "Taxi's here!" → saved as a postcard on the home screen.
-- **Night Moth:** six paper moths across the three rooms (living-room window frame, under the sofa, top of the fridge, behind a photo, top of the kitchen cupboard, top of the wardrobe).
+Version 2 (29 Sept 2026), built to the same shape as the school: the goal seen first, three trails open at once, each ending in a lock that needs two different inputs, clues crossing rooms, nothing shared with the other children's stories. A rainy Singapore afternoon; the taxi to the airport is at four.
+
+**Three square rooms**, doorways drawn open:
+- **Mary's bedroom** (start, facing the bed): the bed with the open suitcase (the goal, with empty spaces in it); the door to the living room with Mum's list stuck on it; her desk by the rainy window, with her pencil case; the wardrobe.
+- **Living room**: the window and Dad's desk (three keys on hooks with luggage tags, the roll of moth-pattern paper, the drawer); the sofa, TV and the shelf (a durian snow globe, an orchid, books); the front door, the hall drawer and the dining table with Elliot's blanket fort under it; the family photos and the two doorways, to the kitchen and to Mary's room.
+- **Kitchen**: Mum at the counter, seen from behind, making kaya toast; the fridge with Nana's postcard, Elliot's crayon drawing and the calendar ("FLIGHT, 14 hrs"); the doorway back; the sink, the rainy window and the cupboard of jars.
+
+**Mum's list** on the bedroom door: torch, passports, Nana's present. (And, from the wardrobe, her jumper: rule 4 at school was that nobody goes home without it. One tap, not a trail.)
+
+- **Trail A, the torch (a note says where; a drawing gives the code).** Nana's postcard on the fridge: "Bring the little torch, you'll need it!" The hall drawer where it lives is empty except for a crayon note: "Borrowed for my base. Password on the fridge. E." Elliot's drawing on the fridge shows his base with three symbols on its door: sun, star, moon. The blanket fort under the dining table has a crayon sign, SECRET BASE, and four crayon symbols on its flap; press sun, star, moon and tap Knock, and the flap opens on Elliot's things and the torch.
+- **Trail B, the passports (a key, then a tip from Mum).** Three keys on the hooks, with tags: BIKE, POST, DESK. The desk key turns in Dad's drawer, but the drawer sticks. Mum in the kitchen, once you have tried it: "That drawer! Lift it up a little while you pull." Back at the drawer, lift-and-pull works, and the passports are inside.
+- **Trail C, Nana's present (find the right thing, then two more things to wrap it).** The postcard's P.S.: "I've run out of kaya." The living-room shelf has a durian snow globe (Dad's) and an orchid (it would not survive fourteen hours), with friendly lines. The kitchen cupboard by the sink has jars: jam, peanut butter, kaya, honey. Take the kaya, wrap it in the moth paper from Dad's desk, and it springs open until it is taped with the tape from Mary's pencil case. (Items are combined in the strip: tap one, then tap the other.)
+- **Convergence.** Torch, passports and present go into the suitcase on the bed, each seen inside it; the third one zips it. Mum: "Taxi's here!" The stage ends with a postcard card.
+- Mum's tip is the first time a person gives a clue; she is drawn from behind and breathes and shifts when tapped. Before the drawer has been tried she only says she is nearly done.
+- **Night Moth:** six paper moths hidden across the rooms (top of the wardrobe, the bedroom window frame, under the sofa, behind a family photo, top of the fridge, top of the kitchen cupboard). The notebook counts them. They are left out of the long-press reveal, so this layer stays hard.
+- No clue in this stage is shared with Elliot's or Zaina's stories (owner, 29 Sept 2026).
 
 ### Stage 3: The flight — her seat, the flight map, the magazine — difficulty 4
 - Work out what time it will be in London when they land. Singapore is 7 hours ahead of London in the British summer.
@@ -261,5 +266,5 @@ Back to school in Singapore. A big Atlas moth (a real Southeast Asian species) l
 ## Open decisions
 
 1. The moth's name, or let each player name it.
-2. What the children (and Mum) look like: hair, skin tone, glasses, anything they always wear. The portraits and Mum's figure use placeholder colouring until then.
+2. What the children look like: hair, skin tone, glasses, anything they always wear. The portraits use placeholder colouring until then. **Mum (decided 29 Sept 2026, from a photo the owner sent, not kept in the repo):** East Asian, dark hair tied back low, a warm wide smile, a few freckles; in the game she wears a soft green-grey top.
 3. Who flies with the children. The flight stages don't say yet: Mum could fly with them, or Nana and Jedi could collect them at the airport. Stage 4 (arriving in Enfield) needs this decided.
