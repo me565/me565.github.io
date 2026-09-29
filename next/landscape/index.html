@@ -238,7 +238,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-29d';
+const BUILD = '2026-09-29e';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -792,6 +792,10 @@ addEventListener('keydown', e => { if (e.key === 'ArrowLeft') turn(-1); if (e.ke
 
 function boot(){
   S = load();
+  /* ?stage=packing in the address jumps straight to that stage (fresh), for testing a later stage without playing the earlier ones;
+     once you are on it, reloading the same address keeps your progress */
+  const want = new URLSearchParams(location.search).get('stage');
+  if (want && STAGES[want] && S.stage !== want){ loadStage(want); S = fresh(want); save(); }
   Promise.all(roomArt(S.room).map(preload)).then(() => {
     $('loading').remove();
     render();
@@ -801,8 +805,8 @@ function boot(){
   });
 }
 </script>
-<script src="stages/school.js?v=2026-09-29d"></script>
-<script src="stages/packing.js?v=2026-09-29d"></script>
+<script src="stages/school.js?v=2026-09-29e"></script>
+<script src="stages/packing.js?v=2026-09-29e"></script>
 <script>boot();</script>
 </body>
 </html>

@@ -98,7 +98,7 @@ The working rules for every room in the landscape game, distilled from the owner
 
 ## 6. Delivery and testing
 
-- Every reply that changes the game ends with a fresh play link pinned to the new commit: `https://rawcdn.githack.com/me565/me565.github.io/<commit>/next/landscape/index.html`. Never reuse a link or the branch form; the tablet caches.
+- Every reply that changes the game ends with a fresh play link pinned to the new commit: `https://rawcdn.githack.com/me565/me565.github.io/<commit>/next/landscape/index.html`. Never reuse a link or the branch form; the tablet caches. When a later stage is what changed, add `?stage=<key>` (for example `?stage=packing`) so the owner lands on it without replaying the earlier stages.
 - Before sending: run the headless checks (no page errors; no overflow on any card at three sizes; a simulated touch starts the music; each cut-out at rest and mid-movement looks right in a screenshot; the puzzle path can be played through by script).
 - When the owner sends a video, pull frames at 15 fps around each tap and measure the audio track; it shows exactly what moved and whether any sound played.
 - The owner's feedback log lives at the end of this file; add to it, never delete from it.
