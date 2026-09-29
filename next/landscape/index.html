@@ -126,6 +126,22 @@ button{font:inherit;color:inherit;cursor:pointer}
 .card.locker .ob{min-height:44px}
 .menu.end .card p{margin:0;max-width:calc(var(--u)*60)}
 
+/* the chime bars, the padlock with colour dials, a plain picture close-up */
+.bar{position:absolute;background:transparent;border:0;padding:0;border-radius:calc(var(--u)*.8);cursor:pointer;transition:background .12s}
+.bar.hit{background:rgba(255,255,255,.55)}
+.bar:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
+.tune{margin:0;min-height:calc(var(--u)*3.4);display:flex;align-items:center;gap:calc(var(--u)*1)}
+.dot{display:inline-block;width:calc(var(--u)*2.8);height:calc(var(--u)*2.8);border-radius:50%;background:#e6e1d3;box-shadow:inset 0 0 0 calc(var(--u)*.25) rgba(0,0,0,.18)}
+.lockpic{position:relative;height:calc(var(--u)*21);aspect-ratio:700/912}
+.lockpic img{width:100%;height:100%;display:block}
+.cdial{position:absolute;width:19%;height:17%;border-radius:50%;border:0;transform:translate(-50%,-50%);cursor:pointer;box-shadow:inset 0 0 0 calc(var(--u)*.3) rgba(0,0,0,.28), inset 0 calc(var(--u)*-.5) 0 rgba(0,0,0,.18)}
+.cdial:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
+.card.pic{padding:0;overflow:hidden}
+.picwrap{position:relative;width:100%;background:#fff center/cover no-repeat}
+.picwrap svg{position:absolute;inset:0;width:100%;height:100%}
+.picwrap .otitle{position:absolute;left:calc(var(--u)*1.2);top:calc(var(--u)*1);margin:0;background:rgba(20,26,40,.78);color:#fffaf0;border-radius:999px;padding:calc(var(--u)*.5) calc(var(--u)*1.6);font-size:calc(var(--u)*2.2)}
+.card.note svg.staff{width:100%;height:auto;display:block}
+
 /* the inventory strip */
 .inv{display:grid;grid-template-columns:repeat(10,1fr);gap:calc(var(--u)*1);padding:0 calc(var(--u)*.2)}
 .slot{aspect-ratio:1/1;border-radius:calc(var(--u)*1.2);background:var(--slot);box-shadow:inset 0 0 0 calc(var(--u)*.22) var(--slot-line);border:0;padding:12%;display:grid;place-items:center}
@@ -179,7 +195,7 @@ button{font:inherit;color:inherit;cursor:pointer}
     <div class="menu" id="menu" hidden>
       <div class="card">
         <h2>The Moth House</h2>
-        <p>Mary's last day of school: the classroom, the corridor and the library.</p>
+        <p>Mary's last day of school: the classroom, the corridor, the library, the art room and the hall.</p>
         <p class="small">This is a work of fiction. Its characters, schools and events are imaginary.</p>
         <p class="small" id="diag" style="font-family:monospace;font-size:calc(var(--u)*1.5)"></p>
         <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center"><button class="ob quiet" id="soundBtn">Sound: on</button><button class="ob quiet" id="fsBtn">Full screen</button><button class="ob quiet" id="restart">Start again</button><button class="ob" id="closeMenu">Back to the room</button></div>
@@ -207,7 +223,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-29a';
+const BUILD = '2026-09-29b';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -222,18 +238,23 @@ addEventListener('resize', fit); fit();
 const ROOMS = {
   classroom:{name:'Classroom 5H', into:'your classroom', views:['c1','c2','c3','c4']},
   corridor:{name:'Corridor', into:'the corridor', views:['h1','h2','h3','h4']},
-  library:{name:'Library', into:'the library', views:['ln','le','ls','lw']}
+  library:{name:'Library', into:'the library', views:['ln','le','ls','lw']},
+  /* the hall: the stage with the chime bars, the STEM cabinet, the doors back to the corridor, the indoor playground */
+  hall:{name:'Hall', into:'the hall', views:['hn','he','hs','hw']},
+  /* the art room: the drying rack, the paint cupboard, the doorway back, the sink and the aprons */
+  art:{name:'Art room', into:'the art room', views:['an','ae','as','aw']}
 };
 const WALLS = {
   c1:'../art/classroom/landscape-c1-front-whiteboard.jpg', c2:'../art/classroom/landscape-c2-window.jpg', c3:'../art/classroom/landscape-c3-door.jpg', c4:'../art/classroom/landscape-c4-timetable-desk.jpg',
   h1:'../art/school/h1.jpg', h2:'../art/school/h2.jpg', h3:'../art/school/h3.jpg', h4:'../art/school/h4.jpg',
-  ln:'../art/school/ln.jpg', le:'../art/school/le.jpg', ls:'../art/school/ls.jpg', lw:'../art/school/lw.jpg'
+  ln:'../art/school/ln.jpg', le:'../art/school/le.jpg', ls:'../art/school/ls.jpg', lw:'../art/school/lw.jpg',
+  hn:'../art/school/hn.jpg', he:'../art/school/he.jpg', hs:'../art/school/hs.jpg', hw:'../art/school/hw.jpg',
+  an:'../art/school/an.jpg', ae:'../art/school/ae.jpg', as:'../art/school/as.jpg', aw:'../art/school/aw.jpg'
 };
 /* door hotspot -> [room, index of the view you arrive facing (away from the door you came through)] */
-const DOORS = {door:['corridor', 1], h_door5H:['classroom', 0], h_libdoors:['library', 0], l_doors:['corridor', 3]};
-/* Open doorways can be walked through; a closed door is locked (5K) and only says so. */
-/* The corridor and library open only when their art is in, or with ?rooms in the address for testing. */
-const OPEN_DOORS = true;
+const DOORS = {door:['corridor', 1], h_door5H:['classroom', 0], h_libdoors:['library', 0], l_doors:['corridor', 3],
+  h_hall:['hall', 0], hs_doors:['corridor', 0], h_artdoor:['art', 0], as_door:['corridor', 1]};
+/* Every doorway is drawn open and can be walked through; cupboards and cabinets are the locked things. */
 const HOTS = {
   c1:[
     {id:'cupboard', l:8, t:34, w:20, h:54, label:'Supplies cupboard', anim:'peek', layer:'doors', sound:'knock'},
@@ -273,11 +294,54 @@ const HOTS = {
   h3:[
     {id:'h_notices', l:31.5, t:26.5, w:37, h:35, label:'Notice board', sound:'paper'},
     {id:'h_bonus', l:59.5, t:49, w:8.5, h:10.5, label:'Bonus riddle card', sound:'paper', anim:'swing', layer:'bonuscard'},
-    {id:'h_radiator', l:39, t:66, w:22, h:16, label:'Radiator', sound:'knock'}],
+    {id:'h_hall', l:70, t:27, w:15, h:57, label:'Open doorway to the hall', sound:'knock'}],
   h4:[
-    {id:'h_door5H', l:13, t:33, w:14, h:52, label:'Open doorway to classroom 5H', sound:'knock'},
-    {id:'h_door5K', l:72, t:33, w:15, h:52, label:'Door to classroom 5K (closed)', sound:'knock'},
+    {id:'h_door5H', l:12, t:32, w:22, h:58, label:'Open doorway to classroom 5H', sound:'knock'},
+    {id:'h_artdoor', l:72, t:32, w:16, h:58, label:'Open doorway to the art room', sound:'knock'},
     {id:'h_bunting', l:25, t:13, w:50, h:20, label:'Bunting', sound:'leaf', anim:'swing', layer:'bunting'}],
+  /* hall: arrive facing the stage; the STEM cabinet on the right, the doors behind, the indoor playground on the left */
+  hn:[
+    {id:'hn_stage', l:15, t:70, w:70, h:21, label:'The stage', sound:'knock'},
+    {id:'hn_bars', l:39, t:43, w:22, h:33, label:'Chime bars on the stage', sound:'tick'},
+    {id:'hn_drawer', l:43, t:77, w:14, h:11, label:'Little drawer in the front of the stage', sound:'knock', anim:'rattle', layer:'drawer', key:true},
+    {id:'hn_banner', l:34, t:24, w:32, h:14, label:'HAPPY HOLIDAYS banner', sound:'leaf'}],
+  he:[
+    {id:'he_cabinet', l:27, t:31, w:24, h:59, label:'STEM week cabinet', sound:'knock', key:true},
+    {id:'he_lock', l:36.5, t:55.5, w:6.5, h:13, label:'Padlock with a star on it', sound:'tick', anim:'rattle', layer:'starlock'},
+    {id:'he_points', l:12, t:34, w:14, h:24, label:'House points chart', sound:'paper'},
+    {id:'he_sign', l:32, t:13, w:14, h:17, label:'STEM WEEK poster', sound:'paper'}],
+  hs:[
+    {id:'hs_doors', l:19, t:27, w:37, h:65, label:'Open doors to the corridor', sound:'knock'},
+    {id:'hs_bench', l:58, t:77, w:33, h:16, label:'Bench', sound:'knock'}],
+  hw:[
+    {id:'hw_mat', l:5, t:74, w:90, h:17, label:'Soft play mat', sound:'leaf'},
+    {id:'hw_slide', l:60, t:54, w:24, h:31, label:'Little slide', sound:'knock'},
+    {id:'hw_blocks', l:23, t:52, w:11, h:34, label:'Stack of soft blocks', sound:'leaf', anim:'topple', layer:'blocks', hideWhen:() => S.toppled},
+    {id:'hw_blocks2', l:27, t:70, w:21, h:18, label:'Toppled soft blocks', sound:'leaf', hideWhen:() => !S.toppled},
+    {id:'hw_mallet', l:20, t:74, w:8, h:13, label:'Wooden beater', sound:'tap', key:true, anim:'lift', layer:'mallet', hideWhen:() => !S.toppled || S.got.includes('mallet') || S.beater}],
+  /* art room: arrive facing the drying rack; the paint cupboard on the right, the doorway behind, the sink and aprons on the left */
+  an:[
+    {id:'an_rack', l:28, t:22, w:44, h:52, label:'Drying rack', sound:'knock'},
+    {id:'an_p1', l:30.5, t:42, w:9, h:19, label:'Painting of a house', sound:'paper'},
+    {id:'an_p2', l:40, t:43, w:9.5, h:16, label:'Painting of a rainbow', sound:'paper'},
+    {id:'an_p3', l:50, t:43, w:8.5, h:18, label:'Painting of a cat', sound:'paper'},
+    {id:'an_moth', l:58.5, t:42, w:11.5, h:23, label:"Mary's moth painting, with three colour stripes under it", sound:'paper'}],
+  ae:[
+    {id:'ae_cupboard', l:38, t:36, w:24, h:56, label:'Paint cupboard', sound:'knock', key:true},
+    {id:'ae_lock', l:45.5, t:59.5, w:9, h:15, label:'Padlock with three colour dials', sound:'tick', anim:'rattle', layer:'diallock'},
+    {id:'ae_pots', l:38, t:17, w:24, h:14, label:'Shelf of paint pots', sound:'tap'}],
+  as:[
+    {id:'as_door', l:39, t:29, w:19, h:62, label:'Open doorway to the corridor', sound:'knock'},
+    {id:'as_bench', l:61, t:76, w:26, h:17, label:'Bench of clay things', sound:'knock'},
+    {id:'as_clay', l:61, t:65, w:26, h:12, label:'Clay animals', sound:'tap'}],
+  aw:[
+    {id:'aw_sink', l:16, t:55, w:31, h:21, label:'Paint sink', sound:'knock'},
+    {id:'aw_tap', l:29.5, t:43, w:7.5, h:13, label:'Tap', sound:'tap', anim:'pour', layer:'pour'},
+    {id:'aw_jar', l:39.5, t:37, w:7.5, h:19, label:'Jar of brushes', sound:'tap'},
+    {id:'aw_apronB', l:56.5, t:38, w:9, h:43, label:'Blue apron', sound:'leaf'},
+    {id:'aw_apronG', l:65.5, t:38, w:8, h:43, label:'Green apron', sound:'leaf'},
+    {id:'aw_apronP', l:73.5, t:38, w:9.5, h:43, label:"Mr Hollis's splattered apron", sound:'leaf'},
+    {id:'aw_key', l:74.5, t:54.5, w:8.5, h:9, label:'Star key in the apron pocket', sound:'tap', key:true, anim:'lift', layer:'starkey', hideWhen:() => !S.keyOut || S.got.includes('starkey') || S.stemOpen}],
   /* library: a square room. Arrive facing the Science and Music wall, window on the right, entrance behind, Art and Stories on the left. */
   ln:[
     {id:'l_shelfSci', l:5, t:29, w:22.5, h:61, label:'Science shelf', sound:'paper'},
@@ -341,6 +405,21 @@ const LAYERS = {
   h2:[{draw:'water', group:'water', l:20.6, t:62.5, w:5.4, h:9.2, flash:true}],
   h3:[{src:'../art/school/layer-bonuscard.png', group:'bonuscard', l:60.4, t:50.2, w:6.4, h:8.6, lit:.6}],
   h4:[{src:'../art/school/layer-bunting.png', group:'bunting', l:25, t:14, w:50, h:19.9}],
+  /* hall */
+  hn:[ /* the little drawer in the front of the stage: closed until the tune is played, then it slides out with the slip inside */
+    {src:'../art/school/layer-drawer.png', group:'drawer', kind:'drawer', inside:'../art/school/item-slipMu.png', l:44, t:78.2, w:12, h:8.6}],
+  he:[ /* the star padlock hangs on the cabinet's hasp; the star key makes it drop off and it is gone for good */
+    {src:'../art/school/layer-starlock.png', group:'starlock', l:38.1, t:58, w:3.4, h:8.84, padBelow:1.6, gone:() => S.stemOpen}],
+  hw:[ /* the beater lies where the stack stood; the stack of three soft blocks tumbles apart when tapped */
+    {src:'../art/school/layer-mallet.png', group:'mallet', l:21.5, t:76, w:5, h:9.45, shadow:.6, showWhen:() => S.toppled, hideWhen:() => S.got.includes('mallet') || S.beater},
+    {src:'../art/school/layer-blocks.png', group:'blocks', kind:'blocks', l:24, t:53.4, w:9, h:31.6, padX:2.3, bands:[[0, .318], [.318, .612], [.612, 1]]}],
+  /* art room */
+  ae:[ /* the combination padlock: its three white dials show the colours the player has set, drawn over the picture */
+    {src:'../art/school/layer-diallock.png', group:'diallock', l:47.7, t:62, w:4.4, h:10.19, padBelow:1.6, gone:() => S.paintOpen, over:drawDials}],
+  aw:[
+    {draw:'pour', group:'pour', l:32.3, t:48.5, w:4.4, h:8.5, flash:true},
+    /* the star key pokes out of the apron pocket: the layer is clipped at the pocket's rim, so the rest of the key is inside it */
+    {src:'../art/school/layer-starkey.png', group:'starkey', l:76.4, t:57.6, w:4.6, h:8.04, clipBottom:62.2, hideWhen:() => !S.keyOut || S.got.includes('starkey') || S.stemOpen}],
   /* library */
   ln:[
     {src:'../art/school/layer-globe.png', group:'globe', l:36.5, t:60.5, w:6.5, h:14.5, shadow:.6, sphere:[230, 260, 227]},
@@ -355,7 +434,10 @@ const LAYERS = {
 /* every picture is loaded once, up front, so cut-outs never appear late */
 const IMG = {};
 function preload(src){ return IMG[src] || (IMG[src] = new Promise(res => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(im); im.src = src + '?v=' + BUILD; })); }
-function roomArt(room){ const list = []; ROOMS[room].views.forEach(v => { list.push(WALLS[v]); (LAYERS[v] || []).forEach(L => { if (L.src) list.push(L.src); }); }); if (room === 'library') Object.values(SHELVES).forEach(sh => list.push(sh.pic)); return list; }
+function roomArt(room){ const list = []; ROOMS[room].views.forEach(v => { list.push(WALLS[v]); (LAYERS[v] || []).forEach(L => { if (L.src) list.push(L.src); if (L.inside) list.push(L.inside); }); }); (EXTRA[room] || []).forEach(p => list.push(p)); return list; }
+/* close-up pictures that belong to a room, loaded with it */
+const EXTRA = {library:['../art/school/shelf-sci.jpg', '../art/school/shelf-mus.jpg', '../art/school/shelf-art.jpg', '../art/school/shelf-trolley.jpg', '../art/school/shelf-sto.jpg'],
+  hall:['../art/school/closeup-bells.jpg', '../art/school/closeup-stem.jpg'], art:['../art/school/closeup-mothpainting.jpg', '../art/school/closeup-paint.jpg']};
 /* the walls are pictures stacked in the scene; the current one shows */
 Object.entries(WALLS).forEach(([k, src]) => { const im = document.createElement('img'); im.className = 'wall'; im.id = 'w-' + k; im.alt = ''; im.src = src + '?v=' + BUILD; $('walls').appendChild(im); });
 const wallReady = k => preload(WALLS[k]);
@@ -367,35 +449,39 @@ const wallReady = k => preload(WALLS[k]);
 const PAD_X = 0.45, PAD_Y = 0.7;               /* room around the cut-out for movement, as a share of its size */
 const layerState = new Map();                   /* canvas -> {img, L, anim, t0} */
 let animFrame = null;
+/* a layer can ask for more room than the default padding, for things that fall (a padlock) or tumble sideways (the blocks) */
+const pads = L => [L.padX ?? PAD_X, L.padY ?? PAD_Y, L.padBelow ?? 0.15];
 function makeLayer(L){
-  const c = document.createElement('canvas'); c.className = 'layer';
-  c.style.cssText = `left:${L.l - L.w*PAD_X}%;top:${L.t - L.h*PAD_Y}%;width:${L.w*(1+2*PAD_X)}%;height:${L.h*(1+PAD_Y+0.15)}%`;
+  const c = document.createElement('canvas'); c.className = 'layer'; const [PX, PY, PB] = pads(L);
+  c.style.cssText = `left:${L.l - L.w*PX}%;top:${L.t - L.h*PY}%;width:${L.w*(1+2*PX)}%;height:${L.h*(1+PY+PB)}%`;
   if (L.group) c.dataset.group = L.group;
   const st = {img:null, L, anim:null, t0:0}; layerState.set(c, st);
+  if (L.inside) preload(L.inside).then(im => { st.inside = im; });
   if (L.draw){ /* drawn by code rather than a picture: a stand-in size, the drawing happens in drawLayer */
-    st.img = {naturalWidth:300, naturalHeight:300}; c.width = Math.round(300*(1+2*PAD_X)); c.height = Math.round(300*(1+PAD_Y+0.15)); drawLayer(c, 0); return c; }
-  preload(L.src).then(img => { if (!img.naturalWidth) return; st.img = img; c.width = Math.round(img.naturalWidth*(1+2*PAD_X)); c.height = Math.round(img.naturalHeight*(1+PAD_Y+0.15)); drawLayer(c, 0); });
+    st.img = {naturalWidth:300, naturalHeight:300}; c.width = Math.round(300*(1+2*PX)); c.height = Math.round(300*(1+PY+PB)); drawLayer(c, 0); return c; }
+  preload(L.src).then(img => { if (!img.naturalWidth) return; st.img = img; c.width = Math.round(img.naturalWidth*(1+2*PX)); c.height = Math.round(img.naturalHeight*(1+PY+PB)); drawLayer(c, 0); });
   return c;
 }
 /* scene percentages -> this layer's canvas pixels */
-function toCanvas(c, L, px, py){ return [ (px - (L.l - L.w*PAD_X)) / (L.w*(1+2*PAD_X)) * c.width, (py - (L.t - L.h*PAD_Y)) / (L.h*(1+PAD_Y+0.15)) * c.height ]; }
+function toCanvas(c, L, px, py){ const [PX, PY, PB] = pads(L); return [ (px - (L.l - L.w*PX)) / (L.w*(1+2*PX)) * c.width, (py - (L.t - L.h*PY)) / (L.h*(1+PY+PB)) * c.height ]; }
 function drawLayer(c, t){
   const st = layerState.get(c); if (!st || !st.img || !st.img.naturalWidth) return;
-  const {img, L, anim} = st, ctx = c.getContext('2d'), W = img.naturalWidth, H = img.naturalHeight, ox = W*PAD_X, oy = H*PAD_Y;
+  const [PX, PY, PB] = pads(st.L);
+  const {img, L, anim} = st, ctx = c.getContext('2d'), W = img.naturalWidth, H = img.naturalHeight, ox = W*PX, oy = H*PY;
   ctx.clearRect(0, 0, c.width, c.height);
   ctx.save();
   if (L.clipBottom != null){ const yClip = toCanvas(c, L, 0, L.clipBottom)[1]; ctx.beginPath(); ctx.rect(0, 0, c.width, yClip); ctx.clip(); }
   let glassRect = null;
   if (L.glass){ const [gx, gy] = toCanvas(c, L, L.glass[0], L.glass[1]), [gx2, gy2] = toCanvas(c, L, L.glass[0]+L.glass[2], L.glass[1]+L.glass[3]); glassRect = [gx, gy, gx2-gx, gy2-gy]; ctx.beginPath(); ctx.rect(...glassRect); ctx.clip(); }
   if (L.tone) ctx.filter = L.tone; /* things behind glass are drawn a little duller, so they sit inside rather than on top */
-  if (L.shadow){ /* a soft contact shadow under things that stand on a surface, so nothing floats */
+  if (L.shadow && !(L.kind === 'blocks')){ /* a soft contact shadow under things that stand on a surface, so nothing floats */
     ctx.save(); ctx.filter = `blur(${Math.max(2, W*0.03)}px)`; ctx.fillStyle = `rgba(30,25,40,${0.28*L.shadow})`;
     ctx.beginPath(); ctx.ellipse(ox + W/2, oy + H - H*0.01, W*0.46, Math.max(3, W*0.07), 0, 0, Math.PI*2); ctx.fill(); ctx.restore(); }
   const finish = () => {
     const wall = $('w-'+curView()); if (!wall || !wall.naturalWidth) return;
     if (L.lit){ /* the room's light falls on the cut-out: the wall's light and shade behind it, as brightness only, laid over the drawing */
       const off = st.off || (st.off = document.createElement('canvas')); off.width = c.width; off.height = c.height; const o = off.getContext('2d');
-      const bl = L.l - L.w*PAD_X, bt = L.t - L.h*PAD_Y, bw = L.w*(1+2*PAD_X), bh = L.h*(1+PAD_Y+0.15);
+      const bl = L.l - L.w*PX, bt = L.t - L.h*PY, bw = L.w*(1+2*PX), bh = L.h*(1+PY+PB);
       o.filter = 'grayscale(1) contrast(2.2) brightness(.72)'; o.drawImage(wall, bl/100*wall.naturalWidth, bt/100*wall.naturalHeight, bw/100*wall.naturalWidth, bh/100*wall.naturalHeight, 0, 0, off.width, off.height); o.filter = 'none';
       o.globalCompositeOperation = 'destination-in'; o.drawImage(c, 0, 0); o.globalCompositeOperation = 'source-over';
       ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.filter = 'none'; ctx.globalCompositeOperation = 'overlay'; ctx.globalAlpha = L.lit; ctx.drawImage(off, 0, 0); ctx.restore();
@@ -404,11 +490,39 @@ function drawLayer(c, t){
     if (!glassRect) return;
     ctx.filter = 'none'; ctx.globalAlpha = 0.5; ctx.drawImage(wall, L.glass[0]/100*wall.naturalWidth, L.glass[1]/100*wall.naturalHeight, L.glass[2]/100*wall.naturalWidth, L.glass[3]/100*wall.naturalHeight, ...glassRect); ctx.globalAlpha = 1; };
   const damp = (f, tau) => Math.sin(2*Math.PI*f*t) * Math.exp(-t/tau);
+  /* the three soft blocks: each band of the picture is one block; they tumble apart to the right and lie where they land */
+  const blockShadow = (cx, cy, w, a) => { ctx.save(); ctx.filter = `blur(${Math.max(2, W*0.03)}px)`; ctx.fillStyle = `rgba(30,25,40,${0.28*a})`; ctx.beginPath(); ctx.ellipse(cx, cy, w*0.46, Math.max(3, w*0.07), 0, 0, Math.PI*2); ctx.fill(); ctx.restore(); };
+  const drawBlocks = (tt) => { /* tt in seconds from the tap; large = at rest, scattered */
+    const floor = oy + H, ease = k => 1 - Math.pow(1-k, 2.2);
+    const P = [ {dx:1.35, rot:-0.32, delay:0, lift:0.55, rest:0.28}, {dx:1.7, rot:0.12, delay:0.08, lift:0.35, rest:0}, {dx:0.9, rot:0.05, delay:0.16, lift:0.18, rest:0} ];
+    const order = [2, 1, 0]; /* base first, roof last, so the roof lies across the others */
+    order.forEach(i => { const [b0, b1] = L.bands[i], y0 = b0*H, hb = (b1-b0)*H, p = P[i];
+      const k = Math.max(0, Math.min(1, (tt - p.delay)/0.9)), e = ease(k), after = Math.max(0, tt - p.delay - 0.9);
+      const cx0 = ox + W/2, cy0 = oy + y0 + hb/2, cyEnd = floor - hb/2 - p.rest*hb;
+      let cx = cx0 + p.dx*W*e, cy = cy0 + (cyEnd - cy0)*e - p.lift*H*Math.sin(Math.PI*k);
+      if (k >= 1 && after < 0.45) cy -= 0.10*hb*Math.abs(Math.sin(Math.PI*after/0.45))*Math.exp(-after/0.25); /* a small bounce on landing */
+      const rot = p.rot*e + (k < 1 ? 0.25*Math.sin(Math.PI*k)*(i === 0 ? -1 : 1) : 0);
+      blockShadow(cx, floor - p.rest*hb, W, k >= 1 ? 1 : 0.5);
+      ctx.save(); ctx.translate(cx, cy); ctx.rotate(rot); ctx.drawImage(img, 0, y0, W, hb + 1, -W/2, -hb/2, W, hb + 1); ctx.restore(); });
+  };
+  /* the drawer in the stage front: when open it sits lower and larger (nearer), with the dark opening and the slip behind it */
+  const drawDrawer = (k) => {
+    if (k > 0){ ctx.fillStyle = `rgba(30,22,18,${0.8*k})`; ctx.fillRect(ox + W*0.03, oy + H*0.08, W*0.94, H*0.9);
+      if (st.inside && !S.got.includes('slipMu')){ const iw = W*0.34, ih = iw*st.inside.naturalHeight/st.inside.naturalWidth; ctx.save(); ctx.globalAlpha = k; ctx.translate(ox + W/2, oy + H*0.5); ctx.rotate(-0.12); ctx.drawImage(st.inside, -iw/2, -ih/2, iw, ih); ctx.restore(); } }
+    const s = 1 + 0.1*k, dy = H*0.55*k;
+    if (k > 0){ ctx.fillStyle = `rgba(30,22,18,${0.35*k})`; ctx.fillRect(ox + W*0.02, oy + H*0.9 + dy - H*0.05, W*0.96, H*0.3); }
+    ctx.save(); ctx.translate(ox + W/2, oy + H/2 + dy); ctx.scale(s, s); ctx.drawImage(img, -W/2, -H/2); ctx.restore();
+  };
+  const restDraw = () => {
+    if (L.gone && L.gone()) return;
+    if (st.open || (L.openWhen && L.openWhen())){ ctx.save(); ctx.translate(ox, oy); ctx.scale(0.12, 1); ctx.drawImage(img, 0, 0); ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.fillRect(0, 0, W, H); ctx.restore(); return; }
+    if (L.kind === 'blocks'){ if (S.toppled){ drawBlocks(9); return; } blockShadow(ox + W/2, oy + H - H*0.01, W, 1); }
+    if (L.kind === 'drawer' && S.drawerOpen){ drawDrawer(1); return; }
+    ctx.drawImage(img, ox, oy);
+    if (L.over) L.over(ctx, ox, oy, W, H);
+  };
   if (!anim && L.flash){ ctx.restore(); return; }
-  if (!anim){
-    if (st.open || (L.openWhen && L.openWhen())){ ctx.save(); ctx.translate(ox, oy); ctx.scale(0.12, 1); ctx.drawImage(img, 0, 0); ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.fillRect(0, 0, W, H); ctx.restore(); }
-    else ctx.drawImage(img, ox, oy);
-    finish(); ctx.restore(); return; }
+  if (!anim){ restDraw(); finish(); ctx.restore(); return; }
   const N = 40;
   ctx.save(); /* every movement below shifts the drawing origin; undo that before the glass is painted */
   switch(anim){
@@ -506,6 +620,31 @@ function drawLayer(c, t){
         ctx.drawImage(img, sx, cy - hh, 2, 2*hh, ox + x, oy + cy - hh, 2, 2*hh); }
       ctx.restore(); ctx.drawImage(st.arc, ox, oy);
       break; }
+    case 'rattle': { /* a locked thing shakes a little and stays put */
+      if (t > 0.6){ st.anim = null; restDraw(); break; }
+      if (L.gone && L.gone()){ st.anim = null; break; }
+      ctx.translate(W*0.03*damp(9, 0.18), 0); restDraw(); break; }
+    case 'drop': { /* a padlock springs open and falls away, fading as it goes; afterwards it is gone */
+      if (t > 1.3){ st.anim = null; break; }
+      const open = Math.min(1, t/0.25), fall = Math.max(0, t - 0.25), dy = H*4.5*fall*fall, rot = -0.18*open + 0.5*fall;
+      ctx.globalAlpha = Math.max(0, 1 - Math.max(0, t - 0.85)/0.4);
+      ctx.translate(ox + W/2, oy + H*0.15 + dy); ctx.rotate(rot); ctx.drawImage(img, -W/2, -H*0.15); if (L.over) L.over(ctx, -W/2, -H*0.15, W, H); ctx.globalAlpha = 1;
+      break; }
+    case 'topple': { /* the stack of soft blocks tumbles apart */
+      if (t > 2.4){ st.anim = null; drawBlocks(9); break; }
+      drawBlocks(t); break; }
+    case 'slideOpen': { /* the stage drawer slides out and stays out */
+      const T = 0.7, k = Math.min(1, t/T), e = 1 - Math.pow(1-k, 3);
+      if (t > T + 0.05){ st.anim = null; drawDrawer(1); break; }
+      drawDrawer(e); break; }
+    case 'pour': { /* the art-room tap: water falls straight from the spout into the sink, splashing a little, then stops */
+      const T = 1.4; if (t > T){ st.anim = null; break; }
+      const grow = Math.min(1, t/0.25), fade = t > 1.05 ? 1 - (t-1.05)/0.35 : 1, x0 = ox + W*0.5, y0 = oy + H*0.05, y1 = oy + H*0.98;
+      ctx.globalAlpha = fade; ctx.lineCap = 'round';
+      const yEnd = y0 + (y1 - y0)*grow, wob = Math.sin(t*30)*W*0.01;
+      [[ 'rgba(70,130,180,.9)', 0.16 ], [ 'rgba(190,225,240,.95)', 0.08 ], [ 'rgba(255,255,255,.8)', 0.03 ]].forEach(([col, lw]) => { ctx.strokeStyle = col; ctx.lineWidth = W*lw; ctx.beginPath(); ctx.moveTo(x0, y0); ctx.quadraticCurveTo(x0 + wob, (y0 + yEnd)/2, x0, yEnd); ctx.stroke(); });
+      if (grow === 1){ const s = Math.sin(t*26); [[-0.28, -0.02], [0.3, -0.05], [-0.12, -0.1], [0.16, -0.12]].forEach(([dx, dy], i) => { ctx.fillStyle = 'rgba(190,225,240,.9)'; ctx.beginPath(); ctx.arc(x0 + W*dx + W*0.02*s*(i%2 ? 1 : -1), y1 + H*dy - H*0.02*Math.abs(s), W*0.035, 0, Math.PI*2); ctx.fill(); }); }
+      break; }
     case 'wobble': { /* rocks on its base and settles */
       const ang = 0.14*damp(1.6, 0.6);
       ctx.translate(ox + W/2, oy + H); ctx.rotate(ang); ctx.drawImage(img, -W/2, -H);
@@ -543,18 +682,45 @@ function animate(h){
 }
 
 /* ---------- text: notes, shelves, timetable, items, hints (the same puzzle as the story plan) ---------- */
+/* the four chime bars and their notes; the page of music names them in the order they must be struck */
+const BARS = {red:{hex:'#d9453d', hz:523.25, name:'red'}, yellow:{hex:'#f2c53d', hz:659.25, name:'yellow'}, green:{hex:'#4fa64a', hz:783.99, name:'green'}, blue:{hex:'#3f6fcf', hz:1046.5, name:'blue'}};
+const TUNE_ORDER = ['green', 'red', 'blue', 'yellow'];
+/* the six paint pots, in the order the padlock's dials turn through them; the moth's three stripes are the code */
+const PAINTS = [['red', '#d9453d'], ['yellow', '#f2c53d'], ['blue', '#3f6fcf'], ['green', '#4fa64a'], ['orange', '#ee8a2e'], ['purple', '#8a5cc2']];
+const PAINT_CODE = [5, 3, 4]; /* purple, green, orange */
+/* the page of music, drawn by the game so the colours are exact: four notes on a stave */
+function staff(){
+  const ys = {green:35, red:55, blue:25, yellow:45};
+  let s = '<svg class="staff" viewBox="0 0 300 76" aria-label="Four notes on a stave: green, red, blue, yellow">';
+  [15,25,35,45,55].forEach(y => s += `<line x1="10" y1="${y}" x2="290" y2="${y}" stroke="#2b2836" stroke-width="1.2"/>`);
+  s += '<line x1="10" y1="15" x2="10" y2="55" stroke="#2b2836" stroke-width="2"/><line x1="290" y1="15" x2="290" y2="55" stroke="#2b2836" stroke-width="2"/>';
+  TUNE_ORDER.forEach((c, i) => { const x = 60 + i*60, y = ys[c]; s += `<line x1="${x+9}" y1="${y-2}" x2="${x+9}" y2="${y-30}" stroke="#2b2836" stroke-width="2"/><ellipse cx="${x}" cy="${y}" rx="10" ry="7" fill="${BARS[c].hex}" stroke="#2b2836" stroke-width="1.8" transform="rotate(-18 ${x} ${y})"/>`; });
+  return s + '</svg>';
+}
+/* the three colour stripes Mary painted under her moth: drawn on the wall picture and in the close-up from the same code */
+function stripesSVG(vb){
+  let s = `<svg viewBox="${vb}" preserveAspectRatio="none" aria-hidden="true">`;
+  PAINT_CODE.forEach((p, i) => { const x = 130 + i*270, tilt = [-1.2, 1, -0.6][i]; s += `<rect x="${x}" y="600" width="230" height="66" rx="10" fill="${PAINTS[p][1]}" transform="rotate(${tilt} ${x+115} 633)"/><rect x="${x+18}" y="612" width="150" height="9" rx="4" fill="rgba(255,255,255,.28)" transform="rotate(${tilt} ${x+115} 633)"/>`; });
+  return s + '</svg>';
+}
+/* the colour discs on the padlock's three dials, drawn over the cut-out (and over the same picture in the close-up) */
+const DIALS = [[31.9, 72.4], [60.0, 70.6], [86.1, 68.9]];
+function drawDials(ctx, ox, oy, W, H){ DIALS.forEach(([cx, cy], i) => { ctx.fillStyle = PAINTS[S.cdials[i]][1]; ctx.beginPath(); ctx.ellipse(ox + cx/100*W, oy + cy/100*H, W*0.075, H*0.068, 0, 0, Math.PI*2); ctx.fill(); }); }
 const NOTES = {
-  envelope:{hand:true, html:'<span class="head">For Mary</span><span>It’s our last-day treasure hunt! Three riddles lead to three library books, each hiding a slip with a lesson and a day. Look each one up on our timetable: its period number is one number of your locker code, in order.</span><span class="big">Riddle 1: At night I’m full of lights, but I’m not a city.</span><span>Mr Hollis</span>'},
-  slipSc:{hand:true, html:'<span class="head">Slip 1 of 3</span><span class="big">SCIENCE on THURSDAY</span><span>Riddle 2: I have eighty-eight keys, but I can’t open a single door.</span>'},
-  slipMu:{hand:true, html:'<span class="head">Slip 2 of 3</span><span class="big">MUSIC on TUESDAY</span><span>Riddle 3: I’m full of colour, but I’m not a rainbow. Brushes are my best friends.</span>'},
-  slipAr:{hand:true, html:'<span class="head">Slip 3 of 3</span><span class="big">ART on WEDNESDAY</span><span>That’s all three! Now the timetable, then your locker. Happy holidays! Mr H</span>'},
+  envelope:{hand:true, html:'<span class="head">For Mary</span><span>It’s our last-day treasure hunt! Three riddles lead to three library books. Each book starts a trail, and at the end of each trail is a slip with a lesson and a day. Look each one up on our timetable: its period number is one number of your locker code, in riddle order.</span><span class="big">1. At night I’m full of lights, but I’m not a city.<br>2. I have eighty-eight keys, but I can’t open a single door.<br>3. I’m full of colour, but I’m not a rainbow. Brushes are my best friends.</span><span>Mr Hollis</span>'},
+  noteStar:{hand:true, html:'<span class="head">Found me!</span><span class="big">The key to the stars is in my art apron, the one with all the paint on it. Then look for the star.</span><span>Mr H</span>'},
+  notePaint:{hand:true, html:'<span class="head">Found me!</span><span class="big">Your slip is locked in the paint cupboard. My moth knows the colours: look under it on the drying rack.</span><span>Mr H</span>'},
+  music:{hand:false, html:'<span class="head">Playing the Piano, page 12: Holiday Song</span>' + staff() + '<span>Four notes. Play me in the hall!</span>'},
+  slipSc:{hand:true, html:'<span class="head">Slip for riddle 1</span><span class="big">SCIENCE on THURSDAY</span><span>Find it on the timetable. Its period number is the first number of your locker code.</span>'},
+  slipMu:{hand:true, html:'<span class="head">Slip for riddle 2</span><span class="big">MUSIC on TUESDAY</span><span>Find it on the timetable. Its period number is the second number of your locker code.</span>'},
+  slipAr:{hand:true, html:'<span class="head">Slip for riddle 3</span><span class="big">ART on WEDNESDAY</span><span>Find it on the timetable. Its period number is the third number of your locker code.</span>'},
   bonus:{hand:false, html:'<span class="head">Bonus riddle for super-sleuths</span><span>Someone in London loves postcards and moths. Spell her name with the first letters of four stories.</span>'},
 };
 /* Each shelf close-up is a generated picture of the real shelf; `slots` are the books' boxes on it in picture percentages [left, top, right, bottom]. */
 const SHELVES = {
   sci:{title:'Science shelf', pic:'../art/school/shelf-sci.jpg', slots:[[35.5,22,43,90],[43.5,21,49.5,90],[50,21,56.5,90],[57,23,66,90]], books:[
     ['Volcanoes!','Hot, rocky and a bit loud. No slip inside.'],
-    ['The Night Sky','slipSc'],
+    ['The Night Sky','noteStar'],
     ['Bugs Up Close','Very close. Too close! No slip inside.'],
     ['Weather Watch','All about rain. Singapore has plenty. No slip inside.']]},
   mus:{title:'Music shelf', pic:'../art/school/shelf-mus.jpg', slots:[[9,16,19,91],[20,23,33,91],[43,39,56,60]], books:[
@@ -564,11 +730,11 @@ const SHELVES = {
   art:{title:'Art shelf', pic:'../art/school/shelf-art.jpg', slots:[[32,25,38.5,90],[38.5,33,45,90],[46,24,54,90],[55,29,63,90]], books:[
     ['Clay Creatures','Squishy animals to make. No slip inside.'],
     ['Sketching','Pencils, and more pencils. No slip inside.'],
-    ['The Big Book of Painting','slipAr'],
+    ['The Big Book of Painting','notePaint'],
     ['Paper Folding','How to fold paper birds, boats and moths. No slip inside.']]},
   trolley:{title:'Returns trolley', pic:'../art/school/shelf-trolley.jpg', slots:[[45,19,58,83],[64,19,79,84],[80,16,91,84]], books:[
     ['Dinosaur Days','Roar! No slip inside.'],
-    ['Playing the Piano','slipMu'],
+    ['Playing the Piano','music'],
     ['Football Stars','No slip inside.']]},
   sto:{title:'Stories shelf', pic:'../art/school/shelf-sto.jpg', slots:[[38.5,20,47,89],[47.5,19,55.5,89],[56,17,64.5,89],[65,19,75,89],[76,20,86,89],[86.5,17,95,89]], books:[
     ['Nobody’s Garden','A secret garden story.'],
@@ -584,27 +750,72 @@ const SUBJECT = {Ma:['i-ma','#2f7c83','Maths'], En:['i-en','#d9a622','English'],
 
 const ITEMS = {
   envelope:{name:'riddle envelope', note:'envelope', icon:'<img src="../art/classroom/item-envelope.png" alt="">'},
+  noteStar:{name:'note from The Night Sky', note:'noteStar', found:'A folded note falls out of {b}!', icon:'<img src="../art/school/item-note.png" alt="">'},
+  music:{name:'page of music', note:'music', found:'A loose page slips out of {b}!', icon:'<img src="../art/school/item-music.png" alt="">'},
+  notePaint:{name:'note from the painting book', note:'notePaint', found:'A folded note falls out of {b}!', icon:'<img src="../art/school/item-note.png" alt="">'},
+  starkey:{name:'star key', icon:'<img src="../art/school/item-starkey.png" alt="">'},
+  mallet:{name:'beater', icon:'<img src="../art/school/item-mallet.png" alt="">'},
   slipSc:{name:'Science slip', note:'slipSc', icon:'<img src="../art/school/item-slipSc.png" alt="">'},
   slipMu:{name:'Music slip', note:'slipMu', icon:'<img src="../art/school/item-slipMu.png" alt="">'},
   slipAr:{name:'Art slip', note:'slipAr', icon:'<img src="../art/school/item-slipAr.png" alt="">'}
 };
+/* Hints follow three threads at once: the moth helps with whichever trail the player has got furthest along. */
 const HINTS = [
   {goal:() => S.got.includes('envelope'), tips:[
     'Mr Hollis left something on your desk.',
     'Turn to the timetable wall and look at your desk.',
     'Tap the envelope on your desk.']},
-  {goal:() => S.got.includes('slipSc'), tips:[
+  /* thread 1: the night sky, the apron, the star key, the STEM cabinet */
+  {thread:1, goal:() => S.got.includes('noteStar'), tips:[
     'Riddle 1: what is full of lights at night, but isn’t a city?',
     'The night sky! Find a book about it in the library.',
     'Go through the corridor to the library. Open The Night Sky on the blue Science shelf.']},
-  {goal:() => S.got.includes('slipMu'), tips:[
+  {thread:1, goal:() => S.got.includes('starkey') || S.stemOpen, tips:[
+    'The note says the key is in Mr Hollis’s art apron.',
+    'The art room is off the corridor. Which apron has the paint on it?',
+    'In the art room, tap the splattered apron by the sink, then take the key from its pocket.']},
+  {thread:1, goal:() => S.stemOpen, tips:[
+    'A key with a star. Where have you seen a star on a lock?',
+    'The STEM cabinet in the hall has a star on its padlock.',
+    'In the hall, tap the star key in the strip, then tap the cabinet’s padlock.']},
+  {thread:1, goal:() => S.got.includes('slipSc'), tips:[
+    'The padlock is off. What did Mr Hollis leave in the STEM cabinet?',
+    'Look inside the cabinet in the hall.',
+    'Tap the STEM cabinet and take the slip from the shelf.']},
+  /* thread 2: the piano book, the beater under the blocks, the chime bars, the stage drawer */
+  {thread:2, goal:() => S.got.includes('music'), tips:[
     'Riddle 2: eighty-eight keys, and no doors. What could it be?',
     'A piano! But the Music shelf has a gap. Where do returned books go?',
     'In the library, find the returns trolley next to the Art shelf. Open Playing the Piano.']},
-  {goal:() => S.got.includes('slipAr'), tips:[
+  {thread:2, goal:() => S.got.includes('mallet') || S.beater, tips:[
+    'Four coloured notes. Something in the school has four colours you can play.',
+    'The chime bars on the hall stage. But what do you hit them with?',
+    'In the hall’s playground corner, tap the stack of soft blocks. Something is under them.']},
+  {thread:2, goal:() => S.beater, tips:[
+    'You have a beater. What does it play?',
+    'Take the beater to the chime bars on the hall stage.',
+    'Tap the beater in the strip, then tap the chime bars.']},
+  {thread:2, goal:() => S.drawerOpen, tips:[
+    'Play the four notes from the page, in the order they are written.',
+    'The colours on the page are the bars. Green first.',
+    'Tap the bars green, red, blue, then yellow.']},
+  {thread:2, goal:() => S.got.includes('slipMu'), tips:[
+    'Something clicked in the stage.',
+    'A little drawer in the front of the stage has slid open.',
+    'Tap the open drawer in the front of the stage.']},
+  /* thread 3: the painting book, the moth's stripes, the colour padlock */
+  {thread:3, goal:() => S.got.includes('notePaint'), tips:[
     'Riddle 3: full of colour, and brushes are its best friends.',
-    'It’s a book about painting. Try the orange Art shelf.',
+    'It’s a book about painting. Try the orange Art shelf in the library.',
     'Open The Big Book of Painting on the Art shelf.']},
+  {thread:3, goal:() => S.paintOpen, tips:[
+    'The note says Mr Hollis’s moth knows the colours.',
+    'Mary’s moth painting is on the drying rack in the art room. Look under it.',
+    'The three stripes under the moth are the padlock’s colours: purple, green, orange. Set the dials on the paint cupboard and tap Open.']},
+  {thread:3, goal:() => S.got.includes('slipAr'), tips:[
+    'The paint cupboard is open.',
+    'Look inside the paint cupboard in the art room.',
+    'Tap the paint cupboard and take the slip from the shelf.']},
   {goal:() => S.opened, tips:[
     'You have three lessons and three days. The class timetable turns each into a number.',
     'The whiteboard says which picture is which lesson. Find each lesson on its day: the period number at the top is one number of your locker code.',
@@ -618,7 +829,8 @@ const HINTS = [
 /* ---------- state ---------- */
 const KEY = 'mothhouse.landscape.' + BUILD; /* each build starts a fresh game; Start again is in the menu */
 let S;
-function fresh(){ return {room:'classroom', view:3, got:[], held:null, hint:{}, opened:false, bonus:false, spell:'', nightMoth:false, dials:[0,0,0], done:false}; }
+function fresh(){ return {room:'classroom', view:3, got:[], held:null, hint:{}, opened:false, bonus:false, spell:'', nightMoth:false, dials:[0,0,0], done:false,
+  keyOut:false, stemOpen:false, toppled:false, beater:false, drawerOpen:false, cdials:[0,0,0], paintOpen:false}; }
 function load(){ try{ const s = JSON.parse(localStorage.getItem(KEY)); if (s && Array.isArray(s.got) && ROOMS[s.room]) return Object.assign(fresh(), s); }catch(e){} return fresh(); }
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
 const curView = () => ROOMS[S.room].views[S.view];
@@ -634,6 +846,7 @@ function render(){
   (LAYERS[v] || []).forEach(L => { if (L.hideWhen && L.hideWhen()) return; if (L.showWhen && !L.showWhen()) return; hots.appendChild(makeLayer(L)); });
   if (v === 'c4') hots.appendChild(wallTimetable());
   if (v === 'c1') hots.appendChild(wallBoard());
+  if (v === 'an') hots.appendChild(wallStripes());
   /* bigger targets first, so a small thing on a big thing (the mug on the desk) stays tappable */
   [...HOTS[v]].sort((a, b) => b.w*b.h - a.w*a.h).forEach(h => {
     if (h.hideWhen && h.hideWhen()) return;
@@ -664,7 +877,11 @@ function render(){
 /* the key thing sparkles only while it is the next thing to do */
 function sparkle(id){
   if (id === 'envelope') return !S.got.includes('envelope');
-  if (id === 'h_locker') return S.got.includes('slipAr') && !S.done;
+  if (id === 'h_locker') return ['slipSc', 'slipMu', 'slipAr'].every(k => S.got.includes(k)) && !S.done;
+  if (id === 'hw_mallet' || id === 'aw_key') return true; /* only shown while they can be taken */
+  if (id === 'hn_drawer') return S.drawerOpen && !S.got.includes('slipMu');
+  if (id === 'he_cabinet') return S.stemOpen && !S.got.includes('slipSc');
+  if (id === 'ae_cupboard') return S.paintOpen && !S.got.includes('slipAr');
   return false;
 }
 function turn(d){
@@ -743,6 +960,54 @@ function wallBoard(){
   wrap.innerHTML = `<svg viewBox="0 0 230 136" width="100%" height="100%" preserveAspectRatio="none" aria-hidden="true"><text x="115" y="22" text-anchor="middle" font-size="13" fill="#2f5f8a" font-family="Atkinson Hyperlegible,Verdana,sans-serif" font-weight="700">Our timetable pictures</text><g>${boardKey(16, 32, 72, 26, 15, 11)}</g><text x="115" y="126" text-anchor="middle" font-size="10" fill="#c0541f" font-family="Atkinson Hyperlegible,Verdana,sans-serif">Happy holidays, Year 5!  Mr H</text></svg>`;
   return wrap;
 }
+/* the three colour stripes under Mary's moth, drawn small on the wall picture so the wall and the close-up agree */
+function wallStripes(){
+  const wrap = document.createElement('div'); wrap.className = 'layer'; wrap.style.cssText = 'left:59.6%;top:58.9%;width:9.4%;height:4.3%';
+  wrap.innerHTML = stripesSVG('92 585 840 96'); return wrap;
+}
+function openMoth(){
+  openCloseup(`<div class="card pic" style="width:calc(var(--u)*58)"><div class="picwrap" style="aspect-ratio:4/3;background-image:url(../art/school/closeup-mothpainting.jpg?v=${BUILD})">${stripesSVG('0 0 1024 768')}<p class="otitle">Mary’s moth</p></div></div>`);
+  say('Mary’s moth, pegged up to dry. Underneath it she painted the three colours she mixed for it: ' + PAINT_CODE.map(p => PAINTS[p][0]).join(', ') + '.');
+}
+/* the chime bars: the beater strikes a bar, it flashes and rings; four in the right order opens the stage drawer */
+let struck = [];
+function openBells(){
+  struck = [];
+  const boxes = {red:[10, 6, 29, 83], yellow:[31, 6, 48, 83], green:[51, 6, 69, 83], blue:[71, 6, 90, 83]};
+  const bars = Object.entries(boxes).map(([c, [x0, y0, x1, y1]]) => `<button class="bar" data-c="${c}" style="left:${x0}%;top:${y0}%;width:${x1-x0}%;height:${y1-y0}%" aria-label="${c} chime bar"></button>`).join('');
+  openCloseup(`<div class="card shelf"><div class="shelfpic" id="bells" style="background-image:url(../art/school/closeup-bells.jpg?v=${BUILD})"><p class="otitle">Chime bars</p>${bars}</div><div class="shelffoot"><div class="row spellrow"><p class="tune" id="tune"></p><button class="ob quiet" id="tuneReset">Start again</button></div><p class="ofb" id="bellFb">Tap the bars with the beater. Four notes make the tune.</p></div></div>`);
+  const showTune = () => { $('tune').innerHTML = [0,1,2,3].map(i => `<span class="dot" style="${struck[i] ? 'background:' + BARS[struck[i]].hex : ''}"></span>`).join(''); };
+  showTune();
+  $('tuneReset').onclick = () => { struck = []; showTune(); $('bellFb').textContent = 'Tap the bars with the beater. Four notes make the tune.'; };
+  $('bells').querySelectorAll('.bar').forEach(b => b.onclick = () => {
+    if (S.drawerOpen){ chime(BARS[b.dataset.c].hz); flash(b); $('bellFb').textContent = 'Ding! Lovely. The drawer is already open.'; return; }
+    if (struck.length >= 4){ struck = []; }
+    struck.push(b.dataset.c); chime(BARS[b.dataset.c].hz); flash(b); showTune();
+    if (struck.length < 4){ $('bellFb').textContent = `${struck.length} of 4.`; return; }
+    if (struck.join() === TUNE_ORDER.join()){ S.drawerOpen = true; save(); setTimeout(() => sfx('pickup'), 500); $('bellFb').textContent = 'That’s the tune! And… a click from the front of the stage.';
+      setTimeout(() => { closeCloseup(); render(); animate({anim:'slideOpen', layer:'drawer'}); say('A little drawer in the front of the stage slides open.'); }, 1400); }
+    else { $('bellFb').textContent = 'That isn’t the tune. Start again from the first note.'; }
+  });
+}
+function flash(b){ b.classList.add('hit'); setTimeout(() => b.classList.remove('hit'), 180); }
+/* the paint cupboard's padlock: three colour dials, checked only when Open is tapped */
+function openPaintLock(){
+  const dials = DIALS.map(([cx, cy], i) => `<button class="cdial" data-i="${i}" style="left:${cx}%;top:${cy}%;background:${PAINTS[S.cdials[i]][1]}" aria-label="Dial ${i+1}, showing ${PAINTS[S.cdials[i]][0]}"></button>`).join('');
+  openCloseup(`<div class="card locker"><p class="otitle">The paint cupboard’s padlock. Three colours.</p><div class="lockpic"><img src="../art/school/layer-diallock.png?v=${BUILD}" alt="">${dials}</div><p class="ofb" id="lockFb">Tap a dial to change its colour.</p><div class="row"><button class="ob" id="openPaint">Open</button></div></div>`);
+  document.querySelectorAll('.cdial').forEach(b => b.onclick = () => { const i = +b.dataset.i; S.cdials[i] = (S.cdials[i] + 1) % PAINTS.length; b.style.background = PAINTS[S.cdials[i]][1]; b.setAttribute('aria-label', `Dial ${i+1}, showing ${PAINTS[S.cdials[i]][0]}`); sfx('tick'); save(); });
+  $('openPaint').onclick = () => {
+    if (S.cdials.join() === PAINT_CODE.join()){ S.paintOpen = true; save(); sfx('pickup'); $('lockFb').textContent = 'Click! The padlock springs open.';
+      setTimeout(() => { closeCloseup(); render(); animate({anim:'drop', layer:'diallock'}); say('The padlock drops off the paint cupboard. Now look inside.'); }, 700); }
+    else { sfx('knock'); $('lockFb').textContent = 'It doesn’t budge. Not those colours.'; }
+  };
+}
+/* inside an opened cabinet or cupboard: a picture of the shelves, with the slip waiting to be tapped */
+const INSIDE = {stem:{pic:'../art/school/closeup-stem.jpg', title:'Inside the STEM cabinet', slip:'slipSc', box:[53, 83, 67, 95]}, paint:{pic:'../art/school/closeup-paint.jpg', title:'Inside the paint cupboard', slip:'slipAr', box:[57, 80, 71, 91]}};
+function openInside(key){
+  const it = INSIDE[key], [x0, y0, x1, y1] = it.box;
+  openCloseup(`<div class="card shelf"><div class="shelfpic" style="background-image:url(${it.pic}?v=${BUILD})"><p class="otitle">${it.title}</p><button class="book" id="insideSlip" style="left:${x0}%;top:${y0}%;width:${x1-x0}%;height:${y1-y0}%" aria-label="Folded slip"><span></span></button></div><div class="shelffoot"><p class="ofb">A folded slip, tucked on the shelf. Tap it.</p></div></div>`);
+  $('insideSlip').onclick = () => { if (S.got.includes(it.slip)) return; S.got.push(it.slip); sfx('pickup'); closeCloseup(); render(); say('A slip from Mr Hollis. It goes in the strip below.'); setTimeout(() => openNote(it.slip), 350); };
+}
 /* a shelf: the books are big buttons; one of them hides a slip. The Stories shelf can also spell a name. */
 let shelfKey = null;
 function openShelf(key){
@@ -767,12 +1032,10 @@ function pickBook(i){
     } else fb.textContent = what;
     save(); return;
   }
-  if (ITEMS[what]){
-    if (S.got.includes(what)){ fb.textContent = 'You already have the slip from this one.'; return; }
-    const needs = {slipMu:'slipSc', slipAr:'slipMu'}[what];
-    if (needs && !S.got.includes(needs)){ fb.textContent = `${title}. A good book, but no riddle has pointed here yet.`; say('Mary flicks through it and puts it back. One riddle at a time.'); return; }
-    S.got.push(what); sfx('pickup'); fb.textContent = `A slip falls out of ${title}!`;
-    setTimeout(() => { render(); openNote(what); }, 500); say(`A slip from ${title}. It goes in the strip below.`);
+  if (ITEMS[what]){ /* each riddle's book holds the start of its trail; the three trails can be followed in any order */
+    if (S.got.includes(what)){ fb.textContent = 'Nothing more in this one. You have what it was hiding.'; return; }
+    S.got.push(what); sfx('pickup'); fb.textContent = ITEMS[what].found.replace('{b}', title);
+    setTimeout(() => { render(); openNote(what); }, 500); say(`Something from ${title}. It goes in the strip below.`);
     return;
   }
   fb.textContent = what;
@@ -798,10 +1061,19 @@ function ending(){
 /* ---------- using a held item on something: USES maps "item>target" to what happens; anything else gets a friendly line ---------- */
 function useItem(item, id, h){
   const fn = USES[item + '>' + id];
-  if (fn){ animate(h); fn(); render(); return; }
+  if (fn){ render(); fn(h); return; }
   sfx('knock'); render(); say(`The ${ITEMS[item].name} doesn’t go there.`);
 }
-const USES = {};
+const drop = key => { S.got = S.got.filter(k => k !== key); };
+function unlockStem(){ if (S.stemOpen) return; drop('starkey'); S.stemOpen = true; save(); render(); sfx('pickup'); animate({anim:'drop', layer:'starlock'}); say('The star key turns. Click! The padlock drops off the STEM cabinet. Now look inside.'); }
+const USES = {
+  'mallet>hn_bars': () => { drop('mallet'); S.beater = true; save(); render(); sfx('tick'); say('The beater rests on the stand. Now: which bars, and in which order?'); setTimeout(openBells, 600); },
+  'starkey>he_lock': unlockStem, 'starkey>he_cabinet': unlockStem,
+  'starkey>ae_lock': () => { sfx('knock'); say('The star key finds no keyhole. This padlock has colour dials instead.'); },
+  'starkey>ae_cupboard': () => { sfx('knock'); say('The star key finds no keyhole. This padlock has colour dials instead.'); },
+  'mallet>he_lock': () => { sfx('knock'); say('Bonk. The padlock doesn’t care.'); },
+  'mallet>ae_lock': () => { sfx('knock'); say('Bonk. The padlock doesn’t care.'); }
+};
 
 /* ---------- what happens when you tap things ---------- */
 function act(id){
@@ -843,9 +1115,52 @@ function act(id){
     case 'h_trophies': say('The house cup. This year: Kingfishers. Mary’s house!'); break;
     case 'h_notices': say('The summer fair, the swimming gala, house points, and a lost cat called Biscuit. Ginger, very fluffy, answers to nothing.'); break;
     case 'h_bonus': S.bonus = true; save(); openNote('bonus'); say('A bonus riddle! This one is optional, for super-sleuths.'); return;
-    case 'h_radiator': say('Off. Still Singapore.'); break;
-    case 'h_door5K': say('5K’s door is shut and locked. They’re all at the party too.'); break;
     case 'h_bunting': say('Bunting from the summer fair. Nobody has taken it down, and nobody will.'); break;
+    /* hall */
+    case 'hn_stage': say('The stage. Assemblies, the winter play, and the day Mary forgot her line and made up a better one.'); break;
+    case 'hn_banner': say('HAPPY HOLIDAYS. Mrs Ng’s lettering, Mr Hollis’s spelling.'); break;
+    case 'hn_bars': if (S.beater) openBells(); else say('Four chime bars: red, yellow, green and blue. There is nothing to strike them with.'); return;
+    case 'hn_drawer':
+      if (!S.drawerOpen){ say('A tiny drawer in the front of the stage. It won’t budge.'); break; }
+      if (S.got.includes('slipMu')){ say('The little drawer, empty now.'); break; }
+      S.got.push('slipMu'); sfx('pickup'); render(); say('A slip from Mr Hollis, in the drawer! It goes in the strip below.'); setTimeout(() => openNote('slipMu'), 350); return;
+    case 'he_sign': say('STEM WEEK. Rockets, robots, and one small explosion nobody talks about.'); break;
+    case 'he_points': say('House points: red 380, blue 275, yellow 180. Red is Mary’s house, and red is winning.'); break;
+    case 'he_cabinet': case 'he_lock':
+      if (S.stemOpen && !S.got.includes('slipSc')){ openInside('stem'); return; }
+      if (S.stemOpen){ say('The STEM cabinet: a rocket, the planets on sticks and a cardboard robot. Nothing else now.'); break; }
+      say(id === 'he_lock' ? 'A little padlock with a gold star on it. It wants a key with a star to match.' : 'The STEM week cabinet: a rocket, the planets on sticks and a cardboard robot. Locked, with a padlock that has a star on it.'); break;
+    case 'hs_bench': say('The bench where the youngest class sits for assembly, swinging their legs.'); break;
+    case 'hw_mat': say('The soft mat of the indoor playground. No shoes!'); break;
+    case 'hw_slide': say('The little slide. Strictly for the little ones. Strictly.'); break;
+    case 'hw_blocks': S.toppled = true; save(); setTimeout(render, 2500); say('Whoops. The soft blocks tumble over… and there was something underneath!'); return;
+    case 'hw_blocks2': say('Soft blocks all over the mat. Someone will have to stack those again. Not Mary.'); break;
+    case 'hw_mallet': S.got.push('mallet'); sfx('pickup'); render(); say('A wooden beater! The kind you play chime bars with.'); return;
+    /* art room */
+    case 'an_rack': say('The drying rack: today’s paintings, pegged up to dry.'); break;
+    case 'an_p1': say('Aisha’s house, with the sun in the corner where suns go.'); break;
+    case 'an_p2': say('A rainbow by Ben. He ran out of purple.'); break;
+    case 'an_p3': say('Priya’s cat. Or possibly her hamster.'); break;
+    case 'an_moth': openMoth(); return;
+    case 'ae_pots': say('Six pots of paint on the shelf: red, yellow, blue, green, orange and purple.'); break;
+    case 'ae_cupboard': case 'ae_lock':
+      if (S.paintOpen && !S.got.includes('slipAr')){ openInside('paint'); return; }
+      if (S.paintOpen){ say('Paint, brushes and paper. The slip is in your strip.'); break; }
+      if (id === 'ae_lock'){ openPaintLock(); return; }
+      say('The paint cupboard, padlocked. The padlock has three colour dials instead of a keyhole.'); break;
+    case 'as_bench': say('A bench of clay things. Don’t touch, they’re still soft.'); break;
+    case 'as_clay': say('Clay animals waiting for the kiln: a cat, a dog, a bird and an elephant with one ear.'); break;
+    case 'aw_sink': say('The paint sink, rinsed to a rainbow.'); break;
+    case 'aw_tap': say('A gush of water. The sink gurgles.'); break;
+    case 'aw_jar': say('A jar of brushes, washed clean for the holidays.'); break;
+    case 'aw_apronB': say('A blue apron. Not Mary’s.'); break;
+    case 'aw_apronG': say('A green apron: Mary’s, actually. Nothing in the pocket.'); break;
+    case 'aw_apronP':
+      if (!S.got.includes('noteStar')){ say('Mr Hollis’s apron, splattered with every colour in the room.'); break; }
+      if (S.stemOpen || (S.keyOut && !S.got.includes('starkey'))){ say('Mr Hollis’s apron. The pocket is empty now.'); break; }
+      if (S.got.includes('starkey')){ say('Mr Hollis’s apron. You have the key from its pocket.'); break; }
+      S.keyOut = true; save(); render(); animate({anim:'lift', layer:'starkey'}); say('Something in the pocket! A little key with a star on it.'); return;
+    case 'aw_key': S.got.push('starkey'); sfx('pickup'); render(); say('The star key. It goes in the strip below.'); return;
     /* library */
     case 'l_shelfSci': openShelf('sci'); return;
     case 'l_shelfMus': openShelf('mus'); return;
@@ -872,7 +1187,14 @@ function act(id){
   }
 }
 function hint(){
-  const i = HINTS.findIndex(h => !h.goal());
+  let i = -1;
+  if (!S.got.includes('envelope')) i = 0;
+  else { /* the trail the player has got furthest along, but not finished; then the last steps */
+    const threads = {}; HINTS.forEach((h, k) => { if (h.thread) (threads[h.thread] = threads[h.thread] || []).push(k); });
+    let best = -1;
+    Object.values(threads).forEach(idx => { const p = idx.findIndex(k => !HINTS[k].goal()); if (p >= 0 && p > best){ best = p; i = idx[p]; } });
+    if (i < 0) i = HINTS.findIndex(h => !h.thread && !h.goal());
+  }
   if (i < 0){ say('<b>Nutmeg squeaks:</b> That’s everything. Happy holidays!'); return; }
   S.hint[i] = Math.min((S.hint[i] ?? -1) + 1, 2);
   say(`<b>${S.room === 'classroom' ? 'Nutmeg squeaks' : 'The moth whispers'}:</b> ` + HINTS[i].tips[S.hint[i]]);
@@ -919,6 +1241,8 @@ function sfx(kind){
     case 'pickup': [659, 784, 1047].forEach((f, i) => tone(f, 'triangle', .25, .01, .35, t + i * .09)); break;
   }
 }
+/* a chime bar: a clear ringing note with a little of its overtones */
+function chime(f){ if (!soundOn || !audio()) return; if (AC.state !== 'running') AC.resume(); tone(f, 'sine', .3, .004, 1.1); tone(f*2.76, 'sine', .07, .004, .5); tone(f*5.4, 'sine', .03, .003, .25); noise(.08, .003, .04, 3000, .8); }
 /* Background music: a composed sixteen-bar music-box waltz, played by a scheduler and looped.
    To use a recorded track instead, set TRACK to its file (an mp3 that loops cleanly) and the tune below is not used. */
 const TRACK = '../art/music/classroom.mp3'; /* made with Google's Lyria through the Gemini key; see art/music/README.md */

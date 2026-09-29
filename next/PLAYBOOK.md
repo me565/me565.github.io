@@ -69,6 +69,17 @@ The working rules for every room in the landscape game, distilled from the owner
 - Never show technical details (build id, sound state) to a player; the menu's diagnostics line appears only with `?debug` in the address.
 - Going through a door leans the picture in towards the door before the room changes, so the player sees the intent.
 
+## 4c. Parallel trails, the Rusty Lake and Dark Dome way (owner, 29 Sept 2026)
+
+- A stage is not a chain. The goal lock is seen early (Mary's locker, three dials, on the first corridor wall), and the envelope gives all three riddles at once, so three trails open together and can be followed in any order. The player should usually be carrying two or three half-finished things at once.
+- Each trail ends in a lock that needs two different kinds of input: a found item **and** something observed or read somewhere else (the star key and the star on the STEM padlock; the beater and the order of notes on the page; the moth's stripes and the colour dials). One input alone gives a friendly "not yet" line.
+- Trails cross rooms: the book in the library points to the art room, whose key opens a cabinet in the hall. Nothing is solved in the room where its clue was found.
+- Inside a trail the order still holds (the key is not in the apron until the note says so; the chime bars say "nothing to strike them with" until the beater is there), because reading a clue before it has been pointed at feels like cheating. Between trails there is no order.
+- Convergence takes one piece from each trail (the three slips) and one more observation (the timetable read with the whiteboard key). Optional content (the bonus riddle) never gates anything.
+- The moth's hints follow the trail the player has got furthest along, so a stuck player is helped with what they are actually doing.
+- Padlocks and drawers are cut-outs over a wall that has only a hasp; an opened padlock springs, falls and is gone. Inside a cabinet or cupboard is a generated close-up with the slip on its shelf; once the slip is taken the close-up is not shown again (a tap gives a line), so the picture never shows a slip the player already has.
+- Anything the puzzle depends on (the coloured notes on the page, the three stripes under the moth, the colour of each dial) is drawn by the game over the pictures, so wall, close-up and inventory always agree exactly.
+
 ## 5. Sound and music
 
 - Effects are made in the browser (Web Audio) and must be loud enough for a tablet speaker: taps 0.3, knocks 0.4, chimes 0.25. They start on the first real tap.
@@ -99,3 +110,4 @@ The working rules for every room in the landscape game, distilled from the owner
 12. (Full stage test) No build number for a child; no empty walls (the whiteboard had no value); bin lid looked transparent (the sunlight overlay); doors should show intent; water squirt unrealistic; plain notices should be in-page lines, not pop-ups. → build r: debug-only diagnostics, the timetable key moved onto the whiteboard, lid overlay removed, door lean-in, drawn water arc, in-page lines for notices, rules and the card.
 14. Books still didn't fit graphically; two fonts max; globe should spin; trolley see-through; the rectangular room and door animation unconvincing (open doorways = walkable, closed = locked, as in Dark Dome); mobile browser needs full screen. → build t: shelf close-ups are generated pictures with titles on the spines; Caprasimo + Atkinson only; globe spins; alpha hardened on every cut-out; library rebuilt as a square room, doorways drawn open with a glimpse beyond, zoom-through transition; full-screen prompt and toggle.
 13. Shelf books were flat buttons, a mismatch with the art; the Art slip could be taken before the Music one ("That's all three" while missing one); the hat looked transparent; the library felt six-sided. → build s: generated book spines with titles along them, slips in strict order, hat re-cut with a true-white key and no sunlight overlay, the library rebuilt as a rectangle with two-view long walls that pan.
+15. The level felt too linear and too short. → Stage 1 rebuilt as five rooms (art room and hall added) with three parallel trails, each ending in a two-input lock, after reading how Rusty Lake and Dark Dome structure their puzzles; the real school researched for flavour only (an indoor hall, house points, STEM week, an art room), with no names, mottos, house names or staff. Rules in 4c.

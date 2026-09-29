@@ -119,22 +119,26 @@ Decided on 28 Sept 2026 (the owner left it to Claude):
 ## Mary's story (age 10)
 
 ### Stage 1: Last day of school — Knightsbrook International School — difficulty 3
-Built as a playable draft in `next/index.html`. Three rooms:
-- **Classroom 5H** (square, 4 views): whiteboard, supplies cupboard and Mr Hollis's desk; the window wall with the bean plants and a plane in the sky; door to the corridor, coat pegs and the lost-property box; the timetable wall with the class's paintings, a clock, a bookshelf, Nutmeg's cage on a cabinet, a plant, Mary's desk with the envelope, and her bag. Class rules and a world map hang on the side walls and zoom when tapped. She starts facing her desk.
-- **Corridor** (square, 4 views): the lockers (Mary's is the purple one) with certificates above and a bench; the library doors with a water fountain and the trophy cabinet; the notice board (summer fair, swimming gala, lost cat Biscuit, house points) with the bonus riddle card; the doors to 5H and 5K under bunting.
-- **Library** (long, 6 views): Science shelf, the globe and a rock collection; Music shelf (with the gap and sticky note) and the listening corner; the window wall with the window seat and a rug; Art shelf and the returns trolley under a "returned books go on the trolley" notice; Stories shelf, a reading rug and the storytime chair; doors to the corridor and the librarian's desk ("Back soon!") under a QUIET PLEASE sign.
 
-Mr Hollis is Mary's (invented) teacher. Everyone else is at the goodbye party in the playground.
+Version 2 (29 Sept 2026), designed after reading how Rusty Lake and Dark Dome structure their puzzles: the goal is visible early, three threads run in parallel, each ends in a lock that needs two different kinds of input, clues cross rooms, and every thread yields one piece for the final lock. The school flavour is borrowed safely from a real Singapore school on one floor of an office tower: an indoor hall used for assembly, a small library with a story chair, lockers and lost property in the corridor, an art room with a drying rack, house points, monsoon rain outside.
 
-Puzzles:
-- Envelope on Mary's desk: the rules, and Riddle 1 ("At night I'm full of lights, but I'm not a city"). Notes stay in the inventory and can be re-read.
-- Riddle 1 → *The Night Sky* on the Science shelf → slip "SCIENCE on THURSDAY" + Riddle 2 ("eighty-eight keys, but I can't open a single door").
-- Riddle 2 → the Music shelf has a gap: "Returned today. See the trolley." → *Playing the Piano* on the returns trolley → slip "MUSIC on TUESDAY" + Riddle 3 ("full of colour, but I'm not a rainbow; brushes are my best friends").
-- Riddle 3 → *The Big Book of Painting* on the Art shelf → slip "ART on WEDNESDAY".
-- Back in the classroom, the timetable (days down the side, periods 1 to 6 along the top) turns each lesson into a number: Science Thursday 4, Music Tuesday 3, Art Wednesday 6.
-- Mary's locker (three dials, checked only when she taps Open) → 4 3 6 → her report and a postcard from Nana with a moth in the corner.
+**Five rooms**, all square, doorways drawn open:
+- **Classroom 5H** (whiteboard wall with the key to the timetable pictures; window wall with the bean plants; door wall to the corridor with coat pegs and lost property; timetable wall with Mary's desk, Nutmeg and the clock at twenty to three). She starts facing her desk.
+- **Corridor** (the lockers; the open library doors with the fountain and trophy cabinet; the notice board with the bonus card and the open doorway to the hall; the open doorway to 5H and the open doorway to the art room).
+- **Library** (Science and Music shelves with the globe and rocks; window seat and storytime chair; open doors back and Mrs Ng's desk; Art shelf, returns trolley and Stories shelf).
+- **Art room** (drying rack with four paintings, one of them Mary's moth; the paint cupboard with its three colour dials and the shelf of paint pots; open doorway back and a shelf of clay creatures; the sink with the brush jar and three aprons, one splattered with paint).
+- **Hall** (the stage with four coloured chime bars under a HAPPY HOLIDAYS banner; the STEM week cabinet with a star on its lock; the open doorway back and a bench; the indoor playground with a stack of soft blocks and a little slide).
+
+**The goal, seen early:** Mary's purple locker in the corridor, three dials. The envelope on her desk holds all three riddles at once, so all three threads open together.
+
+- **Thread A, Science.** Riddle 1 ("At night I'm full of lights, but I'm not a city") → *The Night Sky* on the Science shelf holds a note: "The key to the stars is in my art apron, the one with the paint on it. Mr H" → the splattered apron in the art room → a small key with a star on it → the star-locked STEM cabinet in the hall → slip "SCIENCE on THURSDAY". (item + pairing symbol; library → art room → hall)
+- **Thread B, Music.** Riddle 2 ("eighty-eight keys, but I can't open a single door") → the Music shelf has a gap and a sticky note "Returned today. See the trolley" → *Playing the Piano* on the trolley holds a page of music with four coloured notes → the four chime bars on the hall stage, struck in that order → the stage drawer opens → slip "MUSIC on TUESDAY". But the beater is missing: it is under the soft blocks in the hall's indoor playground; tapping the blocks topples them. (item + sequence; library → hall)
+- **Thread C, Art.** Riddle 3 ("full of colour, but I'm not a rainbow; brushes are my best friends") → *The Big Book of Painting* on the Art shelf holds a note: "Your slip is locked in the paint cupboard. My moth knows the colours. Mr H" → the drying rack: Mary's painting is the moth, with three colour stripes under it → the paint cupboard's three colour dials, checked only when you tap Open → slip "ART on WEDNESDAY". (observation + code; library → art room)
+- Built values: the tune is green, red, blue, yellow (page 12 of *Playing the Piano*, drawn by the game); the moth's stripes and the cupboard's dials are purple, green, orange (the dials turn through the six pots on the shelf: red, yellow, blue, green, orange, purple). The star key waits in the splattered apron's pocket only once the Night Sky note has been read; the beater lies under the soft blocks and can be found any time.
+- **Convergence.** Three slips → the timetable on the classroom wall, read with the picture key Mr Hollis drew on the whiteboard → 4, 3, 6 → the locker → report and Nana's postcard. The last bell.
 - Timetable: Mon En Ma Sc Ar PE Mu · Tue Ma En Mu Ge Sc Li · Wed Sc Ma En PE Mu Ar · Thu En Ar Ma Sc Li PE · Fri Ma Mu Ar En PE Sc.
-- **Night Moth:** the bonus riddle on the corridor notice board: "Someone in London loves postcards and moths. Spell her name with the first letters of four stories." On the Stories shelf, tapping *Nobody's Garden*, *A Quiet Moon*, *Nine Lanterns* and *Along the River* spells NANA (the other two, *Jam for Tea* and *Owls at Dusk*, are decoys).
+- **Night Moth:** the bonus card on the corridor notice board: "Someone in London loves postcards and moths. Spell her name with the first letters of four stories." On the Stories shelf, *Nobody's Garden*, *A Quiet Moon*, *Nine Lanterns* and *Along the River* spell NANA.
+- Mr Hollis is Mary's (invented) teacher; Mrs Ng the (invented) librarian. Everyone else is at the party in the hall's playground… no: at the goodbye party outside. Nutmeg gives hints in the classroom; the moth everywhere else.
 
 ### Stage 2: Packing day — the family flat — difficulty 3
 Built as a playable draft in `next/index.html`. Three rooms:
