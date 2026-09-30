@@ -124,6 +124,12 @@ The working rules for every room in the landscape game, distilled from the owner
 - A stage or a room never opens on a blank. The loading screen is the moth, "Opening your classroom…" and a bar that fills as pictures arrive. Only the first view's wall and cut-outs are waited for; the rest of the room, then the other rooms, load quietly behind, so a stage opens in a second or two on a good connection instead of after the whole 9 MB.
 - Turning to a wall that has not arrived yet fades it in when it does; cut-outs draw themselves as they land.
 
+## 4j. First-time tips and drag moments (30 Sept 2026)
+
+- The moth says five tips once per device, each at the first moment it is useful and never over a note, the menu, a card or another line: tap and the arrows (a few seconds into the first room), the strip (first thing picked up), holding (first thing held), combining (two usable things in the strip), and the notebook and the long press (a minute or so in, unless the notebook has already been opened). `TIPS` in the engine; spoken as `tip.<name>`.
+- A drag moment is a close-up the player must pull something across before the story goes on (the owner's curtain idea from the games he plays): `openDrag({pic, tab, path, …})` draws the picture, a pull tab and the pulled part behind it; the tab must be taken hold of near where it sits, progress can only creep forward, a stray tap gets a line, letting go past the end finishes with a sound. The first is the suitcase zip at the end of packing day (the path follows the zip round the lid's edge, three points measured on the grid). Blinds, curtains and bolts later use the same call.
+- Drag paths are polylines in picture percentages; the tab's box keeps the cut-out's proportions like any other cut-out.
+
 ## 5. Sound and music
 
 - Effects are made in the browser (Web Audio) and must be loud enough for a tablet speaker: taps 0.3, knocks 0.4, chimes 0.25. They start on the first real tap.
@@ -165,8 +171,8 @@ The owner's brief: finish the feel and navigation before more levels. Inspiratio
 2. ~~Character voices.~~ Done in build 2026-09-30g as one voice, the moth's (section 4h). Still to do later: Mum's four lines in her own voice; for Zaina everything shown must be spoken.
 3. ~~Loading feel.~~ Done in build 2026-09-30h (section 4i).
 4. ~~Sound and music polish.~~ Done in build 2026-09-30h: a title theme, cross-fades, rain, birds and party (section 5).
-5. **A drag moment.** One single-scene action the player must perform before the story goes on: zipping the suitcase shut by dragging the zip across at the end of packing day is the natural one (and the school's could be pulling the locker door). Needs a drag gesture in the engine. Medium effort, medium to high impact.
-6. **First-time tips.** One line each for tap, hold, pick-up-and-use and the moth button, the first time each is possible. Low effort, medium impact; better once voices exist.
+5. ~~A drag moment.~~ Done in build 2026-09-30i: the suitcase zip (section 4j).
+6. ~~First-time tips.~~ Done in build 2026-09-30i (section 4j); the five tip lines are recorded with the next voice run.
 7. **A postcards page** (the achievements idea): the postcards collected so far, one per stage, plus the Night Moth stars. Low effort once there are more stages.
 8. ~~Who helps in the flat~~: the moth, everywhere (owner, 30 Sept). **The moth's name** is still TO DECIDE.
 9. Housekeeping before this replaces the live game: service worker and manifest for the landscape engine; Elliot's and Zaina's stories rebuilt in it.
@@ -195,3 +201,4 @@ The owner's brief: finish the feel and navigation before more levels. Inspiratio
 20. Backlog item 1: the cog with tabbed settings, help and about, separate music and effects sliders, and confirmations before any wipe. → build 2026-09-30f, rules in 4g.
 21. Backlog item 2: a moth character and one voice for it, used throughout all three stories. → build 2026-09-30g, rules in 4h.
 22. Backlog items 3 and 4: the loading screen with a bar and per-view opening; a title theme, cross-faded stage tracks, rain in the flat, birds and party at school. → build 2026-09-30h, rules in 4i and 5.
+23. Backlog items 6 and 5: the moth's five first-time tips, and the drag gesture with the suitcase zip as its first moment. → build 2026-09-30i, rules in 4j.

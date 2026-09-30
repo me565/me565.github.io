@@ -158,6 +158,14 @@ button{font:inherit;color:inherit;cursor:pointer}
 .hs{transition:box-shadow .25s, background .25s}
 #hots.reveal .hs:not(.secret){box-shadow:0 0 0 calc(var(--u)*.35) rgba(255,246,214,.95), 0 0 calc(var(--u)*2.2) rgba(255,196,80,.85);background:rgba(255,230,150,.16)}
 
+/* a drag moment: something the player must pull across a picture (the suitcase zip) before the story goes on */
+.dragpic{touch-action:none;cursor:grab}
+.dragpic.dragging{cursor:grabbing}
+.dragpic .dtab{position:absolute;transform:translate(-50%,-18%);pointer-events:none;filter:drop-shadow(0 calc(var(--u)*.3) calc(var(--u)*.4) rgba(0,0,0,.45))}
+.dragpic .dtab img{width:100%;height:100%;display:block}
+.dragpic svg.dline{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+@media (prefers-reduced-motion:no-preference){.dragpic .dtab.nudge{animation:nudge 1.4s ease-in-out infinite}@keyframes nudge{0%,100%{transform:translate(-50%,-18%)}50%{transform:translate(-35%,-18%)}}}
+
 /* the inventory strip */
 .inv{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:calc(var(--u)*1);padding:0 calc(var(--u)*.2)}
 .slot{aspect-ratio:1/1;min-width:0;overflow:hidden;border-radius:calc(var(--u)*1.2);background:var(--slot);box-shadow:inset 0 0 0 calc(var(--u)*.22) var(--slot-line);border:0;padding:12%;display:grid;place-items:center}
@@ -443,7 +451,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-30h';
+const BUILD = '2026-09-30i';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -760,6 +768,9 @@ function render(){
       hots.appendChild(s);
     }
   });
+  const usable = S.got.filter(k => ITEMS[k] && !ITEMS[k].note);
+  if (usable.length >= 1) tip('pickup', 2500);
+  if (usable.length >= 2) tip('combine', 2500);
   const inv = $('inv'); inv.innerHTML = '';
   for (let i = 0; i < 10; i++){
     const key = S.got[i];
@@ -769,7 +780,7 @@ function render(){
       b.onclick = () => {
         if (S.held && S.held !== key){ const item = S.held; S.held = null; useItem(item, 'item:' + key, null); return; }
         if (ITEMS[key].note && !ITEMS[key].usable){ sfx('paper'); openNote(ITEMS[key].note); return; }
-        sfx('tap'); S.held = S.held === key ? null : key; render(); say(S.held ? `Holding the ${ITEMS[key].name}. Tap where it goes.` : ''); }; }
+        sfx('tap'); S.held = S.held === key ? null : key; render(); say(S.held ? `Holding the ${ITEMS[key].name}. Tap where it goes.` : ''); if (S.held) tip('hold', 3500); }; }
     else b.setAttribute('aria-hidden', 'true');
     inv.appendChild(b);
   }
@@ -815,6 +826,25 @@ function openPic(src, aspect, title, overlay, width){
   openCloseup(`<div class="card pic" style="width:calc(var(--u)*${width || 58})"><div class="picwrap" id="picwrap" style="aspect-ratio:${aspect};background-image:url(${src}?v=${BUILD})">${overlay || ''}${title ? `<p class="otitle">${title}</p>` : ''}</div></div>`);
 }
 /* the end of a stage: a card with the story's last line, and the way on to the next stage */
+/* A drag moment: a close-up picture with a tab the player pulls along a path (in picture percentages) from start to end.
+   Progress can only go forward a little at a time, the tab must be picked up near where it sits, and the pulled part is drawn
+   behind it; letting go past the end finishes. Used for the suitcase zip; later for blinds, curtains and bolts. */
+function openDrag(o){
+  const pts = o.path, segs = []; let total = 0;
+  for (let i = 1; i < pts.length; i++){ const L = Math.hypot(pts[i][0]-pts[i-1][0], (pts[i][1]-pts[i-1][1])*9/16); segs.push(L); total += L; }
+  const at = k => { let d = k*total; for (let i = 0; i < segs.length; i++){ if (d <= segs[i] || i === segs.length-1){ const u = Math.min(1, d/segs[i]); return [pts[i][0] + (pts[i+1][0]-pts[i][0])*u, pts[i][1] + (pts[i+1][1]-pts[i][1])*u]; } d -= segs[i]; } return pts[pts.length-1]; };
+  const nearest = (x, y) => { let best = 0, bd = 1e9; for (let k = 0; k <= 200; k++){ const [px, py] = at(k/200); const d = Math.hypot(px-x, (py-y)*9/16); if (d < bd){ bd = d; best = k/200; } } return [best, bd]; };
+  openCloseup(`<div class="card shelf"><div class="shelfpic dragpic" id="dragpic" style="background-image:url(${o.pic}?v=${BUILD})"><svg class="dline" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true"><polyline id="dlineA" fill="none" stroke="${o.lineColour || '#4a352a'}" stroke-width="${o.lineWidth || 22}" stroke-linecap="round" stroke-linejoin="round" points=""/><polyline id="dlineB" fill="none" stroke="${o.lineLight || '#a8844a'}" stroke-width="${(o.lineWidth || 22)*0.28}" stroke-linecap="round" stroke-linejoin="round" points=""/></svg><div class="dtab nudge" id="dtab" style="width:${o.tabW}%;aspect-ratio:${o.tabRatio}"><img src="${o.tab}?v=${BUILD}" alt=""></div><p class="otitle">${o.title}</p></div><div class="shelffoot"><p class="ofb" id="dragFb">${o.label}</p></div></div>`);
+  const pic = $('dragpic'), tab = $('dtab'); let k = 0, dragging = false, lastRasp = 0, done = false;
+  const draw = () => { const [x, y] = at(k); tab.style.left = x + '%'; tab.style.top = y + '%';
+    const pl = []; const n = Math.max(2, Math.round(k*60)); for (let i = 0; i <= n; i++){ const [px, py] = at(k*i/n); pl.push(`${px*16},${py*9}`); } const str = k > 0.01 ? pl.join(' ') : ''; $('dlineA').setAttribute('points', str); $('dlineB').setAttribute('points', str); };
+  const pos = e => { const r = pic.getBoundingClientRect(); return [(e.clientX - r.left)/r.width*100, (e.clientY - r.top)/r.height*100]; };
+  pic.onpointerdown = e => { const [x, y] = pos(e), [tx, ty] = at(k); if (Math.hypot(x-tx, (y-ty)*9/16) > 14){ $('dragFb').textContent = o.missLabel || o.label; return; } dragging = true; tab.classList.remove('nudge'); pic.classList.add('dragging'); pic.setPointerCapture(e.pointerId); e.preventDefault(); };
+  pic.onpointermove = e => { if (!dragging || done) return; const [x, y] = pos(e); const [nk, d] = nearest(x, y); if (d > 22) return; const next = Math.max(k - 0.08, Math.min(nk, k + 0.06)); if (next > k && next - lastRasp > 0.04){ rasp(next); lastRasp = next; } k = Math.max(0, Math.min(1, next)); draw(); if (k >= 0.985) finish(); };
+  const finish = () => { if (done) return; done = true; dragging = false; k = 1; draw(); pic.classList.remove('dragging'); sfx('pickup'); $('dragFb').textContent = o.doneLabel || 'Done!'; setTimeout(() => { closeCloseup(); o.done(); }, 700); };
+  pic.onpointerup = pic.onpointercancel = e => { if (!dragging) return; dragging = false; pic.classList.remove('dragging'); if (k >= 0.9) finish(); else if (k > 0.02) $('dragFb').textContent = o.moreLabel || 'Keep going, all the way across.'; };
+  draw();
+}
 /* the end of a stage: a chime, the moth crosses the room, then Mary's postcard home arrives with the story's last line.
    The stage gives the postcard's picture and text; the engine draws the card, the stamp (the child's portrait) and the way on. */
 function showEnd(title, text, small){
@@ -830,7 +860,7 @@ function showEnd(title, text, small){
 function stageCard(then){
   const c = STAGE.card; if (!c){ then(); return; }
   const el = $('stagecard'); el.innerHTML = `<div class="in"><span class="place">${c.place}</span><h2>${STAGE.title}</h2><p>${c.text}</p><div class="go"><button class="ob" id="cardGo">Begin</button></div></div>`;
-  el.hidden = false; speak(`${S.stage}.card`); const go = () => { el.hidden = true; el.onclick = null; then(); speak(`${S.stage}.intro`); }; el.onclick = go; $('cardGo').onclick = e => { e.stopPropagation(); go(); };
+  el.hidden = false; speak(`${S.stage}.card`); const go = () => { el.hidden = true; el.onclick = null; then(); speak(`${S.stage}.intro`); tip('tap', 6000); tip('help', 75000); }; el.onclick = go; $('cardGo').onclick = e => { e.stopPropagation(); go(); };
 }
 
 /* ---------- using a held item on something: USES maps "item>target" to what happens; anything else gets a friendly line ---------- */
@@ -850,9 +880,31 @@ function act(id){
 
 /* Mary's notebook: the to-do list. Each trail shows how far it has got; tap one and the helper's hint for that trail
    goes from a nudge to the answer over three taps. Underneath, what Mary has noticed, so nothing has to be written down. */
+/* First-time tips: the moth says each one once per device, at the first moment it is useful, and never over a note or another line.
+   Shown in the message line and spoken (voice key tip.<name>). */
+const TIPS = {
+  tap:'Tap anything you are curious about. The little arrows at the sides turn you round.',
+  pickup:'Things you pick up wait in the strip below. Tap one to hold it, then tap where it belongs.',
+  hold:'Now tap the thing it goes with. Tap it in the strip again to put it down.',
+  combine:'Two things in the strip can go together: hold one, then tap the other.',
+  help:'If you get stuck, tap me at the top: Mary’s notebook has a hint for every riddle. And hold a finger on the room to see everything you can tap.'
+};
+let tipsSeen = new Set(); try{ tipsSeen = new Set(JSON.parse(localStorage.getItem('mothhouse.tips') || '[]')); }catch(e){}
+const tipTimers = {};
+function tip(name, delay = 0){
+  if (tipsSeen.has(name) || !TIPS[name]) return;
+  clearTimeout(tipTimers[name]);
+  tipTimers[name] = setTimeout(() => {
+    if (tipsSeen.has(name)) return;
+    if (!$('closeup').hidden || !$('menu').hidden || !$('stagecard').hidden || (voiceEl && !voiceEl.paused) || !$('endUI').hidden){ tip(name, 1500); return; } /* not now: try again shortly */
+    tipsSeen.add(name); try{ localStorage.setItem('mothhouse.tips', JSON.stringify([...tipsSeen])); }catch(e){}
+    say(`<b>The moth whispers:</b> ${TIPS[name]}`); speak('tip.' + name);
+  }, delay);
+}
 function hint(){ openNotebook(); }
 function hintText(i){ S.hint[i] = Math.min((S.hint[i] ?? -1) + 1, 2); save(); speak(`${S.stage}.hint.${i}.${S.hint[i]}`); return `<b>${STAGE.speaker()}:</b> ${HINTS[i].tips[S.hint[i]]}`; }
 function openNotebook(){
+  if (!tipsSeen.has('help')){ tipsSeen.add('help'); clearTimeout(tipTimers.help); try{ localStorage.setItem('mothhouse.tips', JSON.stringify([...tipsSeen])); }catch(e){} }
   const rows = STAGE.rows(), noticed = STAGE.noticed ? STAGE.noticed() : [];
   const list = rows.map(([i, label, state, done]) => `<button class="nbrow${done ? ' done' : ''}" data-i="${i}"><span>${label}</span><span class="st">${state}</span></button>`).join('');
   openCloseup(`<div class="card note print nb"><span class="head">Mary’s notebook</span><div class="nblist">${list}</div><p class="nbfb" id="nbFb">${rows.some(r => !r[3]) ? 'Tap a line and ' + STAGE.helper() + ' will help with it.' : `<b>${STAGE.speaker()}:</b> That’s everything. Well done!`}</p>${noticed.length ? `<span class="nbsmall"><b>Noticed:</b> ${noticed.join(' ')}</span>` : ''}</div>`);
@@ -907,6 +959,8 @@ function sfx(kind){
     case 'pickup': [659, 784, 1047].forEach((f, i) => tone(f, 'triangle', .25, .01, .35, t + i * .09)); break;
   }
 }
+/* the rasp of a zip moving a little */
+function rasp(k){ if (!vol.fx || !audio()) return; noise(.12 + .1*k, .004, .05, 1800 + 900*k, 2.5); }
 /* a chime bar: a clear ringing note with a little of its overtones */
 function chime(f){ if (!vol.fx || !audio()) return; if (AC.state !== 'running') AC.resume(); tone(f, 'sine', .3, .004, 1.1); tone(f*2.76, 'sine', .07, .004, .5); tone(f*5.4, 'sine', .03, .003, .25); noise(.08, .003, .04, 3000, .8); }
 /* The moth's voice: every story-led line (hints, notes, cards, postcards) was recorded once into art/voice/<key>.mp3
@@ -1139,8 +1193,8 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-09-30h"></script>
-<script src="stages/packing.js?v=2026-09-30h"></script>
+<script src="stages/school.js?v=2026-09-30i"></script>
+<script src="stages/packing.js?v=2026-09-30i"></script>
 <script>boot();</script>
 </body>
 </html>

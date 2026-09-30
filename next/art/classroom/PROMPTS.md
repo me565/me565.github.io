@@ -107,3 +107,5 @@ Twelve walls from a home version of the landscape style text ("a family's flat i
 ## The moth (30 Sept 2026)
 
 `next/art/portraits/moth.png` (front-on, wings spread) and `moth-speak.png` (three-quarters, wings half raised, glowing): "a small, friendly moth character… soft golden-cream wings with a faint warm glow and small round eye-spots in dusky rose, a plump fuzzy body in warm brown, two feathery antennae, and a kind, expressive face with two big dark shining eyes and a tiny smile. Cute but not babyish; calm, wise and warm, like a night light that has come to life", on white with the landscape style crop as reference, keyed and hardened like the other cut-outs.
+
+`next/art/flat/closeup-suitcase.jpg` (30 Sept 2026): the suitcase closed on the duvet with its zip drawn OPEN all along the lid's edge and no pull, so the game can draw the closed part and the pull as it is dragged; `layer-zip.png` is the brass pull on white.

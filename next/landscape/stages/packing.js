@@ -158,7 +158,7 @@ const HINTS = [
   {thread:3, goal:() => got('wrapped') || got('present') || packed('present'), tips:['A present should be wrapped.', 'There is a roll of moth paper on Dad’s desk.', 'Take the paper from Dad’s desk, then tap the paper in the strip and tap the kaya.']},
   {thread:3, goal:() => got('present') || packed('present'), tips:['The paper springs open. It needs tape.', 'Your pencil case on your desk has sticky tape in it.', 'Take the tape from your pencil case, tap it in the strip, then tap the half-wrapped present.']},
   {goal:() => PACK.every(packed), tips:['Everything on the list goes in the suitcase.', 'The suitcase is open on your bed.', 'Tap each thing in the strip, then tap the suitcase.']},
-  {goal:() => S.done, tips:['Zipped! Listen for the taxi.', 'Tap the suitcase once more.', 'Tap the suitcase.']}
+  {goal:() => S.done, tips:['Everything is in. Now the suitcase has to be shut.', 'Tap the suitcase, then pull the zip across with your finger.', 'Tap the suitcase, take hold of the zip pull and drag it all the way round to the right corner.']}
 ];
 const THREADS = {1:['Find the torch', 'torch', ['', 'postcard read', 'Elliot’s note read', 'password seen', 'fort open']],
   2:['Find the passports', 'passports', ['', 'desk key found', 'drawer stuck', 'Mum’s tip']],
@@ -217,11 +217,17 @@ function openDrawing(){
 function suitcaseTap(){
   if (S.done){ say('Packed, zipped and ready.'); return; }
   const missing = PACK.filter(k => !packed(k));
-  if (!missing.length){ S.done = true; save(); sfx('pickup'); say('Zip! And a horn outside: “Taxi’s here!” calls Mum.');
+  if (!missing.length){ if (!S.zipped){ openZip(); return; } S.done = true; save(); sfx('pickup'); say('Zip! And a horn outside: “Taxi’s here!” calls Mum.');
     setTimeout(() => showEnd('Taxi’s here!', 'Packed! The torch was in Elliot’s secret base (password: sun, star, moon), the passports were in Dad’s stuck drawer (Mum knew the trick), and I wrapped a jar of kaya for Nana in the moth paper. Fourteen hours to London. Elliot has his dinosaur, Zaina has Peanut, and I have my jumper on top.', S.moths.length === 6 ? 'I found all six paper moths in the flat! ★' : `I found ${S.moths.length} of the six paper moths hidden in the flat.`), 800); return; }
   say('The suitcase, open on the bed. Still to pack: ' + missing.map(k => ITEMS[k].name).join(', ') + '.');
 }
-function pack(key){ return () => { drop(key); S.packed.push(key); save(); render(); sfx('pickup'); animate({anim:'lift', layer:'in'+key}); const missing = PACK.filter(k => !packed(k)); say(missing.length ? `In it goes. Still to pack: ${missing.map(k => ITEMS[k].name).join(', ')}.` : 'That’s everything on the list! Tap the suitcase to zip it.'); }; }
+/* the last thing: the lid comes down and the zip must be pulled across by hand, from the left corner round to the right */
+function openZip(){
+  openDrag({pic:A+'closeup-suitcase.jpg', title:'Zip it shut', tab:A+'layer-zip.png', tabW:4.2, tabRatio:'99/300', path:[[16,41],[29,64],[84,46]],
+    label:'Everything’s in. Pull the zip all the way across.', missLabel:'Take hold of the zip pull first.', moreLabel:'Keep pulling, right to the corner.', doneLabel:'Zzzzip!',
+    done:() => { S.zipped = true; save(); render(); suitcaseTap(); }});
+}
+function pack(key){ return () => { drop(key); S.packed.push(key); save(); render(); sfx('pickup'); animate({anim:'lift', layer:'in'+key}); const missing = PACK.filter(k => !packed(k)); say(missing.length ? `In it goes. Still to pack: ${missing.map(k => ITEMS[k].name).join(', ')}.` : 'That’s everything on the list! Tap the suitcase and zip it shut.'); }; }
 const USES = {
   'torch>b_case':pack('torch'), 'passports>b_case':pack('passports'), 'present>b_case':pack('present'), 'jumper>b_case':pack('jumper'),
   'kaya>b_case':() => { sfx('knock'); say('Not like that! A present should be wrapped first.'); },
@@ -309,7 +315,7 @@ function rows(){
       const done = got(item) || packed(item), p = steps.length - idx.length;
       out.push([done ? -1 : idx[0], label, packed(item) ? '✓ packed' : done ? '✓ found' : (steps[p] || 'not started'), done]);
     });
-    if (PACK.every(k => got(k) || packed(k))) out.push([HINTS.findIndex(h => !h.thread && !h.goal()), 'Everything into the suitcase', S.done ? '✓ zipped' : `${PACK.filter(packed).length} of 3 packed`, S.done]);
+    if (PACK.every(k => got(k) || packed(k))) out.push([HINTS.findIndex(h => !h.thread && !h.goal()), 'Everything into the suitcase', S.done ? '✓ zipped' : PACK.every(packed) ? 'zip it shut' : `${PACK.filter(packed).length} of 3 packed`, S.done]);
   }
   return out;
 }
@@ -341,7 +347,7 @@ return {
   track:'../art/music/flat.mp3', ambient:'rain', next:null,
   intro:'<b>Packing day.</b> Rain outside, the taxi at four, and a list from Mum on the wall by your door.',
   start:{room:'bedroom', view:0},
-  fresh:() => ({packed:[], moths:[], listRead:false, postcardRead:false, ehnoteRead:false, drawingSeen:false, fortOpen:false, keyTaken:false, keyTurned:false, drawerStuck:false, mumTip:false, passportsOut:false, kayaTaken:false, paperGone:false, tapeGone:false}),
+  fresh:() => ({packed:[], moths:[], zipped:false, listRead:false, postcardRead:false, ehnoteRead:false, drawingSeen:false, fortOpen:false, keyTaken:false, keyTurned:false, drawerStuck:false, mumTip:false, passportsOut:false, kayaTaken:false, paperGone:false, tapeGone:false}),
   rooms:ROOMS, walls:WALLS, doors:DOORS, hots:HOTS, layers:LAYERS, extra:EXTRA, notes:NOTES, items:ITEMS, hints:HINTS, uses:USES,
   act, sparkle, rows, noticed, speaker, helper:() => 'the moth'
 };

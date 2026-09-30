@@ -14,4 +14,6 @@ for (const st of ['school', 'packing']){
   const m = src.match(/showEnd\('([^']*)',\s*'([^']*)'/); if (m) out[`${st}.postcard`] = m[2];
 }
 out['nb.done'] = 'That’s everything. Well done!'; out['nb.that'] = 'That one’s done. Well found.';
+const eng = fs.readFileSync(`${__dirname}/../next/landscape/index.html`, 'utf8'); const tm = eng.match(/const TIPS = \{([\s\S]*?)\n\};/);
+if (tm) for (const m of tm[1].matchAll(/(\w+):'((?:[^'\\]|\\.)*)'/g)) out['tip.' + m[1]] = m[2];
 fs.writeFileSync(__dirname + '/lines.json', JSON.stringify(out, null, 1)); console.log(Object.keys(out).length, 'lines,', Object.values(out).join(' ').split(' ').length, 'words');
