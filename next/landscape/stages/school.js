@@ -155,7 +155,7 @@ const LAYERS = {
     {src:'../art/classroom/layer-plant4-pot.png', l:59.3, t:57.70, w:7.7, h:8.80, shadow:.5}],
   c3:[
     {src:'../art/classroom/layer-coat.png', group:'coat', l:67.1, t:50.6, w:10.8, h:24.2, lit:.45},
-    {src:'../art/classroom/layer-lost.png', group:'lost', l:79.4, t:79.6, w:8.4, h:7.5},
+    {src:'../art/classroom/layer-lost.png', group:'lost', l:79.2, t:77.2, w:8.8, h:7.85},
     /* the front of the box, cut from the wall picture itself, drawn over the things inside it */
     {src:'../art/classroom/layer-boxfront.png', l:75.78, t:82.31, w:13.85, h:14.72},
     {src:'../art/classroom/layer-lid.png', group:'lid', l:27.4, t:68.6, w:10.4, h:10.7}],
@@ -248,25 +248,25 @@ const NOTES = {
 };
 /* Each shelf close-up is a generated picture of the real shelf; `slots` are the books' boxes on it in picture percentages [left, top, right, bottom]. */
 const SHELVES = {
-  sci:{title:'Science shelf', pic:'../art/school/shelf-sci.jpg', slots:[[35.5,22,43,90],[43.5,21,49.5,90],[50,21,56.5,90],[57,23,66,90,6]], books:[
+  sci:{title:'Science shelf', pic:'../art/school/shelf-sci.jpg', slots:[[39.3,22,39.3,88,7],[46.5,21.5,46.5,88,6],[53.2,21,53.2,88,6.5],[60.7,23,62.5,89,7]], books:[
     ['Volcanoes!','Hot, rocky and a bit loud. No slip inside.'],
     ['The Night Sky','noteStar'],
     ['Bugs Up Close','Very close. Too close! No slip inside.'],
     ['Weather Watch','All about rain. Singapore has plenty. No slip inside.']]},
-  mus:{title:'Music shelf', pic:'../art/school/shelf-mus.jpg', slots:[[9,16,19,91],[20,23,33,91,5],[43,39,56,60]], books:[
+  mus:{title:'Music shelf', pic:'../art/school/shelf-mus.jpg', slots:[[13.5,17,14,90,9.5],[24,25,25,89,7],[43,39,56,60]], books:[
     ['Drums for Beginners','Boom, boom, tish! No slip inside.'],
     ['Songs of the Sea','Sailors’ songs. No slip inside.'],
     ['gap','A sticky note in the gap: “Returned today. See the trolley.”']]},
-  art:{title:'Art shelf', pic:'../art/school/shelf-art.jpg', slots:[[32,25,38.5,90],[38.5,33,45,90],[46,24,54,90,-6],[55,29,63,90]], books:[
+  art:{title:'Art shelf', pic:'../art/school/shelf-art.jpg', slots:[[35.3,26,35.3,89,6],[41.5,35,41.5,89,6],[49.7,26,49.5,89,7.5],[59,30,59,89,8]], books:[
     ['Clay Creatures','Squishy animals to make. No slip inside.'],
     ['Sketching','Pencils, and more pencils. No slip inside.'],
-    ['The Big Book of Painting','notePaint'],
+    ['The Painting Book','notePaint'],
     ['Paper Folding','How to fold paper birds, boats and moths. No slip inside.']]},
-  trolley:{title:'Returns trolley', pic:'../art/school/shelf-trolley.jpg', slots:[[45,19,58,83],[64,19,79,84,-6],[80,16,91,84]], books:[
+  trolley:{title:'Returns trolley', pic:'../art/school/shelf-trolley.jpg', slots:[[50,21,50,82,11],[72,21,74.5,83,10],[85.5,19,85.5,83,11]], books:[
     ['Dinosaur Days','Roar! No slip inside.'],
     ['Playing the Piano','music'],
     ['Football Stars','No slip inside.']]},
-  sto:{title:'Stories shelf', pic:'../art/school/shelf-sto.jpg', slots:[[38.5,20,47,89],[47.5,19,55.5,89],[56,17,64.5,89],[65,19,75,89],[76,20,86,89],[86.5,17,95,89]], books:[
+  sto:{title:'Stories shelf', pic:'../art/school/shelf-sto.jpg', slots:[[42.7,21,42.7,88,8.5],[51.5,21,51.5,88,8],[60.2,18,60.2,88,8.5],[70,20,70,88,10],[81,21,81,88,10],[90.5,19,91,87,8]], books:[
     ['Nobody’s Garden','A secret garden story.'],
     ['Jam for Tea','A story about a greedy bear.'],
     ['A Quiet Moon','A bedtime story.'],
@@ -337,7 +337,7 @@ const HINTS = [
   {thread:3, goal:() => S.got.includes('notePaint'), tips:[
     'Riddle 3: full of colour, and brushes are its best friends.',
     'It’s a book about painting. Try the orange Art shelf in the library.',
-    'Open The Big Book of Painting on the Art shelf.']},
+    'Open The Painting Book on the Art shelf.']},
   {thread:3, goal:() => S.paintOpen, tips:[
     'The note says Mr Hollis’s moth knows the colours.',
     'Mary’s moth painting is on the drying rack in the art room. Look under it.',
@@ -454,10 +454,13 @@ let shelfKey = null;
 function openShelf(key){
   shelfKey = key;
   const sh = SHELVES[key], spelling = key === 'sto' && S.bonus && !S.nightMoth;
-  /* a title is sized to fit its spine (the picture is 58u wide, so 32.6u tall), and a leaning book's title leans with it */
-  const books = sh.books.map(([title], i) => { const [x0,y0,x1,y1,tilt] = sh.slots[i]; const fs = Math.min(1.9, Math.max(1.05, (y1-y0)/100*32.6*0.86/(title.length*0.6))); const box = `left:${x0}%;top:${y0}%;width:${x1-x0}%;height:${y1-y0}%;${tilt ? `transform:rotate(${tilt}deg);` : ''}`; return title === 'gap'
-    ? `<button class="book gap" data-i="${i}" style="${box}"><span>Returned today. See the trolley.</span></button>`
-    : `<button class="book" data-i="${i}" style="${box}" aria-label="${title}"><span style="font-size:calc(var(--u)*${fs.toFixed(2)})">${title}</span></button>`; }).join('');
+  /* each book's slot is the line down the middle of its spine (top x, top y, bottom x, bottom y, width): the title sits on that
+     line, leaning as the book leans, in one size unless the spine is too short for it (the picture is 58u wide, 32.6u tall) */
+  const books = sh.books.map(([title], i) => { const sl = sh.slots[i];
+    if (title === 'gap'){ const [x0,y0,x1,y1] = sl; return `<button class="book gap" data-i="${i}" style="left:${x0}%;top:${y0}%;width:${x1-x0}%;height:${y1-y0}%"><span>Returned today. See the trolley.</span></button>`; }
+    const [xt,yt,xb,yb,w] = sl, cx = (xt+xb)/2, cy = (yt+yb)/2, dxu = (xb-xt)*0.58, dyu = (yb-yt)*0.326, len = Math.hypot(dxu, dyu), ang = Math.atan2(dxu, dyu)*180/Math.PI;
+    const fs = Math.min(1.75, Math.max(1.1, len*0.9/(title.length*0.58))), hPct = len/0.326;
+    return `<button class="book" data-i="${i}" style="left:${cx - w/2}%;top:${cy - hPct/2}%;width:${w}%;height:${hPct}%;transform:rotate(${-ang.toFixed(2)}deg)" aria-label="${title}"><span style="font-size:calc(var(--u)*${fs.toFixed(2)})">${title}</span></button>`; }).join('');
   openCloseup(`<div class="card shelf"><div class="shelfpic" id="books" style="background-image:url(${sh.pic}?v=${BUILD})"><p class="otitle">${sh.title}</p>${books}</div><div class="shelffoot">${spelling ? `<div class="row spellrow"><p class="spell" id="spell">${S.spell || '· · · ·'}</p><button class="ob quiet" id="spellReset">Start again</button></div>` : ''}<p class="ofb" id="shelfFb">${spelling ? 'Tap four stories in order to spell a name.' : 'Tap a book to open it.'}</p></div></div>`);
   $('books').querySelectorAll('.book').forEach(b => b.onclick = () => pickBook(+b.dataset.i));
   const r = $('spellReset'); if (r) r.onclick = () => { S.spell = ''; $('spell').textContent = '· · · ·'; $('shelfFb').textContent = 'Tap four stories in order to spell a name.'; save(); };
