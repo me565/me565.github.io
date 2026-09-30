@@ -39,7 +39,7 @@ const HOTS = {
     {id:'e_jug', l:38, t:64, w:6, h:12, label:'Jug of squash', sound:'tap'}],
   p4:[
     {id:'e_bookcase', l:30, t:56, w:37, h:30, label:'Bookcase', sound:'knock'},
-    {id:'e_cog1', l:60.5, t:50.5, w:5.5, h:6.5, label:'Something brass on top of the bookcase', sound:'tick', secret:true, anim:'lift', layer:'cog1', hideWhen:() => S.cogs.includes(1)},
+    {id:'e_cog1', l:60.5, t:52, w:5.5, h:6.5, label:'Something brass on top of the bookcase', sound:'tick', secret:true, anim:'lift', layer:'cog1', hideWhen:() => S.cogs.includes(1)},
     {id:'e_robot', l:69, t:20, w:9, h:22, label:'The class robot', sound:'tick'},
     {id:'e_beanbag', l:70, t:62, w:23, h:30, label:'Beanbag', sound:'leaf'}],
   g1:[
@@ -63,14 +63,14 @@ const HOTS = {
     {id:'e_chalk', l:28, t:22, w:44, h:56, label:'The chalk wall: the class’s drawing of the finished run', sound:'paper', key:true},
     {id:'e_chalks', l:62, t:76, w:8, h:14, label:'Bucket of chalks', sound:'tap'}]
 };
-const cog = (n, l, t) => ({src:A+'layer-cog.png', group:'cog'+n, l, t, w:2, h:3.56, hideWhen:() => S.cogs.includes(n)});
+const cog = (n, l, t, more) => Object.assign({src:A+'layer-cog.png', group:'cog'+n, l, t, w:2, h:3.56, hideWhen:() => S.cogs.includes(n)}, more || {});
 const LAYERS = {
   p1:[{src:A+'layer-card.png', group:'card', l:80.5, t:57.5, w:5.6, h:15.4, shadow:.5, hideWhen:() => S.done},
       {src:A+'layer-balloons.png', group:'balloons', l:70.5, t:54.5, w:6, h:16.5, idle:'sway', pivot:'bottom', amount:.04, period:4.2}],
   /* Captain: his box is the water in the tank; he wanders across it and back, behind the tank's glass */
   p2:[{src:A+'layer-fish.png', group:'fish', l:17.8, t:64.6, w:7.4, h:8.2, idle:'swim', size:.46, depth:.5, period:12, glass:[17.3, 60.5, 8.2, 14.6], tone:'saturate(.85) brightness(.96)'},
       {src:A+'layer-straight.png', group:'straight', l:58.5, t:74.2, w:7, h:6.1, shadow:.4, hideWhen:() => got('straight') || placed('straight')}],
-  p4:[cog(1, 62.5, 52.7)],
+  p4:[cog(1, 62.5, 54.3, {shadow:.5})],  /* stands on the bookcase top: its base on the board's front edge (58%) */
   g1:[cog(2, 51.8, 59.5)],
   g2:[{src:A+'layer-curve.png', group:'curve', l:33, t:64, w:6, h:12.5, shadow:.4, hideWhen:() => got('curve') || placed('curve')}],
   g3:[cog(3, 73.6, 70.7)]

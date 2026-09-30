@@ -35,21 +35,21 @@ const HOTS = {
     {id:'b_jumper', l:50.5, t:29, w:10, h:18, label:'Purple jumper', sound:'leaf', anim:'swing', layer:'jumper', key:true, hideWhen:() => got('jumper') || packed('jumper')}],
   /* living room */
   l1:[
-    {id:'l_window', l:32, t:11, w:37, h:46, label:'Living-room window', sound:'tap'},
-    {id:'l_desk', l:35, t:64, w:30, h:30, label:"Dad's desk", sound:'knock'},
+    {id:'lv_window', l:32, t:11, w:37, h:46, label:'Living-room window', sound:'tap'},
+    {id:'lv_desk', l:35, t:64, w:30, h:30, label:"Dad's desk", sound:'knock'},
     {id:'l_drawer', l:43, t:69, w:14, h:8, label:"Dad's desk drawer", sound:'knock', key:true},
     {id:'l_paper', l:58, t:44, w:6, h:23, label:'Roll of moth wrapping paper', sound:'paper', anim:'wobble', layer:'paper', key:true, hideWhen:() => S.paperGone},
     {id:'l_hooks', l:71, t:31, w:15, h:23, label:'Keys on hooks', sound:'tick', key:true}],
   l2:[
     {id:'l_shelf', l:16, t:32, w:56, h:15, label:'Shelf', sound:'knock'},
-    {id:'l_globe', l:18.5, t:30, w:8.5, h:15, label:'Durian snow globe', sound:'tap', anim:'wobble', layer:'snowglobe'},
+    {id:'lv_globe', l:18.5, t:30, w:8.5, h:15, label:'Durian snow globe', sound:'tap', anim:'wobble', layer:'snowglobe'},
     {id:'l_orchid', l:59.5, t:29, w:8, h:16, label:'Orchid', sound:'leaf', anim:'bend', layer:'orchid'},
     {id:'l_sofa', l:15, t:62, w:42, h:33, label:'Sofa', sound:'leaf'},
     {id:'l_moth3', l:31, t:89, w:6, h:7, label:'Paper moth under the sofa', sound:'leaf', secret:true, anim:'lift', layer:'moth3', hideWhen:() => S.moths.includes(3)},
     {id:'l_tv', l:62, t:57, w:22, h:37, label:'Television', sound:'tap'}],
   l3:[
     {id:'l_front', l:18, t:26, w:17, h:60, label:'Front door', sound:'knock'},
-    {id:'l_cabinet', l:36, t:63, w:12, h:27, label:'Hall cabinet', sound:'knock'},
+    {id:'lv_cabinet', l:36, t:63, w:12, h:27, label:'Hall cabinet', sound:'knock'},
     {id:'l_halldrawer', l:36.5, t:66, w:11, h:9, label:'Hall drawer, where the torch lives', sound:'knock', key:true},
     {id:'l_fort', l:50, t:62, w:35, h:33, label:"Elliot's blanket fort", sound:'leaf', key:true}],
   l4:[
@@ -247,7 +247,7 @@ const USES = {
   'kaya>b_case':() => { sfx('knock'); say('Not like that! A present should be wrapped first.'); },
   'wrapped>b_case':() => { sfx('knock'); say('It springs open again. It needs tape.'); },
   'key>l_drawer':h => { S.keyTurned = true; drop('key'); save(); render(); sfx('tick'); say('The key turns with a click. Now pull.'); setTimeout(() => openDrawer(h), 500); },
-  'key>l_desk':() => { S.keyTurned = true; drop('key'); save(); render(); sfx('tick'); say('The key turns in the drawer with a click. Now pull.'); setTimeout(openDrawer, 500); },
+  'key>lv_desk':() => { S.keyTurned = true; drop('key'); save(); render(); sfx('tick'); say('The key turns in the drawer with a click. Now pull.'); setTimeout(openDrawer, 500); },
   'key>l_front':() => { sfx('knock'); say('Not the front door key. And nobody goes out without Mum.'); },
   'paper>item:kaya':wrapKaya, 'kaya>item:paper':wrapKaya,
   'tape>item:wrapped':tapeIt, 'wrapped>item:tape':tapeIt,
@@ -273,18 +273,18 @@ function act(id){
     case 'b_wardrobe': say(got('jumper') || packed('jumper') ? 'The wardrobe. Summer things only, now.' : 'The wardrobe. One jumper left on the rail: nobody goes home without their jumper.'); break;
     case 'b_jumper': S.got.push('jumper'); sfx('pickup'); render(); say('Your purple jumper. Mum said something warm for the plane.'); return;
     /* living room */
-    case 'l_window': say('Rain on the window and a plane climbing through it. Tomorrow, that’s you.'); break;
-    case 'l_desk': say(S.keyTurned ? 'Dad’s desk. The drawer is unlocked now.' : 'Dad’s desk. One drawer, with a little keyhole.'); break;
+    case 'lv_window': say('Rain on the window and a plane climbing through it. Tomorrow, that’s you.'); break;
+    case 'lv_desk': say(S.keyTurned ? 'Dad’s desk. The drawer is unlocked now.' : 'Dad’s desk. One drawer, with a little keyhole.'); break;
     case 'l_drawer': if (S.keyTurned) openDrawer(); else say('Locked. A small keyhole. The keys hang by the window.'); return;
     case 'l_paper': S.paperGone = true; S.got.push('paper'); sfx('pickup'); render(); say('A roll of wrapping paper covered in little moths. It goes in the strip below.'); return;
     case 'l_hooks': if (S.keyTaken) say('Two keys left: POST and BIKE.'); else openHooks(); return;
     case 'l_shelf': say('Books, a snow globe and an orchid.'); break;
-    case 'l_globe': say('A durian in a snow globe. Dad’s, and Dad’s favourite. Not a present for Nana.'); break;
+    case 'lv_globe': say('A durian in a snow globe. Dad’s, and Dad’s favourite. Not a present for Nana.'); break;
     case 'l_orchid': say('Mum’s orchid. It would not survive fourteen hours in a suitcase.'); break;
     case 'l_sofa': say('The sofa. Something papery is stuck underneath it, but Mary is packing.'); break;
     case 'l_tv': say('Off. Nobody watches the TV on packing day.'); break;
     case 'l_front': say('The front door. Nobody goes out until the taxi.'); break;
-    case 'l_cabinet': say('The hall cabinet, with the drawer where the torch lives.'); break;
+    case 'lv_cabinet': say('The hall cabinet, with the drawer where the torch lives.'); break;
     case 'l_halldrawer':
       if (!S.postcardRead){ say('The hall drawer. Batteries, string, and no torch. Odd.'); break; }
       S.ehnoteRead = true; save(); openNote('ehnote'); say('No torch. Just a note in crayon.'); return;

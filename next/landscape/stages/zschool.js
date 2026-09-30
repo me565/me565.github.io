@@ -20,7 +20,7 @@ const HOTS = {
   z2:[
     {id:'z_line', l:14, t:28, w:72, h:28, label:'The drying line of paintings', sound:'paper', key:true},
     {id:'z_paints', l:23, t:79, w:18, h:12, label:'Pots of paint', sound:'tap'},
-    {id:'z_window', l:90, t:12, w:10, h:55, label:'The window', sound:'tap'}],
+    {id:'z_window', l:88, t:12, w:12, h:27, label:'The window', sound:'tap'}  /* the upper pane: the turn arrow sits over the window's middle */],
   z3:[
     {id:'z_poster', l:37, t:24, w:27, h:22, label:'The goodbye-song poster', sound:'paper'},
     {id:'z_shelf3', l:31, t:53, w:38, h:34, label:'The music shelf', sound:'knock', key:true},

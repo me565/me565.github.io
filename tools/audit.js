@@ -1,7 +1,7 @@
 /* The Moth House: the checklist's automatic lines (next/CHECKLIST.md), run over every stage.
    usage: node tools/audit.js [stage ...]   (needs the local server: cd <repo> && python3 -m http.server 8765)
    Checks: cut-out proportions (B9), a shadow on things that stand (B10, listed for a look), pictures that fail to load (G38),
-   hotspot bounds, size and corners (E32), unique hotspot ids, close-up overflow and page scroll at three sizes (G36, G37),
+   hotspot bounds, size and the turn-arrow strips (E32), unique hotspot ids, close-up overflow and page scroll at three sizes (G36, G37),
    unrecorded voice keys (F34), and an error-free run with reduced motion at the owner's screen shape (G36).
    Writes screenshots of every view to tools/audit-out/<stage>-<view>.png for the visual lines. */
 const { chromium } = require('playwright');
@@ -27,7 +27,9 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
     for (const [w, h, name, reduce] of [[1600, 1000, 'tablet', false], [2000, 700, 'owner', true], [740, 360, 'phone', false], [2200, 1300, 'desk', false]]){
       const p = await b.newPage({viewport:{width:w, height:h}, reducedMotion:reduce ? 'reduce' : 'no-preference'});
       const errors = [], failed = [];
-      p.on('pageerror', e => errors.push(e.message)); p.on('requestfailed', r => failed.push(r.url())); p.on('response', r => { if (r.status() >= 400 && !/voice\//.test(r.url())) failed.push(r.url() + ' ' + r.status()); });
+      /* only our own files count: fonts and other hosts may be blocked where the audit runs */
+      const ours = u => u.startsWith(base.slice(0, base.indexOf('/next'))) && !/voice\//.test(u);
+      p.on('pageerror', e => errors.push(e.message)); p.on('requestfailed', r => { if (ours(r.url())) failed.push(r.url()); }); p.on('response', r => { if (r.status() >= 400 && ours(r.url())) failed.push(r.url() + ' ' + r.status()); });
       await p.goto(base + `?stage=${stage}`, {waitUntil:'networkidle'}); await p.evaluate(() => { try{ localStorage.clear(); }catch(e){} }); await p.reload({waitUntil:'networkidle'}); await p.waitForTimeout(900);
       if (!(await p.evaluate(() => document.getElementById('comic').hidden))) await p.click('#cskip'); await p.waitForTimeout(300);
       if (!(await p.evaluate(() => document.getElementById('stagecard').hidden))) await p.click('#cardGo'); await p.waitForTimeout(300);
@@ -47,7 +49,10 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
           for (const h of hs){
             if (h.l < 0 || h.t < 0 || h.l + h.w > 100 || h.t + h.h > 100) say(stage, 'E32', `${v}: ${h.id} leaves the picture`);
             if (!h.secret && (h.w < 4 || h.h < 6)) say(stage, 'E32', `${v}: ${h.id} is small for a finger (${h.w}×${h.h})`);
-            if (h.t + h.h > 84 && (h.l < 9 || h.l + h.w > 91)) say(stage, 'E32', `${v}: ${h.id} sits in a bottom corner, where the turn arrows are`);
+            /* the turn arrows sit halfway up each side: a strip 7% wide (6.5u + .4u), 11u tall, so 40–60% of the height */
+            if (!h.secret){ const ox = Math.max(0, Math.min(h.l + h.w, 7) - h.l) + Math.max(0, h.l + h.w - Math.max(h.l, 93)), oy = Math.max(0, Math.min(h.t + h.h, 60) - Math.max(h.t, 40));
+              const part = ox*oy/(h.w*h.h), cx = h.l + h.w/2; /* a big target losing a sliver to the arrow is fine; one mostly hidden, or small with its middle under the arrow, is not */
+              if (part > 0.4 || (h.w < 12 && (cx < 7 || cx > 93) && h.t < 60 && h.t + h.h > 40)) say(stage, 'E32', `${v}: ${h.id} lies under a turn arrow (the side strips, 40–60% up; ${Math.round(part*100)}% covered)`); }
           }
           await p.screenshot({path:path.join(OUT, `${stage}-${v}.png`), clip:await p.locator('#scene').boundingBox()});
         }
@@ -59,7 +64,8 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
           for (const id of ids){
             await p.evaluate(([r, i]) => { closeCloseup(); S.room = r; S.view = i; S.held = null; save(); render(); }, [room, i]); await p.waitForTimeout(120);
             const n = await p.locator(`.hs[data-id="${id}"]`).count(); if (!n) continue;
-            await p.click(`.hs[data-id="${id}"]`, {force:true}); await p.waitForTimeout(350);
+            try{ await p.evaluate(id => { const b = document.querySelector(`.hs[data-id="${id}"]`); if (b) b.click(); }, id); }catch(e){ say(stage, 'D28', `${v}: tapping ${id} threw: ${e.message.slice(0, 80)}`); continue; }
+            await p.waitForTimeout(350);
             const r = await p.evaluate(() => { const c = document.querySelector('#closeup .card'); if (!c || document.getElementById('closeup').hidden) return null; const cu = document.getElementById('closeup').getBoundingClientRect(), r = c.getBoundingClientRect(); const inner = c.scrollHeight > c.clientHeight + 1 || c.scrollWidth > c.clientWidth + 1; const outer = r.bottom > cu.bottom + 1 || r.right > cu.right + 1 || r.top < cu.top - 1;
               const spans = [...c.querySelectorAll('.book span, .ofb, .otitle, .cbox, .head, .big')].filter(s => s.scrollWidth > s.clientWidth + 2 || s.scrollHeight > s.clientHeight + 2).map(s => s.textContent.slice(0, 30)); return {inner, outer, spans}; });
             if (r && (r.inner || r.outer)) say(stage, 'E29', `${v}: ${id} close-up overflows at ${name} (${r.inner ? 'inside' : 'outside'})`);
@@ -70,11 +76,13 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
         }
       }
       if (errors.length) say(stage, 'D28', `errors at ${name}${reduce ? ' (reduced motion)' : ''}: ${errors.slice(0, 3).join(' | ')}`);
-      failed.filter(u => !/voice\//.test(u)).forEach(u => say(stage, 'G38', `failed to load at ${name}: ${u.split('/').slice(-2).join('/')}`));
+      [...new Set(failed)].forEach(u => say(stage, 'G38', `failed to load at ${name}: ${u.split('/').slice(-2).join('/')}`));
       await p.close();
     }
   }
   await b.close();
-  const txt = report.length ? report.join('\n') : 'nothing to report';
-  fs.writeFileSync(path.join(OUT, 'report.txt'), txt); console.log(txt); console.log(`\n${report.length} lines; screenshots in ${OUT}`);
+  /* failures first (fix them), then the lines that only ask for a look (B10?) */
+  const fails = report.filter(r => !r.includes('\tB10?\t')), looks = report.filter(r => r.includes('\tB10?\t'));
+  const txt = (fails.length ? 'FAILS (fix before committing)\n' + fails.join('\n') : 'no failures') + (looks.length ? '\n\nFOR A LOOK (no shadow: fine only if it hangs, lies flat on a wall or sits inside something)\n' + looks.join('\n') : '');
+  fs.writeFileSync(path.join(OUT, 'report.txt'), txt); console.log(txt); console.log(`\n${fails.length} failures, ${looks.length} to look at; screenshots in ${OUT}`);
 })();

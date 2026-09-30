@@ -47,7 +47,7 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 29. Tap outside to step back; nothing scrolls inside; the picture is crisper than the room behind (log 11).
 30. A thing worked by hand asks for the real movement, beside the room with the room left sharp; a plain look stays a tap (playbook 4j, log 27). A wrong move waits, never fails.
 31. Every stage opens with one gesture and a comic; the switch between children never replays them (4j, 4n, 4l).
-32. Tap targets are finger-sized, never in the bottom corners, never covered by a bigger target unless the bigger one is listed first (audit checks size and corners).
+32. Tap targets are finger-sized, never under the turn arrows (the strips halfway up each side in the landscape engine), never covered by a bigger target unless the bigger one is listed first (audit checks size and the arrow strips). Hotspot ids are unique across every stage (audit checks).
 
 ## F. Words and voice
 

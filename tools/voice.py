@@ -14,7 +14,7 @@ STYLE = ("Speak as a small, gentle, magical moth who guides a child through a co
 def kind(k):
     if '.hint.' in k: return "Whisper this hint to Mary"
     if '.note.' in k: return "Read this note aloud to Mary, as if reading it over her shoulder"
-    if k.endswith('.card') or k.endswith('.intro'): return "Narrate this softly, like the start of a bedtime story"
+    if k.endswith('.card') or k.endswith('.intro') or '.comic.' in k: return "Narrate this softly, like the start of a bedtime story"
     if k.endswith('.postcard'): return "Read Mary's postcard home aloud, warmly and a little proudly"
     return "Say this warmly"
 def tts(k, text):
