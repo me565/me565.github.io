@@ -103,6 +103,13 @@ The working rules for every room in the landscape game, distilled from the owner
 - Postcard pictures are generated 3:2 in the game's style, saved 900×600 in `next/art/postcards/`; they never carry text.
 - Never reuse the scene's class names inside a card (`.msg` is the message line); a clash made the postcard's writing dark and centred.
 
+## 4g. The cog (30 Sept 2026)
+
+- A cog sits top-right on the title screen and in every room and opens one panel with three tabs: Settings (music and sound effects as separate sliders, full screen, show what I can tap), Help (how to play in four lines, back to the title, start this stage again, start the story again) and About (what the game is, the fiction notice, the studio credit). Tap outside, ×, or Escape closes it. The room-only rows hide on the title.
+- Anything that wipes progress asks first, inside the panel ("Yes, start again" / "No, keep going"). Never a bare wipe.
+- Volumes are 0–10 and kept on the device (`mothhouse.vol`); effects run through one gain node so a slider takes effect at once; music at 0 stops the track and any other value restarts it. The old on/off switch is read once and turned into the two volumes.
+- The build id and sound state still appear only with `?debug`, in the panel's corner.
+
 ## 5. Sound and music
 
 - Effects are made in the browser (Web Audio) and must be loud enough for a tablet speaker: taps 0.3, knocks 0.4, chimes 0.25. They start on the first real tap.
@@ -139,7 +146,7 @@ Distilled from player and critic reviews of Rusty Lake, Machinarium, Samorost, D
 
 The owner's brief: finish the feel and navigation before more levels. Inspiration from the games he plays (Rusty Lake's Servant of the Lake): a single-scene moment the player must act on before the story moves (dragging the curtains shut before the coach leaves), a character voice that speaks the story text, and a settings cog always in the corner with tabbed settings, help, achievements and about. Nothing is copied from those games; only the ideas.
 
-1. **Settings, help and about behind the cog, in tabs.** Music and effects as separate sliders, full screen, show-what-I-can-tap; help (how to play, the notebook, reset this stage, reset the story, both with "Are you sure?"); about (fiction notice, credits, version). Retires the two unguarded wipes. Low effort, medium impact, and it is the frame the next items hang on.
+1. ~~Settings, help and about behind the cog, in tabs.~~ Done in build 2026-09-30f (section 4g).
 2. **Character voices.** Checked 30 Sept: Gemini's speech model (`gemini-2.5-flash-preview-tts`) works with our key; named voices plus a style instruction give a consistent voice per character (Mary, the moth, Nutmeg, Mum), generated once into mp3s at build time, never at run time. Voice the story-led lines only: stage cards, notes and letters, the helper's hints, Mum's lines, the postcard; not every tap line. A voice toggle in settings. For Zaina everything shown must be spoken, since she cannot read. Medium effort, high impact for children.
 3. **Loading feel.** A progress bar while a stage's pictures load, and open the first room as soon as its own walls are in. Low effort, medium impact.
 4. **Sound and music polish.** Music on the title screen, a fade between stage tracks, rain in the flat, party murmur at school. Low to medium effort, medium impact.
@@ -170,3 +177,4 @@ The owner's brief: finish the feel and navigation before more levels. Inspiratio
 17. Packing day: the owner sent Mum's photo (her look is now in STORY.md, the photo is not kept), asked for no shared clues across the children's stories, and agreed to the six paper moths. → build 2026-09-29d: stage 2 built as three rooms and three trails; the engine split into engine plus one file per stage.
 18. A studio start-up for OG Entertainment, and a landing page with Continue or New game, then the choice of child. → build 2026-09-30a, rules in 4e.
 19. Finalising the feel: stage title cards, a celebration beat and Mary's postcard home at the end of each stage. → build 2026-09-30e, rules in 4f.
+20. Backlog item 1: the cog with tabbed settings, help and about, separate music and effects sliders, and confirmations before any wipe. → build 2026-09-30f, rules in 4g.

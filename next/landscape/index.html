@@ -60,6 +60,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .ctl{position:absolute;top:calc(var(--u)*1.2);width:calc(var(--u)*6);height:calc(var(--u)*6);border-radius:50%;border:0;background:rgba(20,26,40,.78);color:#fffaf0;display:grid;place-items:center}
 .ctl svg{width:60%;height:60%}
 #hintBtn{right:calc(var(--u)*8.2)} #menuBtn{right:calc(var(--u)*1.4)}
+.tcorner .ctl{position:static}
 .ctl:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
 
 /* the line the game speaks */
@@ -167,6 +168,35 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 /* menu */
 .menu{position:absolute;inset:0;display:grid;place-items:center;background:rgba(20,26,40,.55)}
+/* the cog's panel: settings, help and about in tabs, drawn over whatever is showing (a room or the title screen) */
+#menu{position:fixed;inset:0;z-index:9;background:rgba(7,9,13,.78)}
+.panel{position:relative;width:calc(var(--u)*78);height:calc(var(--u)*50);background:#16333a;color:#fffaf0;border-radius:calc(var(--u)*1.6);box-shadow:0 calc(var(--u)*1.5) calc(var(--u)*4) rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,250,240,.12);display:flex;flex-direction:column;overflow:hidden}
+.panel .pattern{opacity:.07}
+.tabs{position:relative;display:flex;justify-content:center;gap:calc(var(--u)*1);padding:calc(var(--u)*1.2) calc(var(--u)*8) 0}
+.tab{background:none;border:0;color:rgba(255,250,240,.55);font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2.2);padding:calc(var(--u)*.6) calc(var(--u)*1.8);border-radius:999px;display:flex;align-items:center;gap:calc(var(--u)*.7);min-height:40px}
+.tab svg{width:calc(var(--u)*2.4);height:calc(var(--u)*2.4)}
+.tab.on{color:#fffaf0;background:rgba(255,250,240,.12)}
+.tab:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
+.panel .x{position:absolute;right:calc(var(--u)*1.2);top:calc(var(--u)*1.2);width:calc(var(--u)*5);height:calc(var(--u)*5);border-radius:50%;border:0;background:rgba(255,250,240,.12);color:#fffaf0;font-size:calc(var(--u)*2.6);display:grid;place-items:center}
+.pane{position:relative;flex:1;padding:calc(var(--u)*1.2) calc(var(--u)*5) calc(var(--u)*1.6);display:none;flex-direction:column;gap:calc(var(--u)*1.1);font-size:calc(var(--u)*2);overflow:hidden}
+.pane.on{display:flex}
+.pane h3{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*3);text-align:center}
+.pane h3::after{content:"";display:block;width:calc(var(--u)*24);height:1px;background:rgba(255,250,240,.45);margin:calc(var(--u)*.6) auto 0}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--u)*1) calc(var(--u)*4);flex:1;align-content:start}
+.srow{display:flex;align-items:center;justify-content:space-between;gap:calc(var(--u)*2);min-height:44px}
+.srow label{display:flex;align-items:center;gap:calc(var(--u)*1)}
+.srow svg{width:calc(var(--u)*2.4);height:calc(var(--u)*2.4);flex:none}
+.srow input[type=range]{width:calc(var(--u)*20);accent-color:#f3c26a;height:44px}
+.pane .ob{background:rgba(255,250,240,.12);color:#fffaf0;box-shadow:inset 0 0 0 1px rgba(255,250,240,.4);padding:calc(var(--u)*.7) calc(var(--u)*2);font-size:calc(var(--u)*1.9);min-height:40px}
+.pane .ob.warn{box-shadow:inset 0 0 0 1px #e07a6a;color:#ffb3a7}
+.pane .ob.go{background:#f3c26a;color:#1d2629;box-shadow:none}
+.pane p{margin:0;line-height:1.35}
+.pane .dim{color:rgba(255,250,240,.6);font-size:calc(var(--u)*1.75)}
+.pane ul{margin:0;padding-left:calc(var(--u)*2.2);line-height:1.3}
+.pane li{margin-bottom:calc(var(--u)*.3)}
+.confirm{position:absolute;inset:0;background:rgba(22,51,58,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:calc(var(--u)*1.6);padding:calc(var(--u)*4);text-align:center}
+.confirm p{font-size:calc(var(--u)*2.2);max-width:calc(var(--u)*56)}
+#diag{position:absolute;left:calc(var(--u)*2);bottom:calc(var(--u)*.8);font-family:monospace;font-size:calc(var(--u)*1.35);color:rgba(255,250,240,.45)}
 .menu .card{background:var(--paper);border-radius:calc(var(--u)*1.4);padding:calc(var(--u)*3) calc(var(--u)*4);display:flex;flex-direction:column;gap:calc(var(--u)*1.4);align-items:center;font-size:calc(var(--u)*2.1);text-align:center;max-width:calc(var(--u)*70)}
 .menu h2{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*3.6)}
 .menu .small{color:var(--muted);font-size:calc(var(--u)*1.8)}
@@ -296,20 +326,11 @@ button{font:inherit;color:inherit;cursor:pointer}
     <button class="arrow r" id="right" aria-label="Turn right"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 4 8 8-8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     <span class="where" id="where">Classroom 5H</span>
     <button class="ctl" id="hintBtn" aria-label="Ask the moth for a hint" title="Hint"><svg viewBox="-14 -10 28 20" aria-hidden="true"><path d="M0 0C-4-9-13-9-13-2-13 3-5 3 0 0Z" fill="#f0b44c"/><path d="M0 0C4-9 13-9 13-2 13 3 5 3 0 0Z" fill="#f0b44c"/><path d="M0 1C-3 7-9 8-9 4-9 1-4 1 0 1Z" fill="#e9b98a"/><path d="M0 1C3 7 9 8 9 4 9 1 4 1 0 1Z" fill="#e9b98a"/><ellipse cx="0" cy="1" rx="1.3" ry="5" fill="#2b3431"/></svg></button>
-    <button class="ctl" id="menuBtn" aria-label="Menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button>
+    <button class="ctl" id="menuBtn" aria-label="Settings and help"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cog"/></svg></button>
     <p class="msg" id="msg" aria-live="polite"></p>
     <div class="closeup" id="closeup" hidden></div>
     <div class="stagecard" id="stagecard" hidden></div>
     <div class="menu end" id="endUI" hidden><div class="endwrap"><p class="sent" id="endTitle"></p><div class="postcard" id="postcard"></div><div class="endrow"><button class="ob quiet" id="endAgain">Play this stage again</button><button class="ob" id="endNext" hidden>Next</button></div></div></div>
-    <div class="menu" id="menu" hidden>
-      <div class="card">
-        <h2>The Moth House</h2>
-        <p id="blurb"></p>
-        <p class="small">This is a work of fiction. Its characters, schools and events are imaginary.</p>
-        <p class="small" id="diag" style="font-family:monospace;font-size:calc(var(--u)*1.5)"></p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center"><button class="ob quiet" id="soundBtn">Sound: on</button><button class="ob quiet" id="fsBtn">Full screen</button><button class="ob quiet" id="revealBtn">Show what I can tap</button><button class="ob quiet" id="restart">Start this stage again</button><button class="ob quiet" id="toTitle">Title screen</button><button class="ob" id="closeMenu">Back to the room</button></div>
-      </div>
-    </div>
   </div>
   <div class="inv" id="inv" aria-label="Things you are carrying"></div>
 </div>
@@ -324,14 +345,13 @@ button{font:inherit;color:inherit;cursor:pointer}
 <!-- the title screen -->
 <div class="screen" id="title" hidden>
   <svg class="pattern" width="100%" height="100%" aria-hidden="true"><rect width="100%" height="100%" fill="url(#mothpat)"/></svg>
-  <div class="tcorner"><button class="ctl" id="tSound" aria-label="Sound"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
+  <div class="tcorner"><button class="ctl" id="tMenu" aria-label="Settings and help"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cog"/></svg></button></div>
   <div class="tcard">
     <h1><small>A SUMMER MYSTERY</small>The Moth House</h1>
     <p class="tag">Three children, one summer, and a house that appears at dusk.</p>
     <div class="row"><button class="ob" id="tContinue">Continue</button><button class="ob quiet" id="tNew">New game</button></div>
     <p class="foot"><button id="tAbout">About this game</button></p>
   </div>
-  <div class="notice" id="aboutUI" hidden><div class="card"><h2>About this game</h2><p>This is a work of fiction. Its characters, schools and events are imaginary. Any resemblance to real people or places is a coincidence.</p><p class="small">Made by OG Entertainment. Art and music made with the help of AI tools and drawn into the story by hand.</p><button class="ob" id="aboutClose">Back</button></div></div>
 </div>
 <!-- choose a child -->
 <div class="screen" id="choose" hidden>
@@ -341,6 +361,49 @@ button{font:inherit;color:inherit;cursor:pointer}
     <div class="kids" id="kids"></div>
     <p class="foot" id="chooseFoot"></p>
     <div class="row"><button class="ob back" id="chooseBack">Back</button></div>
+  </div>
+</div>
+<!-- the cog's panel -->
+<div class="menu" id="menu" hidden>
+  <div class="panel">
+    <svg class="pattern" width="100%" height="100%" aria-hidden="true" style="position:absolute;inset:0"><rect width="100%" height="100%" fill="url(#mothpat)"/></svg>
+    <div class="tabs" role="tablist">
+      <button class="tab on" data-tab="settings" role="tab"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cog"/></svg>Settings</button>
+      <button class="tab" data-tab="help" role="tab"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.6 2.2c-.8.4-1.1.9-1.1 1.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17" r="1.2" fill="currentColor"/></svg>Help</button>
+      <button class="tab" data-tab="about" role="tab"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 11v6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="7.5" r="1.3" fill="currentColor"/></svg>About</button>
+    </div>
+    <button class="x" id="closeMenu" aria-label="Close">×</button>
+    <div class="pane on" data-pane="settings">
+      <h3>Settings</h3>
+      <div class="cols">
+        <div class="srow"><label for="volMusic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.5" fill="currentColor"/><circle cx="16.5" cy="16" r="2.5" fill="currentColor"/></svg>Music</label><input type="range" id="volMusic" min="0" max="10" step="1"></div>
+        <div class="srow"><label for="volFx"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Sound effects</label><input type="range" id="volFx" min="0" max="10" step="1"></div>
+        <div class="srow"><span>Full screen</span><button class="ob" id="fsBtn">Full screen</button></div>
+        <div class="srow game-only"><span>Can’t find something?</span><button class="ob" id="revealBtn">Show what I can tap</button></div>
+      </div>
+      <p class="dim">Hints live in Mary’s notebook: tap the moth at the top of the room.</p>
+    </div>
+    <div class="pane" data-pane="help">
+      <h3>Help</h3>
+      <div class="cols">
+        <div><p><b>How to play</b></p><ul><li>Tap things to look. The side arrows turn you round.</li><li>Tap a thing in the strip, then tap where it goes. Two strip things can go together.</li><li>Hold a finger on the room to see what can be tapped.</li><li>Stuck? Tap the moth for the notebook and a hint.</li></ul></div>
+        <div style="display:flex;flex-direction:column;gap:calc(var(--u)*1);align-items:flex-start">
+          <button class="ob game-only" id="toTitle">Back to the title screen</button>
+          <button class="ob warn game-only" id="restart">Start this stage again</button>
+          <button class="ob warn" id="resetStory">Start Mary’s story from the beginning</button>
+        </div>
+      </div>
+    </div>
+    <div class="pane" data-pane="about">
+      <h3>About</h3>
+      <div class="cols">
+        <div><p><b>The Moth House</b> is a summer mystery for children: three stories, one summer, and a house that appears at dusk to people who are looking.</p><p class="dim" style="margin-top:calc(var(--u)*1)">This is a work of fiction. Its characters, schools and events are imaginary. Any resemblance to real people or places is a coincidence.</p></div>
+        <div><p><b>Made by OG Entertainment.</b></p><p class="dim">Story, puzzles and design by the studio. Pictures and music made with the help of AI tools and drawn into the story by hand. Typefaces: Caprasimo and Atkinson Hyperlegible.</p></div>
+      </div>
+      <p class="dim" id="blurb"></p>
+    </div>
+    <div class="confirm" id="confirmUI" hidden><p id="confirmText"></p><div class="row"><button class="ob warn" id="confirmYes">Yes, start again</button><button class="ob" id="confirmNo">No, keep going</button></div></div>
+    <p id="diag" hidden></p>
   </div>
 </div>
 <div class="fsask" id="fsask" hidden><div class="card"><h2>The Moth House</h2><p>Play full screen?</p><div class="row"><button class="ob" id="fsYes">Full screen</button><button class="ob quiet" id="fsNo">Not now</button></div></div></div>
@@ -356,13 +419,14 @@ button{font:inherit;color:inherit;cursor:pointer}
     <symbol id="i-li" viewBox="0 0 12 12"><rect x="1.5" y="8" width="9" height="2.6" rx=".6" fill="currentColor"/><rect x="2.5" y="4.8" width="8" height="2.6" rx=".6" fill="currentColor" opacity=".75"/><rect x="1.8" y="1.6" width="7" height="2.6" rx=".6" fill="currentColor" opacity=".5"/></symbol>
     <symbol id="i-mu" viewBox="0 0 12 12"><path d="M4.5 9.5V2.5l5-1.2v6.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="3" cy="9.5" r="1.7" fill="currentColor"/><circle cx="8" cy="8" r="1.7" fill="currentColor"/></symbol>
     <pattern id="mothpat" width="120" height="120" patternUnits="userSpaceOnUse"><g fill="#fffaf0"><path d="M60 40c-4-9-13-9-13-2 0 5 8 5 13 2Zm0 0c4-9 13-9 13-2 0 5-8 5-13 2Zm0 1c-3 7-9 8-9 4 0-3 5-3 9-4Zm0 1c3 7 9 8 9 4 0-3-5-3-9-4Z"/><ellipse cx="60" cy="41" rx="1.2" ry="5"/><path d="M12 100c8-14 20-16 30-10-8 2-18 6-30 10Zm96 0c-8-14-20-16-30-10 8 2 18 6 30 10Z"/><circle cx="18" cy="24" r="1.5"/><circle cx="102" cy="24" r="1.5"/><circle cx="60" cy="96" r="1.5"/></g></pattern>
+    <symbol id="i-cog" viewBox="0 0 24 24"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm8.6 2.1-1.9-.4a7 7 0 0 0-.7-1.7l1.1-1.6a1 1 0 0 0-.1-1.3l-1.6-1.6a1 1 0 0 0-1.3-.1l-1.6 1.1a7 7 0 0 0-1.7-.7l-.4-1.9A1 1 0 0 0 11.4 1h-2.3a1 1 0 0 0-1 .8l-.4 1.9a7 7 0 0 0-1.7.7L4.4 3.3a1 1 0 0 0-1.3.1L1.5 5a1 1 0 0 0-.1 1.3l1.1 1.6a7 7 0 0 0-.7 1.7l-1.9.4a1 1 0 0 0-.8 1v2.3a1 1 0 0 0 .8 1l1.9.4a7 7 0 0 0 .7 1.7l-1.1 1.6a1 1 0 0 0 .1 1.3L3.1 21a1 1 0 0 0 1.3.1l1.6-1.1a7 7 0 0 0 1.7.7l.4 1.9a1 1 0 0 0 1 .8h2.3a1 1 0 0 0 1-.8l.4-1.9a7 7 0 0 0 1.7-.7l1.6 1.1a1 1 0 0 0 1.3-.1l1.6-1.6a1 1 0 0 0 .1-1.3l-1.1-1.6a7 7 0 0 0 .7-1.7l1.9-.4a1 1 0 0 0 .8-1v-2.3a1 1 0 0 0-.8-1Z" fill="currentColor" transform="translate(1.5 1.5) scale(.88)"/></symbol>
     <symbol id="i-ar" viewBox="0 0 12 12"><path d="M1.5 10.5c0-2 1-3 2.5-3.5L9.5 1.5l1 1L5 8c-.5 1.5-1.5 2.5-3.5 2.5Z" fill="currentColor"/></symbol>
   </defs>
 </svg>
 
 <script>
 'use strict';
-const BUILD = '2026-09-30e';
+const BUILD = '2026-09-30f';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -776,29 +840,31 @@ $('scene').addEventListener('pointerdown', e => { if (!$('closeup').hidden || e.
 
 
 /* ---------- sound: small effects and a gentle music-box background, all made in the browser ---------- */
-const SOUND_KEY = 'mothhouse.sound';
-let soundOn = true; try{ soundOn = localStorage.getItem(SOUND_KEY) !== 'off'; }catch(e){}
-let AC = null, music = null;
+/* two volumes, music and effects, each 0 to 10, kept on the device; effects go through one gain node so the slider works at once */
+const VOL_KEY = 'mothhouse.vol';
+let vol = {music:7, fx:8}; try{ const v = JSON.parse(localStorage.getItem(VOL_KEY)); if (v && typeof v.music === 'number') vol = v; else if (localStorage.getItem('mothhouse.sound') === 'off') vol = {music:0, fx:0}; }catch(e){}
+let soundOn = vol.music > 0 || vol.fx > 0;
+let AC = null, music = null, fxBus = null;
 function audio(){
   if (AC) return AC;
   const Ctx = window.AudioContext || window.webkitAudioContext; if (!Ctx) return null;
-  AC = new Ctx();
+  AC = new Ctx(); fxBus = AC.createGain(); fxBus.gain.value = vol.fx/10; fxBus.connect(AC.destination);
   return AC;
 }
 function env(gainNode, t, a, peak, d){ const g = gainNode.gain; g.cancelScheduledValues(t); g.setValueAtTime(0.0001, t); g.exponentialRampToValueAtTime(peak, t + a); g.exponentialRampToValueAtTime(0.0001, t + a + d); }
 function tone(freq, type, peak, a, d, t0, detune){
   const ac = audio(); if (!ac) return; const t = t0 ?? ac.currentTime;
   const o = ac.createOscillator(), g = ac.createGain(); o.type = type; o.frequency.value = freq; if (detune) o.detune.value = detune;
-  o.connect(g); g.connect(ac.destination); env(g, t, a, peak, d); o.start(t); o.stop(t + a + d + .05);
+  o.connect(g); g.connect(fxBus); env(g, t, a, peak, d); o.start(t); o.stop(t + a + d + .05);
 }
 function noise(peak, a, d, freq, q, t0){
   const ac = audio(); if (!ac) return; const t = t0 ?? ac.currentTime, len = Math.ceil(ac.sampleRate * (a + d + .05));
   const buf = ac.createBuffer(1, len, ac.sampleRate), ch = buf.getChannelData(0); for (let i = 0; i < len; i++) ch[i] = Math.random() * 2 - 1;
   const src = ac.createBufferSource(); src.buffer = buf; const f = ac.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = freq; f.Q.value = q;
-  const g = ac.createGain(); src.connect(f); f.connect(g); g.connect(ac.destination); env(g, t, a, peak, d); src.start(t); src.stop(t + a + d + .05);
+  const g = ac.createGain(); src.connect(f); f.connect(g); g.connect(fxBus); env(g, t, a, peak, d); src.start(t); src.stop(t + a + d + .05);
 }
 function sfx(kind){
-  if (!soundOn || !audio()) return;
+  if (!vol.fx || !audio()) return;
   if (AC.state !== 'running') AC.resume();
   const t = AC.currentTime;
   switch(kind){
@@ -815,7 +881,7 @@ function sfx(kind){
   }
 }
 /* a chime bar: a clear ringing note with a little of its overtones */
-function chime(f){ if (!soundOn || !audio()) return; if (AC.state !== 'running') AC.resume(); tone(f, 'sine', .3, .004, 1.1); tone(f*2.76, 'sine', .07, .004, .5); tone(f*5.4, 'sine', .03, .003, .25); noise(.08, .003, .04, 3000, .8); }
+function chime(f){ if (!vol.fx || !audio()) return; if (AC.state !== 'running') AC.resume(); tone(f, 'sine', .3, .004, 1.1); tone(f*2.76, 'sine', .07, .004, .5); tone(f*5.4, 'sine', .03, .003, .25); noise(.08, .003, .04, 3000, .8); }
 /* Background music: a composed sixteen-bar music-box waltz, played by a scheduler and looped.
    To use a recorded track instead, set TRACK to its file (an mp3 that loops cleanly) and the tune below is not used. */
 let TRACK = ''; /* set by the stage: made with Google's Lyria through the Gemini key; see art/music/README.md */
@@ -853,11 +919,11 @@ function softNote(midi, t, dur, vol, type){
   o.start(t); o.stop(t + dur + 0.05);
 }
 function startMusic(){
-  if (music || !soundOn || !audio()) return;
+  if (music || !vol.music || !audio()) return;
   if (TRACK){
     /* A recorded track needs a real tap before the browser lets it play. If this attempt is refused,
        nothing is kept, so the next tap tries again; once it plays, it stays. */
-    if (!trackEl){ trackEl = new Audio(TRACK + '?v=' + BUILD); trackEl.loop = true; trackEl.volume = .5; trackEl.preload = 'auto';
+    if (!trackEl){ trackEl = new Audio(TRACK + '?v=' + BUILD); trackEl.loop = true; trackEl.volume = .5*vol.music/10; trackEl.preload = 'auto';
       trackEl.onerror = () => { musicState = 'file failed, using the built-in tune'; trackEl = null; music = null; startTune(); }; }
     if (musicState === 'starting') return;
     musicState = 'starting';
@@ -869,10 +935,10 @@ function startMusic(){
 }
 let trackEl = null, musicState = 'not started';
 function startTune(){
-  if (music || !soundOn || !audio()) return;
+  if (music || !vol.music || !audio()) return;
   musicState = 'built-in tune';
   const ac = AC; musicBus = musicGraph();
-  musicBus.master.gain.exponentialRampToValueAtTime(1, ac.currentTime + 2.5);
+  musicBus.master.gain.exponentialRampToValueAtTime(Math.max(.0001, vol.music/10), ac.currentTime + 2.5);
   const beat = 60/TEMPO, loopBeats = TUNE.bars.length*BEATS_PER_BAR, start = ac.currentTime + 0.3;
   let nextBeat = 0;
   const schedule = () => {
@@ -888,13 +954,15 @@ function startTune(){
   music = {stop(){ clearInterval(timer); const g = musicBus.master.gain; g.cancelScheduledValues(ac.currentTime); g.setValueAtTime(g.value, ac.currentTime); g.exponentialRampToValueAtTime(.0001, ac.currentTime + .8); setTimeout(() => musicBus.master.disconnect(), 900); }};
 }
 function stopMusic(){ if (music){ music.stop(); music = null; } }
-function setSound(on){
-  soundOn = on; try{ localStorage.setItem(SOUND_KEY, on ? 'on' : 'off'); }catch(e){}
-  $('soundBtn').textContent = 'Sound: ' + (on ? 'on' : 'off');
-  if (on){ audio() && AC.resume(); startMusic(); } else stopMusic();
+function setVolume(which, v){
+  vol[which] = v; try{ localStorage.setItem(VOL_KEY, JSON.stringify(vol)); }catch(e){}
+  soundOn = vol.music > 0 || vol.fx > 0;
+  if (which === 'fx'){ if (audio()){ AC.resume(); fxBus.gain.value = v/10; } if (v) sfx('tap'); }
+  else { if (trackEl) trackEl.volume = .5*v/10; if (musicBus) musicBus.master.gain.value = Math.max(.0001, v/10); if (!v) stopMusic(); else { audio() && AC.resume(); startMusic(); } }
 }
 /* Browsers only allow sound after the player has tapped, so the first tap anywhere wakes it. */
 function wake(){ if (!soundOn) return; audio(); if (AC && AC.state !== 'running') AC.resume(); startMusic(); }
+
 ['touchend','click'].forEach(ev => addEventListener(ev, wake, {passive:true})); addEventListener('keydown', wake);
 document.addEventListener('visibilitychange', () => { if (!AC) return; if (document.hidden) AC.suspend(); else if (soundOn) AC.resume(); });
 
@@ -902,11 +970,28 @@ document.addEventListener('visibilitychange', () => { if (!AC) return; if (docum
 $('left').onclick = () => turn(-1); $('right').onclick = () => turn(1);
 $('hintBtn').onclick = () => { if ($('closeup').hidden) openNotebook(); else closeCloseup(); };
 const DEBUG = new URLSearchParams(location.search).has('debug');
-$('menuBtn').onclick = () => { closeCloseup(); $('menu').hidden = false; $('diag').hidden = !DEBUG; $('diag').textContent = `build ${BUILD} · sound: ${AC ? AC.state : 'not started'} · music: ${musicState} · reduced motion: ${matchMedia('(prefers-reduced-motion:reduce)').matches ? 'ON (gentle taps)' : 'off'} · ${innerWidth}×${innerHeight} · ${navigator.userAgent.replace(/^.*\((.*?)\).*$/, '$1').slice(0, 40)}`; };
-$('closeMenu').onclick = () => { $('menu').hidden = true; };
-$('menuBtn').addEventListener('click', () => { $('blurb').textContent = STAGE.blurb; });
-$('revealBtn').onclick = () => { $('menu').hidden = true; reveal(); };
-$('soundBtn').onclick = () => setSound(!soundOn);
+/* the cog's panel: the same panel from a room or from the title screen; the room-only rows hide on the title */
+let inGame = false;
+function openMenu(tab){
+  closeCloseup(); $('menu').hidden = false; $('confirmUI').hidden = true; showTab(tab || 'settings');
+  document.querySelectorAll('.game-only').forEach(el => { el.hidden = !inGame; });
+  $('blurb').textContent = inGame && STAGE ? 'Now playing: ' + STAGE.title + '. ' + STAGE.blurb : '';
+  $('volMusic').value = vol.music; $('volFx').value = vol.fx;
+  $('diag').hidden = !DEBUG; if (DEBUG) $('diag').textContent = `build ${BUILD} · sound: ${AC ? AC.state : 'not started'} · music: ${musicState} · reduced motion: ${matchMedia('(prefers-reduced-motion:reduce)').matches ? 'ON (gentle taps)' : 'off'} · ${innerWidth}×${innerHeight} · ${navigator.userAgent.replace(/^.*\((.*?)\).*$/, '$1').slice(0, 40)}`;
+}
+function showTab(name){ document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.dataset.tab === name)); document.querySelectorAll('.pane').forEach(p => p.classList.toggle('on', p.dataset.pane === name)); $('confirmUI').hidden = true; }
+document.querySelectorAll('.tab').forEach(t => t.onclick = () => { sfx('tap'); showTab(t.dataset.tab); });
+const closeMenu = () => { $('menu').hidden = true; };
+$('menuBtn').onclick = () => openMenu('settings');
+$('tMenu').onclick = () => openMenu('settings');
+$('tAbout').onclick = () => openMenu('about');
+$('closeMenu').onclick = closeMenu;
+$('menu').addEventListener('click', e => { if (e.target === $('menu')) closeMenu(); });
+$('revealBtn').onclick = () => { closeMenu(); reveal(); };
+$('volMusic').oninput = e => setVolume('music', +e.target.value);
+$('volFx').oninput = e => setVolume('fx', +e.target.value);
+/* anything that wipes progress asks first */
+function confirmThen(text, fn){ $('confirmText').textContent = text; $('confirmUI').hidden = false; $('confirmYes').onclick = () => { $('confirmUI').hidden = true; fn(); }; $('confirmNo').onclick = () => { $('confirmUI').hidden = true; }; }
 /* Full screen: phones and tablets in a browser get asked once; the menu can toggle it any time. Inside the Android app the game is already full screen. */
 const canFS = !!(document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen), standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
 async function goFullscreen(){
@@ -916,15 +1001,16 @@ async function goFullscreen(){
 }
 function leaveFullscreen(){ try{ (document.exitFullscreen || document.webkitExitFullscreen).call(document); }catch(e){} }
 const inFS = () => !!(document.fullscreenElement || document.webkitFullscreenElement);
-$('fsBtn').onclick = () => { $('menu').hidden = true; inFS() ? leaveFullscreen() : goFullscreen(); };
+$('fsBtn').onclick = () => { closeMenu(); inFS() ? leaveFullscreen() : goFullscreen(); };
 document.addEventListener('fullscreenchange', () => { $('fsBtn').textContent = inFS() ? 'Leave full screen' : 'Full screen'; fit(); });
 $('fsYes').onclick = () => { $('fsask').hidden = true; goFullscreen(); };
 $('fsNo').onclick = () => { $('fsask').hidden = true; try{ sessionStorage.setItem('mothhouse.fsasked', '1'); }catch(e){} };
 let fsAsked = false; try{ fsAsked = !!sessionStorage.getItem('mothhouse.fsasked'); }catch(e){}
 if (canFS && !standalone && matchMedia('(pointer:coarse)').matches && !fsAsked) $('fsask').hidden = false; else $('fsBtn').hidden = !canFS || standalone;
-$('soundBtn').textContent = 'Sound: ' + (soundOn ? 'on' : 'off');
-const restart = () => { S = fresh(S.stage); $('menu').hidden = true; $('endUI').hidden = true; closeCloseup(); render(); say(STAGE.intro); };
-$('restart').onclick = restart; $('endAgain').onclick = restart;
+const restart = () => { S = fresh(S.stage); closeMenu(); $('endUI').hidden = true; closeCloseup(); render(); stageCard(() => say(STAGE.intro)); };
+$('restart').onclick = () => confirmThen(`Start “${STAGE.title}” again from the beginning? Everything found in this stage will be put back.`, restart);
+$('endAgain').onclick = restart;
+$('resetStory').onclick = () => confirmThen(`Start Mary’s whole story again from the first day? All her progress will be wiped.`, () => { try{ localStorage.removeItem(keyFor('mary')); }catch(e){} CHILD = 'mary'; closeMenu(); if (inGame){ const first = CHILDREN.mary.first; loadStage(first); S = fresh(first); save(); enterGame(); } else showTitle(); });
 addEventListener('keydown', e => { if (e.key === 'Enter' && !$('stagecard').hidden) $('stagecard').click(); });
 /* on to the next stage: fresh state, the new rooms loaded quietly first */
 function startStage(key){
@@ -933,7 +1019,7 @@ function startStage(key){
   Promise.all(roomArt(S.room).map(preload)).then(() => { render(); $('scene').classList.remove('fade'); stageCard(() => say(STAGE.intro)); Object.keys(ROOMS).filter(r => r !== S.room).forEach(r => roomArt(r).forEach(preload)); });
 }
 $('endNext').onclick = () => { if (STAGE.next) startStage(STAGE.next); else { $('endUI').hidden = true; showTitle(); } };
-$('toTitle').onclick = () => { $('menu').hidden = true; closeCloseup(); showTitle(); };
+$('toTitle').onclick = () => { closeMenu(); closeCloseup(); showTitle(); };
 
 /* ---------- the start-up, the title screen and choosing a child ---------- */
 function playSplash(){
@@ -945,11 +1031,10 @@ function playSplash(){
   });
 }
 function showTitle(){
-  $('choose').hidden = true; $('title').hidden = false;
+  inGame = false; $('endUI').hidden = true; $('choose').hidden = true; $('title').hidden = false;
   let last = null; try{ last = localStorage.getItem(KEY + '.last'); }catch(e){}
   const any = Object.keys(CHILDREN).some(c => { const s = saved(c); return s && (s.got.length > 0 || s.done || (CHILDREN[c].first && s.stage !== CHILDREN[c].first)); });
   $('tContinue').disabled = !any; $('tContinue').textContent = any && last && CHILDREN[last] ? `Continue ${CHILDREN[last].name}'s story` : 'Continue';
-  $('tSound').style.opacity = soundOn ? 1 : .5;
 }
 function showChoose(mode){ /* mode: 'continue' resumes each child's save; 'new' starts a fresh story */
   $('title').hidden = true; $('choose').hidden = false; $('chooseTitle').textContent = mode === 'new' ? 'Whose story?' : 'Carry on with…';
@@ -965,7 +1050,7 @@ function showChoose(mode){ /* mode: 'continue' resumes each child's save; 'new' 
   });
 }
 function enterGame(){
-  $('choose').hidden = true; $('title').hidden = true; $('scene').classList.add('fade');
+  inGame = true; $('choose').hidden = true; $('title').hidden = true; $('scene').classList.add('fade');
   Promise.all(roomArt(S.room).map(preload)).then(() => {
     const l = $('loading'); if (l) l.remove();
     render(); $('scene').classList.remove('fade'); if (S.got.length || S.done) say(`Back in ${ROOMS[S.room].into}.`); else stageCard(() => say(STAGE.intro));
@@ -976,10 +1061,9 @@ $('tContinue').onclick = () => { let last = null; try{ last = localStorage.getIt
   if (withSaves.length === 1 || (last && saved(last) && withSaves.length <= 1)){ CHILD = withSaves[0]; S = load(); enterGame(); } else showChoose('continue'); };
 $('tNew').onclick = () => showChoose('new');
 $('chooseBack').onclick = () => showTitle();
-$('tAbout').onclick = () => { $('aboutUI').hidden = false; }; $('aboutClose').onclick = () => { $('aboutUI').hidden = true; };
-$('tSound').onclick = () => { setSound(!soundOn); $('tSound').style.opacity = soundOn ? 1 : .5; };
+
 $('app').addEventListener('click', e => { if (e.target === $('app')) closeCloseup(); }); /* a tap on the dark margin also steps back */
-addEventListener('keydown', e => { if (e.key === 'ArrowLeft') turn(-1); if (e.key === 'ArrowRight') turn(1); if (e.key === 'Escape'){ closeCloseup(); $('menu').hidden = true; } });
+addEventListener('keydown', e => { if (e.key === 'ArrowLeft') turn(-1); if (e.key === 'ArrowRight') turn(1); if (e.key === 'Escape'){ closeCloseup(); closeMenu(); } });
 
 function boot(){
   try{ const last = localStorage.getItem(KEY + '.last'); if (last && CHILDREN[last]) CHILD = last; }catch(e){}
@@ -992,8 +1076,8 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-09-30e"></script>
-<script src="stages/packing.js?v=2026-09-30e"></script>
+<script src="stages/school.js?v=2026-09-30f"></script>
+<script src="stages/packing.js?v=2026-09-30f"></script>
 <script>boot();</script>
 </body>
 </html>
