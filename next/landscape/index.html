@@ -923,7 +923,7 @@ function tip(name, delay = 0){
   clearTimeout(tipTimers[name]);
   tipTimers[name] = setTimeout(() => {
     if (tipsSeen.has(name)) return;
-    if (!$('closeup').hidden || !$('menu').hidden || !$('stagecard').hidden || (voiceEl && !voiceEl.paused) || !$('endUI').hidden){ tip(name, 1500); return; } /* not now: try again shortly */
+    if (!$('closeup').hidden || !$('menu').hidden || !$('stagecard').hidden || !$('loading').hidden || (voiceEl && !voiceEl.paused) || !$('endUI').hidden){ tip(name, 1500); return; } /* not now: try again shortly */
     tipsSeen.add(name); try{ localStorage.setItem('mothhouse.tips', JSON.stringify([...tipsSeen])); }catch(e){}
     say(`<b>The moth whispers:</b> ${TIPS[name]}`); speak('tip.' + name);
   }, delay);
@@ -1166,7 +1166,7 @@ function renderFamily(){
 }
 function switchChild(key){
   if (!inGame || key === CHILD || !CHILDREN[key]) return;
-  if (S.held) S.held = null; save(); closeMenu(); closeCloseup(); hush(); sfx('leaf');
+  if (S.held) S.held = null; save(); closeMenu(); closeCloseup(); hush(); sfx('leaf'); say('');
   const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches, scene = $('scene');
   if (!reduce){ const m = document.createElement('div'); m.className = 'flymoth'; m.innerHTML = $('splash').querySelector('.moth').innerHTML; scene.appendChild(m); setTimeout(() => m.remove(), 2600); }
   setTimeout(() => scene.classList.add('fade'), reduce ? 0 : 700);
