@@ -253,7 +253,7 @@ const SHELVES = {
     ['The Night Sky','noteStar'],
     ['Bugs Up Close','Very close. Too close! No slip inside.'],
     ['Weather Watch','All about rain. Singapore has plenty. No slip inside.']]},
-  mus:{title:'Music shelf', pic:'../art/school/shelf-mus.jpg', slots:[[13.5,17,14,90,9.5],[24,25,25,89,7],[43,39,56,60]], books:[
+  mus:{title:'Music shelf', pic:'../art/school/shelf-mus.jpg', slots:[[13.5,17,14,90,9.5],[23.8,25,23.8,89,7],[43,39,56,60]], books:[
     ['Drums for Beginners','Boom, boom, tish! No slip inside.'],
     ['Songs of the Sea','Sailors’ songs. No slip inside.'],
     ['gap','A sticky note in the gap: “Returned today. See the trolley.”']]},
@@ -262,7 +262,7 @@ const SHELVES = {
     ['Sketching','Pencils, and more pencils. No slip inside.'],
     ['The Painting Book','notePaint'],
     ['Paper Folding','How to fold paper birds, boats and moths. No slip inside.']]},
-  trolley:{title:'Returns trolley', pic:'../art/school/shelf-trolley.jpg', slots:[[50,21,50,82,11],[72,21,74.5,83,10],[85.5,19,85.5,83,11]], books:[
+  trolley:{title:'Returns trolley', pic:'../art/school/shelf-trolley.jpg', slots:[[50.5,22,50.5,80,7],[74.7,24,74.5,82,8],[86,21,86,81,7]] /* the spine panels, not the tilted covers beside them */, books:[
     ['Dinosaur Days','Roar! No slip inside.'],
     ['Playing the Piano','music'],
     ['Football Stars','No slip inside.']]},
