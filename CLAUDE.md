@@ -77,11 +77,11 @@ The children's version follows "Visual style" in `STORY.md` (agreed with the own
 - Typeface: IM Fell English (Google Fonts) with Georgia fallback. Sentence case, short, dry, unsettling copy.
 - Darkness overlay before the lamp is lit; warm radial glow after.
 
-## Launch status (as of 27 Sept 2026)
+## Launch status (as of 30 Sept 2026)
 
-1. Google Play developer account (personal) — opened, awaiting verification.
+1. Google Play developer account (personal, developer name "OG Entertainment Studios", on the owner's own Google account) — created 30 Sept; identity, device and phone verification in progress. The app cannot be created in the Console until they clear.
 2. Website live at https://me565.github.io — done.
-3. PWABuilder Android package — in progress.
+3. PWABuilder Android package — built 30 Sept from https://me565.github.io (the landscape game at the root, manifest `landscape`); the zip with the `.aab`, the keystore and `signing-key-info.txt` is kept privately by the owner, never in the repo. Rebuild from the same address with the same key when the manifest changes.
 4. `.well-known/assetlinks.json` and the empty `.nojekyll` file are in place, with the PWABuilder signing key's SHA-256 fingerprint. Still to do: once the app is on Google Play, add Play's app-signing SHA-256 fingerprint (Play Console → Test and release → App integrity → App signing) as a second entry in `sha256_cert_fingerprints`.
 5. Closed test: 12+ testers opted in for 14 continuous days (aim for 14–15 in case some drop out), then apply for production access.
 6. Store listing: icon, feature graphic, screenshots, descriptions, privacy policy page, content rating, data safety form.
