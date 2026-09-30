@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Moth House (landscape test)</title>
+<meta name="theme-color" content="#141a28">
+<link rel="icon" href="../../icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+/* Landscape engine: Mary's stages as generated pictures (see ../art). Each stage is a plugin in stages/ registered with registerStage().
+   Layout follows the owner's brief of 28 Sept 2026: a 16:9 scene, small turn arrows halfway up each side,
+   the inventory as a strip of slots under the scene, close-ups brought forward over the softened room. */
+:root{
+  --bg:#141a28; --frame:#0c101a; --ink:#1d2629; --paper:#fffaf0; --muted:#55635d;
+  --accent:#c98320; --accent-soft:#f6e6c8; --slot:#e6e1d3; --slot-line:#b9b2a1;
+  --u:6px; /* one hundredth of the scene width, set by script */
+  box-sizing:border-box;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%;margin:0;overflow:hidden;background:var(--bg);color:var(--ink);
+  font-family:"Atkinson Hyperlegible",Verdana,"Segoe UI",sans-serif;-webkit-tap-highlight-color:transparent;
+  -webkit-user-select:none;user-select:none}
+button{font:inherit;color:inherit;cursor:pointer}
+[hidden]{display:none!important}
+
+#app{height:100%;display:grid;place-items:center;padding:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0)}
+.stage{width:calc(var(--u) * 100);display:flex;flex-direction:column;gap:calc(var(--u) * 1.2)}
+
+/* the scene */
+.scene{position:relative;width:100%;aspect-ratio:16/9;border-radius:calc(var(--u) * 1.6);overflow:hidden;background:#e9e2d2;box-shadow:0 calc(var(--u)*1.2) calc(var(--u)*3) rgba(0,0,0,.5)}
+.wall{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .28s ease}
+.wall.on{opacity:1}
+.scene.zoomed .wall.on,.scene.zoomed #hots{filter:blur(calc(var(--u)*.5)) brightness(.72) saturate(.85)}
+#hots{position:absolute;inset:0;transition:filter .3s ease}
+.wall{transition:opacity .28s ease, filter .3s ease}
+
+/* tap targets: invisible, drawn on top of the picture */
+.hs{position:absolute;background:transparent;border:0;padding:0;border-radius:calc(var(--u)*1);outline-offset:calc(var(--u)*-.6)}
+.hs:focus-visible{outline:calc(var(--u)*.5) solid var(--accent)}
+.hs.hidden{display:none}
+.spark{position:absolute;width:calc(var(--u)*2.2);height:calc(var(--u)*2.2);pointer-events:none;color:var(--accent);filter:drop-shadow(0 0 calc(var(--u)*.6) #fff2c8)}
+.spark svg{width:100%;height:100%;display:block}
+@media (prefers-reduced-motion:no-preference){
+  .spark{animation:twinkle 2.4s ease-in-out infinite}
+  @keyframes twinkle{0%,100%{opacity:.35;transform:scale(.85) rotate(0)}50%{opacity:1;transform:scale(1.1) rotate(20deg)}}
+}
+
+/* turn arrows, halfway up each side */
+.arrow{position:absolute;top:50%;transform:translateY(-50%);width:calc(var(--u)*6.5);height:calc(var(--u)*11);display:grid;place-items:center;background:none;border:0;color:#2b2d33;opacity:.85}
+.arrow.l{left:calc(var(--u)*.4)} .arrow.r{right:calc(var(--u)*.4)}
+.arrow svg{width:calc(var(--u)*3.6);height:calc(var(--u)*3.6);filter:drop-shadow(0 0 calc(var(--u)*.5) rgba(255,255,255,.9))}
+.arrow:focus-visible{outline:calc(var(--u)*.4) solid var(--accent);border-radius:999px}
+.scene.zoomed .arrow,.scene.zoomed .msg{display:none}
+/* a hands-on close-up beside the room: the room stays sharp and you are still standing in it; the panel slides in from one side */
+.scene.aside .arrow,.scene.aside .msg{display:none}
+.closeup.aside{padding:calc(var(--u)*2.5) calc(var(--u)*2.5) calc(var(--u)*5.5);place-items:center end;background:linear-gradient(to left, rgba(7,9,13,.35), transparent 60%)}
+.closeup.aside.left{place-items:center start;background:linear-gradient(to right, rgba(7,9,13,.35), transparent 60%)}
+.closeup.aside .card.shelf{width:calc(var(--u)*46);animation:slideIn .38s cubic-bezier(.2,.7,.2,1) both}
+.closeup.aside.left .card.shelf{animation-name:slideInL}
+@keyframes slideIn{from{transform:translateX(30%);opacity:0}to{transform:none;opacity:1}}
+@keyframes slideInL{from{transform:translateX(-30%);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.closeup.aside .card.shelf{animation:none}}
+.hands{touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;overflow:hidden}
+.hands.dragging{cursor:grabbing}
+.hands .part{position:absolute;display:block;pointer-events:none;will-change:transform}
+.hands .part img{width:100%;height:auto;display:block}
+.hands .hint{position:absolute;left:50%;bottom:8%;transform:translateX(-50%);width:calc(var(--u)*5);height:calc(var(--u)*5);border-radius:50%;background:rgba(255,246,214,.85);box-shadow:0 0 calc(var(--u)*1.5) rgba(255,196,80,.9);pointer-events:none;opacity:.9}
+@media (prefers-reduced-motion:no-preference){.hands .hint{animation:handHint 1.6s ease-in-out infinite}}
+@keyframes handHint{0%,100%{transform:translate(-50%,0)}40%{transform:translate(-50%,calc(var(--u)*-2.2))}70%{transform:translate(-50%,calc(var(--u)*2.2))}}
+
+/* corner controls */
+.where{position:absolute;left:calc(var(--u)*1.6);top:calc(var(--u)*1.4);background:rgba(20,26,40,.78);color:#fffaf0;border-radius:999px;padding:calc(var(--u)*.55) calc(var(--u)*1.6);font-size:calc(var(--u)*1.9);font-family:Caprasimo,"Cooper Black",Georgia,serif;letter-spacing:.02em}
+.ctl{position:absolute;top:calc(var(--u)*1.2);width:calc(var(--u)*6);height:calc(var(--u)*6);border-radius:50%;border:0;background:rgba(20,26,40,.78);color:#fffaf0;display:grid;place-items:center}
+.ctl svg{width:60%;height:60%}
+#hintBtn{right:calc(var(--u)*8.2)} #menuBtn{right:calc(var(--u)*1.4)}
+.tcorner .ctl{position:static}
+.ctl:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
+
+/* the line the game speaks */
+.msg{position:absolute;left:calc(var(--u)*9);right:calc(var(--u)*9);bottom:calc(var(--u)*1.6);margin:0;padding:calc(var(--u)*1) calc(var(--u)*1.8);
+  background:rgba(20,26,40,.8);color:#fffaf0;border-radius:calc(var(--u)*1.2);font-size:calc(var(--u)*2);line-height:1.3;text-align:center;
+  transition:opacity .25s;pointer-events:none}
+.msg:empty{opacity:0}
+.msg b{color:#f3c26a}
+
+/* close-ups: the object comes forward, the room stays behind, softened */
+.closeup{position:absolute;inset:0;display:grid;place-items:center;padding:calc(var(--u)*3) calc(var(--u)*10) calc(var(--u)*5.5);cursor:pointer}
+.closeup .card{cursor:auto}
+.closeup .stepback{position:absolute;left:0;right:0;bottom:calc(var(--u)*1.4);text-align:center;color:#fffaf0;opacity:.8;font-size:calc(var(--u)*1.8);pointer-events:none;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.closeup .card{position:relative;max-width:100%;max-height:100%;background:var(--paper);color:var(--ink);border-radius:calc(var(--u)*1);
+  box-shadow:0 calc(var(--u)*1.5) calc(var(--u)*4) rgba(0,0,0,.45), inset 0 0 0 1px rgba(0,0,0,.08);padding:calc(var(--u)*2.4) calc(var(--u)*3);overflow:hidden;
+  transform-origin:center;animation:forward .28s ease-out}
+@media (prefers-reduced-motion:reduce){.closeup .card{animation:none}}
+@keyframes forward{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+.card.note{font-family:inherit;font-style:italic;font-size:calc(var(--u)*2.3);line-height:1.3;display:flex;flex-direction:column;gap:calc(var(--u)*.8);width:calc(var(--u)*62)}
+.card.note .head{font-family:Caprasimo,Georgia,serif;font-style:normal;font-weight:400;font-size:calc(var(--u)*3);color:#6d4fb8}
+.card.note .big{font-size:calc(var(--u)*2.6);font-weight:700;color:#2f7c83}
+.card.note.print{font-style:normal;font-size:calc(var(--u)*2.2);line-height:1.35}
+.card.note.print .head{font-family:Caprasimo,Georgia,serif;font-weight:400;font-size:calc(var(--u)*2.8);color:#2f7c83}
+.card.tt{padding:calc(var(--u)*1.2);width:calc(var(--u)*64)}
+.card.tt svg{display:block;width:100%;height:auto}
+.back{position:absolute;right:calc(var(--u)*1.4);top:calc(var(--u)*1.2);width:calc(var(--u)*6);height:calc(var(--u)*6);border-radius:50%;border:0;background:rgba(20,26,40,.85);color:#fffaf0;display:grid;place-items:center;font-size:calc(var(--u)*3);z-index:2}
+.back:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
+
+/* moving things are cut-outs on their own canvas layer, bent and swung in slices by script */
+.layer{position:absolute;pointer-events:none;display:block}
+.slot{position:relative}
+.slot img{position:absolute;left:12%;top:12%;width:76%;height:76%;object-fit:contain;display:block}
+
+#walls{position:absolute;inset:0}
+.scene.fade #walls,.scene.fade #hots{opacity:0}
+#walls,#hots{transition:opacity .35s ease, filter .3s ease}
+.scene.pan-l #walls,.scene.pan-l #hots{animation:panOutL .24s ease-in forwards}
+.scene.pan-r #walls,.scene.pan-r #hots{animation:panOutR .24s ease-in forwards}
+.scene.pan-in-l #walls,.scene.pan-in-l #hots{animation:panInL .38s ease-out}
+.scene.pan-in-r #walls,.scene.pan-in-r #hots{animation:panInR .38s ease-out}
+@keyframes panOutL{to{transform:translateX(-18%);opacity:0}}
+@keyframes panOutR{to{transform:translateX(18%);opacity:0}}
+@keyframes panInL{from{transform:translateX(18%);opacity:0}}
+@keyframes panInR{from{transform:translateX(-18%);opacity:0}}
+@media (prefers-reduced-motion:reduce){.scene.pan-l #walls,.scene.pan-l #hots,.scene.pan-r #walls,.scene.pan-r #hots,.scene.pan-in-l #walls,.scene.pan-in-l #hots,.scene.pan-in-r #walls,.scene.pan-in-r #hots{animation-duration:.01s}}
+/* a shelf of books, and a locker with three dials */
+.card.shelf{width:calc(var(--u)*58);padding:0;overflow:hidden;display:flex;flex-direction:column}
+.card .otitle{margin:0;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2.8);color:#2f7c83;text-align:center}
+.shelfpic{position:relative;width:100%;aspect-ratio:16/9;background:#8a5a3a center/cover no-repeat}
+.shelfpic .otitle{position:absolute;left:calc(var(--u)*1.2);top:calc(var(--u)*1);margin:0;background:rgba(20,26,40,.78);color:#fffaf0;border-radius:999px;padding:calc(var(--u)*.5) calc(var(--u)*1.6);font-size:calc(var(--u)*2.2)}
+.book{position:absolute;background:transparent;border:0;padding:0;cursor:pointer;display:grid;place-items:center;border-radius:calc(var(--u)*.6)}
+.book span{writing-mode:vertical-rl;text-orientation:mixed;color:#fffaf0;font:inherit;font-weight:700;font-size:calc(var(--u)*1.9);line-height:1;letter-spacing:.02em;text-shadow:0 1px 3px rgba(0,0,0,.6);max-height:94%;overflow:hidden;white-space:nowrap}
+.book.gap span{writing-mode:horizontal-tb;color:#5b4a2e;font-weight:400;font-size:calc(var(--u)*1.2);white-space:normal;max-height:none;text-shadow:none;transform:rotate(-3deg);text-align:center;line-height:1.1;padding:0 calc(var(--u)*.4)}
+.book:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
+.shelffoot{padding:calc(var(--u)*.8) calc(var(--u)*2) calc(var(--u)*1);display:flex;flex-direction:column;gap:calc(var(--u)*.4);align-items:center}
+.spellrow{align-items:center;gap:calc(var(--u)*2.5)}
+.spellrow .ob{padding:calc(var(--u)*.6) calc(var(--u)*2);font-size:calc(var(--u)*1.9)}
+.ofb{margin:0;min-height:calc(var(--u)*2.6);font-size:calc(var(--u)*2);text-align:center;color:var(--ink)}
+.spell{margin:0;text-align:center;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*3);letter-spacing:.25em;color:#6d4fb8;min-height:calc(var(--u)*3.4)}
+.row{display:flex;gap:calc(var(--u)*1.2);justify-content:center;flex-wrap:wrap}
+.card.locker{width:calc(var(--u)*52);display:flex;flex-direction:column;gap:calc(var(--u)*1.4);align-items:center}
+.dials{display:flex;gap:calc(var(--u)*2)}
+.dial{width:calc(var(--u)*10);height:calc(var(--u)*13);border-radius:calc(var(--u)*1);border:0;background:#2b2836;color:#fffaf0;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*6);cursor:pointer;box-shadow:inset 0 calc(var(--u)*-.8) 0 rgba(0,0,0,.4), inset 0 calc(var(--u)*.6) 0 rgba(255,255,255,.12)}
+.dial:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
+.card.locker .ob{min-height:44px}
+.menu.end .card p{margin:0;max-width:calc(var(--u)*60)}
+
+/* the chime bars, the padlock with colour dials, a plain picture close-up */
+.bar{position:absolute;background:transparent;border:0;padding:0;border-radius:calc(var(--u)*.8);cursor:pointer;transition:background .12s}
+.bar.hit{background:rgba(255,255,255,.55)}
+.bar:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
+.tune{margin:0;min-height:calc(var(--u)*3.4);display:flex;align-items:center;gap:calc(var(--u)*1)}
+.dot{display:inline-block;width:calc(var(--u)*2.8);height:calc(var(--u)*2.8);border-radius:50%;background:#e6e1d3;box-shadow:inset 0 0 0 calc(var(--u)*.25) rgba(0,0,0,.18)}
+.lockpic{position:relative;height:calc(var(--u)*21);aspect-ratio:700/912}
+.lockpic img{width:100%;height:100%;display:block}
+.cdial{position:absolute;width:19%;height:17%;border-radius:50%;border:0;transform:translate(-50%,-50%);cursor:pointer;box-shadow:inset 0 0 0 calc(var(--u)*.3) rgba(0,0,0,.28), inset 0 calc(var(--u)*-.5) 0 rgba(0,0,0,.18)}
+.cdial:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
+.card.pic{padding:0;overflow:hidden}
+.picwrap{position:relative;width:100%;background:#fff center/cover no-repeat}
+.picwrap svg{position:absolute;inset:0;width:100%;height:100%}
+.picwrap .otitle{position:absolute;left:calc(var(--u)*1.2);top:calc(var(--u)*1);margin:0;background:rgba(20,26,40,.78);color:#fffaf0;border-radius:999px;padding:calc(var(--u)*.5) calc(var(--u)*1.6);font-size:calc(var(--u)*2.2)}
+.card.note svg.staff{width:100%;height:auto;display:block}
+
+/* Mary's notebook: the riddles with where each has got to, tap one for the moth's help; and what she has noticed */
+.card.nb{width:calc(var(--u)*64);font-style:normal;gap:calc(var(--u)*.5)}
+.nblist{display:flex;flex-direction:column;gap:calc(var(--u)*.4)}
+.nbrow{display:flex;justify-content:space-between;align-items:center;gap:calc(var(--u)*1.5);background:none;border:0;text-align:left;padding:calc(var(--u)*.55) calc(var(--u)*1);border-radius:calc(var(--u)*.8);font:inherit;font-size:calc(var(--u)*2.05);box-shadow:inset 0 0 0 1px var(--slot-line);min-height:36px}
+.nbrow:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
+.nbrow .st{color:#2f7c83;font-weight:700;white-space:nowrap;font-size:calc(var(--u)*1.8)}
+.nbrow.done{opacity:.6}.nbrow.done .st{color:#27794c}
+.nbfb{margin:0;min-height:calc(var(--u)*4.4);font-size:calc(var(--u)*2.05);line-height:1.3;color:var(--ink)}
+.nbfb b{color:#6d4fb8}
+.nbsmall{font-size:calc(var(--u)*1.7);line-height:1.25;color:var(--muted)}
+/* a long press on the room shows everything that can be tapped, so nothing has to be hunted for */
+.hs{transition:box-shadow .25s, background .25s}
+.hs.point{animation:pointGlow 1.1s ease-in-out 3;background:rgba(255,230,150,.16)}
+@keyframes pointGlow{0%,100%{box-shadow:0 0 0 calc(var(--u)*.35) rgba(255,246,214,.6), 0 0 calc(var(--u)*1.2) rgba(255,196,80,.5)}50%{box-shadow:0 0 0 calc(var(--u)*.6) rgba(255,246,214,1), 0 0 calc(var(--u)*3) rgba(255,196,80,1)}}
+.pointmoth{position:absolute;left:8%;top:88%;width:calc(var(--u)*7);height:calc(var(--u)*5);margin:calc(var(--u)*-2.5) 0 0 calc(var(--u)*-3.5);z-index:4;pointer-events:none;filter:drop-shadow(0 0 calc(var(--u)*1) rgba(243,194,106,.9));transition:left 1.1s cubic-bezier(.4,0,.3,1), top 1.1s cubic-bezier(.4,0,.3,1), opacity .5s}
+.pointmoth svg{width:100%;height:100%}
+.pointmoth .wl,.pointmoth .wr{transform-origin:50% 55%}.pointmoth .wl{animation:flapL .16s ease-in-out infinite alternate}.pointmoth .wr{animation:flapR .16s ease-in-out infinite alternate}
+.pointmoth.go{animation:hover 1.6s ease-in-out .9s infinite}.pointmoth.away{opacity:0}
+.inrun{position:absolute;pointer-events:none;filter:drop-shadow(0 2px 2px rgba(0,0,0,.25))}
+.poster{position:absolute;left:50%;top:4%;width:34%;transform:translateX(-50%);border:calc(var(--u)*.3) solid #fffaf0;box-shadow:0 2px 6px rgba(0,0,0,.3);pointer-events:none}
+.book.inst.hit span{opacity:1}.book.inst{transition:transform .15s}.book.inst.hit{transform:scale(1.06)}
+.dot.on{background:#f2c53d;box-shadow:inset 0 0 0 calc(var(--u)*.25) rgba(0,0,0,.25)}
+#hots.reveal .hs:not(.secret){box-shadow:0 0 0 calc(var(--u)*.35) rgba(255,246,214,.95), 0 0 calc(var(--u)*2.2) rgba(255,196,80,.85);background:rgba(255,230,150,.16)}
+
+/* a drag moment: something the player must pull across a picture (the suitcase zip) before the story goes on */
+.dragpic{touch-action:none;cursor:grab}
+.dragpic.dragging{cursor:grabbing}
+.dragpic .dtab{position:absolute;transform:translate(-50%,-18%);pointer-events:none;filter:drop-shadow(0 calc(var(--u)*.3) calc(var(--u)*.4) rgba(0,0,0,.45))}
+.dragpic .dtab img{width:100%;height:100%;display:block}
+.dragpic svg.dline{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+@media (prefers-reduced-motion:no-preference){.dragpic .dtab.nudge{animation:nudge 1.4s ease-in-out infinite}@keyframes nudge{0%,100%{transform:translate(-50%,-18%)}50%{transform:translate(-35%,-18%)}}}
+
+/* the inventory strip */
+.inv{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:calc(var(--u)*1);padding:0 calc(var(--u)*.2)}
+.slot{aspect-ratio:1/1;min-width:0;overflow:hidden;border-radius:calc(var(--u)*1.2);background:var(--slot);box-shadow:inset 0 0 0 calc(var(--u)*.22) var(--slot-line);border:0;padding:12%;display:grid;place-items:center}
+.slot:empty{pointer-events:none}
+.slot svg{width:100%;height:100%;display:block}
+.slot.sel{box-shadow:inset 0 0 0 calc(var(--u)*.4) var(--accent);background:var(--accent-soft)}
+.slot:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
+
+/* menu */
+.menu{position:absolute;inset:0;display:grid;place-items:center;background:rgba(20,26,40,.55)}
+/* the cog's panel: settings, help and about in tabs, drawn over whatever is showing (a room or the title screen) */
+#menu{position:fixed;inset:0;z-index:9;background:rgba(7,9,13,.78)}
+.panel{position:relative;width:calc(var(--u)*78);height:calc(var(--u)*50);background:#16333a;color:#fffaf0;border-radius:calc(var(--u)*1.6);box-shadow:0 calc(var(--u)*1.5) calc(var(--u)*4) rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,250,240,.12);display:flex;flex-direction:column;overflow:hidden}
+.panel .pattern{opacity:.07}
+.tabs{position:relative;display:flex;justify-content:center;gap:calc(var(--u)*1);padding:calc(var(--u)*1.2) calc(var(--u)*8) 0}
+.tab{background:none;border:0;color:rgba(255,250,240,.55);font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2.2);padding:calc(var(--u)*.6) calc(var(--u)*1.8);border-radius:999px;display:flex;align-items:center;gap:calc(var(--u)*.7);min-height:40px}
+.tab svg{width:calc(var(--u)*2.4);height:calc(var(--u)*2.4)}
+.tab.on{color:#fffaf0;background:rgba(255,250,240,.12)}
+.tab:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
+.panel .x{position:absolute;right:calc(var(--u)*1.2);top:calc(var(--u)*1.2);width:calc(var(--u)*5);height:calc(var(--u)*5);border-radius:50%;border:0;background:rgba(255,250,240,.12);color:#fffaf0;font-size:calc(var(--u)*2.6);display:grid;place-items:center}
+.pane{position:relative;flex:1;padding:calc(var(--u)*1.2) calc(var(--u)*5) calc(var(--u)*1.6);display:none;flex-direction:column;gap:calc(var(--u)*1.1);font-size:calc(var(--u)*2);overflow:hidden}
+.pane.on{display:flex}
+.pane h3{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*3);text-align:center}
+.pane h3::after{content:"";display:block;width:calc(var(--u)*24);height:1px;background:rgba(255,250,240,.45);margin:calc(var(--u)*.6) auto 0}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--u)*1) calc(var(--u)*4);flex:1;align-content:start}
+.srow{display:flex;align-items:center;justify-content:space-between;gap:calc(var(--u)*2);min-height:44px}
+.srow label{display:flex;align-items:center;gap:calc(var(--u)*1)}
+.srow svg{width:calc(var(--u)*2.4);height:calc(var(--u)*2.4);flex:none}
+.srow input[type=range]{width:calc(var(--u)*20);accent-color:#f3c26a;height:44px}
+.pane .ob{background:rgba(255,250,240,.12);color:#fffaf0;box-shadow:inset 0 0 0 1px rgba(255,250,240,.4);padding:calc(var(--u)*.7) calc(var(--u)*2);font-size:calc(var(--u)*1.9);min-height:40px}
+.pane .ob.warn{box-shadow:inset 0 0 0 1px #e07a6a;color:#ffb3a7}
+.pane .ob.go{background:#f3c26a;color:#1d2629;box-shadow:none}
+.pane p{margin:0;line-height:1.35}
+.pane .dim{color:rgba(255,250,240,.6);font-size:calc(var(--u)*1.75)}
+.pane ul{margin:0;padding-left:calc(var(--u)*2.2);line-height:1.3}
+.pane li{margin-bottom:calc(var(--u)*.3)}
+.confirm{position:absolute;inset:0;background:rgba(22,51,58,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:calc(var(--u)*1.6);padding:calc(var(--u)*4);text-align:center}
+.confirm p{font-size:calc(var(--u)*2.2);max-width:calc(var(--u)*56)}
+#diag{position:absolute;left:calc(var(--u)*2);bottom:calc(var(--u)*.8);font-family:monospace;font-size:calc(var(--u)*1.35);color:rgba(255,250,240,.45)}
+.menu .card{background:var(--paper);border-radius:calc(var(--u)*1.4);padding:calc(var(--u)*3) calc(var(--u)*4);display:flex;flex-direction:column;gap:calc(var(--u)*1.4);align-items:center;font-size:calc(var(--u)*2.1);text-align:center;max-width:calc(var(--u)*70)}
+.menu h2{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*3.6)}
+.menu .small{color:var(--muted);font-size:calc(var(--u)*1.8)}
+.fsask{position:fixed;inset:0;display:grid;place-items:center;background:rgba(20,26,40,.82);z-index:8}
+.fsask .card{background:var(--paper);border-radius:calc(var(--u)*1.4);padding:calc(var(--u)*3) calc(var(--u)*4);display:flex;flex-direction:column;gap:calc(var(--u)*1.4);align-items:center;font-size:calc(var(--u)*2.1);text-align:center}
+.fsask h2{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*3.6)}
+.fsask p{margin:0}
+.ob{background:var(--ink);color:#fffaf0;border:0;border-radius:999px;padding:calc(var(--u)*1) calc(var(--u)*2.6);font-size:calc(var(--u)*2.1);min-height:44px}
+.ob.quiet{background:none;color:var(--ink);box-shadow:inset 0 0 0 1px var(--slot-line)}
+
+/* the studio start-up: a moth crosses the dark and lights the name; tap to skip */
+.screen{position:fixed;inset:0;display:grid;place-items:center;z-index:7;color:#fffaf0;text-align:center;-webkit-user-select:none;user-select:none}
+#splash{background:#07090d;z-index:8;cursor:pointer;overflow:hidden}
+#splash .logo{position:relative;display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*1)}
+#splash .og{font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*12);line-height:1;letter-spacing:.04em;color:#f3c26a;opacity:0;text-shadow:0 0 calc(var(--u)*3) rgba(243,194,106,.35)}
+#splash .ent{font-family:"Atkinson Hyperlegible",Verdana,sans-serif;font-size:calc(var(--u)*2.4);letter-spacing:.55em;padding-left:.55em;color:#fffaf0;opacity:0}
+#splash .presents{font-size:calc(var(--u)*1.9);color:rgba(255,250,240,.6);opacity:0;margin-top:calc(var(--u)*1)}
+#splash .glow{position:absolute;left:50%;top:50%;width:calc(var(--u)*70);height:calc(var(--u)*40);transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side, rgba(243,194,106,.22), transparent);opacity:0;pointer-events:none}
+#splash .moth{position:absolute;left:-12%;top:50%;width:calc(var(--u)*7);height:calc(var(--u)*5);filter:drop-shadow(0 0 calc(var(--u)*1.2) rgba(243,194,106,.9));will-change:transform}
+#splash .moth svg{width:100%;height:100%;display:block}
+#splash .moth .wl,#splash .moth .wr{transform-origin:50% 55%}
+#splash .skip{position:absolute;right:calc(var(--u)*2);bottom:calc(var(--u)*1.6);font-size:calc(var(--u)*1.7);color:rgba(255,250,240,.5)}
+@media (prefers-reduced-motion:no-preference){
+  #splash.play .moth{animation:mothFly 2.6s cubic-bezier(.35,0,.3,1) forwards}
+  #splash.play .moth .wl{animation:flapL .16s ease-in-out infinite alternate}
+  #splash.play .moth .wr{animation:flapR .16s ease-in-out infinite alternate}
+  #splash.play .glow{animation:glowIn 1.2s ease-out .9s forwards}
+  #splash.play .og{animation:riseIn .9s ease-out 1.0s forwards}
+  #splash.play .ent{animation:spread 1.1s ease-out 1.35s forwards}
+  #splash.play .presents{animation:riseIn .8s ease-out 2.0s forwards}
+  #splash.play{animation:splashOut .6s ease-in 3.4s forwards}
+  @keyframes mothFly{0%{transform:translate(0,-50%) rotate(8deg)}25%{transform:translate(30vw,-140%) rotate(-6deg)}50%{transform:translate(52vw,-30%) rotate(10deg)}70%{transform:translate(78vw,-160%) rotate(-4deg)}100%{transform:translate(118vw,-90%) rotate(6deg)}}
+  @keyframes flapL{from{transform:scaleX(1)}to{transform:scaleX(.35)}}
+  @keyframes flapR{from{transform:scaleX(1)}to{transform:scaleX(.35)}}
+  @keyframes glowIn{to{opacity:1}}
+  @keyframes riseIn{from{opacity:0;transform:translateY(calc(var(--u)*1.5)) scale(.96)}to{opacity:1;transform:none}}
+  @keyframes spread{from{opacity:0;letter-spacing:.2em}to{opacity:1;letter-spacing:.55em}}
+  @keyframes splashOut{to{opacity:0;visibility:hidden}}
+}
+@media (prefers-reduced-motion:reduce){
+  #splash.play .og,#splash.play .ent,#splash.play .presents,#splash.play .glow{opacity:1;transition:opacity .6s}
+  #splash.play .moth{left:38%;transform:translate(0,-160%)}
+  #splash.play{transition:opacity .5s 2s;opacity:0;visibility:hidden}
+}
+/* the title screen and the choose-a-child screen: our own moth-and-leaf pattern on deep teal */
+#howto{background:#123a3c;background-image:radial-gradient(ellipse at 50% 42%, rgba(120,190,180,.28), rgba(18,58,60,0) 60%);z-index:8}
+.hcard{position:relative;width:calc(var(--u)*88);max-height:96vh;background:var(--paper);color:var(--ink);border-radius:calc(var(--u)*1.6);padding:calc(var(--u)*1.6) calc(var(--u)*2.4) calc(var(--u)*1.8);display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*1.2);box-shadow:0 calc(var(--u)*1.5) calc(var(--u)*4) rgba(0,0,0,.5)}
+.hcard h2{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*3.6);line-height:1}
+.hpanels{display:grid;grid-template-columns:repeat(5,1fr);gap:calc(var(--u)*1.2);width:100%}
+.hp{background:#efe6d4;border-radius:calc(var(--u)*1.2);padding:calc(var(--u)*.9);display:flex;flex-direction:column;gap:calc(var(--u)*.7)}
+.hp p{margin:0;font-size:calc(var(--u)*1.55);line-height:1.3;text-align:center}
+.hpic{position:relative;width:100%;aspect-ratio:16/9;border-radius:calc(var(--u)*.8);overflow:hidden;background:#f4ead8}
+.hpic>img{width:100%;height:100%;object-fit:cover;display:block}
+.hpic.room svg{width:100%;height:100%;display:block}
+.hpic.moth{display:grid;place-items:center;background:radial-gradient(circle at 50% 55%, rgba(243,194,106,.45), rgba(243,194,106,0) 65%),#f4ead8}
+.hpic.moth img{width:70%;height:90%;object-fit:contain}
+.hpic.combine{display:flex;align-items:center;justify-content:center;gap:calc(var(--u)*.5);font-size:calc(var(--u)*2.2);font-weight:700;color:#4a3b2a}
+.hslot{position:absolute;width:calc(var(--u)*3.6);height:calc(var(--u)*3.6);background:var(--paper);border-radius:calc(var(--u)*.7);box-shadow:inset 0 0 0 1px var(--slot-line),0 1px 3px rgba(0,0,0,.25);display:grid;place-items:center;padding:calc(var(--u)*.3)}
+.hpic.combine .hslot{position:static}
+.hslot img{max-width:100%;max-height:100%;display:block}
+.hnum{position:absolute;font-weight:700;font-size:calc(var(--u)*1.8);color:#4a3b2a;text-shadow:0 0 4px #fff,0 0 4px #fff}
+.hand{position:absolute;width:calc(var(--u)*3.2);height:calc(var(--u)*3.2);margin:calc(var(--u)*-.6) 0 0 calc(var(--u)*-.6);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M10 4c0-1.7 1.3-3 3-3s3 1.3 3 3v9l2 0c.6-1.2 1.8-2 3.2-2 1.3 0 2.4.7 3 1.7 1.7-.5 3.8.6 3.8 3.2v6.5C28 25.7 24.7 30 19.5 30h-3.4c-2.2 0-4.3-1-5.6-2.8L5 20.6c-1-1.3-.7-3.2.7-4.1 1.1-.7 2.6-.5 3.4.5L10 18z' fill='%23f6d3b5' stroke='%234a3b2a' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));pointer-events:none}
+@media (prefers-reduced-motion:no-preference){.hand{animation:handTap 1.4s ease-in-out infinite}@keyframes handTap{0%,100%{transform:translateY(0)}50%{transform:translateY(calc(var(--u)*.7)) scale(.92)}}}
+.hcard .ob.go{background:#f3c26a;color:#1d2629;font-size:calc(var(--u)*2.3);padding:calc(var(--u)*1) calc(var(--u)*5)}
+@media (max-height:420px){.hcard{gap:calc(var(--u)*.6);padding-top:calc(var(--u)*1)}.hp p{font-size:calc(var(--u)*1.35)}.hcard h2{font-size:calc(var(--u)*3)}}
+#title,#choose{background:#123a3c;background-image:radial-gradient(ellipse at 50% 42%, rgba(120,190,180,.28), rgba(18,58,60,0) 60%)}
+.pattern{position:absolute;inset:0;opacity:.13;pointer-events:none}
+.tcard{position:relative;display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*1.8);padding:calc(var(--u)*2)}
+.tcard h1{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*8.5);line-height:1;color:#fffaf0;text-shadow:0 calc(var(--u)*.4) 0 rgba(0,0,0,.25)}
+.tcard h1 small{display:block;font-family:"Atkinson Hyperlegible",Verdana,sans-serif;font-size:calc(var(--u)*2.2);letter-spacing:.3em;padding-left:.3em;color:#bfe0d8;margin-bottom:calc(var(--u)*1.2)}
+.tcard .tag{margin:0;font-size:calc(var(--u)*2.3);color:#dfeeea}
+.tcard .row{margin-top:calc(var(--u)*1)}
+.tcard .ob{font-size:calc(var(--u)*2.4);padding:calc(var(--u)*1.3) calc(var(--u)*3.6);background:#f3c26a;color:#1d2629;min-width:calc(var(--u)*20)}
+.tcard .ob.quiet{background:rgba(255,250,240,.12);color:#fffaf0;box-shadow:inset 0 0 0 1px rgba(255,250,240,.45)}
+.tcard .ob[disabled]{opacity:.45;cursor:default}
+.tcard .foot{margin:0;font-size:calc(var(--u)*1.7);color:rgba(255,250,240,.65)}
+.tcard .foot button{background:none;border:0;color:inherit;text-decoration:underline;font:inherit;padding:0}
+.tcorner{position:absolute;top:calc(var(--u)*1.6);right:calc(var(--u)*1.6);display:flex;gap:calc(var(--u)*1)}
+.tcorner .ctl{position:static}
+.fam{display:flex;gap:calc(var(--u)*2);justify-content:center;align-items:stretch;flex:1;padding-top:calc(var(--u)*.6)}
+.fkid{width:calc(var(--u)*21);background:var(--paper);color:var(--ink);border:0;border-radius:calc(var(--u)*1.4);padding:calc(var(--u)*1.2) calc(var(--u)*1.2);display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*.5);font:inherit;box-shadow:0 calc(var(--u)*.8) calc(var(--u)*2) rgba(0,0,0,.35);cursor:pointer;transition:transform .15s}
+.fkid:hover,.fkid:focus-visible{transform:translateY(calc(var(--u)*-.5));outline:none}
+.fkid.now{cursor:default;transform:none;box-shadow:0 0 0 calc(var(--u)*.4) #f3c26a}
+.fkid .face{width:calc(var(--u)*8.5);height:calc(var(--u)*8.5);border-radius:50%;overflow:hidden;position:relative;box-shadow:inset 0 calc(var(--u)*-.5) 0 rgba(0,0,0,.15)}
+.fkid .face img{position:absolute;left:50%;top:6%;width:96%;transform:translateX(-50%);display:block}
+.fkid .kname{font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2.5);color:#1d2629}
+.fkid .kwhere{font-size:calc(var(--u)*1.7);line-height:1.25;text-align:center;color:var(--muted)}
+.fkid .kgo{font-size:calc(var(--u)*1.7);font-weight:700;color:#2f7c83;margin-top:auto}
+.kids{display:flex;gap:calc(var(--u)*2.4);justify-content:center;margin-top:calc(var(--u)*1)}
+.kid{width:calc(var(--u)*24);background:var(--paper);color:var(--ink);border:0;border-radius:calc(var(--u)*1.6);padding:calc(var(--u)*1.8) calc(var(--u)*1.4);display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*.7);font:inherit;box-shadow:0 calc(var(--u)*1) calc(var(--u)*2.5) rgba(0,0,0,.35);cursor:pointer;transition:transform .15s}
+.kid:hover,.kid:focus-visible{transform:translateY(calc(var(--u)*-.5));outline:none}
+.kid[disabled]{opacity:.55;cursor:default;transform:none}
+.kid .face{width:calc(var(--u)*11);height:calc(var(--u)*11);border-radius:50%;display:grid;place-items:center;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*4.5);color:#fffaf0;box-shadow:inset 0 calc(var(--u)*-.6) 0 rgba(0,0,0,.15);overflow:hidden;position:relative}
+.kid .face img{position:absolute;left:50%;top:6%;width:96%;transform:translateX(-50%);display:block}
+.kid .kname{font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2.8);color:#1d2629}
+.kid .kage{font-size:calc(var(--u)*1.8);color:var(--muted);margin-top:calc(var(--u)*-.5)}
+.kid .kline{font-size:calc(var(--u)*1.75);line-height:1.25;min-height:calc(var(--u)*4.4)}
+.kid .kprog{font-size:calc(var(--u)*1.75);font-weight:700;color:#2f7c83;min-height:calc(var(--u)*2.2)}
+.kid .kprog.warn{color:#c0541f}
+.tcard .back{position:static;width:auto;height:auto;border-radius:999px;padding:calc(var(--u)*.7) calc(var(--u)*2);font-size:calc(var(--u)*1.9);background:rgba(255,250,240,.12);box-shadow:inset 0 0 0 1px rgba(255,250,240,.45)}
+.tcard .back:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
+.notice{position:absolute;inset:0;display:grid;place-items:center;background:rgba(7,9,13,.6)}
+.notice .card{background:var(--paper);color:var(--ink);border-radius:calc(var(--u)*1.4);padding:calc(var(--u)*3) calc(var(--u)*4);max-width:calc(var(--u)*64);font-size:calc(var(--u)*2.1);text-align:center;display:flex;flex-direction:column;gap:calc(var(--u)*1.4);align-items:center}
+.notice h2{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*3.4)}
+.notice p{margin:0}
+
+/* a stage's title card (on the way in) and the postcard home (on the way out) */
+/* the comic intro (4n): pages of one picture each, the caption boxes dropping in one per tap, a small arrow when the page is done */
+.comic{position:absolute;inset:0;z-index:5;background:#f4ead8;display:grid;place-items:center;cursor:pointer;-webkit-user-select:none;user-select:none;padding:calc(var(--u)*2.2) calc(var(--u)*2.2) calc(var(--u)*4)}
+.comic .cpage{position:relative;width:100%;height:100%;max-width:calc(100% * 16 / 9);}
+.comic .cpic{position:absolute;inset:0;background:#e9dfcb center/cover no-repeat;border-radius:calc(var(--u)*.8);box-shadow:0 0 0 calc(var(--u)*.35) #4a3b2a, 0 calc(var(--u)*.8) calc(var(--u)*2) rgba(0,0,0,.25);transition:opacity .35s}
+.comic .cpic.turn{opacity:0}
+.comic .cbox{position:absolute;max-width:46%;background:#fffaf0;color:#1d2629;border-radius:calc(var(--u)*.6);padding:calc(var(--u)*.9) calc(var(--u)*1.3);font-size:calc(var(--u)*2);line-height:1.3;box-shadow:0 0 0 calc(var(--u)*.3) #4a3b2a, 0 calc(var(--u)*.5) calc(var(--u)*1.2) rgba(0,0,0,.3);animation:boxIn .32s cubic-bezier(.2,.8,.3,1.2) both}
+.comic .cbox.tl{left:3%;top:5%}.comic .cbox.tr{right:3%;top:5%}.comic .cbox.bl{left:3%;bottom:6%}.comic .cbox.br{right:3%;bottom:6%}
+@keyframes boxIn{from{transform:translateY(calc(var(--u)*-2.5)) scale(.92);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.comic .cbox{animation:none}}
+.comic .cnext{position:absolute;right:0;bottom:calc(var(--u)*-3.7);width:calc(var(--u)*3.3);height:calc(var(--u)*3.3);border-radius:50%;background:#1d2629;display:none;place-items:center;box-shadow:0 1px 4px rgba(0,0,0,.4)}
+.comic .cnext::after{content:"";width:0;height:0;border-style:solid;border-width:calc(var(--u)*.9) 0 calc(var(--u)*.9) calc(var(--u)*1.4);border-color:transparent transparent transparent #fffaf0;margin-left:calc(var(--u)*.3)}
+.comic .cnext.on{display:grid}
+@media (prefers-reduced-motion:no-preference){.comic .cnext.on{animation:nudge 1.2s ease-in-out infinite}@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(calc(var(--u)*.5))}}}
+.comic .cskip{position:absolute;right:calc(var(--u)*2.2);top:calc(var(--u)*2.2);background:rgba(29,38,41,.75);color:#fffaf0;border:0;border-radius:999px;padding:calc(var(--u)*.6) calc(var(--u)*1.6);font-size:calc(var(--u)*1.8);min-height:36px;z-index:2}
+.comic .cfoot{position:absolute;left:0;right:0;bottom:calc(var(--u)*1.1);margin:0;text-align:center;color:#4a3b2a;font-size:calc(var(--u)*1.7);opacity:.75}
+.stagecard{position:absolute;inset:0;display:grid;place-items:center;background:rgba(7,9,13,.92);z-index:5;color:#fffaf0;text-align:center;cursor:pointer}
+.stagecard .in{display:flex;flex-direction:column;gap:calc(var(--u)*1.2);align-items:center;animation:riseIn .8s ease-out both}
+.stagecard .place{font-size:calc(var(--u)*2);letter-spacing:.3em;padding-left:.3em;color:#bfe0d8}
+.stagecard h2{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*6.5);line-height:1.05}
+.stagecard p{margin:0;font-size:calc(var(--u)*2.3);max-width:calc(var(--u)*60);line-height:1.35}
+.stagecard .go{margin-top:calc(var(--u)*1.5)}
+.stagecard .go .ob{background:#f3c26a;color:#1d2629;font-size:calc(var(--u)*2.3)}
+@keyframes riseIn{from{opacity:0;transform:translateY(calc(var(--u)*1.5))}to{opacity:1;transform:none}}
+.menu.end{background:rgba(7,9,13,.55)}
+.postcard{position:relative;width:calc(var(--u)*64);aspect-ratio:1.55;background:#fffaf0;border-radius:calc(var(--u)*.6);box-shadow:0 calc(var(--u)*1.5) calc(var(--u)*4) rgba(0,0,0,.5);display:grid;grid-template-columns:1fr 1fr;overflow:hidden;color:var(--ink);text-align:left;animation:cardIn .7s cubic-bezier(.2,.8,.3,1) both;font-size:calc(var(--u)*1.9)}
+@keyframes cardIn{from{opacity:0;transform:translateY(calc(var(--u)*6)) rotate(-4deg) scale(.9)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.postcard,.stagecard .in{animation:none}}
+.postcard .pic{background:#ddd center/cover no-repeat;border-right:1px dashed #b9b2a1;margin:calc(var(--u)*1.1);margin-right:0;border-radius:calc(var(--u)*.3)}
+.postcard .pmsg{padding:calc(var(--u)*1.4) calc(var(--u)*1.6) calc(var(--u)*1);display:flex;flex-direction:column;gap:calc(var(--u)*.5);position:relative;font-style:italic;line-height:1.28;font-size:calc(var(--u)*1.7)}
+.postcard .to{font-style:normal;font-family:Caprasimo,Georgia,serif;color:#6d4fb8;font-size:calc(var(--u)*2.1)}
+.postcard .stamp{float:right;margin:0 0 calc(var(--u)*.8) calc(var(--u)*1);width:calc(var(--u)*7);height:calc(var(--u)*8.2);shape-outside:margin-box;border:calc(var(--u)*.25) solid #c8bfa8;background:var(--paper) center/cover no-repeat;box-shadow:0 0 0 calc(var(--u)*.35) #fffaf0 inset;transform:rotate(4deg)}
+.postcard .stamp::after{content:"";position:absolute;inset:calc(var(--u)*-.55);border:calc(var(--u)*.4) dotted #fffaf0;pointer-events:none}
+.postcard .body{flex:1}
+.postcard .ps{font-size:calc(var(--u)*1.55);color:#2f7c83;font-style:normal;font-weight:700}
+.postcard .sig{font-family:Caprasimo,Georgia,serif;font-style:normal;color:#6d4fb8}
+.endrow{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:calc(var(--u)*1.2)}
+.endrow .ob{min-height:36px;padding:calc(var(--u)*.8) calc(var(--u)*2.4)}
+.endrow .ob{background:#f3c26a;color:#1d2629}
+.endrow .ob.quiet{background:rgba(255,250,240,.12);color:#fffaf0;box-shadow:inset 0 0 0 1px rgba(255,250,240,.45)}
+.endwrap{display:flex;flex-direction:column;align-items:center}
+.endwrap .sent{color:#fffaf0;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2.8);margin:0 0 calc(var(--u)*.7);text-shadow:0 2px 6px rgba(0,0,0,.5)}
+/* the moth crossing the room at the end of a stage */
+.flymoth{position:absolute;left:-12%;top:45%;width:calc(var(--u)*6);height:calc(var(--u)*4.3);z-index:4;pointer-events:none;filter:drop-shadow(0 0 calc(var(--u)*1) rgba(243,194,106,.9))}
+.flymoth svg{width:100%;height:100%}
+@media (prefers-reduced-motion:no-preference){.flymoth{animation:mothFly 2.4s cubic-bezier(.35,0,.3,1) forwards}.flymoth .wl,.flymoth .wr{transform-origin:50% 55%}.flymoth .wl{animation:flapL .16s ease-in-out infinite alternate}.flymoth .wr{animation:flapR .16s ease-in-out infinite alternate}}
+@media (prefers-reduced-motion:reduce){.flymoth{display:none}}
+
+/* the moth appears beside the message line while it speaks, and settles when it has finished */
+.talker{position:absolute;left:calc(var(--u)*1.2);bottom:calc(var(--u)*.8);width:calc(var(--u)*8);height:calc(var(--u)*8);pointer-events:none;z-index:3;opacity:0;transform:translateY(calc(var(--u)*2)) scale(.8);transition:opacity .35s, transform .35s;filter:drop-shadow(0 0 calc(var(--u)*1.2) rgba(243,194,106,.7))}
+.talker img{width:100%;height:100%;object-fit:contain;display:block}
+.talker.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:no-preference){.talker.on img{animation:hover 1.6s ease-in-out infinite}@keyframes hover{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(calc(var(--u)*-.6)) rotate(2deg)}}}
+.scene.zoomed .talker{z-index:6}
+
+/* held in portrait: ask for a turn rather than squeezing the scene */
+.rotate{display:none;position:fixed;inset:0;background:var(--bg);color:#fffaf0;place-items:center;text-align:center;padding:24px;font-size:1.2rem;line-height:1.4;z-index:9}
+.rotate svg{width:72px;height:72px;margin-bottom:12px}
+@media (orientation:portrait) and (max-width:820px){.rotate{display:grid}}
+@media (prefers-reduced-motion:no-preference){.rotate svg{animation:turn 2.4s ease-in-out infinite}@keyframes turn{0%,20%{transform:rotate(0)}60%,100%{transform:rotate(-90deg)}}}
+.loading{position:absolute;inset:0;display:grid;place-items:center;background:#123a3c;color:#fffaf0;font-size:calc(var(--u)*2.4);z-index:4;text-align:center;transition:opacity .35s}
+.loading[hidden]{display:none}
+.loading .lin{display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*1.6)}
+.loading .lmoth{width:calc(var(--u)*9);height:calc(var(--u)*9);filter:drop-shadow(0 0 calc(var(--u)*1.2) rgba(243,194,106,.7))}
+.loading .lmoth img{width:100%;height:100%;object-fit:contain}
+@media (prefers-reduced-motion:no-preference){.loading .lmoth{animation:hover 1.6s ease-in-out infinite}}
+.loading .lbar{width:calc(var(--u)*36);height:calc(var(--u)*1.2);border-radius:999px;background:rgba(255,250,240,.18);overflow:hidden}
+.loading .lbar i{display:block;height:100%;width:0;background:#f3c26a;border-radius:999px;transition:width .25s ease-out}
+.loading .lt{font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2.8)}
+</style>
+</head>
+<body>
+<div id="app">
+<div class="stage" id="stage">
+  <div class="scene" id="scene">
+    <div class="loading" id="loading" hidden><div class="lin"><div class="lmoth"><img src="../art/portraits/moth.png" alt=""></div><div class="lt" id="loadText">Opening…</div><div class="lbar"><i id="loadBar"></i></div></div></div>
+    <div id="walls"></div>
+    <div id="hots"></div>
+    <button class="arrow l" id="left" aria-label="Turn left"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="arrow r" id="right" aria-label="Turn right"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 4 8 8-8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <span class="where" id="where">Classroom 5H</span>
+    <button class="ctl" id="hintBtn" aria-label="Ask the moth for a hint" title="Hint"><svg viewBox="-14 -10 28 20" aria-hidden="true"><path d="M0 0C-4-9-13-9-13-2-13 3-5 3 0 0Z" fill="#f0b44c"/><path d="M0 0C4-9 13-9 13-2 13 3 5 3 0 0Z" fill="#f0b44c"/><path d="M0 1C-3 7-9 8-9 4-9 1-4 1 0 1Z" fill="#e9b98a"/><path d="M0 1C3 7 9 8 9 4 9 1 4 1 0 1Z" fill="#e9b98a"/><ellipse cx="0" cy="1" rx="1.3" ry="5" fill="#2b3431"/></svg></button>
+    <button class="ctl" id="menuBtn" aria-label="Settings and help"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cog"/></svg></button>
+    <p class="msg" id="msg" aria-live="polite"></p>
+    <div class="talker" id="talker" aria-hidden="true"><img src="../art/portraits/moth-speak.png" alt=""></div>
+    <div class="closeup" id="closeup" hidden></div>
+    <div class="comic" id="comic" hidden><div class="cpage"><div class="cpic" id="cpic"></div><div class="cboxes" id="cboxes"></div><span class="cnext" id="cnext" aria-hidden="true"></span></div><button class="cskip" id="cskip">Skip</button><p class="cfoot" id="cfoot">Tap to go on</p></div>
+    <div class="stagecard" id="stagecard" hidden></div>
+    <div class="menu end" id="endUI" hidden><div class="endwrap"><p class="sent" id="endTitle"></p><div class="postcard" id="postcard"></div><div class="endrow"><button class="ob quiet" id="endAgain">Play this stage again</button><button class="ob" id="endNext" hidden>Next</button></div></div></div>
+  </div>
+  <div class="inv" id="inv" aria-label="Things you are carrying"></div>
+</div>
+</div>
+<!-- the studio start-up -->
+<div class="screen" id="splash" hidden aria-label="OG Entertainment">
+  <div class="glow"></div>
+  <div class="moth" aria-hidden="true"><svg viewBox="-14 -10 28 20"><g class="wl"><path d="M0 0C-4-9-13-9-13-2-13 3-5 3 0 0Z" fill="#f0b44c"/><path d="M0 1C-3 7-9 8-9 4-9 1-4 1 0 1Z" fill="#e9b98a"/></g><g class="wr"><path d="M0 0C4-9 13-9 13-2 13 3 5 3 0 0Z" fill="#f0b44c"/><path d="M0 1C3 7 9 8 9 4 9 1 4 1 0 1Z" fill="#e9b98a"/></g><ellipse cx="0" cy="1" rx="1.3" ry="5" fill="#2b3431"/></svg></div>
+  <div class="logo"><div class="og">OG</div><div class="ent">ENTERTAINMENT</div><div class="presents">presents</div></div>
+  <span class="skip">Tap to skip</span>
+</div>
+<!-- the title screen -->
+<div class="screen" id="howto" hidden>
+  <svg class="pattern" width="100%" height="100%" aria-hidden="true"><rect width="100%" height="100%" fill="url(#mothpat)"/></svg>
+  <div class="hcard">
+    <h2>How to play</h2>
+    <div class="hpanels">
+      <div class="hp"><div class="hpic"><img src="../art/howto/tap.jpg" alt=""><span class="hand" style="left:46%;top:58%"></span></div><p>Tap anything you are curious about. Nutmeg likes it.</p></div>
+      <div class="hp"><div class="hpic room"><svg viewBox="0 0 160 90" aria-hidden="true"><path d="M8 8h144v74H8Z" fill="#f4ead8" stroke="#4a3b2a" stroke-width="2.5" stroke-linejoin="round"/><path d="M8 8l24 18h96l24-18M8 82l24-18h96l24 18M32 26v38M128 26v38" fill="none" stroke="#4a3b2a" stroke-width="2"/><circle cx="20" cy="45" r="9" fill="#1d2629"/><path d="M23 40l-5 5 5 5" fill="none" stroke="#fffaf0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="140" cy="45" r="9" fill="#1d2629"/><path d="M137 40l5 5-5 5" fill="none" stroke="#fffaf0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The small arrows at the sides turn you round the room.</p></div>
+      <div class="hp"><div class="hpic"><img src="../art/howto/use.jpg" alt=""><span class="hslot" style="left:6%;bottom:6%"><img src="../art/school/item-starkey.png" alt=""></span><span class="hnum" style="left:6%;top:8%">1.</span><span class="hand" style="left:56%;top:52%"></span><span class="hnum" style="left:74%;top:30%">2.</span></div><p>Tap a thing in the strip, then tap where it goes.</p></div>
+      <div class="hp"><div class="hpic combine"><span class="hslot"><img src="../art/flat/layer-paper.png" alt=""></span><b>+</b><span class="hslot"><img src="../art/flat/layer-kaya.png" alt=""></span><b>=</b><span class="hslot"><img src="../art/flat/layer-present.png" alt=""></span></div><p>Two things in the strip can go together: hold one, tap the other.</p></div>
+      <div class="hp"><div class="hpic moth"><img src="../art/portraits/moth.png" alt=""></div><p>Stuck? Tap me at the top. I always know where to look.</p></div>
+    </div>
+    <button class="ob go" id="howtoGo">Play</button>
+  </div>
+</div>
+<div class="screen" id="title" hidden>
+  <svg class="pattern" width="100%" height="100%" aria-hidden="true"><rect width="100%" height="100%" fill="url(#mothpat)"/></svg>
+  <div class="tcorner"><button class="ctl" id="tMenu" aria-label="Settings and help"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cog"/></svg></button></div>
+  <div class="tcard">
+    <h1><small>A SUMMER MYSTERY</small>The Moth House</h1>
+    <p class="tag">Three children, one summer, and a house that appears at dusk.</p>
+    <div class="row"><button class="ob" id="tContinue">Continue</button><button class="ob quiet" id="tNew">New game</button></div>
+    <p class="foot"><button id="tAbout">About this game</button></p>
+  </div>
+</div>
+<!-- choose a child -->
+<div class="screen" id="choose" hidden>
+  <svg class="pattern" width="100%" height="100%" aria-hidden="true"><rect width="100%" height="100%" fill="url(#mothpat)"/></svg>
+  <div class="tcard">
+    <h1 style="font-size:calc(var(--u)*5)" id="chooseTitle">Whose story?</h1>
+    <div class="kids" id="kids"></div>
+    <p class="foot" id="chooseFoot"></p>
+    <div class="row"><button class="ob back" id="chooseBack">Back</button></div>
+  </div>
+</div>
+<!-- the cog's panel -->
+<div class="menu" id="menu" hidden>
+  <div class="panel">
+    <svg class="pattern" width="100%" height="100%" aria-hidden="true" style="position:absolute;inset:0"><rect width="100%" height="100%" fill="url(#mothpat)"/></svg>
+    <div class="tabs" role="tablist">
+      <button class="tab game-only" data-tab="family" role="tab"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3.2" fill="currentColor"/><circle cx="16.5" cy="9" r="2.6" fill="currentColor"/><path d="M2.5 19c0-3.3 2.5-5.5 5.5-5.5s5.5 2.2 5.5 5.5Z" fill="currentColor"/><path d="M13.5 18.5c.3-2.4 1.6-4 3-4.3 2.4 0 4.3 1.8 4.3 4.3Z" fill="currentColor"/></svg>Family</button>
+      <button class="tab on" data-tab="settings" role="tab"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cog"/></svg>Settings</button>
+      <button class="tab" data-tab="help" role="tab"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.6 2.2c-.8.4-1.1.9-1.1 1.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17" r="1.2" fill="currentColor"/></svg>Help</button>
+      <button class="tab" data-tab="about" role="tab"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 11v6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="7.5" r="1.3" fill="currentColor"/></svg>About</button>
+    </div>
+    <button class="x" id="closeMenu" aria-label="Close">×</button>
+    <div class="pane" data-pane="family">
+      <h3>Meanwhile…</h3>
+      <p class="dim" style="text-align:center">The three of them are having the same afternoon. Tap a child to see how theirs is going; each one keeps their place.</p>
+      <div class="fam" id="fam"></div>
+    </div>
+    <div class="pane on" data-pane="settings">
+      <h3>Settings</h3>
+      <div class="cols">
+        <div class="srow"><label for="volMusic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.5" fill="currentColor"/><circle cx="16.5" cy="16" r="2.5" fill="currentColor"/></svg>Music</label><input type="range" id="volMusic" min="0" max="10" step="1"></div>
+        <div class="srow"><label for="volVoice"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Z" fill="currentColor"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>The moth’s voice</label><input type="range" id="volVoice" min="0" max="10" step="1"></div>
+        <div class="srow"><label for="volFx"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Sound effects</label><input type="range" id="volFx" min="0" max="10" step="1"></div>
+        <div class="srow"><span>Full screen</span><button class="ob" id="fsBtn">Full screen</button></div>
+        <div class="srow game-only"><span>Can’t find something?</span><button class="ob" id="revealBtn">Show what I can tap</button></div>
+      </div>
+      <p class="dim">Stuck? Tap the moth at the top of the room: it opens the notebook of hints, or flies to the next thing to look at.</p>
+    </div>
+    <div class="pane" data-pane="help">
+      <h3>Help</h3>
+      <div class="cols">
+        <div><p><b>How to play</b></p><ul><li>Tap things to look. The side arrows turn you round.</li><li>Tap a thing in the strip, then tap where it goes. Two strip things can go together.</li><li>Hold a finger on the room to see what can be tapped.</li><li>Stuck? Tap the moth for the notebook and a hint.</li></ul><p style="margin-top:calc(var(--u)*.8)"><button class="ob" id="howtoBtn">Show me, with pictures</button> <button class="ob game-only" id="comicBtn">The story so far</button></p></div>
+        <div style="display:flex;flex-direction:column;gap:calc(var(--u)*1);align-items:flex-start">
+          <button class="ob game-only" id="toTitle">Back to the title screen</button>
+          <button class="ob warn game-only" id="restart">Start this stage again</button>
+          <button class="ob warn" id="resetStory">Start Mary’s story from the beginning</button>
+        </div>
+      </div>
+    </div>
+    <div class="pane" data-pane="about">
+      <h3>About</h3>
+      <div class="cols">
+        <div><p><b>The Moth House</b> is a summer mystery for children: three stories, one summer, and a house that appears at dusk to people who are looking.</p><p class="dim" style="margin-top:calc(var(--u)*1)">This is a work of fiction. Its characters, schools and events are imaginary. Any resemblance to real people or places is a coincidence.</p></div>
+        <div><p><b>Made by OG Entertainment.</b></p><p class="dim">Story, puzzles and design by the studio. Pictures and music made with the help of AI tools and drawn into the story by hand. Typefaces: Caprasimo and Atkinson Hyperlegible.</p></div>
+      </div>
+      <p class="dim" id="blurb"></p>
+    </div>
+    <div class="confirm" id="confirmUI" hidden><p id="confirmText"></p><div class="row"><button class="ob warn" id="confirmYes">Yes, start again</button><button class="ob" id="confirmNo">No, keep going</button></div></div>
+    <p id="diag" hidden></p>
+  </div>
+</div>
+<div class="fsask" id="fsask" hidden><div class="card"><h2>The Moth House</h2><p>Play full screen?</p><div class="row"><button class="ob" id="fsYes">Full screen</button><button class="ob quiet" id="fsNo">Not now</button></div></div></div>
+<div class="rotate"><div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2" fill="none" stroke="#fffaf0" stroke-width="1.6"/><circle cx="12" cy="18.5" r="1" fill="#fffaf0"/></svg><br>Turn your phone sideways to play.</div></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-pe" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M6 3.6l2.2 1.6-.8 2.6H4.6l-.8-2.6Z" fill="currentColor"/><path d="M6 1v2.6M1.2 5.2l2.6 0M10.8 5.2l-2.6 0M3.2 10.4l1.4-2.6M8.8 10.4 7.4 7.8" stroke="currentColor" stroke-width="1"/></symbol>
+    <symbol id="i-sc" viewBox="0 0 12 12"><path d="M4.5 1h3M5 1v3.5L2 10a1 1 0 0 0 .9 1.5h6.2A1 1 0 0 0 10 10L7 4.5V1" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M3.4 8.5h5.2L9.3 10.3H2.7Z" fill="currentColor"/></symbol>
+    <symbol id="i-ma" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-en" viewBox="0 0 12 12"><path d="M2.5 9.5 3.5 6.5 8.5 1.5l2 2-5 5Z" fill="currentColor"/><path d="M2.5 9.5l1-3 2 2Z" fill="#fffdf6"/></symbol>
+    <symbol id="i-ge" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/><ellipse cx="6" cy="6" rx="2.2" ry="5" fill="none" stroke="currentColor" stroke-width="1"/><path d="M1 6h10" stroke="currentColor" stroke-width="1"/></symbol>
+    <symbol id="i-li" viewBox="0 0 12 12"><rect x="1.5" y="8" width="9" height="2.6" rx=".6" fill="currentColor"/><rect x="2.5" y="4.8" width="8" height="2.6" rx=".6" fill="currentColor" opacity=".75"/><rect x="1.8" y="1.6" width="7" height="2.6" rx=".6" fill="currentColor" opacity=".5"/></symbol>
+    <symbol id="i-mu" viewBox="0 0 12 12"><path d="M4.5 9.5V2.5l5-1.2v6.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="3" cy="9.5" r="1.7" fill="currentColor"/><circle cx="8" cy="8" r="1.7" fill="currentColor"/></symbol>
+    <pattern id="mothpat" width="120" height="120" patternUnits="userSpaceOnUse"><g fill="#fffaf0"><path d="M60 40c-4-9-13-9-13-2 0 5 8 5 13 2Zm0 0c4-9 13-9 13-2 0 5-8 5-13 2Zm0 1c-3 7-9 8-9 4 0-3 5-3 9-4Zm0 1c3 7 9 8 9 4 0-3-5-3-9-4Z"/><ellipse cx="60" cy="41" rx="1.2" ry="5"/><path d="M12 100c8-14 20-16 30-10-8 2-18 6-30 10Zm96 0c-8-14-20-16-30-10 8 2 18 6 30 10Z"/><circle cx="18" cy="24" r="1.5"/><circle cx="102" cy="24" r="1.5"/><circle cx="60" cy="96" r="1.5"/></g></pattern>
+    <symbol id="i-cog" viewBox="0 0 24 24"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm8.6 2.1-1.9-.4a7 7 0 0 0-.7-1.7l1.1-1.6a1 1 0 0 0-.1-1.3l-1.6-1.6a1 1 0 0 0-1.3-.1l-1.6 1.1a7 7 0 0 0-1.7-.7l-.4-1.9A1 1 0 0 0 11.4 1h-2.3a1 1 0 0 0-1 .8l-.4 1.9a7 7 0 0 0-1.7.7L4.4 3.3a1 1 0 0 0-1.3.1L1.5 5a1 1 0 0 0-.1 1.3l1.1 1.6a7 7 0 0 0-.7 1.7l-1.9.4a1 1 0 0 0-.8 1v2.3a1 1 0 0 0 .8 1l1.9.4a7 7 0 0 0 .7 1.7l-1.1 1.6a1 1 0 0 0 .1 1.3L3.1 21a1 1 0 0 0 1.3.1l1.6-1.1a7 7 0 0 0 1.7.7l.4 1.9a1 1 0 0 0 1 .8h2.3a1 1 0 0 0 1-.8l.4-1.9a7 7 0 0 0 1.7-.7l1.6 1.1a1 1 0 0 0 1.3-.1l1.6-1.6a1 1 0 0 0 .1-1.3l-1.1-1.6a7 7 0 0 0 .7-1.7l1.9-.4a1 1 0 0 0 .8-1v-2.3a1 1 0 0 0-.8-1Z" fill="currentColor" transform="translate(1.5 1.5) scale(.88)"/></symbol>
+    <symbol id="i-ar" viewBox="0 0 12 12"><path d="M1.5 10.5c0-2 1-3 2.5-3.5L9.5 1.5l1 1L5 8c-.5 1.5-1.5 2.5-3.5 2.5Z" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<script>
+'use strict';
+const BUILD = '2026-09-30w';
+const $ = id => document.getElementById(id);
+
+/* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
+function fit(){
+  const vw = innerWidth - 16, vh = innerHeight - 12;
+  const w = Math.min(vw, vh / 0.6725, 1400);   /* scene 9/16 tall plus the strip and gap */
+  document.documentElement.style.setProperty('--u', (w / 100) + 'px');
+}
+addEventListener('resize', fit); fit();
+
+/* ---------- stages: each stage is a plugin (stages/*.js) that registers its rooms, walls, doors, tap targets, cut-out layers,
+   notes, items, hints, item uses and what happens on a tap. The engine handles turning, doors, the inventory, close-ups,
+   the notebook, sound, music, saves and endings. ---------- */
+const STAGES = {};
+function registerStage(key, stage){ STAGES[key] = stage; }
+let STAGE = null, ROOMS = {}, WALLS = {}, DOORS = {}, HOTS = {}, LAYERS = {}, EXTRA = {}, NOTES = {}, ITEMS = {}, HINTS = [], USES = {};
+function loadStage(key){
+  STAGE = STAGES[key]; ROOMS = STAGE.rooms; WALLS = STAGE.walls; DOORS = STAGE.doors; HOTS = STAGE.hots; LAYERS = STAGE.layers;
+  EXTRA = STAGE.extra || {}; NOTES = STAGE.notes; ITEMS = STAGE.items; HINTS = STAGE.hints; USES = STAGE.uses || {};
+  /* the walls are pictures stacked in the scene; the current one shows */
+  $('walls').innerHTML = '';
+  Object.entries(WALLS).forEach(([k, src]) => { const im = document.createElement('img'); im.className = 'wall'; im.id = 'w-' + k; im.alt = ''; im.src = src + '?v=' + BUILD; $('walls').appendChild(im); });
+}
+const IMG = {};
+function preload(src){ return IMG[src] || (IMG[src] = new Promise(res => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(im); im.src = src + '?v=' + BUILD; })); }
+function roomArt(room){ const list = []; ROOMS[room].views.forEach(v => { list.push(WALLS[v]); (LAYERS[v] || []).forEach(L => { if (L.src) list.push(L.src); if (L.inside) list.push(L.inside); }); }); (EXTRA[room] || []).forEach(p => list.push(p)); return list; }
+/* just the pictures one view needs: the wall and its cut-outs. A room opens as soon as its first view is in; the rest follows behind */
+function viewArt(v){ const list = [WALLS[v]]; (LAYERS[v] || []).forEach(L => { if (L.src) list.push(L.src); if (L.inside) list.push(L.inside); }); return list; }
+/* the loading screen: the moth, a line, and a bar that fills as the pictures arrive */
+function loadWithBar(list, label){
+  const el = $('loading'), bar = $('loadBar'); let n = 0; el.hidden = false; el.style.opacity = 1; $('loadText').textContent = label; bar.style.width = '0%';
+  const tick = () => { n++; bar.style.width = Math.round(100*n/list.length) + '%'; };
+  return Promise.all(list.map(src => preload(src).then(tick))).then(() => new Promise(res => { bar.style.width = '100%'; setTimeout(() => { el.style.opacity = 0; setTimeout(() => { el.hidden = true; res(); }, 350); }, 150); }));
+}
+/* the rest of the stage's pictures, quietly, current room first */
+function loadRest(){ roomArt(S.room).forEach(preload); Object.keys(ROOMS).filter(r => r !== S.room).forEach(r => roomArt(r).forEach(preload)); }
+/* ---------- the animator: each layer is a canvas; a tap starts a short, damped, organic movement ----------
+   bend: base fixed, tip moves most (plants). swing: hangs from the top, hem lags (a coat). lift: rises and settles (paper).
+   hop: squash, jump, land (a hamster). wobble: rocks on its base (a bag, an apple). pop: jumps up twice (things in a box). */
+const PAD_X = 0.45, PAD_Y = 0.7;               /* room around the cut-out for movement, as a share of its size */
+const layerState = new Map();                   /* canvas -> {img, L, anim, t0} */
+let animFrame = null;
+/* a layer can ask for more room than the default padding, for things that fall (a padlock) or tumble sideways (the blocks) */
+const pads = L => [L.padX ?? PAD_X, L.padY ?? PAD_Y, L.padBelow ?? 0.15];
+function makeLayer(L){
+  const c = document.createElement('canvas'); c.className = 'layer'; const [PX, PY, PB] = pads(L);
+  c.style.cssText = `left:${L.l - L.w*PX}%;top:${L.t - L.h*PY}%;width:${L.w*(1+2*PX)}%;height:${L.h*(1+PY+PB)}%`;
+  if (L.group) c.dataset.group = L.group;
+  const st = {img:null, L, anim:null, t0:0}; layerState.set(c, st);
+  if (L.inside) preload(L.inside).then(im => { st.inside = im; });
+  if (L.draw){ /* drawn by code rather than a picture: a stand-in size, the drawing happens in drawLayer */
+    const ratio = (L.h/L.w)*(9/16); st.img = {naturalWidth:300, naturalHeight:Math.round(300*ratio)}; c.width = Math.round(300*(1+2*PX)); c.height = Math.round(300*ratio*(1+PY+PB)); drawLayer(c, 0); return c; }
+  preload(L.src).then(img => { if (!img.naturalWidth) return; st.img = img; c.width = Math.round(img.naturalWidth*(1+2*PX)); c.height = Math.round(img.naturalHeight*(1+PY+PB)); drawLayer(c, 0); });
+  return c;
+}
+/* scene percentages -> this layer's canvas pixels */
+function toCanvas(c, L, px, py){ const [PX, PY, PB] = pads(L); return [ (px - (L.l - L.w*PX)) / (L.w*(1+2*PX)) * c.width, (py - (L.t - L.h*PY)) / (L.h*(1+PY+PB)) * c.height ]; }
+function drawLayer(c, t){
+  const st = layerState.get(c); if (!st || !st.img || !st.img.naturalWidth) return;
+  const [PX, PY, PB] = pads(st.L);
+  const {img, L, anim} = st, ctx = c.getContext('2d'), W = img.naturalWidth, H = img.naturalHeight, ox = W*PX, oy = H*PY, idleT = performance.now()/1000;
+  ctx.clearRect(0, 0, c.width, c.height);
+  ctx.save();
+  if (L.clipBottom != null){ const yClip = toCanvas(c, L, 0, L.clipBottom)[1]; ctx.beginPath(); ctx.rect(0, 0, c.width, yClip); ctx.clip(); }
+  let glassRect = null;
+  if (L.glass){ const [gx, gy] = toCanvas(c, L, L.glass[0], L.glass[1]), [gx2, gy2] = toCanvas(c, L, L.glass[0]+L.glass[2], L.glass[1]+L.glass[3]); glassRect = [gx, gy, gx2-gx, gy2-gy]; ctx.beginPath(); ctx.rect(...glassRect); ctx.clip(); }
+  if (L.tone) ctx.filter = L.tone; /* things behind glass are drawn a little duller, so they sit inside rather than on top */
+  if (L.shadow && !(L.kind === 'block')){ /* a soft contact shadow under things that stand on a surface, so nothing floats */
+    ctx.save(); ctx.filter = `blur(${Math.max(2, W*0.03)}px)`; ctx.fillStyle = `rgba(30,25,40,${0.28*L.shadow})`;
+    ctx.beginPath(); ctx.ellipse(ox + W/2, oy + H - H*0.01, W*0.46, Math.max(3, W*0.07), 0, 0, Math.PI*2); ctx.fill(); ctx.restore(); }
+  const finish = () => {
+    const wall = $('w-'+curView()); if (!wall || !wall.naturalWidth) return;
+    if (L.lit){ /* the room's light falls on the cut-out: the wall's light and shade behind it, as brightness only, laid over the drawing */
+      const off = st.off || (st.off = document.createElement('canvas')); off.width = c.width; off.height = c.height; const o = off.getContext('2d');
+      const bl = L.l - L.w*PX, bt = L.t - L.h*PY, bw = L.w*(1+2*PX), bh = L.h*(1+PY+PB);
+      o.filter = `grayscale(1) contrast(1.6) brightness(.8) blur(${Math.max(2, off.width*0.06)}px)`; o.drawImage(wall, bl/100*wall.naturalWidth, bt/100*wall.naturalHeight, bw/100*wall.naturalWidth, bh/100*wall.naturalHeight, 0, 0, off.width, off.height); o.filter = 'none';
+      o.globalCompositeOperation = 'destination-in'; o.drawImage(c, 0, 0); o.globalCompositeOperation = 'source-over';
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.filter = 'none'; ctx.globalCompositeOperation = 'overlay'; ctx.globalAlpha = L.lit; ctx.drawImage(off, 0, 0); ctx.restore();
+    }
+    /* the glass front of a cage, drawn faintly over whatever is inside */
+    if (!glassRect) return;
+    ctx.filter = 'none'; ctx.globalAlpha = 0.5; ctx.drawImage(wall, L.glass[0]/100*wall.naturalWidth, L.glass[1]/100*wall.naturalHeight, L.glass[2]/100*wall.naturalWidth, L.glass[3]/100*wall.naturalHeight, ...glassRect); ctx.globalAlpha = 1; };
+  const damp = (f, tau) => Math.sin(2*Math.PI*f*t) * Math.exp(-t/tau);
+  /* the three soft blocks: each band of the picture is one block; they tumble apart to the right and lie where they land */
+  const blockShadow = (cx, cy, w, a) => { ctx.save(); ctx.filter = `blur(${Math.max(2, W*0.03)}px)`; ctx.fillStyle = `rgba(30,25,40,${0.28*a})`; ctx.beginPath(); ctx.ellipse(cx, cy, w*0.46, Math.max(3, w*0.07), 0, 0, Math.PI*2); ctx.fill(); ctx.restore(); };
+  /* a soft block of a stack (kind 'block'): its own whole cut-out. L.fall = {dx (widths), rot, delay, lift}; L.drop = how many of its own
+     heights the floor is below its box; L.done() says the stack has fallen. k runs 0 (in the stack) to 1 (landed) */
+  const drawBlock = (k, airborne) => {
+    const P = L.fall, floor = oy + H*(1 + (L.drop || 0)), e = 1 - Math.pow(1-k, 2.2), rot = P.rot*e;
+    const rotH = th => (W*Math.abs(Math.sin(th)) + H*Math.abs(Math.cos(th)))/2;
+    const cx0 = ox + W/2, cy0 = oy + H/2, cx1 = cx0 + P.dx*W, cy1 = floor - rotH(P.rot);
+    let cx = cx0 + (cx1-cx0)*e, cy = cy0 + (cy1-cy0)*e - (airborne ? P.lift*H*Math.sin(Math.PI*k) : 0);
+    if (k >= 1 && airborne != null && airborne < 0.45 && airborne >= 0) cy -= 0.08*H*Math.abs(Math.sin(Math.PI*airborne/0.45))*Math.exp(-airborne/0.25); /* a small bounce on landing */
+    if (k >= 1 || !(L.drop)) blockShadow(cx, floor - H*0.01, W, k >= 1 || k <= 0 ? 1 : 0.5);
+    ctx.save(); ctx.translate(cx, cy); ctx.rotate(rot + (k > 0 && k < 1 ? 0.2*Math.sin(Math.PI*k)*(P.rot < 0 ? -1 : 1) : 0)); ctx.drawImage(img, -W/2, -H/2); ctx.restore();
+  };
+  /* the drawer in the stage front: when open it sits lower and larger (nearer), with the dark opening and the slip behind it */
+  const drawDrawer = (k) => {
+    if (k > 0){ ctx.fillStyle = `rgba(30,22,18,${0.8*k})`; ctx.fillRect(ox + W*0.03, oy + H*0.08, W*0.94, H*0.9);
+      if (st.inside && !S.got.includes('slipMu')){ const iw = W*0.34, ih = iw*st.inside.naturalHeight/st.inside.naturalWidth; ctx.save(); ctx.globalAlpha = k; ctx.translate(ox + W/2, oy + H*0.5); ctx.rotate(-0.12); ctx.drawImage(st.inside, -iw/2, -ih/2, iw, ih); ctx.restore(); } }
+    const s = 1 + 0.1*k, dy = H*0.55*k;
+    if (k > 0){ ctx.fillStyle = `rgba(30,22,18,${0.35*k})`; ctx.fillRect(ox + W*0.02, oy + H*0.9 + dy - H*0.05, W*0.96, H*0.3); }
+    ctx.save(); ctx.translate(ox + W/2, oy + H/2 + dy); ctx.scale(s, s); ctx.drawImage(img, -W/2, -H/2); ctx.restore();
+  };
+  const restDraw = () => {
+    if (L.gone && L.gone()) return;
+    if (st.open || (L.openWhen && L.openWhen())){ ctx.save(); ctx.translate(ox, oy); ctx.scale(0.12, 1); ctx.drawImage(img, 0, 0); ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.fillRect(0, 0, W, H); ctx.restore(); return; }
+    if (L.kind === 'block'){ drawBlock(L.done && L.done() ? 1 : 0, null); return; }
+    if (L.kind === 'drawer' && S.drawerOpen){ drawDrawer(1); return; }
+    if (L.draw === 'rain'){ drawRain(ctx, idleT, ox, oy, W, H, L); return; }
+    if (L.draw === 'steam'){ drawSteam(ctx, idleT, ox, oy, W, H); return; }
+    if (L.idle && !reduceMotion){ /* living background: a slow movement that never stops (4, backlog 16) */
+      const ph = L.phase || 0;
+      if (L.idle === 'swim'){ /* a slow wander across the box, turning at each end, with a little bob; the box is the water, the picture a fraction of it */
+        const P = L.period || 11, u = ((idleT + ph)/P) % 1, k = u < 0.5 ? u*2 : 2 - u*2, e = k*k*(3 - 2*k), facingLeft = u >= 0.5;
+        const fw = W*(L.size || 0.45), fh = fw*(H/W)*(16/9)*(L.w/L.h), x = ox + fw/2 + (W - fw)*e /* the picture keeps its own proportions inside the box */, y = oy + H*(L.depth ?? 0.45) + H*0.035*Math.sin(2*Math.PI*idleT/2.7 + ph);
+        ctx.save(); ctx.translate(x, y); if (facingLeft) ctx.scale(-1, 1); ctx.rotate(0.05*Math.sin(2*Math.PI*idleT/1.9 + ph)); ctx.drawImage(img, -fw/2, -fh/2, fw, fh); ctx.restore(); return; }
+      if (L.idle === 'breathe'){ const k = 1 + (L.amount || 0.012)*Math.sin(2*Math.PI*idleT/(L.period || 2.8) + ph); ctx.save(); ctx.translate(ox + W/2, oy + H); ctx.scale(1, k); ctx.drawImage(img, -W/2, -H); ctx.restore(); return; }
+      if (L.idle === 'sway'){ /* hung from the top: a slow stir in a draught */
+        const a = (L.amount || 0.035)*Math.sin(2*Math.PI*idleT/(L.period || 3.4) + ph) + (L.amount || 0.035)*0.4*Math.sin(2*Math.PI*idleT/(L.period || 3.4)*2.3 + ph*1.7);
+        ctx.save(); ctx.translate(ox + W/2, oy + (L.pivot === 'bottom' ? H : 0)); ctx.rotate(a); ctx.drawImage(img, -W/2, L.pivot === 'bottom' ? -H : 0); ctx.restore(); return; }
+    }
+    ctx.drawImage(img, ox, oy);
+    if (L.over) L.over(ctx, ox, oy, W, H);
+  };
+  if (!anim && L.flash){ ctx.restore(); return; }
+  if (!anim){ restDraw(); finish(); ctx.restore(); return; }
+  const N = 40;
+  ctx.save(); /* every movement below shifts the drawing origin; undo that before the glass is painted */
+  switch(anim){
+    case 'bend': { /* a plant: displacement grows with the square of the distance from the base, so the tip whips and the stem barely moves */
+      const A = W*0.32*damp(1.1, 0.75), lag = W*0.10*Math.sin(2*Math.PI*1.1*t - 1.2)*Math.exp(-t/0.75);
+      for (let i = 0; i < N; i++){ const y0 = i*H/N, u = 1 - (y0 + H/N/2)/H; const dx = A*u*u + lag*u*u*u; ctx.drawImage(img, 0, y0, W, H/N+1, ox+dx, oy+y0, W, H/N+1); }
+      break; }
+    case 'swing': { /* a coat on a peg: the whole thing pivots at the hook, and the hem trails a little behind */
+      const ang = 0.16*damp(0.75, 1.1), trail = 0.05*Math.sin(2*Math.PI*0.75*t - 1.0)*Math.exp(-t/1.1);
+      for (let i = 0; i < N; i++){ const y0 = i*H/N, v = (y0 + H/N/2)/H; const dx = Math.sin(ang)*y0 + Math.sin(trail)*y0*v; const sy = Math.cos(ang); ctx.drawImage(img, 0, y0, W, H/N+1, ox+dx, oy+y0*sy, W, H/N+1); }
+      break; }
+    case 'lift': { /* paper picked up a little and set down: rises with a tilt, settles */
+      const T = 0.9; if (t > T) { st.anim = null; ctx.drawImage(img, ox, oy); break; }
+      const k = Math.sin(Math.PI*t/T); const dy = -H*0.7*k, rot = -0.12*k;
+      ctx.translate(ox + W/2, oy + H + dy); ctx.rotate(rot); ctx.drawImage(img, -W/2, -H);
+      break; }
+    case 'hop': { /* squash, jump, land, once more smaller */
+      const hop = (t, T, h) => { if (t < 0 || t > T) return {dy:0, sx:1, sy:1};
+        if (t < T*0.18){ const k = t/(T*0.18); return {dy:0, sx:1+0.12*k, sy:1-0.16*k}; }
+        const u = (t - T*0.18)/(T*0.82); const arc = Math.sin(Math.PI*u); return {dy:-h*arc, sx:1-0.08*arc, sy:1+0.12*arc}; };
+      const a = hop(t, 0.55, H*0.45), b = hop(t-0.62, 0.42, H*0.22); const land = (t > 0.55 && t < 0.62) ? 0.85 : (t > 1.04 && t < 1.12 ? 0.9 : 1);
+      if (t > 1.25){ st.anim = null; ctx.drawImage(img, ox, oy); break; }
+      const dy = a.dy + b.dy, sx = a.sx*b.sx*(2-land), sy = a.sy*b.sy*land;
+      ctx.translate(ox + W/2, oy + H + dy); ctx.scale(sx, sy); ctx.drawImage(img, -W/2, -H);
+      break; }
+    case 'peek': { /* cupboard doors: each swings open a crack on its own hinge, then shuts */
+      const T = 1.3; if (t > T){ st.anim = null; ctx.drawImage(img, ox, oy); break; }
+      const k = t < 0.45 ? Math.sin(Math.PI/2*t/0.45) : (t < 0.8 ? 1 : Math.cos(Math.PI/2*(t-0.8)/0.5)); const open = 0.22*k;
+      ctx.save(); ctx.translate(ox, oy); ctx.scale(1-open, 1); ctx.drawImage(img, 0, 0, W/2, H, 0, 0, W/2, H); ctx.fillStyle = `rgba(0,0,0,${0.18*k})`; ctx.fillRect(0, 0, W/2, H); ctx.restore();
+      ctx.save(); ctx.translate(ox + W, oy); ctx.scale(1-open, 1); ctx.drawImage(img, W/2, 0, W/2, H, -W/2, 0, W/2, H); ctx.fillStyle = `rgba(0,0,0,${0.18*k})`; ctx.fillRect(-W/2, 0, W/2, H); ctx.restore();
+      break; }
+    case 'turn': { /* a door knob turns and springs back */
+      const ang = 0.45*Math.sin(Math.PI*Math.min(t, 0.5)/0.5)*(t < 0.5 ? 1 : 0) + (t >= 0.5 ? 0.08*damp(3, 0.25) : 0);
+      if (t > 1.2){ st.anim = null; ctx.drawImage(img, ox, oy); break; }
+      ctx.translate(ox + W/2, oy + H/2); ctx.rotate(ang); ctx.drawImage(img, -W/2, -H/2);
+      break; }
+    case 'flip': { /* a bin lid tips up at the back and drops shut */
+      const T = 0.7; if (t > T + 0.3){ st.anim = null; ctx.drawImage(img, ox, oy); break; }
+      const k = t < T ? Math.sin(Math.PI*t/T) : 0, settle = t >= T ? 0.05*damp(4, 0.15) : 0;
+      ctx.translate(ox + W/2, oy + H); ctx.rotate(-0.35*k + settle); ctx.translate(0, -H*0.25*k); ctx.drawImage(img, -W/2, -H);
+      break; }
+    case 'sniff': { /* a hamster: a breath, a nose twitch and a tiny shuffle, all inside its cage */
+      if (t > 1.6){ st.anim = null; ctx.drawImage(img, ox, oy); break; }
+      const breath = 1 + 0.035*Math.sin(2*Math.PI*1.6*t)*Math.exp(-t/1.4), twitch = 0.04*Math.sin(2*Math.PI*6*t)*Math.exp(-t/0.35), shuffle = W*0.03*Math.sin(Math.PI*Math.min(t, 0.6)/0.6);
+      ctx.translate(ox + W/2 + shuffle, oy + H); ctx.rotate(twitch); ctx.scale(1/breath, breath); ctx.drawImage(img, -W/2, -H);
+      break; }
+    case 'openDoor': { /* a locker door swings open on its left hinge and stays open */
+      const T = 0.7; const k = Math.min(1, t/T); const open = 0.88*Math.sin(Math.PI/2*k);
+      if (t > T + 0.05){ st.anim = null; st.open = true; }
+      ctx.translate(ox, oy); ctx.scale(1-open, 1); ctx.drawImage(img, 0, 0); ctx.fillStyle = `rgba(0,0,0,${0.25*k})`; ctx.fillRect(0, 0, W, H);
+      break; }
+    case 'lockerTap': { /* a closed locker door rattles; an open one does nothing */
+      if (st.open || (L.openWhen && L.openWhen())){ st.anim = null; ctx.save(); ctx.translate(ox, oy); ctx.scale(0.12, 1); ctx.drawImage(img, 0, 0); ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.fillRect(0, 0, W, H); ctx.restore(); break; }
+      if (t > 0.6){ st.anim = null; ctx.drawImage(img, ox, oy); break; }
+      ctx.drawImage(img, ox + W*0.03*damp(9, 0.18), oy); break; }
+    case 'squirt': { /* a drinking fountain: a thin arc of water rises from the spout, curves over and falls into the basin, then stops */
+      const T = 1.5; if (t > T){ st.anim = null; break; }
+      const grow = Math.min(1, t/0.35), fade = t > 1.1 ? 1 - (t-1.1)/0.4 : 1;
+      const x0 = ox + W*0.22, y0 = oy + H*0.58, cx = ox - W*0.06, cy = oy + H*0.22, x1 = ox - W*0.38, y1 = oy + H*0.96; /* spout tip, apex, the basin's bottom: the water rises from the spout and falls left into the basin */
+      const pt = u => [ (1-u)*(1-u)*x0 + 2*(1-u)*u*cx + u*u*x1, (1-u)*(1-u)*y0 + 2*(1-u)*u*cy + u*u*y1 ];
+      ctx.globalAlpha = fade; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      const path = () => { ctx.beginPath(); ctx.moveTo(x0, y0); for (let i = 1; i <= 24; i++){ const [x, y] = pt(grow*i/24); ctx.lineTo(x, y); } };
+      path(); ctx.strokeStyle = 'rgba(70,130,180,.9)'; ctx.lineWidth = W*0.055; ctx.stroke();
+      path(); ctx.strokeStyle = 'rgba(190,225,240,.95)'; ctx.lineWidth = W*0.028; ctx.stroke();
+      path(); ctx.strokeStyle = 'rgba(255,255,255,.8)'; ctx.lineWidth = W*0.01; ctx.stroke();
+      if (grow === 1){ /* a few droplets flicking off the top of the arc */
+        const wob = Math.sin(t*22); [[0.35,-0.05,-0.06],[0.5,0.04,-0.09],[0.62,0.08,-0.04]].forEach(([u,dx,dy],i) => { const [x,y] = pt(u); ctx.fillStyle = 'rgba(190,225,240,.9)'; ctx.beginPath(); ctx.arc(x + W*dx + W*0.01*wob*(i%2?1:-1), y + H*dy - H*0.01*wob, W*0.012, 0, Math.PI*2); ctx.fill(); }); }
+      break; }
+    case 'roll': { /* a trolley nudged along a little and back, wheels first */
+      if (t > 1.5){ st.anim = null; ctx.drawImage(img, ox, oy); break; }
+      const dx = W*0.12*Math.sin(Math.PI*Math.min(t, 1.4)/1.4), tilt = -0.03*Math.sin(2*Math.PI*t/1.4);
+      ctx.translate(ox + W/2 + dx, oy + H); ctx.rotate(tilt); ctx.drawImage(img, -W/2, -H); break; }
+    case 'ding': { /* a desk bell: pressed, then rings with a quick shiver */
+      if (t > 0.9){ st.anim = null; ctx.drawImage(img, ox, oy); break; }
+      const press = t < 0.12 ? 1 - 0.1*Math.sin(Math.PI*t/0.12) : 1, shiver = t > 0.1 ? W*0.012*damp(14, 0.25) : 0;
+      ctx.translate(ox + W/2 + shiver, oy + H); ctx.scale(1, press); ctx.drawImage(img, -W/2, -H); break; }
+    case 'plump': { /* cushions patted: squash down, puff up, settle */
+      if (t > 1.0){ st.anim = null; ctx.drawImage(img, ox, oy); break; }
+      const sy = 1 - 0.14*Math.sin(Math.PI*Math.min(t, 0.35)/0.35) + (t > 0.35 ? 0.05*damp(3, 0.3) : 0);
+      ctx.translate(ox + W/2, oy + H); ctx.scale(1/Math.sqrt(sy), sy); ctx.drawImage(img, -W/2, -H); break; }
+    case 'spin': { /* a globe: the map slides round the sphere under the brass arc, slowing to a stop */
+      if (t > 2.6){ st.anim = null; ctx.drawImage(img, ox, oy); break; }
+      const [cx, cy, r] = L.sphere, th = 0.85*2*Math.PI*(1 - Math.exp(-t/0.9));
+      if (!st.arc){ /* the brass arc and any dark lines inside the sphere stay still: keep them on their own layer */
+        const oc = document.createElement('canvas'); oc.width = W; oc.height = H; const o = oc.getContext('2d'); o.drawImage(img, 0, 0);
+        let d; try{ d = o.getImageData(0, 0, W, H); }catch(e){ st.arc = false; ctx.drawImage(img, ox, oy); break; } const px = d.data;
+        for (let y = 0; y < H; y++) for (let x = 0; x < W; x++){ const i = (y*W + x)*4, dx = x - cx, dy = y - cy; if (dx*dx + dy*dy > r*r){ px[i+3] = 0; continue; }
+          const R = px[i], G = px[i+1], B = px[i+2]; const brass = R > 120 && R > B + 40 && G > B + 10; const ink = R + G + B < 150; if (!brass && !ink) px[i+3] = 0; }
+        o.putImageData(d, 0, 0); st.arc = oc; }
+      if (st.arc === false){ ctx.drawImage(img, ox, oy); break; }
+      ctx.drawImage(img, ox, oy);
+      ctx.save(); ctx.beginPath(); ctx.arc(ox + cx, oy + cy, r - 1, 0, Math.PI*2); ctx.clip();
+      for (let x = Math.ceil(cx - r); x <= cx + r; x += 2){
+        const u = Math.max(-1, Math.min(1, (x - cx)/r)); let ph = Math.asin(u) + th; ph = ((ph + Math.PI/2) % Math.PI + Math.PI) % Math.PI - Math.PI/2;
+        const sx = Math.max(0, Math.min(W - 2, cx + r*Math.sin(ph))), hh = Math.sqrt(Math.max(0, r*r - (x-cx)*(x-cx))), sy = Math.max(0, cy - hh), sh = Math.min(H - sy, 2*hh);
+        if (sh > 0) ctx.drawImage(img, sx, sy, 2, sh, ox + x, oy + cy - hh, 2, sh); }
+      ctx.restore(); ctx.drawImage(st.arc, ox, oy);
+      break; }
+    case 'rattle': { /* a locked thing shakes a little and stays put */
+      if (t > 0.6){ st.anim = null; restDraw(); break; }
+      if (L.gone && L.gone()){ st.anim = null; break; }
+      ctx.translate(W*0.03*damp(9, 0.18), 0); restDraw(); break; }
+    case 'drop': { /* a padlock springs open and falls away, fading as it goes; afterwards it is gone */
+      if (t > 1.3){ st.anim = null; break; }
+      const open = Math.min(1, t/0.25), fall = Math.max(0, t - 0.25), dy = H*4.5*fall*fall, rot = -0.18*open + 0.5*fall;
+      ctx.globalAlpha = Math.max(0, 1 - Math.max(0, t - 0.85)/0.4);
+      ctx.translate(ox + W/2, oy + H*0.15 + dy); ctx.rotate(rot); ctx.drawImage(img, -W/2, -H*0.15); if (L.over) L.over(ctx, -W/2, -H*0.15, W, H); ctx.globalAlpha = 1;
+      break; }
+    case 'topple': { /* the stack of soft blocks tumbles apart: each block flies whole to its own landing place */
+      if (L.kind !== 'block'){ st.anim = null; restDraw(); break; }
+      const P = L.fall, k = Math.max(0, Math.min(1, (t - P.delay)/0.9)), after = t - P.delay - 0.9;
+      if (t > 2.4){ st.anim = null; drawBlock(1, null); break; }
+      drawBlock(k, k >= 1 ? after : (k > 0 ? 0.001 : -1)); break; }
+    case 'slideOpen': { /* the stage drawer slides out and stays out */
+      const T = 0.7, k = Math.min(1, t/T), e = 1 - Math.pow(1-k, 3);
+      if (t > T + 0.05){ st.anim = null; drawDrawer(1); break; }
+      drawDrawer(e); break; }
+    case 'pour': { /* the art-room tap: water falls straight from the spout into the sink, splashing a little, then stops */
+      const T = 1.4; if (t > T){ st.anim = null; break; }
+      const grow = Math.min(1, t/0.25), fade = t > 1.05 ? 1 - (t-1.05)/0.35 : 1, x0 = ox + W*0.5, y0 = oy + H*0.05, y1 = oy + H*0.98;
+      ctx.globalAlpha = fade; ctx.lineCap = 'round';
+      const yEnd = y0 + (y1 - y0)*grow, wob = Math.sin(t*30)*W*0.01;
+      [[ 'rgba(70,130,180,.9)', 0.16 ], [ 'rgba(190,225,240,.95)', 0.08 ], [ 'rgba(255,255,255,.8)', 0.03 ]].forEach(([col, lw]) => { ctx.strokeStyle = col; ctx.lineWidth = W*lw; ctx.beginPath(); ctx.moveTo(x0, y0); ctx.quadraticCurveTo(x0 + wob, (y0 + yEnd)/2, x0, yEnd); ctx.stroke(); });
+      if (grow === 1){ const s = Math.sin(t*26); [[-0.28, -0.02], [0.3, -0.05], [-0.12, -0.1], [0.16, -0.12]].forEach(([dx, dy], i) => { ctx.fillStyle = 'rgba(190,225,240,.9)'; ctx.beginPath(); ctx.arc(x0 + W*dx + W*0.02*s*(i%2 ? 1 : -1), y1 + H*dy - H*0.02*Math.abs(s), W*0.035, 0, Math.PI*2); ctx.fill(); }); }
+      break; }
+    case 'wobble': { /* rocks on its base and settles */
+      const ang = 0.14*damp(1.6, 0.6);
+      ctx.translate(ox + W/2, oy + H); ctx.rotate(ang); ctx.drawImage(img, -W/2, -H);
+      break; }
+    case 'pop': { /* things in a box jump up and drop back */
+      const T = 0.5; const t2 = t < T ? t : t - T*1.15; const k = (t2 >= 0 && t2 < T) ? Math.sin(Math.PI*t2/T) : 0; const second = t >= T*1.15;
+      if (t > T*2.3){ st.anim = null; ctx.drawImage(img, ox, oy); break; }
+      const dy = -H*(second ? 0.35 : 0.7)*k, rot = (second ? -0.06 : 0.1)*k;
+      ctx.translate(ox + W/2, oy + H + dy); ctx.rotate(rot); ctx.drawImage(img, -W/2, -H);
+      break; }
+  }
+  ctx.restore();
+  finish();
+  ctx.restore();
+}
+/* rain on a window: faint streaks running down the pane, a few at a time, with the odd drip that hesitates; the pane is the layer's box */
+function drawRain(ctx, t, ox, oy, W, H, L){
+  const n = L.count || 14; ctx.save(); ctx.lineCap = 'round';
+  for (let i = 0; i < n; i++){ const seed = (i*7919 % 1000)/1000, seed2 = (i*104729 % 1000)/1000, speed = 0.55 + seed2*0.5, len = H*(0.08 + seed*0.14);
+    const u = ((t*speed/ (L.period || 4) + seed) % 1), x = ox + W*(0.04 + ((seed*0.92 + i/n) % 0.92)), y = oy - len + (H + len)*u;
+    ctx.globalAlpha = 0.22*(1 - u*0.5); ctx.strokeStyle = 'rgba(230,240,250,1)'; ctx.lineWidth = Math.max(1, W*0.006); ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + W*0.006, y + len); ctx.stroke();
+    if (i % 4 === 0){ ctx.globalAlpha = 0.28; ctx.fillStyle = 'rgba(240,248,255,1)'; ctx.beginPath(); ctx.arc(x + W*0.006, y + len, Math.max(1.2, W*0.011), 0, Math.PI*2); ctx.fill(); } }
+  ctx.restore();
+}
+/* steam: three wisps rising from the bottom of the box and fading as they go */
+function drawSteam(ctx, t, ox, oy, W, H){
+  ctx.save(); ctx.lineCap = 'round'; ctx.strokeStyle = 'rgba(255,255,255,1)';
+  for (let i = 0; i < 3; i++){ const u = ((t/3.2 + i/3) % 1), x0 = ox + W*(0.25 + i*0.25), y = oy + H*(1 - u), sw = W*0.08*Math.sin(2*Math.PI*u*1.5 + i);
+    ctx.globalAlpha = 0.28*Math.sin(Math.PI*u); ctx.lineWidth = Math.max(1.5, W*0.05*(0.6 + u)); ctx.beginPath(); ctx.moveTo(x0, y + H*0.18); ctx.quadraticCurveTo(x0 + sw, y + H*0.09, x0 - sw*0.5, y); ctx.stroke(); }
+  ctx.restore();
+}
+/* the living background's own loop: the current view's idle layers are redrawn about twenty times a second while the room is
+   in view; it rests under a close-up, the menu, a hidden tab, and always under reduced motion */
+const reduceMotion = matchMedia('(prefers-reduced-motion:reduce)').matches;
+let idleFrame = null, idleLast = 0;
+function idleTick(now){
+  idleFrame = null; let any = false;
+  if (!reduceMotion && !document.hidden && $('closeup').hidden && $('menu').hidden){
+    if (now - idleLast > 45){ idleLast = now; layerState.forEach((st, c) => { const L = st.L; if (!c.isConnected || st.anim) return; if (L.idle || L.draw === 'rain' || L.draw === 'steam'){ any = true; drawLayer(c, 0); } }); }
+    else any = true;
+  } else { layerState.forEach(st => { if (st.L.idle || st.L.draw === 'rain' || st.L.draw === 'steam') any = true; }); }
+  if (any) idleFrame = requestAnimationFrame(idleTick);
+}
+function startIdle(){ if (!idleFrame && !reduceMotion) idleFrame = requestAnimationFrame(idleTick); }
+function tick(){
+  let live = false; const now = performance.now();
+  layerState.forEach((st, c) => {
+    if (!st.anim || !c.isConnected) return;
+    const t = (now - st.t0)/1000;
+    if (t > 3.2) st.anim = null;
+    try{ drawLayer(c, t); }catch(e){ st.anim = null; try{ drawLayer(c, 0); }catch(e2){} } /* a movement that fails (a tainted canvas on some hosts) leaves the thing at rest, never blank */
+    if (st.anim) live = true;
+  });
+  animFrame = live ? requestAnimationFrame(tick) : null;
+}
+function animate(h){
+  if (!h.anim || !h.layer) return;
+  const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  document.querySelectorAll(`.layer[data-group="${h.layer}"]`).forEach((c, i) => {
+    const st = layerState.get(c); if (!st) return;
+    st.anim = h.anim; st.t0 = performance.now() + (reduce ? 0 : i*110);
+    if (reduce) st.t0 -= 1200; /* start part-way through, so the movement is a short settle */
+  });
+  if (!animFrame) animFrame = requestAnimationFrame(tick);
+}
+
+/* ---------- state ---------- */
+const KEY = 'mothhouse.landscape.' + BUILD; /* each build starts a fresh game; Start again is in the menu */
+/* the three stories: one save each, keyed by child; the title screen's Continue picks up the last one played */
+const CHILDREN = {
+  mary:{name:'Mary', age:10, colour:'#8a5cc2', line:'Notices patterns, reads everything.', first:'school', portrait:'../art/portraits/mary.png'},
+  elliot:{name:'Elliot', age:7, colour:'#2f7c83', line:'Wants to know how things work.', first:'eschool', portrait:'../art/portraits/elliot.png'},
+  zaina:{name:'Zaina', age:4, colour:'#d9a622', line:'Sees the small things. Animals trust her.', first:'zschool', portrait:'../art/portraits/zaina.png'}
+};
+let CHILD = 'mary', S;
+const keyFor = child => KEY + '.' + child;
+function saved(child){ try{ const s = JSON.parse(localStorage.getItem(keyFor(child))); return s && Array.isArray(s.got) && STAGES[s.stage] ? s : null; }catch(e){ return null; } }
+const hasProgress = s => !!s && (s.got.length > 0 || s.stage !== CHILDREN[CHILD].first || s.done);
+function fresh(stage){ return Object.assign({stage, room:STAGES[stage].start.room, view:STAGES[stage].start.view, got:[], held:null, hint:{}, done:false}, STAGES[stage].fresh()); }
+function load(){ const s = saved(CHILD); if (s){ loadStage(s.stage); if (ROOMS[s.room]) return Object.assign(fresh(s.stage), s); } const first = CHILDREN[CHILD].first; loadStage(first); return fresh(first); }
+function save(){ try{ localStorage.setItem(keyFor(CHILD), JSON.stringify(S)); localStorage.setItem(KEY + '.last', CHILD); }catch(e){} }
+const curView = () => ROOMS[S.room].views[S.view];
+
+/* ---------- drawing ---------- */
+function say(html){ $('msg').innerHTML = html; }
+function render(){
+  const v = curView();
+  Object.keys(WALLS).forEach(k => $('w-'+k).classList.toggle('on', k === v));
+  $('where').textContent = ROOMS[S.room].name;
+  const hots = $('hots'); hots.innerHTML = '';
+  const going = new Map(); layerState.forEach((st, c) => { if (st.anim && st.L.group) going.set(st.L.group, {anim:st.anim, t0:st.t0}); }); /* movements still going carry over a re-render */
+  layerState.clear();
+  (LAYERS[v] || []).forEach(L => { if (L.hideWhen && L.hideWhen()) return; if (L.showWhen && !L.showWhen()) return; const c = makeLayer(L); hots.appendChild(c); const g = going.get(L.group); if (g){ const st = layerState.get(c); st.anim = g.anim; st.t0 = g.t0; if (!animFrame) animFrame = requestAnimationFrame(tick); } });
+  if (STAGE.overlays && STAGE.overlays[v]) hots.appendChild(STAGE.overlays[v]()); /* things the game draws over the picture, so wall and close-up agree */
+  startIdle();
+  /* bigger targets first, so a small thing on a big thing (the mug on the desk) stays tappable */
+  [...HOTS[v]].sort((a, b) => b.w*b.h - a.w*a.h).forEach(h => {
+    if (h.hideWhen && h.hideWhen()) return;
+    const b = document.createElement('button');
+    b.className = 'hs' + (h.secret ? ' secret' : ''); b.dataset.id = h.id; b.setAttribute('aria-label', h.label);
+    b.style.cssText = `left:${h.l}%;top:${h.t}%;width:${h.w}%;height:${h.h}%`;
+    b.onclick = () => { if (S.held){ const item = S.held; S.held = null; useItem(item, h.id, h); return; } animate(h); sfx(h.sound || 'tap'); act(h.id); };
+    hots.appendChild(b);
+    if (h.key && sparkle(h.id)){
+      const s = document.createElement('span'); s.className = 'spark';
+      s.style.cssText = `left:${h.l + h.w - 1.5}%;top:${h.t - 1.5}%`;
+      s.innerHTML = '<svg viewBox="0 0 10 10"><path d="M5 0 6 4 10 5 6 6 5 10 4 6 0 5 4 4Z" fill="currentColor"/></svg>';
+      hots.appendChild(s);
+    }
+  });
+  const usable = S.got.filter(k => ITEMS[k] && !ITEMS[k].note);
+  if (usable.length >= 1) tip('pickup', 2500);
+  if (usable.length >= 2) tip('combine', 2500);
+  const inv = $('inv'); inv.innerHTML = '';
+  for (let i = 0; i < 10; i++){
+    const key = S.got[i];
+    const b = document.createElement('button'); b.className = 'slot';
+    if (key){ b.innerHTML = ITEMS[key].icon.replace('.png"', '.png?v=' + BUILD + '"'); b.setAttribute('aria-label', ITEMS[key].name); if (S.held === key) b.classList.add('sel');
+      /* a note is read by tapping it; anything else is picked up in hand, then used by tapping where it goes, or on another thing in the strip */
+      b.onclick = () => {
+        if (S.held && S.held !== key){ const item = S.held; S.held = null; useItem(item, 'item:' + key, null); return; }
+        if (ITEMS[key].note && !ITEMS[key].usable){ sfx('paper'); openNote(ITEMS[key].note); return; }
+        sfx('tap'); S.held = S.held === key ? null : key; render(); say(S.held ? `Holding the ${ITEMS[key].name}. Tap where it goes.` : ''); if (S.held) tip('hold', 3500); }; }
+    else b.setAttribute('aria-hidden', 'true');
+    inv.appendChild(b);
+  }
+  save();
+}
+/* the key thing sparkles only while it is the next thing to do */
+function sparkle(id){ return STAGE.sparkle ? !!STAGE.sparkle(id) : false; }
+function turn(d){
+  if (!$('closeup').hidden) return;
+  const room = ROOMS[S.room], n = room.views.length, from = room.views[S.view], to = room.views[(S.view + d + n) % n];
+  const along = (room.long || []).some(pair => pair.includes(from) && pair.includes(to));
+  if (along){ /* stepping along a long wall: the picture pans rather than turns */
+    const scene = $('scene'); scene.classList.add(d > 0 ? 'pan-l' : 'pan-r');
+    setTimeout(() => { S.view = (S.view + d + n) % n; say(''); render(); scene.classList.remove('pan-l', 'pan-r'); scene.classList.add(d > 0 ? 'pan-in-l' : 'pan-in-r'); setTimeout(() => scene.classList.remove('pan-in-l', 'pan-in-r'), 400); }, 230);
+    sfx('turn'); return;
+  }
+  S.view = (S.view + d + n) % n; say(''); sfx('turn'); render();
+}
+/* walking through a door: the scene dips out, the new room's pictures are made sure of, and we arrive facing away from the door */
+function go(room, view, from){
+  const scene = $('scene'); sfx('turn');
+  if (from){ /* walk through the open doorway: the picture zooms into the opening and dims, then the new room settles in */
+    const cx = from.l + from.w/2, cy = from.t + from.h/2;
+    ['walls','hots'].forEach(id => { const el = $(id); el.style.transformOrigin = `${cx}% ${cy}%`; el.style.transition = 'transform .7s cubic-bezier(.4,0,.9,.6), opacity .45s ease-in .25s, filter .7s ease-in'; el.style.transform = 'scale(2.6)'; el.style.filter = 'brightness(.55)'; });
+  }
+  scene.classList.add('fade');
+  Promise.all(roomArt(room).map(preload)).then(() => setTimeout(() => {
+    ['walls','hots'].forEach(id => { const el = $(id); el.style.transition = 'none'; el.style.transformOrigin = '50% 50%'; el.style.transform = from ? 'scale(1.08)' : 'none'; el.style.filter = ''; });
+    S.room = room; S.view = view; render(); say(`Into ${ROOMS[room].into}.`);
+    requestAnimationFrame(() => requestAnimationFrame(() => { ['walls','hots'].forEach(id => { const el = $(id); el.style.transition = 'transform .5s ease-out, opacity .35s ease, filter .3s ease'; el.style.transform = 'none'; }); scene.classList.remove('fade'); setTimeout(() => ['walls','hots'].forEach(id => { $(id).style.transition = ''; }), 550); }));
+  }, from ? 680 : 200));
+}
+
+function openCloseup(inner){
+  $('closeup').innerHTML = `${inner}<span class="stepback">Tap anywhere to step back</span>`;
+  $('closeup').onclick = e => { if (e.target.isConnected && !e.target.closest('.card')) closeCloseup(); };
+  $('closeup').hidden = false; $('scene').classList.add('zoomed'); sfx('open');
+}
+/* a close-up beside the room rather than over it: for things worked by hand (4j). side is where the panel goes, away from the thing tapped */
+function openAside(inner, side){
+  $('closeup').innerHTML = `${inner}<span class="stepback">Tap the room to step back</span>`;
+  $('closeup').onclick = e => { if (e.target.isConnected && !e.target.closest('.card')) closeCloseup(); };
+  $('closeup').classList.add('aside', side === 'left' ? 'left' : 'right'); $('closeup').hidden = false; $('scene').classList.add('aside'); sfx('open');
+}
+const sideAwayFrom = h => (h && h.l + h.w/2 > 50) ? 'left' : 'right';
+/* Lift-then-pull: a drawer (or lid) that only comes out if it is lifted a little first, then pulled. The front is a cut-out over
+   the empty cavity; what is inside shows as the front comes out. A straight pull jams (o.stuck); lifting past o.lift then pulling
+   past o.pull finishes (o.done). Nothing fails: a wrong move springs back and waits. Percentages are of the picture's height. */
+function openLiftPull(o){
+  const inside = o.inside ? `<span class="part" style="left:${o.inside.l}%;top:${o.inside.t}%;width:${o.inside.w}%"><img src="${o.inside.src}?v=${BUILD}" alt=""></span>` : '';
+  openAside(`<div class="card shelf"><div class="shelfpic hands" id="hands" style="background-image:url(${o.bg}?v=${BUILD})">${inside}<span class="part" id="front" style="left:${o.front.l}%;top:${o.front.t}%;width:${o.front.w}%"><img src="${o.front.src}?v=${BUILD}" alt=""></span><span class="hint" id="handHint"></span><p class="otitle">${o.title}</p></div><div class="shelffoot"><p class="ofb" id="handsFb">${o.label}</p></div></div>`, o.side);
+  const pic = $('hands'), front = $('front'); let lift = 0, pull = 0, dragging = false, y0 = 0, x0 = 0, lifted = false, done = false, jam = 0;
+  const LIFT = o.lift || 4, PULL = o.pull || 22;
+  const draw = () => { const k = pull/PULL; front.style.transform = `translateY(${-lift + pull}%) scale(${1 + 0.16*k})`; front.style.transformOrigin = '50% 0'; }; /* scaled from its top edge, so the front comes down and towards you and what is inside shows above it */
+  const H = () => pic.getBoundingClientRect().height;
+  pic.onpointerdown = e => { if (done) return; dragging = true; y0 = e.clientY; x0 = e.clientX; lifted = false; pic.classList.add('dragging'); $('handHint').style.display = 'none'; pic.setPointerCapture(e.pointerId); e.preventDefault(); };
+  pic.onpointermove = e => { if (!dragging || done) return; const dy = (e.clientY - y0)/H()*100; /* up is negative */
+    if (dy < 0){ lift = Math.min(LIFT, -dy); if (lift >= LIFT*0.7 && !lifted){ lifted = true; sfx('tick'); $('handsFb').textContent = o.liftedLabel || 'It lifts a little… now pull.'; } pull = 0; }
+    else if (lifted){ lift = LIFT; pull = Math.min(PULL, dy); if (pull - jam > 4){ jam = pull; rasp(0.6); } if (pull >= PULL*0.9) finish(); }
+    else { lift = 0; pull = Math.min(2.5, dy); if (dy > 6 && !jam){ jam = 1; sfx('knock'); $('handsFb').textContent = o.stuckLabel || 'Stuck! It jams after a finger’s width.'; if (o.stuck) o.stuck(); } }
+    draw(); };
+  const finish = () => { if (done) return; done = true; dragging = false; pull = PULL; lift = LIFT; draw(); pic.classList.remove('dragging'); sfx('pickup'); $('handsFb').textContent = o.doneLabel || 'Out it comes!'; setTimeout(() => { closeCloseup(); o.done(); }, 900); };
+  pic.onpointerup = pic.onpointercancel = e => { if (!dragging || done) return; dragging = false; pic.classList.remove('dragging'); jam = 0;
+    if (lifted && pull >= PULL*0.9){ finish(); return; } lift = 0; pull = 0; lifted = false; draw(); if (!/Stuck/.test($('handsFb').textContent)) $('handsFb').textContent = o.label; };
+  draw();
+}
+function closeCloseup(){ if ($('closeup').hidden) return; $('closeup').hidden = true; $('closeup').classList.remove('aside', 'left', 'right'); $('scene').classList.remove('zoomed', 'aside'); sfx('close'); if (voiceKey && /\.note\.|^nb\./.test(voiceKey)) hush(); }
+function openNote(key){ const n = NOTES[key]; if (STAGE.onNote) STAGE.onNote(key); speak(`${S.stage}.note.${key}`); openCloseup(`<div class="card note${n.hand ? '' : ' print'}">${n.html}</div>`); }
+/* a picture close-up with something drawn over it by the game (a painting, a drawing, a shelf of jars with their labels) */
+function openPic(src, aspect, title, overlay, width){
+  openCloseup(`<div class="card pic" style="width:calc(var(--u)*${width || 58})"><div class="picwrap" id="picwrap" style="aspect-ratio:${aspect};background-image:url(${src}?v=${BUILD})">${overlay || ''}${title ? `<p class="otitle">${title}</p>` : ''}</div></div>`);
+}
+/* the end of a stage: a card with the story's last line, and the way on to the next stage */
+/* A drag moment: a close-up picture with a tab the player pulls along a path (in picture percentages) from start to end.
+   Progress can only go forward a little at a time, the tab must be picked up near where it sits, and the pulled part is drawn
+   behind it; letting go past the end finishes. Used for the suitcase zip; later for blinds, curtains and bolts. */
+function openDrag(o){
+  const pts = o.path, segs = []; let total = 0;
+  for (let i = 1; i < pts.length; i++){ const L = Math.hypot(pts[i][0]-pts[i-1][0], (pts[i][1]-pts[i-1][1])*9/16); segs.push(L); total += L; }
+  const at = k => { let d = k*total; for (let i = 0; i < segs.length; i++){ if (d <= segs[i] || i === segs.length-1){ const u = Math.min(1, d/segs[i]); return [pts[i][0] + (pts[i+1][0]-pts[i][0])*u, pts[i][1] + (pts[i+1][1]-pts[i][1])*u]; } d -= segs[i]; } return pts[pts.length-1]; };
+  const nearest = (x, y) => { let best = 0, bd = 1e9; for (let k = 0; k <= 200; k++){ const [px, py] = at(k/200); const d = Math.hypot(px-x, (py-y)*9/16); if (d < bd){ bd = d; best = k/200; } } return [best, bd]; };
+  openCloseup(`<div class="card shelf"><div class="shelfpic dragpic" id="dragpic" style="background-image:url(${o.pic}?v=${BUILD})"><svg class="dline" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true"><polyline id="dlineA" fill="none" stroke="${o.lineColour || '#4a352a'}" stroke-width="${o.lineWidth || 22}" stroke-linecap="round" stroke-linejoin="round" points=""/><polyline id="dlineB" fill="none" stroke="${o.lineLight || '#a8844a'}" stroke-width="${(o.lineWidth || 22)*0.28}" stroke-linecap="round" stroke-linejoin="round" points=""/></svg><div class="dtab nudge" id="dtab" style="width:${o.tabW}%;aspect-ratio:${o.tabRatio}"><img src="${o.tab}?v=${BUILD}" alt=""></div><p class="otitle">${o.title}</p></div><div class="shelffoot"><p class="ofb" id="dragFb">${o.label}</p></div></div>`);
+  const pic = $('dragpic'), tab = $('dtab'); let k = 0, dragging = false, lastRasp = 0, done = false;
+  const draw = () => { const [x, y] = at(k); tab.style.left = x + '%'; tab.style.top = y + '%';
+    const pl = []; const n = Math.max(2, Math.round(k*60)); for (let i = 0; i <= n; i++){ const [px, py] = at(k*i/n); pl.push(`${px*16},${py*9}`); } const str = k > 0.01 ? pl.join(' ') : ''; $('dlineA').setAttribute('points', str); $('dlineB').setAttribute('points', str); };
+  const pos = e => { const r = pic.getBoundingClientRect(); return [(e.clientX - r.left)/r.width*100, (e.clientY - r.top)/r.height*100]; };
+  pic.onpointerdown = e => { const [x, y] = pos(e), [tx, ty] = at(k); if (Math.hypot(x-tx, (y-ty)*9/16) > 14){ $('dragFb').textContent = o.missLabel || o.label; return; } dragging = true; tab.classList.remove('nudge'); pic.classList.add('dragging'); pic.setPointerCapture(e.pointerId); e.preventDefault(); };
+  pic.onpointermove = e => { if (!dragging || done) return; const [x, y] = pos(e); const [nk, d] = nearest(x, y); if (d > 22) return; const next = Math.max(k - 0.08, Math.min(nk, k + 0.06)); if (next > k && next - lastRasp > 0.04){ rasp(next); lastRasp = next; } k = Math.max(0, Math.min(1, next)); draw(); if (k >= 0.985) finish(); };
+  const finish = () => { if (done) return; done = true; dragging = false; k = 1; draw(); pic.classList.remove('dragging'); sfx('pickup'); $('dragFb').textContent = o.doneLabel || 'Done!'; setTimeout(() => { closeCloseup(); o.done(); }, 700); };
+  pic.onpointerup = pic.onpointercancel = e => { if (!dragging) return; dragging = false; pic.classList.remove('dragging'); if (k >= 0.9) finish(); else if (k > 0.02) $('dragFb').textContent = o.moreLabel || 'Keep going, all the way across.'; };
+  draw();
+}
+/* the end of a stage: a chime, the moth crosses the room, then Mary's postcard home arrives with the story's last line.
+   The stage gives the postcard's picture and text; the engine draws the card, the stamp (the child's portrait) and the way on. */
+function showEnd(title, text, small){
+  sfx('pickup'); setTimeout(() => chime(1046.5), 350); setTimeout(() => chime(1318.5), 650);
+  const m = document.createElement('div'); m.className = 'flymoth'; m.innerHTML = $('splash').querySelector('.moth').innerHTML; $('scene').appendChild(m); setTimeout(() => m.remove(), 2600);
+  const pc = STAGE.postcard || {}, c = CHILDREN[CHILD];
+  say(''); $('endTitle').textContent = title;
+  $('postcard').innerHTML = `<div class="pic" style="background-image:url(${pc.pic}?v=${BUILD})"></div><div class="pmsg"><span class="body"><span class="stamp" style="background-image:url(${c.portrait}?v=${BUILD})"></span><span class="to" style="display:block;margin-bottom:calc(var(--u)*.5)">Dear Mum and Dad,</span>${text}</span>${small ? `<span class="ps">P.S. ${small}</span>` : ''}<span class="sig">Love, ${c.name} x</span></div>`;
+  const nx = $('endNext'); nx.hidden = false; nx.textContent = STAGE.next ? (STAGE.nextLabel || 'Next') : 'To be continued… back to the title';
+  const wait = matchMedia('(prefers-reduced-motion:reduce)').matches ? 400 : 2000; setTimeout(() => { $('endUI').hidden = false; speak(`${S.stage}.postcard`); }, wait);
+}
+/* the comic intro: STAGE.comic is a list of pages, each a picture and a few short lines with a corner each; a tap brings the next
+   line in, then turns the page; Skip ends it; the last page leads to the stage's title card. Every line is spoken, key
+   <stage>.comic.<page>.<line>. Shown on a fresh start of the stage and from the Help tab; never on a switch between children. */
+let comicOn = false;
+function showComic(pages, then){
+  const el = $('comic'), pic = $('cpic'), boxes = $('cboxes'), next = $('cnext'); let p = 0, i = 0; comicOn = true;
+  pages.forEach(pg => preload(pg.pic));
+  el.hidden = false; hush();
+  const end = () => { if (!comicOn) return; comicOn = false; el.hidden = true; el.onclick = null; hush(); if (then){ S.comicSeen = true; save(); then(); } };
+  const showPage = () => { const pg = pages[p]; boxes.innerHTML = ''; next.classList.remove('on'); i = 0;
+    pic.classList.add('turn'); preload(pg.pic).then(() => { pic.style.backgroundImage = `url(${pg.pic}?v=${BUILD})`; pic.classList.remove('turn'); }); step(); };
+  const step = () => { const pg = pages[p];
+    if (i < pg.lines.length){ const [text, at] = Array.isArray(pg.lines[i]) ? pg.lines[i] : [pg.lines[i], ['tl','br','tr','bl'][i % 4]]; const b = document.createElement('div'); b.className = 'cbox ' + at; b.textContent = text; boxes.appendChild(b); speak(`${S.stage}.comic.${p}.${i}`); i++; if (i === pg.lines.length) next.classList.add('on'); sfx('paper'); }
+    else if (p < pages.length - 1){ p++; showPage(); }
+    else end(); };
+  el.onclick = e => { if (e.target === $('cskip')) return; step(); };
+  $('cskip').onclick = e => { e.stopPropagation(); sfx('tap'); end(); };
+  showPage();
+}
+const freshStart = () => !(S.got.length || S.done || S.comicSeen);
+function openStage(){ const intro = () => stageCard(() => say(STAGE.intro)); if (STAGE.comic && freshStart()) showComic(STAGE.comic, intro); else intro(); }
+$('comicBtn').onclick = () => { closeMenu(); if (STAGE.comic) showComic(STAGE.comic, null); };
+/* a stage's title card on the way in: where and when, one line, then Begin (a tap anywhere also begins) */
+function stageCard(then){
+  const c = STAGE.card; if (!c){ then(); return; }
+  const el = $('stagecard'); el.innerHTML = `<div class="in"><span class="place">${c.place}</span><h2>${STAGE.title}</h2><p>${c.text}</p><div class="go"><button class="ob" id="cardGo">Begin</button></div></div>`;
+  el.hidden = false; speak(`${S.stage}.card`); const go = () => { el.hidden = true; el.onclick = null; then(); speak(`${S.stage}.intro`); tip('tap', 6000); tip(STAGE.hintStyle === 'point' ? 'helpPoint' : 'help', 75000); }; el.onclick = go; $('cardGo').onclick = e => { e.stopPropagation(); go(); };
+}
+
+/* ---------- using a held item on something: USES maps "item>target" to what happens; anything else gets a friendly line ---------- */
+function useItem(item, id, h){
+  const fn = USES[item + '>' + id];
+  if (fn){ render(); fn(h); return; }
+  sfx('knock'); render();
+  if (STAGE.miss){ STAGE.miss(item, id); return; }
+  say(id.startsWith('item:') ? `The ${ITEMS[item].name} doesn’t go with the ${ITEMS[id.slice(5)].name}.` : `The ${ITEMS[item].name} doesn’t go there.`);
+}
+const drop = key => { S.got = S.got.filter(k => k !== key); };
+
+/* ---------- what happens when you tap things: doors are the engine's, the rest is the stage's ---------- */
+function act(id){
+  if (STAGE.act(id) !== false) return;
+  if (DOORS[id]) go(...DOORS[id], HOTS[curView()].find(h => h.id === id));
+}
+
+/* Mary's notebook: the to-do list. Each trail shows how far it has got; tap one and the helper's hint for that trail
+   goes from a nudge to the answer over three taps. Underneath, what Mary has noticed, so nothing has to be written down. */
+/* First-time tips: the moth says each one once per device, at the first moment it is useful, and never over a note or another line.
+   Shown in the message line and spoken (voice key tip.<name>). */
+const TIPS = {
+  tap:'Tap anything you are curious about. The little arrows at the sides turn you round.',
+  pickup:'Things you pick up wait in the strip below. Tap one to hold it, then tap where it belongs.',
+  hold:'Now tap the thing it goes with. Tap it in the strip again to put it down.',
+  combine:'Two things in the strip can go together: hold one, then tap the other.',
+  help:'If you get stuck, tap me at the top: your notebook has a hint for every riddle. And hold a finger on the room to see everything you can tap.',
+  helpPoint:'If you get stuck, tap me at the top and I’ll fly to the next thing to look at.'
+};
+let tipsSeen = new Set(); try{ tipsSeen = new Set(JSON.parse(localStorage.getItem('mothhouse.tips') || '[]')); }catch(e){}
+const tipTimers = {};
+function tip(name, delay = 0){
+  if (tipsSeen.has(name) || !TIPS[name]) return;
+  clearTimeout(tipTimers[name]);
+  tipTimers[name] = setTimeout(() => {
+    if (tipsSeen.has(name)) return;
+    if (!$('closeup').hidden || !$('menu').hidden || !$('stagecard').hidden || !$('loading').hidden || comicOn || (voiceEl && !voiceEl.paused) || !$('endUI').hidden){ tip(name, 1500); return; } /* not now: try again shortly */
+    tipsSeen.add(name); try{ localStorage.setItem('mothhouse.tips', JSON.stringify([...tipsSeen])); }catch(e){}
+    say(`<b>The moth whispers:</b> ${TIPS[name]}`); speak('tip.' + name);
+  }, delay);
+}
+function hint(){ if (STAGE.hintStyle === 'point') pointNext(); else openNotebook(); }
+/* a spoken tap line (Zaina's stage, where nothing is read): shown like any line and said by the moth, key <stage>.line.<name> */
+function line(key, text){ say(text); speak(`${S.stage}.line.${key}`); }
+/* pointed hints: the first hint whose goal is not met names a room, a view and a thing; the game turns to it, the moth flies over,
+   the thing glows for a moment and the moth says its one line. Peanut in Zaina's stage does the same when tapped. */
+function pointNext(){
+  const i = HINTS.findIndex(h => !h.goal()); if (i < 0){ say(`<b>${STAGE.speaker()}:</b> That’s everything. Well done!`); speak('nb.done'); return; }
+  const h = HINTS[i]; closeCloseup();
+  const turnFirst = h.at && (S.room !== h.at.room || S.view !== h.at.view);
+  if (turnFirst){ S.room = h.at.room; S.view = h.at.view; save(); sfx('turn'); render(); }
+  S.hint[i] = 0; save();
+  setTimeout(() => pointAt(h.at && h.at.id, `<b>${STAGE.speaker()}:</b> ${h.tips[0]}`, `${S.stage}.hint.${i}.0`), turnFirst ? 350 : 0);
+}
+function pointAt(id, html, voiceKey){
+  const b = id && document.querySelector(`.hs[data-id="${id}"]`); say(html); speak(voiceKey);
+  if (!b) return;
+  const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const glow = () => { b.classList.add('point'); setTimeout(() => b.classList.remove('point'), 3200); };
+  if (reduce){ glow(); return; }
+  const m = document.createElement('div'); m.className = 'pointmoth'; m.innerHTML = $('splash').querySelector('.moth').innerHTML; $('scene').appendChild(m);
+  const h = HOTS[curView()].find(x => x.id === id); const cx = h.l + h.w/2, cy = Math.max(6, h.t - 4);
+  requestAnimationFrame(() => requestAnimationFrame(() => { m.style.left = cx + '%'; m.style.top = cy + '%'; m.classList.add('go'); }));
+  setTimeout(glow, 900); setTimeout(() => m.classList.add('away'), 3000); setTimeout(() => m.remove(), 3800);
+}
+function hintText(i){ S.hint[i] = Math.min((S.hint[i] ?? -1) + 1, 2); save(); speak(`${S.stage}.hint.${i}.${S.hint[i]}`); return `<b>${STAGE.speaker()}:</b> ${HINTS[i].tips[S.hint[i]]}`; }
+function openNotebook(){
+  if (!tipsSeen.has('help')){ tipsSeen.add('help'); tipsSeen.add('helpPoint'); clearTimeout(tipTimers.help); clearTimeout(tipTimers.helpPoint); try{ localStorage.setItem('mothhouse.tips', JSON.stringify([...tipsSeen])); }catch(e){} }
+  const rows = STAGE.rows(), noticed = STAGE.noticed ? STAGE.noticed() : [];
+  const list = rows.map(([i, label, state, done]) => `<button class="nbrow${done ? ' done' : ''}" data-i="${i}"><span>${label}</span><span class="st">${state}</span></button>`).join('');
+  openCloseup(`<div class="card note print nb"><span class="head">${CHILDREN[CHILD].name}’s notebook</span><div class="nblist">${list}</div><p class="nbfb" id="nbFb">${rows.some(r => !r[3]) ? 'Tap a line and ' + STAGE.helper() + ' will help with it.' : `<b>${STAGE.speaker()}:</b> That’s everything. Well done!`}</p>${noticed.length ? `<span class="nbsmall"><b>Noticed:</b> ${noticed.join(' ')}</span>` : ''}</div>`);
+  if (!rows.some(r => !r[3])) speak('nb.done');
+  document.querySelectorAll('.nbrow').forEach(b => b.onclick = () => { const i = +b.dataset.i; sfx('paper'); if (i < 0) speak('nb.that'); $('nbFb').innerHTML = i < 0 ? `<b>${STAGE.speaker()}:</b> That one’s done. Well found.` : hintText(i); });
+}
+/* a long press on the room (or the menu button) shows every tappable thing for a moment; hidden extras stay hidden */
+let pressTimer = null;
+function reveal(){ $('hots').classList.add('reveal'); sfx('leaf'); setTimeout(() => $('hots').classList.remove('reveal'), 1600); }
+$('scene').addEventListener('pointerdown', e => { if (!$('closeup').hidden || e.target.closest('.ctl, .arrow')) return; pressTimer = setTimeout(() => { pressTimer = null; reveal(); }, 600); });
+['pointerup', 'pointercancel', 'pointerleave', 'pointermove'].forEach(ev => $('scene').addEventListener(ev, e => { if (ev === 'pointermove' && pressTimer === null) return; if (ev !== 'pointermove' || (e.movementX*e.movementX + e.movementY*e.movementY) > 36){ clearTimeout(pressTimer); pressTimer = null; } }));
+
+
+/* ---------- sound: small effects and a gentle music-box background, all made in the browser ---------- */
+/* two volumes, music and effects, each 0 to 10, kept on the device; effects go through one gain node so the slider works at once */
+const VOL_KEY = 'mothhouse.vol';
+let vol = {music:7, fx:8, voice:10}; try{ const v = JSON.parse(localStorage.getItem(VOL_KEY)); if (v && typeof v.music === 'number') vol = Object.assign({voice:10}, v); else if (localStorage.getItem('mothhouse.sound') === 'off') vol = {music:0, fx:0, voice:0}; }catch(e){}
+let soundOn = vol.music > 0 || vol.fx > 0;
+let AC = null, music = null, fxBus = null;
+function audio(){
+  if (AC) return AC;
+  const Ctx = window.AudioContext || window.webkitAudioContext; if (!Ctx) return null;
+  AC = new Ctx(); fxBus = AC.createGain(); fxBus.gain.value = vol.fx/10; fxBus.connect(AC.destination);
+  return AC;
+}
+function env(gainNode, t, a, peak, d){ const g = gainNode.gain; g.cancelScheduledValues(t); g.setValueAtTime(0.0001, t); g.exponentialRampToValueAtTime(peak, t + a); g.exponentialRampToValueAtTime(0.0001, t + a + d); }
+function tone(freq, type, peak, a, d, t0, detune){
+  const ac = audio(); if (!ac) return; const t = t0 ?? ac.currentTime;
+  const o = ac.createOscillator(), g = ac.createGain(); o.type = type; o.frequency.value = freq; if (detune) o.detune.value = detune;
+  o.connect(g); g.connect(fxBus); env(g, t, a, peak, d); o.start(t); o.stop(t + a + d + .05);
+}
+function noise(peak, a, d, freq, q, t0){
+  const ac = audio(); if (!ac) return; const t = t0 ?? ac.currentTime, len = Math.ceil(ac.sampleRate * (a + d + .05));
+  const buf = ac.createBuffer(1, len, ac.sampleRate), ch = buf.getChannelData(0); for (let i = 0; i < len; i++) ch[i] = Math.random() * 2 - 1;
+  const src = ac.createBufferSource(); src.buffer = buf; const f = ac.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = freq; f.Q.value = q;
+  const g = ac.createGain(); src.connect(f); f.connect(g); g.connect(fxBus); env(g, t, a, peak, d); src.start(t); src.stop(t + a + d + .05);
+}
+function sfx(kind){
+  if (!vol.fx || !audio()) return;
+  if (AC.state !== 'running') AC.resume();
+  const t = AC.currentTime;
+  switch(kind){
+    case 'tap': tone(520, 'sine', .3, .005, .12); break;
+    case 'knock': noise(.4, .004, .12, 400, 1.2); tone(220, 'sine', .25, .004, .1); break;
+    case 'paper': noise(.35, .02, .2, 2600, .9); noise(.2, .08, .18, 1400, 1, t + .06); break;
+    case 'leaf': noise(.25, .04, .35, 3200, .8); break;
+    case 'tick': tone(1800, 'square', .1, .003, .04); tone(1400, 'square', .1, .003, .04, t + .16); break;
+    case 'squeak': tone(1300, 'triangle', .2, .02, .1); tone(1700, 'triangle', .18, .02, .12, t + .1); break;
+    case 'turn': noise(.2, .06, .25, 900, .7); break;
+    case 'open': tone(660, 'sine', .22, .01, .14); tone(990, 'sine', .2, .01, .18, t + .07); break;
+    case 'close': tone(880, 'sine', .2, .01, .12); tone(590, 'sine', .2, .01, .16, t + .07); break;
+    case 'pickup': [659, 784, 1047].forEach((f, i) => tone(f, 'triangle', .25, .01, .35, t + i * .09)); break;
+  }
+}
+/* the rasp of a zip moving a little */
+function rasp(k){ if (!vol.fx || !audio()) return; noise(.12 + .1*k, .004, .05, 1800 + 900*k, 2.5); }
+/* a chime bar: a clear ringing note with a little of its overtones */
+function chime(f){ if (!vol.fx || !audio()) return; if (AC.state !== 'running') AC.resume(); tone(f, 'sine', .3, .004, 1.1); tone(f*2.76, 'sine', .07, .004, .5); tone(f*5.4, 'sine', .03, .003, .25); noise(.08, .003, .04, 3000, .8); }
+/* The moth's voice: every story-led line (hints, notes, cards, postcards) was recorded once into art/voice/<key>.mp3
+   and is played by key; the moth appears beside the message line while it speaks. One line at a time; a new line stops the last. */
+let voiceEl = null, voiceKey = null, VOICED = null;
+fetch('../art/voice/index.json?v=' + BUILD).then(r => r.json()).then(list => { VOICED = new Set(list); }).catch(() => { VOICED = new Set(); });
+function speak(key){
+  if (!vol.voice || !key || (VOICED && !VOICED.has(key))) return; /* a line not recorded yet is simply not spoken */
+  hush(); const el = new Audio(`../art/voice/${key}.mp3?v=${BUILD}`); el.volume = vol.voice/10; voiceEl = el; voiceKey = key;
+  const show = on => $('talker').classList.toggle('on', on);
+  el.onplay = () => show(true); el.onended = el.onerror = () => { if (voiceEl === el){ show(false); voiceEl = null; } };
+  el.play().catch(() => { show(false); if (voiceEl === el) voiceEl = null; });
+}
+function hush(){ if (voiceEl){ voiceEl.onended = null; voiceEl.pause(); voiceEl = null; } $('talker').classList.remove('on'); }
+/* Background music: a composed sixteen-bar music-box waltz, played by a scheduler and looped.
+   It plays only if a track file fails to load. */
+/* Tracks are mp3s made with Google's Lyria through the Gemini key (art/music/README.md): one for the title, one per stage.
+   The game keeps one wanted track; changing it cross-fades from the old one. A track needs a real tap before the browser lets it play. */
+const TITLE_TRACK = '../art/music/title.mp3';
+let wantTrack = TITLE_TRACK;
+function setTrack(src){ wantTrack = src || ''; if (trackEl && trackEl.dataset.src !== wantTrack){ fadeOut(trackEl); trackEl = null; musicState = 'changing'; } if (wantTrack && soundOn && AC && AC.state === 'running') startMusic(); }
+function fadeOut(el, ms = 1000){ const v0 = el.volume, t0 = performance.now(); const step = () => { const k = Math.min(1, (performance.now() - t0)/ms); el.volume = v0*(1-k); if (k < 1) requestAnimationFrame(step); else el.pause(); }; step(); }
+function fadeTo(el, target, ms = 1500){ const v0 = el.volume, t0 = performance.now(); el.dataset.fading = '1'; const step = () => { if (el.dataset.fading !== '1') return; const k = Math.min(1, (performance.now() - t0)/ms); el.volume = v0 + (target - v0)*k; if (k < 1) requestAnimationFrame(step); else delete el.dataset.fading; }; step(); }
+const TEMPO = 84, BEATS_PER_BAR = 3;
+const TUNE = {
+  bars: ['C','Am','F','G','C','Am','F','G','Am','F','C','G','F','G','C','C'],
+  chords: {C:{bass:48, tones:[64,67]}, Am:{bass:45, tones:[60,64]}, F:{bass:53, tones:[60,65]}, G:{bass:55, tones:[62,67]}},
+  melody: [ /* [bar, beat, length in beats, midi note] */
+    [0,0,1,64],[0,1,1,67],[0,2,1,69],  [1,0,2,67],[1,2,1,64],  [2,0,1,65],[2,1,1,69],[2,2,1,72],  [3,0,2,71],[3,2,1,67],
+    [4,0,1,72],[4,1,.5,71],[4,1.5,.5,69],[4,2,1,67],  [5,0,1,69],[5,1,1,72],[5,2,1,76],  [6,0,2,74],[6,2,1,72],  [7,0,3,71],
+    [8,0,1,69],[8,1,1,71],[8,2,1,72],  [9,0,2,69],[9,2,1,65],  [10,0,1,67],[10,1,1,64],[10,2,1,60],  [11,0,2,62],[11,2,1,64],
+    [12,0,1,65],[12,1,1,69],[12,2,1,72],  [13,0,1,74],[13,1,1,71],[13,2,1,67],  [14,0,2,72],[14,2,1,67],  [15,0,3,72]]
+};
+const hz = m => 440*Math.pow(2, (m-69)/12);
+let musicBus = null;
+function musicGraph(){
+  const ac = AC, master = ac.createGain(); master.gain.value = 0.0001;
+  /* a soft room: a short synthetic reverb, mixed in behind the dry sound */
+  const conv = ac.createConvolver(), len = ac.sampleRate*1.8, ir = ac.createBuffer(2, len, ac.sampleRate);
+  for (let ch = 0; ch < 2; ch++){ const d = ir.getChannelData(ch); for (let i = 0; i < len; i++) d[i] = (Math.random()*2-1)*Math.pow(1-i/len, 2.6); }
+  conv.buffer = ir; const wet = ac.createGain(); wet.gain.value = .45; const dry = ac.createGain(); dry.gain.value = .8;
+  const inBus = ac.createGain(); inBus.connect(dry); inBus.connect(conv); conv.connect(wet); dry.connect(master); wet.connect(master); master.connect(ac.destination);
+  return {inBus, master};
+}
+/* a music-box note: a bright ping that rings and fades */
+function musicBox(midi, t, dur, vol){
+  const ac = AC, f = hz(midi), g = ac.createGain(); g.connect(musicBus.inBus);
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.008); g.gain.exponentialRampToValueAtTime(vol*0.35, t + 0.25); g.gain.exponentialRampToValueAtTime(0.0001, t + Math.max(dur, 0.9) + 0.6);
+  [[1, 1], [2, .35], [3, .12], [5.4, .05]].forEach(([k, a]) => { const o = ac.createOscillator(), og = ac.createGain(); o.type = 'sine'; o.frequency.value = f*k; og.gain.value = a; o.connect(og); og.connect(g); o.start(t); o.stop(t + Math.max(dur, 0.9) + 0.7); });
+}
+function softNote(midi, t, dur, vol, type){
+  const ac = AC, o = ac.createOscillator(), g = ac.createGain(), fl = ac.createBiquadFilter(); o.type = type || 'triangle'; o.frequency.value = hz(midi);
+  fl.type = 'lowpass'; fl.frequency.value = 900; o.connect(fl); fl.connect(g); g.connect(musicBus.inBus);
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.start(t); o.stop(t + dur + 0.05);
+}
+function startMusic(){
+  if (!vol.music || !audio() || !wantTrack) return;
+  if (trackEl && trackEl.dataset.src === wantTrack) return;
+  if (music){ music.stop(); music = null; }
+  /* If this attempt is refused (no tap yet), nothing is kept, so the next tap tries again; once it plays, it stays and fades in. */
+  const el = new Audio(wantTrack + '?v=' + BUILD); el.loop = true; el.volume = 0; el.preload = 'auto'; el.dataset.src = wantTrack; trackEl = el;
+  el.onerror = () => { if (trackEl === el){ musicState = 'file failed, using the built-in tune'; trackEl = null; startTune(); } };
+  musicState = 'starting';
+  el.play().then(() => { if (trackEl !== el){ el.pause(); return; } musicState = 'playing'; fadeTo(el, .5*vol.music/10); })
+    .catch(err => { if (trackEl === el) trackEl = null; musicState = 'blocked until a tap (' + (err && err.name) + ')'; });
+}
+let trackEl = null, musicState = 'not started';
+function startTune(){
+  if (music || !vol.music || !audio()) return;
+  musicState = 'built-in tune';
+  const ac = AC; musicBus = musicGraph();
+  musicBus.master.gain.exponentialRampToValueAtTime(Math.max(.0001, vol.music/10), ac.currentTime + 2.5);
+  const beat = 60/TEMPO, loopBeats = TUNE.bars.length*BEATS_PER_BAR, start = ac.currentTime + 0.3;
+  let nextBeat = 0;
+  const schedule = () => {
+    while (start + nextBeat*beat < ac.currentTime + 0.6){
+      const b = nextBeat % loopBeats, bar = Math.floor(b/BEATS_PER_BAR), inBar = b % BEATS_PER_BAR, t = start + nextBeat*beat, ch = TUNE.chords[TUNE.bars[bar]];
+      if (inBar === 0) softNote(ch.bass, t, beat*2.6, .16);
+      else ch.tones.forEach((m, i) => musicBox(m, t + i*0.012, beat, .045));
+      TUNE.melody.filter(n => n[0] === bar && Math.floor(n[1]) === inBar).forEach(n => musicBox(n[3], t + (n[1]-inBar)*beat, n[2]*beat, .19));
+      nextBeat++;
+    }
+  };
+  schedule(); const timer = setInterval(() => { if (ac.state === 'running') schedule(); }, 120);
+  music = {stop(){ clearInterval(timer); const g = musicBus.master.gain; g.cancelScheduledValues(ac.currentTime); g.setValueAtTime(g.value, ac.currentTime); g.exponentialRampToValueAtTime(.0001, ac.currentTime + .8); setTimeout(() => musicBus.master.disconnect(), 900); }};
+}
+function stopMusic(){ if (music){ music.stop(); music = null; } if (trackEl){ fadeOut(trackEl, 600); trackEl = null; } musicState = 'off'; }
+/* Ambient sound, made in the browser and tied to the music slider: rain for the flat, distant birds and party for the school. */
+let amb = null, ambKind = null;
+function setAmbient(kind){ ambKind = kind || null; if (amb && amb.kind !== ambKind){ amb.stop(); amb = null; } if (ambKind && soundOn && AC && AC.state === 'running') startAmbient(); }
+function startAmbient(){
+  if (amb || !ambKind || !vol.music || !audio()) return;
+  const ac = AC, out = ac.createGain(); out.gain.value = 0; out.connect(ac.destination); const nodes = [], timers = [];
+  const noiseSrc = (lp, hp, g) => { const len = ac.sampleRate*4, buf = ac.createBuffer(1, len, ac.sampleRate), d = buf.getChannelData(0); let b = 0; for (let i = 0; i < len; i++){ const w = Math.random()*2-1; b = 0.98*b + 0.02*w; d[i] = w*0.6 + b*3; }
+    const src = ac.createBufferSource(); src.buffer = buf; src.loop = true; const f1 = ac.createBiquadFilter(); f1.type = 'lowpass'; f1.frequency.value = lp; const f2 = ac.createBiquadFilter(); f2.type = 'highpass'; f2.frequency.value = hp; const gn = ac.createGain(); gn.gain.value = g;
+    src.connect(f1); f1.connect(f2); f2.connect(gn); gn.connect(out); src.start(); nodes.push(src); return gn; };
+  const wobble = (gn, base, depth, hz) => { const o = ac.createOscillator(), og = ac.createGain(); o.frequency.value = hz; og.gain.value = depth; o.connect(og); og.connect(gn.gain); gn.gain.value = base; o.start(); nodes.push(o); };
+  if (ambKind === 'rain'){
+    const g = noiseSrc(1400, 300, .11); wobble(g, .11, .04, .13);
+    const drip = () => { const t = ac.currentTime, o = ac.createOscillator(), og = ac.createGain(); o.type = 'sine'; o.frequency.setValueAtTime(1400 + Math.random()*1200, t); o.frequency.exponentialRampToValueAtTime(700, t + .08); og.gain.setValueAtTime(.0001, t); og.gain.exponentialRampToValueAtTime(.05, t + .005); og.gain.exponentialRampToValueAtTime(.0001, t + .12); o.connect(og); og.connect(out); o.start(t); o.stop(t + .15); timers.push(setTimeout(drip, 300 + Math.random()*1400)); };
+    timers.push(setTimeout(drip, 800));
+  } else if (ambKind === 'school'){
+    const g = noiseSrc(600, 120, .035); wobble(g, .035, .015, .07); /* the party, far off */
+    const bird = () => { const t = ac.currentTime, n = 2 + Math.floor(Math.random()*3), f0 = 2400 + Math.random()*1200; for (let i = 0; i < n; i++){ const o = ac.createOscillator(), og = ac.createGain(), ts = t + i*.14; o.type = 'sine'; o.frequency.setValueAtTime(f0, ts); o.frequency.exponentialRampToValueAtTime(f0*1.35, ts + .05); o.frequency.exponentialRampToValueAtTime(f0*.9, ts + .1); og.gain.setValueAtTime(.0001, ts); og.gain.exponentialRampToValueAtTime(.04, ts + .01); og.gain.exponentialRampToValueAtTime(.0001, ts + .11); o.connect(og); og.connect(out); o.start(ts); o.stop(ts + .13); } timers.push(setTimeout(bird, 2500 + Math.random()*5000)); };
+    timers.push(setTimeout(bird, 1500));
+  }
+  out.gain.setTargetAtTime(0.9*vol.music/10, ac.currentTime, 1.2);
+  amb = {kind:ambKind, out, stop(){ timers.forEach(clearTimeout); out.gain.setTargetAtTime(0, ac.currentTime, .4); setTimeout(() => { nodes.forEach(n => { try{ n.stop(); }catch(e){} }); out.disconnect(); }, 1500); }};
+}
+function setVolume(which, v){
+  vol[which] = v; try{ localStorage.setItem(VOL_KEY, JSON.stringify(vol)); }catch(e){}
+  soundOn = vol.music > 0 || vol.fx > 0;
+  if (which === 'fx'){ if (audio()){ AC.resume(); fxBus.gain.value = v/10; } if (v) sfx('tap'); }
+  else if (which === 'voice'){ if (voiceEl) voiceEl.volume = v/10; if (!v) hush(); }
+  else if (which === 'music'){ if (trackEl){ delete trackEl.dataset.fading; trackEl.volume = .5*v/10; } if (musicBus) musicBus.master.gain.value = Math.max(.0001, v/10); if (amb) amb.out.gain.value = 0.9*v/10;
+    if (!v){ stopMusic(); if (amb){ amb.stop(); amb = null; } } else { audio() && AC.resume(); startMusic(); startAmbient(); } }
+}
+/* Browsers only allow sound after the player has tapped, so the first tap anywhere wakes it. */
+function wake(){ if (!soundOn) return; audio(); if (AC && AC.state !== 'running') AC.resume(); startMusic(); startAmbient(); }
+
+['touchend','click'].forEach(ev => addEventListener(ev, wake, {passive:true})); addEventListener('keydown', wake);
+document.addEventListener('visibilitychange', () => { if (!AC) return; if (document.hidden) AC.suspend(); else if (soundOn) AC.resume(); });
+
+/* ---------- wiring ---------- */
+$('left').onclick = () => turn(-1); $('right').onclick = () => turn(1);
+$('hintBtn').onclick = () => { if ($('closeup').hidden) hint(); else closeCloseup(); };
+const DEBUG = new URLSearchParams(location.search).has('debug');
+/* the cog's panel: the same panel from a room or from the title screen; the room-only rows hide on the title */
+let inGame = false;
+function openMenu(tab){
+  if (inGame) renderFamily();
+  $('resetStory').textContent = `Start ${CHILDREN[CHILD].name}’s story from the beginning`;
+  closeCloseup(); $('menu').hidden = false; $('confirmUI').hidden = true; showTab(tab || 'settings');
+  document.querySelectorAll('.game-only').forEach(el => { el.hidden = !inGame; });
+  $('blurb').textContent = inGame && STAGE ? 'Now playing: ' + STAGE.title + '. ' + STAGE.blurb : '';
+  $('volMusic').value = vol.music; $('volFx').value = vol.fx; $('volVoice').value = vol.voice;
+  $('diag').hidden = !DEBUG; if (DEBUG) $('diag').textContent = `build ${BUILD} · sound: ${AC ? AC.state : 'not started'} · music: ${musicState} · reduced motion: ${matchMedia('(prefers-reduced-motion:reduce)').matches ? 'ON (gentle taps)' : 'off'} · ${innerWidth}×${innerHeight} · ${navigator.userAgent.replace(/^.*\((.*?)\).*$/, '$1').slice(0, 40)}`;
+}
+function showTab(name){ document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.dataset.tab === name)); document.querySelectorAll('.pane').forEach(p => p.classList.toggle('on', p.dataset.pane === name)); $('confirmUI').hidden = true; }
+document.querySelectorAll('.tab').forEach(t => t.onclick = () => { sfx('tap'); showTab(t.dataset.tab); });
+const closeMenu = () => { $('menu').hidden = true; };
+$('menuBtn').onclick = () => openMenu('settings');
+/* ---------- switching child mid-game: the camera moves to another child in the same afternoon ---------- */
+function whereIs(key){ const s = saved(key); if (!s) return 'Not started yet'; const st = STAGES[s.stage]; return s.done ? `${st.title}: finished` : `${st.title}, in ${STAGES[s.stage].rooms[s.room] ? STAGES[s.stage].rooms[s.room].into : 'the first room'}`; }
+function renderFamily(){
+  const f = $('fam'); f.innerHTML = '';
+  Object.entries(CHILDREN).forEach(([key, c]) => { const now = key === CHILD;
+    const b = document.createElement('button'); b.className = 'fkid' + (now ? ' now' : ''); b.dataset.child = key;
+    b.innerHTML = `<span class="face" style="background:${c.colour}"><img src="${c.portrait}?v=${BUILD}" alt=""></span><span class="kname">${c.name}</span><span class="kwhere">${now ? ROOMS[S.room].name : whereIs(key)}</span><span class="kgo">${now ? 'Playing now' : 'Go and see'}</span>`;
+    if (now) b.disabled = true; else b.onclick = () => switchChild(key);
+    f.appendChild(b); });
+}
+function switchChild(key){
+  if (!inGame || key === CHILD || !CHILDREN[key]) return;
+  if (S.held) S.held = null; save(); closeMenu(); closeCloseup(); hush(); sfx('leaf'); say('');
+  const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches, scene = $('scene');
+  if (!reduce){ const m = document.createElement('div'); m.className = 'flymoth'; m.innerHTML = $('splash').querySelector('.moth').innerHTML; scene.appendChild(m); setTimeout(() => m.remove(), 2600); }
+  setTimeout(() => scene.classList.add('fade'), reduce ? 0 : 700);
+  setTimeout(() => {
+    CHILD = key; S = load(); save(); setTrack(STAGE.track); setAmbient(STAGE.ambient);
+    const fresh = !S.got.length && !S.done && S.stage === CHILDREN[key].first && !hasProgress(S);
+    loadWithBar(viewArt(curView()), `Meanwhile, ${ROOMS[S.room].into}…`).then(() => { render(); scene.classList.remove('fade'); meanwhileCard(() => { if (fresh){ say(STAGE.intro); speak(`${S.stage}.intro`); } else say(`Back in ${ROOMS[S.room].into}.`); }); loadRest(); });
+  }, reduce ? 350 : 1400);
+}
+/* the card between children: MEANWHILE, the child's name and the stage's one fixed line about where they are in their day */
+function meanwhileCard(then){
+  const el = $('stagecard'), c = CHILDREN[CHILD];
+  el.innerHTML = `<div class="in"><span class="place">MEANWHILE</span><h2>${c.name}</h2><p>${STAGE.meanwhile || `${c.name} is in ${ROOMS[S.room].into}.`}</p><div class="go"><button class="ob" id="cardGo">Go on</button></div></div>`;
+  el.hidden = false; speak(`${S.stage}.meanwhile`); const go = () => { el.hidden = true; el.onclick = null; then(); }; el.onclick = go; $('cardGo').onclick = e => { e.stopPropagation(); go(); };
+}
+$('tMenu').onclick = () => openMenu('settings');
+$('tAbout').onclick = () => openMenu('about');
+$('closeMenu').onclick = closeMenu;
+$('menu').addEventListener('click', e => { if (e.target === $('menu')) closeMenu(); });
+$('revealBtn').onclick = () => { closeMenu(); reveal(); };
+$('volMusic').oninput = e => setVolume('music', +e.target.value);
+$('volFx').oninput = e => setVolume('fx', +e.target.value);
+$('volVoice').oninput = e => setVolume('voice', +e.target.value);
+/* anything that wipes progress asks first */
+function confirmThen(text, fn){ $('confirmText').textContent = text; $('confirmUI').hidden = false; $('confirmYes').onclick = () => { $('confirmUI').hidden = true; fn(); }; $('confirmNo').onclick = () => { $('confirmUI').hidden = true; }; }
+/* Full screen: phones and tablets in a browser get asked once; the menu can toggle it any time. Inside the Android app the game is already full screen. */
+const canFS = !!(document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen), standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+async function goFullscreen(){
+  try{ const el = document.documentElement; await (el.requestFullscreen ? el.requestFullscreen({navigationUI:'hide'}) : el.webkitRequestFullscreen()); }catch(e){}
+  try{ await screen.orientation.lock('landscape'); }catch(e){}
+  setTimeout(fit, 300); setTimeout(fit, 900);
+}
+function leaveFullscreen(){ try{ (document.exitFullscreen || document.webkitExitFullscreen).call(document); }catch(e){} }
+const inFS = () => !!(document.fullscreenElement || document.webkitFullscreenElement);
+$('fsBtn').onclick = () => { closeMenu(); inFS() ? leaveFullscreen() : goFullscreen(); };
+document.addEventListener('fullscreenchange', () => { $('fsBtn').textContent = inFS() ? 'Leave full screen' : 'Full screen'; fit(); });
+$('fsYes').onclick = () => { $('fsask').hidden = true; goFullscreen(); };
+$('fsNo').onclick = () => { $('fsask').hidden = true; try{ sessionStorage.setItem('mothhouse.fsasked', '1'); }catch(e){} };
+let fsAsked = false; try{ fsAsked = !!sessionStorage.getItem('mothhouse.fsasked'); }catch(e){}
+if (canFS && !standalone && matchMedia('(pointer:coarse)').matches && !fsAsked) $('fsask').hidden = false; else $('fsBtn').hidden = !canFS || standalone;
+const restart = () => { S = fresh(S.stage); closeMenu(); $('endUI').hidden = true; closeCloseup(); render(); openStage(); };
+$('restart').onclick = () => confirmThen(`Start “${STAGE.title}” again from the beginning? Everything found in this stage will be put back.`, restart);
+$('endAgain').onclick = restart;
+$('resetStory').onclick = () => confirmThen(`Start ${CHILDREN[CHILD].name}’s whole story again from the first day? All the progress will be wiped.`, () => { try{ localStorage.removeItem(keyFor(CHILD)); }catch(e){} closeMenu(); if (inGame){ const first = CHILDREN[CHILD].first; loadStage(first); S = fresh(first); save(); enterGame(); } else showTitle(); });
+addEventListener('keydown', e => { if (e.key === 'Enter' && !$('stagecard').hidden) $('stagecard').click(); });
+/* on to the next stage: fresh state, the new rooms loaded quietly first */
+function startStage(key){
+  loadStage(key); S = fresh(key); save(); $('endUI').hidden = true; closeCloseup(); hush(); setTrack(STAGE.track); setAmbient(STAGE.ambient);
+  loadWithBar(viewArt(curView()), `Opening ${ROOMS[S.room].into}…`).then(() => { render(); openStage(); loadRest(); });
+}
+$('endNext').onclick = () => { if (STAGE.next) startStage(STAGE.next); else { $('endUI').hidden = true; showTitle(); } };
+$('toTitle').onclick = () => { closeMenu(); closeCloseup(); showTitle(); };
+
+/* ---------- the start-up, the title screen and choosing a child ---------- */
+function playSplash(){
+  return new Promise(res => {
+    const el = $('splash'); el.hidden = false; requestAnimationFrame(() => el.classList.add('play'));
+    let done = false; const end = () => { if (done) return; done = true; el.hidden = true; el.classList.remove('play'); res(); };
+    el.addEventListener('click', end, {once:true}); el.addEventListener('animationend', e => { if (e.target === el) end(); });
+    setTimeout(end, matchMedia('(prefers-reduced-motion:reduce)').matches ? 2600 : 4200);
+  });
+}
+function showTitle(){
+  inGame = false; $('endUI').hidden = true; $('choose').hidden = true; $('title').hidden = false; hush(); setTrack(TITLE_TRACK); setAmbient(null);
+  let last = null; try{ last = localStorage.getItem(KEY + '.last'); }catch(e){}
+  const any = Object.keys(CHILDREN).some(c => { const s = saved(c); return s && (s.got.length > 0 || s.done || (CHILDREN[c].first && s.stage !== CHILDREN[c].first)); });
+  $('tContinue').disabled = !any; $('tContinue').textContent = any && last && CHILDREN[last] ? `Continue ${CHILDREN[last].name}'s story` : 'Continue';
+}
+function showChoose(mode){ /* mode: 'continue' resumes each child's save; 'new' starts a fresh story */
+  $('title').hidden = true; $('choose').hidden = false; $('chooseTitle').textContent = mode === 'new' ? 'Whose story?' : 'Carry on with…';
+  $('chooseFoot').textContent = mode === 'new' ? 'Each child has their own rooms and puzzles for their age.' : 'Each story keeps its own place.';
+  const kids = $('kids'); kids.innerHTML = '';
+  Object.entries(CHILDREN).forEach(([key, c]) => {
+    const s = saved(key), prog = s ? (STAGES[s.stage].title + (s.done ? ', finished' : '')) : '';
+    const b = document.createElement('button'); b.className = 'kid'; b.dataset.child = key;
+    b.innerHTML = `<span class="face" style="background:${c.colour}">${c.portrait ? `<img src="${c.portrait}?v=${BUILD}" alt="">` : c.name[0]}</span><span class="kname">${c.name}</span><span class="kage">age ${c.age}</span><span class="kline">${c.line}</span><span class="kprog ${mode === 'new' && s && (s.got.length || s.done) ? 'warn' : ''}">${!c.first ? 'Coming soon' : mode === 'continue' ? (prog || 'Not started') : (s && (s.got.length || s.done) ? 'Starts again from the beginning' : '')}</span>`;
+    if (!c.first || (mode === 'continue' && !s)) b.disabled = true;
+    b.onclick = () => { CHILD = key; if (mode === 'new'){ const first = c.first; loadStage(first); S = fresh(first); save(); } else S = load(); enterGame(); };
+    kids.appendChild(b);
+  });
+}
+/* the How to play page (4m): five drawn panels with the game's own things. Once per device on the way into the first room,
+   and any time from the cog's Help tab; on a pictures-only stage (Zaina's) the moth reads it */
+const HOWTO = 'Tap anything you are curious about. The little arrows turn you round. Things you pick up wait in the strip: tap one, then tap where it goes. And if you are stuck, tap me.';
+let howtoSeen = false; try{ howtoSeen = localStorage.getItem('mothhouse.howto') === '1'; }catch(e){}
+function showHowto(then){
+  const el = $('howto'); el.hidden = false; $('howtoGo').textContent = then ? 'Play' : 'Close'; sfx('open');
+  if (STAGE && STAGE.hintStyle === 'point') speak('howto');
+  $('howtoGo').onclick = () => { el.hidden = true; howtoSeen = true; try{ localStorage.setItem('mothhouse.howto', '1'); }catch(e){} hush(); sfx('tap'); if (then) then(); };
+}
+$('howtoBtn').onclick = () => { closeMenu(); showHowto(null); };
+function enterGame(){
+  inGame = true; $('choose').hidden = true; $('title').hidden = true; setTrack(STAGE.track); setAmbient(STAGE.ambient);
+  if (!howtoSeen && !new URLSearchParams(location.search).get('stage')){ showHowto(() => enterGame()); return; }
+  loadWithBar(viewArt(curView()), `Opening ${ROOMS[S.room].into}…`).then(() => {
+    render(); if (S.got.length || S.done) say(`Back in ${ROOMS[S.room].into}.`); else openStage();
+    loadRest();
+  });
+}
+$('tContinue').onclick = () => { let last = null; try{ last = localStorage.getItem(KEY + '.last'); }catch(e){} const withSaves = Object.keys(CHILDREN).filter(c => saved(c));
+  if (withSaves.length === 1 || (last && saved(last) && withSaves.length <= 1)){ CHILD = withSaves[0]; S = load(); enterGame(); } else showChoose('continue'); };
+$('tNew').onclick = () => showChoose('new');
+$('chooseBack').onclick = () => showTitle();
+
+$('app').addEventListener('click', e => { if (e.target === $('app')) closeCloseup(); }); /* a tap on the dark margin also steps back */
+addEventListener('keydown', e => { if (e.key === 'ArrowLeft') turn(-1); if (e.key === 'ArrowRight') turn(1); if (e.key === 'Escape'){ closeCloseup(); closeMenu(); } });
+
+function boot(){
+  try{ const last = localStorage.getItem(KEY + '.last'); if (last && CHILDREN[last]) CHILD = last; }catch(e){}
+  /* ?stage=packing in the address jumps straight to that stage (fresh) of whichever child's story it belongs to, for testing a later stage without playing
+     the earlier ones; once you are on it, reloading the same address keeps your progress. It skips the start-up and title. */
+  const want = new URLSearchParams(location.search).get('stage');
+  if (want && STAGES[want]){ CHILD = STAGES[want].child || 'mary'; S = load(); if (S.stage !== want){ loadStage(want); S = fresh(want); save(); } enterGame(); return; }
+  S = load(); /* something to render behind the title screen */
+  playSplash().then(showTitle);
+}
+</script>
+<script src="stages/school.js?v=2026-09-30w"></script>
+<script src="stages/packing.js?v=2026-09-30w"></script>
+<script src="stages/eschool.js?v=2026-09-30w"></script>
+<script src="stages/zschool.js?v=2026-09-30w"></script>
+<script>boot();</script>
+</body>
+</html>

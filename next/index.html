@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Moth House (draft)</title>
+<meta name="theme-color" content="#edf1e7">
+<link rel="icon" href="../icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Atkinson+Hyperlegible:wght@400;700&family=Caveat:wght@500&display=swap" rel="stylesheet">
+<style>
+/* Draft of the children's version (see STORY.md). Rooms are boxes: turn to face each wall, walk through doors. */
+:root{
+  --bg:#edf1e7;--ink:#1d2629;--muted:#55635d;--slot:#dde4d6;--accent:#c98320;--card:#f8faf4;
+  --mary:#6d4fb8;--mary-soft:#e7e0f5;--elliot:#c0541f;--elliot-soft:#f7e2d6;--zaina:#27794c;--zaina-soft:#d8ecdf;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#141a28;--ink:#e8ecef;--muted:#9ea9b8;--slot:#232c40;--accent:#f0b44c;--card:#1c2336;
+    --mary:#b09ae8;--mary-soft:#2b2445;--elliot:#f08c5c;--elliot-soft:#3a2720;--zaina:#6cc893;--zaina-soft:#1d3327}
+}
+:root[data-theme="dark"]{--bg:#141a28;--ink:#e8ecef;--muted:#9ea9b8;--slot:#232c40;--accent:#f0b44c;--card:#1c2336;
+  --mary:#b09ae8;--mary-soft:#2b2445;--elliot:#f08c5c;--elliot-soft:#3a2720;--zaina:#6cc893;--zaina-soft:#1d3327}
+html{height:100%;overflow:hidden}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);
+  font-family:"Atkinson Hyperlegible",Verdana,"Segoe UI",sans-serif;-webkit-tap-highlight-color:transparent}
+main{height:100%;max-width:clamp(460px,calc((100dvh - 230px) * .75 + 32px),640px);margin:0 auto;padding:6px 16px 10px;display:flex;flex-direction:column}
+header{flex:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
+h1{font-family:Caprasimo,"Cooper Black",Georgia,serif;font-weight:400;font-size:clamp(1rem,min(4dvh,5.2vw),1.6rem);margin:4px 0 6px;line-height:1.1;white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.hbtns{display:flex;gap:4px;align-items:center;flex:none}
+.link{white-space:nowrap;background:none;border:0;color:var(--muted);font:inherit;font-size:.95rem;cursor:pointer;padding:8px 4px;min-height:44px}
+.hint{display:flex;align-items:center;gap:6px;background:none;border:1px solid var(--accent);color:var(--ink);border-radius:999px;font:inherit;font-size:.9rem;padding:4px 12px 4px 6px;min-height:40px;cursor:pointer}
+.hint svg{width:30px;height:20px}
+@media (max-width:370px){.hint .t{display:none}.hint{padding:4px 8px}h1{font-size:1.05rem}}
+button:focus-visible,.hs:focus-visible .hit{outline:3px solid var(--accent);outline-offset:2px}
+[hidden]{display:none!important}
+
+/* intro: a short animated title sequence, skippable */
+#intro{position:fixed;inset:0;z-index:20;background:linear-gradient(#2c3357 0%,#141a3a 45%,#0f1330 100%);color:#fffdf6;display:flex;align-items:flex-end;justify-content:center;padding:0 16px;cursor:pointer}
+#intro svg{width:min(100vw - 32px,78vh);height:auto;display:block}
+#intro .skip{position:absolute;top:calc(env(safe-area-inset-top,0px) + 12px);right:16px;background:rgba(255,253,246,.12);border:1px solid rgba(255,253,246,.5);color:#fffdf6;border-radius:999px;font:inherit;font-size:.95rem;padding:8px 16px;min-height:44px;cursor:pointer}
+#intro .lbl{font-family:"Atkinson Hyperlegible",Verdana,sans-serif}
+#intro .title{font-family:Caprasimo,"Cooper Black",Georgia,serif}
+.iline{opacity:0;animation:iline 4s ease forwards}
+@keyframes iline{0%{opacity:0;transform:translateY(6px)}15%,70%{opacity:1;transform:translateY(0)}100%{opacity:0}}
+.ititle{opacity:0;animation:fadeup 1.6s ease forwards}
+@keyframes fadeup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.itap{opacity:0;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+#imoth{animation:imoth 9s ease-in-out forwards;transform-box:view-box}
+@keyframes imoth{0%{transform:translate(-200px,120px) rotate(-10deg)}30%{transform:translate(-20px,-10px) rotate(6deg)}55%{transform:translate(30px,10px) rotate(-4deg)}80%,100%{transform:translate(0,-112px) rotate(0)}}
+.wingL,.wingR{transform-box:fill-box;animation:flapL .34s ease-in-out infinite alternate}
+.wingR{animation-name:flapR}
+.wingL{transform-origin:100% 50%}.wingR{transform-origin:0 50%}
+@keyframes flapL{from{transform:scaleX(1)}to{transform:scaleX(.55)}}
+@keyframes flapR{from{transform:scaleX(1)}to{transform:scaleX(.55)}}
+.star{animation:twinkle 3s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){
+  .iline{animation:none;opacity:0}.ititle,.itap{animation:none;opacity:1}#imoth{animation:none;transform:translate(0,-112px)}.wingL,.wingR,.star{animation:none}
+}
+/* character portraits */
+.portrait{width:clamp(56px,10dvh,80px);height:clamp(56px,10dvh,80px);flex:none}
+.portrait svg{width:100%;height:100%;display:block}
+.kid{grid-template-columns:auto 1fr}
+.kid .line{font-size:clamp(.78rem,1.9dvh,.9rem);color:var(--ink);opacity:.85}
+.kid .sub{grid-column:2}
+.homehead{display:flex;align-items:center;gap:12px}
+.homehead svg{width:clamp(44px,8dvh,64px);height:auto}
+.homehead p{margin:0}
+.storyhead{display:flex;align-items:center;gap:12px}
+.storyhead .portrait{width:clamp(48px,8dvh,64px);height:clamp(48px,8dvh,64px)}
+/* home and story pages */
+.screen{flex:1 1 0;min-height:0;display:flex;flex-direction:column;gap:clamp(8px,1.6dvh,14px);justify-content:center}
+.screen .intro{margin:0;color:var(--muted);font-size:clamp(.9rem,2.2dvh,1.05rem);line-height:1.4}
+.screen h2{margin:0;font-family:Caprasimo,"Cooper Black",Georgia,serif;font-weight:400;font-size:clamp(1.3rem,3.6dvh,1.8rem);color:var(--mary)}
+.kid,.stagebtn{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:center;text-align:left;border-radius:16px;border:2px solid var(--c);background:var(--cs);color:var(--ink);font:inherit;padding:clamp(8px,1.8dvh,16px);cursor:pointer;min-height:64px}
+.kid[data-k="mary"],.stagebtn{--c:var(--mary);--cs:var(--mary-soft)}
+#story[data-child="elliot"] .stagebtn{--c:var(--elliot);--cs:var(--elliot-soft)} #story[data-child="elliot"] h2{color:var(--elliot)}
+#story[data-child="zaina"] .stagebtn{--c:var(--zaina);--cs:var(--zaina-soft)} #story[data-child="zaina"] h2{color:var(--zaina)} .kid[data-k="elliot"]{--c:var(--elliot);--cs:var(--elliot-soft)} .kid[data-k="zaina"]{--c:var(--zaina);--cs:var(--zaina-soft)}
+.kid .portrait{grid-row:span 3}
+.kid .badge,.stagebtn .badge{grid-row:span 2;width:clamp(40px,7dvh,56px);height:clamp(40px,7dvh,56px);border-radius:50%;background:var(--c);color:#fff;display:grid;place-items:center;font-family:Caprasimo,Georgia,serif;font-size:1.3rem}
+.kid b,.stagebtn b{font-family:Caprasimo,"Cooper Black",Georgia,serif;font-weight:400;font-size:clamp(1.05rem,2.8dvh,1.35rem)}
+.kid span.sub,.stagebtn span.sub{font-size:clamp(.8rem,2dvh,.95rem);color:var(--muted)}
+.kid:disabled,.stagebtn:disabled{cursor:default;opacity:.62}
+.center{align-self:center}
+.aboutbox{position:fixed;left:16px;right:16px;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);z-index:5;max-width:600px;margin:0 auto;background:var(--card);border:1px solid var(--slot);border-radius:14px;padding:14px 16px;font-size:.9rem;line-height:1.45;color:var(--ink);max-height:45dvh;overflow:auto;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.aboutbox p{margin:0 0 6px}
+
+/* game */
+#game{flex:1 1 0;min-height:0;display:flex;flex-direction:column}
+.stagebox{flex:1 1 0;min-height:0;container-type:size;display:flex;justify-content:center;align-items:center}
+.stage{width:min(100cqw,75cqh);aspect-ratio:3/4;container-type:inline-size;position:relative;border-radius:10px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.15),0 10px 30px -14px rgba(0,0,0,.4)}
+.stage>svg{display:block;width:100%;height:auto;touch-action:manipulation}
+.nav{position:absolute;bottom:10px;width:44px;height:54px;border:0;border-radius:12px;background:rgba(255,253,248,.6);color:#1d2629;display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.nav svg{width:22px;height:22px}
+#left{left:6px} #right{right:6px}
+.where{position:absolute;top:8px;left:8px;background:rgba(255,253,248,.82);color:#1d2629;border-radius:999px;padding:3px 10px;font-size:clamp(11px,3.4cqw,14px);font-weight:700;pointer-events:none}
+.panel{flex:none}
+.msg{height:4.2em;overflow:hidden;margin:8px 2px;font-size:clamp(.92rem,2.3dvh,1.05rem);line-height:1.4}
+.msg b{font-weight:700}
+.inv{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.slot{height:clamp(48px,8.5dvh,80px);background:var(--slot);border:0;border-radius:10px;display:grid;place-items:center;padding:6px;cursor:pointer;font:inherit;color:inherit}
+.slot:disabled{cursor:default}
+.slot[aria-pressed="true"]{box-shadow:inset 0 0 0 3px var(--accent)}
+.slot svg{width:100%;height:100%}
+.hs{cursor:pointer}
+.hs:focus{outline:none}
+/* the new art: ink lines, and things you can tap breathe softly */
+.o{stroke:#2b2836;stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round}
+.t{stroke:#2b2836;stroke-width:1.1;stroke-linejoin:round;stroke-linecap:round}
+.lbl{font-family:"Atkinson Hyperlegible",Verdana,sans-serif}
+.hand{font-family:Caveat,"Comic Sans MS",cursive}
+.glow{fill:#ffd977;opacity:0;animation:breathe 2.8s ease-in-out infinite;pointer-events:none}
+@keyframes breathe{0%,100%{opacity:0}50%{opacity:.42}}
+.hs.pointed .glow{animation:pointpulse .7s ease-in-out infinite alternate;fill:#ffb347}
+@keyframes pointpulse{from{opacity:.3}to{opacity:.95}}
+.spark{fill:#fff2b0;stroke:#e0a020;stroke-width:.6;transform-box:fill-box;transform-origin:center;animation:twinkle 1.8s ease-in-out infinite;pointer-events:none}
+.spark:nth-child(2){animation-delay:.6s}.spark:nth-child(3){animation-delay:1.2s}
+@keyframes twinkle{0%,100%{transform:scale(.4);opacity:.2}50%{transform:scale(1.15);opacity:1}}
+.bubble{animation:bob 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.view{display:none}
+.view.on{display:inline}
+.off{display:none}
+
+/* close-ups and endings live inside the stage */
+.overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:clamp(8px,3cqw,14px);padding:clamp(12px,6cqw,28px);font-size:clamp(13px,4.4cqw,17px)}
+.closeup{background:rgba(29,38,41,.9);color:#fffdf8}
+.otitle{margin:0;font-weight:700}
+.ofb{margin:0;min-height:2.8em;font-size:.92em;color:#e8dcc6;max-width:30ch;line-height:1.35}
+.card{background:#fffdf8;color:#2b3431;border-radius:6px;width:100%;max-width:92cqw;aspect-ratio:3/2;display:grid;grid-template-columns:1fr 1.25fr;box-shadow:0 10px 24px rgba(0,0,0,.35);transform:rotate(-2deg);overflow:hidden}
+.card .pic{background:linear-gradient(#f2c89a,#9dc59a 70%);display:flex;align-items:flex-end;justify-content:center;padding:6%}
+.card .pic svg{width:100%;height:auto}
+.card .words{font-family:Caveat,"Comic Sans MS",cursive;font-size:clamp(15px,5.4cqw,24px);line-height:1.15;text-align:left;padding:6% 7%;display:flex;flex-direction:column;gap:.3em;border-left:1px dashed #cbbfa9}
+.card .words .ps{margin-top:auto}
+.note{background:#fffdf8;color:#2b3431;border-radius:6px;width:100%;max-width:88cqw;padding:6% 7%;text-align:left;box-shadow:0 10px 24px rgba(0,0,0,.35);transform:rotate(-1deg);font-family:Caveat,"Comic Sans MS",cursive;font-size:clamp(13px,5.4cqw,24px);line-height:1.2;display:flex;flex-direction:column;gap:.35em}
+.note .head{font-family:"Atkinson Hyperlegible",Verdana,sans-serif;font-size:.62em;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:#8a6440}
+.note .big{font-family:"Atkinson Hyperlegible",Verdana,sans-serif;font-weight:700;font-size:.8em;color:#2f7c83}
+.books{display:grid;grid-template-columns:1fr 1fr;gap:clamp(6px,2cqw,10px);width:100%}
+.book{min-height:44px;border:0;border-left:8px solid var(--sp);border-radius:4px;background:#fffdf8;color:#2b3431;font:inherit;font-size:.88em;font-weight:700;text-align:left;padding:.4em .6em;cursor:pointer;line-height:1.2}
+.book.gap{border-left-style:dashed;background:transparent;color:#e8dcc6;border:2px dashed #e8dcc6}
+.spell{font-family:"Atkinson Hyperlegible",Verdana,sans-serif;letter-spacing:.4em;font-weight:700;font-size:1.3em;min-height:1.3em;color:#f0b44c}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.ob{font:inherit;min-height:44px;padding:.35em 1.1em;border-radius:999px;border:2px solid currentColor;background:transparent;color:inherit;cursor:pointer}
+.ttz{width:100%;max-width:92cqw;height:auto;display:block}
+table.tt{border-collapse:collapse;background:#fffdf8;color:#2b3431;font-size:clamp(11px,3.7cqw,15px);box-shadow:0 10px 24px rgba(0,0,0,.35)}
+table.tt th,table.tt td{border:1px solid #d3c6ae;padding:.3em .4em;text-align:center;min-width:2.1em}
+table.tt th{background:#2f7c83;color:#fffdf8}
+table.tt td.day{font-weight:700;text-align:left;background:#eaf1ee}
+.legend{font-size:.8em;color:#e8dcc6;max-width:34ch;line-height:1.4;margin:0}
+.dials{display:flex;gap:clamp(8px,3cqw,14px)}
+.dial{width:clamp(52px,18cqw,70px);height:clamp(64px,22cqw,84px);border-radius:10px;border:2px solid #9aa5ab;background:#eef3f4;color:#1d2629;font:inherit;font-size:1.8em;font-weight:700;cursor:pointer;font-variant-numeric:tabular-nums}
+.end{background:linear-gradient(#8fb8d6,#dcebf2 60%,#fff);color:#1d2629}
+.end p{margin:0;max-width:30ch;line-height:1.4}
+.end .big{font-family:Caprasimo,"Cooper Black",Georgia,serif;font-size:1.5em}
+.end .next{font-size:.9em;color:#3d4b52}
+.end .ob{background:#fff;border-color:#1d2629}
+.fade{opacity:0;animation:fadein 1.2s ease forwards}
+@keyframes fadein{to{opacity:1}}
+.rain{animation:rain .9s linear infinite}
+@keyframes rain{from{transform:translateY(-12px)}to{transform:translateY(0)}}
+#blades{transform-origin:180px 22px;animation:spin 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.steam{animation:steam 2.4s ease-in-out infinite alternate}
+@keyframes steam{from{opacity:.4;transform:translateY(2px)}to{opacity:.95;transform:translateY(-3px)}}
+@container (max-width:300px){
+  .overlay{gap:6px;padding:8px;font-size:12px}
+  .book{min-height:36px;padding:.25em .5em}
+  .ofb{min-height:0}
+  .ob{min-height:38px}
+  .end svg{width:18%}
+}
+@media (orientation:landscape) and (max-height:620px){
+  main{max-width:900px}
+  #game{display:grid;grid-template-columns:auto minmax(220px,1fr);grid-template-rows:minmax(0,1fr);column-gap:18px}
+  .stagebox{height:100%;aspect-ratio:3/4}
+  .panel{align-self:center}
+  .msg{height:auto;max-height:8.4em}
+  .screen{flex-direction:row;flex-wrap:wrap;align-content:center}
+  .screen .kid,.screen .stagebtn{flex:1 1 30%}
+  .screen .intro,.screen h2,.screen .homehead,.screen .row{flex-basis:100%}
+}
+@media (prefers-reduced-motion:reduce){
+  .rain,#blades,.steam,.spark,.bubble{animation:none}
+  .glow,.hs.pointed .glow{animation:none;opacity:.35}
+  .hs.pointed .glow{opacity:.9}
+  .fade{animation:none;opacity:1}
+}
+</style>
+</head>
+<body>
+<div id="intro" hidden>
+  <button class="skip" id="skipIntro">Skip</button>
+  <svg viewBox="0 0 360 420" aria-label="The Moth House">
+    <defs>
+      <radialGradient id="mothGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffd977" stop-opacity=".55"/><stop offset="1" stop-color="#ffd977" stop-opacity="0"/></radialGradient>
+      <symbol id="imothSym" viewBox="-30 -22 60 44">
+        <g class="wingL"><path d="M0 0C-8-20-28-20-28-4-28 6-10 6 0 0Z" fill="#f0b44c"/><path d="M0 2C-6 16-20 18-20 8-20 2-8 2 0 2Z" fill="#e9b98a"/><circle cx="-16" cy="-7" r="4" fill="#2c3357"/><circle cx="-16" cy="-7" r="1.6" fill="#fffdf6"/></g>
+        <g class="wingR"><path d="M0 0C8-20 28-20 28-4 28 6 10 6 0 0Z" fill="#f0b44c"/><path d="M0 2C6 16 20 18 20 8 20 2 8 2 0 2Z" fill="#e9b98a"/><circle cx="16" cy="-7" r="4" fill="#2c3357"/><circle cx="16" cy="-7" r="1.6" fill="#fffdf6"/></g>
+        <ellipse cx="0" cy="2" rx="2.6" ry="11" fill="#2b2836"/><path d="M-2-8c-3-4-6-6-9-7M2-8c3-4 6-6 9-7" fill="none" stroke="#2b2836" stroke-width="1.2" stroke-linecap="round"/>
+      </symbol>
+    </defs>
+    <g fill="#fffdf6"><circle class="star" cx="40" cy="60" r="1.6"/><circle class="star" cx="120" cy="30" r="1.2" style="animation-delay:.7s"/><circle class="star" cx="300" cy="50" r="1.8" style="animation-delay:1.4s"/><circle class="star" cx="250" cy="110" r="1.1" style="animation-delay:2s"/><circle class="star" cx="70" cy="150" r="1.3" style="animation-delay:.3s"/><circle class="star" cx="330" cy="170" r="1.4" style="animation-delay:1s"/><circle class="star" cx="180" cy="20" r="1"/><circle class="star" cx="210" cy="160" r="1.2" style="animation-delay:1.7s"/></g>
+    <g fill="#1d2446"><ellipse cx="60" cy="420" rx="120" ry="70"/><ellipse cx="300" cy="425" rx="140" ry="80"/><ellipse cx="180" cy="440" rx="120" ry="60"/><rect y="405" width="360" height="15"/></g>
+    <g fill="#141a3a"><path d="M20 400c6-40 14-60 20-60s14 20 20 60Z"/><path d="M70 402c8-50 16-74 22-74s16 24 22 74Z"/><path d="M250 402c8-46 14-66 20-66s14 20 20 66Z"/><path d="M300 400c6-38 12-56 18-56s12 18 18 56Z"/></g>
+    <g id="imoth" transform="translate(-200 120)"><circle cx="180" cy="230" r="60" fill="url(#mothGlow)"/><use href="#imothSym" x="150" y="208" width="60" height="44"/></g>
+    <text class="iline lbl" x="180" y="292" text-anchor="middle" font-size="15" fill="#e8e3d3" style="animation-delay:.6s">Every summer, three children fly from Singapore</text>
+    <text class="iline lbl" x="180" y="314" text-anchor="middle" font-size="15" fill="#e8e3d3" style="animation-delay:.6s">to stay with Nana and Jedi in Enfield.</text>
+    <text class="iline lbl" x="180" y="292" text-anchor="middle" font-size="15" fill="#e8e3d3" style="animation-delay:4.4s">This summer, something in the woods</text>
+    <text class="iline lbl" x="180" y="314" text-anchor="middle" font-size="15" fill="#e8e3d3" style="animation-delay:4.4s">has lost its lights.</text>
+    <text class="ititle title" x="180" y="196" text-anchor="middle" font-size="40" fill="#fffdf6" style="animation-delay:8.4s">The Moth House</text>
+    <text class="itap lbl" x="180" y="330" text-anchor="middle" font-size="13" fill="#ffd977" style="animation-delay:9.6s">Tap to begin</text>
+  </svg>
+</div>
+<main>
+<header>
+  <h1>The Moth House</h1>
+  <div class="hbtns">
+    <button class="hint" id="hintBtn" aria-label="Ask the moth for a hint" hidden>
+      <svg viewBox="-14 -10 28 20" aria-hidden="true"><path d="M0 0C-4-9-13-9-13-2-13 3-5 3 0 0Z" fill="#f0b44c"/><path d="M0 0C4-9 13-9 13-2 13 3 5 3 0 0Z" fill="#f0b44c"/><path d="M0 1C-3 7-9 8-9 4-9 1-4 1 0 1Z" fill="#e9b98a"/><path d="M0 1C3 7 9 8 9 4 9 1 4 1 0 1Z" fill="#e9b98a"/><ellipse cx="0" cy="1" rx="1.3" ry="5" fill="#2b3431"/></svg>
+      <span class="t">Hint</span>
+    </button>
+    <button class="link" id="backBtn" hidden>Back</button>
+  </div>
+</header>
+
+<!-- choose a child -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- the three children: placeholder colouring until the owner says what they look like -->
+    <symbol id="p-mary" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#e7e0f5" class="o"/><clipPath id="cpM"><circle cx="50" cy="50" r="47"/></clipPath><g clip-path="url(#cpM)"><path d="M22 72c0-14 14-18 28-18s28 4 28 18v40H22Z" fill="#6d4fb8" class="o"/><path d="M26 56c-4-30 8-44 24-44s28 14 24 44c-2 10-6 16-6 30H32c0-14-4-20-6-30Z" fill="#3b2a20" class="o"/><rect x="44" y="60" width="12" height="10" fill="#c9925f"/><ellipse cx="50" cy="48" rx="19" ry="21" fill="#c9925f" class="o"/><path d="M31 44c2-12 10-20 19-20s17 8 19 20c-4-6-10-9-19-9s-15 3-19 9Z" fill="#3b2a20"/><circle cx="43" cy="49" r="2.6" fill="#2b2836"/><circle cx="57" cy="49" r="2.6" fill="#2b2836"/><circle cx="44" cy="48" r=".9" fill="#fffdf6"/><circle cx="58" cy="48" r=".9" fill="#fffdf6"/><path d="M39 43c2-2 5-2 7 0M54 43c2-2 5-2 7 0" fill="none" stroke="#2b2836" stroke-width="1.4" stroke-linecap="round"/><path d="M44 58c3 3 9 3 12 0" fill="none" stroke="#2b2836" stroke-width="1.6" stroke-linecap="round"/><circle cx="38" cy="55" r="3" fill="#e0664f" opacity=".45"/><circle cx="62" cy="55" r="3" fill="#e0664f" opacity=".45"/><g transform="rotate(-12 74 82)"><rect x="62" y="74" width="24" height="18" rx="2" fill="#fffdf6" class="o"/><rect x="62" y="74" width="24" height="5" fill="#d0602f"/><path d="M66 84h16M66 88h10" stroke="#9aa5ab" stroke-width="1.4"/></g></g><circle cx="50" cy="50" r="48" fill="none" class="o"/></symbol>
+    <symbol id="p-elliot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#f7e2d6" class="o"/><clipPath id="cpE"><circle cx="50" cy="50" r="47"/></clipPath><g clip-path="url(#cpE)"><path d="M22 74c0-14 14-18 28-18s28 4 28 18v40H22Z" fill="#c0541f" class="o"/><path d="M36 60h28v8H36Z" fill="#e8dcc6"/><rect x="44" y="60" width="12" height="10" fill="#c9925f"/><ellipse cx="50" cy="48" rx="19" ry="21" fill="#c9925f" class="o"/><path d="M30 44c0-14 8-24 20-24 6 0 8-4 12-4 4 4 10 10 10 28-4-6-12-8-21-8-8 0-15 2-21 8Z" fill="#3b2a20" class="o"/><path d="M40 22l-4-8M52 18l1-9M64 24l6-7" fill="none" stroke="#3b2a20" stroke-width="4" stroke-linecap="round"/><circle cx="43" cy="49" r="2.8" fill="#2b2836"/><circle cx="57" cy="49" r="2.8" fill="#2b2836"/><circle cx="44" cy="48" r=".9" fill="#fffdf6"/><circle cx="58" cy="48" r=".9" fill="#fffdf6"/><path d="M39 43c2-1 5-1 7 1M54 44c2-2 5-2 7-1" fill="none" stroke="#2b2836" stroke-width="1.4" stroke-linecap="round"/><path d="M42 58c4 5 12 5 16-1" fill="none" stroke="#2b2836" stroke-width="1.6" stroke-linecap="round"/><circle cx="38" cy="55" r="3" fill="#e0664f" opacity=".45"/><circle cx="62" cy="55" r="3" fill="#e0664f" opacity=".45"/><g transform="rotate(30 76 82)"><rect x="66" y="78" width="22" height="9" rx="3" fill="#2f7c83" class="o"/><path d="M88 76h5l3-3v15l-3-3h-5z" fill="#5b6f7a" class="o"/><path d="M98 76l3-2M98 82h3M98 88l3 2" stroke="#f0b44c" stroke-width="2" stroke-linecap="round"/></g></g><circle cx="50" cy="50" r="48" fill="none" class="o"/></symbol>
+    <symbol id="p-zaina" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#d8ecdf" class="o"/><clipPath id="cpZ"><circle cx="50" cy="50" r="47"/></clipPath><g clip-path="url(#cpZ)"><path d="M24 76c0-14 14-18 26-18s26 4 26 18v40H24Z" fill="#27794c" class="o"/><circle cx="60" cy="72" r="2.2" fill="#fffdf6"/><circle cx="60" cy="80" r="2.2" fill="#fffdf6"/><rect x="45" y="60" width="10" height="9" fill="#c9925f"/><circle cx="27" cy="44" r="10" fill="#3b2a20" class="o"/><circle cx="73" cy="44" r="10" fill="#3b2a20" class="o"/><circle cx="27" cy="34" r="3.5" fill="#f0b44c" class="t"/><circle cx="73" cy="34" r="3.5" fill="#f0b44c" class="t"/><ellipse cx="50" cy="48" rx="20" ry="20" fill="#c9925f" class="o"/><path d="M30 46c0-14 8-22 20-22s20 8 20 22c-4-6-10-8-14-8-3 3-9 3-12 0-4 0-10 2-14 8Z" fill="#3b2a20"/><circle cx="43" cy="50" r="3" fill="#2b2836"/><circle cx="57" cy="50" r="3" fill="#2b2836"/><circle cx="44" cy="49" r="1" fill="#fffdf6"/><circle cx="58" cy="49" r="1" fill="#fffdf6"/><path d="M44 59c3 3 9 3 12 0" fill="none" stroke="#2b2836" stroke-width="1.6" stroke-linecap="round"/><circle cx="37" cy="56" r="3.2" fill="#e0664f" opacity=".5"/><circle cx="63" cy="56" r="3.2" fill="#e0664f" opacity=".5"/><g><ellipse cx="76" cy="86" rx="12" ry="10" fill="#9aa5ab" class="o"/><circle cx="66" cy="82" r="6" fill="#8a97a3" class="o"/><path d="M84 88c6 2 8 8 4 12" fill="none" stroke="#9aa5ab" stroke-width="4" stroke-linecap="round" class="t"/><circle cx="78" cy="84" r="1.4" fill="#2b2836"/><circle cx="66" cy="82" r="2.5" fill="#d9a3a3"/></g></g><circle cx="50" cy="50" r="48" fill="none" class="o"/></symbol>
+  </defs>
+</svg>
+<section id="home" class="screen" aria-label="Choose whose story to play">
+  <div class="homehead">
+    <svg viewBox="-30 -22 60 44" aria-hidden="true"><use href="#imothSym" x="-30" y="-22" width="60" height="44"/></svg>
+    <p class="intro">One summer, three stories. Whose will you play?</p>
+  </div>
+  <button class="kid" data-k="mary"><span class="portrait"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#p-mary"/></svg></span><b>Mary's story</b><span class="line">Reads everything. Notices what everyone else walks past.</span><span class="sub" id="marySub">Age 10</span></button>
+  <button class="kid" data-k="elliot" disabled><span class="portrait"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#p-elliot"/></svg></span><b>Elliot's story</b><span class="line">Wants to know how everything works. Usually takes it apart.</span><span class="sub">Age 7 · Coming soon</span></button>
+  <button class="kid" data-k="zaina" disabled><span class="portrait"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#p-zaina"/></svg></span><b>Zaina's story</b><span class="line">Sees the small things. Never without Peanut the elephant.</span><span class="sub">Age 4 · Coming soon</span></button>
+  <div class="row" style="justify-content:center;gap:4px 18px"><button class="link" id="aboutBtn">About this game</button><button class="link" id="replayIntro">Watch the intro</button></div>
+  <div class="aboutbox" id="aboutBox" hidden>
+    <p>This is a work of fiction. Its characters, schools and events are imaginary. Real places appear in a fictional way, and no organisation is connected with or endorses this game.</p>
+    <p>Rough draft: simple drawings, one story in progress.</p>
+  </div>
+</section>
+
+<!-- Mary's stages -->
+<section id="story" class="screen" aria-label="A child's story" hidden>
+  <div class="storyhead"><span class="portrait"><svg viewBox="0 0 100 100" aria-hidden="true"><use id="storyPortrait" href="#p-mary"/></svg></span><h2 id="storyTitle">Mary's story</h2></div>
+  <p class="intro">Choose where to play.</p>
+  <div id="stageList" style="display:contents"></div>
+</section>
+
+<!-- playing -->
+<section id="game" hidden>
+<div class="stagebox">
+<div class="stage">
+<svg id="scene" viewBox="0 0 360 480" aria-label="The scene">
+<defs>
+  <symbol id="pm" viewBox="-7 -5 14 10">
+    <path d="M0 1L-7-5-5 4Z" fill="#fffdf6" stroke="#b3a58c" stroke-width=".6" stroke-linejoin="round"/>
+    <path d="M0 1L7-5 5 4Z" fill="#f4efe2" stroke="#b3a58c" stroke-width=".6" stroke-linejoin="round"/>
+  </symbol>
+  <pattern id="planks" width="360" height="28" patternUnits="userSpaceOnUse">
+    <rect width="360" height="28" fill="#d2a574"/>
+    <line x1="0" y1="27.5" x2="360" y2="27.5" stroke="#b98a5a"/>
+    <line x1="90" y1="0" x2="90" y2="28" stroke="#b98a5a"/><line x1="250" y1="0" x2="250" y2="28" stroke="#b98a5a"/>
+  </pattern>
+  <pattern id="tiles" width="30" height="30" patternUnits="userSpaceOnUse">
+    <rect width="30" height="30" fill="#e7e2d6"/><rect width="15" height="15" fill="#d6cfbf"/><rect x="15" y="15" width="15" height="15" fill="#d6cfbf"/>
+  </pattern>
+  <pattern id="giftpaper" width="10" height="10" patternUnits="userSpaceOnUse">
+    <rect width="10" height="10" fill="#7fb5c9"/><path d="M5 5c-1-2-3-2-3 0 0 1 2 1 3 0 1 1 3 1 3 0 0-2-2-2-3 0z" fill="#f0b44c"/>
+  </pattern>
+  <clipPath id="glass1"><rect x="46" y="56" width="148" height="128"/></clipPath>
+  <clipPath id="glass2"><rect x="96" y="66" width="168" height="118"/></clipPath>
+  <linearGradient id="deskTop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2e3bd"/><stop offset="1" stop-color="#e2cd9c"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="75%"><stop offset=".55" stop-color="#1f1b33" stop-opacity="0"/><stop offset="1" stop-color="#1f1b33" stop-opacity=".4"/></radialGradient>
+  <radialGradient id="lampGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff6d6" stop-opacity=".9"/><stop offset="1" stop-color="#fff6d6" stop-opacity="0"/></radialGradient>
+  <filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 .1  0 0 0 0 .08  0 0 0 0 .12  0 0 0 .55 0"/></filter>
+  <filter id="blur6"><feGaussianBlur stdDeviation="6"/></filter>
+  <filter id="blur3"><feGaussianBlur stdDeviation="3"/></filter>
+  <symbol id="i-ar" viewBox="0 0 12 12"><path d="M1.5 10.5 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M6.5 2.5c1-1.5 3.5-1.5 4 0s-.5 3.5-2 3.5S5.5 4 6.5 2.5Z" fill="currentColor"/></symbol>
+  <symbol id="i-mu" viewBox="0 0 12 12"><circle cx="4" cy="9" r="2.4" fill="currentColor"/><path d="M6.2 9V1.5l4 1.5v2l-4-1.5" fill="currentColor"/><path d="M6.2 9V1.5" stroke="currentColor" stroke-width="1.4"/></symbol>
+  <symbol id="i-pe" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M6 3.6l2.2 1.6-.8 2.6H4.6l-.8-2.6Z" fill="currentColor"/><path d="M6 1v2.6M1.2 5.2l2.6 0M10.8 5.2l-2.6 0M3.2 10.4l1.4-2.6M8.8 10.4 7.4 7.8" stroke="currentColor" stroke-width="1"/></symbol>
+  <symbol id="i-sc" viewBox="0 0 12 12"><path d="M4.5 1h3M5 1v3.5L2 10a1 1 0 0 0 .9 1.5h6.2A1 1 0 0 0 10 10L7 4.5V1" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M3.4 8.5h5.2L9.3 10.3H2.7Z" fill="currentColor"/></symbol>
+  <symbol id="i-ma" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-en" viewBox="0 0 12 12"><path d="M2.5 9.5 3.5 6.5 8.5 1.5l2 2-5 5Z" fill="currentColor"/><path d="M2.5 9.5l1-3 2 2Z" fill="#fffdf6"/></symbol>
+  <symbol id="i-ge" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/><ellipse cx="6" cy="6" rx="2.2" ry="5" fill="none" stroke="currentColor" stroke-width="1"/><path d="M1 6h10" stroke="currentColor" stroke-width="1"/></symbol>
+  <symbol id="i-li" viewBox="0 0 12 12"><rect x="1.5" y="8" width="9" height="2.6" rx=".6" fill="currentColor"/><rect x="2.5" y="4.8" width="8" height="2.6" rx=".6" fill="currentColor" opacity=".75"/><rect x="1.8" y="1.6" width="7" height="2.6" rx=".6" fill="currentColor" opacity=".5"/></symbol>
+  <symbol id="star" viewBox="0 0 10 10"><path d="M5 0 6 4 10 5 6 6 5 10 4 6 0 5 4 4Z"/></symbol>
+  <g id="raindrops" stroke="#e8f0f4" stroke-width="1.2" stroke-linecap="round" opacity=".8">
+    <line x1="10" y1="0" x2="7" y2="10"/><line x1="34" y1="22" x2="31" y2="32"/><line x1="58" y1="4" x2="55" y2="14"/><line x1="82" y1="30" x2="79" y2="40"/><line x1="106" y1="10" x2="103" y2="20"/><line x1="130" y1="26" x2="127" y2="36"/><line x1="154" y1="6" x2="151" y2="16"/>
+    <line x1="20" y1="60" x2="17" y2="70"/><line x1="46" y1="80" x2="43" y2="90"/><line x1="70" y1="58" x2="67" y2="68"/><line x1="94" y1="88" x2="91" y2="98"/><line x1="118" y1="64" x2="115" y2="74"/><line x1="142" y1="90" x2="139" y2="100"/>
+    <line x1="14" y1="110" x2="11" y2="120"/><line x1="50" y1="116" x2="47" y2="126"/><line x1="88" y1="110" x2="85" y2="120"/><line x1="126" y1="118" x2="123" y2="128"/><line x1="160" y1="112" x2="157" y2="122"/>
+  </g>
+</defs>
+
+<!-- ================= MARY · STAGE 1 · LAST DAY OF SCHOOL ================= -->
+<!-- CLASSROOM (square: four views). Each view is drawn inside a room box the engine adds. -->
+<!-- c1: the front of the class: whiteboard and Mr Hollis's desk -->
+<g class="view" id="v-c1" data-box="classroom" data-light="right">
+  <g class="hs" data-id="s_cupboardC" role="button" tabindex="0" aria-label="Supplies cupboard">
+    <rect x="46" y="150" width="66" height="210" fill="#3f8f96" class="o"/>
+    <line x1="79" y1="150" x2="79" y2="360" stroke="#2f7c83" stroke-width="2"/>
+    <rect x="52" y="160" width="54" height="26" rx="3" fill="#fffdf6" class="t"/><text x="79" y="177" text-anchor="middle" font-size="9" font-weight="700" fill="#2f7c83" class="lbl">SUPPLIES</text>
+    <circle cx="72" cy="260" r="3.2" fill="#fffdf6" class="t"/><circle cx="86" cy="260" r="3.2" fill="#fffdf6" class="t"/>
+    <rect class="hit" x="44" y="148" width="70" height="214" fill="transparent"/>
+  </g>
+  <g fill="#fffdf6"><rect x="122" y="70" width="12" height="12" fill="#d0602f" class="t"/><rect x="138" y="70" width="12" height="12" fill="#f0b44c" class="t"/><rect x="154" y="70" width="12" height="12" fill="#3a8f5c" class="t"/><rect x="170" y="70" width="12" height="12" fill="#3b78b8" class="t"/><rect x="186" y="70" width="12" height="12" fill="#7a5cc2" class="t"/><rect x="202" y="70" width="12" height="12" fill="#c4589a" class="t"/><rect x="218" y="70" width="12" height="12" fill="#d0602f" class="t"/><rect x="234" y="70" width="12" height="12" fill="#f0b44c" class="t"/></g>
+  <g class="hs" data-id="s_board" role="button" tabindex="0" aria-label="Whiteboard">
+    <rect x="120" y="90" width="192" height="128" rx="3" fill="#fffdf6" stroke="#8a97a3" stroke-width="5" stroke-linejoin="round"/>
+    <rect x="120" y="90" width="192" height="128" rx="3" fill="none" class="o"/>
+    <text x="216" y="140" text-anchor="middle" font-size="19" fill="#2f7c83" class="hand">Happy holidays,</text>
+    <text x="216" y="166" text-anchor="middle" font-size="19" fill="#2f7c83" class="hand">Year 5!</text>
+    <circle cx="288" cy="196" r="9" fill="none" stroke="#f0b44c" stroke-width="2.4"/><g stroke="#f0b44c" stroke-width="2.4" stroke-linecap="round"><line x1="288" y1="181" x2="288" y2="184"/><line x1="303" y1="196" x2="300" y2="196"/><line x1="276" y1="196" x2="273" y2="196"/><line x1="299" y1="185" x2="297" y2="187"/></g>
+    <rect x="134" y="218" width="164" height="6" rx="2" fill="#9aa5ab" class="t"/>
+    <rect x="150" y="212" width="16" height="5" rx="2" fill="#d0602f"/><rect x="170" y="212" width="16" height="5" rx="2" fill="#3b78b8"/>
+    <rect class="hit" x="116" y="86" width="200" height="140" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="s_tdesk" role="button" tabindex="0" aria-label="Mr Hollis's desk">
+    <ellipse cx="262" cy="446" rx="86" ry="10" fill="#2b2836" opacity=".16" filter="url(#blur6)"/>
+    <rect x="200" y="356" width="124" height="76" fill="#b98a5a" class="o"/>
+    <rect x="208" y="366" width="50" height="24" rx="2" fill="#a8744a" class="t"/><rect x="208" y="398" width="50" height="24" rx="2" fill="#a8744a" class="t"/>
+    <rect x="228" y="376" width="10" height="4" rx="2" fill="#fffdf6"/><rect x="228" y="408" width="10" height="4" rx="2" fill="#fffdf6"/>
+    <polygon points="212,300 320,300 334,344 196,344" fill="#d8b98a" stroke="#2b2836" stroke-width="2.2" stroke-linejoin="round"/>
+    <rect x="196" y="344" width="138" height="12" fill="#b98a5a" stroke="#2b2836" stroke-width="2.2" stroke-linejoin="round"/>
+    <rect x="220" y="280" width="22" height="22" rx="3" fill="#d0602f" class="o"/><path d="M242 286c8 0 8 12 0 12" fill="none" class="o"/>
+    <g><rect x="256" y="292" width="54" height="7" fill="#2f7c83" class="t"/><rect x="260" y="285" width="46" height="7" fill="#f0b44c" class="t"/><rect x="254" y="299" width="58" height="6" fill="#7a5cc2" class="t"/></g>
+    <circle cx="300" cy="292" r="6" fill="#d0602f" class="t"/><path d="M300 286c1-3 3-4 5-4" fill="none" class="t"/>
+    <rect class="hit" x="194" y="276" width="142" height="160" fill="transparent"/>
+  </g>
+  <g>
+    <ellipse cx="104" cy="426" rx="64" ry="18" fill="#d0602f" class="o"/><ellipse cx="104" cy="426" rx="46" ry="12" fill="#f0b44c"/><ellipse cx="104" cy="426" rx="26" ry="7" fill="#3f8f96"/>
+    <ellipse cx="80" cy="412" rx="18" ry="9" fill="#7a5cc2" class="t"/>
+  </g>
+  <g><rect x="160" y="404" width="26" height="34" rx="3" fill="#8a97a3" class="o"/><rect x="156" y="400" width="34" height="6" rx="2" fill="#6f7c88" class="t"/></g>
+</g>
+
+<!-- c2: the window wall -->
+<g class="view" id="v-c2" data-box="classroom" data-light="front">
+  <g class="hs" data-id="s_cwindow" role="button" tabindex="0" aria-label="Classroom window">
+    <rect x="52" y="72" width="256" height="164" rx="3" fill="#fffdf6" class="o"/>
+    <rect x="60" y="80" width="240" height="148" fill="#bfe0ea"/>
+    <circle cx="248" cy="112" r="16" fill="#fbe78a" class="t"/>
+    <g fill="#fffdf6" opacity=".9"><ellipse cx="110" cy="104" rx="22" ry="8"/><ellipse cx="124" cy="100" rx="14" ry="7"/></g>
+    <path d="M170 96l10-4 6 2-4 4 8 2-12 3-6-3Z" fill="#fffdf6" class="t"/>
+    <g fill="#6fa36a"><circle cx="96" cy="206" r="30"/><circle cx="150" cy="214" r="26"/><circle cx="220" cy="204" r="34"/><circle cx="276" cy="216" r="24"/></g>
+    <g fill="#8a6440"><rect x="92" y="214" width="8" height="14"/><rect x="216" y="216" width="8" height="12"/></g>
+    <line x1="140" y1="80" x2="140" y2="228" stroke="#fffdf6" stroke-width="5"/><line x1="220" y1="80" x2="220" y2="228" stroke="#fffdf6" stroke-width="5"/>
+    <rect class="hit" x="50" y="70" width="260" height="168" fill="transparent"/>
+  </g>
+  <rect x="44" y="236" width="272" height="10" rx="2" fill="#e8dcc6" class="t"/>
+  <g class="hs" data-id="s_beans" role="button" tabindex="0" aria-label="Bean plants on the window sill">
+    <g><path d="M74 214h22l-3 22H77Z" fill="#c9755a" class="t"/><path d="M85 214c0-20 5-30 10-34" stroke="#4d8a4f" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M92 190c-6-2-8-8-6-12 6 2 8 8 6 12Z" fill="#6fa36a" class="t"/></g>
+    <g><path d="M130 214h22l-3 22h-16Z" fill="#c9755a" class="t"/><path d="M141 214c0-30-6-44-12-50" stroke="#4d8a4f" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M136 186c-8 0-12-6-12-12 8 0 12 6 12 12Z" fill="#6fa36a" class="t"/><path d="M133 172c6-4 12-2 14 4-6 4-12 2-14-4Z" fill="#6fa36a" class="t"/></g>
+    <g><path d="M186 214h22l-3 22h-16Z" fill="#c9755a" class="t"/><path d="M197 214c0-14 4-22 8-26" stroke="#4d8a4f" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M204 194c-6-2-8-8-6-12 6 2 8 8 6 12Z" fill="#6fa36a" class="t"/></g>
+    <g><path d="M242 214h22l-3 22h-16Z" fill="#c9755a" class="t"/><path d="M253 214c0-10 2-16 4-18" stroke="#4d8a4f" stroke-width="2.6" fill="none" stroke-linecap="round"/></g>
+    <g fill="#fffdf6"><rect x="78" y="224" width="14" height="8" class="t"/><rect x="134" y="224" width="14" height="8" class="t"/><rect x="190" y="224" width="14" height="8" class="t"/><rect x="246" y="224" width="14" height="8" class="t"/></g>
+    <text x="141" y="231" text-anchor="middle" font-size="5.5" font-weight="700" fill="#6d4fb8" class="lbl">MARY</text>
+    <rect class="hit" x="66" y="160" width="206" height="80" fill="transparent"/>
+  </g>
+  <g><rect x="96" y="264" width="168" height="64" rx="4" fill="#e6e3d6" class="o"/><g stroke="#cfcbbd" stroke-width="3"><line x1="112" y1="270" x2="112" y2="322"/><line x1="130" y1="270" x2="130" y2="322"/><line x1="148" y1="270" x2="148" y2="322"/><line x1="166" y1="270" x2="166" y2="322"/><line x1="184" y1="270" x2="184" y2="322"/><line x1="202" y1="270" x2="202" y2="322"/><line x1="220" y1="270" x2="220" y2="322"/><line x1="238" y1="270" x2="238" y2="322"/></g></g>
+  <g><ellipse cx="86" cy="414" rx="30" ry="14" fill="#d0602f" class="o"/><ellipse cx="86" cy="408" rx="30" ry="12" fill="#e0664f"/><ellipse cx="270" cy="418" rx="32" ry="14" fill="#7a5cc2" class="o"/><ellipse cx="270" cy="412" rx="32" ry="12" fill="#9a80dc"/></g>
+</g>
+
+<!-- c3: door to the corridor, coat pegs and lost property -->
+<g class="view" id="v-c3" data-box="classroom" data-light="left">
+  <g class="hs door" data-id="s_toCorridor" role="button" tabindex="0" aria-label="Door to the corridor">
+    <rect x="90" y="72" width="112" height="288" fill="#fffdf6" class="o"/>
+    <rect x="98" y="80" width="96" height="280" fill="#2f7c83" class="o"/>
+    <rect x="112" y="96" width="68" height="64" rx="3" fill="#dfe9ea" class="t"/><rect x="118" y="102" width="56" height="52" fill="#c9d7df"/>
+    <rect x="118" y="176" width="56" height="26" rx="4" fill="#fffdf6" class="t"/><text x="146" y="194" text-anchor="middle" font-size="14" font-weight="700" fill="#2f7c83" class="lbl">5H</text>
+    <rect x="112" y="220" width="68" height="120" rx="3" fill="#3f8f96" class="t"/>
+    <circle cx="186" cy="232" r="5.5" fill="#f0b44c" class="t"/>
+    <rect class="hit" x="88" y="70" width="116" height="292" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="s_pegs" role="button" tabindex="0" aria-label="Coat pegs">
+    <rect x="214" y="116" width="98" height="10" rx="3" fill="#a8744a" class="o"/>
+    <g fill="#8a6440"><circle cx="226" cy="133" r="4" class="t"/><circle cx="246" cy="133" r="4" class="t"/><circle cx="266" cy="133" r="4" class="t"/><circle cx="286" cy="133" r="4" class="t"/><circle cx="304" cy="133" r="4" class="t"/></g>
+    <path d="M262 136c-8 14-10 30-4 40h14c4-10 2-26-6-40Z" fill="#7fb5c9" class="o"/><path d="M262 136h8" class="t"/>
+    <g fill="#fffdf6"><rect x="220" y="102" width="12" height="8" class="t"/><rect x="240" y="102" width="12" height="8" class="t"/><rect x="260" y="102" width="12" height="8" class="t"/><rect x="280" y="102" width="12" height="8" class="t"/><rect x="298" y="102" width="12" height="8" class="t"/></g>
+    <rect class="hit" x="210" y="98" width="106" height="84" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="s_lostC" role="button" tabindex="0" aria-label="Lost property box">
+    <rect x="224" y="296" width="80" height="64" fill="#c9a26b" class="o"/><rect x="224" y="296" width="80" height="12" fill="#b08a58" class="t"/>
+    <text x="264" y="336" text-anchor="middle" font-size="7.5" font-weight="700" fill="#5b4a2e" class="lbl">LOST PROPERTY</text>
+    <path d="M232 296c2-10 10-14 16-10l-2 10Z" fill="#d0602f" class="t"/><path d="M272 296c-2-8 6-16 14-14 2 6-2 12-6 14Z" fill="#3b78b8" class="t"/>
+    <rect class="hit" x="220" y="278" width="88" height="86" fill="transparent"/>
+  </g>
+  <g><rect x="48" y="300" width="30" height="60" rx="3" fill="#3a8f5c" class="o"/><rect x="46" y="296" width="34" height="8" rx="2" fill="#27794c" class="t"/><rect x="82" y="304" width="26" height="56" rx="3" fill="#3b78b8" class="o"/><rect x="80" y="300" width="30" height="8" rx="2" fill="#2c5f93" class="t"/></g>
+</g>
+
+<!-- c4: the timetable wall, Mary's desk and Nutmeg -->
+<g class="view" id="v-c4" data-box="classroom" data-light="back">
+  <g class="hs" data-id="s_rules" role="button" tabindex="0" aria-label="Class rules poster">
+    <polygon points="6,146 36,156 36,238 6,248" fill="#fff9e8" class="o"/><polygon points="6,146 36,156 36,168 6,158" fill="#d0602f"/>
+    <text transform="matrix(1 .33 0 1 10 159)" font-size="5.6" font-weight="700" fill="#fffdf6" class="lbl">RULES</text>
+    <g stroke="#9aa5ab" stroke-width="1.4" stroke-linecap="round"><line x1="10" y1="182" x2="32" y2="189"/><line x1="10" y1="196" x2="32" y2="203"/><line x1="10" y1="210" x2="26" y2="215"/><line x1="10" y1="224" x2="30" y2="230"/></g>
+    <rect class="hit" x="2" y="140" width="40" height="112" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="s_map" role="button" tabindex="0" aria-label="Map poster">
+    <polygon points="324,156 354,146 354,228 324,238" fill="#dbe9f0" class="o"/>
+    <path d="M330 184c6-8 12-2 18-8s8 10 4 16-10 2-14 8-10-2-10-8 0-6 2-8Z" fill="#7fae74" class="t"/>
+    <circle cx="345" cy="205" r="2.4" fill="#d0602f" class="t"/>
+    <text transform="matrix(1 -.33 0 1 331 166)" font-size="5.6" font-weight="700" fill="#3b5b78" class="lbl">MAP</text>
+    <rect class="hit" x="318" y="140" width="40" height="104" fill="transparent"/>
+  </g>
+  <path d="M44 74Q160 90 262 74" fill="none" stroke="#8a6440" stroke-width="1.4"/>
+  <g class="hs" data-id="s_paintings" role="button" tabindex="0" aria-label="The class's paintings">
+    <g transform="rotate(-3 68 100)"><rect x="52" y="84" width="34" height="30" fill="#fffdf6" class="t"/><path d="M58 104V96l11-8 11 8v8Z" fill="#e0a84a" class="t"/><rect x="66" y="98" width="6" height="6" fill="#3b78b8"/><circle cx="80" cy="90" r="3" fill="#f5d76e"/></g>
+    <g transform="rotate(2 118 100)"><rect x="101" y="85" width="34" height="30" fill="#fffdf6" class="t"/><circle cx="110" cy="93" r="4" fill="#f5d76e"/><circle cx="125" cy="103" r="4" fill="#d0602f"/><circle cx="125" cy="103" r="1.6" fill="#f5d76e"/><path d="M125 107v6" stroke="#4d8a4f" stroke-width="1.4"/></g>
+    <g transform="rotate(-2 168 100)"><rect x="151" y="86" width="34" height="30" fill="#fffdf6" class="t"/><ellipse cx="168" cy="106" rx="8" ry="5" fill="#8a6440"/><circle cx="168" cy="97" r="5" fill="#8a6440"/><path d="M164 94l-1-4 3 2M172 94l1-4-3 2" fill="#8a6440"/><circle cx="166" cy="97" r=".8" fill="#fffdf6"/><circle cx="170" cy="97" r=".8" fill="#fffdf6"/></g>
+    <g transform="rotate(3 218 100)"><rect x="201" y="85" width="34" height="30" fill="#fffdf6" class="t"/><path d="M218 88l5 10v8h-10v-8Z" fill="#7a5cc2"/><path d="M213 106l-3 4h6M223 106l3 4h-6" fill="#d0602f"/><circle cx="218" cy="97" r="2" fill="#bfe0ea"/><path d="M216 110l2 4 2-4" fill="#f0b44c"/></g>
+    <g fill="#c9a24a"><rect x="66" y="78" width="4" height="9" rx="1.5" class="t"/><rect x="116" y="80" width="4" height="9" rx="1.5" class="t"/><rect x="166" y="81" width="4" height="9" rx="1.5" class="t"/><rect x="216" y="80" width="4" height="9" rx="1.5" class="t"/></g>
+    <rect class="hit" x="48" y="76" width="192" height="44" fill="transparent"/>
+  </g>
+  <g>
+    <circle cx="296" cy="104" r="20" fill="#fffdf6" class="o"/><circle cx="296" cy="104" r="16.5" fill="none" stroke="#cfc8b4" stroke-width="1"/>
+    <g stroke="#2b2836" stroke-width="1.5" stroke-linecap="round"><line x1="296" y1="90" x2="296" y2="93"/><line x1="310" y1="104" x2="307" y2="104"/><line x1="296" y1="118" x2="296" y2="115"/><line x1="282" y1="104" x2="285" y2="104"/></g>
+    <line x1="296" y1="104" x2="304" y2="99" stroke="#2b2836" stroke-width="2.4" stroke-linecap="round"/><line x1="296" y1="104" x2="285" y2="110" stroke="#2b2836" stroke-width="1.6" stroke-linecap="round"/><circle cx="296" cy="104" r="1.8" fill="#d0602f"/>
+  </g>
+  <g class="hs" data-id="s_timetable" role="button" tabindex="0" aria-label="Class timetable">
+    <rect x="52" y="122" width="198" height="130" fill="#fffdf6" class="o"/>
+    <rect x="52" y="122" width="198" height="20" fill="#2f7c83" class="o"/>
+    <text x="151" y="136" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fffdf6" class="lbl" letter-spacing="1">5H TIMETABLE</text>
+    <g id="ttWall"></g>
+    <circle cx="57" cy="127" r="3" fill="#d0602f" class="t"/><circle cx="245" cy="127" r="3" fill="#3b78b8" class="t"/>
+    <rect class="hit" x="48" y="118" width="206" height="138" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="s_bookshelfC" role="button" tabindex="0" aria-label="Bookshelf">
+    <rect x="46" y="266" width="72" height="94" fill="#a8744a" class="o"/><rect x="50" y="270" width="64" height="86" fill="#8a6440"/>
+    <g><rect x="53" y="276" width="9" height="24" fill="#3b78b8" class="t"/><rect x="63" y="279" width="7" height="21" fill="#d0602f" class="t"/><rect x="71" y="274" width="10" height="26" fill="#f0b44c" class="t"/><rect x="82" y="280" width="8" height="20" fill="#7a5cc2" class="t"/><rect x="91" y="277" width="9" height="23" fill="#3a8f5c" class="t"/><rect x="101" y="282" width="10" height="18" fill="#c4589a" class="t"/></g>
+    <rect x="50" y="300" width="64" height="4" fill="#a8744a"/>
+    <g><rect x="53" y="308" width="12" height="22" fill="#2f7c83" class="t"/><rect x="66" y="312" width="8" height="18" fill="#d9a622" class="t"/><rect x="75" y="306" width="9" height="24" fill="#d0602f" class="t"/><rect x="86" y="314" width="24" height="16" fill="#e8dcc6" class="t"/><path d="M90 318h16M90 322h12" stroke="#9aa5ab" stroke-width="1.2"/></g>
+    <rect x="50" y="330" width="64" height="4" fill="#a8744a"/>
+    <g><rect x="53" y="338" width="20" height="18" fill="#7fb5c9" class="t"/><rect x="75" y="338" width="20" height="18" fill="#b09ae8" class="t"/><rect x="97" y="338" width="14" height="18" fill="#f5d76e" class="t"/></g>
+    <rect class="hit" x="44" y="264" width="76" height="98" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="s_hamster" role="button" tabindex="0" aria-label="Nutmeg the hamster">
+    <rect x="256" y="282" width="64" height="78" fill="#7fb5c9" class="o"/><rect x="256" y="278" width="64" height="6" fill="#a9d0de" class="t"/>
+    <rect x="262" y="292" width="52" height="28" rx="2" fill="#6aa3b8" class="t"/><rect x="262" y="326" width="52" height="28" rx="2" fill="#6aa3b8" class="t"/>
+    <rect x="284" y="303" width="8" height="5" rx="2" fill="#fffdf6" class="t"/><rect x="284" y="337" width="8" height="5" rx="2" fill="#fffdf6" class="t"/>
+    <rect x="260" y="270" width="58" height="8" rx="2" fill="#5b6f7a" class="t"/>
+    <rect x="262" y="228" width="54" height="44" rx="3" fill="#eef5f7" opacity=".5"/>
+    <g stroke="#7a8794" stroke-width="1"><line x1="268" y1="228" x2="268" y2="270"/><line x1="276" y1="228" x2="276" y2="270"/><line x1="284" y1="228" x2="284" y2="270"/><line x1="292" y1="228" x2="292" y2="270"/><line x1="300" y1="228" x2="300" y2="270"/><line x1="308" y1="228" x2="308" y2="270"/></g>
+    <rect x="262" y="228" width="54" height="44" rx="3" fill="none" class="o"/><rect x="262" y="262" width="54" height="10" fill="#d9c69a" class="t"/>
+    <circle cx="304" cy="248" r="10" fill="none" stroke="#c9a24a" stroke-width="2.4"/><line x1="304" y1="238" x2="304" y2="258" stroke="#c9a24a" stroke-width="1.4"/><line x1="294" y1="248" x2="314" y2="248" stroke="#c9a24a" stroke-width="1.4"/>
+    <rect x="266" y="234" width="5" height="12" rx="2" fill="#bfe0ea" class="t"/>
+    <ellipse cx="281" cy="258" rx="9" ry="6.5" fill="#e0a84a" class="t"/><circle cx="288" cy="255" r="4.6" fill="#e0a84a" class="t"/>
+    <circle cx="286" cy="251" r="1.8" fill="#f2c89a" class="t"/><circle cx="291" cy="251" r="1.8" fill="#f2c89a" class="t"/>
+    <circle cx="289.5" cy="255" r=".9" fill="#2b2836"/><circle cx="292.5" cy="256.5" r=".8" fill="#d97a8a"/><ellipse cx="279" cy="260" rx="4" ry="2.5" fill="#fff3d6"/>
+    <g class="bubble"><path d="M272 214h20a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4h-9l-5 5v-5h-6a4 4 0 0 1-4-4v-8a4 4 0 0 1 4-4Z" fill="#fffdf6" class="t"/><text x="282" y="226" text-anchor="middle" font-size="10" font-weight="700" fill="#c98320" class="lbl">?</text></g>
+    <rect class="hit" x="254" y="210" width="68" height="152" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="s_plantC" role="button" tabindex="0" aria-label="Plant">
+    <ellipse cx="296" cy="454" rx="20" ry="4" fill="#2b2836" opacity=".18" filter="url(#blur3)"/>
+    <path d="M282 420h30l-4 32h-22Z" fill="#c9755a" class="o"/><rect x="280" y="416" width="34" height="7" rx="2" fill="#d98a6e" class="t"/>
+    <g fill="#4d8a4f" class="t"><path d="M296 418c-24-10-30-40-16-58 6 22 12 40 16 58Z"/><path d="M297 418c8-24 22-40 36-44-8 20-20 34-36 44Z"/><path d="M296 418c-16-6-30-8-38-4 10 8 24 10 38 4Z"/><path d="M297 418c2-20 10-34 20-40-2 16-8 30-20 40Z" fill="#6fa36a"/></g>
+    <rect class="hit" x="250" y="362" width="58" height="56" fill="transparent"/>
+  </g>
+  <g><rect x="152" y="270" width="56" height="52" rx="8" fill="#3f8f96" class="o"/><rect x="160" y="286" width="40" height="8" rx="3" fill="#2f7c83"/><rect x="152" y="270" width="56" height="12" rx="6" fill="#4c9ea6"/></g>
+  <ellipse cx="180" cy="458" rx="112" ry="12" fill="#2b2836" opacity=".16" filter="url(#blur6)"/>
+  <g class="hs" data-id="s_mdesk" role="button" tabindex="0" aria-label="Mary's desk">
+    <rect x="106" y="368" width="6" height="62" fill="#6f7c88" class="t"/><rect x="248" y="368" width="6" height="62" fill="#6f7c88" class="t"/>
+    <rect x="156" y="368" width="5" height="52" fill="#8a97a3" class="t"/><rect x="199" y="368" width="5" height="52" fill="#8a97a3" class="t"/>
+    <polygon points="100,318 260,318 276,356 84,356" fill="url(#deskTop)" stroke="#2b2836" stroke-width="2.2" stroke-linejoin="round"/>
+    <rect x="84" y="356" width="192" height="12" fill="#c9ad7a" stroke="#2b2836" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="100,318 260,318 258,322 102,322" fill="#fff8df" opacity=".8"/>
+    <rect x="88" y="368" width="8" height="84" fill="#7a8794" class="o"/><rect x="264" y="368" width="8" height="84" fill="#7a8794" class="o"/>
+    <rect x="88" y="368" width="3" height="84" fill="#9aa7b3"/><rect x="264" y="368" width="3" height="84" fill="#9aa7b3"/>
+    <rect x="108" y="330" width="48" height="20" rx="7" fill="#7a5cc2" class="o"/><rect x="108" y="330" width="48" height="8" rx="6" fill="#9a80dc"/>
+    <line x1="114" y1="338" x2="150" y2="338" stroke="#e9e2f5" stroke-width="1.6" stroke-dasharray="2 1.5"/><circle cx="150" cy="338" r="2.4" fill="#f0b44c" class="t"/>
+    <g><line x1="174" y1="298" x2="172" y2="322" stroke="#d0602f" stroke-width="3.2" stroke-linecap="round"/><line x1="180" y1="296" x2="180" y2="322" stroke="#f0b44c" stroke-width="3.2" stroke-linecap="round"/><line x1="186" y1="300" x2="188" y2="322" stroke="#3b78b8" stroke-width="3.2" stroke-linecap="round"/><rect x="166" y="320" width="28" height="26" rx="3" fill="#2f7c83" class="o"/><ellipse cx="180" cy="320" rx="14" ry="4" fill="#3f8f96" class="t"/><rect x="166" y="320" width="6" height="26" rx="3" fill="#4c9ea6" opacity=".7"/></g>
+    <rect class="hit" x="84" y="296" width="110" height="74" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="s_envelope" role="button" tabindex="0" aria-label="Envelope on Mary's desk">
+    <g id="envArt" transform="rotate(-7 226 340)"><rect x="200" y="326" width="54" height="30" rx="2" fill="#fff9e8" class="o"/><polyline points="200,326 227,346 254,326" fill="none" class="t"/><line x1="200" y1="356" x2="220" y2="342" class="t"/><line x1="254" y1="356" x2="234" y2="342" class="t"/><text x="227" y="354" text-anchor="middle" font-size="9" fill="#6d4fb8" class="hand" font-weight="700">Mary</text></g>
+    <rect class="hit" x="196" y="318" width="64" height="46" fill="transparent"/>
+  </g>
+  <ellipse cx="90" cy="458" rx="36" ry="6" fill="#2b2836" opacity=".18" filter="url(#blur6)"/>
+  <g class="hs" data-id="s_bag" role="button" tabindex="0" aria-label="Mary's schoolbag" transform="translate(24 0)">
+    <path d="M38 394c0-14 10-22 28-22s28 8 28 22v50a6 6 0 0 1-6 6H44a6 6 0 0 1-6-6Z" fill="#7a5cc2" class="o"/>
+    <path d="M40 400h52v16H40Z" fill="#9a80dc"/><path d="M46 418h40v24H46Z" fill="#6d4fb8" class="t"/>
+    <path d="M56 372c2-9 18-9 20 0" fill="none" class="o"/><circle cx="66" cy="430" r="3.4" fill="#f0b44c" class="t"/>
+    <path d="M38 394c-7 10-7 34 0 46" fill="none" class="t"/><path d="M60 428c4-2 8-2 12 0" fill="none" stroke="#e9e2f5" stroke-width="1.4" stroke-dasharray="2 1.5"/>
+    <rect class="hit" x="34" y="366" width="64" height="88" fill="transparent"/>
+  </g>
+</g>
+
+<!-- CORRIDOR (square: four views) -->
+<!-- h1: the lockers -->
+<g class="view" id="v-h1" data-box="corridor" data-light="none">
+  <g fill="#fffdf6"><rect x="70" y="80" width="46" height="34" class="o"/><rect x="157" y="80" width="46" height="34" class="o"/><rect x="244" y="80" width="46" height="34" class="o"/></g>
+  <g fill="#f0b44c"><circle cx="93" cy="93" r="7" class="t"/><circle cx="180" cy="93" r="7" class="t"/><circle cx="267" cy="93" r="7" class="t"/></g>
+  <g stroke="#9aa5ab" stroke-width="1.2"><line x1="78" y1="106" x2="108" y2="106"/><line x1="165" y1="106" x2="195" y2="106"/><line x1="252" y1="106" x2="282" y2="106"/></g>
+  <g class="hs" data-id="s_lockers" role="button" tabindex="0" aria-label="Other lockers">
+    <g fill="#7fb5c9"><rect x="44" y="120" width="45" height="240" class="o"/><rect x="89" y="120" width="45" height="240" class="o"/><rect x="179" y="120" width="45" height="240" class="o"/><rect x="224" y="120" width="45" height="240" class="o"/><rect x="269" y="120" width="47" height="240" class="o"/></g>
+    <g fill="#5e97ab"><rect x="52" y="136" width="29" height="4"/><rect x="52" y="144" width="29" height="4"/><rect x="97" y="136" width="29" height="4"/><rect x="97" y="144" width="29" height="4"/><rect x="187" y="136" width="29" height="4"/><rect x="187" y="144" width="29" height="4"/><rect x="232" y="136" width="29" height="4"/><rect x="232" y="144" width="29" height="4"/><rect x="277" y="136" width="31" height="4"/><rect x="277" y="144" width="31" height="4"/></g>
+    <g fill="#5b6f7a"><rect x="76" y="236" width="6" height="14" rx="2" class="t"/><rect x="121" y="236" width="6" height="14" rx="2" class="t"/><rect x="211" y="236" width="6" height="14" rx="2" class="t"/><rect x="256" y="236" width="6" height="14" rx="2" class="t"/><rect x="303" y="236" width="6" height="14" rx="2" class="t"/></g>
+    <rect x="96" y="170" width="30" height="20" fill="#fffdf6" class="t"/><path d="M100 176h22M100 182h14" stroke="#9aa5ab" stroke-width="1.4"/>
+    <rect class="hit" x="42" y="118" width="88" height="244" fill="transparent"/><rect class="hit" x="177" y="118" width="141" height="244" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="s_locker" role="button" tabindex="0" aria-label="Mary's locker">
+    <rect x="134" y="120" width="45" height="240" fill="#b09ae8" class="o"/>
+    <g fill="#6d4fb8"><rect x="142" y="136" width="29" height="4"/><rect x="142" y="144" width="29" height="4"/></g>
+    <rect x="139" y="164" width="35" height="18" rx="3" fill="#fffdf6" class="t"/><text x="156.5" y="177" text-anchor="middle" font-size="9.5" font-weight="700" fill="#6d4fb8" class="lbl">MARY</text>
+    <rect x="145" y="212" width="24" height="36" rx="4" fill="#5b6f7a" class="o"/><g fill="#fffdf6"><rect x="149" y="218" width="4.5" height="8"/><rect x="155" y="218" width="4.5" height="8"/><rect x="161" y="218" width="4.5" height="8"/></g>
+    <path d="M150 196c-1-3 2-4 3-2l1 2" fill="none" stroke="#f0b44c" stroke-width="1.4"/>
+    <rect id="lockerOpen" class="off" x="136" y="122" width="41" height="236" fill="#3d4a55"/>
+    <rect class="hit" x="130" y="118" width="53" height="244" fill="transparent"/>
+  </g>
+  <ellipse cx="180" cy="452" rx="120" ry="10" fill="#2b2836" opacity=".14" filter="url(#blur6)"/>
+  <g><polygon points="76,382 284,382 296,400 64,400" fill="#c9a26b" stroke="#2b2836" stroke-width="2.2" stroke-linejoin="round"/><rect x="72" y="400" width="8" height="40" fill="#8a6440" class="o"/><rect x="280" y="400" width="8" height="40" fill="#8a6440" class="o"/><rect x="176" y="400" width="6" height="34" fill="#a8744a" class="t"/></g>
+</g>
+
+<!-- h2: the library doors -->
+<g class="view" id="v-h2" data-box="corridor" data-light="none">
+  <g class="hs" data-id="s_fountain" role="button" tabindex="0" aria-label="Water fountain">
+    <rect x="46" y="262" width="40" height="98" rx="3" fill="#dfe6ea" class="o"/><rect x="42" y="256" width="48" height="12" rx="3" fill="#b9c7cb" class="o"/>
+    <path d="M62 250c0-6 4-8 8-6" fill="none" stroke="#5e97ab" stroke-width="2.4" stroke-linecap="round"/><circle cx="58" cy="262" r="3" fill="#7fb5c9" class="t"/>
+    <rect class="hit" x="40" y="236" width="52" height="126" fill="transparent"/>
+  </g>
+  <g class="hs door" data-id="s_toLibrary" role="button" tabindex="0" aria-label="Doors to the library">
+    <rect x="96" y="72" width="172" height="288" fill="#fffdf6" class="o"/>
+    <rect x="104" y="80" width="78" height="280" fill="#3b8a4e" class="o"/><rect x="182" y="80" width="78" height="280" fill="#3b8a4e" class="o"/>
+    <circle cx="143" cy="150" r="24" fill="#dfe9ea" class="t"/><circle cx="221" cy="150" r="24" fill="#dfe9ea" class="t"/>
+    <circle cx="143" cy="150" r="18" fill="#c9d7df"/><circle cx="221" cy="150" r="18" fill="#c9d7df"/>
+    <rect x="118" y="230" width="50" height="110" rx="3" fill="#4a9e5e" class="t"/><rect x="196" y="230" width="50" height="110" rx="3" fill="#4a9e5e" class="t"/>
+    <rect x="172" y="250" width="6" height="34" rx="3" fill="#f0b44c" class="t"/><rect x="186" y="250" width="6" height="34" rx="3" fill="#f0b44c" class="t"/>
+    <rect x="130" y="190" width="104" height="26" rx="4" fill="#fffdf6" class="t"/><text x="182" y="208" text-anchor="middle" font-size="13" font-weight="700" fill="#3b8a4e" class="lbl" letter-spacing="1.5">LIBRARY</text>
+    <rect class="hit" x="94" y="70" width="176" height="292" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="s_trophies" role="button" tabindex="0" aria-label="Trophy cabinet">
+    <rect x="278" y="150" width="40" height="210" fill="#a8744a" class="o"/><rect x="283" y="156" width="30" height="198" fill="#eaf1ee" class="t"/>
+    <g fill="#f0b44c"><path d="M292 186h12l-2 12h-8Z" class="t"/><rect x="295" y="198" width="6" height="4"/><rect x="292" y="202" width="12" height="3" class="t"/><path d="M290 236h16l-3 14h-10Z" class="t"/><rect x="295" y="250" width="6" height="4"/><rect x="291" y="254" width="14" height="3" class="t"/><path d="M294 300h8l-1 10h-6Z" class="t"/><rect x="295" y="310" width="6" height="3"/></g>
+    <rect x="283" y="216" width="30" height="3" fill="#c9bfa9"/><rect x="283" y="270" width="30" height="3" fill="#c9bfa9"/>
+    <rect class="hit" x="274" y="146" width="48" height="216" fill="transparent"/>
+  </g>
+</g>
+
+<!-- h3: the notice board -->
+<g class="view" id="v-h3" data-box="corridor" data-light="none">
+  <g class="hs" data-id="s_notices" role="button" tabindex="0" aria-label="Notice board">
+    <rect x="52" y="82" width="256" height="172" rx="4" fill="#c9a26b" stroke="#a8744a" stroke-width="6" stroke-linejoin="round"/>
+    <rect x="52" y="82" width="256" height="172" rx="4" fill="none" class="o"/>
+    <g transform="rotate(-3 100 132)"><rect x="66" y="96" width="68" height="72" fill="#fffdf6" class="t"/><rect x="72" y="102" width="56" height="12" fill="#d0602f"/><text x="100" y="111" text-anchor="middle" font-size="7" font-weight="700" fill="#fffdf6" class="lbl">SUMMER FAIR</text><circle cx="88" cy="140" r="10" fill="#f0b44c" class="t"/><circle cx="112" cy="146" r="8" fill="#7fb5c9" class="t"/><path d="M88 150v14M112 154v10" stroke="#2b2836" stroke-width="1.2"/></g>
+    <g transform="rotate(2 258 128)"><rect x="228" y="98" width="60" height="60" fill="#dbe9f0" class="t"/><text x="258" y="112" text-anchor="middle" font-size="6.5" font-weight="700" fill="#2c5f93" class="lbl">SWIMMING</text><text x="258" y="121" text-anchor="middle" font-size="6.5" font-weight="700" fill="#2c5f93" class="lbl">GALA</text><path d="M236 138c6-6 10 6 16 0s10 6 16 0s8 4 12 0" fill="none" stroke="#3b78b8" stroke-width="2"/><path d="M236 148c6-6 10 6 16 0s10 6 16 0s8 4 12 0" fill="none" stroke="#3b78b8" stroke-width="2"/></g>
+    <g transform="rotate(-2 100 214)"><rect x="66" y="184" width="68" height="58" fill="#fffdf6" class="t"/><text x="100" y="196" text-anchor="middle" font-size="6.5" font-weight="700" fill="#2b2836" class="lbl">LOST: BISCUIT</text><ellipse cx="100" cy="220" rx="12" ry="8" fill="#e0a84a" class="t"/><circle cx="110" cy="214" r="6" fill="#e0a84a" class="t"/><path d="M106 210l-1-5 4 3M114 210l1-5-4 3" fill="#e0a84a" class="t"/><circle cx="109" cy="213" r=".9" fill="#2b2836"/><circle cx="112" cy="213" r=".9" fill="#2b2836"/><text x="100" y="238" text-anchor="middle" font-size="5.5" fill="#55635d" class="lbl">ginger, very fluffy</text></g>
+    <g transform="rotate(1 258 210)"><rect x="228" y="178" width="60" height="64" fill="#fffdf6" class="t"/><text x="258" y="190" text-anchor="middle" font-size="6.5" font-weight="700" fill="#2b2836" class="lbl">HOUSE POINTS</text><rect x="236" y="196" width="10" height="40" fill="#d0602f" class="t"/><rect x="250" y="206" width="10" height="30" fill="#3b78b8" class="t"/><rect x="264" y="200" width="10" height="36" fill="#3a8f5c" class="t"/><rect x="278" y="214" width="6" height="22" fill="#f0b44c" class="t"/></g>
+    <g fill="#d0602f"><circle cx="72" cy="100" r="3" class="t"/><circle cx="282" cy="102" r="3" fill="#3b78b8" class="t"/><circle cx="70" cy="188" r="3" fill="#3a8f5c" class="t"/><circle cx="284" cy="182" r="3" fill="#f0b44c" class="t"/></g>
+    <rect class="hit" x="48" y="78" width="84" height="180" fill="transparent"/><rect class="hit" x="224" y="78" width="88" height="180" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="s_bonus" role="button" tabindex="0" aria-label="Bonus riddle card">
+    <g transform="rotate(-2 180 150)"><rect x="146" y="118" width="68" height="64" fill="#f5d76e" class="o"/><text x="180" y="140" text-anchor="middle" font-size="9" font-weight="700" fill="#8a6440" class="lbl">BONUS</text><text x="180" y="154" text-anchor="middle" font-size="9" font-weight="700" fill="#8a6440" class="lbl">RIDDLE</text><path d="M166 166c4-6 24-6 28 0" fill="none" stroke="#8a6440" stroke-width="1.4"/><circle cx="180" cy="122" r="3" fill="#d0602f" class="t"/></g>
+    <rect class="hit" x="140" y="112" width="80" height="76" fill="transparent"/>
+  </g>
+  <g><rect x="60" y="280" width="240" height="80" rx="4" fill="#e6e3d6" class="o"/><g stroke="#cfcbbd" stroke-width="3"><line x1="80" y1="288" x2="80" y2="352"/><line x1="104" y1="288" x2="104" y2="352"/><line x1="128" y1="288" x2="128" y2="352"/><line x1="152" y1="288" x2="152" y2="352"/><line x1="176" y1="288" x2="176" y2="352"/><line x1="200" y1="288" x2="200" y2="352"/><line x1="224" y1="288" x2="224" y2="352"/><line x1="248" y1="288" x2="248" y2="352"/><line x1="272" y1="288" x2="272" y2="352"/></g></g>
+</g>
+
+<!-- h4: doors to 5H and 5K -->
+<g class="view" id="v-h4" data-box="corridor" data-light="none">
+  <g><path d="M40 70Q180 100 320 70" fill="none" stroke="#8a6440" stroke-width="1.4"/><g class="t"><path d="M70 78l7 16 7-16Z" fill="#d0602f"/><path d="M104 84l7 16 7-16Z" fill="#f0b44c"/><path d="M138 88l7 16 7-16Z" fill="#3a8f5c"/><path d="M172 89l7 16 7-16Z" fill="#3b78b8"/><path d="M206 88l7 16 7-16Z" fill="#7a5cc2"/><path d="M240 84l7 16 7-16Z" fill="#c4589a"/><path d="M274 78l7 16 7-16Z" fill="#d0602f"/></g></g>
+  <g class="hs door" data-id="s_toClassroom" role="button" tabindex="0" aria-label="Door to classroom 5H">
+    <rect x="104" y="106" width="112" height="254" fill="#fffdf6" class="o"/>
+    <rect x="112" y="114" width="96" height="246" fill="#2f7c83" class="o"/>
+    <rect x="126" y="128" width="68" height="56" rx="3" fill="#dfe9ea" class="t"/><rect x="132" y="134" width="56" height="44" fill="#e4eef4"/>
+    <rect x="132" y="196" width="56" height="26" rx="4" fill="#fffdf6" class="t"/><text x="160" y="214" text-anchor="middle" font-size="14" font-weight="700" fill="#2f7c83" class="lbl">5H</text>
+    <rect x="126" y="236" width="68" height="104" rx="3" fill="#3f8f96" class="t"/><circle cx="120" cy="250" r="5.5" fill="#f0b44c" class="t"/>
+    <rect class="hit" x="102" y="104" width="116" height="258" fill="transparent"/>
+  </g>
+  <g><rect x="244" y="106" width="76" height="254" fill="#fffdf6" class="o"/><rect x="252" y="114" width="68" height="246" fill="#c9755a" class="o"/><rect x="264" y="128" width="46" height="56" rx="3" fill="#f6e3d6" class="t"/><rect x="266" y="196" width="42" height="26" rx="4" fill="#fffdf6" class="t"/><text x="287" y="214" text-anchor="middle" font-size="14" font-weight="700" fill="#c9755a" class="lbl">5K</text><circle cx="260" cy="250" r="5.5" fill="#f0b44c" class="t"/></g>
+  <polygon points="118,384 202,384 212,404 108,404" fill="#8a6440" class="o"/><text x="160" y="398" text-anchor="middle" font-size="8" font-weight="700" fill="#f0b44c" class="lbl">WELCOME</text>
+</g>
+
+<!-- LIBRARY (long room: six views). Bookcases are drawn by the engine into the bc-* groups. -->
+<!-- l1: Science shelf, the globe and the rock table -->
+<g class="view" id="v-l1" data-box="library" data-light="right">
+  <g class="hs" data-id="s_shelfSci" role="button" tabindex="0" aria-label="Science shelf">
+    <g id="bc-sci"></g>
+    <rect class="hit" x="42" y="50" width="164" height="312" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="s_globe" role="button" tabindex="0" aria-label="Globe">
+    <ellipse cx="268" cy="346" rx="30" ry="5" fill="#2b2836" opacity=".16" filter="url(#blur3)"/>
+    <path d="M268 300v30M250 334h36" stroke="#a8744a" stroke-width="5" stroke-linecap="round" class="t"/>
+    <path d="M268 230a36 36 0 0 1 0 72" fill="none" stroke="#a8744a" stroke-width="4.5" stroke-linecap="round"/>
+    <circle cx="268" cy="266" r="30" fill="#7fb5c9" class="o"/>
+    <path d="M244 258c6-10 16-12 24-6 4 4 10 2 14 6-2 8-10 10-14 16-6-2-10 2-16 0-4-4-10-8-8-16Z" fill="#7fae74" class="t"/>
+    <path d="M262 286c6-4 14-2 18 4-4 4-12 4-18-4Z" fill="#7fae74" class="t"/>
+    <ellipse cx="268" cy="266" rx="30" ry="30" fill="none" stroke="#5e97ab" stroke-width="1" opacity=".5"/><path d="M238 266h60" stroke="#5e97ab" stroke-width="1" opacity=".5"/>
+    <circle cx="276" cy="272" r="2.4" fill="#d0602f" class="t"/>
+    <rect class="hit" x="232" y="226" width="72" height="120" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="s_rocks" role="button" tabindex="0" aria-label="Rock collection" transform="translate(-22 0)">
+    <polygon points="222,368 316,368 326,392 212,392" fill="#d8b98a" stroke="#2b2836" stroke-width="2" stroke-linejoin="round"/>
+    <rect x="216" y="392" width="6" height="40" fill="#8a6440" class="t"/><rect x="316" y="392" width="6" height="40" fill="#8a6440" class="t"/>
+    <g class="t"><ellipse cx="240" cy="366" rx="8" ry="5" fill="#8a97a3"/><ellipse cx="258" cy="364" rx="6" ry="4" fill="#c9a26b"/><ellipse cx="276" cy="366" rx="9" ry="5" fill="#5b6f7a"/><ellipse cx="296" cy="365" rx="6" ry="4" fill="#e0a84a"/><circle cx="288" cy="352" r="7" fill="none" stroke="#2b2836" stroke-width="1.6"/><line x1="293" y1="357" x2="300" y2="364" stroke="#2b2836" stroke-width="2.2"/></g>
+    <rect class="hit" x="212" y="344" width="116" height="52" fill="transparent"/>
+  </g>
+</g>
+
+<!-- l2: Music shelf, with a gap, and the listening corner -->
+<g class="view" id="v-l2" data-box="library" data-light="right">
+  <g class="hs" data-id="s_shelfMus" role="button" tabindex="0" aria-label="Music shelf">
+    <g id="bc-mus"></g>
+    <rect class="hit" x="66" y="50" width="176" height="312" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="s_headphones" role="button" tabindex="0" aria-label="Listening corner">
+    <rect x="256" y="90" width="60" height="70" fill="#fffdf6" class="o"/><rect x="256" y="90" width="60" height="16" fill="#7a5cc2"/>
+    <text x="286" y="102" text-anchor="middle" font-size="7.5" font-weight="700" fill="#fffdf6" class="lbl">STORY TIME</text>
+    <text x="286" y="128" text-anchor="middle" font-size="12" fill="#7a5cc2" class="hand">Fridays 2pm</text>
+    <path d="M270 148c4-8 28-8 32 0" fill="none" stroke="#7a5cc2" stroke-width="2"/>
+    <g class="t"><rect x="258" y="184" width="60" height="8" rx="3" fill="#a8744a"/><path d="M270 192v10a8 8 0 0 0 16 0v-10" fill="none" stroke="#2b2836" stroke-width="2.4"/><rect x="266" y="200" width="7" height="12" rx="3" fill="#d0602f"/><rect x="283" y="200" width="7" height="12" rx="3" fill="#d0602f"/><path d="M296 192v10a8 8 0 0 0 16 0v-10" fill="none" stroke="#2b2836" stroke-width="2.4"/><rect x="292" y="200" width="7" height="12" rx="3" fill="#3b78b8"/><rect x="309" y="200" width="7" height="12" rx="3" fill="#3b78b8"/></g>
+    <rect x="262" y="270" width="52" height="90" rx="4" fill="#9dc5b8" class="o"/><rect x="270" y="280" width="36" height="24" rx="3" fill="#2b2836" class="t"/><g fill="#5fc08a"><rect x="274" y="284" width="4" height="4"/><rect x="282" y="284" width="4" height="4"/><rect x="290" y="284" width="4" height="4"/></g><circle cx="288" cy="330" r="10" fill="#e6e3d6" class="t"/><circle cx="288" cy="330" r="3" fill="#2b2836"/>
+    <rect class="hit" x="252" y="84" width="70" height="280" fill="transparent"/>
+  </g>
+</g>
+
+<!-- l3: the window wall and the window seat -->
+<g class="view" id="v-l3" data-box="library" data-light="front">
+  <g class="hs" data-id="s_lwindow" role="button" tabindex="0" aria-label="Library window">
+    <rect x="52" y="72" width="256" height="150" rx="3" fill="#fffdf6" class="o"/>
+    <rect x="60" y="80" width="240" height="134" fill="#bfe0ea"/>
+    <g fill="#fffdf6" opacity=".9"><ellipse cx="96" cy="104" rx="20" ry="7"/><ellipse cx="228" cy="96" rx="26" ry="8"/><ellipse cx="244" cy="92" rx="14" ry="7"/></g>
+    <g fill="#6fa36a"><circle cx="100" cy="192" r="30"/><circle cx="160" cy="200" r="24"/><circle cx="230" cy="190" r="34"/><circle cx="284" cy="204" r="22"/></g>
+    <g fill="#8a6440"><rect x="96" y="200" width="8" height="14"/><rect x="226" y="204" width="8" height="10"/></g>
+    <path d="M150 140c-3-5 4-6 3-1 3-3 8-1 5 3-2 2-6 2-8-2Z" fill="#f0b44c" class="t"/>
+    <line x1="140" y1="80" x2="140" y2="214" stroke="#fffdf6" stroke-width="5"/><line x1="220" y1="80" x2="220" y2="214" stroke="#fffdf6" stroke-width="5"/>
+    <rect class="hit" x="50" y="70" width="260" height="154" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="s_beanbags" role="button" tabindex="0" aria-label="Window seat">
+    <rect x="52" y="226" width="256" height="14" rx="3" fill="#c9a26b" class="o"/>
+    <rect x="60" y="240" width="240" height="70" fill="#a8744a" class="o"/><rect x="72" y="252" width="100" height="46" rx="3" fill="#8a6440" class="t"/><rect x="188" y="252" width="100" height="46" rx="3" fill="#8a6440" class="t"/>
+    <rect x="52" y="222" width="256" height="18" rx="6" fill="#e0664f" class="o"/>
+    <g class="t"><rect x="70" y="192" width="44" height="34" rx="8" fill="#f0b44c" transform="rotate(-6 92 209)"/><rect x="130" y="194" width="44" height="32" rx="8" fill="#7fb5c9" transform="rotate(4 152 210)"/><rect x="226" y="192" width="44" height="34" rx="8" fill="#b09ae8" transform="rotate(-3 248 209)"/></g>
+    <rect class="hit" x="50" y="176" width="260" height="136" fill="transparent"/>
+  </g>
+  <g><ellipse cx="180" cy="424" rx="120" ry="30" fill="#d0602f" class="o"/><ellipse cx="180" cy="424" rx="92" ry="22" fill="#e0a84a"/><ellipse cx="180" cy="424" rx="60" ry="14" fill="#f5d76e"/><ellipse cx="180" cy="424" rx="26" ry="6" fill="#3f8f96"/></g>
+  <g><ellipse cx="36" cy="376" rx="24" ry="5" fill="#2b2836" opacity=".16" filter="url(#blur3)"/><path d="M22 340h30l-4 34H26Z" fill="#c9755a" class="o"/><g fill="#4d8a4f" class="t"><path d="M37 338c-20-12-24-40-8-56 4 22 6 40 8 56Z"/><path d="M38 338c8-22 20-36 32-40-8 18-18 32-32 40Z"/><path d="M37 338c-12-6-26-8-34-4 10 8 22 10 34 4Z"/></g></g>
+</g>
+
+<!-- l4: Art shelf and the returns trolley -->
+<g class="view" id="v-l4" data-box="library" data-light="left">
+  <g class="hs" data-id="s_shelfArt" role="button" tabindex="0" aria-label="Art shelf">
+    <g id="bc-art"></g>
+    <rect class="hit" x="42" y="50" width="156" height="312" fill="transparent"/>
+  </g>
+  <g><rect x="228" y="90" width="82" height="60" fill="#fffdf6" class="o"/><rect x="228" y="90" width="82" height="14" fill="#5b6f7a"/><text x="269" y="100" text-anchor="middle" font-size="7" font-weight="700" fill="#fffdf6" class="lbl">RETURNED BOOKS</text><text x="269" y="122" text-anchor="middle" font-size="11" fill="#5b6f7a" class="hand">go on the trolley,</text><text x="269" y="138" text-anchor="middle" font-size="11" fill="#5b6f7a" class="hand">not the shelf!</text></g>
+  <g class="hs" data-id="s_trolley" role="button" tabindex="0" aria-label="Returns trolley" transform="translate(-18 0)">
+    <ellipse cx="268" cy="452" rx="56" ry="7" fill="#2b2836" opacity=".16" filter="url(#blur6)"/>
+    <g class="o" fill="#5b6f7a"><rect x="216" y="252" width="104" height="8"/><rect x="216" y="326" width="104" height="8"/><rect x="216" y="400" width="104" height="8"/></g>
+    <rect x="218" y="258" width="7" height="184" fill="#6f7c88" class="o"/><rect x="311" y="258" width="7" height="184" fill="#6f7c88" class="o"/>
+    <g class="t"><rect x="228" y="226" width="14" height="26" fill="#2f7c83"/><rect x="244" y="220" width="12" height="32" fill="#7a5cc2"/><rect x="258" y="230" width="16" height="22" fill="#d9a622"/><rect x="276" y="224" width="12" height="28" fill="#3a8f5c"/><rect x="290" y="232" width="18" height="20" fill="#d0602f"/></g>
+    <g class="t"><rect x="230" y="302" width="18" height="24" fill="#3b78b8"/><rect x="250" y="308" width="14" height="18" fill="#c4589a"/><rect x="266" y="298" width="12" height="28" fill="#f0b44c"/></g>
+    <rect x="236" y="352" width="64" height="20" rx="3" fill="#fffdf6" class="t"/><text x="268" y="366" text-anchor="middle" font-size="10" font-weight="700" fill="#5b6f7a" class="lbl">RETURNS</text>
+    <circle cx="224" cy="446" r="7" fill="#2b2836"/><circle cx="312" cy="446" r="7" fill="#2b2836"/><circle cx="224" cy="446" r="2.5" fill="#9aa5ab"/><circle cx="312" cy="446" r="2.5" fill="#9aa5ab"/>
+    <rect class="hit" x="212" y="214" width="112" height="200" fill="transparent"/>
+  </g>
+</g>
+
+<!-- l5: Stories shelf, the reading rug and the storytime chair -->
+<g class="view" id="v-l5" data-box="library" data-light="left">
+  <g class="hs" data-id="s_shelfSto" role="button" tabindex="0" aria-label="Stories shelf">
+    <g id="bc-sto"></g>
+    <rect class="hit" x="48" y="50" width="196" height="312" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="s_chair" role="button" tabindex="0" aria-label="The storytime chair">
+    <ellipse cx="290" cy="416" rx="46" ry="8" fill="#2b2836" opacity=".16" filter="url(#blur6)"/>
+    <rect x="254" y="236" width="72" height="90" rx="14" fill="#7a5cc2" class="o"/>
+    <rect x="246" y="316" width="88" height="44" rx="10" fill="#9a80dc" class="o"/>
+    <rect x="240" y="300" width="20" height="70" rx="8" fill="#6d4fb8" class="o"/><rect x="320" y="300" width="20" height="70" rx="8" fill="#6d4fb8" class="o"/>
+    <rect x="262" y="250" width="56" height="60" rx="8" fill="#9a80dc"/>
+    <rect x="250" y="370" width="8" height="24" fill="#8a6440" class="t"/><rect x="322" y="370" width="8" height="24" fill="#8a6440" class="t"/>
+    <g class="t"><ellipse cx="290" cy="340" rx="14" ry="10" fill="#e0a84a"/><circle cx="302" cy="334" r="7" fill="#e0a84a"/><path d="M298 328l-1-5 4 3M306 328l1-5-4 3" fill="#e0a84a"/><circle cx="301" cy="333" r="1" fill="#2b2836"/><circle cx="304" cy="333" r="1" fill="#2b2836"/><path d="M276 344c-8-2-10-8-6-12" fill="none" stroke="#2b2836" stroke-width="1.6"/></g>
+    <rect class="hit" x="238" y="232" width="102" height="140" fill="transparent"/>
+  </g>
+  <g><ellipse cx="130" cy="428" rx="96" ry="26" fill="#3a8f5c" class="o"/><ellipse cx="130" cy="428" rx="72" ry="19" fill="#5fc08a"/><ellipse cx="130" cy="428" rx="46" ry="12" fill="#27794c"/><ellipse cx="130" cy="428" rx="20" ry="5" fill="#f5d76e"/></g>
+  <g class="t"><ellipse cx="72" cy="404" rx="22" ry="11" fill="#f0b44c"/><ellipse cx="72" cy="398" rx="22" ry="9" fill="#f5d76e"/></g>
+</g>
+
+<!-- l6: the doors to the corridor and the librarian's desk -->
+<g class="view" id="v-l6" data-box="library" data-light="back">
+  <g class="hs door" data-id="s_toCorridorL" role="button" tabindex="0" aria-label="Doors to the corridor">
+    <rect x="46" y="72" width="150" height="288" fill="#fffdf6" class="o"/>
+    <rect x="54" y="80" width="67" height="280" fill="#3b8a4e" class="o"/><rect x="121" y="80" width="67" height="280" fill="#3b8a4e" class="o"/>
+    <circle cx="87" cy="150" r="21" fill="#dfe9ea" class="t"/><circle cx="154" cy="150" r="21" fill="#dfe9ea" class="t"/><circle cx="87" cy="150" r="15" fill="#e8e3d3"/><circle cx="154" cy="150" r="15" fill="#e8e3d3"/>
+    <rect x="66" y="230" width="42" height="110" rx="3" fill="#4a9e5e" class="t"/><rect x="134" y="230" width="42" height="110" rx="3" fill="#4a9e5e" class="t"/>
+    <rect x="112" y="250" width="6" height="34" rx="3" fill="#f0b44c" class="t"/><rect x="124" y="250" width="6" height="34" rx="3" fill="#f0b44c" class="t"/>
+    <rect x="86" y="190" width="70" height="22" rx="4" fill="#fffdf6" class="t"/><text x="121" y="205" text-anchor="middle" font-size="9" font-weight="700" fill="#3b8a4e" class="lbl">CORRIDOR</text>
+    <rect class="hit" x="44" y="70" width="154" height="292" fill="transparent"/>
+  </g>
+  <g><rect x="216" y="86" width="96" height="34" rx="4" fill="#fffdf6" class="o"/><text x="264" y="108" text-anchor="middle" font-size="10" font-weight="700" fill="#d0602f" class="lbl" letter-spacing="1">QUIET PLEASE</text></g>
+  <g><circle cx="264" cy="164" r="18" fill="#fffdf6" class="o"/><circle cx="264" cy="164" r="14.5" fill="none" stroke="#cfc8b4" stroke-width="1"/><line x1="264" y1="164" x2="271" y2="159.5" stroke="#2b2836" stroke-width="2.2" stroke-linecap="round"/><line x1="264" y1="164" x2="254" y2="169.5" stroke="#2b2836" stroke-width="1.5" stroke-linecap="round"/><circle cx="264" cy="164" r="1.6" fill="#d0602f"/></g>
+  <g class="hs" data-id="s_libdesk" role="button" tabindex="0" aria-label="Librarian's desk">
+    <ellipse cx="268" cy="452" rx="70" ry="9" fill="#2b2836" opacity=".16" filter="url(#blur6)"/>
+    <rect x="212" y="300" width="116" height="140" fill="#b98a5a" class="o"/><rect x="220" y="312" width="100" height="16" rx="2" fill="#a8744a" class="t"/>
+    <polygon points="222,262 330,262 340,300 206,300" fill="#d8b98a" stroke="#2b2836" stroke-width="2.2" stroke-linejoin="round"/>
+    <rect x="232" y="214" width="60" height="44" rx="4" fill="#2b2836" class="o"/><rect x="238" y="220" width="48" height="32" fill="#3d4a55"/><rect x="254" y="258" width="16" height="6" fill="#5b6f7a"/>
+    <g class="t"><rect x="298" y="236" width="26" height="24" rx="3" fill="#fffdf6"/><text x="311" y="246" text-anchor="middle" font-size="6" font-weight="700" fill="#3b8a4e" class="lbl">BACK</text><text x="311" y="254" text-anchor="middle" font-size="6" font-weight="700" fill="#3b8a4e" class="lbl">SOON!</text></g>
+    <g class="t"><path d="M216 262a8 8 0 0 1 16 0" fill="#f0b44c"/><rect x="214" y="262" width="20" height="4" rx="2" fill="#c9a24a"/></g>
+    <g><rect x="284" y="268" width="14" height="14" rx="2" fill="#2f7c83" class="t"/><line x1="288" y1="268" x2="288" y2="256" stroke="#d0602f" stroke-width="2.6" stroke-linecap="round"/><line x1="294" y1="268" x2="294" y2="254" stroke="#3b78b8" stroke-width="2.6" stroke-linecap="round"/></g>
+    <rect class="hit" x="206" y="210" width="136" height="150" fill="transparent"/>
+  </g>
+</g>
+
+<!-- ================= MARY · STAGE 2 · PACKING DAY ================= -->
+<!-- ============ LIVING ROOM (long room: six views) ============ -->
+<!-- lr1: the rainy window and Dad's desk -->
+<g class="view" id="v-lr1" data-box="living" data-light="front">
+  <clipPath id="glassLr1"><rect x="64" y="80" width="182" height="126"/></clipPath>
+  <g class="hs" data-id="window" role="button" tabindex="0" aria-label="Window">
+    <rect x="56" y="72" width="198" height="142" rx="3" fill="#fffdf6" class="o"/>
+    <rect x="64" y="80" width="182" height="126" fill="#a9bcc6"/>
+    <g clip-path="url(#glassLr1)">
+      <g fill="#8497a2"><rect x="70" y="128" width="30" height="80"/><rect x="106" y="112" width="24" height="96"/><rect x="136" y="136" width="34" height="72"/><rect x="176" y="120" width="24" height="88"/><rect x="206" y="144" width="30" height="64"/></g>
+      <g fill="#b7c6cf"><rect x="76" y="136" width="5" height="5"/><rect x="88" y="136" width="5" height="5"/><rect x="112" y="120" width="5" height="5"/><rect x="120" y="132" width="5" height="5"/><rect x="142" y="144" width="5" height="5"/><rect x="156" y="154" width="5" height="5"/><rect x="182" y="128" width="5" height="5"/><rect x="212" y="152" width="5" height="5"/></g>
+      <use href="#raindrops" class="rain" x="60" y="76"/><use href="#raindrops" class="rain" x="150" y="70"/>
+    </g>
+    <line x1="155" y1="80" x2="155" y2="206" stroke="#fffdf6" stroke-width="5"/>
+    <rect class="hit" x="52" y="68" width="204" height="150" fill="transparent"/>
+  </g>
+  <g><path d="M40 66c10 0 14 8 14 30v130c0 10-6 14-14 14Z" fill="#3f8f96" class="o"/><path d="M270 66c-10 0-14 8-14 30v130c0 10 6 14 14 14Z" fill="#3f8f96" class="o"/></g>
+  <g class="hs" data-id="keys" role="button" tabindex="0" aria-label="Key hooks">
+    <rect x="272" y="150" width="46" height="14" rx="3" fill="#a8744a" class="o"/>
+    <g stroke="#6b4a2d" stroke-width="2.4" stroke-linecap="round"><line x1="282" y1="164" x2="282" y2="170"/><line x1="295" y1="164" x2="295" y2="170"/><line x1="308" y1="164" x2="308" y2="170"/></g>
+    <g fill="#9aa5ab"><rect x="279" y="170" width="6" height="14" rx="2" class="t"/><rect x="305" y="170" width="6" height="14" rx="2" class="t"/></g>
+    <g id="deskKey"><rect x="292" y="170" width="6" height="15" rx="2" fill="#c9a24a" class="t"/><rect x="297" y="174" width="10" height="6" rx="1" fill="#fffdf6" class="t"/></g>
+    <rect class="hit" x="266" y="142" width="58" height="50" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="desk" role="button" tabindex="0" aria-label="Dad's desk drawer">
+    <ellipse cx="180" cy="430" rx="126" ry="12" fill="#2b2836" opacity=".16" filter="url(#blur6)"/>
+    <rect x="66" y="312" width="228" height="96" fill="#2f7c83" class="o"/>
+    <rect x="96" y="326" width="168" height="34" rx="3" fill="#3f8f96" class="o"/>
+    <rect id="drawerOpen" class="off" x="100" y="330" width="160" height="26" fill="#1c4e53"/>
+    <rect x="168" y="340" width="24" height="7" rx="3" fill="#f0e6d2" class="t"/><circle cx="180" cy="332" r="2.6" fill="#1c4e53"/>
+    <rect x="96" y="368" width="168" height="34" rx="3" fill="#3f8f96" class="o"/><rect x="168" y="382" width="24" height="7" rx="3" fill="#f0e6d2" class="t"/>
+    <polygon points="72,262 288,262 302,300 58,300" fill="#e2cd9c" stroke="#2b2836" stroke-width="2.2" stroke-linejoin="round"/>
+    <rect x="58" y="300" width="244" height="12" fill="#c9ad7a" stroke="#2b2836" stroke-width="2.2" stroke-linejoin="round"/>
+    <rect x="94" y="236" width="70" height="30" rx="3" fill="#5b6f7a" class="o"/><rect x="88" y="264" width="82" height="5" rx="2" fill="#8a97a3" class="t"/>
+    <g><path d="M232 236c0-14 10-22 22-22s22 8 22 22Z" fill="#f0b44c" class="o"/><rect x="252" y="236" width="4" height="26" fill="#2b2836"/><rect x="242" y="260" width="24" height="5" rx="2" fill="#2b2836"/></g>
+    <rect class="hit" x="60" y="318" width="240" height="92" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="paper" role="button" tabindex="0" aria-label="Wrapping paper">
+    <rect x="182" y="250" width="66" height="16" rx="8" fill="url(#giftpaper)" class="o"/><ellipse cx="248" cy="258" rx="5" ry="8" fill="#5e97ab" class="t"/>
+    <rect class="hit" x="176" y="240" width="80" height="30" fill="transparent"/>
+  </g>
+  <g class="hs pmoth" data-id="m1" role="button" tabindex="0" aria-label="Something small on the window frame"><use href="#pm" x="236" y="60" width="14" height="10"/><rect class="hit" x="228" y="52" width="30" height="22" fill="transparent"/></g>
+</g>
+
+<!-- lr2: the shelf, the sofa and the fan -->
+<g class="view" id="v-lr2" data-box="living" data-light="left">
+  <g class="hs" data-id="fan" role="button" tabindex="0" aria-label="Ceiling fan">
+    <line x1="180" y1="0" x2="180" y2="18" stroke="#b9ad99" stroke-width="3"/>
+    <g id="blades" fill="#e6ddcc" class="t"><ellipse cx="144" cy="22" rx="34" ry="5"/><ellipse cx="216" cy="22" rx="34" ry="5"/></g>
+    <circle cx="180" cy="22" r="7" fill="#d9ccb4" class="t"/>
+    <rect class="hit" x="108" y="0" width="144" height="40" fill="transparent"/>
+  </g>
+  <g><rect x="120" y="76" width="120" height="70" fill="#fffdf6" stroke="#a8744a" stroke-width="4"/><rect x="128" y="84" width="104" height="54" fill="#bfe0ea"/><path d="M128 138c20-24 40-30 60-16s30 10 44 0v16H128Z" fill="#6fa36a"/><circle cx="210" cy="100" r="8" fill="#f5d76e"/></g>
+  <rect x="56" y="168" width="248" height="10" rx="2" fill="#a8744a" class="o"/><path d="M60 178l6 12M298 178l-6 12" stroke="#8a6440" stroke-width="3"/>
+  <g class="hs" data-id="jar" role="button" tabindex="0" aria-label="Jar of kaya">
+    <g id="jarArt"><rect x="78" y="136" width="30" height="32" rx="5" fill="#d9b25a" class="o"/><rect x="75" y="128" width="36" height="10" rx="2" fill="#3b8a4e" class="o"/><rect x="84" y="146" width="18" height="12" rx="1" fill="#fffdf6" class="t"/><text x="93" y="155" text-anchor="middle" font-size="6" fill="#8a6440" class="hand">kaya</text></g>
+    <rect class="hit" x="66" y="120" width="54" height="52" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="globe" role="button" tabindex="0" aria-label="Snow globe">
+    <rect x="160" y="156" width="40" height="12" rx="2" fill="#5b6f7a" class="o"/>
+    <circle cx="180" cy="138" r="20" fill="#d6e9f0" class="o"/><circle cx="180" cy="142" r="8" fill="#9cb04a" class="t"/><path d="M172 142l-3-1M188 142l3-1M180 134v-3M174 136l-1-2M186 136l1-2M174 148l-1 2M186 148l1 2" stroke="#6f8233" stroke-width="1.6" stroke-linecap="round"/>
+    <g fill="#fffdf6"><circle cx="170" cy="128" r="1.2"/><circle cx="190" cy="126" r="1"/><circle cx="186" cy="150" r="1.2"/></g>
+    <rect class="hit" x="154" y="112" width="52" height="60" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="orchid" role="button" tabindex="0" aria-label="Orchid">
+    <path d="M250 150h32l-4 18h-24Z" fill="#c9755a" class="o"/>
+    <path d="M266 150c0-18 4-30 10-36" stroke="#4d8a4f" stroke-width="2.4" fill="none" class="t"/>
+    <g fill="#b06bc4" class="t"><circle cx="276" cy="114" r="7"/><circle cx="284" cy="104" r="6"/><circle cx="268" cy="122" r="6"/></g><g fill="#f5d76e"><circle cx="276" cy="114" r="2"/><circle cx="284" cy="104" r="1.6"/><circle cx="268" cy="122" r="1.6"/></g>
+    <rect class="hit" x="242" y="94" width="50" height="78" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="sofa" role="button" tabindex="0" aria-label="Sofa">
+    <ellipse cx="180" cy="446" rx="136" ry="12" fill="#2b2836" opacity=".16" filter="url(#blur6)"/>
+    <rect x="70" y="236" width="220" height="70" rx="14" fill="#e0a84a" class="o"/>
+    <rect x="52" y="276" width="256" height="70" rx="14" fill="#d69a3c" class="o"/>
+    <rect x="40" y="262" width="26" height="90" rx="10" fill="#c98d30" class="o"/><rect x="294" y="262" width="26" height="90" rx="10" fill="#c98d30" class="o"/>
+    <rect x="56" y="346" width="248" height="14" fill="#b8792a" class="o"/>
+    <g class="o"><rect x="108" y="252" width="44" height="34" rx="8" fill="#7fb5c9" transform="rotate(-8 130 269)"/><rect x="208" y="254" width="44" height="34" rx="8" fill="#b06bc4" transform="rotate(6 230 271)"/></g>
+    <rect x="60" y="360" width="8" height="12" fill="#8a6440" class="t"/><rect x="292" y="360" width="8" height="12" fill="#8a6440" class="t"/>
+    <rect class="hit" x="40" y="232" width="280" height="130" fill="transparent"/>
+  </g>
+  <g><ellipse cx="180" cy="430" rx="96" ry="18" fill="#7fb5c9" class="o"/><ellipse cx="180" cy="430" rx="70" ry="12" fill="#a9d0de"/><ellipse cx="180" cy="430" rx="40" ry="6" fill="#7fb5c9"/></g>
+  <g class="hs pmoth" data-id="m2" role="button" tabindex="0" aria-label="Something small under the sofa"><use href="#pm" x="252" y="368" width="12" height="9"/><rect class="hit" x="244" y="362" width="28" height="18" fill="transparent"/></g>
+</g>
+
+<!-- lr3: the fridge and the kitchen doorway -->
+<g class="view" id="v-lr3" data-box="living" data-light="left">
+  <g class="hs" data-id="fridge" role="button" tabindex="0" aria-label="Fridge">
+    <rect x="50" y="86" width="104" height="274" rx="8" fill="#eef3f4" class="o"/>
+    <line x1="50" y1="180" x2="154" y2="180" stroke="#2b2836" stroke-width="1.6"/>
+    <rect x="58" y="192" width="7" height="56" rx="3" fill="#b9c7cb" class="t"/><rect x="58" y="104" width="7" height="60" rx="3" fill="#b9c7cb" class="t"/>
+    <g class="t"><path d="M126 214c-6-8-2-16 6-14 8-2 12 6 6 14-4 6-8 6-12 0Z" fill="#9cb04a"/><rect x="104" y="250" width="30" height="36" fill="#fffdf6" transform="rotate(5 119 268)"/><circle cx="119" cy="262" r="6" fill="#f5d76e"/><path d="M110 278h18" stroke="#3b78b8" stroke-width="2"/><circle cx="82" cy="300" r="7" fill="#d0602f"/><rect x="100" y="304" width="34" height="10" rx="2" fill="#3f8f96"/></g>
+    <rect class="hit" x="46" y="82" width="112" height="282" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="postcard" role="button" tabindex="0" aria-label="Nana's postcard on the fridge">
+    <g transform="rotate(-6 106 128)"><rect x="76" y="106" width="60" height="42" fill="#fffdf6" class="o"/><rect x="80" y="110" width="22" height="34" fill="#9dc59a"/><path d="M82 140c6-12 10-16 18-18" stroke="#5b8f55" stroke-width="2.4" fill="none"/><path d="M108 116h24M108 122h20M108 128h24M108 134h14" stroke="#9aa5ab" stroke-width="1.4"/><path d="M128 142c-1-2-4-2-4 0 0 1 3 1 4 0 1 1 4 1 4 0 0-2-3-2-4 0z" fill="#c98320"/></g>
+    <circle cx="106" cy="106" r="4.5" fill="#d0602f" class="t"/>
+    <rect class="hit" x="68" y="96" width="78" height="62" fill="transparent"/>
+  </g>
+  <g class="hs door" data-id="toKitchen" role="button" tabindex="0" aria-label="Doorway to the kitchen">
+    <rect x="190" y="72" width="124" height="288" fill="#fffdf6" class="o"/>
+    <rect x="198" y="80" width="108" height="280" fill="#eaf1ee"/>
+    <rect x="198" y="300" width="108" height="60" fill="url(#tiles)"/>
+    <rect x="198" y="200" width="108" height="34" fill="#cfd9d3" class="t"/><rect x="206" y="234" width="92" height="66" fill="#5b6f7a" class="t"/>
+    <rect x="224" y="186" width="30" height="14" rx="3" fill="#c9503c" class="t"/>
+    <path class="steam" d="M232 182c-4-6 4-9 0-15M244 182c-4-6 4-9 0-15" stroke="#9aa5ab" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <text x="252" y="126" text-anchor="middle" font-size="12" fill="#55635d" class="lbl">Kitchen</text>
+    <rect class="hit" x="188" y="70" width="128" height="292" fill="transparent"/>
+  </g>
+  <g class="hs pmoth" data-id="m3" role="button" tabindex="0" aria-label="Something small on top of the fridge"><use href="#pm" x="132" y="74" width="14" height="10"/><rect class="hit" x="124" y="66" width="30" height="20" fill="transparent"/></g>
+</g>
+
+<!-- lr4: the front door, the shoe rack and Mum's rain boots -->
+<g class="view" id="v-lr4" data-box="living" data-light="back">
+  <g class="hs" data-id="frontdoor" role="button" tabindex="0" aria-label="Front door">
+    <rect x="150" y="66" width="130" height="294" fill="#fffdf6" class="o"/>
+    <rect x="158" y="74" width="114" height="286" fill="#8a6440" class="o"/>
+    <rect x="170" y="90" width="90" height="104" rx="3" fill="#7a5636" class="t"/><rect x="170" y="210" width="90" height="126" rx="3" fill="#7a5636" class="t"/>
+    <circle cx="215" cy="110" r="5" fill="#c9a24a" class="t"/><circle cx="258" cy="222" r="6.5" fill="#c9a24a" class="t"/>
+    <rect x="196" y="250" width="38" height="8" rx="2" fill="#c9a24a" class="t"/>
+    <rect class="hit" x="148" y="64" width="134" height="298" fill="transparent"/>
+  </g>
+  <g><rect x="292" y="240" width="22" height="120" rx="5" fill="#d0602f" class="o"/><path d="M292 240c0-22 22-22 22 0" fill="#b8493f" class="t"/><path d="M303 236v-40c0-8 10-8 10 0" fill="none" class="o"/></g>
+  <g><rect x="44" y="286" width="96" height="74" rx="3" fill="#a8744a" class="o"/><rect x="44" y="318" width="96" height="6" fill="#8a6440"/><g class="t"><path d="M52 302h22v12H52Z" fill="#5b6f7a"/><path d="M80 302h22v12H80Z" fill="#5b6f7a"/><path d="M108 300h26v14h-26Z" fill="#d0602f"/><path d="M52 334h30v14H52Z" fill="#3b78b8"/><path d="M90 334h30v14H90Z" fill="#b09ae8"/></g></g>
+  <g class="hs" data-id="boots" role="button" tabindex="0" aria-label="Rain boots">
+    <ellipse cx="94" cy="446" rx="46" ry="6" fill="#2b2836" opacity=".16" filter="url(#blur3)"/>
+    <path d="M56 380h24v46h12c5 0 8 3 8 8v6H56Z" fill="#f2c23c" class="o"/><path d="M92 384h24v42h12c5 0 8 3 8 8v6H92Z" fill="#f5cd52" class="o"/>
+    <ellipse cx="104" cy="384" rx="12" ry="4" fill="#b88a14" class="t"/><ellipse cx="68" cy="380" rx="12" ry="4" fill="#b88a14" class="t"/>
+    <path d="M60 404h16M96 408h16" stroke="#d9a622" stroke-width="2"/>
+    <rect class="hit" x="50" y="370" width="94" height="72" fill="transparent"/>
+  </g>
+  <g><rect x="150" y="380" width="130" height="30" rx="3" fill="#8a6440" class="o"/><text x="215" y="400" text-anchor="middle" font-size="10" font-weight="700" fill="#f0b44c" class="lbl" letter-spacing="1">WELCOME</text></g>
+</g>
+
+<!-- lr5: the family photos and the television -->
+<g class="view" id="v-lr5" data-box="living" data-light="right">
+  <g class="hs" data-id="photos" role="button" tabindex="0" aria-label="Family photos">
+    <g class="o"><rect x="56" y="78" width="66" height="52" fill="#fffdf6"/><rect x="138" y="70" width="84" height="60" fill="#fffdf6"/><rect x="238" y="80" width="62" height="50" fill="#fffdf6"/></g>
+    <rect x="62" y="84" width="54" height="40" fill="#bfe0ea"/><circle cx="78" cy="106" r="7" fill="#6d4fb8"/><circle cx="92" cy="110" r="6" fill="#c0541f"/><circle cx="104" cy="114" r="5" fill="#27794c"/>
+    <rect x="144" y="76" width="72" height="48" fill="#9dc59a"/><path d="M148 124c12-22 34-30 66-20" stroke="#6f8233" stroke-width="3" fill="none"/><circle cx="196" cy="98" r="6" fill="#c9925f"/><circle cx="170" cy="104" r="6" fill="#c9925f"/>
+    <rect x="244" y="86" width="50" height="38" fill="#f2c89a"/><path d="M250 122c6-14 14-20 20-20s14 6 18 20Z" fill="#8a97a3"/>
+    <rect class="hit" x="50" y="64" width="256" height="72" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="tv" role="button" tabindex="0" aria-label="Television">
+    <ellipse cx="180" cy="446" rx="124" ry="10" fill="#2b2836" opacity=".16" filter="url(#blur6)"/>
+    <rect x="98" y="160" width="164" height="98" rx="4" fill="#2b2836" class="o"/><rect x="104" y="166" width="152" height="86" fill="#3d4a55"/><rect x="164" y="258" width="32" height="10" fill="#5b6f7a"/>
+    <rect x="60" y="270" width="240" height="90" rx="4" fill="#a8744a" class="o"/><rect x="72" y="282" width="104" height="66" rx="3" fill="#8a6440" class="t"/><rect x="184" y="282" width="104" height="66" rx="3" fill="#8a6440" class="t"/>
+    <g class="t"><rect x="80" y="300" width="14" height="30" fill="#3b78b8"/><rect x="96" y="304" width="14" height="26" fill="#d0602f"/><rect x="112" y="298" width="14" height="32" fill="#f0b44c"/><rect x="196" y="296" width="60" height="18" rx="3" fill="#2f7c83"/><circle cx="210" cy="305" r="4" fill="#f0b44c"/></g>
+    <rect class="hit" x="56" y="156" width="248" height="208" fill="transparent"/>
+  </g>
+  <g><rect x="230" y="392" width="76" height="52" rx="6" fill="#c9a26b" class="o"/><g class="t"><circle cx="248" cy="392" r="8" fill="#d0602f"/><rect x="262" y="380" width="14" height="14" fill="#3b78b8"/><circle cx="292" cy="390" r="7" fill="#f0b44c"/></g></g>
+  <g class="hs pmoth" data-id="m4" role="button" tabindex="0" aria-label="Something small behind a photo"><use href="#pm" x="224" y="128" width="12" height="9"/><rect class="hit" x="216" y="122" width="28" height="20" fill="transparent"/></g>
+</g>
+
+<!-- lr6: the door to Mary's bedroom, and Gerald's cousin -->
+<g class="view" id="v-lr6" data-box="living" data-light="right">
+  <g class="hs door" data-id="toBedroom" role="button" tabindex="0" aria-label="Door to Mary's bedroom">
+    <rect x="96" y="66" width="130" height="294" fill="#fffdf6" class="o"/>
+    <rect x="104" y="74" width="114" height="286" fill="#fffdf6" class="o"/>
+    <rect x="116" y="90" width="90" height="100" rx="3" fill="#f3eef8" class="t"/><rect x="116" y="212" width="90" height="126" rx="3" fill="#f3eef8" class="t"/>
+    <circle cx="206" cy="226" r="6" fill="#c9a24a" class="t"/>
+    <rect x="132" y="126" width="58" height="26" rx="6" fill="#6d4fb8" class="o"/><text x="161" y="144" text-anchor="middle" font-size="13" font-weight="700" fill="#fffdf6" class="lbl">MARY</text>
+    <g fill="#f0b44c"><circle cx="128" cy="100" r="3"/><circle cx="196" cy="104" r="3"/><circle cx="140" cy="178" r="2.4"/></g>
+    <rect class="hit" x="94" y="64" width="134" height="298" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="plant" role="button" tabindex="0" aria-label="Plant">
+    <ellipse cx="282" cy="436" rx="28" ry="5" fill="#2b2836" opacity=".16" filter="url(#blur3)"/>
+    <path d="M262 380h40l-5 52h-30Z" fill="#c9755a" class="o"/><rect x="258" y="374" width="48" height="9" rx="2" fill="#d98a6e" class="t"/>
+    <g fill="#4d8a4f" class="t"><path d="M282 376c-30-14-36-52-18-74 8 28 14 52 18 74Z"/><path d="M283 376c10-30 28-50 44-56-10 24-24 42-44 56Z"/><path d="M282 376c-18-8-36-10-46-6 12 10 30 12 46 6Z"/><path d="M283 376c4-26 14-44 26-52-2 22-10 40-26 52Z" fill="#6fa36a"/></g>
+    <rect class="hit" x="236" y="300" width="88" height="112" fill="transparent"/>
+  </g>
+  <g><rect x="46" y="292" width="40" height="68" rx="4" fill="#e8dcc6" class="o"/><path d="M50 296h32M50 308h32M50 320h32M50 332h32M50 344h32" stroke="#c9bfa9" stroke-width="2"/><path d="M50 292c6-10 12-16 18-14s10 6 14 14Z" fill="#7fb5c9" class="t"/></g>
+</g>
+
+<!-- ============ KITCHEN (square: four views) ============ -->
+<!-- k1: Mum at the stove -->
+<g class="view" id="v-k1" data-box="kitchen" data-light="right">
+  <rect x="40" y="200" width="280" height="160" fill="url(#tiles)"/>
+  <g><rect x="60" y="76" width="240" height="60" rx="3" fill="#9dc5b8" class="o"/><line x1="140" y1="76" x2="140" y2="136" stroke="#2b2836" stroke-width="1.4"/><line x1="220" y1="76" x2="220" y2="136" stroke="#2b2836" stroke-width="1.4"/><g fill="#fffdf6"><rect x="96" y="120" width="10" height="4"/><rect x="176" y="120" width="10" height="4"/><rect x="256" y="120" width="10" height="4"/></g></g>
+  <g><polygon points="120,150 240,150 232,176 128,176" fill="#8497a2" class="o"/><rect x="170" y="136" width="20" height="14" fill="#6f7c88" class="t"/></g>
+  <g class="hs" data-id="mum" role="button" tabindex="0" aria-label="Mum at the stove">
+    <rect x="52" y="266" width="256" height="94" fill="#5b6f7a" class="o"/><rect x="48" y="258" width="264" height="12" rx="2" fill="#8497a2" class="o"/>
+    <rect x="76" y="280" width="60" height="70" rx="3" fill="#4f6270" class="t"/><rect x="224" y="280" width="60" height="70" rx="3" fill="#4f6270" class="t"/><rect x="100" y="300" width="12" height="5" rx="2" fill="#fffdf6"/><rect x="248" y="300" width="12" height="5" rx="2" fill="#fffdf6"/>
+    <g fill="#2b2836"><circle cx="130" cy="262" r="14"/><circle cx="230" cy="262" r="14"/></g>
+    <rect x="204" y="214" width="56" height="48" rx="6" fill="#c9503c" class="o"/><rect x="198" y="210" width="68" height="9" rx="4" fill="#a8412f" class="o"/><path d="M230 208c-6-6 6-12 0-20" stroke="#9aa5ab" stroke-width="2.4" fill="none" stroke-linecap="round" class="steam"/><path d="M216 208c-6-6 6-12 0-20M244 208c-6-6 6-12 0-20" stroke="#9aa5ab" stroke-width="2.4" fill="none" stroke-linecap="round" class="steam"/>
+    <!-- Mum, seen from behind, stirring -->
+    <ellipse cx="146" cy="440" rx="40" ry="6" fill="#2b2836" opacity=".16" filter="url(#blur3)"/>
+    <path d="M112 300c0-22 14-34 34-34s34 12 34 34v130h-68Z" fill="#3f8f96" class="o"/>
+    <path d="M118 316h56v96h-56Z" fill="#fffdf6" class="o"/><path d="M128 300h36v18h-36Z" fill="#fffdf6" class="t"/>
+    <path d="M180 300c14 0 22-10 30-20" fill="none" stroke="#c9925f" stroke-width="10" stroke-linecap="round" class="t"/>
+    <path d="M208 282l14-40" stroke="#a8744a" stroke-width="4" stroke-linecap="round" class="t"/>
+    <path d="M112 300c-10 6-14 20-12 40" fill="none" stroke="#c9925f" stroke-width="10" stroke-linecap="round" class="t"/>
+    <rect x="136" y="252" width="20" height="16" fill="#c9925f"/>
+    <ellipse cx="146" cy="234" rx="20" ry="22" fill="#3b2a20" class="o"/><circle cx="146" cy="214" r="9" fill="#3b2a20" class="o"/><path d="M128 240c4 10 10 16 18 16s14-6 18-16" fill="#c9925f"/>
+    <rect x="128" y="400" width="36" height="40" rx="4" fill="#5b6f7a" class="o"/><rect x="148" y="400" width="16" height="40" fill="#4f6270"/>
+    <rect class="hit" x="60" y="200" width="240" height="160" fill="transparent"/>
+  </g>
+  <g><rect x="228" y="72" width="80" height="48" rx="4" fill="#fffdf6" class="o" transform="translate(0 -4)"/><text x="268" y="88" text-anchor="middle" font-size="11" fill="#55635d" class="hand">Mum is</text><text x="268" y="104" text-anchor="middle" font-size="11" fill="#55635d" class="hand">humming</text></g>
+</g>
+
+<!-- k2: the sink and the rainy window -->
+<g class="view" id="v-k2" data-box="kitchen" data-light="front">
+  <rect x="40" y="200" width="280" height="160" fill="url(#tiles)"/>
+  <clipPath id="glassK2"><rect x="88" y="78" width="184" height="112"/></clipPath>
+  <g class="hs" data-id="sink" role="button" tabindex="0" aria-label="Sink and window">
+    <rect x="80" y="70" width="200" height="128" rx="3" fill="#fffdf6" class="o"/>
+    <rect x="88" y="78" width="184" height="112" fill="#a9bcc6"/>
+    <g clip-path="url(#glassK2)"><g fill="#8497a2"><rect x="96" y="130" width="26" height="60"/><rect x="128" y="112" width="30" height="78"/><rect x="164" y="140" width="24" height="50"/><rect x="194" y="120" width="34" height="70"/><rect x="236" y="146" width="30" height="44"/></g><use href="#raindrops" class="rain" x="84" y="72"/><use href="#raindrops" class="rain" x="170" y="66"/></g>
+    <line x1="180" y1="78" x2="180" y2="190" stroke="#fffdf6" stroke-width="5"/>
+    <rect x="52" y="256" width="256" height="104" fill="#5b6f7a" class="o"/><rect x="48" y="248" width="264" height="12" rx="2" fill="#8497a2" class="o"/>
+    <rect x="120" y="252" width="120" height="30" rx="5" fill="#b9c7cb" class="o"/>
+    <path d="M180 250v-30M180 220h16" stroke="#8497a2" stroke-width="6" stroke-linecap="round" class="t"/>
+    <g class="t"><circle cx="146" cy="254" r="10" fill="#fffdf6"/><circle cx="162" cy="250" r="9" fill="#eef3f4"/><rect x="200" y="238" width="28" height="18" rx="3" fill="#d0602f"/></g>
+    <rect x="76" y="290" width="56" height="60" rx="3" fill="#4f6270" class="t"/><rect x="228" y="290" width="56" height="60" rx="3" fill="#4f6270" class="t"/>
+    <path d="M250 296c0 20 8 30 8 46" stroke="#f5d76e" stroke-width="10" stroke-linecap="round" class="t"/>
+    <rect class="hit" x="76" y="66" width="208" height="136" fill="transparent"/>
+  </g>
+</g>
+
+<!-- k3: the doorway back to the living room -->
+<g class="view" id="v-k3" data-box="kitchen" data-light="left">
+  <rect x="40" y="200" width="280" height="160" fill="url(#tiles)"/>
+  <g class="hs door" data-id="toLivingK" role="button" tabindex="0" aria-label="Doorway to the living room">
+    <rect x="110" y="66" width="140" height="294" fill="#fffdf6" class="o"/>
+    <rect x="118" y="74" width="124" height="286" fill="#f3eadb"/>
+    <rect x="118" y="310" width="124" height="50" fill="#d2a574"/>
+    <rect x="136" y="236" width="88" height="50" rx="10" fill="#e0a84a" class="t"/><rect x="128" y="264" width="104" height="30" rx="8" fill="#d69a3c" class="t"/>
+    <text x="180" y="124" text-anchor="middle" font-size="12" fill="#55635d" class="lbl">Living room</text>
+    <rect class="hit" x="108" y="64" width="144" height="298" fill="transparent"/>
+  </g>
+  <g><rect x="46" y="120" width="52" height="240" rx="4" fill="#9dc5b8" class="o"/><circle cx="88" cy="240" r="4" fill="#fffdf6" class="t"/></g>
+  <g><rect x="270" y="300" width="36" height="60" rx="4" fill="#8a97a3" class="o"/><rect x="266" y="294" width="44" height="10" rx="3" fill="#6f7c88" class="o"/></g>
+  <g><rect x="256" y="120" width="6" height="176" fill="#a8744a" class="t"/><path d="M246 296h26l-4 30h-18Z" fill="#c9a26b" class="o"/></g>
+</g>
+
+<!-- k4: the cupboard and the calendar -->
+<g class="view" id="v-k4" data-box="kitchen" data-light="back">
+  <rect x="40" y="200" width="280" height="160" fill="url(#tiles)"/>
+  <g class="hs" data-id="calendar" role="button" tabindex="0" aria-label="Calendar">
+    <rect x="58" y="80" width="100" height="120" rx="4" fill="#fffdf6" class="o"/><rect x="58" y="80" width="100" height="24" rx="4" fill="#d0602f" class="o"/>
+    <text x="108" y="97" text-anchor="middle" font-size="10" font-weight="700" fill="#fffdf6" class="lbl">JULY</text>
+    <g fill="#9aa5ab"><rect x="68" y="114" width="12" height="9"/><rect x="86" y="114" width="12" height="9"/><rect x="104" y="114" width="12" height="9"/><rect x="122" y="114" width="12" height="9"/><rect x="140" y="114" width="12" height="9"/><rect x="68" y="132" width="12" height="9"/><rect x="86" y="132" width="12" height="9"/><rect x="104" y="132" width="12" height="9"/><rect x="122" y="132" width="12" height="9"/><rect x="68" y="150" width="12" height="9"/><rect x="86" y="150" width="12" height="9"/></g>
+    <circle cx="146" cy="136" r="11" fill="none" stroke="#d0602f" stroke-width="2.6"/>
+    <text x="108" y="184" text-anchor="middle" font-size="11" fill="#d0602f" class="hand">FLIGHT! 14 hrs</text>
+    <rect class="hit" x="52" y="74" width="112" height="132" fill="transparent"/>
+  </g>
+  <g class="hs" data-id="cupboard" role="button" tabindex="0" aria-label="Cupboard">
+    <rect x="186" y="66" width="130" height="234" rx="4" fill="#9dc5b8" class="o"/>
+    <rect x="196" y="76" width="50" height="100" fill="#dfe9ea" class="t"/><rect x="256" y="76" width="50" height="100" fill="#dfe9ea" class="t"/>
+    <g class="t"><rect x="204" y="130" width="16" height="36" fill="#fffdf6"/><rect x="224" y="140" width="14" height="26" fill="#e0a84a"/><rect x="262" y="128" width="18" height="38" fill="#d0602f"/><rect x="284" y="146" width="16" height="20" fill="#3b78b8"/><rect x="204" y="96" width="30" height="22" rx="2" fill="#c9a26b"/><rect x="266" y="92" width="30" height="26" rx="2" fill="#f5d76e"/></g>
+    <line x1="251" y1="186" x2="251" y2="300" stroke="#2b2836" stroke-width="1.4"/><circle cx="244" cy="250" r="4" fill="#fffdf6" class="t"/><circle cx="258" cy="250" r="4" fill="#fffdf6" class="t"/>
+    <rect class="hit" x="182" y="62" width="138" height="242" fill="transparent"/>
+  </g>
+  <g><ellipse cx="110" cy="446" rx="50" ry="8" fill="#2b2836" opacity=".16" filter="url(#blur6)"/><polygon points="64,362 156,362 166,392 54,392" fill="#d8b98a" stroke="#2b2836" stroke-width="2.2" stroke-linejoin="round"/><rect x="58" y="392" width="8" height="50" fill="#8a6440" class="o"/><rect x="154" y="392" width="8" height="50" fill="#8a6440" class="o"/><g class="t"><ellipse cx="110" cy="356" rx="30" ry="9" fill="#7fb5c9"/><circle cx="98" cy="348" r="8" fill="#e0a84a"/><circle cx="114" cy="344" r="9" fill="#d0602f"/><path d="M122 350c8-8 16-6 18 2-8 4-14 2-18-2Z" fill="#9cb04a"/></g></g>
+  <g class="hs pmoth" data-id="m5" role="button" tabindex="0" aria-label="Something small on the cupboard"><use href="#pm" x="296" y="52" width="14" height="10"/><rect class="hit" x="288" y="44" width="30" height="20" fill="transparent"/></g>
+</g>
+
+<!-- ============ MARY'S BEDROOM (square: four views) ============ -->
+<!-- b1: the bed and the suitcase -->
+<g class="view" id="v-b1" data-box="bedroom" data-light="left">
+  <path d="M60 72Q180 92 300 72" fill="none" stroke="#8a6440" stroke-width="1.4"/><g fill="#f0b44c" class="t"><circle cx="84" cy="80" r="3.5"/><circle cx="128" cy="86" r="3.5"/><circle cx="180" cy="90" r="3.5"/><circle cx="232" cy="86" r="3.5"/><circle cx="276" cy="80" r="3.5"/></g>
+  <g><rect x="130" y="100" width="100" height="70" rx="4" fill="#2c3357" class="o"/><g fill="#f0b44c"><circle cx="150" cy="122" r="3"/><circle cx="184" cy="114" r="2"/><circle cx="212" cy="140" r="3"/><circle cx="166" cy="152" r="2"/><circle cx="200" cy="158" r="2.5"/></g><path d="M150 122l34-8 28 26" stroke="#f0b44c" stroke-width="1" opacity=".5" fill="none"/></g>
+  <g class="hs" data-id="suitcase" role="button" tabindex="0" aria-label="Suitcase">
+    <rect x="52" y="180" width="256" height="70" rx="10" fill="#a8744a" class="o"/><rect x="62" y="190" width="236" height="50" rx="6" fill="#8a6440"/>
+    <polygon points="70,246 290,246 320,360 40,360" fill="#b09ae8" stroke="#2b2836" stroke-width="2.2" stroke-linejoin="round"/>
+    <polygon points="70,246 290,246 300,282 60,282" fill="#fffdf6" opacity=".55"/>
+    <g fill="#fffdf6" opacity=".7"><circle cx="90" cy="320" r="4"/><circle cx="130" cy="340" r="3"/><circle cx="240" cy="330" r="4"/><circle cx="280" cy="310" r="3"/><circle cx="110" cy="296" r="2.5"/><circle cx="260" cy="350" r="3"/></g>
+    <rect x="78" y="232" width="74" height="30" rx="12" fill="#fffdf6" class="o"/>
+    <rect x="40" y="356" width="280" height="12" rx="3" fill="#8a6440" class="o"/>
+    <g id="caseOpen">
+      <path d="M118 262 128 222h116l10 40Z" fill="#c9503c" class="o"/><path d="M124 258 132 226h108l8 32Z" fill="#f1c7b4"/>
+      <rect x="116" y="262" width="140" height="66" rx="8" fill="#e0664f" class="o"/><rect x="124" y="268" width="124" height="52" rx="5" fill="#f1c7b4"/>
+      <g fill="#fffdf6" opacity=".6"><rect x="128" y="272" width="30" height="10" rx="3"/><rect x="128" y="286" width="30" height="10" rx="3"/><rect x="128" y="300" width="30" height="10" rx="3"/></g>
+      <g id="packed"></g>
+    </g>
+    <g id="caseShut" class="off">
+      <rect x="116" y="266" width="140" height="62" rx="8" fill="#e0664f" class="o"/><rect x="116" y="288" width="140" height="4" fill="#c9503c"/>
+      <rect x="170" y="258" width="32" height="10" rx="4" fill="none" stroke="#8a3526" stroke-width="4"/>
+      <rect x="128" y="284" width="8" height="12" rx="2" fill="#f0b44c" class="t"/><rect x="236" y="284" width="8" height="12" rx="2" fill="#f0b44c" class="t"/>
+      <rect x="150" y="300" width="28" height="18" fill="#fffdf6" class="t" transform="rotate(-8 164 309)"/><text x="164" y="312" text-anchor="middle" font-size="7" fill="#6d4fb8" class="hand" transform="rotate(-8 164 309)">LHR</text>
+    </g>
+    <rect class="hit" x="112" y="216" width="148" height="116" fill="transparent"/>
+  </g>
+  <g><rect x="270" y="280" width="46" height="80" rx="3" fill="#a8744a" class="o"/><rect x="276" y="288" width="34" height="26" rx="2" fill="#8a6440" class="t"/><rect x="262" y="274" width="62" height="8" rx="2" fill="#c9a26b" class="o"/><path d="M280 274c0-12 8-20 14-20s14 8 14 20Z" fill="#f0b44c" class="o"/><rect x="291" y="252" width="6" height="22" fill="#5b6f7a"/></g>
+</g>
+
+<!-- b2: the wardrobe -->
+<g class="view" id="v-b2" data-box="bedroom" data-light="back">
+  <g class="hs" data-id="wardrobe" role="button" tabindex="0" aria-label="Wardrobe">
+    <rect x="92" y="66" width="176" height="294" rx="4" fill="#c8b3e6" class="o"/>
+    <line x1="180" y1="66" x2="180" y2="360" stroke="#2b2836" stroke-width="1.6"/>
+    <rect x="104" y="80" width="64" height="200" rx="3" fill="#b09ae8" class="t"/><rect x="192" y="80" width="64" height="200" rx="3" fill="#e9e2f5" class="t"/>
+    <path d="M198 86l52 0 0 188-52 0Z" fill="#f3eef8" opacity=".9"/><path d="M204 96l10-6M206 118l30-24" stroke="#fffdf6" stroke-width="3" opacity=".8"/>
+    <rect x="104" y="296" width="152" height="48" rx="3" fill="#b09ae8" class="t"/><rect x="172" y="316" width="16" height="6" rx="3" fill="#fffdf6"/>
+    <circle cx="170" cy="200" r="5" fill="#fffdf6" class="t"/><circle cx="190" cy="200" r="5" fill="#fffdf6" class="t"/>
+    <rect class="hit" x="88" y="62" width="184" height="302" fill="transparent"/>
+  </g>
+  <g><rect x="40" y="300" width="40" height="60" rx="3" fill="#a8744a" class="o"/><rect x="34" y="240" width="52" height="64" rx="4" fill="#a8744a" class="o"/><g class="t"><rect x="40" y="248" width="40" height="18" rx="6" fill="#7fb5c9"/><rect x="40" y="270" width="40" height="18" rx="6" fill="#e0664f"/></g></g>
+  <g><rect x="286" y="320" width="34" height="40" rx="3" fill="#e8dcc6" class="o"/><path d="M290 324c8-6 22-6 28 0" fill="#fffdf6" class="t"/></g>
+  <g class="hs pmoth" data-id="m6" role="button" tabindex="0" aria-label="Something small on top of the wardrobe"><use href="#pm" x="236" y="50" width="14" height="10"/><rect class="hit" x="228" y="42" width="30" height="20" fill="transparent"/></g>
+</g>
+
+<!-- b3: the door back to the living room -->
+<g class="view" id="v-b3" data-box="bedroom" data-light="right">
+  <g class="hs door" data-id="toLivingB" role="button" tabindex="0" aria-label="Door to the living room">
+    <rect x="110" y="66" width="140" height="294" fill="#fffdf6" class="o"/>
+    <rect x="118" y="74" width="124" height="286" fill="#f3eadb"/>
+    <path d="M242 74 190 92v250l52 10Z" fill="#e8dcc6" class="t"/>
+    <rect x="118" y="310" width="124" height="50" fill="#d2a574"/>
+    <text x="154" y="124" text-anchor="middle" font-size="12" fill="#55635d" class="lbl">Living</text><text x="154" y="140" text-anchor="middle" font-size="12" fill="#55635d" class="lbl">room</text>
+    <rect class="hit" x="108" y="64" width="144" height="298" fill="transparent"/>
+  </g>
+  <g><rect x="56" y="80" width="30" height="240" rx="3" fill="#fffdf6" class="o"/><g stroke="#6d4fb8" stroke-width="2"><line x1="56" y1="120" x2="74" y2="120"/><line x1="56" y1="160" x2="74" y2="160"/><line x1="56" y1="200" x2="74" y2="200"/><line x1="56" y1="240" x2="74" y2="240"/><line x1="56" y1="280" x2="74" y2="280"/></g><g fill="#d0602f"><circle cx="79" cy="170" r="3"/><circle cx="79" cy="212" r="3" fill="#c0541f"/><circle cx="79" cy="256" r="3" fill="#27794c"/></g></g>
+  <g><circle cx="288" cy="120" r="5" fill="#8a6440" class="t"/><path d="M272 128c-6 20-8 44-4 70h40c4-26 2-50-4-70-8-6-24-6-32 0Z" fill="#b09ae8" class="o"/><path d="M288 128v70" stroke="#9a80dc" stroke-width="2"/></g>
+</g>
+
+<!-- b4: Mary's desk under the window -->
+<g class="view" id="v-b4" data-box="bedroom" data-light="front">
+  <clipPath id="glassB4"><rect x="80" y="78" width="200" height="98"/></clipPath>
+  <g><rect x="72" y="70" width="216" height="114" rx="3" fill="#fffdf6" class="o"/><rect x="80" y="78" width="200" height="98" fill="#a9bcc6"/><g clip-path="url(#glassB4)"><g fill="#8497a2"><rect x="90" y="120" width="30" height="56"/><rect x="130" y="104" width="24" height="72"/><rect x="164" y="128" width="34" height="48"/><rect x="208" y="110" width="26" height="66"/><rect x="244" y="134" width="30" height="42"/></g><use href="#raindrops" class="rain" x="76" y="72"/><use href="#raindrops" class="rain" x="166" y="66"/></g><line x1="180" y1="78" x2="180" y2="176" stroke="#fffdf6" stroke-width="5"/></g>
+  <g><path d="M56 64c10 0 14 8 14 30v100c0 10-6 14-14 14Z" fill="#b09ae8" class="o"/><path d="M304 64c-10 0-14 8-14 30v100c0 10 6 14 14 14Z" fill="#b09ae8" class="o"/></g>
+  <g class="hs" data-id="marydesk" role="button" tabindex="0" aria-label="Mary's desk">
+    <ellipse cx="180" cy="440" rx="120" ry="12" fill="#2b2836" opacity=".16" filter="url(#blur6)"/>
+    <rect x="80" y="292" width="12" height="120" fill="#8a6440" class="o"/><rect x="268" y="292" width="12" height="120" fill="#8a6440" class="o"/>
+    <polygon points="90,250 270,250 286,286 74,286" fill="#e2cd9c" stroke="#2b2836" stroke-width="2.2" stroke-linejoin="round"/><rect x="74" y="286" width="212" height="10" fill="#c9ad7a" stroke="#2b2836" stroke-width="2.2" stroke-linejoin="round"/>
+    <rect x="96" y="296" width="70" height="56" fill="#a8744a" class="o"/><rect x="104" y="304" width="54" height="16" rx="2" fill="#8a6440" class="t"/><rect x="104" y="326" width="54" height="16" rx="2" fill="#8a6440" class="t"/>
+    <g><path d="M96 232c0-12 8-18 18-18s18 6 18 18Z" fill="#6d4fb8" class="o"/><rect x="112" y="232" width="4" height="18" fill="#2b2836"/><rect x="104" y="246" width="20" height="5" rx="2" fill="#2b2836"/></g>
+    <g class="t"><rect x="150" y="236" width="14" height="14" fill="#2f7c83"/><line x1="154" y1="236" x2="154" y2="222" stroke="#d0602f" stroke-width="2.6" stroke-linecap="round"/><line x1="160" y1="236" x2="160" y2="220" stroke="#f0b44c" stroke-width="2.6" stroke-linecap="round"/></g>
+    <g class="t"><rect x="190" y="224" width="56" height="8" fill="#3b78b8"/><rect x="194" y="216" width="50" height="8" fill="#d0602f"/><rect x="188" y="232" width="60" height="8" fill="#27794c"/><rect x="198" y="208" width="44" height="8" fill="#f0b44c"/></g>
+    <g transform="rotate(6 250 264)"><rect x="228" y="250" width="44" height="30" fill="#fffdf6" class="o"/><rect x="228" y="250" width="44" height="7" fill="#6d4fb8"/><path d="M234 264h32M234 270h24" stroke="#9aa5ab" stroke-width="1.6"/><text x="250" y="256" text-anchor="middle" font-size="5" font-weight="700" fill="#fffdf6" class="lbl">REPORT</text></g>
+    <rect class="hit" x="70" y="204" width="220" height="150" fill="transparent"/>
+  </g>
+</g>
+
+<rect width="360" height="480" filter="url(#grain)" opacity=".2" style="mix-blend-mode:multiply" pointer-events="none"/>
+<rect width="360" height="480" fill="url(#vig)" pointer-events="none"/>
+</svg>
+
+<span class="where" id="where"></span>
+<button class="nav" id="left" aria-label="Turn left"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<button class="nav" id="right" aria-label="Turn right"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 4 8 8-8 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+
+<!-- close-up: a note or slip to read -->
+<div class="overlay closeup" id="noteUI" hidden>
+  <div class="note" id="noteBody"></div>
+  <button class="ob" data-close>Step back</button>
+</div>
+
+<!-- close-up: a shelf of books -->
+<div class="overlay closeup" id="shelfUI" hidden>
+  <p class="otitle" id="shelfTitle"></p>
+  <div class="books" id="books"></div>
+  <p class="spell" id="spell" hidden></p>
+  <p class="ofb" id="shelfFb" aria-live="polite"></p>
+  <div class="row"><button class="ob" id="spellReset" hidden>Start the spelling again</button><button class="ob" data-close>Step back</button></div>
+</div>
+
+<!-- close-up: the timetable -->
+<div class="overlay closeup" id="ttUI" hidden>
+  <p class="otitle">5H timetable. Period numbers along the top.</p>
+  <svg class="ttz" viewBox="0 0 220 190" aria-label="The class timetable, with a picture for each lesson"><rect width="220" height="190" rx="4" fill="#fffdf6"/><g id="tt"></g></svg>
+  <button class="ob" data-close>Step back</button>
+</div>
+
+<!-- close-up: Mary's locker -->
+<div class="overlay closeup" id="lockUI" hidden>
+  <p class="otitle">Mary's locker. Three numbers.</p>
+  <div class="dials" id="dials"></div>
+  <p class="ofb" id="lockFb" aria-live="polite"></p>
+  <div class="row"><button class="ob" id="openLocker">Open</button><button class="ob" data-close>Step back</button></div>
+</div>
+
+<!-- close-up: Nana's postcard (packing day) -->
+<div class="overlay closeup" id="cardUI" hidden>
+  <div class="card" role="img" aria-label="Nana's postcard">
+    <div class="pic"><svg viewBox="0 0 100 70" aria-hidden="true"><circle cx="24" cy="36" r="16" fill="#5b8f55"/><circle cx="44" cy="30" r="18" fill="#6f9f63"/><circle cx="76" cy="38" r="15" fill="#5b8f55"/><rect y="50" width="100" height="20" fill="#7fae74"/><path d="M60 22c-3-5-9-5-9-1 0 3 6 3 9 1 3 2 9 2 9-1 0-4-6-4-9 1z" fill="#f0b44c"/></svg></div>
+    <div class="words">
+      <span>My darlings,</span>
+      <span>Bring the little torch, you'll need it!</span>
+      <span class="ps">P.S. I've run out of kaya.</span>
+      <span>Love, Nana x</span>
+    </div>
+  </div>
+  <button class="ob" data-close>Put it back</button>
+</div>
+
+<!-- ending -->
+<!--STAGE_CLOSEUPS-->
+<div class="overlay end" id="endUI" hidden>
+  <svg viewBox="-14 -10 28 20" width="28%" aria-hidden="true"><path d="M0 0C-4-9-13-9-13-2-13 3-5 3 0 0Z" fill="#f0b44c"/><path d="M0 0C4-9 13-9 13-2 13 3 5 3 0 0Z" fill="#f0b44c"/><path d="M0 1C-3 7-9 8-9 4-9 1-4 1 0 1Z" fill="#e9b98a"/><path d="M0 1C3 7 9 8 9 4 9 1 4 1 0 1Z" fill="#e9b98a"/><ellipse cx="0" cy="1" rx="1.3" ry="5" fill="#2b3431"/></svg>
+  <div id="endText" style="display:flex;flex-direction:column;gap:inherit;align-items:center"></div>
+  <button class="ob fade" id="endBack" style="animation-delay:5.2s">Back to the story</button>
+</div>
+</div>
+</div>
+
+<div class="panel">
+  <p class="msg" id="msg" aria-live="polite"></p>
+  <div class="inv" id="inv" aria-label="Things you are carrying"></div>
+</div>
+</section>
+</main>
+
+<script>window.STAGE_DEFS = []; function registerStage(key, def){ STAGE_DEFS.push([key, def]); }</script>
+<script src="stages/mary-flight.js"></script>
+<script src="stages/elliot.js"></script>
+<script src="stages/zaina.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+
+/* ---------- saves: a postcard per finished stage, per child ---------- */
+const SAVE_KEY = 'mothhouse.next.v1';
+function loadSave(){ try { return JSON.parse(localStorage.getItem(SAVE_KEY)) || {}; } catch(e){ return {}; } }
+function writeSave(s){ try { localStorage.setItem(SAVE_KEY, JSON.stringify(s)); } catch(e){} }
+const STORYLINES = {
+  mary:{name:'Mary\u2019s story', portrait:'p-mary', stages:[['marySchool','Last day of school','Knightsbrook International School'],['maryPacking','Packing day','The family flat'],['maryFlight','The 14-hour flight','Singapore to London']]},
+  elliot:{name:'Elliot\u2019s story', portrait:'p-elliot', stages:[['elliotSchool','Last day of school','Knightsbrook International School'],['elliotPacking','Packing day','His bedroom'],['elliotFlight','The 14-hour flight','Singapore to London']]},
+  zaina:{name:'Zaina\u2019s story', portrait:'p-zaina', stages:[['zainaSchool','Last day of school','Little Waves Kindergarten'],['zainaPacking','Packing day','Her bedroom'],['zainaFlight','The 14-hour flight','Singapore to London']]}
+};
+const childOf = key => Object.keys(STORYLINES).find(c => STORYLINES[c].stages.some(st => st[0] === key));
+let currentChild = 'mary';
+function saveStage(key, extra){
+  const save = loadSave(), child = childOf(key);
+  save[child] = Object.assign({}, save[child], {[key]:true}, extra || {});
+  writeSave(save);
+}
+
+/* ---------- item pictures ---------- */
+const ICON = {
+  key:'<svg viewBox="0 0 40 40"><circle cx="13" cy="20" r="7" fill="none" stroke="#c9a24a" stroke-width="4"/><path d="M20 18h16v4h-3v5h-4v-5h-3v4h-4v-4h-2z" fill="#c9a24a"/></svg>',
+  torch:'<svg viewBox="0 0 40 40"><rect x="6" y="15" width="20" height="10" rx="3" fill="#2f7c83"/><path d="M26 13h6l3-3v20l-3-3h-6z" fill="#5b6f7a"/><path d="M36 14l3-2M36 20h3M36 26l3 2" stroke="#f0b44c" stroke-width="2"/></svg>',
+  passports:'<svg viewBox="0 0 40 40"><rect x="12" y="6" width="20" height="28" rx="2" fill="#8a2f3a"/><rect x="9" y="8" width="20" height="28" rx="2" fill="#a33a46"/><rect x="6" y="10" width="20" height="26" rx="2" fill="#b8434f"/><circle cx="16" cy="21" r="4" fill="none" stroke="#f0d28a" stroke-width="1.5"/></svg>',
+  kaya:'<svg viewBox="0 0 40 40"><rect x="10" y="13" width="20" height="21" rx="4" fill="#d9b25a"/><rect x="8" y="7" width="24" height="8" rx="2" fill="#3b8a4e"/><rect x="13" y="19" width="14" height="8" fill="#fffdf8"/></svg>',
+  present:'<svg viewBox="0 0 40 40"><rect x="7" y="14" width="26" height="20" rx="2" fill="#7fb5c9"/><circle cx="12" cy="20" r="1.5" fill="#f0b44c"/><circle cx="28" cy="28" r="1.5" fill="#f0b44c"/><circle cx="14" cy="30" r="1.5" fill="#f0b44c"/><rect x="18" y="14" width="4" height="20" fill="#d0602f"/><path d="M20 14c-4-6-10-4-6 0M20 14c4-6 10-4 6 0" stroke="#d0602f" stroke-width="2.5" fill="none"/></svg>',
+  envelope:'<svg viewBox="0 0 40 40"><rect x="5" y="10" width="30" height="20" rx="2" fill="#fffdf8" stroke="#c9a24a" stroke-width="2"/><path d="M6 11 20 22 34 11" fill="none" stroke="#c9a24a" stroke-width="2"/></svg>',
+  slip:c => `<svg viewBox="0 0 40 40"><rect x="8" y="7" width="24" height="28" rx="2" fill="#fffdf8" stroke="${c}" stroke-width="2" transform="rotate(-6 20 21)"/><rect x="12" y="11" width="16" height="5" fill="${c}" transform="rotate(-6 20 21)"/><path d="M12 22h16M12 27h12" stroke="#9aa5ab" stroke-width="2" transform="rotate(-6 20 21)"/></svg>`
+};
+
+/* ================= STAGE: Mary, last day of school ================= */
+const TIMETABLE = {
+  Mon:['En','Ma','Sc','Ar','PE','Mu'],
+  Tue:['Ma','En','Mu','Ge','Sc','Li'],
+  Wed:['Sc','Ma','En','PE','Mu','Ar'],
+  Thu:['En','Ar','Ma','Sc','Li','PE'],
+  Fri:['Ma','Mu','Ar','En','PE','Sc']
+};
+const CODE = [4,3,6]; // Science on Thursday = 4, Music on Tuesday = 3, Art on Wednesday = 6
+const NOTES = {
+  envelope:'<span class="head">For Mary</span><span>It’s our last-day treasure hunt! Three riddles lead to three library books, each hiding a slip with a lesson and a day. Look each one up on our timetable: its period number is one number of your locker code, in order.</span><span class="big">Riddle 1: At night I’m full of lights, but I’m not a city.</span><span>Mr Hollis</span>',
+  slipSc:'<span class="head">Slip 1 of 3</span><span class="big">SCIENCE on THURSDAY</span><span>Riddle 2: I have eighty-eight keys, but I can’t open a single door.</span>',
+  slipMu:'<span class="head">Slip 2 of 3</span><span class="big">MUSIC on TUESDAY</span><span>Riddle 3: I’m full of colour, but I’m not a rainbow. Brushes are my best friends.</span>',
+  slipAr:'<span class="head">Slip 3 of 3</span><span class="big">ART on WEDNESDAY</span><span>That’s all three! Now the timetable, then your locker. Happy holidays! Mr H</span>',
+  rules:'<span class="head">Class 5H rules</span><span>1. Be kind.</span><span>2. Listen with your whole face.</span><span>3. Feed Nutmeg once a day, never twice.</span><span>4. Nobody goes home without their jumper.</span>',
+  map:'<span class="head">Our world</span><span>A world map. Someone has stuck a red dot on Singapore, and a tiny gold star on London.</span><span class="big">14 hours apart by plane.</span>',
+  bonus:'<span class="head">Bonus riddle for super-sleuths</span><span>Someone in London loves postcards and moths. Spell her name with the first letters of four stories.</span>'
+};
+const SHELVES = {
+  sci:{title:'Science shelf', color:'#3b78b8', books:[
+    ['Volcanoes!','Hot, rocky and a bit loud. No slip inside.'],
+    ['The Night Sky','slipSc'],
+    ['Bugs Up Close','Very close. Too close! No slip inside.'],
+    ['Weather Watch','All about rain. Singapore has plenty. No slip inside.']]},
+  mus:{title:'Music shelf', color:'#7a5cc2', books:[
+    ['Drums for Beginners','Boom, boom, tish! No slip inside.'],
+    ['Songs of the Sea','Sailors’ songs. No slip inside.'],
+    ['gap','A gap on the shelf, with a sticky note: “Returned today. See the trolley.”']]},
+  art:{title:'Art shelf', color:'#d0602f', books:[
+    ['Clay Creatures','Squishy animals to make. No slip inside.'],
+    ['The Big Book of Painting','slipAr'],
+    ['Paper Folding','How to fold paper birds, boats and moths. No slip inside.']]},
+  trolley:{title:'Returns trolley', color:'#5b6f7a', books:[
+    ['Dinosaur Days','Roar! No slip inside.'],
+    ['Playing the Piano','slipMu'],
+    ['Football Stars','No slip inside.']]},
+  sto:{title:'Stories shelf', color:'#3a8f5c', books:[
+    ['Nobody’s Garden','A secret garden story.'],
+    ['Jam for Tea','A story about a greedy bear.'],
+    ['A Quiet Moon','A bedtime story.'],
+    ['Owls at Dusk','A story about night birds.'],
+    ['Nine Lanterns','A story about a festival of lights.'],
+    ['Along the River','A story about a boat trip.']]}
+};
+const STAGE_SCHOOL = {
+  key:'marySchool',
+  rooms:{
+    classroom:{name:'Classroom 5H', into:'your classroom', views:['c1','c2','c3','c4']},
+    corridor:{name:'Corridor', into:'the corridor', views:['h1','h2','h3','h4']},
+    library:{name:'Library', into:'the library', views:['l1','l2','l3','l4','l5','l6']}
+  },
+  doors:{s_toCorridor:['corridor','h2'], s_toClassroom:['classroom','c1'], s_toLibrary:['library','l3'], s_toCorridorL:['corridor','h4']},
+  start:['classroom','c4'],
+  intro:'<b>Last day of school.</b> Everyone is at the party, but Mr Hollis left something on your desk. Nutmeg knows something.',
+  hinter:'Nutmeg squeaks',
+  spark:S => S.got.includes('envelope') ? [] : ['s_envelope'],
+  items:{
+    envelope:{name:'riddle envelope', icon:ICON.envelope, note:'envelope'},
+    slipSc:{name:'Science slip', icon:ICON.slip('#3b78b8'), note:'slipSc'},
+    slipMu:{name:'Music slip', icon:ICON.slip('#7a5cc2'), note:'slipMu'},
+    slipAr:{name:'Art slip', icon:ICON.slip('#d0602f'), note:'slipAr'}
+  },
+  uses:{},
+  fresh:() => ({got:[], bonus:false, spell:'', nightMoth:false, dials:[0,0,0], opened:false}),
+  draw(S){
+    tog('envArt', !S.got.includes('envelope'));
+    tog('lockerOpen', S.opened);
+  },
+  act(id){
+    switch(id){
+      case 's_envelope':
+        if (S.got.includes('envelope')) say('Just your desk now, and a few pencil shavings.');
+        else { S.got.push('envelope'); add('envelope'); openNote('envelope'); say('An envelope from Mr Hollis! Tap it at the bottom any time to read it again.'); }
+        break;
+      case 's_mdesk': say(S.got.includes('envelope') ? 'Your desk, cleared out for the summer. Just your pencil case and pot.' : 'Your desk. There\u2019s an envelope on it with your name.'); break;
+      case 's_hamster': hint(); return;
+      case 's_rules': openNote('rules'); say('The class rules. Rule 3 is about Nutmeg.'); break;
+      case 's_map': openNote('map'); say('A map of the world, with Singapore and London marked.'); break;
+      case 's_paintings': say('The class\u2019s paintings: a house, a flower, a cat and a rocket. The rocket is Mary\u2019s.'); break;
+      case 's_bookshelfC': say('Reading books, dictionaries, and a box of comics that everyone pretends not to read.'); break;
+      case 's_bag': say('Mary\u2019s bag, packed and ready. Only the report and Nana\u2019s postcard still to collect.'); break;
+      case 's_plantC': say('The class plant. It is called Gerald. Nobody knows why.'); break;
+      case 's_cupboardC': say('Glue sticks, glitter, and a smell of poster paint.'); break;
+      case 's_lostC': say('A sock, a hat, and a lunchbox that has been here since March.'); break;
+      case 's_fountain': say('A drink of cold water. Lovely.'); break;
+      case 's_trophies': say('The house cup. This year: Kingfishers. Mary\u2019s house!'); break;
+      case 's_timetable': openTimetable(); return;
+      case 's_board': say('Mr Hollis has written “Happy holidays, Year 5!” and drawn a slightly wonky sun.'); break;
+      case 's_tdesk': say('Mr Hollis’s desk. His mug says TEACHER OF THE YEAR (nearly).'); break;
+      case 's_cwindow': say('Sunshine, the sound of the party, and a plane climbing into the sky. Tomorrow, that\u2019s you.'); break;
+      case 's_beans': say('The class bean plants. Mary’s is the tallest, of course.'); break;
+      case 's_pegs': say('Everyone has taken their coats. One forgotten swimming bag drips quietly.'); break;
+      case 's_lockers': say('Other people’s lockers. Yours is the purple one with your name on.'); break;
+      case 's_locker': if (S.opened) say('Your empty locker. See you after the summer!'); else openLock(); return;
+      case 's_notices': say('The summer fair, the swimming gala, house points, and a lost cat called Biscuit. Ginger, very fluffy.'); break;
+      case 's_bonus': S.bonus = true; openNote('bonus'); say('A bonus riddle! This one is optional, for super-sleuths.'); break;
+      case 's_shelfSci': openShelf('sci'); return;
+      case 's_shelfMus': openShelf('mus'); return;
+      case 's_shelfArt': openShelf('art'); return;
+      case 's_shelfSto': openShelf('sto'); return;
+      case 's_trolley': openShelf('trolley'); return;
+      case 's_globe': say('The globe. Singapore is a tiny red dot. London is a long way up and to the left.'); break;
+      case 's_rocks': say('The rock collection. Nine shiny rocks and one that Mary suspects is a toffee.'); break;
+      case 's_headphones': say('The listening corner. Story time is on Fridays, but today is the last day, so no story.'); break;
+      case 's_chair': say('The storytime chair. Someone has left a knitted hamster on it. It is not Nutmeg.'); break;
+      case 's_lwindow': say('Trees, sunshine and a butterfly on the glass. Only a few hours until the holidays.'); break;
+      case 's_beanbags': say('The window seat, with the squashiest cushions in the school.'); break;
+      case 's_libdesk': say('A sign: “Back soon! I’m at the party in the playground. Please put books back where you found them.”'); break;
+    }
+    render();
+  },
+  hints:[
+    {goal:() => S.got.includes('envelope'), tips:[
+      'Mr Hollis left something on your desk in the classroom.',
+      'Look at your desk, under the timetable.',
+      'Turn to the timetable wall and tap the envelope on your desk.']},
+    {goal:() => S.got.includes('slipSc'), tips:[
+      'Riddle 1: what is full of lights at night, but isn’t a city?',
+      'The night sky! Find a book about it in the library.',
+      'Go through the corridor to the library. Open The Night Sky on the blue Science shelf.']},
+    {goal:() => S.got.includes('slipMu'), tips:[
+      'Riddle 2: eighty-eight keys, and no doors. What could it be?',
+      'A piano! But the Music shelf has a gap. Where do returned books go?',
+      'In the library, turn to the returns trolley next to the Art shelf. Open Playing the Piano.']},
+    {goal:() => S.got.includes('slipAr'), tips:[
+      'Riddle 3: full of colour, and brushes are its best friends.',
+      'It’s a book about painting. Try the orange Art shelf.',
+      'Open The Big Book of Painting on the Art shelf.']},
+    {goal:() => S.opened, tips:[
+      'You have three lessons and three days. The class timetable turns each into a number.',
+      'Find each lesson on its day. The period number at the top is one number of your locker code.',
+      'Science Thursday is 4, Music Tuesday is 3, Art Wednesday is 6. Set your locker in the corridor to 4, 3, 6.']}
+  ],
+  ending(){
+    saveStage('marySchool', S.nightMoth ? {nightMothSchool:true} : null);
+    return ['<p class="fade big" style="animation-delay:.2s">The last bell rings!</p>',
+      '<p class="fade" style="animation-delay:1.4s">In your locker: your report (“a brilliant detective”) and a postcard from Nana. “Not long now! Love, Nana x.” The little moth in its corner seems to glow.</p>',
+      `<p class="fade next" style="animation-delay:3.2s">${S.nightMoth ? '★ You solved the bonus riddle too!' : 'Want a challenge? Try the bonus riddle on the corridor notice board.'}</p>`,
+      '<p class="fade next" style="animation-delay:4.4s">Next for Mary: packing day.</p>'];
+  }
+};
+
+function openNote(key, mirror){ $('noteBody').innerHTML = NOTES[key]; $('noteBody').classList.toggle('mirror', !!mirror); $('noteUI').hidden = false; }
+const SUBJECT = {Ma:['i-ma','#2f7c83','Maths'], En:['i-en','#d9a622','English'], Sc:['i-sc','#3b78b8','Science'], Mu:['i-mu','#7a5cc2','Music'], Ar:['i-ar','#d0602f','Art'], PE:['i-pe','#27794c','PE'], Ge:['i-ge','#a8744a','Geography'], Li:['i-li','#c4589a','Library']};
+function ttGrid(x0, y0, dayW, cw, rh, ic, fs){
+  let out = '';
+  [1,2,3,4,5,6].forEach((n,i) => out += `<text x="${x0+dayW+cw*i+cw/2}" y="${y0+fs}" text-anchor="middle" font-size="${fs}" font-weight="700" fill="#2f7c83" class="lbl">${n}</text>`);
+  Object.entries(TIMETABLE).forEach(([d,row],r) => {
+    const y = y0 + fs + 4 + r*rh;
+    out += `<rect x="${x0}" y="${y}" width="${dayW+cw*6}" height="${rh}" fill="${r%2?'#eef3ee':'#f7f9f3'}" stroke="#cfc8b4" stroke-width=".6"/>`;
+    out += `<text x="${x0+4}" y="${y+rh/2+fs*.36}" font-size="${fs}" font-weight="700" fill="#2b2836" class="lbl">${d}</text>`;
+    row.forEach((c,i) => { const [id,col] = SUBJECT[c]; out += `<use href="#${id}" x="${x0+dayW+cw*i+(cw-ic)/2}" y="${y+(rh-ic)/2}" width="${ic}" height="${ic}" style="color:${col}"/>`; });
+  });
+  return out;
+}
+$('ttWall').innerHTML = ttGrid(60, 148, 30, 26, 17, 13, 8);
+function openTimetable(){
+  let key = '';
+  Object.values(SUBJECT).forEach(([id,col,name],i) => {
+    const x = 10 + (i%3)*70, y = 138 + Math.floor(i/3)*16;
+    key += `<use href="#${id}" x="${x}" y="${y}" width="12" height="12" style="color:${col}"/><text x="${x+15}" y="${y+9.5}" font-size="8" fill="#2b2836" class="lbl">${name}</text>`;
+  });
+  $('tt').innerHTML = ttGrid(8, 6, 34, 28, 21, 16, 9) + key;
+  $('ttUI').hidden = false;
+  say('The class timetable. Days go down the side, and period numbers go along the top.');
+}
+let shelfKey = null;
+function openShelf(key){
+  shelfKey = key;
+  const sh = SHELVES[key];
+  $('shelfTitle').textContent = sh.title;
+  $('books').innerHTML = sh.books.map(([title], i) => title === 'gap'
+    ? `<button class="book gap" data-i="${i}">(a gap)</button>`
+    : `<button class="book" style="--sp:${sh.color}" data-i="${i}">${title}</button>`).join('');
+  $('books').querySelectorAll('.book').forEach(b => b.onclick = () => pickBook(+b.dataset.i));
+  const spelling = key === 'sto' && S.bonus && !S.nightMoth;
+  $('spell').hidden = !spelling; $('spellReset').hidden = !spelling;
+  $('spell').textContent = S.spell;
+  $('shelfFb').textContent = key === 'sto' && S.bonus && !S.nightMoth ? 'Tap four stories in order to spell a name.' : '';
+  $('shelfUI').hidden = false;
+  say(`You look along the ${sh.title.toLowerCase()}.`);
+}
+function pickBook(i){
+  const [title, what] = SHELVES[shelfKey].books[i];
+  if (shelfKey === 'sto' && S.bonus && !S.nightMoth){
+    S.spell = (S.spell + title[0].toUpperCase()).slice(-4);
+    $('spell').textContent = S.spell;
+    if (S.spell === 'NANA'){
+      S.nightMoth = true;
+      $('spell').hidden = true; $('spellReset').hidden = true;
+      $('shelfFb').textContent = '★ N, A, N, A: Nana! You solved the bonus riddle.';
+      say('<b>★ Bonus riddle solved!</b> Nana, who loves postcards and moths.');
+    } else $('shelfFb').textContent = `${title}. Letters so far: ${S.spell}`;
+    return;
+  }
+  if (NOTES[what]){
+    if (S.got.includes(what)) { $('shelfFb').textContent = 'You’ve already found the slip in this book.'; return; }
+    S.got.push(what); add(what);
+    $('shelfUI').hidden = true;
+    openNote(what);
+    say(`A slip was tucked inside ${title}! You take it and put the book back.`);
+    render();
+    return;
+  }
+  $('shelfFb').textContent = what;
+}
+function openLock(){
+  drawDials();
+  $('lockFb').textContent = '';
+  $('lockUI').hidden = false;
+  say('Your locker has three number dials.');
+}
+function drawDials(){
+  $('dials').innerHTML = S.dials.map((d, i) => `<button class="dial" data-i="${i}" aria-label="Dial ${i+1}: ${d}">${d}</button>`).join('');
+  $('dials').querySelectorAll('.dial').forEach(b => b.onclick = () => {
+    const i = +b.dataset.i; S.dials[i] = (S.dials[i] + 1) % 10; $('lockFb').textContent = ''; drawDials(); $('dials').children[i].focus();
+  });
+}
+$('openLocker').onclick = () => {
+  if (S.opened) return;
+  if (S.dials.join('') !== CODE.join('')){ $('lockFb').textContent = 'The locker stays shut. Check each lesson on the timetable again.'; return; }
+  S.opened = true;
+  $('lockFb').textContent = 'Click! It opens.';
+  setTimeout(() => { $('lockUI').hidden = true; finish(); }, 700);
+};
+$('spellReset').onclick = () => { S.spell = ''; $('spell').textContent = ''; $('shelfFb').textContent = 'Tap four stories in order to spell a name.'; };
+
+/* ================= STAGE: Mary, packing day ================= */
+const PACK = ['torch','passports','present'];
+const STAGE_PACKING = {
+  key:'maryPacking',
+  rooms:{
+    living:{name:'Living room', into:'the living room', views:['lr1','lr2','lr3','lr4','lr5','lr6']},
+    kitchen:{name:'Kitchen', into:'the kitchen', views:['k1','k2','k3','k4']},
+    bedroom:{name:'Mary’s bedroom', into:'your bedroom', views:['b1','b2','b3','b4']}
+  },
+  doors:{toKitchen:['kitchen','k1'], toLivingK:['living','lr6'], toBedroom:['bedroom','b1'], toLivingB:['living','lr3']},
+  start:['bedroom','b1'],
+  intro:'<b>Packing day.</b> School is over and the suitcase must be shut by teatime. Rain drums on every window.',
+  spark:S => !S.read ? ['postcard'] : [],
+  items:{
+    key:{name:'desk key', icon:ICON.key},
+    torch:{name:'little torch', icon:ICON.torch},
+    passports:{name:'passports', icon:ICON.passports},
+    kaya:{name:'jar of kaya', icon:ICON.kaya},
+    present:{name:'present for Nana', icon:ICON.present}
+  },
+  uses:{key:'desk', kaya:'paper', torch:'suitcase', passports:'suitcase', present:'suitcase'},
+  fresh:() => ({read:false, gotTorch:false, gotKey:false, unlocked:false, mumTip:false, gotPassports:false, gotKaya:false, wrapped:false, packed:[], moths:[]}),
+  draw(S){
+    tog('deskKey', !S.gotKey);
+    tog('drawerOpen', S.gotPassports);
+    tog('jarArt', !S.gotKaya);
+    tog('caseOpen', S.packed.length < 3); tog('caseShut', S.packed.length === 3);
+    document.querySelectorAll('.pmoth').forEach(g => g.classList.toggle('off', S.moths.includes(g.dataset.id)));
+    $('packed').innerHTML = S.packed.map((it, i) =>
+      `<svg x="${132 + i*38}" y="276" width="34" height="34" viewBox="0 0 40 40">${ICON[it].replace(/^<svg[^>]*>|<\/svg>$/g,'')}</svg>`).join('');
+  },
+  act(id, item){
+    if (/^m\d$/.test(id)){
+      if (!S.moths.includes(id)){
+        S.moths.push(id);
+        const n = S.moths.length;
+        say(n === 6 ? 'That’s all six paper moths! Nana will be very impressed.'
+                    : `A tiny paper moth, folded from Nana's letter paper! That's ${n} of 6.`);
+      }
+      render(); return;
+    }
+    const stillToPack = () => {
+      const need = [];
+      if (!S.packed.includes('passports')) need.push('the passports');
+      if (!S.packed.includes('present')) need.push('a present for Nana');
+      if (!S.packed.includes('torch')) need.push(S.read ? 'the little torch' : 'whatever Nana asked for');
+      return need;
+    };
+    switch(id){
+      case 'postcard':
+        $('cardUI').hidden = false;
+        if (!S.read){ S.read = true; say('Nana’s loopy writing takes a moment. She wants the little torch, and she’s run out of kaya!'); }
+        else say('Nana’s postcard. There’s a tiny moth drawn in the corner of the picture.');
+        return;
+      case 'boots':
+        if (S.gotTorch) say('Mum’s yellow rain boots. Just boots now.');
+        else if (!S.read) say('Mum’s yellow rain boots, still wet from this morning.');
+        else { S.gotTorch = true; add('torch'); say('Nana wants the little torch. Mary tips up a boot, and out it rolls! Elliot must have hidden it there.'); }
+        break;
+      case 'keys':
+        if (S.gotKey) say('Just the spare door keys now.');
+        else { S.gotKey = true; add('key'); say('Three keys. The small brass one has a paper tag that says DESK.'); }
+        break;
+      case 'desk':
+        if (S.gotPassports) say('Dad’s desk, tidy for once.');
+        else if (!S.unlocked){
+          if (item === 'key'){ S.unlocked = true; use('key'); say('The key turns with a click. But the drawer is stuck fast!'); }
+          else say('Dad keeps the passports in this drawer. It’s locked, and it needs a small key.');
+        }
+        else if (S.mumTip){ S.gotPassports = true; add('passports'); say('Mary lifts the drawer a little and pulls, just like Mum said. It slides open: the passports!'); }
+        else say('The drawer won’t budge. Dad always manages it somehow. Maybe Mum knows the trick.');
+        break;
+      case 'mum':
+        if (S.unlocked && !S.gotPassports){ S.mumTip = true; say('Mum laughs: “Dad’s drawer sticking again? Lift it up a little while you pull. Works every time.”'); }
+        else if (S.gotPassports) say('Mum stirs the pot: “Passports found? Well done. Is that suitcase shut yet?”');
+        else say('Mum calls from the stove: “Passports, a present for Nana, and whatever Nana asked for. The suitcase is on your bed!”');
+        break;
+      case 'jar':
+        if (S.gotKaya) say('A gap on the shelf where the kaya was.');
+        else if (!S.read) say('A jar of kaya, sweet coconut jam. Which present would Nana like best? Maybe her postcard says.');
+        else { S.gotKaya = true; add('kaya'); say('Nana has run out of kaya! Mary takes the jar down from the shelf.'); }
+        break;
+      case 'globe': say('A snow globe with a tiny durian inside. Nana says durians are far too smelly for her.'); break;
+      case 'orchid': say('A purple orchid. Lovely, but it wouldn’t like fourteen hours on a plane.'); break;
+      case 'paper':
+        if (item === 'kaya'){ S.wrapped = true; use('kaya'); add('present'); say('Mary wraps the kaya in paper covered in little moths, and adds a bow. Perfect!'); }
+        else say('A roll of wrapping paper with a pattern of little moths.');
+        break;
+      case 'suitcase':
+        if (PACK.includes(item)){
+          S.packed.push(item); use(item);
+          const need = stillToPack();
+          if (!need.length){ say('The suitcase clicks shut. Mum calls out: “Taxi’s here!”'); render(); finish(); return; }
+          say(`In ${item === 'passports' ? 'go' : 'goes'} the ${ST.items[item].name}. Still to pack: ${listOf(need)}.`);
+        } else say(`Summer clothes, all folded. Still to pack: ${listOf(stillToPack())}.`);
+        break;
+      case 'window': say('Rain drums on the window. In London it’s summer, and the evenings stay light until late.'); break;
+      case 'fan': say('The ceiling fan turns lazily round and round.'); break;
+      case 'sofa': say('The comfy sofa. Elliot lost a sock under there once and never found it.'); break;
+      case 'fridge': say('Cold drinks, and a fridge magnet shaped like a durian.'); break;
+      case 'frontdoor': say('The front door. Not yet! The taxi comes when the suitcase is shut.'); break;
+      case 'photos': say('The three of us, Nana\u2019s garden, and Jedi asleep in a deckchair. Jedi is asleep in every photo ever taken of him.'); break;
+      case 'tv': say('The television is off. No cartoons on packing day, says Mum.'); break;
+      case 'plant': say('Dad’s big leafy plant. Mum will water it while we’re away.'); break;
+      case 'sink': say('Rain on the kitchen window, and a pile of washing-up.'); break;
+      case 'calendar': say('Tomorrow is circled in red. It says: FLIGHT TO LONDON! 14 hours.'); break;
+      case 'cupboard': say('Rice, noodles and Elliot’s secret biscuit stash.'); break;
+      case 'wardrobe': say('Summer clothes are already in the suitcase. Only winter jumpers left in here.'); break;
+      case 'marydesk': say('Mary\u2019s desk under the rainy window: her lamp, her books, and her school report. \u201cA brilliant detective.\u201d'); break;
+    }
+    render();
+  },
+  hints:[
+    {goal:() => S.read, tips:[
+      'Mum said to bring whatever Nana asked for. Where do families stick their postcards?',
+      'Nana’s postcard is on the fridge, in the living room.',
+      'Go to the living room and turn until you see the fridge. Tap the postcard.']},
+    {goal:() => S.gotTorch, tips:[
+      'Nana asked for the little torch. Elliot likes hiding things near the front door.',
+      'Look in Mum’s rain boots by the front door.',
+      'In the living room, turn to the front door and tap the yellow rain boots.']},
+    {goal:() => S.gotKey, tips:[
+      'Dad keeps the passports locked in his desk. Where would a key hang?',
+      'Look beside the window, above Dad’s desk.',
+      'In the living room, turn to the window and tap the key hooks.']},
+    {goal:() => S.unlocked, tips:[
+      'You have Dad’s desk key.',
+      'Use the key on Dad’s desk.',
+      'Tap the key at the bottom, then tap the desk drawer.']},
+    {goal:() => S.mumTip, tips:[
+      'The drawer is stuck. Who might know the trick?',
+      'Ask Mum. She’s cooking in the kitchen.',
+      'Go through the kitchen doorway beside the fridge and tap the stove.']},
+    {goal:() => S.gotPassports, tips:[
+      'Now you know Mum’s trick.',
+      'Go back to Dad’s desk.',
+      'Tap the desk drawer again.']},
+    {goal:() => S.gotKaya, tips:[
+      'Nana’s postcard has a P.S. What has she run out of?',
+      'Nana has run out of kaya. Look on the shelf above the sofa.',
+      'In the living room, turn to the sofa and tap the jar of kaya on the shelf.']},
+    {goal:() => S.wrapped, tips:[
+      'A present needs wrapping!',
+      'There’s wrapping paper on Dad’s desk.',
+      'Tap the kaya at the bottom, then tap the wrapping paper on the desk.']},
+    {goal:() => false, tips:[
+      'Everything is ready. Where does it all go?',
+      'The suitcase is on your bed.',
+      'Go to your bedroom, then tap each thing at the bottom and then the suitcase.']}
+  ],
+  ending(){
+    const prev = (loadSave().mary || {}).moths || 0;
+    saveStage('maryPacking', {moths:Math.max(S.moths.length, prev)});
+    const n = S.moths.length;
+    return ['<p class="fade big" style="animation-delay:.2s">Off to London!</p>',
+      '<p class="fade" style="animation-delay:1.4s">The taxi splashes through the rain to the airport. Fourteen hours to go.</p>',
+      '<p class="fade" style="animation-delay:2.8s">Back home on the fridge, the moth on Nana’s postcard flickers, just once.</p>',
+      `<p class="fade next" style="animation-delay:4.2s">${n === 6 ? 'You found all six paper moths!' : `You found ${n} of the 6 hidden paper moths. Can you find them all next time?`}</p>`,
+      '<p class="fade next" style="animation-delay:5s">Next for Mary: the 14-hour flight. Coming soon.</p>'];
+  }
+};
+
+/* ================= the engine: rooms, doors, items, hints ================= */
+const STAGES = {marySchool:STAGE_SCHOOL, maryPacking:STAGE_PACKING};
+let ST, S;
+const say = t => { $('msg').innerHTML = t; };
+const tog = (id, show) => $(id).classList.toggle('off', !show);
+const add = it => S.inv.push(it);
+const use = it => { S.inv = S.inv.filter(x => x !== it); };
+const listOf = a => a.length === 1 ? a[0] : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1];
+const viewId = () => ST.rooms[S.room].views[S.view];
+
+/* Every new-style view sits inside a room box: ceiling, walls, floor, drawn in one-point perspective. */
+const BOXES = {
+  classroom:{ceil:['#f9f7ee','#ece9dc'], back:['#f4f1e3','#e1e3d5'], left:['#c3c7ba','#d3d6c8'], right:['#ecebdd','#dcdccd'], floor:['#c9ad86','#ad8e66'], boards:'wood', skirt:['#b6ad9b','#c5bca8','#aaa290'], lamp:true},
+  corridor:{ceil:['#f7f4ea','#e9e4d6'], back:['#f7f1e2','#e4dcc8'], left:['#cfc8b6','#dcd5c4'], right:['#eee8d8','#e0d9c8'], floor:['#b9c6cf','#96a8b4'], boards:'lino', skirt:['#8d9aa5','#9fb0bb','#7f8d98'], lamp:true},
+  living:{ceil:['#fbf7ee','#efe9dc'], back:['#f8eedb','#eadfc8'], left:['#d8ccb3','#e3d8c2'], right:['#f0e6d3','#e4d9c2'], floor:['#d2a574','#b98a5a'], boards:'wood', skirt:['#a58a62','#b8996c','#96794f'], lamp:false},
+  kitchen:{ceil:['#f6f8f4','#e8ede6'], back:['#eaf1ee','#dbe5e0'], left:['#c7d3cd','#d4ded8'], right:['#e2ebe6','#d5dfda'], floor:['#c9c3b2','#a9a392'], boards:'lino', skirt:['#8d9aa5','#9fb0bb','#7f8d98'], lamp:true},
+  bedroom:{ceil:['#f9f5fc','#ede6f4'], back:['#efe6f5','#e0d5ec'], left:['#cdbfdc','#d9cde6'], right:['#e8def1','#dccfe8'], floor:['#d2a574','#b98a5a'], boards:'wood', skirt:['#a58a62','#b8996c','#96794f'], lamp:false},
+  library:{ceil:['#fbf6ea','#efe8d8'], back:['#f9efdc','#ebdfc6'], left:['#d9cbb0','#e4d8c0'], right:['#f1e7d2','#e6dac2'], floor:['#b9c7a8','#93a682'], boards:'carpet', skirt:['#a58a62','#b8996c','#96794f'], lamp:true}
+};
+function roomBox(name, light){
+  const c = BOXES[name], id = 'g-' + name;
+  const grad = (k, dir) => `<linearGradient id="${id}-${k}" ${dir}><stop offset="0" stop-color="${c[k][0]}"/><stop offset="1" stop-color="${c[k][1]}"/></linearGradient>`;
+  let s = `<defs>${grad('ceil','x1="0" y1="0" x2="0" y2="1"')}${grad('back','x1="0" x2="1"')}${grad('left','x1="0" x2="1"')}${grad('right','x1="0" x2="1"')}${grad('floor','x1="0" y1="0" x2="0" y2="1"')}</defs>`;
+  s += `<polygon points="0,0 360,0 360,21 320,62 40,62 0,21" fill="url(#${id}-ceil)"/>`;
+  s += `<polygon points="0,21 40,62 40,360 0,404" fill="url(#${id}-left)"/><polygon points="360,21 320,62 320,360 360,404" fill="url(#${id}-right)"/>`;
+  s += `<rect x="40" y="62" width="280" height="298" fill="url(#${id}-back)"/><rect x="40" y="272" width="280" height="4" fill="#000" opacity=".06"/>`;
+  s += `<polygon points="0,404 40,360 320,360 360,404 360,480 0,480" fill="url(#${id}-floor)"/>`;
+  const rays = [75,110,145,180,215,250,285].map(x => `<line x1="${x}" y1="360" x2="${(180+(x-180)*1.774).toFixed(0)}" y2="480"/>`).join('');
+  if (c.boards === 'tarmac') s += `<g stroke="#fffdf6" stroke-width="2" opacity=".5"><line x1="60" y1="400" x2="300" y2="400"/><line x1="100" y1="440" x2="260" y2="440"/></g><circle cx="180" cy="440" r="26" fill="none" stroke="#fffdf6" stroke-width="2" opacity=".5"/>`;
+  else if (c.boards === 'wood') s += `<g stroke="#8f7350" stroke-width="1" opacity=".5">${rays}</g><g stroke="#8f7350" stroke-width=".8" opacity=".35"><line x1="0" y1="382" x2="360" y2="382"/><line x1="0" y1="412" x2="360" y2="412"/><line x1="0" y1="450" x2="360" y2="450"/></g>`;
+  else if (c.boards === 'lino') s += `<g stroke="#7f8d98" stroke-width="1" opacity=".35">${rays}</g>` + (name === 'corridor' ? `<polygon points="150,360 210,360 233,480 127,480" fill="#3f8f96" opacity=".35"/>` : `<g stroke="#7f8d98" stroke-width=".8" opacity=".25"><line x1="0" y1="382" x2="360" y2="382"/><line x1="0" y1="412" x2="360" y2="412"/><line x1="0" y1="450" x2="360" y2="450"/></g>`);
+  else s += `<g stroke="#6f8560" stroke-width="1" opacity=".14">${rays}</g><rect x="40" y="360" width="280" height="6" fill="#6f8560" opacity=".18"/>`;
+  if (light === 'left') s += `<g filter="url(#blur6)" opacity=".36"><polygon points="24,410 96,380 214,398 170,478 60,480" fill="#fff1bd"/></g><polygon points="40,62 40,360 66,346 66,96" fill="#fff1bd" opacity=".14"/>`;
+  if (light === 'right') s += `<g filter="url(#blur6)" opacity=".36"><polygon points="336,410 264,380 146,398 190,478 300,480" fill="#fff1bd"/></g><polygon points="320,62 320,360 294,346 294,96" fill="#fff1bd" opacity=".14"/>`;
+  if (light === 'front') s += `<g filter="url(#blur6)" opacity=".4"><polygon points="70,372 290,372 330,470 30,470" fill="#fff1bd"/></g>`;
+  if (light === 'back') s += `<g filter="url(#blur6)" opacity=".22"><polygon points="60,400 300,400 330,480 30,480" fill="#fff1bd"/></g>`;
+  if (c.outdoor) s += `<g fill="none" stroke="#2b2836" stroke-width="1.6" stroke-linejoin="round"><polyline points="0,404 40,360 320,360 360,404"/></g>`;
+  else {
+  s += `<polygon points="0,396 40,352 40,360 0,404" fill="${c.skirt[0]}" class="t"/><rect x="40" y="352" width="280" height="8" fill="${c.skirt[1]}" class="t"/><polygon points="360,396 320,352 320,360 360,404" fill="${c.skirt[2]}" class="t"/>`;
+  s += `<g fill="none" stroke="#2b2836" stroke-width="1.6" stroke-linejoin="round"><polyline points="0,21 40,62 320,62 360,21"/><line x1="40" y1="62" x2="40" y2="360"/><line x1="320" y1="62" x2="320" y2="360"/><polyline points="0,404 40,360 320,360 360,404"/></g>`;
+  }
+  if (!c.lamp && !c.outdoor) s += `<ellipse cx="180" cy="20" rx="70" ry="18" fill="url(#lampGlow)"/><circle cx="180" cy="16" r="9" fill="#fffdf4" class="o"/><line x1="180" y1="0" x2="180" y2="8" stroke="#2b2836" stroke-width="1.6"/>`;
+  if (c.lamp) s += `<ellipse cx="180" cy="26" rx="90" ry="22" fill="url(#lampGlow)"/><rect x="118" y="12" width="124" height="14" rx="5" fill="#fffdf4" class="o"/><rect x="124" y="16" width="112" height="5" rx="2" fill="#fff6c8"/>`;
+  return s;
+}
+const sceneSvg = $('scene'), grainRect = sceneSvg.querySelector('[filter="url(#grain)"]');
+STAGE_DEFS.forEach(([key, d]) => {
+  if (d.css){ const st = document.createElement('style'); st.textContent = d.css; document.head.appendChild(st); }
+  if (d.views){ const tmp = document.createElementNS('http://www.w3.org/2000/svg', 'g'); tmp.innerHTML = d.views; [...tmp.childNodes].forEach(n => sceneSvg.insertBefore(n, grainRect)); }
+  if (d.closeups){ const tmp = document.createElement('div'); tmp.innerHTML = d.closeups; [...tmp.children].forEach(n => $('endUI').before(n)); }
+  if (d.boxes) Object.assign(BOXES, d.boxes);
+  d.stage.key = key; STAGES[key] = d.stage;
+});
+document.querySelectorAll('.view[data-box]').forEach(v => {
+  const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  g.innerHTML = roomBox(v.dataset.box, v.dataset.light);
+  v.insertBefore(g, v.firstChild);
+});
+/* Bookcases: a case, three shelves, and rows of books in a colour family. gap marks a missing book. */
+function bookcase(o){
+  const {x, y, w, h, colours, label, labelColour, gap} = o;
+  const side = 10, shelfH = (h - 30) / 3;
+  let out = `<rect x="${x+w}" y="${y+8}" width="${side}" height="${h-8}" fill="#6b4a2d" class="o"/>`;
+  out += `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#a8744a" class="o"/><rect x="${x+6}" y="${y+6}" width="${w-12}" height="${h-12}" fill="#7d5636"/>`;
+  out += `<rect x="${x+w/2-50}" y="${y-18}" width="100" height="24" rx="5" fill="${labelColour}" class="o"/><text x="${x+w/2}" y="${y-1}" text-anchor="middle" font-size="11" font-weight="700" fill="#fffdf6" class="lbl" letter-spacing="1">${label}</text>`;
+  let seed = x * 7 + w;
+  const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+  for (let r = 0; r < 3; r++){
+    const top = y + 8 + r * (shelfH + 6), base = top + shelfH;
+    out += `<rect x="${x+6}" y="${base}" width="${w-12}" height="6" fill="#a8744a"/>`;
+    let bx = x + 12, slot = 0;
+    while (bx < x + w - 22){
+      const bw = 9 + Math.floor(rnd() * 9), bh = shelfH - 10 - Math.floor(rnd() * 12);
+      if (gap && gap.shelf === r && gap.slot === slot){
+        out += `<rect x="${bx}" y="${base-14}" width="18" height="14" fill="#f5d76e" class="t" transform="rotate(-6 ${bx+9} ${base-7})"/><path d="M${bx+3} ${base-9}h12M${bx+3} ${base-5}h8" stroke="#8a6440" stroke-width="1.2" transform="rotate(-6 ${bx+9} ${base-7})"/>`;
+        bx += 24; slot++; continue;
+      }
+      const c = colours[Math.floor(rnd() * colours.length)];
+      out += `<rect x="${bx}" y="${base-bh}" width="${bw}" height="${bh}" rx="1" fill="${c}" class="t"/><rect x="${bx+2}" y="${base-bh+4}" width="${bw-4}" height="3" fill="#fffdf6" opacity=".55"/>`;
+      if (rnd() > .7) out += `<rect x="${bx+2}" y="${base-bh+10}" width="${bw-4}" height="2" fill="#fffdf6" opacity=".4"/>`;
+      bx += bw + 2; slot++;
+    }
+  }
+  return out;
+}
+const BOOKCASES = {
+  'bc-sci':{x:46, y:70, w:150, h:282, colours:['#3b78b8','#5b9bd5','#2c5f93','#7fb5c9'], label:'SCIENCE', labelColour:'#3b78b8'},
+  'bc-mus':{x:70, y:70, w:166, h:282, colours:['#7a5cc2','#a58ae6','#6d4fb8','#c4589a'], label:'MUSIC', labelColour:'#7a5cc2', gap:{shelf:1, slot:3}},
+  'bc-art':{x:46, y:70, w:142, h:282, colours:['#d0602f','#ef8a5a','#b8493f','#f0b44c'], label:'ART', labelColour:'#d0602f'},
+  'bc-sto':{x:52, y:70, w:186, h:282, colours:['#3a8f5c','#5fc08a','#27794c','#f5d76e'], label:'STORIES', labelColour:'#3a8f5c'}
+};
+Object.entries(BOOKCASES).forEach(([id, o]) => { $(id).innerHTML = bookcase(o); });
+STAGE_DEFS.forEach(([key, d]) => { if (d.setup) d.setup(); });
+/* Everything tappable gets a soft breathing glow behind it, worked out from its tap area. Doors and hidden paper moths don't. */
+document.querySelectorAll('.hs:not(.door):not(.pmoth)').forEach(el => {
+  const hit = el.querySelector('.hit'); if (!hit) return;
+  const x = +hit.getAttribute('x'), y = +hit.getAttribute('y'), w = +hit.getAttribute('width'), h = +hit.getAttribute('height');
+  const e = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+  e.setAttribute('class', 'glow'); e.setAttribute('cx', x + w/2); e.setAttribute('cy', y + h/2);
+  e.setAttribute('rx', w*.55 + 6); e.setAttribute('ry', h*.55 + 6); e.setAttribute('filter', 'url(#blur6)');
+  el.insertBefore(e, el.firstChild);
+});
+function sparkles(){
+  document.querySelectorAll('.sparks').forEach(g => g.remove());
+  const ids = (ST.spark && ST.spark(S)) || [];
+  ids.forEach(id => {
+    const el = document.querySelector(`.hs[data-id="${id}"]`), hit = el && el.querySelector('.hit'); if (!hit) return;
+    const x = +hit.getAttribute('x'), y = +hit.getAttribute('y'), w = +hit.getAttribute('width'), h = +hit.getAttribute('height');
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.setAttribute('class', 'sparks');
+    g.innerHTML = `<use href="#star" class="spark" x="${x+w-6}" y="${y-4}" width="9" height="9"/><use href="#star" class="spark" x="${x-4}" y="${y+2}" width="7" height="7"/><use href="#star" class="spark" x="${x+w-12}" y="${y+h-4}" width="6" height="6"/>`;
+    el.appendChild(g);
+  });
+}
+
+function render(){
+  document.querySelectorAll('.view').forEach(v => v.classList.toggle('on', v.id === 'v-' + viewId()));
+  document.querySelectorAll('.hs[data-stage]').forEach(el => el.classList.toggle('off', el.dataset.stage !== ST.key));
+  sparkles();
+  $('where').textContent = ST.rooms[S.room].name;
+  ST.draw(S);
+  const inv = $('inv'); inv.innerHTML = '';
+  for (let i = 0; i < 4; i++){
+    const it = S.inv[i];
+    const b = document.createElement('button');
+    b.className = 'slot';
+    if (it){
+      const def = ST.items[it];
+      b.innerHTML = def.icon;
+      b.setAttribute('aria-label', def.name);
+      b.setAttribute('aria-pressed', S.sel === it ? 'true' : 'false');
+      b.onclick = () => {
+        if (def.note){ S.sel = null; openNote(def.note); render(); return; }
+        if (def.open){ S.sel = null; def.open(); render(); return; }
+        S.sel = S.sel === it ? null : it;
+        if (S.sel) say(`You're holding the ${def.name}. Where should it go?`);
+        render();
+      };
+    } else { b.disabled = true; b.setAttribute('aria-label', 'Empty'); }
+    inv.appendChild(b);
+  }
+}
+function turn(step){
+  const n = ST.rooms[S.room].views.length;
+  S.view = (S.view + step + n) % n;
+  render();
+}
+function place(room, view){ S.room = room; S.view = ST.rooms[room].views.indexOf(view); }
+function act(id){
+  if (!S || S.done) return;
+  const item = S.sel;
+  S.sel = null;
+  if (item && ST.uses[item] !== id){
+    say(`The ${ST.items[item].name} doesn't go there. Try somewhere else!`); render(); return;
+  }
+  if (ST.doors[id]){
+    const [room, view] = ST.doors[id];
+    place(room, view);
+    say(`You go into ${ST.rooms[room].into}.`);
+    render(); return;
+  }
+  ST.act(id, item);
+}
+function finish(){
+  S.done = true;
+  render();
+  $('endText').innerHTML = ST.ending();
+  setTimeout(() => { $('endUI').hidden = false; }, 1200);
+}
+function hint(){
+  if (!S || S.done) return;
+  const i = ST.hints.findIndex(h => !h.goal());
+  S.hint[i] = Math.min((S.hint[i] ?? -1) + 1, 2);
+  if (ST.hintStyle === 'point'){
+    /* For the youngest player the moth points: turn to the thing, make it pulse, say one short line. */
+    const id = ((ST.spark && ST.spark(S)) || [])[0];
+    const el = id && document.querySelector(`.hs[data-id="${id}"]`), view = el && el.closest('.view');
+    if (view){
+      const vid = view.id.slice(2);
+      Object.entries(ST.rooms).forEach(([r, room]) => { const vi = room.views.indexOf(vid); if (vi >= 0 && r === S.room) S.view = vi; });
+      render();
+      document.querySelectorAll('.pointed').forEach(x => x.classList.remove('pointed'));
+      el.classList.add('pointed'); setTimeout(() => el.classList.remove('pointed'), 4500);
+    }
+    const tips = ST.hints[i].tips.filter(Boolean);
+    say(`<b>${ST.hinter || 'The moth points'}:</b> ` + tips[Math.min(S.hint[i], tips.length - 1)]);
+    return;
+  }
+  say(`<b>${ST.hinter || 'The moth whispers'}:</b> ` + ST.hints[i].tips[S.hint[i]]);
+}
+
+/* ---------- screens ---------- */
+function show(screen){
+  ['home','story','game'].forEach(s => $(s).hidden = s !== screen);
+  $('hintBtn').hidden = screen !== 'game';
+  $('backBtn').hidden = screen === 'home';
+  $('backBtn').textContent = 'Back';
+  const save = loadSave();
+  if (screen === 'home'){
+    Object.entries(STORYLINES).forEach(([c, line]) => {
+      const btn = document.querySelector(`.kid[data-k="${c}"]`), sub = btn.querySelector('.sub');
+      const built = line.stages.filter(st => STAGES[st[0]]).length, done = line.stages.filter(st => (save[c] || {})[st[0]]).length;
+      const age = {mary:10, elliot:7, zaina:4}[c];
+      btn.disabled = !built;
+      sub.textContent = built ? `Age ${age} \u00b7 ${done} of ${line.stages.length} stages done` : `Age ${age} \u00b7 Coming soon`;
+    });
+  }
+  if (screen === 'story'){
+    const line = STORYLINES[currentChild], got = save[currentChild] || {};
+    $('storyTitle').textContent = line.name; $('story').dataset.child = currentChild;
+    $('storyPortrait').setAttribute('href', '#' + line.portrait);
+    $('stageList').innerHTML = line.stages.map(([key, title, place], i) => {
+      const built = !!STAGES[key];
+      return `<button class="stagebtn" data-stage="${key}" ${built ? '' : 'disabled'}><span class="badge">${i+1}</span><b>${title}</b><span class="sub" data-sub="${key}">${!built ? 'Coming soon' : (got[key] ? 'Done \u2713 \u00b7 Play again' : place)}</span></button>`;
+    }).join('');
+    $('stageList').querySelectorAll('.stagebtn[data-stage]').forEach(b => b.onclick = () => startStage(b.dataset.stage));
+  }
+}
+function startStage(key){
+  ST = STAGES[key]; currentChild = childOf(key) || currentChild;
+  S = Object.assign({room:null, view:0, inv:[], sel:null, done:false, hint:{}}, ST.fresh());
+  place(...ST.start);
+  document.querySelectorAll('.overlay').forEach(o => o.hidden = true);
+  show('game');
+  say(ST.intro);
+  render();
+}
+
+document.querySelectorAll('.hs').forEach(el => {
+  el.addEventListener('click', () => act(el.dataset.id));
+  el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); act(el.dataset.id); } });
+});
+document.querySelectorAll('[data-close]').forEach(b => b.onclick = () => { b.closest('.overlay').hidden = true; });
+$('left').onclick = () => turn(-1);
+$('right').onclick = () => turn(1);
+document.addEventListener('keydown', e => {
+  if ($('game').hidden || e.target.closest('.hs') || e.target.closest('.overlay')) return;
+  if (e.key === 'ArrowLeft') turn(-1);
+  if (e.key === 'ArrowRight') turn(1);
+});
+$('hintBtn').onclick = hint;
+$('backBtn').onclick = () => show($('game').hidden ? 'home' : 'story');
+$('endBack').onclick = () => show('story');
+$('aboutBtn').onclick = () => { $('aboutBox').hidden = !$('aboutBox').hidden; };
+/* the intro plays once per device; Skip or a tap at the end closes it */
+const INTRO_KEY = 'mothhouse.intro.v1';
+let introTimer = null, introDone = false;
+function playIntro(){
+  const box = $('intro');
+  box.hidden = false; introDone = false;
+  const svg = box.querySelector('svg'); svg.replaceWith(svg.cloneNode(true));
+  clearTimeout(introTimer);
+  introTimer = setTimeout(() => { introDone = true; }, 9600);
+}
+function endIntro(){
+  clearTimeout(introTimer);
+  $('intro').hidden = true;
+  try { localStorage.setItem(INTRO_KEY, '1'); } catch(e){}
+}
+$('skipIntro').onclick = e => { e.stopPropagation(); endIntro(); };
+$('intro').onclick = () => { if (introDone) endIntro(); };
+$('replayIntro').onclick = playIntro;
+let seenIntro = false; try { seenIntro = !!localStorage.getItem(INTRO_KEY); } catch(e){}
+if (!seenIntro && !matchMedia('(prefers-reduced-motion: reduce)').matches) playIntro();
+document.querySelectorAll('.kid[data-k]').forEach(b => b.onclick = () => { currentChild = b.dataset.k; show('story'); });
+show('home');
+</script>
+</body>
+</html>

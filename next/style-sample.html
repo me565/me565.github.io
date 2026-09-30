@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Style sample: classroom 5H</title>
+<link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Atkinson+Hyperlegible:wght@400;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#edf1e7;--ink:#1d2629;--muted:#55635d;--slot:#dde4d6;--accent:#c98320}
+html{height:100%;overflow:hidden}
+*{box-sizing:border-box}
+body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:"Atkinson Hyperlegible",Verdana,"Segoe UI",sans-serif}
+main{height:100%;max-width:clamp(460px,calc((100dvh - 230px) * .75 + 32px),640px);margin:0 auto;padding:6px 16px 10px;display:flex;flex-direction:column}
+header{flex:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
+h1{font-family:Caprasimo,"Cooper Black",Georgia,serif;font-weight:400;font-size:clamp(1.1rem,4dvh,1.6rem);margin:4px 0 6px;line-height:1.1;white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.hbtns{display:flex;gap:4px;align-items:center}
+.link{background:none;border:0;color:var(--muted);font:inherit;font-size:.95rem;padding:8px 4px;min-height:44px}
+.hint{display:flex;align-items:center;gap:6px;background:none;border:1px solid var(--accent);color:var(--ink);border-radius:999px;font:inherit;font-size:.9rem;padding:4px 12px 4px 6px;min-height:40px}
+.hint svg{width:30px;height:20px}
+.stagebox{flex:1 1 0;min-height:0;container-type:size;display:flex;justify-content:center;align-items:center}
+.stage{width:min(100cqw,75cqh);aspect-ratio:3/4;position:relative;border-radius:10px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.15),0 10px 30px -14px rgba(0,0,0,.4)}
+.stage>svg{display:block;width:100%;height:auto}
+.nav{position:absolute;bottom:10px;width:44px;height:54px;border:0;border-radius:12px;background:rgba(255,253,248,.6);color:#1d2629;display:grid;place-items:center;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.nav svg{width:22px;height:22px}
+#left{left:6px} #right{right:6px}
+.where{position:absolute;top:8px;left:8px;background:rgba(255,253,248,.82);color:#1d2629;border-radius:999px;padding:3px 10px;font-size:clamp(11px,3.4cqw,14px);font-weight:700}
+.panel{flex:none}
+.msg{height:4.2em;overflow:hidden;margin:8px 2px;font-size:clamp(.92rem,2.3dvh,1.05rem);line-height:1.4}
+.inv{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.slot{height:clamp(48px,8.5dvh,80px);background:var(--slot);border:0;border-radius:10px;display:grid;place-items:center;padding:6px}
+.slot svg{width:100%;height:100%}
+.o{stroke:#2b2836;stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round}
+.t{stroke:#2b2836;stroke-width:1.1;stroke-linejoin:round;stroke-linecap:round}
+.lbl{font-family:"Atkinson Hyperlegible",Verdana,sans-serif}
+.hand{font-family:Caveat,"Comic Sans MS",cursive}
+/* things you can tap breathe gently; the key item sparkles */
+.glow{fill:#ffd977;opacity:0;animation:breathe 2.8s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:0}50%{opacity:.42}}
+.spark{fill:#fff2b0;stroke:#e0a020;stroke-width:.6;transform-box:fill-box;transform-origin:center;animation:twinkle 1.8s ease-in-out infinite}
+.spark:nth-child(2){animation-delay:.6s}.spark:nth-child(3){animation-delay:1.2s}
+@keyframes twinkle{0%,100%{transform:scale(.4);opacity:.2}50%{transform:scale(1.15);opacity:1}}
+.bubble{animation:bob 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@media (prefers-reduced-motion:reduce){.glow{animation:none;opacity:.4}.spark,.bubble{animation:none}}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <h1>The Moth House</h1>
+  <div class="hbtns">
+    <button class="hint" aria-label="Ask the moth for a hint"><svg viewBox="-14 -10 28 20" aria-hidden="true"><path d="M0 0C-4-9-13-9-13-2-13 3-5 3 0 0Z" fill="#f0b44c"/><path d="M0 0C4-9 13-9 13-2 13 3 5 3 0 0Z" fill="#f0b44c"/><path d="M0 1C-3 7-9 8-9 4-9 1-4 1 0 1Z" fill="#e9b98a"/><path d="M0 1C3 7 9 8 9 4 9 1 4 1 0 1Z" fill="#e9b98a"/><ellipse cx="0" cy="1" rx="1.3" ry="5" fill="#2b3431"/></svg>Hint</button>
+    <button class="link">Mary’s story</button>
+  </div>
+</header>
+
+<div class="stagebox">
+<div class="stage">
+<svg viewBox="0 0 360 480" aria-label="Classroom 5H, facing the timetable and Mary's desk">
+<defs>
+  <linearGradient id="backWall" x1="0" x2="1"><stop offset="0" stop-color="#f4f1e3"/><stop offset="1" stop-color="#e1e3d5"/></linearGradient>
+  <linearGradient id="leftWall" x1="0" x2="1"><stop offset="0" stop-color="#c3c7ba"/><stop offset="1" stop-color="#d3d6c8"/></linearGradient>
+  <linearGradient id="rightWall" x1="0" x2="1"><stop offset="0" stop-color="#ecebdd"/><stop offset="1" stop-color="#dcdccd"/></linearGradient>
+  <linearGradient id="ceiling" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f9f7ee"/><stop offset="1" stop-color="#ece9dc"/></linearGradient>
+  <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9ad86"/><stop offset="1" stop-color="#ad8e66"/></linearGradient>
+  <linearGradient id="deskTop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2e3bd"/><stop offset="1" stop-color="#e2cd9c"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="75%"><stop offset=".55" stop-color="#1f1b33" stop-opacity="0"/><stop offset="1" stop-color="#1f1b33" stop-opacity=".4"/></radialGradient>
+  <radialGradient id="lampGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff6d6" stop-opacity=".9"/><stop offset="1" stop-color="#fff6d6" stop-opacity="0"/></radialGradient>
+  <filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 .1  0 0 0 0 .08  0 0 0 0 .12  0 0 0 .55 0"/></filter>
+  <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="1.5" dy="3" stdDeviation="2.2" flood-color="#2b2836" flood-opacity=".28"/></filter>
+  <filter id="blur6"><feGaussianBlur stdDeviation="6"/></filter>
+  <filter id="blur3"><feGaussianBlur stdDeviation="3"/></filter>
+  <!-- subject icons for the timetable -->
+  <symbol id="i-ar" viewBox="0 0 12 12"><path d="M1.5 10.5 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M6.5 2.5c1-1.5 3.5-1.5 4 0s-.5 3.5-2 3.5S5.5 4 6.5 2.5Z" fill="currentColor"/></symbol>
+  <symbol id="i-mu" viewBox="0 0 12 12"><circle cx="4" cy="9" r="2.4" fill="currentColor"/><path d="M6.2 9V1.5l4 1.5v2l-4-1.5" fill="currentColor"/><path d="M6.2 9V1.5" stroke="currentColor" stroke-width="1.4"/></symbol>
+  <symbol id="i-pe" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M6 3.6l2.2 1.6-.8 2.6H4.6l-.8-2.6Z" fill="currentColor"/><path d="M6 1v2.6M1.2 5.2l2.6 0M10.8 5.2l-2.6 0M3.2 10.4l1.4-2.6M8.8 10.4 7.4 7.8" stroke="currentColor" stroke-width="1"/></symbol>
+  <symbol id="i-sc" viewBox="0 0 12 12"><path d="M4.5 1h3M5 1v3.5L2 10a1 1 0 0 0 .9 1.5h6.2A1 1 0 0 0 10 10L7 4.5V1" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M3.4 8.5h5.2L9.3 10.3H2.7Z" fill="currentColor"/></symbol>
+  <symbol id="i-ma" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-en" viewBox="0 0 12 12"><path d="M2.5 9.5 3.5 6.5 8.5 1.5l2 2-5 5Z" fill="currentColor"/><path d="M2.5 9.5l1-3 2 2Z" fill="#fffdf6"/></symbol>
+  <symbol id="i-ge" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/><ellipse cx="6" cy="6" rx="2.2" ry="5" fill="none" stroke="currentColor" stroke-width="1"/><path d="M1 6h10" stroke="currentColor" stroke-width="1"/></symbol>
+  <symbol id="i-li" viewBox="0 0 12 12"><rect x="1.5" y="8" width="9" height="2.6" rx=".6" fill="currentColor"/><rect x="2.5" y="4.8" width="8" height="2.6" rx=".6" fill="currentColor" opacity=".75"/><rect x="1.8" y="1.6" width="7" height="2.6" rx=".6" fill="currentColor" opacity=".5"/></symbol>
+  <symbol id="star" viewBox="0 0 10 10"><path d="M5 0 6 4 10 5 6 6 5 10 4 6 0 5 4 4Z"/></symbol>
+</defs>
+
+<!-- the box of the room: eye level a little lower now, so the floor is a band, not a field -->
+<polygon points="0,0 360,0 360,21 320,62 40,62 0,21" fill="url(#ceiling)"/>
+<polygon points="0,21 40,62 40,360 0,404" fill="url(#leftWall)"/>
+<polygon points="360,21 320,62 320,360 360,404" fill="url(#rightWall)"/>
+<rect x="40" y="62" width="280" height="298" fill="url(#backWall)"/>
+<rect x="40" y="272" width="280" height="4" fill="#d8d6c3" opacity=".8"/>
+<polygon points="0,404 40,360 320,360 360,404 360,480 0,480" fill="url(#floor)"/>
+<g stroke="#8f7350" stroke-width="1" opacity=".5"><line x1="110" y1="360" x2="56" y2="480"/><line x1="145" y1="360" x2="118" y2="480"/><line x1="180" y1="360" x2="180" y2="480"/><line x1="215" y1="360" x2="242" y2="480"/><line x1="250" y1="360" x2="304" y2="480"/><line x1="75" y1="360" x2="-6" y2="480"/><line x1="285" y1="360" x2="366" y2="480"/></g>
+<g stroke="#8f7350" stroke-width=".8" opacity=".35"><line x1="0" y1="382" x2="360" y2="382"/><line x1="0" y1="412" x2="360" y2="412"/><line x1="0" y1="450" x2="360" y2="450"/></g>
+<!-- afternoon sun through the window on the left -->
+<g filter="url(#blur6)" opacity=".36"><polygon points="24,410 96,380 214,398 170,478 60,480" fill="#fff1bd"/></g>
+<polygon points="40,62 40,360 66,346 66,96" fill="#fff1bd" opacity=".14"/>
+
+<!-- skirting and room edges -->
+<polygon points="0,396 40,352 40,360 0,404" fill="#b6ad9b" class="t"/>
+<rect x="40" y="352" width="280" height="8" fill="#c5bca8" class="t"/>
+<polygon points="360,396 320,352 320,360 360,404" fill="#aaa290" class="t"/>
+<g fill="none" stroke="#2b2836" stroke-width="1.6" stroke-linejoin="round"><polyline points="0,21 40,62 320,62 360,21"/><line x1="40" y1="62" x2="40" y2="360"/><line x1="320" y1="62" x2="320" y2="360"/><polyline points="0,404 40,360 320,360 360,404"/></g>
+
+<!-- strip light -->
+<ellipse cx="180" cy="26" rx="90" ry="22" fill="url(#lampGlow)"/>
+<rect x="118" y="12" width="124" height="14" rx="5" fill="#fffdf4" class="o"/><rect x="124" y="16" width="112" height="5" rx="2" fill="#fff6c8"/>
+
+<!-- side-wall posters, angled gently so they read; in the game they zoom when tapped -->
+<g filter="url(#soft)">
+  <polygon points="6,146 36,156 36,238 6,248" fill="#fff9e8" class="o"/>
+  <polygon points="6,146 36,156 36,168 6,158" fill="#d0602f"/>
+  <text transform="matrix(1 .33 0 1 10 159)" font-size="5.6" font-weight="700" fill="#fffdf6" class="lbl">RULES</text>
+  <g stroke="#9aa5ab" stroke-width="1.4" stroke-linecap="round"><line x1="10" y1="182" x2="32" y2="189"/><line x1="10" y1="196" x2="32" y2="203"/><line x1="10" y1="210" x2="26" y2="215"/><line x1="10" y1="224" x2="30" y2="230"/></g>
+</g>
+<g filter="url(#soft)">
+  <polygon points="324,156 354,146 354,228 324,238" fill="#dbe9f0" class="o"/>
+  <path d="M330 184c6-8 12-2 18-8s8 10 4 16-10 2-14 8-10-2-10-8 0-6 2-8Z" fill="#7fae74" class="t"/>
+  <circle cx="345" cy="205" r="2.4" fill="#d0602f" class="t"/>
+  <text transform="matrix(1 -.33 0 1 331 166)" font-size="5.6" font-weight="700" fill="#3b5b78" class="lbl">MAP</text>
+</g>
+
+<!-- the class's paintings, pegged on a string -->
+<path d="M44 74Q160 90 262 74" fill="none" stroke="#8a6440" stroke-width="1.4"/>
+<g filter="url(#soft)">
+  <g><ellipse class="glow" cx="153" cy="100" rx="120" ry="24" filter="url(#blur6)"/></g>
+  <!-- house -->
+  <g transform="rotate(-3 68 100)"><rect x="52" y="84" width="34" height="30" fill="#fffdf6" class="t"/><path d="M58 104V96l11-8 11 8v8Z" fill="#e0a84a" class="t"/><rect x="66" y="98" width="6" height="6" fill="#3b78b8"/><circle cx="80" cy="90" r="3" fill="#f5d76e"/></g>
+  <!-- sun and flower -->
+  <g transform="rotate(2 118 100)"><rect x="101" y="85" width="34" height="30" fill="#fffdf6" class="t"/><circle cx="110" cy="93" r="4" fill="#f5d76e"/><circle cx="125" cy="103" r="4" fill="#d0602f"/><circle cx="125" cy="103" r="1.6" fill="#f5d76e"/><path d="M125 107v6" stroke="#4d8a4f" stroke-width="1.4"/></g>
+  <!-- cat -->
+  <g transform="rotate(-2 168 100)"><rect x="151" y="86" width="34" height="30" fill="#fffdf6" class="t"/><ellipse cx="168" cy="106" rx="8" ry="5" fill="#8a6440"/><circle cx="168" cy="97" r="5" fill="#8a6440"/><path d="M164 94l-1-4 3 2M172 94l1-4-3 2" fill="#8a6440"/><circle cx="166" cy="97" r=".8" fill="#fffdf6"/><circle cx="170" cy="97" r=".8" fill="#fffdf6"/></g>
+  <!-- rocket -->
+  <g transform="rotate(3 218 100)"><rect x="201" y="85" width="34" height="30" fill="#fffdf6" class="t"/><path d="M218 88l5 10v8h-10v-8Z" fill="#7a5cc2"/><path d="M213 106l-3 4h6M223 106l3 4h-6" fill="#d0602f"/><circle cx="218" cy="97" r="2" fill="#bfe0ea"/><path d="M216 110l2 4 2-4" fill="#f0b44c"/></g>
+  <g fill="#c9a24a"><rect x="66" y="78" width="4" height="9" rx="1.5" class="t"/><rect x="116" y="80" width="4" height="9" rx="1.5" class="t"/><rect x="166" y="81" width="4" height="9" rx="1.5" class="t"/><rect x="216" y="80" width="4" height="9" rx="1.5" class="t"/></g>
+</g>
+
+<!-- clock: twenty to three, the last bell is at three -->
+<g filter="url(#soft)">
+  <circle cx="296" cy="104" r="20" fill="#fffdf6" class="o"/>
+  <circle cx="296" cy="104" r="16.5" fill="none" stroke="#cfc8b4" stroke-width="1"/>
+  <g stroke="#2b2836" stroke-width="1.5" stroke-linecap="round"><line x1="296" y1="90" x2="296" y2="93"/><line x1="310" y1="104" x2="307" y2="104"/><line x1="296" y1="118" x2="296" y2="115"/><line x1="282" y1="104" x2="285" y2="104"/></g>
+  <line x1="296" y1="104" x2="304" y2="99" stroke="#2b2836" stroke-width="2.4" stroke-linecap="round"/>
+  <line x1="296" y1="104" x2="285" y2="110" stroke="#2b2836" stroke-width="1.6" stroke-linecap="round"/>
+  <circle cx="296" cy="104" r="1.8" fill="#d0602f"/>
+</g>
+
+<!-- the class timetable, now with a picture per subject -->
+<g filter="url(#soft)">
+  <ellipse class="glow" cx="151" cy="187" rx="110" ry="74" filter="url(#blur6)"/>
+  <rect x="52" y="122" width="198" height="130" fill="#fffdf6" class="o"/>
+  <rect x="52" y="122" width="198" height="20" fill="#2f7c83" class="o"/>
+  <text x="151" y="136" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fffdf6" class="lbl" letter-spacing="1">5H TIMETABLE</text>
+  <g id="grid"></g>
+  <circle cx="57" cy="127" r="3" fill="#d0602f" class="t"/><circle cx="245" cy="127" r="3" fill="#3b78b8" class="t"/>
+</g>
+
+<!-- bookshelf under the timetable -->
+<g>
+  <ellipse class="glow" cx="82" cy="316" rx="46" ry="40" filter="url(#blur6)"/>
+  <rect x="46" y="266" width="72" height="94" fill="#a8744a" class="o"/>
+  <rect x="50" y="270" width="64" height="86" fill="#8a6440"/>
+  <g><rect x="53" y="276" width="9" height="24" fill="#3b78b8" class="t"/><rect x="63" y="279" width="7" height="21" fill="#d0602f" class="t"/><rect x="71" y="274" width="10" height="26" fill="#f0b44c" class="t"/><rect x="82" y="280" width="8" height="20" fill="#7a5cc2" class="t"/><rect x="91" y="277" width="9" height="23" fill="#3a8f5c" class="t"/><rect x="101" y="282" width="10" height="18" fill="#c4589a" class="t"/></g>
+  <rect x="50" y="300" width="64" height="4" fill="#a8744a"/>
+  <g><rect x="53" y="308" width="12" height="22" fill="#2f7c83" class="t"/><rect x="66" y="312" width="8" height="18" fill="#d9a622" class="t"/><rect x="75" y="306" width="9" height="24" fill="#d0602f" class="t"/><rect x="86" y="314" width="24" height="16" fill="#e8dcc6" class="t"/><path d="M90 318h16M90 322h12" stroke="#9aa5ab" stroke-width="1.2"/></g>
+  <rect x="50" y="330" width="64" height="4" fill="#a8744a"/>
+  <g><rect x="53" y="338" width="20" height="18" fill="#7fb5c9" class="t"/><rect x="75" y="338" width="20" height="18" fill="#b09ae8" class="t"/><rect x="97" y="338" width="14" height="18" fill="#f5d76e" class="t"/></g>
+</g>
+
+<!-- cabinet with the class hamster on top -->
+<g>
+  <ellipse class="glow" cx="289" cy="250" rx="42" ry="34" filter="url(#blur6)"/>
+  <rect x="256" y="282" width="64" height="78" fill="#7fb5c9" class="o"/>
+  <rect x="256" y="278" width="64" height="6" fill="#a9d0de" class="t"/>
+  <rect x="262" y="292" width="52" height="28" rx="2" fill="#6aa3b8" class="t"/><rect x="262" y="326" width="52" height="28" rx="2" fill="#6aa3b8" class="t"/>
+  <rect x="284" y="303" width="8" height="5" rx="2" fill="#fffdf6" class="t"/><rect x="284" y="337" width="8" height="5" rx="2" fill="#fffdf6" class="t"/>
+  <!-- cage -->
+  <rect x="260" y="270" width="58" height="8" rx="2" fill="#5b6f7a" class="t"/>
+  <rect x="262" y="228" width="54" height="44" rx="3" fill="#eef5f7" opacity=".5"/>
+  <g stroke="#7a8794" stroke-width="1"><line x1="268" y1="228" x2="268" y2="270"/><line x1="276" y1="228" x2="276" y2="270"/><line x1="284" y1="228" x2="284" y2="270"/><line x1="292" y1="228" x2="292" y2="270"/><line x1="300" y1="228" x2="300" y2="270"/><line x1="308" y1="228" x2="308" y2="270"/></g>
+  <rect x="262" y="228" width="54" height="44" rx="3" fill="none" class="o"/>
+  <rect x="262" y="262" width="54" height="10" fill="#d9c69a" class="t"/>
+  <circle cx="304" cy="248" r="10" fill="none" stroke="#c9a24a" stroke-width="2.4"/><line x1="304" y1="238" x2="304" y2="258" stroke="#c9a24a" stroke-width="1.4"/><line x1="294" y1="248" x2="314" y2="248" stroke="#c9a24a" stroke-width="1.4"/>
+  <rect x="266" y="234" width="5" height="12" rx="2" fill="#bfe0ea" class="t"/>
+  <!-- Nutmeg -->
+  <ellipse cx="281" cy="258" rx="9" ry="6.5" fill="#e0a84a" class="t"/>
+  <circle cx="288" cy="255" r="4.6" fill="#e0a84a" class="t"/>
+  <circle cx="286" cy="251" r="1.8" fill="#f2c89a" class="t"/><circle cx="291" cy="251" r="1.8" fill="#f2c89a" class="t"/>
+  <circle cx="289.5" cy="255" r=".9" fill="#2b2836"/><circle cx="292.5" cy="256.5" r=".8" fill="#d97a8a"/>
+  <ellipse cx="279" cy="260" rx="4" ry="2.5" fill="#fff3d6"/>
+  <!-- Nutmeg has something to say -->
+  <g class="bubble"><path d="M272 214h20a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4h-9l-5 5v-5h-6a4 4 0 0 1-4-4v-8a4 4 0 0 1 4-4Z" fill="#fffdf6" class="t"/><text x="282" y="226" text-anchor="middle" font-size="10" font-weight="700" fill="#c98320" class="lbl">?</text></g>
+</g>
+
+<!-- a plant by the cabinet -->
+<g transform="translate(-34 0)">
+  <ellipse cx="330" cy="454" rx="20" ry="4" fill="#2b2836" opacity=".18" filter="url(#blur3)"/>
+  <path d="M316 420h30l-4 32h-22Z" fill="#c9755a" class="o"/><rect x="314" y="416" width="34" height="7" rx="2" fill="#d98a6e" class="t"/>
+  <g fill="#4d8a4f" class="t"><path d="M330 418c-24-10-30-40-16-58 6 22 12 40 16 58Z"/><path d="M331 418c8-24 22-40 36-44-8 20-20 34-36 44Z"/><path d="M330 418c-16-6-30-8-38-4 10 8 24 10 38 4Z"/><path d="M331 418c2-20 10-34 20-40-2 16-8 30-20 40Z" fill="#6fa36a"/></g>
+</g>
+
+<!-- chair back -->
+<g><rect x="152" y="270" width="56" height="52" rx="8" fill="#3f8f96" class="o"/><rect x="160" y="286" width="40" height="8" rx="3" fill="#2f7c83"/><rect x="152" y="270" width="56" height="12" rx="6" fill="#4c9ea6"/></g>
+
+<!-- Mary's desk -->
+<ellipse cx="180" cy="458" rx="112" ry="12" fill="#2b2836" opacity=".16" filter="url(#blur6)"/>
+<g>
+  <rect x="106" y="368" width="6" height="62" fill="#6f7c88" class="t"/><rect x="248" y="368" width="6" height="62" fill="#6f7c88" class="t"/>
+  <rect x="156" y="368" width="5" height="52" fill="#8a97a3" class="t"/><rect x="199" y="368" width="5" height="52" fill="#8a97a3" class="t"/>
+  <polygon points="100,318 260,318 276,356 84,356" fill="url(#deskTop)" stroke="#2b2836" stroke-width="2.2" stroke-linejoin="round"/>
+  <rect x="84" y="356" width="192" height="12" fill="#c9ad7a" stroke="#2b2836" stroke-width="2.2" stroke-linejoin="round"/>
+  <polygon points="100,318 260,318 258,322 102,322" fill="#fff8df" opacity=".8"/>
+  <rect x="88" y="368" width="8" height="84" fill="#7a8794" class="o"/><rect x="264" y="368" width="8" height="84" fill="#7a8794" class="o"/>
+  <rect x="88" y="368" width="3" height="84" fill="#9aa7b3"/><rect x="264" y="368" width="3" height="84" fill="#9aa7b3"/>
+</g>
+<!-- things on the desk -->
+<g>
+  <rect x="108" y="330" width="48" height="20" rx="7" fill="#7a5cc2" class="o"/><rect x="108" y="330" width="48" height="8" rx="6" fill="#9a80dc"/>
+  <line x1="114" y1="338" x2="150" y2="338" stroke="#e9e2f5" stroke-width="1.6" stroke-dasharray="2 1.5"/><circle cx="150" cy="338" r="2.4" fill="#f0b44c" class="t"/>
+  <g><line x1="174" y1="298" x2="172" y2="322" stroke="#d0602f" stroke-width="3.2" stroke-linecap="round"/><line x1="180" y1="296" x2="180" y2="322" stroke="#f0b44c" stroke-width="3.2" stroke-linecap="round"/><line x1="186" y1="300" x2="188" y2="322" stroke="#3b78b8" stroke-width="3.2" stroke-linecap="round"/><rect x="166" y="320" width="28" height="26" rx="3" fill="#2f7c83" class="o"/><ellipse cx="180" cy="320" rx="14" ry="4" fill="#3f8f96" class="t"/><rect x="166" y="320" width="6" height="26" rx="3" fill="#4c9ea6" opacity=".7"/></g>
+  <!-- the envelope: the thing to tap first -->
+  <g>
+    <ellipse class="glow" cx="226" cy="340" rx="40" ry="22" filter="url(#blur6)"/>
+    <g transform="rotate(-7 226 340)" filter="url(#soft)"><rect x="200" y="326" width="54" height="30" rx="2" fill="#fff9e8" class="o"/><polyline points="200,326 227,346 254,326" fill="none" class="t"/><line x1="200" y1="356" x2="220" y2="342" class="t"/><line x1="254" y1="356" x2="234" y2="342" class="t"/><text x="227" y="354" text-anchor="middle" font-size="9" fill="#6d4fb8" class="hand" font-weight="700">Mary</text></g>
+    <g><use href="#star" class="spark" x="252" y="314" width="9" height="9"/><use href="#star" class="spark" x="194" y="320" width="7" height="7"/><use href="#star" class="spark" x="244" y="352" width="6" height="6"/></g>
+  </g>
+</g>
+
+<!-- schoolbag, leaning on the desk leg where it is easy to reach -->
+<ellipse cx="90" cy="458" rx="36" ry="6" fill="#2b2836" opacity=".18" filter="url(#blur6)"/>
+<g transform="translate(24 0)">
+  <ellipse class="glow" cx="66" cy="418" rx="40" ry="44" filter="url(#blur6)"/>
+  <path d="M38 394c0-14 10-22 28-22s28 8 28 22v50a6 6 0 0 1-6 6H44a6 6 0 0 1-6-6Z" fill="#7a5cc2" class="o"/>
+  <path d="M40 400h52v16H40Z" fill="#9a80dc"/>
+  <path d="M46 418h40v24H46Z" fill="#6d4fb8" class="t"/>
+  <path d="M56 372c2-9 18-9 20 0" fill="none" class="o"/>
+  <circle cx="66" cy="430" r="3.4" fill="#f0b44c" class="t"/>
+  <path d="M38 394c-7 10-7 34 0 46" fill="none" class="t"/>
+  <path d="M60 428c4-2 8-2 12 0" fill="none" stroke="#e9e2f5" stroke-width="1.4" stroke-dasharray="2 1.5"/>
+</g>
+
+<!-- paper grain and vignette -->
+<rect width="360" height="480" filter="url(#grain)" opacity=".2" style="mix-blend-mode:multiply"/>
+<rect width="360" height="480" fill="url(#vig)"/>
+</svg>
+<span class="where">Classroom 5H</span>
+<button class="nav" id="left" aria-label="Turn left"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<button class="nav" id="right" aria-label="Turn right"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 4 8 8-8 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+</div>
+
+<div class="panel">
+  <p class="msg"><b>Last day of school.</b> Everyone is at the party, but Mr Hollis has left something on your desk. Nutmeg looks like he knows something.</p>
+  <div class="inv" aria-label="Things you are carrying">
+    <div class="slot"><svg viewBox="0 0 40 40"><rect x="5" y="10" width="30" height="20" rx="2" fill="#fffdf8" stroke="#c9a24a" stroke-width="2"/><path d="M6 11 20 22 34 11" fill="none" stroke="#c9a24a" stroke-width="2"/></svg></div>
+    <div class="slot"></div><div class="slot"></div><div class="slot"></div>
+  </div>
+</div>
+</main>
+<script>
+// subject → icon and colour
+const SUB = {Ma:['i-ma','#2f7c83'], En:['i-en','#d9a622'], Sc:['i-sc','#3b78b8'], Mu:['i-mu','#7a5cc2'], Ar:['i-ar','#d0602f'], PE:['i-pe','#27794c'], Ge:['i-ge','#a8744a'], Li:['i-li','#c4589a']};
+const T = {Mon:['En','Ma','Sc','Ar','PE','Mu'],Tue:['Ma','En','Mu','Ge','Sc','Li'],Wed:['Sc','Ma','En','PE','Mu','Ar'],Thu:['En','Ar','Ma','Sc','Li','PE'],Fri:['Ma','Mu','Ar','En','PE','Sc']};
+let s = '';
+const x0 = 60, y0 = 148, dayW = 30, cw = 26, rh = 17, ic = 13;
+[1,2,3,4,5,6].forEach((n,i) => s += `<text x="${x0+dayW+cw*i+cw/2}" y="${y0+9}" text-anchor="middle" font-size="8" font-weight="700" fill="#2f7c83" class="lbl">${n}</text>`);
+Object.entries(T).forEach(([d,row],r) => {
+  const y = y0 + 12 + r*rh;
+  s += `<rect x="${x0}" y="${y}" width="${dayW+cw*6}" height="${rh}" fill="${r%2?'#eef3ee':'#f7f9f3'}" stroke="#cfc8b4" stroke-width=".6"/>`;
+  s += `<text x="${x0+4}" y="${y+11.5}" font-size="8" font-weight="700" fill="#2b2836" class="lbl">${d}</text>`;
+  row.forEach((c,i) => { const [id,col] = SUB[c]; s += `<use href="#${id}" x="${x0+dayW+cw*i+(cw-ic)/2}" y="${y+(rh-ic)/2}" width="${ic}" height="${ic}" style="color:${col}"/>`; });
+});
+document.getElementById('grid').innerHTML = s;
+</script>
+</body>
+</html>
