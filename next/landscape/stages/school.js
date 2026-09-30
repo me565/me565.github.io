@@ -122,7 +122,7 @@ const HOTS = {
     {id:'l_window', l:33, t:19, w:34, h:46, label:'Library window', sound:'tap'},
     {id:'l_cushions', l:35, t:57, w:14, h:11, label:'Cushions on the window seat', sound:'leaf', anim:'plump', layer:'cushions'},
     {id:'l_seat', l:32, t:66, w:36, h:18, label:'Window seat', sound:'knock'},
-    {id:'l_knit', l:77.5, t:67, w:6, h:11.5, label:'Knitted hamster on the chair', sound:'squeak', anim:'wobble', layer:'knit'},
+    {id:'l_knit', l:77.2, t:65.5, w:6, h:11.5, label:'Knitted hamster on the chair', sound:'squeak', anim:'wobble', layer:'knit'},
     {id:'l_chair', l:66, t:56, w:22, h:37, label:'Storytime chair', sound:'knock'},
     {id:'l_rug', l:52, t:85, w:37, h:12, label:'Rug', sound:'leaf'}],
   ls:[
@@ -134,7 +134,7 @@ const HOTS = {
   lw:[
     {id:'l_shelfArt', l:4, t:28, w:25, h:66, label:'Art shelf', sound:'paper'},
     {id:'l_notice', l:43.5, t:32, w:12, h:28, label:'Notice about the trolley', sound:'paper'},
-    {id:'l_trolley', l:51, t:66, w:15, h:28, label:'Returns trolley', sound:'knock', anim:'roll', layer:'trolley'},
+    {id:'l_trolley', l:51, t:69.5, w:15, h:28, label:'Returns trolley', sound:'knock', anim:'roll', layer:'trolley'},
     {id:'l_shelfSto', l:72, t:28, w:25, h:66, label:'Stories shelf', sound:'paper'}]
 };
 /* Cut-out layers drawn over each wall: the wall pictures have these things removed, so the cut-out is the only copy.
@@ -195,9 +195,9 @@ const LAYERS = {
     {src:'../art/school/layer-sticky.png', l:83.6, t:46, w:2.6, h:4.7}],
   le:[
     {src:'../art/school/layer-cushions.png', group:'cushions', l:36, t:58.5, w:12, h:9.05, shadow:.5},
-    {src:'../art/school/layer-knithamster.png', group:'knit', l:78.6, t:68.2, w:3.4, h:8.71, shadow:.6}],
+    {src:'../art/school/layer-knithamster.png', group:'knit', l:78.4, t:66.7, w:3.4, h:8.71, shadow:.85} /* sat back on the seat, not on its front edge */],
   ls:[{src:'../art/school/layer-bell.png', group:'bell', l:65, t:59.5, w:4, h:5.85, shadow:.6}],
-  lw:[{src:'../art/school/layer-trolley.png', group:'trolley', l:52, t:69, w:13, h:24, shadow:.7}]
+  lw:[{src:'../art/school/layer-trolley.png', group:'trolley', l:52, t:72.6, w:13, h:24, shadow:.8}] /* wheels on the floor, in front of the skirting */
 };
 
 /* close-up pictures that belong to a room, loaded with it */
