@@ -11,6 +11,7 @@ for (const st of ['school', 'packing', 'eschool', 'zschool']){
   Object.entries(s.notes).forEach(([k, n]) => out[`${st}.note.${k}`] = strip(n.html));
   if (s.card) out[`${st}.card`] = s.card.text;
   if (s.meanwhile) out[`${st}.meanwhile`] = s.meanwhile;
+  if (s.comic) s.comic.forEach((pg, pi) => pg.lines.forEach((l, li) => out[`${st}.comic.${pi}.${li}`] = Array.isArray(l) ? l[0] : l));
   out[`${st}.intro`] = strip(s.intro);
   if (s.lines) Object.entries(s.lines).forEach(([k, t]) => out[`${st}.line.${k}`] = t); /* a stage where every tap line is spoken (Zaina's) */
   const m = src.match(/showEnd\('([^']*)',\s*'([^']*)'/); if (m) out[`${st}.postcard`] = m[2];

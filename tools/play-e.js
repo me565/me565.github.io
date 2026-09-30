@@ -3,7 +3,7 @@ const { chromium } = require('playwright');
   const b = await chromium.launch({executablePath:'/opt/pw-browsers/chromium'});
   const p = await b.newPage({viewport:{width:1180,height:820}});
   const errors = []; p.on('pageerror', e => errors.push(e.message)); p.on('console', m => { if (m.type()==='error' && !/CERT|google|net::|voice\//.test(m.text())) errors.push(m.text()); });
-  await p.goto('http://localhost:8765/next/landscape/?stage=eschool', {waitUntil:'networkidle'}); await p.evaluate(() => { try{ localStorage.clear(); }catch(e){} }); await p.reload({waitUntil:'networkidle'}); await p.waitForTimeout(800);
+  await p.goto('http://localhost:8765/next/landscape/?stage=eschool', {waitUntil:'networkidle'}); await p.evaluate(() => { try{ localStorage.clear(); }catch(e){} }); await p.reload({waitUntil:'networkidle'}); await p.waitForTimeout(900); if (!(await p.evaluate(() => document.getElementById('comic').hidden))) await p.click('#cskip'); await p.waitForTimeout(300);
   console.log('child', await p.evaluate(() => CHILD), 'card hidden?', await p.evaluate(() => document.getElementById('stagecard').hidden)); await p.screenshot({path:'pe-card.png'});
   await p.click('#cardGo'); await p.waitForTimeout(300);
   const st = () => p.evaluate(() => ({room:S.room, view:S.view, got:S.got.join(','), placed:S.placed.join(','), cogs:S.cogs.join(''), card:S.cardRead, chalk:S.chalkSeen, peg:S.pegSeen, bell:S.bell, done:S.done}));

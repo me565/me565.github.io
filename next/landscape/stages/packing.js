@@ -357,6 +357,7 @@ function sparkle(id){
 return {
   card:{place:'SINGAPORE · LATER THAT AFTERNOON', text:'Rain on the windows and the taxi at four. Mum has stuck a list on Mary’s bedroom door: three things that must not be forgotten.'},
   meanwhile:'Meanwhile, at home, the taxi is at four and Mary’s suitcase is still open on the bed.',
+  comic:[{pic:'../art/comic/packing-1.jpg', lines:['Rain. The taxi at four.', 'And a list on her door, from Mum.']}, {pic:'../art/comic/packing-2.jpg', lines:['Torch. Passports. Nana’s present.', 'Three things that must not be forgotten.']}, {pic:'../art/comic/packing-3.jpg', lines:['Somewhere in the flat, Elliot had built a base.', 'With a password.']}],
   postcard:{pic:'../art/postcards/flat.jpg'},
   title:'Packing day', blurb:"Packing day at home: Mary's room, the living room and the kitchen. The taxi is at four.",
   track:'../art/music/flat.mp3', ambient:'rain', next:null,

@@ -281,6 +281,7 @@ return {
   child:'elliot',
   card:{place:'SINGAPORE · THE LAST DAY OF TERM', text:'Classroom 2P, with balloons on the whiteboard and a party waiting. Miss Okafor has left Elliot a card on her desk, and the marble run on the wall has never once rung its bell.'},
   meanwhile:'Meanwhile, in Classroom 2P, Elliot has a marble run to mend before anyone touches the cake.',
+  comic:[{pic:'../art/comic/eschool-1.jpg', lines:['Balloons on the whiteboard. Cake on the table.', 'The last day of 2P.']}, {pic:'../art/comic/eschool-2.jpg', lines:['The marble run on the wall had never once rung its bell.', 'Three pieces were missing.']}, {pic:'../art/comic/eschool-3.jpg', lines:['On Miss Okafor’s desk, a card with his name on it.', 'Not to be opened yet.']}, {pic:'../art/comic/eschool-4.jpg', lines:['Somewhere out there was his jumper.', 'Nobody goes home without their jumper.']}],
   postcard:{pic:'../art/postcards/eschool.jpg'},
   title:'Last day of school', blurb:'Elliot’s last day: Classroom 2P and the playground. Mend the marble run, find your jumper, open the card.',
   track:'../art/music/eschool.mp3', ambient:'school', next:null,

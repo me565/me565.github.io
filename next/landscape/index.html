@@ -338,6 +338,21 @@ button{font:inherit;color:inherit;cursor:pointer}
 .notice p{margin:0}
 
 /* a stage's title card (on the way in) and the postcard home (on the way out) */
+/* the comic intro (4n): pages of one picture each, the caption boxes dropping in one per tap, a small arrow when the page is done */
+.comic{position:absolute;inset:0;z-index:5;background:#f4ead8;display:grid;place-items:center;cursor:pointer;-webkit-user-select:none;user-select:none;padding:calc(var(--u)*2.2) calc(var(--u)*2.2) calc(var(--u)*4)}
+.comic .cpage{position:relative;width:100%;height:100%;max-width:calc(100% * 16 / 9);}
+.comic .cpic{position:absolute;inset:0;background:#e9dfcb center/cover no-repeat;border-radius:calc(var(--u)*.8);box-shadow:0 0 0 calc(var(--u)*.35) #4a3b2a, 0 calc(var(--u)*.8) calc(var(--u)*2) rgba(0,0,0,.25);transition:opacity .35s}
+.comic .cpic.turn{opacity:0}
+.comic .cbox{position:absolute;max-width:46%;background:#fffaf0;color:#1d2629;border-radius:calc(var(--u)*.6);padding:calc(var(--u)*.9) calc(var(--u)*1.3);font-size:calc(var(--u)*2);line-height:1.3;box-shadow:0 0 0 calc(var(--u)*.3) #4a3b2a, 0 calc(var(--u)*.5) calc(var(--u)*1.2) rgba(0,0,0,.3);animation:boxIn .32s cubic-bezier(.2,.8,.3,1.2) both}
+.comic .cbox.tl{left:3%;top:5%}.comic .cbox.tr{right:3%;top:5%}.comic .cbox.bl{left:3%;bottom:6%}.comic .cbox.br{right:3%;bottom:6%}
+@keyframes boxIn{from{transform:translateY(calc(var(--u)*-2.5)) scale(.92);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.comic .cbox{animation:none}}
+.comic .cnext{position:absolute;right:0;bottom:calc(var(--u)*-3.7);width:calc(var(--u)*3.3);height:calc(var(--u)*3.3);border-radius:50%;background:#1d2629;display:none;place-items:center;box-shadow:0 1px 4px rgba(0,0,0,.4)}
+.comic .cnext::after{content:"";width:0;height:0;border-style:solid;border-width:calc(var(--u)*.9) 0 calc(var(--u)*.9) calc(var(--u)*1.4);border-color:transparent transparent transparent #fffaf0;margin-left:calc(var(--u)*.3)}
+.comic .cnext.on{display:grid}
+@media (prefers-reduced-motion:no-preference){.comic .cnext.on{animation:nudge 1.2s ease-in-out infinite}@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(calc(var(--u)*.5))}}}
+.comic .cskip{position:absolute;right:calc(var(--u)*2.2);top:calc(var(--u)*2.2);background:rgba(29,38,41,.75);color:#fffaf0;border:0;border-radius:999px;padding:calc(var(--u)*.6) calc(var(--u)*1.6);font-size:calc(var(--u)*1.8);min-height:36px;z-index:2}
+.comic .cfoot{position:absolute;left:0;right:0;bottom:calc(var(--u)*1.1);margin:0;text-align:center;color:#4a3b2a;font-size:calc(var(--u)*1.7);opacity:.75}
 .stagecard{position:absolute;inset:0;display:grid;place-items:center;background:rgba(7,9,13,.92);z-index:5;color:#fffaf0;text-align:center;cursor:pointer}
 .stagecard .in{display:flex;flex-direction:column;gap:calc(var(--u)*1.2);align-items:center;animation:riseIn .8s ease-out both}
 .stagecard .place{font-size:calc(var(--u)*2);letter-spacing:.3em;padding-left:.3em;color:#bfe0d8}
@@ -408,6 +423,7 @@ button{font:inherit;color:inherit;cursor:pointer}
     <p class="msg" id="msg" aria-live="polite"></p>
     <div class="talker" id="talker" aria-hidden="true"><img src="../art/portraits/moth-speak.png" alt=""></div>
     <div class="closeup" id="closeup" hidden></div>
+    <div class="comic" id="comic" hidden><div class="cpage"><div class="cpic" id="cpic"></div><div class="cboxes" id="cboxes"></div><span class="cnext" id="cnext" aria-hidden="true"></span></div><button class="cskip" id="cskip">Skip</button><p class="cfoot" id="cfoot">Tap to go on</p></div>
     <div class="stagecard" id="stagecard" hidden></div>
     <div class="menu end" id="endUI" hidden><div class="endwrap"><p class="sent" id="endTitle"></p><div class="postcard" id="postcard"></div><div class="endrow"><button class="ob quiet" id="endAgain">Play this stage again</button><button class="ob" id="endNext" hidden>Next</button></div></div></div>
   </div>
@@ -486,7 +502,7 @@ button{font:inherit;color:inherit;cursor:pointer}
     <div class="pane" data-pane="help">
       <h3>Help</h3>
       <div class="cols">
-        <div><p><b>How to play</b></p><ul><li>Tap things to look. The side arrows turn you round.</li><li>Tap a thing in the strip, then tap where it goes. Two strip things can go together.</li><li>Hold a finger on the room to see what can be tapped.</li><li>Stuck? Tap the moth for the notebook and a hint.</li></ul><p style="margin-top:calc(var(--u)*.8)"><button class="ob" id="howtoBtn">Show me, with pictures</button></p></div>
+        <div><p><b>How to play</b></p><ul><li>Tap things to look. The side arrows turn you round.</li><li>Tap a thing in the strip, then tap where it goes. Two strip things can go together.</li><li>Hold a finger on the room to see what can be tapped.</li><li>Stuck? Tap the moth for the notebook and a hint.</li></ul><p style="margin-top:calc(var(--u)*.8)"><button class="ob" id="howtoBtn">Show me, with pictures</button> <button class="ob game-only" id="comicBtn">The story so far</button></p></div>
         <div style="display:flex;flex-direction:column;gap:calc(var(--u)*1);align-items:flex-start">
           <button class="ob game-only" id="toTitle">Back to the title screen</button>
           <button class="ob warn game-only" id="restart">Start this stage again</button>
@@ -526,7 +542,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-30n';
+const BUILD = '2026-09-30o';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -1002,6 +1018,28 @@ function showEnd(title, text, small){
   const nx = $('endNext'); nx.hidden = false; nx.textContent = STAGE.next ? (STAGE.nextLabel || 'Next') : 'To be continued… back to the title';
   const wait = matchMedia('(prefers-reduced-motion:reduce)').matches ? 400 : 2000; setTimeout(() => { $('endUI').hidden = false; speak(`${S.stage}.postcard`); }, wait);
 }
+/* the comic intro: STAGE.comic is a list of pages, each a picture and a few short lines with a corner each; a tap brings the next
+   line in, then turns the page; Skip ends it; the last page leads to the stage's title card. Every line is spoken, key
+   <stage>.comic.<page>.<line>. Shown on a fresh start of the stage and from the Help tab; never on a switch between children. */
+let comicOn = false;
+function showComic(pages, then){
+  const el = $('comic'), pic = $('cpic'), boxes = $('cboxes'), next = $('cnext'); let p = 0, i = 0; comicOn = true;
+  pages.forEach(pg => preload(pg.pic));
+  el.hidden = false; hush();
+  const end = () => { if (!comicOn) return; comicOn = false; el.hidden = true; el.onclick = null; hush(); if (then){ S.comicSeen = true; save(); then(); } };
+  const showPage = () => { const pg = pages[p]; boxes.innerHTML = ''; next.classList.remove('on'); i = 0;
+    pic.classList.add('turn'); preload(pg.pic).then(() => { pic.style.backgroundImage = `url(${pg.pic}?v=${BUILD})`; pic.classList.remove('turn'); }); step(); };
+  const step = () => { const pg = pages[p];
+    if (i < pg.lines.length){ const [text, at] = Array.isArray(pg.lines[i]) ? pg.lines[i] : [pg.lines[i], ['tl','br','tr','bl'][i % 4]]; const b = document.createElement('div'); b.className = 'cbox ' + at; b.textContent = text; boxes.appendChild(b); speak(`${S.stage}.comic.${p}.${i}`); i++; if (i === pg.lines.length) next.classList.add('on'); sfx('paper'); }
+    else if (p < pages.length - 1){ p++; showPage(); }
+    else end(); };
+  el.onclick = e => { if (e.target === $('cskip')) return; step(); };
+  $('cskip').onclick = e => { e.stopPropagation(); sfx('tap'); end(); };
+  showPage();
+}
+const freshStart = () => !(S.got.length || S.done || S.comicSeen);
+function openStage(){ const intro = () => stageCard(() => say(STAGE.intro)); if (STAGE.comic && freshStart()) showComic(STAGE.comic, intro); else intro(); }
+$('comicBtn').onclick = () => { closeMenu(); if (STAGE.comic) showComic(STAGE.comic, null); };
 /* a stage's title card on the way in: where and when, one line, then Begin (a tap anywhere also begins) */
 function stageCard(then){
   const c = STAGE.card; if (!c){ then(); return; }
@@ -1044,7 +1082,7 @@ function tip(name, delay = 0){
   clearTimeout(tipTimers[name]);
   tipTimers[name] = setTimeout(() => {
     if (tipsSeen.has(name)) return;
-    if (!$('closeup').hidden || !$('menu').hidden || !$('stagecard').hidden || !$('loading').hidden || (voiceEl && !voiceEl.paused) || !$('endUI').hidden){ tip(name, 1500); return; } /* not now: try again shortly */
+    if (!$('closeup').hidden || !$('menu').hidden || !$('stagecard').hidden || !$('loading').hidden || comicOn || (voiceEl && !voiceEl.paused) || !$('endUI').hidden){ tip(name, 1500); return; } /* not now: try again shortly */
     tipsSeen.add(name); try{ localStorage.setItem('mothhouse.tips', JSON.stringify([...tipsSeen])); }catch(e){}
     say(`<b>The moth whispers:</b> ${TIPS[name]}`); speak('tip.' + name);
   }, delay);
@@ -1328,7 +1366,7 @@ $('fsYes').onclick = () => { $('fsask').hidden = true; goFullscreen(); };
 $('fsNo').onclick = () => { $('fsask').hidden = true; try{ sessionStorage.setItem('mothhouse.fsasked', '1'); }catch(e){} };
 let fsAsked = false; try{ fsAsked = !!sessionStorage.getItem('mothhouse.fsasked'); }catch(e){}
 if (canFS && !standalone && matchMedia('(pointer:coarse)').matches && !fsAsked) $('fsask').hidden = false; else $('fsBtn').hidden = !canFS || standalone;
-const restart = () => { S = fresh(S.stage); closeMenu(); $('endUI').hidden = true; closeCloseup(); render(); stageCard(() => say(STAGE.intro)); };
+const restart = () => { S = fresh(S.stage); closeMenu(); $('endUI').hidden = true; closeCloseup(); render(); openStage(); };
 $('restart').onclick = () => confirmThen(`Start “${STAGE.title}” again from the beginning? Everything found in this stage will be put back.`, restart);
 $('endAgain').onclick = restart;
 $('resetStory').onclick = () => confirmThen(`Start ${CHILDREN[CHILD].name}’s whole story again from the first day? All the progress will be wiped.`, () => { try{ localStorage.removeItem(keyFor(CHILD)); }catch(e){} closeMenu(); if (inGame){ const first = CHILDREN[CHILD].first; loadStage(first); S = fresh(first); save(); enterGame(); } else showTitle(); });
@@ -1336,7 +1374,7 @@ addEventListener('keydown', e => { if (e.key === 'Enter' && !$('stagecard').hidd
 /* on to the next stage: fresh state, the new rooms loaded quietly first */
 function startStage(key){
   loadStage(key); S = fresh(key); save(); $('endUI').hidden = true; closeCloseup(); hush(); setTrack(STAGE.track); setAmbient(STAGE.ambient);
-  loadWithBar(viewArt(curView()), `Opening ${ROOMS[S.room].into}…`).then(() => { render(); stageCard(() => say(STAGE.intro)); loadRest(); });
+  loadWithBar(viewArt(curView()), `Opening ${ROOMS[S.room].into}…`).then(() => { render(); openStage(); loadRest(); });
 }
 $('endNext').onclick = () => { if (STAGE.next) startStage(STAGE.next); else { $('endUI').hidden = true; showTitle(); } };
 $('toTitle').onclick = () => { closeMenu(); closeCloseup(); showTitle(); };
@@ -1383,7 +1421,7 @@ function enterGame(){
   inGame = true; $('choose').hidden = true; $('title').hidden = true; setTrack(STAGE.track); setAmbient(STAGE.ambient);
   if (!howtoSeen && !new URLSearchParams(location.search).get('stage')){ showHowto(() => enterGame()); return; }
   loadWithBar(viewArt(curView()), `Opening ${ROOMS[S.room].into}…`).then(() => {
-    render(); if (S.got.length || S.done) say(`Back in ${ROOMS[S.room].into}.`); else stageCard(() => say(STAGE.intro));
+    render(); if (S.got.length || S.done) say(`Back in ${ROOMS[S.room].into}.`); else openStage();
     loadRest();
   });
 }
@@ -1405,10 +1443,10 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-09-30n"></script>
-<script src="stages/packing.js?v=2026-09-30n"></script>
-<script src="stages/eschool.js?v=2026-09-30n"></script>
-<script src="stages/zschool.js?v=2026-09-30n"></script>
+<script src="stages/school.js?v=2026-09-30o"></script>
+<script src="stages/packing.js?v=2026-09-30o"></script>
+<script src="stages/eschool.js?v=2026-09-30o"></script>
+<script src="stages/zschool.js?v=2026-09-30o"></script>
 <script>boot();</script>
 </body>
 </html>

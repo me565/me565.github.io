@@ -157,6 +157,12 @@ The working rules for every room in the landscape game, distilled from the owner
 - The panels are the game's own pictures: two crops of walls with their cut-outs composited (`next/art/howto/tap.jpg`, `use.jpg`), the room box and the hand drawn in SVG, the strip slots and item pictures the real ones. No text inside the pictures; the lines sit under them in the child's words.
 - It does not replace the moth's first-time tips (4j), which still arrive at the moment each is useful; on a pictures-only stage (Zaina's) the moth reads the page in one line (`howto`).
 
+## 4n. The comic intro (30 Sept 2026)
+
+- Every stage opens, on a fresh start, with a few pages of the child's own day in pictures: one drawn picture a page, one or two short lines dropping in one per tap, a small arrow in the margin when the page is done, Skip in the corner, then the stage's title card. The pages are `comic:[{pic, lines}]` in the stage (a line may be `[text, corner]`); every line is spoken (`<stage>.comic.<page>.<line>`); the comic is remembered in the save (`comicSeen`) so quitting after it does not replay it, and Play again shows it afresh. Never on the Meanwhile switch. "The story so far" in the cog's Help tab replays it.
+- The pictures are single 16:9 panels in the walls' style, the child drawn small from their portrait (the portrait is passed as a second reference), no lettering anywhere: a first pass put GOODBYE on the balloons and a timetable's title on a poster, and split one page into two frames; the prompt now says one single picture, blank whiteboards, posters as plain pictures. Mum from behind as in the flat; Miss Okafor tall with braided hair and a mustard cardigan; Miss Lin as her cut-out. Pages: Mary's school 4, packing day 3, Elliot 4, Zaina 3 (pictures with one line each, read by the moth). Prompts in `next/art/classroom/PROMPTS.md`.
+- The opening gesture (backlog 11) belongs at the end of the comic, its last panel come to life; not built yet.
+
 ## 5. Sound and music
 
 - Effects are made in the browser (Web Audio) and must be loud enough for a tablet speaker: taps 0.3, knocks 0.4, chimes 0.25. They start on the first real tap.
@@ -216,7 +222,7 @@ The owner's brief: finish the feel and navigation before more levels. Inspiratio
 1. ~~**12, hands-on close-ups, on one moment: Dad's stuck drawer as lift-then-pull, beside the room.**~~ Built in 2026-09-30l (rule in 4j); the owner judges it, then the padlock dials, the paint dials and the marble cup follow the same way.
 2. ~~**16, living background.**~~ Built in 2026-09-30m (rule in section 4): Captain, Nutmeg, Peanut, rain, steam, balloons, paintings. Bunting and the plane past the window want cut-outs later.
 3. ~~**13, the How to play page.**~~ Built in 2026-09-30n (4m).
-4. **14, the comic intro's page-turner** with the postcards as stand-in panels, so the real panels drop in the day the key is back. A day.
+4. ~~**14, the comic intro**~~ Built in 2026-09-30o with real panels for all four stages (4n).
 5. **11, the opening gestures** for the two we can cut from existing walls (the flat's curtains, the classroom blind); the rest with the key.
 6. **15, openables**: the engine's two-state layer and the jar cupboard now; the other open faces with the key.
 7. **7, the postcards page**, folded into the Family tab (each child's postcards under their portrait). Half a day, best done after 14 so the pages share one look.
@@ -260,3 +266,4 @@ The owner's brief: finish the feel and navigation before more levels. Inspiratio
 32. "Just added more credits to Gemini. Check and start with highest WSJF tasks" (owner, 30 Sept 2026). → build 2026-09-30l: the top-up list cleared (close-ups, postcards, tracks, voice), and the drawer as the first hands-on close-up beside the room (4j).
 33. "Go" on the living background (owner, 30 Sept 2026). → build 2026-09-30m, rule in section 4.
 34. "Next please" (owner, 30 Sept 2026): the How to play page. → build 2026-09-30n, rules in 4m.
+35. "Do it": the comic intro (owner, 30 Sept 2026). → build 2026-09-30o, rules in 4n; 14 panels generated, three redone for lettering and a split frame.
