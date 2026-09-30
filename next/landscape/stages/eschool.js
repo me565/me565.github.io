@@ -194,7 +194,7 @@ function cardTap(){
   if (!S.cardRead){ S.cardRead = true; save(); render(); openNote('card'); return; }
   if (!S.bell || !got('jumper')){ openNote('card'); say(!S.bell && !got('jumper') ? 'Not yet: the marble run first, and your jumper.' : !S.bell ? 'Not yet: the marble run has to work first.' : 'Not yet: not without your jumper.'); return; }
   S.done = true; save(); render(); sfx('pickup'); openNote('cardOpen');
-  setTimeout(() => { closeCloseup(); showEnd('Goodbye, 2P!', 'The marble run was missing three pieces: one in the tray, one in the sandpit and one under the jumpers in lost property. The chalk wall showed where they went, and when I pressed Roll the marble went ALL the way and rang the bell. I found my jumper too (rocket badge). Miss Okafor’s card has everybody’s name in it and someone drew a moth. See you at the airport!', S.cogs.length === 3 ? 'I found all three brass cogs hidden round the school! ★' : `I found ${S.cogs.length} of the three brass cogs hidden round the school.`); }, 5000);
+  setTimeout(() => { closeCloseup(); showEnd('Goodbye, 2P!', 'The marble run was missing three pieces: one in the tray, one in the sandpit and one under the jumpers in lost property. The chalk wall showed where they went, and when I pressed Roll the marble went ALL the way and rang the bell. I found my jumper too (rocket badge). Miss Okafor’s card has everybody’s name in it and someone drew a moth. See you at the airport!', S.robotDone ? 'I found all three brass cogs and put them back in the class robot. It danced! ★' : S.cogs.length === 3 ? 'I found all three brass cogs hidden round the school (the robot wanted them).' : `I found ${S.cogs.length} of the three brass cogs hidden round the school.`); }, 5000);
 }
 const USES = {
   /* the engine puts a used item down before calling this; the piece stays in hand so the gap can be chosen in the close-up */
@@ -215,7 +215,8 @@ function act(id){
     case 'e_pencils': say('Pencils, sharpened. Twenty-nine of them, one each.'); break;
     case 'e_card': cardTap(); return;
     case 'e_window': say('Sunshine, and the playground. You can hear the party being set up.'); break;
-    case 'e_tank': say('Captain, the class goldfish. He looks at you as if he knows something.'); openNotebook(); return;
+    case 'e_tank': /* Captain is the notebook's keeper, said plainly the first time (tester round 1, T17) */
+      say(S.tankTold ? 'Captain, the class goldfish. He looks at you as if he knows something.' : 'Captain, the class goldfish. He keeps your notebook safe: tap him, or the moth at the top, to open it.'); S.tankTold = true; save(); openNotebook(); return;
     case 'e_castle': say('A sandcastle that never washes away. Captain lives behind it.'); break;
     case 'e_run': openRun(); return;
     case 'e_bell': say(S.bell ? 'The bell. It rang!' : 'The little bell at the end of the run. It rings when a marble gets all the way down. It hasn’t, all year.'); break;
@@ -226,7 +227,10 @@ function act(id){
     case 'e_cake': say('The cake. Chocolate. Not yet.'); break;
     case 'e_jug': say('Orange squash, the strong kind.'); break;
     case 'e_bookcase': say('The class books. Something brass is on top, just out of reach. Well, almost.'); break;
-    case 'e_robot': say('Beep, says the robot. It runs on three brass cogs, and it is missing three brass cogs.'); break;
+    case 'e_robot':
+      if (S.robotDone){ say('The robot hums happily. All three cogs are back.'); break; }
+      if (S.cogs.length === 3){ S.robotDone = true; save(); sfx('tick'); setTimeout(() => sfx('pickup'), 500); say('Click, click, click. Whirr! The robot’s eyes light up and it does a little dance. ★'); break; }
+      say(`Beep, says the robot. It runs on three brass cogs, and it is missing ${3 - S.cogs.length}.` + (S.cogs.length ? ' Bring the rest.' : ' They are hidden round the school.')); break;
     case 'e_beanbag': say('The reading beanbag. Very hard to get out of.'); break;
     case 'e_goal': say('The goal. The net has a hole in it, and something shiny behind.'); break;
     case 'e_bench': say('The bench, with the lost-property box on it.'); break;
@@ -242,7 +246,7 @@ function act(id){
     case 'e_chalk': openChalk(); return;
     case 'e_chalks': say('Chalks, worn to stubs.'); break;
     default:
-      if (/^e_cog\d$/.test(id)){ const n = +id.slice(-1); S.cogs.push(n); save(); sfx('pickup'); setTimeout(render, 900); say(`A brass cog! ${S.cogs.length} of 3 for the robot.` + (S.cogs.length === 3 ? ' That’s all of them. ★' : '')); return; }
+      if (/^e_cog\d$/.test(id)){ const n = +id.slice(-1); S.cogs.push(n); save(); sfx('pickup'); setTimeout(render, 900); say(`A brass cog! ${S.cogs.length} of 3 for the robot.` + (S.cogs.length === 3 ? ' That’s all of them. Take them to the robot.' : '')); return; }
       return false;
   }
 }
@@ -263,7 +267,7 @@ function noticed(){
   const n = [];
   if (S.chalkSeen) n.push('Chalk wall: straight at the top, curve in the middle, zigzag at the bottom.');
   if (S.pegSeen) n.push('Elliot’s peg card has a rocket.');
-  n.push(`Brass cogs found: ${S.cogs.length} of 3.`);
+  n.push(S.robotDone ? 'Brass cogs: all three back in the robot. ★' : `Brass cogs found: ${S.cogs.length} of 3. They go in the class robot.`);
   return n;
 }
 function sparkle(id){

@@ -35,6 +35,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 /* the scene */
 .scene{position:relative;width:100%;aspect-ratio:16/9;border-radius:calc(var(--u) * 1.6);overflow:hidden;background:#e9e2d2;box-shadow:0 calc(var(--u)*1.2) calc(var(--u)*3) rgba(0,0,0,.5)}
 .wall{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .28s ease}
+.scene img,.scene canvas,.scene svg{-webkit-touch-callout:none;-webkit-user-drag:none}
 .wall.on{opacity:1}
 .scene.zoomed .wall.on,.scene.zoomed #hots{filter:blur(calc(var(--u)*.5)) brightness(.72) saturate(.85)}
 #hots{position:absolute;inset:0;transition:filter .3s ease}
@@ -497,7 +498,7 @@ button{font:inherit;color:inherit;cursor:pointer}
         <div class="srow"><label for="volMusic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.5" fill="currentColor"/><circle cx="16.5" cy="16" r="2.5" fill="currentColor"/></svg>Music</label><input type="range" id="volMusic" min="0" max="10" step="1"></div>
         <div class="srow"><label for="volVoice"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Z" fill="currentColor"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>The moth’s voice</label><input type="range" id="volVoice" min="0" max="10" step="1"></div>
         <div class="srow"><label for="volFx"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Sound effects</label><input type="range" id="volFx" min="0" max="10" step="1"></div>
-        <div class="srow"><span>Full screen</span><button class="ob" id="fsBtn">Full screen</button></div>
+        <div class="srow" id="fsRow"><span>Full screen</span><button class="ob" id="fsBtn">Full screen</button></div>
         <div class="srow game-only"><span>Can’t find something?</span><button class="ob" id="revealBtn">Show what I can tap</button></div>
       </div>
       <p class="dim">Stuck? Tap the moth at the top of the room: it opens the notebook of hints, or flies to the next thing to look at.</p>
@@ -517,7 +518,7 @@ button{font:inherit;color:inherit;cursor:pointer}
       <h3>About</h3>
       <div class="cols">
         <div><p><b>The Moth House</b> is a summer mystery for children: three stories, one summer, and a house that appears at dusk to people who are looking.</p><p class="dim" style="margin-top:calc(var(--u)*1)">This is a work of fiction. Its characters, schools and events are imaginary. Any resemblance to real people or places is a coincidence.</p></div>
-        <div><p><b>Made by OG Entertainment.</b></p><p class="dim">Story, puzzles and design by the studio. Pictures and music made with the help of AI tools and drawn into the story by hand. Typefaces: Caprasimo and Atkinson Hyperlegible.</p></div>
+        <div><p><b>Made by OG Entertainment.</b></p><p class="dim">Story, puzzles and design by the studio. Pictures and music made with the help of AI tools and drawn into the story by hand. Typefaces: Caprasimo and Atkinson Hyperlegible.</p><p class="dim" style="margin-top:calc(var(--u)*1)">Each story is made for its child’s age: Zaina’s (4) has nothing to read and the moth shows the way; Elliot’s (7) asks how things work; Mary’s (10) has riddles and, for grown-ups, a bonus puzzle in every chapter.</p></div>
       </div>
       <p class="dim" id="blurb"></p>
     </div>
@@ -545,7 +546,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-30x';
+const BUILD = '2026-10-01a';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -868,9 +869,9 @@ function animate(h){
 const KEY = 'mothhouse.landscape.' + BUILD; /* each build starts a fresh game; Start again is in the menu */
 /* the three stories: one save each, keyed by child; the title screen's Continue picks up the last one played */
 const CHILDREN = {
-  mary:{name:'Mary', age:10, colour:'#8a5cc2', line:'Notices patterns, reads everything.', first:'school', portrait:'../art/portraits/mary.png'},
-  elliot:{name:'Elliot', age:7, colour:'#2f7c83', line:'Wants to know how things work.', first:'eschool', portrait:'../art/portraits/elliot.png'},
-  zaina:{name:'Zaina', age:4, colour:'#d9a622', line:'Sees the small things. Animals trust her.', first:'zschool', portrait:'../art/portraits/zaina.png'}
+  mary:{name:'Mary', age:10, level:'for ages 10 and up, with puzzles for grown-ups', colour:'#8a5cc2', line:'Notices patterns, reads everything.', first:'school', portrait:'../art/portraits/mary.png'},
+  elliot:{name:'Elliot', age:7, level:'for ages 7 and up', colour:'#2f7c83', line:'Wants to know how things work.', first:'eschool', portrait:'../art/portraits/elliot.png'},
+  zaina:{name:'Zaina', age:4, level:'for ages 4 and up, nothing to read', colour:'#d9a622', line:'Sees the small things. Animals trust her.', first:'zschool', portrait:'../art/portraits/zaina.png'}
 };
 let CHILD = 'mary', S;
 const keyFor = child => KEY + '.' + child;
@@ -1130,6 +1131,8 @@ function openNotebook(){
 let pressTimer = null;
 function reveal(){ $('hots').classList.add('reveal'); sfx('leaf'); setTimeout(() => $('hots').classList.remove('reveal'), 1600); }
 $('scene').addEventListener('pointerdown', e => { if (!$('closeup').hidden || e.target.closest('.ctl, .arrow')) return; pressTimer = setTimeout(() => { pressTimer = null; reveal(); }, 600); });
+/* a long press is ours: the browser's own "share image" menu never opens on the room (tester round 1, checklist 32b) */
+$('stage').addEventListener('contextmenu', e => e.preventDefault());
 ['pointerup', 'pointercancel', 'pointerleave', 'pointermove'].forEach(ev => $('scene').addEventListener(ev, e => { if (ev === 'pointermove' && pressTimer === null) return; if (ev !== 'pointermove' || (e.movementX*e.movementX + e.movementY*e.movementY) > 36){ clearTimeout(pressTimer); pressTimer = null; } }));
 
 
@@ -1360,7 +1363,7 @@ function confirmThen(text, fn){ $('confirmText').textContent = text; $('confirmU
 /* Full screen: phones and tablets in a browser get asked once; the menu can toggle it any time. Inside the Android app the game is already full screen. */
 const canFS = !!(document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen), standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
 async function goFullscreen(){
-  try{ const el = document.documentElement; await (el.requestFullscreen ? el.requestFullscreen({navigationUI:'hide'}) : el.webkitRequestFullscreen()); }catch(e){}
+  try{ const el = document.documentElement; await (el.requestFullscreen ? el.requestFullscreen({navigationUI:'hide'}) : el.webkitRequestFullscreen()); }catch(e){ say('This browser won’t go full screen. Add the game to your home screen instead: it opens full screen from there.'); }
   try{ await screen.orientation.lock('landscape'); }catch(e){}
   setTimeout(fit, 300); setTimeout(fit, 900);
 }
@@ -1371,7 +1374,8 @@ document.addEventListener('fullscreenchange', () => { $('fsBtn').textContent = i
 $('fsYes').onclick = () => { $('fsask').hidden = true; goFullscreen(); };
 $('fsNo').onclick = () => { $('fsask').hidden = true; try{ sessionStorage.setItem('mothhouse.fsasked', '1'); }catch(e){} };
 let fsAsked = false; try{ fsAsked = !!sessionStorage.getItem('mothhouse.fsasked'); }catch(e){}
-if (canFS && !standalone && matchMedia('(pointer:coarse)').matches && !fsAsked) $('fsask').hidden = false; else $('fsBtn').hidden = !canFS || standalone;
+if (canFS && !standalone && matchMedia('(pointer:coarse)').matches && !fsAsked) $('fsask').hidden = false;
+$('fsRow').hidden = !canFS || standalone; /* inside the installed app the page is already full screen */
 const restart = () => { S = fresh(S.stage); closeMenu(); $('endUI').hidden = true; closeCloseup(); render(); openStage(); };
 $('restart').onclick = () => confirmThen(`Start “${STAGE.title}” again from the beginning? Everything found in this stage will be put back.`, restart);
 $('endAgain').onclick = restart;
@@ -1407,7 +1411,7 @@ function showChoose(mode){ /* mode: 'continue' resumes each child's save; 'new' 
   Object.entries(CHILDREN).forEach(([key, c]) => {
     const s = saved(key), prog = s ? (STAGES[s.stage].title + (s.done ? ', finished' : '')) : '';
     const b = document.createElement('button'); b.className = 'kid'; b.dataset.child = key;
-    b.innerHTML = `<span class="face" style="background:${c.colour}">${c.portrait ? `<img src="${c.portrait}?v=${BUILD}" alt="">` : c.name[0]}</span><span class="kname">${c.name}</span><span class="kage">age ${c.age}</span><span class="kline">${c.line}</span><span class="kprog ${mode === 'new' && s && (s.got.length || s.done) ? 'warn' : ''}">${!c.first ? 'Coming soon' : mode === 'continue' ? (prog || 'Not started') : (s && (s.got.length || s.done) ? 'Starts again from the beginning' : '')}</span>`;
+    b.innerHTML = `<span class="face" style="background:${c.colour}">${c.portrait ? `<img src="${c.portrait}?v=${BUILD}" alt="">` : c.name[0]}</span><span class="kname">${c.name}, ${c.age}</span><span class="kage">${c.level}</span><span class="kline">${c.line}</span><span class="kprog ${mode === 'new' && s && (s.got.length || s.done) ? 'warn' : ''}">${!c.first ? 'Coming soon' : mode === 'continue' ? (prog || 'Not started') : (s && (s.got.length || s.done) ? 'Starts again from the beginning' : '')}</span>`;
     if (!c.first || (mode === 'continue' && !s)) b.disabled = true;
     b.onclick = () => { CHILD = key; if (mode === 'new'){ const first = c.first; loadStage(first); S = fresh(first); save(); } else S = load(); enterGame(); };
     kids.appendChild(b);
@@ -1449,10 +1453,10 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-09-30x"></script>
-<script src="stages/packing.js?v=2026-09-30x"></script>
-<script src="stages/eschool.js?v=2026-09-30x"></script>
-<script src="stages/zschool.js?v=2026-09-30x"></script>
+<script src="stages/school.js?v=2026-10-01a"></script>
+<script src="stages/packing.js?v=2026-10-01a"></script>
+<script src="stages/eschool.js?v=2026-10-01a"></script>
+<script src="stages/zschool.js?v=2026-10-01a"></script>
 <script>boot();</script>
 <script>if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('../../sw.js').catch(() => {});</script>
 </body>

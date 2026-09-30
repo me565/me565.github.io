@@ -523,7 +523,8 @@ const USES = {
 
 
 function act(id){ /* returns false for a door the engine should open */
-  if (id === 'door' && !S.got.includes('envelope')){ say('Not yet. Mr Hollis left something on your desk first.'); return true; }
+  if (id === 'door' && !S.got.includes('envelope')){ /* the moth turns you to the desk and points, rather than refusing (tester round 1, T4) */
+    S.view = 3; save(); sfx('turn'); render(); setTimeout(() => pointAt('envelope', 'Not yet. Mr Hollis left something on your desk first.'), 350); return true; }
   if (DOORS[id]) return false;
   switch(id){
     case 'envelope': S.got.push('envelope'); sfx('pickup'); setTimeout(() => { render(); openNote('envelope'); }, 700); say('An envelope from Mr Hollis! Tap it in the strip below any time to read it again.'); return;
@@ -558,7 +559,7 @@ function act(id){ /* returns false for a door the engine should open */
     case 'h_fountain': say('A drink of cold water. Lovely.'); break;
     case 'h_trophies': say('The house cup. This year: Kingfishers. Mary’s house!'); break;
     case 'h_notices': say('The summer fair, the swimming gala, house points, and a lost cat called Biscuit. Ginger, very fluffy, answers to nothing.'); break;
-    case 'h_bonus': S.bonus = true; save(); openNote('bonus'); say('A bonus riddle! This one is optional, for super-sleuths.'); return;
+    case 'h_bonus': if (S.nightMoth){ say('The bonus riddle. You solved it: NANA. ★'); return; } S.bonus = true; save(); openNote('bonus'); say('A bonus riddle! This one is optional, for super-sleuths.'); return;
     case 'h_bunting': say('Bunting from the summer fair. Nobody has taken it down, and nobody will.'); break;
     /* hall */
     case 'hn_stage': say('The stage. Assemblies, the winter play, and the day Mary forgot her line and made up a better one.'); break;
