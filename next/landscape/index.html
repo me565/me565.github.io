@@ -54,6 +54,22 @@ button{font:inherit;color:inherit;cursor:pointer}
 .arrow svg{width:calc(var(--u)*3.6);height:calc(var(--u)*3.6);filter:drop-shadow(0 0 calc(var(--u)*.5) rgba(255,255,255,.9))}
 .arrow:focus-visible{outline:calc(var(--u)*.4) solid var(--accent);border-radius:999px}
 .scene.zoomed .arrow,.scene.zoomed .msg{display:none}
+/* a hands-on close-up beside the room: the room stays sharp and you are still standing in it; the panel slides in from one side */
+.scene.aside .arrow,.scene.aside .msg{display:none}
+.closeup.aside{padding:calc(var(--u)*2.5) calc(var(--u)*2.5) calc(var(--u)*5.5);place-items:center end;background:linear-gradient(to left, rgba(7,9,13,.35), transparent 60%)}
+.closeup.aside.left{place-items:center start;background:linear-gradient(to right, rgba(7,9,13,.35), transparent 60%)}
+.closeup.aside .card.shelf{width:calc(var(--u)*46);animation:slideIn .38s cubic-bezier(.2,.7,.2,1) both}
+.closeup.aside.left .card.shelf{animation-name:slideInL}
+@keyframes slideIn{from{transform:translateX(30%);opacity:0}to{transform:none;opacity:1}}
+@keyframes slideInL{from{transform:translateX(-30%);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.closeup.aside .card.shelf{animation:none}}
+.hands{touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;overflow:hidden}
+.hands.dragging{cursor:grabbing}
+.hands .part{position:absolute;display:block;pointer-events:none;will-change:transform}
+.hands .part img{width:100%;height:auto;display:block}
+.hands .hint{position:absolute;left:50%;bottom:8%;transform:translateX(-50%);width:calc(var(--u)*5);height:calc(var(--u)*5);border-radius:50%;background:rgba(255,246,214,.85);box-shadow:0 0 calc(var(--u)*1.5) rgba(255,196,80,.9);pointer-events:none;opacity:.9}
+@media (prefers-reduced-motion:no-preference){.hands .hint{animation:handHint 1.6s ease-in-out infinite}}
+@keyframes handHint{0%,100%{transform:translate(-50%,0)}40%{transform:translate(-50%,calc(var(--u)*-2.2))}70%{transform:translate(-50%,calc(var(--u)*2.2))}}
 
 /* corner controls */
 .where{position:absolute;left:calc(var(--u)*1.6);top:calc(var(--u)*1.4);background:rgba(20,26,40,.78);color:#fffaf0;border-radius:999px;padding:calc(var(--u)*.55) calc(var(--u)*1.6);font-size:calc(var(--u)*1.9);font-family:Caprasimo,"Cooper Black",Georgia,serif;letter-spacing:.02em}
@@ -476,7 +492,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-30k';
+const BUILD = '2026-09-30l';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -844,7 +860,35 @@ function openCloseup(inner){
   $('closeup').onclick = e => { if (e.target.isConnected && !e.target.closest('.card')) closeCloseup(); };
   $('closeup').hidden = false; $('scene').classList.add('zoomed'); sfx('open');
 }
-function closeCloseup(){ if ($('closeup').hidden) return; $('closeup').hidden = true; $('scene').classList.remove('zoomed'); sfx('close'); if (voiceKey && /\.note\.|^nb\./.test(voiceKey)) hush(); }
+/* a close-up beside the room rather than over it: for things worked by hand (4j). side is where the panel goes, away from the thing tapped */
+function openAside(inner, side){
+  $('closeup').innerHTML = `${inner}<span class="stepback">Tap the room to step back</span>`;
+  $('closeup').onclick = e => { if (e.target.isConnected && !e.target.closest('.card')) closeCloseup(); };
+  $('closeup').classList.add('aside', side === 'left' ? 'left' : 'right'); $('closeup').hidden = false; $('scene').classList.add('aside'); sfx('open');
+}
+const sideAwayFrom = h => (h && h.l + h.w/2 > 50) ? 'left' : 'right';
+/* Lift-then-pull: a drawer (or lid) that only comes out if it is lifted a little first, then pulled. The front is a cut-out over
+   the empty cavity; what is inside shows as the front comes out. A straight pull jams (o.stuck); lifting past o.lift then pulling
+   past o.pull finishes (o.done). Nothing fails: a wrong move springs back and waits. Percentages are of the picture's height. */
+function openLiftPull(o){
+  const inside = o.inside ? `<span class="part" style="left:${o.inside.l}%;top:${o.inside.t}%;width:${o.inside.w}%"><img src="${o.inside.src}?v=${BUILD}" alt=""></span>` : '';
+  openAside(`<div class="card shelf"><div class="shelfpic hands" id="hands" style="background-image:url(${o.bg}?v=${BUILD})">${inside}<span class="part" id="front" style="left:${o.front.l}%;top:${o.front.t}%;width:${o.front.w}%"><img src="${o.front.src}?v=${BUILD}" alt=""></span><span class="hint" id="handHint"></span><p class="otitle">${o.title}</p></div><div class="shelffoot"><p class="ofb" id="handsFb">${o.label}</p></div></div>`, o.side);
+  const pic = $('hands'), front = $('front'); let lift = 0, pull = 0, dragging = false, y0 = 0, x0 = 0, lifted = false, done = false, jam = 0;
+  const LIFT = o.lift || 4, PULL = o.pull || 22;
+  const draw = () => { const k = pull/PULL; front.style.transform = `translateY(${-lift + pull}%) scale(${1 + 0.16*k})`; front.style.transformOrigin = '50% 0'; }; /* scaled from its top edge, so the front comes down and towards you and what is inside shows above it */
+  const H = () => pic.getBoundingClientRect().height;
+  pic.onpointerdown = e => { if (done) return; dragging = true; y0 = e.clientY; x0 = e.clientX; lifted = false; pic.classList.add('dragging'); $('handHint').style.display = 'none'; pic.setPointerCapture(e.pointerId); e.preventDefault(); };
+  pic.onpointermove = e => { if (!dragging || done) return; const dy = (e.clientY - y0)/H()*100; /* up is negative */
+    if (dy < 0){ lift = Math.min(LIFT, -dy); if (lift >= LIFT*0.7 && !lifted){ lifted = true; sfx('tick'); $('handsFb').textContent = o.liftedLabel || 'It lifts a little… now pull.'; } pull = 0; }
+    else if (lifted){ lift = LIFT; pull = Math.min(PULL, dy); if (pull - jam > 4){ jam = pull; rasp(0.6); } if (pull >= PULL*0.9) finish(); }
+    else { lift = 0; pull = Math.min(2.5, dy); if (dy > 6 && !jam){ jam = 1; sfx('knock'); $('handsFb').textContent = o.stuckLabel || 'Stuck! It jams after a finger’s width.'; if (o.stuck) o.stuck(); } }
+    draw(); };
+  const finish = () => { if (done) return; done = true; dragging = false; pull = PULL; lift = LIFT; draw(); pic.classList.remove('dragging'); sfx('pickup'); $('handsFb').textContent = o.doneLabel || 'Out it comes!'; setTimeout(() => { closeCloseup(); o.done(); }, 900); };
+  pic.onpointerup = pic.onpointercancel = e => { if (!dragging || done) return; dragging = false; pic.classList.remove('dragging'); jam = 0;
+    if (lifted && pull >= PULL*0.9){ finish(); return; } lift = 0; pull = 0; lifted = false; draw(); if (!/Stuck/.test($('handsFb').textContent)) $('handsFb').textContent = o.label; };
+  draw();
+}
+function closeCloseup(){ if ($('closeup').hidden) return; $('closeup').hidden = true; $('closeup').classList.remove('aside', 'left', 'right'); $('scene').classList.remove('zoomed', 'aside'); sfx('close'); if (voiceKey && /\.note\.|^nb\./.test(voiceKey)) hush(); }
 function openNote(key){ const n = NOTES[key]; if (STAGE.onNote) STAGE.onNote(key); speak(`${S.stage}.note.${key}`); openCloseup(`<div class="card note${n.hand ? '' : ' print'}">${n.html}</div>`); }
 /* a picture close-up with something drawn over it by the game (a painting, a drawing, a shelf of jars with their labels) */
 function openPic(src, aspect, title, overlay, width){
@@ -1273,10 +1317,10 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-09-30k"></script>
-<script src="stages/packing.js?v=2026-09-30k"></script>
-<script src="stages/eschool.js?v=2026-09-30k"></script>
-<script src="stages/zschool.js?v=2026-09-30k"></script>
+<script src="stages/school.js?v=2026-09-30l"></script>
+<script src="stages/packing.js?v=2026-09-30l"></script>
+<script src="stages/eschool.js?v=2026-09-30l"></script>
+<script src="stages/zschool.js?v=2026-09-30l"></script>
 <script>boot();</script>
 </body>
 </html>

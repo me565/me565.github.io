@@ -36,7 +36,7 @@ const HOTS = {
     {id:'z_misslin', l:68, t:55, w:10, h:35, label:'Miss Lin', sound:'leaf', anim:'wobble', layer:'misslin', key:true}]
 };
 const LAYERS = {
-  z1:[{src:A+'layer-bottle.png', group:'bottle', l:35.1, t:30.2, w:2.4, h:10.3, shadow:.5, hideWhen:() => got('bottle') || put('bottle')},
+  z1:[{src:A+'layer-bottle.png', group:'bottle', l:22.3, t:30.2, w:2.4, h:10.3, shadow:.5, hideWhen:() => got('bottle') || put('bottle')},
       /* once put away, her things show inside her cubby */
       {src:A+'layer-painting.png', group:'inpainting', l:35.8, t:75.6, w:3.4, h:7.6, showWhen:() => put('painting')},
       {src:A+'layer-bottle.png', group:'inbottle', l:33.4, t:77, w:1.5, h:6.4, shadow:.4, showWhen:() => put('bottle')}],
@@ -110,11 +110,11 @@ const speaker = () => 'The moth';
 
 /* ---------- close-ups ---------- */
 function openBottles(){
-  const bots = [['triangle', 15], ['circle', 33], ['heart', 51], ['star', 69]];
-  const btns = bots.map(([m, l], i) => `<button class="book" data-i="${i}" style="left:${l}%;top:26%;width:17%;height:58%" aria-label="Bottle with a ${m}"><span></span></button>`).join('');
+  const bots = [['triangle', 5], ['star', 28], ['heart', 50], ['circle', 73]]; /* left to right in the close-up */
+  const btns = bots.map(([m, l], i) => `<button class="book" data-i="${i}" style="left:${l}%;top:24%;width:20%;height:62%" aria-label="Bottle with a ${m}"><span></span></button>`).join('');
   openCloseup(`<div class="card shelf"><div class="shelfpic" id="botpic" style="background-image:url(${A}closeup-bottles.jpg?v=${BUILD})">${got('bottle') || put('bottle') ? '' : btns}<p class="otitle">The bottle shelf</p></div><div class="shelffoot"><p class="ofb" id="botFb">${got('bottle') || put('bottle') ? LINES.shelfEmpty : LINES.shelf}</p></div></div>`);
   $('botpic').querySelectorAll('.book').forEach(b => b.onclick = () => { const i = +b.dataset.i; sfx('tap');
-    if (i === 3){ S.got.push('bottle'); sfx('pickup'); closeCloseup(); render(); L('bottleMine'); }
+    if (i === 1){ S.got.push('bottle'); sfx('pickup'); closeCloseup(); render(); L('bottleMine'); }
     else { $('botFb').textContent = LINES.bottleWrong; L('bottleWrong'); } });
 }
 function openPaintings(){
@@ -200,7 +200,7 @@ return {
   meanwhile:'Meanwhile, at Little Waves, Zaina’s party is about to start.',
   postcard:{pic:'../art/postcards/zschool.jpg'},
   title:'Party day', blurb:'Zaina’s goodbye party at Little Waves. Find the things with her yellow star and play the goodbye song.',
-  track:'../art/music/classroom.mp3', ambient:'school', next:null,
+  track:'../art/music/zschool.mp3', ambient:'school', next:null,
   intro:'<b>Party day!</b> Find your bottle and your painting, they have your yellow star. Then the goodbye song, then Miss Lin.',
   start:{room:'kindy', view:0},
   fresh:() => ({put:[], song:false}),

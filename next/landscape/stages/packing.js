@@ -100,7 +100,7 @@ const LAYERS = {
       {src:A+'layer-drawing.png', group:'drawing', l:45.5, t:64, w:9, h:13.5, over:drawSymbols}],
   k4:[moth(6, 77, 24.6)]
 };
-const EXTRA = {living:[A+'closeup-hooks.jpg', A+'closeup-drawer.jpg', A+'closeup-fort.jpg', A+'closeup-infort.jpg'], kitchen:[A+'closeup-jars.jpg']};
+const EXTRA = {living:[A+'closeup-hooks.jpg', A+'closeup-drawer.jpg', A+'closeup-drawer-open.jpg', A+'layer-drawerfront.png', A+'closeup-fort.jpg', A+'closeup-infort.jpg'], kitchen:[A+'closeup-jars.jpg']};
 
 /* the fort's password: three crayon symbols, drawn by the game on Elliot's drawing and on the fort's flap so they match exactly */
 const SYM = {
@@ -149,9 +149,9 @@ const HINTS = [
   {thread:1, goal:() => got('torch') || packed('torch'), tips:['The fort is open. Elliot’s things are inside.', 'Tap the fort to look inside.', 'Take the torch from the cushion inside the fort.']},
   /* trail 2: the passports */
   {thread:2, goal:() => got('key') || S.keyTaken, tips:['Passports are kept somewhere safe. Somewhere with a lock.', 'Dad’s desk drawer has a keyhole. The keys hang on hooks beside the window.', 'Tap the hooks by the living-room window and take the key whose tag says DESK.']},
-  {thread:2, goal:() => S.drawerStuck, tips:['You have the desk key. Try it in the drawer.', 'Tap the desk key in the strip, then Dad’s desk drawer.', 'Use the key on the drawer, then pull.']},
+  {thread:2, goal:() => S.drawerStuck, tips:['You have the desk key. Try it in the drawer.', 'Tap the desk key in the strip, then Dad’s desk drawer.', 'Use the key on the drawer, then take hold of the handle and pull.']},
   {thread:2, goal:() => S.mumTip, tips:['The drawer is stuck. Someone in this flat will know the trick.', 'Ask Mum. She is in the kitchen.', 'Tap Mum in the kitchen.']},
-  {thread:2, goal:() => got('passports') || packed('passports'), tips:['Mum said: lift it up a little while you pull.', 'Back at Dad’s desk drawer, choose “Lift and pull”.', 'Tap the drawer and tap “Lift and pull”.']},
+  {thread:2, goal:() => got('passports') || packed('passports'), tips:['Mum said: lift it up a little while you pull.', 'Back at Dad’s desk drawer: drag the front up a little, and keep hold.', 'Tap the drawer, drag the front up a finger’s width, then, still holding, drag it down and out.']},
   /* trail 3: the present */
   {thread:3, goal:() => S.postcardRead, tips:['What would Nana like? Her postcard might say.', 'Nana’s postcard is on the fridge in the kitchen.', 'Tap the postcard on the fridge and read the P.S.']},
   {thread:3, goal:() => got('kaya') || got('wrapped') || got('present') || packed('present'), tips:['Nana has run out of kaya.', 'Kaya is a jam. Where are the jars kept?', 'Tap the cupboard by the kitchen sink and take the kaya.']},
@@ -175,11 +175,24 @@ function openHooks(){
     if (i === 0){ S.keyTaken = true; S.got.push('key'); sfx('pickup'); closeCloseup(); render(); say('The desk key. It goes in the strip below.'); }
     else $('hookFb').textContent = i === 1 ? 'POST: the letterbox key. Not today.' : 'BIKE: the key to Dad’s bike lock. Not today.'; });
 }
-function openDrawer(){
-  const st = !S.keyTurned ? 'locked' : (S.passportsOut ? 'empty' : 'stuck');
-  openCloseup(`<div class="card shelf"><div class="shelfpic" style="background-image:url(${A}closeup-drawer.jpg?v=${BUILD})"><p class="otitle">Dad’s desk drawer</p></div><div class="shelffoot"><p class="ofb" id="drawerFb">${st === 'locked' ? 'Locked. A small keyhole.' : st === 'empty' ? 'Empty now, except for paperclips.' : 'Unlocked, but it will not come out.'}</p>${st === 'stuck' ? `<div class="row"><button class="ob quiet" id="pull">Pull</button>${S.mumTip ? '<button class="ob" id="liftpull">Lift and pull</button>' : ''}</div>` : ''}</div></div>`);
-  const p = $('pull'); if (p) p.onclick = () => { sfx('knock'); S.drawerStuck = true; save(); $('drawerFb').textContent = 'Stuck! It jams after a finger’s width. Someone must know the trick.'; };
-  const lp = $('liftpull'); if (lp) lp.onclick = () => { S.passportsOut = true; S.got.push('passports'); sfx('pickup'); closeCloseup(); render(); say('Lift, pull… and out it comes. The passports! They go in the strip below.'); };
+/* Dad's desk drawer, worked by hand beside the room (playbook 4j and backlog 12): the front is a cut-out over the empty cavity.
+   A straight pull jams; lift it a little first, then pull, and the passports come out. Mum's tip says so, but a player who
+   tries it before asking her is simply right. Once emptied, a tap slides the drawer shut or open again (backlog 15). */
+function openDrawer(h){
+  const side = sideAwayFrom(h || HOTS.l1.find(x => x.id === 'l_drawer'));
+  if (!S.keyTurned){ openAside(`<div class="card shelf"><div class="shelfpic" style="background-image:url(${A}closeup-drawer.jpg?v=${BUILD})"><p class="otitle">Dad’s desk drawer</p></div><div class="shelffoot"><p class="ofb">Locked. A small keyhole.</p></div></div>`, side); return; }
+  if (S.passportsOut){ /* empty: open or shut on a tap */
+    const open = !!S.drawerOpen;
+    openAside(`<div class="card shelf"><div class="shelfpic hands" id="hands" style="background-image:url(${A}closeup-drawer-open.jpg?v=${BUILD})"><span class="part" id="front" style="left:3%;top:27%;width:94%;transform-origin:50% 0;transform:${open ? 'translateY(22%) scale(1.16)' : 'none'};transition:transform .35s ease-out"><img src="${A}layer-drawerfront.png?v=${BUILD}" alt=""></span><p class="otitle">Dad’s desk drawer</p></div><div class="shelffoot"><p class="ofb" id="handsFb">${open ? 'Empty now, except for paperclips. Tap to slide it shut.' : 'Shut. Tap to slide it open.'}</p></div></div>`, side);
+    $('hands').onclick = () => { S.drawerOpen = !S.drawerOpen; save(); sfx(S.drawerOpen ? 'open' : 'knock'); rasp(0.5); $('front').style.transform = S.drawerOpen ? 'translateY(22%) scale(1.16)' : 'none'; $('handsFb').textContent = S.drawerOpen ? 'Empty now, except for paperclips. Tap to slide it shut.' : 'Shut. Tap to slide it open.'; };
+    return;
+  }
+  openLiftPull({side, title:'Dad’s desk drawer', bg:A+'closeup-drawer-open.jpg', front:{src:A+'layer-drawerfront.png', l:3, t:27, w:94}, inside:{src:A+'layer-passports.png', l:40, t:27, w:18},
+    label:S.mumTip ? 'Mum said: lift it up a little while you pull.' : 'Unlocked. Take hold of the handle and pull.',
+    stuckLabel:'Stuck! It jams after a finger’s width.' + (S.mumTip ? ' Lift it up a little first.' : ' Someone must know the trick.'),
+    liftedLabel:'It lifts a little… now pull.', doneLabel:'Lift, pull… and out it comes!',
+    stuck:() => { if (!S.drawerStuck){ S.drawerStuck = true; save(); } },
+    done:() => { S.passportsOut = true; S.drawerOpen = true; S.got.push('passports'); save(); render(); say('Lift, pull… and out it comes. The passports! They go in the strip below.'); }});
 }
 let pressed = [];
 function openFort(){
@@ -232,7 +245,7 @@ const USES = {
   'torch>b_case':pack('torch'), 'passports>b_case':pack('passports'), 'present>b_case':pack('present'), 'jumper>b_case':pack('jumper'),
   'kaya>b_case':() => { sfx('knock'); say('Not like that! A present should be wrapped first.'); },
   'wrapped>b_case':() => { sfx('knock'); say('It springs open again. It needs tape.'); },
-  'key>l_drawer':() => { S.keyTurned = true; drop('key'); save(); render(); sfx('tick'); say('The key turns with a click. Now pull.'); setTimeout(openDrawer, 500); },
+  'key>l_drawer':h => { S.keyTurned = true; drop('key'); save(); render(); sfx('tick'); say('The key turns with a click. Now pull.'); setTimeout(() => openDrawer(h), 500); },
   'key>l_desk':() => { S.keyTurned = true; drop('key'); save(); render(); sfx('tick'); say('The key turns in the drawer with a click. Now pull.'); setTimeout(openDrawer, 500); },
   'key>l_front':() => { sfx('knock'); say('Not the front door key. And nobody goes out without Mum.'); },
   'paper>item:kaya':wrapKaya, 'kaya>item:paper':wrapKaya,
@@ -348,7 +361,7 @@ return {
   track:'../art/music/flat.mp3', ambient:'rain', next:null,
   intro:'<b>Packing day.</b> Rain outside, the taxi at four, and a list from Mum on the wall by your door.',
   start:{room:'bedroom', view:0},
-  fresh:() => ({packed:[], moths:[], zipped:false, listRead:false, postcardRead:false, ehnoteRead:false, drawingSeen:false, fortOpen:false, keyTaken:false, keyTurned:false, drawerStuck:false, mumTip:false, passportsOut:false, kayaTaken:false, paperGone:false, tapeGone:false}),
+  fresh:() => ({packed:[], moths:[], zipped:false, listRead:false, postcardRead:false, ehnoteRead:false, drawingSeen:false, fortOpen:false, keyTaken:false, keyTurned:false, drawerStuck:false, drawerOpen:false, mumTip:false, passportsOut:false, kayaTaken:false, paperGone:false, tapeGone:false}),
   rooms:ROOMS, walls:WALLS, doors:DOORS, hots:HOTS, layers:LAYERS, extra:EXTRA, notes:NOTES, items:ITEMS, hints:HINTS, uses:USES,
   act, sparkle, rows, noticed, speaker, helper:() => 'the moth'
 };

@@ -172,7 +172,7 @@ function openPegs(){
   say('Your peg card has a rocket on it. Your jumper has the same.');
 }
 function openBox(){
-  const jumpers = [['Ava’s, with the cat', 17, 22], ['rocket', 31, 22], ['Ben’s, with the car', 50, 22], ['Priya’s, with the flower', 66, 22]];
+  const jumpers = [['Ava’s, with the cat', 9, 20], ['rocket', 29, 20], ['Ben’s, with the car', 48, 20], ['Priya’s, with the flower', 66, 20]]; /* left to right in the box */
   const btns = jumpers.map(([w, l, ww], i) => `<button class="book" data-i="${i}" style="left:${l}%;top:30%;width:${ww}%;height:44%" aria-label="${w === 'rocket' ? 'Jumper with the rocket badge' : w}"><span></span></button>`).join('');
   openCloseup(`<div class="card shelf"><div class="shelfpic" id="boxpic" style="background-image:url(${A}closeup-lost.jpg?v=${BUILD})">${got('jumper') ? '' : btns}<p class="otitle">Lost property</p></div><div class="shelffoot"><p class="ofb" id="boxFb">${got('jumper') ? (got('zigzag') || placed('zigzag') ? 'Three jumpers that are not yours.' : 'Under where your jumper was: a yellow zigzag. Tap it.') : 'Four jumpers, four badges. Which one is yours?'}</p>${got('jumper') && !(got('zigzag') || placed('zigzag')) ? `<button class="ob" id="takeZig">Take the zigzag piece</button>` : ''}</div></div>`);
   $('boxpic').querySelectorAll('.book').forEach(b => b.onclick = () => { const i = +b.dataset.i; sfx('leaf');
@@ -278,7 +278,7 @@ return {
   meanwhile:'Meanwhile, in Classroom 2P, Elliot has a marble run to mend before anyone touches the cake.',
   postcard:{pic:'../art/postcards/eschool.jpg'},
   title:'Last day of school', blurb:'Elliot’s last day: Classroom 2P and the playground. Mend the marble run, find your jumper, open the card.',
-  track:'../art/music/classroom.mp3', ambient:'school', next:null,
+  track:'../art/music/eschool.mp3', ambient:'school', next:null,
   intro:'<b>Last day of term.</b> Balloons on the whiteboard, cake on the table, and a card with your name on it on Miss Okafor’s desk.',
   start:{room:'classroom', view:0},
   fresh:() => ({placed:[], cogs:[], cardRead:false, chalkSeen:false, pegSeen:false, bell:false}),
