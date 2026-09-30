@@ -49,6 +49,8 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 31. Every stage opens with one gesture and a comic; the switch between children never replays them (4j, 4n, 4l).
 32. Tap targets are finger-sized, never under the turn arrows (the strips halfway up each side in the landscape engine), never covered by a bigger target unless the bigger one is listed first (audit checks size and the arrow strips). Hotspot ids are unique across every stage (audit checks).
 
+32b. A long press anywhere on the room glows the tappables and never opens the browser's own menu (tester round 1, T1): the scene prevents `contextmenu` and its pictures have no touch callout.
+
 ## F. Words and voice
 
 33. Two typefaces at most (log 14). The child's reading level: Zaina reads nothing, hears everything.

@@ -234,6 +234,62 @@ The owner's brief: finish the feel and navigation before more levels. Inspiratio
 9. ~~**10, the key top-up list**~~: the key was topped up the same evening; the two close-ups, both postcards and two tracks are done and the voice lines recorded (build 2026-09-30l). Left of it: the art for 11, 14, 15 and the remaining Part 1 stages (Mary's flight, packing day and the flight for Elliot and Zaina).
 10. **8, the moth's name**: the owner's.
 
+### Tester round 1 (a senior engineering manager with a games background, 30 Sept 2026): reviewed and ranked by WSJF
+
+His verdict: delightful, the style and feel work, enough to do without being too hard; on the easy side for a grown-up, with room for more puzzles and a ramp; the per-child difficulty is a good idea but a challenge for a public release; the moth is not connected to the family in the intro; for the stores, think about state, save games, achievements, ads and monetisation. Each point below says what the code does, what we take from it and what we do not.
+
+Confirmed bugs (fix in one tester-round build):
+- **T1. Long press shows the browser's image menu, not the tappable glow.** Android's context menu fires on the wall picture before our 600 ms timer. Fix: `contextmenu` prevented on the scene, `-webkit-touch-callout:none` on the scene's pictures and canvases. Adds checklist line E32b: a long press on any part of the room never opens a browser menu.
+- **T2. The Nana bonus riddle offers itself again after it is solved**, and only says "done" when you step away. Fix: the card's tap says it is solved once `S.nightMoth` is set.
+- **T3. Elliot's cogs go nowhere.** They are counted (the pickup line says "n of 3", the notebook keeps the count) but the robot never reacts. Fix: with three cogs, tapping the robot puts them in (a whirr, a little dance, a star on the postcard); the robot's line before that says what it wants. The tester's "they did not show anywhere" also means the notebook count is easy to miss: T7 covers it.
+- **T4. "If you find the door before the envelope it won't let you leave."** By design (the envelope is the stage's brief), but a refusal line is the wrong tool: the moth should fly to the desk (`pointAt`), as in Zaina's stage. Fix: point instead of refuse, and the same for every "not yet" gate.
+- **T5. Full screen "does nothing" on his device.** The button calls the browser's full-screen request; inside the installed app the page is already full screen, and some browsers refuse the request. Fix: hide the row when full screen is unavailable or already on (`canFS`, `standalone`), and label it honestly. Verify on his device.
+- **T6. A text error, "The in…", somewhere in Elliot's card strings.** Not found by search; a screenshot is requested.
+
+Design points we take (each a backlog item):
+- **T7. The optional layer is not announced.** He did not know paper moths existed, how many there were, or that the school has a riddle instead. Rule: every stage's optional hunt (the school's bonus riddle, the flat's six moths, Elliot's three cogs, and Zaina's to come) is introduced once by the moth when the first one is seen, counted in the notebook and in the postcard's star line, and looks the same across stages. Zaina's stage gets one too, sized for four (stickers to find).
+- **T8. Notes and items share the strip, so used-up things look un-removed.** Items that are consumed are removed (the key, the beater, the star key already are); notes stay because they are re-read. The two must look different: notes as paper, items as things, and a spoken tip the first time a note is tapped.
+- **T9. Speech should not replay on every tap of the same thing.** For Mary and Elliot, a note or card is read aloud the first time and shows a small replay button after; Zaina's stage keeps speaking everything, because she cannot read.
+- **T10. Difficulty and the audience.** Per-child difficulty stays: it is the point of the three stories. For the public it must be said plainly: the choose-a-child cards carry an age ("for 4 and up", "7 and up", "10 and up, with bonus puzzles for grown-ups"), and the About tab says the same. The grown-up layer is the Night Moth challenge per chapter (STORY.md), plus a ramp across each child's three stages. His "layers between puzzles, bottom-up" is exactly the school's three trails feeding the timetable; later chapters build deeper.
+- **T11. "Perhaps a butterfly", and the moth is not connected to the family.** The moth stays: the series is the Moth House, moths fly at night, which is when the mystery happens, and Nana's postcards carry one. What he is right about is that the intro never says so. The first comic of each child's story plants it (Nana's postcard with the moth on it, the paper moth in the pencil case), and the moth introduces itself by name, which needs the TO DECIDE name.
+- **T12. Return to a finished stage** for a bonus you missed, without restarting. Folded into backlog 7 (the postcards page): each postcard reopens its stage.
+- **T13. The voice**: "postcadd", an American idea of a British accent, a touch slow. A second voice pass: three candidate voices recorded on the same five lines for the owner to pick, a style line asking for natural southern English at reading pace, then all 226 lines re-recorded (three days on the free quota, or the paid model).
+- **T14. The comic panels are small on his device.** Check at phone size; on a phone the pages fill the screen rather than the scene box.
+- **T15. Release engineering.** Decisions for the owner now, work later: no ads (a children's app under Play's Families policy is far simpler without them), free during the test and a one-off price or free at launch to decide, saves stay on the device for now with a "copy my progress" code in the Family tab later, achievements are the postcards page (backlog 7), state management is the per-child saves already in place.
+- **T16. "Missed tropes"**: something under the cushions, a toy screwdriver, "Dad's story" as a chapter. Ideas for Part 2's parlour and the Moth House; noted in STORY.md's open decisions.
+- **T17. The fish bowl opens the notebook.** By design (Captain is Elliot's helper, as Nutmeg is Mary's), but it surprised him: the line becomes "Captain keeps your notebook safe", said once, and the moth button does the same.
+- **T18. Elliot has no packing stage** and Zaina no bonus: known, the remaining Part 1 stages and T7.
+
+### Backlog by WSJF (30 Sept 2026, after tester round 1)
+
+WSJF = (user value + time criticality + risk or opportunity) ÷ job size, each 1–10; size 1 is under an hour, 3 half a day, 5 a day, 8 several days, 10+ a week or more.
+
+| # | Item | Value | Time | Risk | Size | WSJF |
+|---|------|------:|-----:|-----:|-----:|-----:|
+| 1 | T1 long press fix | 6 | 5 | 4 | 1 | 15 |
+| 2 | T15 release decisions (ads, price, saves), owner's call | 5 | 5 | 5 | 1 | 15 |
+| 3 | T10 age labels on the cards and in About | 6 | 5 | 3 | 1 | 14 |
+| 4 | T2 bonus riddle state, T4 point instead of refuse, T5 full-screen row | 4 | 3 | 2 | 1 | 9 each |
+| 5 | Launch assets: privacy policy page, store texts, feature graphic, screenshots, form answers | 8 | 8 | 5 | 3 | 7 |
+| 6 | T6 the "The in" text, once seen | 3 | 2 | 2 | 1 | 7 |
+| 7 | T3 cogs into the robot | 6 | 4 | 3 | 2 | 6.5 |
+| 8 | T9 read once, replay button | 5 | 2 | 2 | 2 | 4.5 |
+| 9 | T11 the moth planted in the intro (needs the name) | 8 | 4 | 5 | 4 | 4.25 |
+| 10 | T7 the optional layer announced and counted, Zaina's stickers | 6 | 3 | 3 | 3 | 4 |
+| 11 | T8 notes look like notes | 6 | 3 | 3 | 3 | 4 |
+| 12 | T14 comic pages on phones | 4 | 2 | 2 | 2 | 4 |
+| 13 | Backlog 7 postcards page, with T12 return to a stage | 7 | 3 | 3 | 4 | 3.25 |
+| 14 | Backlog 11 opening gestures | 7 | 2 | 3 | 4 | 3 |
+| 15 | T13 voice pass 2 | 7 | 3 | 4 | 5 | 2.8 |
+| 16 | Hands-on close-ups for the dials and the marble cup | 5 | 2 | 2 | 4 | 2.25 |
+| 17 | Backlog 15 openables | 6 | 2 | 3 | 5 | 2.2 |
+| 18 | Remaining Part 1 stages (Mary's flight; packing and flight for Elliot and Zaina) | 9 | 5 | 4 | 10 | 1.8 |
+| 19 | T10 difficulty ramp and the Night Moth challenge per chapter | 7 | 2 | 4 | 8 | 1.6 |
+| 20 | T15 saves that survive a device change | 5 | 2 | 4 | 8 | 1.4 |
+| 21 | Part 2, the Moth House | 10 | 3 | 4 | 20 | 0.85 |
+
+Items 1, 3, 4, 6 and 7 are one build, about a day, the "tester round 1" build; 2 is a conversation; 5 runs while the Play account verifies.
+
 ## Feedback log (owner, 28 Sept 2026)
 
 1. Landscape; Dark-Dome-like cleanliness; inventory strip; close-ups over the room; expressive but gentle faces; side arrows.
@@ -281,3 +337,4 @@ The owner's brief: finish the feel and navigation before more levels. Inspiratio
 43. "Go back through all the feedback and document what went wrong so it can be applied systemically; use it at the start of any update and on anything amended or new; test-run it on the other levels" (owner, 30 Sept 2026). → `next/CHECKLIST.md` and `tools/audit.js` (4o); first run over packing day, Elliot's day and Zaina's party (log 44).
 44. The checklist's first test-run (30 Sept 2026, build 2026-09-30w), over Mary's packing day, Elliot's day and Zaina's party: every view screenshotted and every cut-out looked at close up, the audit run at four screen sizes. Found and fixed: the brass cog on Elliot's bookcase floated above the top board (B10: now stands on the board's front edge with a shadow); four hotspot ids in the flat's living room (`l_window`, `l_desk`, `l_globe`, `l_cabinet`) were the same as the school library's (E32: now `lv_…`); 49 story-led lines unrecorded, the comic pages, Mary's packing hints and the tips among them (F34: recorded). The audit itself was wrong twice and was corrected: it flagged bottom corners, where the portrait engine's arrows were, when the landscape arrows sit halfway up each side; and it counted blocked Google Fonts as a failed load. Everything else passed: Zaina's bottle, Peanut on the cushion, Miss Lin, the four paintings on their pegs; the flat's paper roll, snow globe, orchid, key, jumper, list, pencil case, Mum, the postcard and drawing on the fridge, the five paper moths; Elliot's card, balloons, straight piece in its tray, curve in the sand, Captain behind the glass, the cogs in the net and the flower tub. Lesson for the audit: a rule copied from an older layout must be re-measured against the current one before it is trusted.
 45. "Merge, I want to ship this version in a PWA" (owner, 30 Sept 2026). Pull request #3 merged the landscape game into `main` (live at https://me565.github.io/next/landscape/). Then, on the branch for the owner to test first: the root page now sends players to the landscape game and registers the service worker, the manifest says `landscape` with the children's description, the landscape page links the manifest and registers the service worker too, and the old adult room moved to `parlour.html`. The Android package ID and the manifest's `id`, `start_url` and `scope` are unchanged, so the existing app keeps working.
+46. Tester round 1 (owner's friend, a senior engineering manager with a games background, 30 Sept 2026): "delightful"; six bugs, twelve design points, reviewed one by one in section 8 (T1–T18) and folded into the backlog, which is now ordered by WSJF. Rule: a tester's report is walked the same way as the owner's, each line checked against the code, answered as fixed, by design (with the reason) or taken to the backlog, and the checklist gets a line for each new class of fault (E32b from T1).
