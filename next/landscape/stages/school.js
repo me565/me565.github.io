@@ -195,7 +195,7 @@ const LAYERS = {
     {src:'../art/school/layer-sticky.png', l:83.6, t:46, w:2.6, h:4.7}],
   le:[
     {src:'../art/school/layer-cushions.png', group:'cushions', l:36, t:58.5, w:12, h:9.05, shadow:.5},
-    {src:'../art/school/layer-knithamster.png', group:'knit', l:73.5, t:66, w:3.5, h:8.6, shadow:.5}],
+    {src:'../art/school/layer-knithamster.png', group:'knit', l:73.5, t:65.6, w:3.5, h:8.97, shadow:.5}],
   ls:[{src:'../art/school/layer-bell.png', group:'bell', l:65, t:59.5, w:4, h:5.85, shadow:.6}],
   lw:[{src:'../art/school/layer-trolley.png', group:'trolley', l:52, t:69, w:13, h:24, shadow:.7}]
 };
@@ -222,7 +222,7 @@ function staff(){
 }
 /* the three colour stripes Mary painted under her moth: drawn on the wall picture and in the close-up from the same code */
 function stripesSVG(vb){
-  let s = `<svg viewBox="${vb}" preserveAspectRatio="none" aria-hidden="true">`;
+  let s = `<svg viewBox="${vb}" preserveAspectRatio="none" width="100%" height="100%" style="position:absolute;left:0;top:0;width:100%;height:100%" aria-hidden="true">`;
   PAINT_CODE.forEach((p, i) => { const x = 130 + i*270, tilt = [-1.2, 1, -0.6][i]; s += `<rect x="${x}" y="600" width="230" height="66" rx="10" fill="${PAINTS[p][1]}" transform="rotate(${tilt} ${x+115} 633)"/><rect x="${x+18}" y="612" width="150" height="9" rx="4" fill="rgba(255,255,255,.28)" transform="rotate(${tilt} ${x+115} 633)"/>`; });
   return s + '</svg>';
 }
@@ -241,21 +241,21 @@ const NOTES = {
 };
 /* Each shelf close-up is a generated picture of the real shelf; `slots` are the books' boxes on it in picture percentages [left, top, right, bottom]. */
 const SHELVES = {
-  sci:{title:'Science shelf', pic:'../art/school/shelf-sci.jpg', slots:[[35.5,22,43,90],[43.5,21,49.5,90],[50,21,56.5,90],[57,23,66,90]], books:[
+  sci:{title:'Science shelf', pic:'../art/school/shelf-sci.jpg', slots:[[35.5,22,43,90],[43.5,21,49.5,90],[50,21,56.5,90],[57,23,66,90,6]], books:[
     ['Volcanoes!','Hot, rocky and a bit loud. No slip inside.'],
     ['The Night Sky','noteStar'],
     ['Bugs Up Close','Very close. Too close! No slip inside.'],
     ['Weather Watch','All about rain. Singapore has plenty. No slip inside.']]},
-  mus:{title:'Music shelf', pic:'../art/school/shelf-mus.jpg', slots:[[9,16,19,91],[20,23,33,91],[43,39,56,60]], books:[
+  mus:{title:'Music shelf', pic:'../art/school/shelf-mus.jpg', slots:[[9,16,19,91],[20,23,33,91,5],[43,39,56,60]], books:[
     ['Drums for Beginners','Boom, boom, tish! No slip inside.'],
     ['Songs of the Sea','Sailors’ songs. No slip inside.'],
     ['gap','A sticky note in the gap: “Returned today. See the trolley.”']]},
-  art:{title:'Art shelf', pic:'../art/school/shelf-art.jpg', slots:[[32,25,38.5,90],[38.5,33,45,90],[46,24,54,90],[55,29,63,90]], books:[
+  art:{title:'Art shelf', pic:'../art/school/shelf-art.jpg', slots:[[32,25,38.5,90],[38.5,33,45,90],[46,24,54,90,-6],[55,29,63,90]], books:[
     ['Clay Creatures','Squishy animals to make. No slip inside.'],
     ['Sketching','Pencils, and more pencils. No slip inside.'],
     ['The Big Book of Painting','notePaint'],
     ['Paper Folding','How to fold paper birds, boats and moths. No slip inside.']]},
-  trolley:{title:'Returns trolley', pic:'../art/school/shelf-trolley.jpg', slots:[[45,19,58,83],[64,19,79,84],[80,16,91,84]], books:[
+  trolley:{title:'Returns trolley', pic:'../art/school/shelf-trolley.jpg', slots:[[45,19,58,83],[64,19,79,84,-6],[80,16,91,84]], books:[
     ['Dinosaur Days','Roar! No slip inside.'],
     ['Playing the Piano','music'],
     ['Football Stars','No slip inside.']]},
@@ -384,13 +384,13 @@ function boardKey(x0, y0, colW, rowH, ic, fs){
   return key;
 }
 function openBoard(){
-  openCloseup(`<div class="card tt"><svg viewBox="0 0 230 136" aria-label="The whiteboard: which picture means which lesson"><rect width="230" height="136" rx="3" fill="#fffdf6" stroke="#8a97a3" stroke-width="3"/><text x="115" y="22" text-anchor="middle" font-size="13" fill="#2f5f8a" font-family="Atkinson Hyperlegible,Verdana,sans-serif" font-weight="700">Our timetable pictures</text><g>${boardKey(16, 32, 72, 26, 15, 11)}</g><text x="115" y="126" text-anchor="middle" font-size="10" fill="#c0541f" font-family="Atkinson Hyperlegible,Verdana,sans-serif">Happy holidays, Year 5!  Mr H</text></svg></div>`);
+  openCloseup(`<div class="card tt"><svg viewBox="0 0 230 136" aria-label="The whiteboard: which picture means which lesson"><rect width="230" height="136" rx="3" fill="#fffdf6" stroke="#8a97a3" stroke-width="3"/><text x="115" y="22" text-anchor="middle" font-size="13" fill="#2f5f8a" font-family="Atkinson Hyperlegible,Verdana,sans-serif" font-weight="700">Our timetable pictures</text><g>${boardKey(14, 32, 74, 26, 15, 10)}</g><text x="115" y="126" text-anchor="middle" font-size="10" fill="#c0541f" font-family="Atkinson Hyperlegible,Verdana,sans-serif">Happy holidays, Year 5!  Mr H</text></svg></div>`);
   say('Mr Hollis has drawn the timetable pictures on the board, with what each one means.');
 }
 /* the same key, drawn small on the whiteboard itself so the wall and the close-up agree */
 function wallBoard(){
   const wrap = document.createElement('div'); wrap.className = 'layer'; wrap.style.cssText = 'left:33%;top:36%;width:35%;height:33%';
-  wrap.innerHTML = `<svg viewBox="0 0 230 136" width="100%" height="100%" preserveAspectRatio="none" aria-hidden="true"><text x="115" y="22" text-anchor="middle" font-size="13" fill="#2f5f8a" font-family="Atkinson Hyperlegible,Verdana,sans-serif" font-weight="700">Our timetable pictures</text><g>${boardKey(16, 32, 72, 26, 15, 11)}</g><text x="115" y="126" text-anchor="middle" font-size="10" fill="#c0541f" font-family="Atkinson Hyperlegible,Verdana,sans-serif">Happy holidays, Year 5!  Mr H</text></svg>`;
+  wrap.innerHTML = `<svg viewBox="0 0 230 136" width="100%" height="100%" preserveAspectRatio="none" aria-hidden="true"><text x="115" y="22" text-anchor="middle" font-size="13" fill="#2f5f8a" font-family="Atkinson Hyperlegible,Verdana,sans-serif" font-weight="700">Our timetable pictures</text><g>${boardKey(14, 32, 74, 26, 15, 10)}</g><text x="115" y="126" text-anchor="middle" font-size="10" fill="#c0541f" font-family="Atkinson Hyperlegible,Verdana,sans-serif">Happy holidays, Year 5!  Mr H</text></svg>`;
   return wrap;
 }
 /* the three colour stripes under Mary's moth, drawn small on the wall picture so the wall and the close-up agree */
@@ -447,9 +447,10 @@ let shelfKey = null;
 function openShelf(key){
   shelfKey = key;
   const sh = SHELVES[key], spelling = key === 'sto' && S.bonus && !S.nightMoth;
-  const books = sh.books.map(([title], i) => { const [x0,y0,x1,y1] = sh.slots[i]; const box = `left:${x0}%;top:${y0}%;width:${x1-x0}%;height:${y1-y0}%`; return title === 'gap'
+  /* a title is sized to fit its spine (the picture is 58u wide, so 32.6u tall), and a leaning book's title leans with it */
+  const books = sh.books.map(([title], i) => { const [x0,y0,x1,y1,tilt] = sh.slots[i]; const fs = Math.min(1.9, Math.max(1.05, (y1-y0)/100*32.6*0.86/(title.length*0.6))); const box = `left:${x0}%;top:${y0}%;width:${x1-x0}%;height:${y1-y0}%;${tilt ? `transform:rotate(${tilt}deg);` : ''}`; return title === 'gap'
     ? `<button class="book gap" data-i="${i}" style="${box}"><span>Returned today. See the trolley.</span></button>`
-    : `<button class="book" data-i="${i}" style="${box}" aria-label="${title}"><span>${title}</span></button>`; }).join('');
+    : `<button class="book" data-i="${i}" style="${box}" aria-label="${title}"><span style="font-size:calc(var(--u)*${fs.toFixed(2)})">${title}</span></button>`; }).join('');
   openCloseup(`<div class="card shelf"><div class="shelfpic" id="books" style="background-image:url(${sh.pic}?v=${BUILD})"><p class="otitle">${sh.title}</p>${books}</div><div class="shelffoot">${spelling ? `<div class="row spellrow"><p class="spell" id="spell">${S.spell || '· · · ·'}</p><button class="ob quiet" id="spellReset">Start again</button></div>` : ''}<p class="ofb" id="shelfFb">${spelling ? 'Tap four stories in order to spell a name.' : 'Tap a book to open it.'}</p></div></div>`);
   $('books').querySelectorAll('.book').forEach(b => b.onclick = () => pickBook(+b.dataset.i));
   const r = $('spellReset'); if (r) r.onclick = () => { S.spell = ''; $('spell').textContent = '· · · ·'; $('shelfFb').textContent = 'Tap four stories in order to spell a name.'; save(); };

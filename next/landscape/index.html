@@ -128,8 +128,8 @@ button{font:inherit;color:inherit;cursor:pointer}
 .shelfpic{position:relative;width:100%;aspect-ratio:16/9;background:#8a5a3a center/cover no-repeat}
 .shelfpic .otitle{position:absolute;left:calc(var(--u)*1.2);top:calc(var(--u)*1);margin:0;background:rgba(20,26,40,.78);color:#fffaf0;border-radius:999px;padding:calc(var(--u)*.5) calc(var(--u)*1.6);font-size:calc(var(--u)*2.2)}
 .book{position:absolute;background:transparent;border:0;padding:0;cursor:pointer;display:grid;place-items:center;border-radius:calc(var(--u)*.6)}
-.book span{writing-mode:vertical-rl;text-orientation:mixed;color:#fffaf0;font:inherit;font-weight:700;font-size:calc(var(--u)*1.9);line-height:1;letter-spacing:.02em;text-shadow:0 1px 3px rgba(0,0,0,.6);max-height:92%;overflow:hidden}
-.book.gap span{writing-mode:horizontal-tb;color:#5b4a2e;font-weight:400;font-size:calc(var(--u)*1.55);text-shadow:none;transform:rotate(-3deg);text-align:center;line-height:1.1;padding:0 calc(var(--u)*.4)}
+.book span{writing-mode:vertical-rl;text-orientation:mixed;color:#fffaf0;font:inherit;font-weight:700;font-size:calc(var(--u)*1.9);line-height:1;letter-spacing:.02em;text-shadow:0 1px 3px rgba(0,0,0,.6);max-height:94%;overflow:hidden;white-space:nowrap}
+.book.gap span{writing-mode:horizontal-tb;color:#5b4a2e;font-weight:400;font-size:calc(var(--u)*1.2);white-space:normal;max-height:none;text-shadow:none;transform:rotate(-3deg);text-align:center;line-height:1.1;padding:0 calc(var(--u)*.4)}
 .book:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
 .shelffoot{padding:calc(var(--u)*.8) calc(var(--u)*2) calc(var(--u)*1);display:flex;flex-direction:column;gap:calc(var(--u)*.4);align-items:center}
 .spellrow{align-items:center;gap:calc(var(--u)*2.5)}
@@ -542,7 +542,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-30o';
+const BUILD = '2026-09-30p';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -630,7 +630,7 @@ function drawLayer(c, t){
   const blockShadow = (cx, cy, w, a) => { ctx.save(); ctx.filter = `blur(${Math.max(2, W*0.03)}px)`; ctx.fillStyle = `rgba(30,25,40,${0.28*a})`; ctx.beginPath(); ctx.ellipse(cx, cy, w*0.46, Math.max(3, w*0.07), 0, 0, Math.PI*2); ctx.fill(); ctx.restore(); };
   const drawBlocks = (tt) => { /* tt in seconds from the tap; large = at rest, scattered */
     const floor = oy + H, ease = k => 1 - Math.pow(1-k, 2.2);
-    const P = [ {dx:1.35, rot:-0.32, delay:0, lift:0.55, rest:0.28}, {dx:1.7, rot:0.12, delay:0.08, lift:0.35, rest:0}, {dx:0.9, rot:0.05, delay:0.16, lift:0.18, rest:0} ];
+    const P = [ {dx:2.35, rot:-0.5, delay:0, lift:0.55, rest:0.05}, {dx:1.55, rot:0.12, delay:0.08, lift:0.35, rest:0}, {dx:0.7, rot:0.05, delay:0.16, lift:0.18, rest:0} ]; /* roof furthest and on its side, then the middle, the base barely moves: they lie apart */
     const order = [2, 1, 0]; /* base first, roof last, so the roof lies across the others */
     order.forEach(i => { const [b0, b1] = L.bands[i], y0 = b0*H, hb = (b1-b0)*H, p = P[i];
       const k = Math.max(0, Math.min(1, (tt - p.delay)/0.9)), e = ease(k), after = Math.max(0, tt - p.delay - 0.9);
@@ -757,10 +757,11 @@ function drawLayer(c, t){
       const [cx, cy, r] = L.sphere, th = 0.85*2*Math.PI*(1 - Math.exp(-t/0.9));
       if (!st.arc){ /* the brass arc and any dark lines inside the sphere stay still: keep them on their own layer */
         const oc = document.createElement('canvas'); oc.width = W; oc.height = H; const o = oc.getContext('2d'); o.drawImage(img, 0, 0);
-        const d = o.getImageData(0, 0, W, H), px = d.data;
+        let d; try{ d = o.getImageData(0, 0, W, H); }catch(e){ st.arc = false; ctx.drawImage(img, ox, oy); break; } const px = d.data;
         for (let y = 0; y < H; y++) for (let x = 0; x < W; x++){ const i = (y*W + x)*4, dx = x - cx, dy = y - cy; if (dx*dx + dy*dy > r*r){ px[i+3] = 0; continue; }
           const R = px[i], G = px[i+1], B = px[i+2]; const brass = R > 120 && R > B + 40 && G > B + 10; const ink = R + G + B < 150; if (!brass && !ink) px[i+3] = 0; }
         o.putImageData(d, 0, 0); st.arc = oc; }
+      if (st.arc === false){ ctx.drawImage(img, ox, oy); break; }
       ctx.drawImage(img, ox, oy);
       ctx.save(); ctx.beginPath(); ctx.arc(ox + cx, oy + cy, r - 1, 0, Math.PI*2); ctx.clip();
       for (let x = Math.ceil(cx - r); x <= cx + r; x += 2){
@@ -844,7 +845,8 @@ function tick(){
     if (!st.anim || !c.isConnected) return;
     const t = (now - st.t0)/1000;
     if (t > 3.2) st.anim = null;
-    drawLayer(c, t); if (st.anim) live = true;
+    try{ drawLayer(c, t); }catch(e){ st.anim = null; try{ drawLayer(c, 0); }catch(e2){} } /* a movement that fails (a tainted canvas on some hosts) leaves the thing at rest, never blank */
+    if (st.anim) live = true;
   });
   animFrame = live ? requestAnimationFrame(tick) : null;
 }
@@ -1443,10 +1445,10 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-09-30o"></script>
-<script src="stages/packing.js?v=2026-09-30o"></script>
-<script src="stages/eschool.js?v=2026-09-30o"></script>
-<script src="stages/zschool.js?v=2026-09-30o"></script>
+<script src="stages/school.js?v=2026-09-30p"></script>
+<script src="stages/packing.js?v=2026-09-30p"></script>
+<script src="stages/eschool.js?v=2026-09-30p"></script>
+<script src="stages/zschool.js?v=2026-09-30p"></script>
 <script>boot();</script>
 </body>
 </html>
