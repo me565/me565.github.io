@@ -542,7 +542,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-30u';
+const BUILD = '2026-09-30v';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -610,7 +610,7 @@ function drawLayer(c, t){
   let glassRect = null;
   if (L.glass){ const [gx, gy] = toCanvas(c, L, L.glass[0], L.glass[1]), [gx2, gy2] = toCanvas(c, L, L.glass[0]+L.glass[2], L.glass[1]+L.glass[3]); glassRect = [gx, gy, gx2-gx, gy2-gy]; ctx.beginPath(); ctx.rect(...glassRect); ctx.clip(); }
   if (L.tone) ctx.filter = L.tone; /* things behind glass are drawn a little duller, so they sit inside rather than on top */
-  if (L.shadow && !(L.kind === 'blocks')){ /* a soft contact shadow under things that stand on a surface, so nothing floats */
+  if (L.shadow && !(L.kind === 'block')){ /* a soft contact shadow under things that stand on a surface, so nothing floats */
     ctx.save(); ctx.filter = `blur(${Math.max(2, W*0.03)}px)`; ctx.fillStyle = `rgba(30,25,40,${0.28*L.shadow})`;
     ctx.beginPath(); ctx.ellipse(ox + W/2, oy + H - H*0.01, W*0.46, Math.max(3, W*0.07), 0, 0, Math.PI*2); ctx.fill(); ctx.restore(); }
   const finish = () => {
@@ -628,18 +628,16 @@ function drawLayer(c, t){
   const damp = (f, tau) => Math.sin(2*Math.PI*f*t) * Math.exp(-t/tau);
   /* the three soft blocks: each band of the picture is one block; they tumble apart to the right and lie where they land */
   const blockShadow = (cx, cy, w, a) => { ctx.save(); ctx.filter = `blur(${Math.max(2, W*0.03)}px)`; ctx.fillStyle = `rgba(30,25,40,${0.28*a})`; ctx.beginPath(); ctx.ellipse(cx, cy, w*0.46, Math.max(3, w*0.07), 0, 0, Math.PI*2); ctx.fill(); ctx.restore(); };
-  const drawBlocks = (tt) => { /* tt in seconds from the tap; large = at rest, scattered */
-    const floor = oy + H, ease = k => 1 - Math.pow(1-k, 2.2);
-    const P = [ {dx:2.45, rot:-1.05, delay:0, lift:0.5, rest:0.14}, {dx:1.4, rot:0.06, delay:0.1, lift:0.3, rest:0}, {dx:0.22, rot:0.03, delay:0.2, lift:0.05, rest:0} ]; /* the roof flips furthest and lands on its side, the middle falls flat beside the base, the base only rocks */
-    const order = [2, 1, 0]; /* base first, roof last, so the roof lies across the others */
-    order.forEach(i => { const [b0, b1] = L.bands[i], y0 = b0*H, hb = (b1-b0)*H, p = P[i];
-      const k = Math.max(0, Math.min(1, (tt - p.delay)/0.9)), e = ease(k), after = Math.max(0, tt - p.delay - 0.9);
-      const cx0 = ox + W/2, cy0 = oy + y0 + hb/2, cyEnd = floor - hb/2 - p.rest*hb;
-      let cx = cx0 + p.dx*W*e, cy = cy0 + (cyEnd - cy0)*e - p.lift*H*Math.sin(Math.PI*k);
-      if (k >= 1 && after < 0.45) cy -= 0.10*hb*Math.abs(Math.sin(Math.PI*after/0.45))*Math.exp(-after/0.25); /* a small bounce on landing */
-      const rot = p.rot*e + (k < 1 ? 0.25*Math.sin(Math.PI*k)*(i === 0 ? -1 : 1) : 0);
-      blockShadow(cx, floor - p.rest*hb, W, k >= 1 ? 1 : 0.5);
-      ctx.save(); ctx.translate(cx, cy); ctx.rotate(rot); ctx.drawImage(img, 0, y0, W, hb + 1, -W/2, -hb/2, W, hb + 1); ctx.restore(); });
+  /* a soft block of a stack (kind 'block'): its own whole cut-out. L.fall = {dx (widths), rot, delay, lift}; L.drop = how many of its own
+     heights the floor is below its box; L.done() says the stack has fallen. k runs 0 (in the stack) to 1 (landed) */
+  const drawBlock = (k, airborne) => {
+    const P = L.fall, floor = oy + H*(1 + (L.drop || 0)), e = 1 - Math.pow(1-k, 2.2), rot = P.rot*e;
+    const rotH = th => (W*Math.abs(Math.sin(th)) + H*Math.abs(Math.cos(th)))/2;
+    const cx0 = ox + W/2, cy0 = oy + H/2, cx1 = cx0 + P.dx*W, cy1 = floor - rotH(P.rot);
+    let cx = cx0 + (cx1-cx0)*e, cy = cy0 + (cy1-cy0)*e - (airborne ? P.lift*H*Math.sin(Math.PI*k) : 0);
+    if (k >= 1 && airborne != null && airborne < 0.45 && airborne >= 0) cy -= 0.08*H*Math.abs(Math.sin(Math.PI*airborne/0.45))*Math.exp(-airborne/0.25); /* a small bounce on landing */
+    if (k >= 1 || !(L.drop)) blockShadow(cx, floor - H*0.01, W, k >= 1 || k <= 0 ? 1 : 0.5);
+    ctx.save(); ctx.translate(cx, cy); ctx.rotate(rot + (k > 0 && k < 1 ? 0.2*Math.sin(Math.PI*k)*(P.rot < 0 ? -1 : 1) : 0)); ctx.drawImage(img, -W/2, -H/2); ctx.restore();
   };
   /* the drawer in the stage front: when open it sits lower and larger (nearer), with the dark opening and the slip behind it */
   const drawDrawer = (k) => {
@@ -652,7 +650,7 @@ function drawLayer(c, t){
   const restDraw = () => {
     if (L.gone && L.gone()) return;
     if (st.open || (L.openWhen && L.openWhen())){ ctx.save(); ctx.translate(ox, oy); ctx.scale(0.12, 1); ctx.drawImage(img, 0, 0); ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.fillRect(0, 0, W, H); ctx.restore(); return; }
-    if (L.kind === 'blocks'){ if (S.toppled){ drawBlocks(9); return; } blockShadow(ox + W/2, oy + H - H*0.01, W, 1); }
+    if (L.kind === 'block'){ drawBlock(L.done && L.done() ? 1 : 0, null); return; }
     if (L.kind === 'drawer' && S.drawerOpen){ drawDrawer(1); return; }
     if (L.draw === 'rain'){ drawRain(ctx, idleT, ox, oy, W, H, L); return; }
     if (L.draw === 'steam'){ drawSteam(ctx, idleT, ox, oy, W, H); return; }
@@ -780,9 +778,11 @@ function drawLayer(c, t){
       ctx.globalAlpha = Math.max(0, 1 - Math.max(0, t - 0.85)/0.4);
       ctx.translate(ox + W/2, oy + H*0.15 + dy); ctx.rotate(rot); ctx.drawImage(img, -W/2, -H*0.15); if (L.over) L.over(ctx, -W/2, -H*0.15, W, H); ctx.globalAlpha = 1;
       break; }
-    case 'topple': { /* the stack of soft blocks tumbles apart */
-      if (t > 2.4){ st.anim = null; drawBlocks(9); break; }
-      drawBlocks(t); break; }
+    case 'topple': { /* the stack of soft blocks tumbles apart: each block flies whole to its own landing place */
+      if (L.kind !== 'block'){ st.anim = null; restDraw(); break; }
+      const P = L.fall, k = Math.max(0, Math.min(1, (t - P.delay)/0.9)), after = t - P.delay - 0.9;
+      if (t > 2.4){ st.anim = null; drawBlock(1, null); break; }
+      drawBlock(k, k >= 1 ? after : (k > 0 ? 0.001 : -1)); break; }
     case 'slideOpen': { /* the stage drawer slides out and stays out */
       const T = 0.7, k = Math.min(1, t/T), e = 1 - Math.pow(1-k, 3);
       if (t > T + 0.05){ st.anim = null; drawDrawer(1); break; }
@@ -1446,10 +1446,10 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-09-30u"></script>
-<script src="stages/packing.js?v=2026-09-30u"></script>
-<script src="stages/eschool.js?v=2026-09-30u"></script>
-<script src="stages/zschool.js?v=2026-09-30u"></script>
+<script src="stages/school.js?v=2026-09-30v"></script>
+<script src="stages/packing.js?v=2026-09-30v"></script>
+<script src="stages/eschool.js?v=2026-09-30v"></script>
+<script src="stages/zschool.js?v=2026-09-30v"></script>
 <script>boot();</script>
 </body>
 </html>

@@ -85,7 +85,7 @@ const HOTS = {
     {id:'hw_mat', l:5, t:74, w:90, h:17, label:'Soft play mat', sound:'leaf'},
     {id:'hw_slide', l:60, t:54, w:24, h:31, label:'Little slide', sound:'knock'},
     {id:'hw_blocks', l:23, t:52, w:11, h:34, label:'Stack of soft blocks', sound:'leaf', anim:'topple', layer:'blocks', hideWhen:() => S.toppled},
-    {id:'hw_blocks2', l:27, t:70, w:21, h:18, label:'Toppled soft blocks', sound:'leaf', hideWhen:() => !S.toppled},
+    {id:'hw_blocks2', l:25, t:68, w:26, h:19, label:'Toppled soft blocks', sound:'leaf', hideWhen:() => !S.toppled},
     {id:'hw_mallet', l:20, t:74, w:8, h:13, label:'Wooden beater', sound:'tap', key:true, anim:'lift', layer:'mallet', hideWhen:() => !S.toppled || S.got.includes('mallet') || S.beater}],
   /* art room: arrive facing the drying rack; the paint cupboard on the right, the doorway behind, the sink and aprons on the left */
   an:[
@@ -180,7 +180,10 @@ const LAYERS = {
     {src:'../art/school/layer-starlock.png', group:'starlock', l:38.1, t:58, w:3.4, h:8.84, padBelow:1.6, gone:() => S.stemOpen, over:(ctx, ox, oy, W, H) => drawStaple(ctx, ox, oy, W, H, 50, 7)}],
   hw:[ /* the beater lies where the stack stood; the stack of three soft blocks tumbles apart when tapped */
     {src:'../art/school/layer-mallet.png', group:'mallet', l:21.5, t:76, w:5, h:9.45, shadow:.6, showWhen:() => S.toppled, hideWhen:() => S.got.includes('mallet') || S.beater},
-    {src:'../art/school/layer-blocks.png', group:'blocks', kind:'blocks', l:24, t:53.4, w:9, h:31.6, padX:2.3, bands:[[0, .318], [.318, .612], [.612, 1]]}],
+    /* three whole soft blocks, stacked; each flies to its own landing place when the stack is tapped (kind 'block', see drawBlock) */
+    {src:'../art/school/layer-block-blue.png', group:'blocks', kind:'block', l:24, t:69.7, w:9, h:15.36, padX:2.8, drop:0, fall:{dx:.15, rot:.03, delay:.2, lift:.05}, done:() => S.toppled},
+    {src:'../art/school/layer-block-red.png', group:'blocks', kind:'block', l:24.8, t:60.9, w:7.4, h:13.3, padX:2.8, padBelow:1.1, drop:.82, fall:{dx:1.3, rot:.08, delay:.1, lift:.3}, done:() => S.toppled},
+    {src:'../art/school/layer-block-yellow.png', group:'blocks', kind:'block', l:24.3, t:53.3, w:8.4, h:11.35, padX:2.8, padBelow:2.1, drop:1.81, fall:{dx:2.3, rot:.62, delay:0, lift:.5}, done:() => S.toppled}],
   /* art room */
   ae:[ /* the combination padlock: its three white dials show the colours the player has set, drawn over the picture */
     {src:'../art/school/layer-diallock.png', group:'diallock', l:47.7, t:62, w:4.4, h:10.19, padBelow:1.6, gone:() => S.paintOpen, over:drawDials}],
