@@ -4,10 +4,10 @@ import base64, json, os, sys, urllib.request, time, hashlib
 from concurrent.futures import ThreadPoolExecutor
 import lameenc
 voice = sys.argv[1]; only = set(sys.argv[2:])
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'next', 'art', 'voice') + '/'
+OUT = '/home/user/me565.github.io/next/art/voice/'
 key = os.environ["GEMINI_API_KEY"]
-lines = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lines.json')))
-done = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'voice-done.json'))) if os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'voice-done.json')) else {}
+lines = json.load(open('lines.json'))
+done = json.load(open('voice-done.json')) if os.path.exists('voice-done.json') else {}
 STYLE = ("Speak as a small, gentle, magical moth who guides a child through a cosy mystery: soft, warm and unhurried, "
          "a little whispery but perfectly clear, kind and slightly playful, like a night light that can talk. British English. "
          "Say only the words after the colon, nothing else")
@@ -23,7 +23,7 @@ def tts(k, text):
     prompt = f"{STYLE}. {kind(k)}: {text}"
     body = {"contents":[{"parts":[{"text":prompt}]}],"generationConfig":{"responseModalities":["AUDIO"],"speechConfig":{"voiceConfig":{"prebuiltVoiceConfig":{"voiceName":voice}}}}}
     for attempt in range(4):
-        req = urllib.request.Request("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent", data=json.dumps(body).encode(), method="POST", headers={"Content-Type":"application/json","x-goog-api-key":key})
+        req = urllib.request.Request("https://generativelanguage.googleapis.com/v1beta/models/" + os.environ.get("TTS_MODEL", "gemini-2.5-flash-preview-tts") + ":generateContent", data=json.dumps(body).encode(), method="POST", headers={"Content-Type":"application/json","x-goog-api-key":key})
         try:
             with urllib.request.urlopen(req, timeout=180) as r: res = json.load(r)
             pcm = None
@@ -32,15 +32,14 @@ def tts(k, text):
             if not pcm: raise RuntimeError('no audio')
             enc = lameenc.Encoder(); enc.set_bit_rate(48); enc.set_in_sample_rate(24000); enc.set_channels(1); enc.set_quality(2)
             open(OUT + k + '.mp3', 'wb').write(enc.encode(pcm) + enc.flush())
-            time.sleep(6.5); return k, f"{len(pcm)/48000:.1f}s"
+            time.sleep(8); return k, f"{len(pcm)/48000:.1f}s"
         except Exception as e:
-            err = e; time.sleep(3 * (attempt + 1))
+            err = e; time.sleep(30)
     return k, 'FAILED ' + str(err)[:80]
 todo = [(k, t) for k, t in lines.items() if not only or k in only]
 with ThreadPoolExecutor(1) as ex:
     for k, r in ex.map(lambda kt: tts(*kt), todo):
         if r != 'kept': print(k, r, flush=True)
         if not r.startswith('FAILED'): done[k] = hashlib.md5((voice + '|' + lines[k]).encode()).hexdigest()
-json.dump(done, open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'voice-done.json'), 'w'), indent=1)
-json.dump(sorted(k for k in lines if os.path.exists(OUT + k + '.mp3')), open(OUT + 'index.json', 'w'))
+json.dump(done, open('voice-done.json', 'w'), indent=1)
 print('done', sum(1 for k in lines if os.path.exists(OUT + k + '.mp3')), 'of', len(lines))
