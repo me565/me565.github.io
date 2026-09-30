@@ -218,7 +218,7 @@ function suitcaseTap(){
   if (S.done){ say('Packed, zipped and ready.'); return; }
   const missing = PACK.filter(k => !packed(k));
   if (!missing.length){ S.done = true; save(); sfx('pickup'); say('Zip! And a horn outside: “Taxi’s here!” calls Mum.');
-    setTimeout(() => showEnd('Taxi’s here!', 'Torch, passports and Nana’s present, and the jumper on top. Mum grabs the keys, Elliot grabs his dinosaur, and Zaina grabs Peanut. Fourteen hours to London.', S.moths.length === 6 ? '★ You found all six paper moths!' : `Paper moths found: ${S.moths.length} of 6. They are hidden about the flat.`), 800); return; }
+    setTimeout(() => showEnd('Taxi’s here!', 'Packed! The torch was in Elliot’s secret base (password: sun, star, moon), the passports were in Dad’s stuck drawer (Mum knew the trick), and I wrapped a jar of kaya for Nana in the moth paper. Fourteen hours to London. Elliot has his dinosaur, Zaina has Peanut, and I have my jumper on top.', S.moths.length === 6 ? 'I found all six paper moths in the flat! ★' : `I found ${S.moths.length} of the six paper moths hidden in the flat.`), 800); return; }
   say('The suitcase, open on the bed. Still to pack: ' + missing.map(k => ITEMS[k].name).join(', ') + '.');
 }
 function pack(key){ return () => { drop(key); S.packed.push(key); save(); render(); sfx('pickup'); animate({anim:'lift', layer:'in'+key}); const missing = PACK.filter(k => !packed(k)); say(missing.length ? `In it goes. Still to pack: ${missing.map(k => ITEMS[k].name).join(', ')}.` : 'That’s everything on the list! Tap the suitcase to zip it.'); }; }
@@ -335,6 +335,8 @@ function sparkle(id){
   return false;
 }
 return {
+  card:{place:'SINGAPORE · LATER THAT AFTERNOON', text:'Rain on the windows and the taxi at four. Mum has stuck a list on Mary’s bedroom door: three things that must not be forgotten.'},
+  postcard:{pic:'../art/postcards/flat.jpg'},
   title:'Packing day', blurb:"Packing day at home: Mary's room, the living room and the kitchen. The taxi is at four.",
   track:'../art/music/flat.mp3', next:null,
   intro:'<b>Packing day.</b> Rain outside, the taxi at four, and a list from Mum on the wall by your door.',

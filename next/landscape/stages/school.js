@@ -487,8 +487,8 @@ function openLock(){
 }
 function ending(){
   S.done = true; save(); sfx('pickup');
-  showEnd('The last bell rings!', 'In your locker: your report (“a brilliant detective”) and a postcard from Nana. “Not long now! Love, Nana x.” The little moth in its corner seems to glow.',
-    S.nightMoth ? '★ You solved the bonus riddle too!' : 'Want a challenge? Try the bonus riddle on the corridor notice board.');
+  showEnd('The last bell rings!', 'Last day! Mr Hollis set a treasure hunt with three riddles. I found a star key in his apron, played a tune on the chime bars, and cracked the paint cupboard. My report says “a brilliant detective”, and there was a postcard from Nana in my locker: “Not long now!” The little moth on it seems to glow.',
+    S.nightMoth ? 'I solved the bonus riddle too. It spelled NANA. ★' : 'There was a bonus riddle on the notice board. I didn’t crack it yet.');
 }
 
 
@@ -651,6 +651,8 @@ function sparkle(id){
   return false;
 }
 return {
+  card:{place:'SINGAPORE · THE LAST DAY OF TERM', text:'Everyone is at the goodbye party in the hall. Tomorrow the whole family flies to London, to Nana and Jedi’s. But Mr Hollis has left something on Mary’s desk.'},
+  postcard:{pic:'../art/postcards/school.jpg'},
   title:'Last day of school', blurb:"Mary's last day of school: the classroom, the corridor, the library, the art room and the hall.",
   track:'../art/music/classroom.mp3', next:'packing', nextLabel:'Go home and pack',
   intro:'<b>Last day of school.</b> Everyone is at the party, but Mr Hollis left something on your desk. Nutmeg knows something.',

@@ -96,6 +96,13 @@ The working rules for every room in the landscape game, distilled from the owner
 - Saves are one per child (`mothhouse.landscape.<build>.<child>`), with a pointer to the last child played. The in-game menu has "Title screen".
 - `?stage=<key>` in the address still jumps straight into Mary's story for testing, skipping the start-up and title.
 
+## 4f. A stage's frame (owner, 30 Sept 2026: "finalise the game feel")
+
+- A stage opens on a title card over its first room: where and when in small capitals, the stage's name, one or two lines of set-up, Begin (a tap anywhere or Enter also begins). It shows only on a fresh start, never on resume. `card:{place, text}` in the stage.
+- A stage ends with a beat, then the postcard home: a chime, the moth crosses the room, and a picture postcard arrives with Mary's own recap of the day in her words ("Dear Mum and Dad…"), the stage's picture on the left, her portrait as the stamp, the optional challenge as a P.S. The stage gives `postcard:{pic}` and the text through `showEnd(title, text, ps)`; the engine draws the card and the way on ("Go home and pack", or "To be continued… back to the title" when the next stage is not built).
+- Postcard pictures are generated 3:2 in the game's style, saved 900×600 in `next/art/postcards/`; they never carry text.
+- Never reuse the scene's class names inside a card (`.msg` is the message line); a clash made the postcard's writing dark and centred.
+
 ## 5. Sound and music
 
 - Effects are made in the browser (Web Audio) and must be loud enough for a tablet speaker: taps 0.3, knocks 0.4, chimes 0.25. They start on the first real tap.
@@ -148,3 +155,4 @@ Distilled from player and critic reviews of Rusty Lake, Machinarium, Samorost, D
 16. Research on the genre's best practices (hints chosen per puzzle, to-do list, clue notebook, hotspot reveal, no repeated puzzle types). → build 2026-09-29c: Mary's notebook behind the moth button, long-press reveal, rules in section 7.
 17. Packing day: the owner sent Mum's photo (her look is now in STORY.md, the photo is not kept), asked for no shared clues across the children's stories, and agreed to the six paper moths. → build 2026-09-29d: stage 2 built as three rooms and three trails; the engine split into engine plus one file per stage.
 18. A studio start-up for OG Entertainment, and a landing page with Continue or New game, then the choice of child. → build 2026-09-30a, rules in 4e.
+19. Finalising the feel: stage title cards, a celebration beat and Mary's postcard home at the end of each stage. → build 2026-09-30e, rules in 4f.

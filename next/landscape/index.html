@@ -244,6 +244,39 @@ button{font:inherit;color:inherit;cursor:pointer}
 .notice h2{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*3.4)}
 .notice p{margin:0}
 
+/* a stage's title card (on the way in) and the postcard home (on the way out) */
+.stagecard{position:absolute;inset:0;display:grid;place-items:center;background:rgba(7,9,13,.92);z-index:5;color:#fffaf0;text-align:center;cursor:pointer}
+.stagecard .in{display:flex;flex-direction:column;gap:calc(var(--u)*1.2);align-items:center;animation:riseIn .8s ease-out both}
+.stagecard .place{font-size:calc(var(--u)*2);letter-spacing:.3em;padding-left:.3em;color:#bfe0d8}
+.stagecard h2{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*6.5);line-height:1.05}
+.stagecard p{margin:0;font-size:calc(var(--u)*2.3);max-width:calc(var(--u)*60);line-height:1.35}
+.stagecard .go{margin-top:calc(var(--u)*1.5)}
+.stagecard .go .ob{background:#f3c26a;color:#1d2629;font-size:calc(var(--u)*2.3)}
+@keyframes riseIn{from{opacity:0;transform:translateY(calc(var(--u)*1.5))}to{opacity:1;transform:none}}
+.menu.end{background:rgba(7,9,13,.55)}
+.postcard{position:relative;width:calc(var(--u)*64);aspect-ratio:1.55;background:#fffaf0;border-radius:calc(var(--u)*.6);box-shadow:0 calc(var(--u)*1.5) calc(var(--u)*4) rgba(0,0,0,.5);display:grid;grid-template-columns:1fr 1fr;overflow:hidden;color:var(--ink);text-align:left;animation:cardIn .7s cubic-bezier(.2,.8,.3,1) both;font-size:calc(var(--u)*1.9)}
+@keyframes cardIn{from{opacity:0;transform:translateY(calc(var(--u)*6)) rotate(-4deg) scale(.9)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.postcard,.stagecard .in{animation:none}}
+.postcard .pic{background:#ddd center/cover no-repeat;border-right:1px dashed #b9b2a1;margin:calc(var(--u)*1.1);margin-right:0;border-radius:calc(var(--u)*.3)}
+.postcard .pmsg{padding:calc(var(--u)*1.4) calc(var(--u)*1.6) calc(var(--u)*1);display:flex;flex-direction:column;gap:calc(var(--u)*.5);position:relative;font-style:italic;line-height:1.28;font-size:calc(var(--u)*1.7)}
+.postcard .to{font-style:normal;font-family:Caprasimo,Georgia,serif;color:#6d4fb8;font-size:calc(var(--u)*2.1)}
+.postcard .stamp{float:right;margin:0 0 calc(var(--u)*.8) calc(var(--u)*1);width:calc(var(--u)*7);height:calc(var(--u)*8.2);shape-outside:margin-box;border:calc(var(--u)*.25) solid #c8bfa8;background:var(--paper) center/cover no-repeat;box-shadow:0 0 0 calc(var(--u)*.35) #fffaf0 inset;transform:rotate(4deg)}
+.postcard .stamp::after{content:"";position:absolute;inset:calc(var(--u)*-.55);border:calc(var(--u)*.4) dotted #fffaf0;pointer-events:none}
+.postcard .body{flex:1}
+.postcard .ps{font-size:calc(var(--u)*1.55);color:#2f7c83;font-style:normal;font-weight:700}
+.postcard .sig{font-family:Caprasimo,Georgia,serif;font-style:normal;color:#6d4fb8}
+.endrow{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:calc(var(--u)*1.2)}
+.endrow .ob{min-height:36px;padding:calc(var(--u)*.8) calc(var(--u)*2.4)}
+.endrow .ob{background:#f3c26a;color:#1d2629}
+.endrow .ob.quiet{background:rgba(255,250,240,.12);color:#fffaf0;box-shadow:inset 0 0 0 1px rgba(255,250,240,.45)}
+.endwrap{display:flex;flex-direction:column;align-items:center}
+.endwrap .sent{color:#fffaf0;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2.8);margin:0 0 calc(var(--u)*.7);text-shadow:0 2px 6px rgba(0,0,0,.5)}
+/* the moth crossing the room at the end of a stage */
+.flymoth{position:absolute;left:-12%;top:45%;width:calc(var(--u)*6);height:calc(var(--u)*4.3);z-index:4;pointer-events:none;filter:drop-shadow(0 0 calc(var(--u)*1) rgba(243,194,106,.9))}
+.flymoth svg{width:100%;height:100%}
+@media (prefers-reduced-motion:no-preference){.flymoth{animation:mothFly 2.4s cubic-bezier(.35,0,.3,1) forwards}.flymoth .wl,.flymoth .wr{transform-origin:50% 55%}.flymoth .wl{animation:flapL .16s ease-in-out infinite alternate}.flymoth .wr{animation:flapR .16s ease-in-out infinite alternate}}
+@media (prefers-reduced-motion:reduce){.flymoth{display:none}}
+
 /* held in portrait: ask for a turn rather than squeezing the scene */
 .rotate{display:none;position:fixed;inset:0;background:var(--bg);color:#fffaf0;place-items:center;text-align:center;padding:24px;font-size:1.2rem;line-height:1.4;z-index:9}
 .rotate svg{width:72px;height:72px;margin-bottom:12px}
@@ -266,14 +299,8 @@ button{font:inherit;color:inherit;cursor:pointer}
     <button class="ctl" id="menuBtn" aria-label="Menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button>
     <p class="msg" id="msg" aria-live="polite"></p>
     <div class="closeup" id="closeup" hidden></div>
-    <div class="menu end" id="endUI" hidden>
-      <div class="card">
-        <h2 id="endTitle">The last bell rings!</h2>
-        <p id="endText"></p>
-        <p class="small" id="endBonus"></p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center"><button class="ob quiet" id="endAgain">Play this stage again</button><button class="ob" id="endNext" hidden>Next</button></div>
-      </div>
-    </div>
+    <div class="stagecard" id="stagecard" hidden></div>
+    <div class="menu end" id="endUI" hidden><div class="endwrap"><p class="sent" id="endTitle"></p><div class="postcard" id="postcard"></div><div class="endrow"><button class="ob quiet" id="endAgain">Play this stage again</button><button class="ob" id="endNext" hidden>Next</button></div></div></div>
     <div class="menu" id="menu" hidden>
       <div class="card">
         <h2>The Moth House</h2>
@@ -335,7 +362,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-30d';
+const BUILD = '2026-09-30e';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -698,10 +725,22 @@ function openPic(src, aspect, title, overlay, width){
   openCloseup(`<div class="card pic" style="width:calc(var(--u)*${width || 58})"><div class="picwrap" id="picwrap" style="aspect-ratio:${aspect};background-image:url(${src}?v=${BUILD})">${overlay || ''}${title ? `<p class="otitle">${title}</p>` : ''}</div></div>`);
 }
 /* the end of a stage: a card with the story's last line, and the way on to the next stage */
+/* the end of a stage: a chime, the moth crosses the room, then Mary's postcard home arrives with the story's last line.
+   The stage gives the postcard's picture and text; the engine draws the card, the stamp (the child's portrait) and the way on. */
 function showEnd(title, text, small){
-  $('endTitle').textContent = title; $('endText').innerHTML = text; $('endBonus').textContent = small || '';
-  const nx = $('endNext'); nx.hidden = !STAGE.next; if (STAGE.next) nx.textContent = STAGE.nextLabel || 'Next';
-  setTimeout(() => { $('endUI').hidden = false; }, 600);
+  sfx('pickup'); setTimeout(() => chime(1046.5), 350); setTimeout(() => chime(1318.5), 650);
+  const m = document.createElement('div'); m.className = 'flymoth'; m.innerHTML = $('splash').querySelector('.moth').innerHTML; $('scene').appendChild(m); setTimeout(() => m.remove(), 2600);
+  const pc = STAGE.postcard || {}, c = CHILDREN[CHILD];
+  say(''); $('endTitle').textContent = title;
+  $('postcard').innerHTML = `<div class="pic" style="background-image:url(${pc.pic}?v=${BUILD})"></div><div class="pmsg"><span class="body"><span class="stamp" style="background-image:url(${c.portrait}?v=${BUILD})"></span><span class="to" style="display:block;margin-bottom:calc(var(--u)*.5)">Dear Mum and Dad,</span>${text}</span>${small ? `<span class="ps">P.S. ${small}</span>` : ''}<span class="sig">Love, ${c.name} x</span></div>`;
+  const nx = $('endNext'); nx.hidden = false; nx.textContent = STAGE.next ? (STAGE.nextLabel || 'Next') : 'To be continued… back to the title';
+  setTimeout(() => { $('endUI').hidden = false; }, matchMedia('(prefers-reduced-motion:reduce)').matches ? 400 : 2000);
+}
+/* a stage's title card on the way in: where and when, one line, then Begin (a tap anywhere also begins) */
+function stageCard(then){
+  const c = STAGE.card; if (!c){ then(); return; }
+  const el = $('stagecard'); el.innerHTML = `<div class="in"><span class="place">${c.place}</span><h2>${STAGE.title}</h2><p>${c.text}</p><div class="go"><button class="ob" id="cardGo">Begin</button></div></div>`;
+  el.hidden = false; const go = () => { el.hidden = true; el.onclick = null; then(); }; el.onclick = go; $('cardGo').onclick = e => { e.stopPropagation(); go(); };
 }
 
 /* ---------- using a held item on something: USES maps "item>target" to what happens; anything else gets a friendly line ---------- */
@@ -886,13 +925,14 @@ if (canFS && !standalone && matchMedia('(pointer:coarse)').matches && !fsAsked) 
 $('soundBtn').textContent = 'Sound: ' + (soundOn ? 'on' : 'off');
 const restart = () => { S = fresh(S.stage); $('menu').hidden = true; $('endUI').hidden = true; closeCloseup(); render(); say(STAGE.intro); };
 $('restart').onclick = restart; $('endAgain').onclick = restart;
+addEventListener('keydown', e => { if (e.key === 'Enter' && !$('stagecard').hidden) $('stagecard').click(); });
 /* on to the next stage: fresh state, the new rooms loaded quietly first */
 function startStage(key){
   loadStage(key); S = fresh(key); save(); $('endUI').hidden = true; closeCloseup();
   $('scene').classList.add('fade');
-  Promise.all(roomArt(S.room).map(preload)).then(() => { render(); say(STAGE.intro); $('scene').classList.remove('fade'); Object.keys(ROOMS).filter(r => r !== S.room).forEach(r => roomArt(r).forEach(preload)); });
+  Promise.all(roomArt(S.room).map(preload)).then(() => { render(); $('scene').classList.remove('fade'); stageCard(() => say(STAGE.intro)); Object.keys(ROOMS).filter(r => r !== S.room).forEach(r => roomArt(r).forEach(preload)); });
 }
-$('endNext').onclick = () => { if (STAGE.next) startStage(STAGE.next); };
+$('endNext').onclick = () => { if (STAGE.next) startStage(STAGE.next); else { $('endUI').hidden = true; showTitle(); } };
 $('toTitle').onclick = () => { $('menu').hidden = true; closeCloseup(); showTitle(); };
 
 /* ---------- the start-up, the title screen and choosing a child ---------- */
@@ -928,7 +968,7 @@ function enterGame(){
   $('choose').hidden = true; $('title').hidden = true; $('scene').classList.add('fade');
   Promise.all(roomArt(S.room).map(preload)).then(() => {
     const l = $('loading'); if (l) l.remove();
-    render(); say(S.got.length ? `Back in ${ROOMS[S.room].into}.` : STAGE.intro); $('scene').classList.remove('fade');
+    render(); $('scene').classList.remove('fade'); if (S.got.length || S.done) say(`Back in ${ROOMS[S.room].into}.`); else stageCard(() => say(STAGE.intro));
     Object.keys(ROOMS).filter(r => r !== S.room).forEach(r => roomArt(r).forEach(preload));
   });
 }
@@ -952,8 +992,8 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-09-30d"></script>
-<script src="stages/packing.js?v=2026-09-30d"></script>
+<script src="stages/school.js?v=2026-09-30e"></script>
+<script src="stages/packing.js?v=2026-09-30e"></script>
 <script>boot();</script>
 </body>
 </html>
