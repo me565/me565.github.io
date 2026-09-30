@@ -135,6 +135,20 @@ Distilled from player and critic reviews of Rusty Lake, Machinarium, Samorost, D
 - **Post-game secrets** for dedicated players, always solvable in-game. → The Night Moth riddle per chapter.
 - Monetisation: never gate hints or progress behind ads. Not relevant yet (no ads planned).
 
+## 8. Backlog for the game's feel (ranked 30 Sept 2026, impact against effort)
+
+The owner's brief: finish the feel and navigation before more levels. Inspiration from the games he plays (Rusty Lake's Servant of the Lake): a single-scene moment the player must act on before the story moves (dragging the curtains shut before the coach leaves), a character voice that speaks the story text, and a settings cog always in the corner with tabbed settings, help, achievements and about. Nothing is copied from those games; only the ideas.
+
+1. **Settings, help and about behind the cog, in tabs.** Music and effects as separate sliders, full screen, show-what-I-can-tap; help (how to play, the notebook, reset this stage, reset the story, both with "Are you sure?"); about (fiction notice, credits, version). Retires the two unguarded wipes. Low effort, medium impact, and it is the frame the next items hang on.
+2. **Character voices.** Checked 30 Sept: Gemini's speech model (`gemini-2.5-flash-preview-tts`) works with our key; named voices plus a style instruction give a consistent voice per character (Mary, the moth, Nutmeg, Mum), generated once into mp3s at build time, never at run time. Voice the story-led lines only: stage cards, notes and letters, the helper's hints, Mum's lines, the postcard; not every tap line. A voice toggle in settings. For Zaina everything shown must be spoken, since she cannot read. Medium effort, high impact for children.
+3. **Loading feel.** A progress bar while a stage's pictures load, and open the first room as soon as its own walls are in. Low effort, medium impact.
+4. **Sound and music polish.** Music on the title screen, a fade between stage tracks, rain in the flat, party murmur at school. Low to medium effort, medium impact.
+5. **A drag moment.** One single-scene action the player must perform before the story goes on: zipping the suitcase shut by dragging the zip across at the end of packing day is the natural one (and the school's could be pulling the locker door). Needs a drag gesture in the engine. Medium effort, medium to high impact.
+6. **First-time tips.** One line each for tap, hold, pick-up-and-use and the moth button, the first time each is possible. Low effort, medium impact; better once voices exist.
+7. **A postcards page** (the achievements idea): the postcards collected so far, one per stage, plus the Night Moth stars. Low effort once there are more stages.
+8. **Who helps in the flat, and the moth's name.** TO DECIDE with the owner before the voice pass.
+9. Housekeeping before this replaces the live game: service worker and manifest for the landscape engine; Elliot's and Zaina's stories rebuilt in it.
+
 ## Feedback log (owner, 28 Sept 2026)
 
 1. Landscape; Dark-Dome-like cleanliness; inventory strip; close-ups over the room; expressive but gentle faces; side arrows.
