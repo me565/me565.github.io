@@ -542,7 +542,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-30p';
+const BUILD = '2026-09-30q';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -618,7 +618,7 @@ function drawLayer(c, t){
     if (L.lit){ /* the room's light falls on the cut-out: the wall's light and shade behind it, as brightness only, laid over the drawing */
       const off = st.off || (st.off = document.createElement('canvas')); off.width = c.width; off.height = c.height; const o = off.getContext('2d');
       const bl = L.l - L.w*PX, bt = L.t - L.h*PY, bw = L.w*(1+2*PX), bh = L.h*(1+PY+PB);
-      o.filter = 'grayscale(1) contrast(2.2) brightness(.72)'; o.drawImage(wall, bl/100*wall.naturalWidth, bt/100*wall.naturalHeight, bw/100*wall.naturalWidth, bh/100*wall.naturalHeight, 0, 0, off.width, off.height); o.filter = 'none';
+      o.filter = `grayscale(1) contrast(1.6) brightness(.8) blur(${Math.max(2, off.width*0.06)}px)`; o.drawImage(wall, bl/100*wall.naturalWidth, bt/100*wall.naturalHeight, bw/100*wall.naturalWidth, bh/100*wall.naturalHeight, 0, 0, off.width, off.height); o.filter = 'none';
       o.globalCompositeOperation = 'destination-in'; o.drawImage(c, 0, 0); o.globalCompositeOperation = 'source-over';
       ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.filter = 'none'; ctx.globalCompositeOperation = 'overlay'; ctx.globalAlpha = L.lit; ctx.drawImage(off, 0, 0); ctx.restore();
     }
@@ -630,7 +630,7 @@ function drawLayer(c, t){
   const blockShadow = (cx, cy, w, a) => { ctx.save(); ctx.filter = `blur(${Math.max(2, W*0.03)}px)`; ctx.fillStyle = `rgba(30,25,40,${0.28*a})`; ctx.beginPath(); ctx.ellipse(cx, cy, w*0.46, Math.max(3, w*0.07), 0, 0, Math.PI*2); ctx.fill(); ctx.restore(); };
   const drawBlocks = (tt) => { /* tt in seconds from the tap; large = at rest, scattered */
     const floor = oy + H, ease = k => 1 - Math.pow(1-k, 2.2);
-    const P = [ {dx:2.35, rot:-0.5, delay:0, lift:0.55, rest:0.05}, {dx:1.55, rot:0.12, delay:0.08, lift:0.35, rest:0}, {dx:0.7, rot:0.05, delay:0.16, lift:0.18, rest:0} ]; /* roof furthest and on its side, then the middle, the base barely moves: they lie apart */
+    const P = [ {dx:2.45, rot:-1.05, delay:0, lift:0.5, rest:0.14}, {dx:1.4, rot:0.06, delay:0.1, lift:0.3, rest:0}, {dx:0.22, rot:0.03, delay:0.2, lift:0.05, rest:0} ]; /* the roof flips furthest and lands on its side, the middle falls flat beside the base, the base only rocks */
     const order = [2, 1, 0]; /* base first, roof last, so the roof lies across the others */
     order.forEach(i => { const [b0, b1] = L.bands[i], y0 = b0*H, hb = (b1-b0)*H, p = P[i];
       const k = Math.max(0, Math.min(1, (tt - p.delay)/0.9)), e = ease(k), after = Math.max(0, tt - p.delay - 0.9);
@@ -730,7 +730,7 @@ function drawLayer(c, t){
     case 'squirt': { /* a drinking fountain: a thin arc of water rises from the spout, curves over and falls into the basin, then stops */
       const T = 1.5; if (t > T){ st.anim = null; break; }
       const grow = Math.min(1, t/0.35), fade = t > 1.1 ? 1 - (t-1.1)/0.4 : 1;
-      const x0 = ox + W*0.30, y0 = oy + H*0.62, cx = ox + W*0.06, cy = oy + H*0.12, x1 = ox - W*0.16, y1 = oy + H*0.74; /* spout, apex, basin: the water rises from the spout and falls left into the basin */
+      const x0 = ox + W*0.22, y0 = oy + H*0.58, cx = ox - W*0.06, cy = oy + H*0.22, x1 = ox - W*0.38, y1 = oy + H*0.96; /* spout tip, apex, the basin's bottom: the water rises from the spout and falls left into the basin */
       const pt = u => [ (1-u)*(1-u)*x0 + 2*(1-u)*u*cx + u*u*x1, (1-u)*(1-u)*y0 + 2*(1-u)*u*cy + u*u*y1 ];
       ctx.globalAlpha = fade; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
       const path = () => { ctx.beginPath(); ctx.moveTo(x0, y0); for (let i = 1; i <= 24; i++){ const [x, y] = pt(grow*i/24); ctx.lineTo(x, y); } };
@@ -766,8 +766,8 @@ function drawLayer(c, t){
       ctx.save(); ctx.beginPath(); ctx.arc(ox + cx, oy + cy, r - 1, 0, Math.PI*2); ctx.clip();
       for (let x = Math.ceil(cx - r); x <= cx + r; x += 2){
         const u = Math.max(-1, Math.min(1, (x - cx)/r)); let ph = Math.asin(u) + th; ph = ((ph + Math.PI/2) % Math.PI + Math.PI) % Math.PI - Math.PI/2;
-        const sx = cx + r*Math.sin(ph), hh = Math.sqrt(Math.max(0, r*r - (x-cx)*(x-cx)));
-        ctx.drawImage(img, sx, cy - hh, 2, 2*hh, ox + x, oy + cy - hh, 2, 2*hh); }
+        const sx = Math.max(0, Math.min(W - 2, cx + r*Math.sin(ph))), hh = Math.sqrt(Math.max(0, r*r - (x-cx)*(x-cx))), sy = Math.max(0, cy - hh), sh = Math.min(H - sy, 2*hh);
+        if (sh > 0) ctx.drawImage(img, sx, sy, 2, sh, ox + x, oy + cy - hh, 2, sh); }
       ctx.restore(); ctx.drawImage(st.arc, ox, oy);
       break; }
     case 'rattle': { /* a locked thing shakes a little and stays put */
@@ -885,8 +885,9 @@ function render(){
   Object.keys(WALLS).forEach(k => $('w-'+k).classList.toggle('on', k === v));
   $('where').textContent = ROOMS[S.room].name;
   const hots = $('hots'); hots.innerHTML = '';
+  const going = new Map(); layerState.forEach((st, c) => { if (st.anim && st.L.group) going.set(st.L.group, {anim:st.anim, t0:st.t0}); }); /* movements still going carry over a re-render */
   layerState.clear();
-  (LAYERS[v] || []).forEach(L => { if (L.hideWhen && L.hideWhen()) return; if (L.showWhen && !L.showWhen()) return; hots.appendChild(makeLayer(L)); });
+  (LAYERS[v] || []).forEach(L => { if (L.hideWhen && L.hideWhen()) return; if (L.showWhen && !L.showWhen()) return; const c = makeLayer(L); hots.appendChild(c); const g = going.get(L.group); if (g){ const st = layerState.get(c); st.anim = g.anim; st.t0 = g.t0; if (!animFrame) animFrame = requestAnimationFrame(tick); } });
   if (STAGE.overlays && STAGE.overlays[v]) hots.appendChild(STAGE.overlays[v]()); /* things the game draws over the picture, so wall and close-up agree */
   startIdle();
   /* bigger targets first, so a small thing on a big thing (the mug on the desk) stays tappable */
@@ -1445,10 +1446,10 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-09-30p"></script>
-<script src="stages/packing.js?v=2026-09-30p"></script>
-<script src="stages/eschool.js?v=2026-09-30p"></script>
-<script src="stages/zschool.js?v=2026-09-30p"></script>
+<script src="stages/school.js?v=2026-09-30q"></script>
+<script src="stages/packing.js?v=2026-09-30q"></script>
+<script src="stages/eschool.js?v=2026-09-30q"></script>
+<script src="stages/zschool.js?v=2026-09-30q"></script>
 <script>boot();</script>
 </body>
 </html>

@@ -122,7 +122,7 @@ const HOTS = {
     {id:'l_window', l:33, t:19, w:34, h:46, label:'Library window', sound:'tap'},
     {id:'l_cushions', l:35, t:57, w:14, h:11, label:'Cushions on the window seat', sound:'leaf', anim:'plump', layer:'cushions'},
     {id:'l_seat', l:32, t:66, w:36, h:18, label:'Window seat', sound:'knock'},
-    {id:'l_knit', l:72.5, t:64.5, w:6, h:10.5, label:'Knitted hamster on the chair', sound:'squeak', anim:'wobble', layer:'knit'},
+    {id:'l_knit', l:77.5, t:67, w:6, h:11.5, label:'Knitted hamster on the chair', sound:'squeak', anim:'wobble', layer:'knit'},
     {id:'l_chair', l:66, t:56, w:22, h:37, label:'Storytime chair', sound:'knock'},
     {id:'l_rug', l:52, t:85, w:37, h:12, label:'Rug', sound:'leaf'}],
   ls:[
@@ -154,8 +154,8 @@ const LAYERS = {
     {src:'../art/classroom/layer-plant3-pot.png', l:51.0, t:57.69, w:6.8, h:8.81, shadow:.5},
     {src:'../art/classroom/layer-plant4-pot.png', l:59.3, t:57.70, w:7.7, h:8.80, shadow:.5}],
   c3:[
-    {src:'../art/classroom/layer-coat.png', group:'coat', l:67.1, t:50.6, w:10.8, h:24.2, lit:.9},
-    {src:'../art/classroom/layer-lost.png', group:'lost', l:79, t:76.2, w:9.2, h:8.2},
+    {src:'../art/classroom/layer-coat.png', group:'coat', l:67.1, t:50.6, w:10.8, h:24.2, lit:.45},
+    {src:'../art/classroom/layer-lost.png', group:'lost', l:79.4, t:79.6, w:8.4, h:7.5},
     /* the front of the box, cut from the wall picture itself, drawn over the things inside it */
     {src:'../art/classroom/layer-boxfront.png', l:75.78, t:82.31, w:13.85, h:14.72},
     {src:'../art/classroom/layer-lid.png', group:'lid', l:27.4, t:68.6, w:10.4, h:10.7}],
@@ -177,7 +177,7 @@ const LAYERS = {
   hn:[ /* the little drawer in the front of the stage: closed until the tune is played, then it slides out with the slip inside */
     {src:'../art/school/layer-drawer.png', group:'drawer', kind:'drawer', inside:'../art/school/item-slipMu.png', l:44, t:78.2, w:12, h:8.6}],
   he:[ /* the star padlock hangs on the cabinet's hasp; the star key makes it drop off and it is gone for good */
-    {src:'../art/school/layer-starlock.png', group:'starlock', l:38.1, t:58, w:3.4, h:8.84, padBelow:1.6, gone:() => S.stemOpen}],
+    {src:'../art/school/layer-starlock.png', group:'starlock', l:38.1, t:58, w:3.4, h:8.84, padBelow:1.6, gone:() => S.stemOpen, over:(ctx, ox, oy, W, H) => drawStaple(ctx, ox, oy, W, H, 50, 7)}],
   hw:[ /* the beater lies where the stack stood; the stack of three soft blocks tumbles apart when tapped */
     {src:'../art/school/layer-mallet.png', group:'mallet', l:21.5, t:76, w:5, h:9.45, shadow:.6, showWhen:() => S.toppled, hideWhen:() => S.got.includes('mallet') || S.beater},
     {src:'../art/school/layer-blocks.png', group:'blocks', kind:'blocks', l:24, t:53.4, w:9, h:31.6, padX:2.3, bands:[[0, .318], [.318, .612], [.612, 1]]}],
@@ -195,7 +195,7 @@ const LAYERS = {
     {src:'../art/school/layer-sticky.png', l:83.6, t:46, w:2.6, h:4.7}],
   le:[
     {src:'../art/school/layer-cushions.png', group:'cushions', l:36, t:58.5, w:12, h:9.05, shadow:.5},
-    {src:'../art/school/layer-knithamster.png', group:'knit', l:73.5, t:65.6, w:3.5, h:8.97, shadow:.5}],
+    {src:'../art/school/layer-knithamster.png', group:'knit', l:78.6, t:68.2, w:3.4, h:8.71, shadow:.6}],
   ls:[{src:'../art/school/layer-bell.png', group:'bell', l:65, t:59.5, w:4, h:5.85, shadow:.6}],
   lw:[{src:'../art/school/layer-trolley.png', group:'trolley', l:52, t:69, w:13, h:24, shadow:.7}]
 };
@@ -228,7 +228,14 @@ function stripesSVG(vb){
 }
 /* the colour discs on the padlock's three dials, drawn over the cut-out (and over the same picture in the close-up) */
 const DIALS = [[31.9, 72.4], [60.0, 70.6], [86.1, 68.9]];
-function drawDials(ctx, ox, oy, W, H){ DIALS.forEach(([cx, cy], i) => { ctx.fillStyle = PAINTS[S.cdials[i]][1]; ctx.beginPath(); ctx.ellipse(ox + cx/100*W, oy + cy/100*H, W*0.075, H*0.068, 0, 0, Math.PI*2); ctx.fill(); }); }
+/* a metal staple through the padlock's shackle, drawn over the cut-out, so the lock hangs from the hasp instead of sitting on the doors */
+function drawStaple(ctx, ox, oy, W, H, cx, cy){
+  const rx = W*0.16, ry = H*0.052; ctx.save(); ctx.lineCap = 'round';
+  ctx.strokeStyle = '#2b2b2b'; ctx.lineWidth = Math.max(2, W*0.075); ctx.beginPath(); ctx.ellipse(ox + cx/100*W, oy + cy/100*H, rx, ry, 0, Math.PI*0.95, Math.PI*2.05); ctx.stroke();
+  ctx.strokeStyle = '#9a9ea3'; ctx.lineWidth = Math.max(1, W*0.04); ctx.beginPath(); ctx.ellipse(ox + cx/100*W, oy + cy/100*H, rx, ry, 0, Math.PI*1.05, Math.PI*1.95); ctx.stroke();
+  ctx.strokeStyle = 'rgba(255,255,255,.55)'; ctx.lineWidth = Math.max(1, W*0.014); ctx.beginPath(); ctx.ellipse(ox + cx/100*W, oy + cy/100*H - ry*0.35, rx*0.85, ry*0.7, 0, Math.PI*1.15, Math.PI*1.85); ctx.stroke(); ctx.restore();
+}
+function drawDials(ctx, ox, oy, W, H){ drawStaple(ctx, ox, oy, W, H, 50, 7); DIALS.forEach(([cx, cy], i) => { ctx.fillStyle = PAINTS[S.cdials[i]][1]; ctx.beginPath(); ctx.ellipse(ox + cx/100*W, oy + cy/100*H, W*0.075, H*0.068, 0, 0, Math.PI*2); ctx.fill(); }); }
 const NOTES = {
   envelope:{hand:true, html:'<span class="head">For Mary</span><span>It’s our last-day treasure hunt! Three riddles lead to three library books. Each book starts a trail, and at the end of each trail is a slip with a lesson and a day. Look each one up on our timetable: its period number is one number of your locker code, in riddle order.</span><span class="big">1. At night I’m full of lights, but I’m not a city.<br>2. I have eighty-eight keys, but I can’t open a single door.<br>3. I’m full of colour, but I’m not a rainbow. Brushes are my best friends.</span><span>Mr Hollis</span>'},
   noteStar:{hand:true, html:'<span class="head">Found me!</span><span class="big">The key to the stars is in my art apron, the one with all the paint on it. Then look for the star.</span><span>Mr H</span>'},
@@ -559,7 +566,7 @@ function act(id){ /* returns false for a door the engine should open */
     case 'hs_bench': say('The bench where the youngest class sits for assembly, swinging their legs.'); break;
     case 'hw_mat': say('The soft mat of the indoor playground. No shoes!'); break;
     case 'hw_slide': say('The little slide. Strictly for the little ones. Strictly.'); break;
-    case 'hw_blocks': S.toppled = true; save(); setTimeout(render, 2500); say('Whoops. The soft blocks tumble over… and there was something underneath!'); return;
+    case 'hw_blocks': S.toppled = true; save(); setTimeout(render, 700); say('Whoops. The soft blocks tumble over… and there was something underneath!'); return;
     case 'hw_blocks2': say('Soft blocks all over the mat. Someone will have to stack those again. Not Mary.'); break;
     case 'hw_mallet': S.got.push('mallet'); sfx('pickup'); render(); say('A wooden beater! The kind you play chime bars with.'); return;
     /* art room */
