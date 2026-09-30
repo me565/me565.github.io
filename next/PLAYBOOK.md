@@ -203,6 +203,19 @@ The owner's brief: finish the feel and navigation before more levels. Inspiratio
 16. **Living background** (owner, 30 Sept 2026, from a video: a fish tank in close-up whose piranhas keep swimming about while you look, and a line when you reach in; "moving parts of what is ordinarily static background… only where relevant, realistic and applicable; some could be things the player needs to get items from, others just background elements like the weather outside behind the window"). Today a cut-out moves only when tapped. The rule: a few cut-outs per stage move on their own, slowly and forever, on the wall and in the close-up, each with an `idle` movement in the animator: `swim` (a slow wander inside a box with a turn at each end), `sway` (a hang that stirs: bunting, balloons on strings, paintings on the line, a coat), `drift` (steam, a cloud), `rain` (streaks down a window), `tick` (a clock's hand), `breathe` (Nutmeg's flank, Peanut). Ours: Captain the goldfish drifting in his tank and Nutmeg's sniff now and then; rain on every window of the flat and the plane climbing past the living-room window; the 2P balloons and Zaina's bunting and paintings stirring in a draught; the orchid; the classroom clock; steam off the toaster. Some are the thing you need (Captain's tank hides nothing today, but the pattern is there for later: reaching in gets a line); most are just alive. Only the current view's idle layers tick, at a gentle frame rate, paused under a close-up or the menu, at rest under reduce-motion. Engine: medium (one loop, six movements); art: each living thing is a cut-out, and most already are. Captain can be done now: his cut-out is still in the session's scratchpad (`ez/sp-fish-raw.png`); the tank on the wall would then need the drawn fish painted out.
 10. When the Gemini key is topped up: record the 99 outstanding voice lines, regenerate the two composited close-ups and the two postcards, make a Lyria track each for Elliot's classroom and Zaina's party room.
 
+### Reranked, 30 Sept 2026 (evening), impact against effort, and what can be built before the key is topped up
+
+1. **12, hands-on close-ups, on one moment: Dad's stuck drawer as lift-then-pull, beside the room.** No new art, a day, and it proves both halves of the idea for the owner to judge. → next.
+2. **16, living background.** The engine loop and the first six living things from cut-outs we have (Captain from the scratchpad, rain on the flat's windows, the 2P balloons, Zaina's bunting and paintings, Nutmeg's breathing). Two days, no key.
+3. **13, the How to play page.** Half a day; its pictures cut from art we have.
+4. **14, the comic intro's page-turner** with the postcards as stand-in panels, so the real panels drop in the day the key is back. A day.
+5. **11, the opening gestures** for the two we can cut from existing walls (the flat's curtains, the classroom blind); the rest with the key.
+6. **15, openables**: the engine's two-state layer and the jar cupboard now; the other open faces with the key.
+7. **7, the postcards page**, folded into the Family tab (each child's postcards under their portrait). Half a day, best done after 14 so the pages share one look.
+8. **9, housekeeping** (service worker and manifest for the landscape engine) before anything replaces the live game.
+9. **10, the key top-up list**: 103 voice lines, two close-ups, two postcards, two tracks, then the art for 11, 14, 15 and the remaining Part 1 stages (Mary's flight, packing day and the flight for Elliot and Zaina).
+10. **8, the moth's name**: the owner's.
+
 ## Feedback log (owner, 28 Sept 2026)
 
 1. Landscape; Dark-Dome-like cleanliness; inventory strip; close-ups over the room; expressive but gentle faces; side arrows.
