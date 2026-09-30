@@ -335,7 +335,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-30b';
+const BUILD = '2026-09-30c';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -606,7 +606,7 @@ const KEY = 'mothhouse.landscape.' + BUILD; /* each build starts a fresh game; S
 /* the three stories: one save each, keyed by child; the title screen's Continue picks up the last one played */
 const CHILDREN = {
   mary:{name:'Mary', age:10, colour:'#8a5cc2', line:'Notices patterns, reads everything.', first:'school', portrait:'../art/portraits/mary.png'},
-  elliot:{name:'Elliot', age:7, colour:'#2f7c83', line:'Wants to know how things work.', first:null},
+  elliot:{name:'Elliot', age:7, colour:'#2f7c83', line:'Wants to know how things work.', first:null, portrait:'../art/portraits/elliot.png'},
   zaina:{name:'Zaina', age:4, colour:'#d9a622', line:'Sees the small things. Animals trust her.', first:null}
 };
 let CHILD = 'mary', S;
@@ -952,8 +952,8 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-09-30b"></script>
-<script src="stages/packing.js?v=2026-09-30b"></script>
+<script src="stages/school.js?v=2026-09-30c"></script>
+<script src="stages/packing.js?v=2026-09-30c"></script>
 <script>boot();</script>
 </body>
 </html>

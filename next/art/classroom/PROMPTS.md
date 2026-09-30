@@ -100,3 +100,5 @@ Twelve walls from a home version of the landscape style text ("a family's flat i
 ## Portraits (30 Sept 2026)
 
 `next/art/portraits/mary.png` (and `mary-grin.png`, the alternative): a head-and-shoulders portrait for the choose-a-child card, generated with the landscape style crop plus the owner's photos as references (the photos are not kept), then keyed on white. The prompt describes the look in words (long dark wavy hair in a low ponytail, big dark-brown eyes, a rust-orange t-shirt with a cream collar and a pine-tree-and-moon print) and the expression (a curious, slightly mischievous half-smile; the alternative a delighted grin). Elliot's and Zaina's cards show their initial until their photos arrive.
+
+`next/art/portraits/elliot.png` (and `elliot-grin.png`): made the same way on 30 Sept 2026 from the owner's photos (not kept): straight dark hair with a fringe, round cheeks, dark-brown eyes, a plain cream t-shirt with a small teal cog; astonished, eyebrows up, mouth in a small "oh" (the alternative: eyes squeezed shut in a grin). Zaina's card shows her initial until her photos arrive.
