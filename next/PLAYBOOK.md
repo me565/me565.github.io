@@ -138,6 +138,13 @@ The working rules for every room in the landscape game, distilled from the owner
 - The picture rule again: what is on a wall is on its close-up. The peg name cards and the cubby marks are drawn by the game (SVG overlays, `overlays:{p3:…}`) on the wall and in the close-up from one list; the bottles and paintings that are not Zaina's were composited onto the walls from the close-ups, and her own bottle and painting are cut-outs that leave the wall when taken and appear inside her cubby when put away.
 - When the Gemini credits ran out mid-build (HTTP 402, 30 Sept 2026) the last two close-ups (the star bottle on the shelf, the rocket jumper in the box) and both postcards were composited from art already made, and both stages use the classroom track. Regenerate them properly when the key is topped up: prompts in `next/art/classroom/PROMPTS.md`. The 77 new voice lines (35 Elliot, 42 Zaina) and the last 21 of Mary's are not recorded yet for the same reason; the game simply shows them until they are.
 
+## 4l. Switching child mid-game: "Meanwhile…" (owner, 30 Sept 2026)
+
+- The three stories are the same afternoon, so a switch is the camera moving to another child, not a menu. The cog's first tab, **Family**, shows the three portraits with where each one is ("Packing day, in the kitchen", "Not started yet", "Playing now"). Tap another child: the moth flies off across the room, the room fades, the loading bar says "Meanwhile, the party room…", and a MEANWHILE card names the child with the stage's one fixed line about their day (`meanwhile` in the stage, voiced as `<stage>.meanwhile`, written so it is true at any point of the stage). Go on lands in their room where they left it, or on their first day if they have not started.
+- Nothing is lost: the child you leave keeps their place (saves are per child already); anything held goes back into the strip. The title's Continue follows the last child played.
+- No clue crosses over. The switch is a mood and a convenience, never a puzzle; the finale is where the stories meet (STORY.md).
+- Reduced motion: no flight, a short fade, the same card.
+
 ## 5. Sound and music
 
 - Effects are made in the browser (Web Audio) and must be loud enough for a tablet speaker: taps 0.3, knocks 0.4, chimes 0.25. They start on the first real tap.
@@ -212,3 +219,4 @@ The owner's brief: finish the feel and navigation before more levels. Inspiratio
 22. Backlog items 3 and 4: the loading screen with a bar and per-view opening; a title theme, cross-faded stage tracks, rain in the flat, birds and party at school. → build 2026-09-30h, rules in 4i and 5.
 23. Backlog items 6 and 5: the moth's five first-time tips, and the drag gesture with the suitcase zip as its first moment. → build 2026-09-30i, rules in 4j.
 24. "Let's build out Elliot and Zaina's first levels" (owner, 30 Sept 2026). → build 2026-09-30j: `eschool` and `zschool`, pointed hints and spoken tap lines for Zaina, per-child notebook and reset; rules in 4k. Art credits ran out mid-build: see 4k and backlog item 10.
+25. "I want to consider the ability to switch between characters mid game… I like option 3" (owner, 30 Sept 2026): the switch as a story beat rather than a list. → build 2026-09-30k, rules in 4l.

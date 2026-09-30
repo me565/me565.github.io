@@ -274,6 +274,15 @@ button{font:inherit;color:inherit;cursor:pointer}
 .tcard .foot button{background:none;border:0;color:inherit;text-decoration:underline;font:inherit;padding:0}
 .tcorner{position:absolute;top:calc(var(--u)*1.6);right:calc(var(--u)*1.6);display:flex;gap:calc(var(--u)*1)}
 .tcorner .ctl{position:static}
+.fam{display:flex;gap:calc(var(--u)*2);justify-content:center;align-items:stretch;flex:1;padding-top:calc(var(--u)*.6)}
+.fkid{width:calc(var(--u)*21);background:var(--paper);color:var(--ink);border:0;border-radius:calc(var(--u)*1.4);padding:calc(var(--u)*1.2) calc(var(--u)*1.2);display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*.5);font:inherit;box-shadow:0 calc(var(--u)*.8) calc(var(--u)*2) rgba(0,0,0,.35);cursor:pointer;transition:transform .15s}
+.fkid:hover,.fkid:focus-visible{transform:translateY(calc(var(--u)*-.5));outline:none}
+.fkid.now{cursor:default;transform:none;box-shadow:0 0 0 calc(var(--u)*.4) #f3c26a}
+.fkid .face{width:calc(var(--u)*8.5);height:calc(var(--u)*8.5);border-radius:50%;overflow:hidden;position:relative;box-shadow:inset 0 calc(var(--u)*-.5) 0 rgba(0,0,0,.15)}
+.fkid .face img{position:absolute;left:50%;top:6%;width:96%;transform:translateX(-50%);display:block}
+.fkid .kname{font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2.5);color:#1d2629}
+.fkid .kwhere{font-size:calc(var(--u)*1.7);line-height:1.25;text-align:center;color:var(--muted)}
+.fkid .kgo{font-size:calc(var(--u)*1.7);font-weight:700;color:#2f7c83;margin-top:auto}
 .kids{display:flex;gap:calc(var(--u)*2.4);justify-content:center;margin-top:calc(var(--u)*1)}
 .kid{width:calc(var(--u)*24);background:var(--paper);color:var(--ink);border:0;border-radius:calc(var(--u)*1.6);padding:calc(var(--u)*1.8) calc(var(--u)*1.4);display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*.7);font:inherit;box-shadow:0 calc(var(--u)*1) calc(var(--u)*2.5) rgba(0,0,0,.35);cursor:pointer;transition:transform .15s}
 .kid:hover,.kid:focus-visible{transform:translateY(calc(var(--u)*-.5));outline:none}
@@ -402,11 +411,17 @@ button{font:inherit;color:inherit;cursor:pointer}
   <div class="panel">
     <svg class="pattern" width="100%" height="100%" aria-hidden="true" style="position:absolute;inset:0"><rect width="100%" height="100%" fill="url(#mothpat)"/></svg>
     <div class="tabs" role="tablist">
+      <button class="tab game-only" data-tab="family" role="tab"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3.2" fill="currentColor"/><circle cx="16.5" cy="9" r="2.6" fill="currentColor"/><path d="M2.5 19c0-3.3 2.5-5.5 5.5-5.5s5.5 2.2 5.5 5.5Z" fill="currentColor"/><path d="M13.5 18.5c.3-2.4 1.6-4 3-4.3 2.4 0 4.3 1.8 4.3 4.3Z" fill="currentColor"/></svg>Family</button>
       <button class="tab on" data-tab="settings" role="tab"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cog"/></svg>Settings</button>
       <button class="tab" data-tab="help" role="tab"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.6 2.2c-.8.4-1.1.9-1.1 1.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17" r="1.2" fill="currentColor"/></svg>Help</button>
       <button class="tab" data-tab="about" role="tab"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 11v6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="7.5" r="1.3" fill="currentColor"/></svg>About</button>
     </div>
     <button class="x" id="closeMenu" aria-label="Close">×</button>
+    <div class="pane" data-pane="family">
+      <h3>Meanwhile…</h3>
+      <p class="dim" style="text-align:center">The three of them are having the same afternoon. Tap a child to see how theirs is going; each one keeps their place.</p>
+      <div class="fam" id="fam"></div>
+    </div>
     <div class="pane on" data-pane="settings">
       <h3>Settings</h3>
       <div class="cols">
@@ -461,7 +476,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-30j';
+const BUILD = '2026-09-30k';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -1127,6 +1142,7 @@ const DEBUG = new URLSearchParams(location.search).has('debug');
 /* the cog's panel: the same panel from a room or from the title screen; the room-only rows hide on the title */
 let inGame = false;
 function openMenu(tab){
+  if (inGame) renderFamily();
   $('resetStory').textContent = `Start ${CHILDREN[CHILD].name}’s story from the beginning`;
   closeCloseup(); $('menu').hidden = false; $('confirmUI').hidden = true; showTab(tab || 'settings');
   document.querySelectorAll('.game-only').forEach(el => { el.hidden = !inGame; });
@@ -1138,6 +1154,34 @@ function showTab(name){ document.querySelectorAll('.tab').forEach(t => t.classLi
 document.querySelectorAll('.tab').forEach(t => t.onclick = () => { sfx('tap'); showTab(t.dataset.tab); });
 const closeMenu = () => { $('menu').hidden = true; };
 $('menuBtn').onclick = () => openMenu('settings');
+/* ---------- switching child mid-game: the camera moves to another child in the same afternoon ---------- */
+function whereIs(key){ const s = saved(key); if (!s) return 'Not started yet'; const st = STAGES[s.stage]; return s.done ? `${st.title}: finished` : `${st.title}, in ${STAGES[s.stage].rooms[s.room] ? STAGES[s.stage].rooms[s.room].into : 'the first room'}`; }
+function renderFamily(){
+  const f = $('fam'); f.innerHTML = '';
+  Object.entries(CHILDREN).forEach(([key, c]) => { const now = key === CHILD;
+    const b = document.createElement('button'); b.className = 'fkid' + (now ? ' now' : ''); b.dataset.child = key;
+    b.innerHTML = `<span class="face" style="background:${c.colour}"><img src="${c.portrait}?v=${BUILD}" alt=""></span><span class="kname">${c.name}</span><span class="kwhere">${now ? ROOMS[S.room].name : whereIs(key)}</span><span class="kgo">${now ? 'Playing now' : 'Go and see'}</span>`;
+    if (now) b.disabled = true; else b.onclick = () => switchChild(key);
+    f.appendChild(b); });
+}
+function switchChild(key){
+  if (!inGame || key === CHILD || !CHILDREN[key]) return;
+  if (S.held) S.held = null; save(); closeMenu(); closeCloseup(); hush(); sfx('leaf');
+  const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches, scene = $('scene');
+  if (!reduce){ const m = document.createElement('div'); m.className = 'flymoth'; m.innerHTML = $('splash').querySelector('.moth').innerHTML; scene.appendChild(m); setTimeout(() => m.remove(), 2600); }
+  setTimeout(() => scene.classList.add('fade'), reduce ? 0 : 700);
+  setTimeout(() => {
+    CHILD = key; S = load(); save(); setTrack(STAGE.track); setAmbient(STAGE.ambient);
+    const fresh = !S.got.length && !S.done && S.stage === CHILDREN[key].first && !hasProgress(S);
+    loadWithBar(viewArt(curView()), `Meanwhile, ${ROOMS[S.room].into}…`).then(() => { render(); scene.classList.remove('fade'); meanwhileCard(() => { if (fresh){ say(STAGE.intro); speak(`${S.stage}.intro`); } else say(`Back in ${ROOMS[S.room].into}.`); }); loadRest(); });
+  }, reduce ? 350 : 1400);
+}
+/* the card between children: MEANWHILE, the child's name and the stage's one fixed line about where they are in their day */
+function meanwhileCard(then){
+  const el = $('stagecard'), c = CHILDREN[CHILD];
+  el.innerHTML = `<div class="in"><span class="place">MEANWHILE</span><h2>${c.name}</h2><p>${STAGE.meanwhile || `${c.name} is in ${ROOMS[S.room].into}.`}</p><div class="go"><button class="ob" id="cardGo">Go on</button></div></div>`;
+  el.hidden = false; speak(`${S.stage}.meanwhile`); const go = () => { el.hidden = true; el.onclick = null; then(); }; el.onclick = go; $('cardGo').onclick = e => { e.stopPropagation(); go(); };
+}
 $('tMenu').onclick = () => openMenu('settings');
 $('tAbout').onclick = () => openMenu('about');
 $('closeMenu').onclick = closeMenu;
@@ -1229,10 +1273,10 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-09-30j"></script>
-<script src="stages/packing.js?v=2026-09-30j"></script>
-<script src="stages/eschool.js?v=2026-09-30j"></script>
-<script src="stages/zschool.js?v=2026-09-30j"></script>
+<script src="stages/school.js?v=2026-09-30k"></script>
+<script src="stages/packing.js?v=2026-09-30k"></script>
+<script src="stages/eschool.js?v=2026-09-30k"></script>
+<script src="stages/zschool.js?v=2026-09-30k"></script>
 <script>boot();</script>
 </body>
 </html>

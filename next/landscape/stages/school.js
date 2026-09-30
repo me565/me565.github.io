@@ -652,6 +652,7 @@ function sparkle(id){
 }
 return {
   card:{place:'SINGAPORE · THE LAST DAY OF TERM', text:'Everyone is at the goodbye party in the hall. Tomorrow the whole family flies to London, to Nana and Jedi’s. But Mr Hollis has left something on Mary’s desk.'},
+  meanwhile:'Meanwhile, at Knightsbrook, Mary is still hunting for the words in Mr Hollis’s riddle.',
   postcard:{pic:'../art/postcards/school.jpg'},
   title:'Last day of school', blurb:"Mary's last day of school: the classroom, the corridor, the library, the art room and the hall.",
   track:'../art/music/classroom.mp3', ambient:'school', next:'packing', nextLabel:'Go home and pack',

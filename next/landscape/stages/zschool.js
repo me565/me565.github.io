@@ -197,6 +197,7 @@ function sparkle(id){
 return {
   child:'zaina', hintStyle:'point', lines:LINES, miss,
   card:{place:'SINGAPORE · PARTY DAY', text:'Little Waves Kindergarten, with flags across the ceiling and a cake on the table. Zaina’s mark is a yellow star. Her bottle, her painting and the goodbye song, then Miss Lin has something shiny.'},
+  meanwhile:'Meanwhile, at Little Waves, Zaina’s party is about to start.',
   postcard:{pic:'../art/postcards/zschool.jpg'},
   title:'Party day', blurb:'Zaina’s goodbye party at Little Waves. Find the things with her yellow star and play the goodbye song.',
   track:'../art/music/classroom.mp3', ambient:'school', next:null,

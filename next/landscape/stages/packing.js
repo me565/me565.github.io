@@ -342,6 +342,7 @@ function sparkle(id){
 }
 return {
   card:{place:'SINGAPORE · LATER THAT AFTERNOON', text:'Rain on the windows and the taxi at four. Mum has stuck a list on Mary’s bedroom door: three things that must not be forgotten.'},
+  meanwhile:'Meanwhile, at home, the taxi is at four and Mary’s suitcase is still open on the bed.',
   postcard:{pic:'../art/postcards/flat.jpg'},
   title:'Packing day', blurb:"Packing day at home: Mary's room, the living room and the kitchen. The taxi is at four.",
   track:'../art/music/flat.mp3', ambient:'rain', next:null,

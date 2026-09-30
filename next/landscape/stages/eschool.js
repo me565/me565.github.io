@@ -275,6 +275,7 @@ function sparkle(id){
 return {
   child:'elliot',
   card:{place:'SINGAPORE · THE LAST DAY OF TERM', text:'Classroom 2P, with balloons on the whiteboard and a party waiting. Miss Okafor has left Elliot a card on her desk, and the marble run on the wall has never once rung its bell.'},
+  meanwhile:'Meanwhile, in Classroom 2P, Elliot has a marble run to mend before anyone touches the cake.',
   postcard:{pic:'../art/postcards/eschool.jpg'},
   title:'Last day of school', blurb:'Elliot’s last day: Classroom 2P and the playground. Mend the marble run, find your jumper, open the card.',
   track:'../art/music/classroom.mp3', ambient:'school', next:null,
