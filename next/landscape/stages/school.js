@@ -162,7 +162,7 @@ const LAYERS = {
   c4:[
     {src:'../art/classroom/layer-envelope.png', group:'envelope', l:50.5, t:66.5, w:6.5, h:5.5, hideWhen:() => S.got.includes('envelope')},
     /* the hamster lives inside the cage: it is clipped to the cage and the cage's glass is drawn faintly over it */
-    {src:'../art/classroom/layer-hamster.png', group:'hamster', l:68.1, t:56.3, w:3.9, h:5.5, glass:[67.3, 52.2, 10.2, 9.3], shadow:.5, tone:'saturate(.72) brightness(.94) contrast(.92)'},
+    {src:'../art/classroom/layer-hamster.png', group:'hamster', l:68.1, t:56.3, w:3.9, h:5.5, glass:[67.3, 52.2, 10.2, 9.3], shadow:.5, tone:'saturate(.72) brightness(.94) contrast(.92)', idle:'breathe', amount:.02, period:2.4},
     {src:'../art/classroom/layer-backpack.png', group:'backpack', l:58.2, t:78.5, w:7, h:15.3, shadow:.8}],
   /* corridor */
   h1:[

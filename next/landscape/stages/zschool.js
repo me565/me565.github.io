@@ -40,8 +40,11 @@ const LAYERS = {
       /* once put away, her things show inside her cubby */
       {src:A+'layer-painting.png', group:'inpainting', l:35.8, t:75.6, w:3.4, h:7.6, showWhen:() => put('painting')},
       {src:A+'layer-bottle.png', group:'inbottle', l:33.4, t:77, w:1.5, h:6.4, shadow:.4, showWhen:() => put('bottle')}],
-  z2:[{src:A+'layer-painting.png', group:'painting', l:42.3, t:40.5, w:7.5, h:16.7, hideWhen:() => got('painting') || put('painting')}],
-  z4:[{src:A+'layer-peanut.png', group:'peanut', l:16.5, t:64.5, w:7.2, h:14.1, shadow:.6}, {src:A+'layer-misslin.png', group:'misslin', l:70, t:57.3, w:6, h:30.7, shadow:.5}]
+  z2:[{src:A+'layer-painting-rainbow.png', group:'p1', l:24.3, t:41, w:7.5, h:12.9, idle:'sway', phase:0.4},
+      {src:A+'layer-painting.png', group:'painting', l:42.3, t:40.5, w:7.5, h:16.7, idle:'sway', phase:1.9, hideWhen:() => got('painting') || put('painting')},
+      {src:A+'layer-painting-cat.png', group:'p3', l:60.8, t:40, w:7.5, h:13.9, idle:'sway', phase:3.1},
+      {src:A+'layer-painting-flower.png', group:'p4', l:76.3, t:37, w:7.5, h:15.2, idle:'sway', phase:4.6}],
+  z4:[{src:A+'layer-peanut.png', group:'peanut', l:16.5, t:64.5, w:7.2, h:14.1, shadow:.6, idle:'breathe', amount:.014, period:3.2}, {src:A+'layer-misslin.png', group:'misslin', l:70, t:57.3, w:6, h:30.7, shadow:.5}]
 };
 const EXTRA = {kindy:[A+'closeup-bottles.jpg', A+'closeup-paintings.jpg', A+'closeup-instruments.jpg', A+'poster.jpg', A+'layer-sticker.png']};
 /* Zaina's mark and her portrait, drawn on her cubby; the other cubbies get their marks */

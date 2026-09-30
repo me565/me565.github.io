@@ -492,7 +492,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-30l';
+const BUILD = '2026-09-30m';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -544,7 +544,7 @@ function makeLayer(L){
   const st = {img:null, L, anim:null, t0:0}; layerState.set(c, st);
   if (L.inside) preload(L.inside).then(im => { st.inside = im; });
   if (L.draw){ /* drawn by code rather than a picture: a stand-in size, the drawing happens in drawLayer */
-    st.img = {naturalWidth:300, naturalHeight:300}; c.width = Math.round(300*(1+2*PX)); c.height = Math.round(300*(1+PY+PB)); drawLayer(c, 0); return c; }
+    const ratio = (L.h/L.w)*(9/16); st.img = {naturalWidth:300, naturalHeight:Math.round(300*ratio)}; c.width = Math.round(300*(1+2*PX)); c.height = Math.round(300*ratio*(1+PY+PB)); drawLayer(c, 0); return c; }
   preload(L.src).then(img => { if (!img.naturalWidth) return; st.img = img; c.width = Math.round(img.naturalWidth*(1+2*PX)); c.height = Math.round(img.naturalHeight*(1+PY+PB)); drawLayer(c, 0); });
   return c;
 }
@@ -553,7 +553,7 @@ function toCanvas(c, L, px, py){ const [PX, PY, PB] = pads(L); return [ (px - (L
 function drawLayer(c, t){
   const st = layerState.get(c); if (!st || !st.img || !st.img.naturalWidth) return;
   const [PX, PY, PB] = pads(st.L);
-  const {img, L, anim} = st, ctx = c.getContext('2d'), W = img.naturalWidth, H = img.naturalHeight, ox = W*PX, oy = H*PY;
+  const {img, L, anim} = st, ctx = c.getContext('2d'), W = img.naturalWidth, H = img.naturalHeight, ox = W*PX, oy = H*PY, idleT = performance.now()/1000;
   ctx.clearRect(0, 0, c.width, c.height);
   ctx.save();
   if (L.clipBottom != null){ const yClip = toCanvas(c, L, 0, L.clipBottom)[1]; ctx.beginPath(); ctx.rect(0, 0, c.width, yClip); ctx.clip(); }
@@ -604,6 +604,19 @@ function drawLayer(c, t){
     if (st.open || (L.openWhen && L.openWhen())){ ctx.save(); ctx.translate(ox, oy); ctx.scale(0.12, 1); ctx.drawImage(img, 0, 0); ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.fillRect(0, 0, W, H); ctx.restore(); return; }
     if (L.kind === 'blocks'){ if (S.toppled){ drawBlocks(9); return; } blockShadow(ox + W/2, oy + H - H*0.01, W, 1); }
     if (L.kind === 'drawer' && S.drawerOpen){ drawDrawer(1); return; }
+    if (L.draw === 'rain'){ drawRain(ctx, idleT, ox, oy, W, H, L); return; }
+    if (L.draw === 'steam'){ drawSteam(ctx, idleT, ox, oy, W, H); return; }
+    if (L.idle && !reduceMotion){ /* living background: a slow movement that never stops (4, backlog 16) */
+      const ph = L.phase || 0;
+      if (L.idle === 'swim'){ /* a slow wander across the box, turning at each end, with a little bob; the box is the water, the picture a fraction of it */
+        const P = L.period || 11, u = ((idleT + ph)/P) % 1, k = u < 0.5 ? u*2 : 2 - u*2, e = k*k*(3 - 2*k), facingLeft = u >= 0.5;
+        const fw = W*(L.size || 0.45), fh = fw*(H/W)*(16/9)*(L.w/L.h), x = ox + fw/2 + (W - fw)*e /* the picture keeps its own proportions inside the box */, y = oy + H*(L.depth ?? 0.45) + H*0.035*Math.sin(2*Math.PI*idleT/2.7 + ph);
+        ctx.save(); ctx.translate(x, y); if (facingLeft) ctx.scale(-1, 1); ctx.rotate(0.05*Math.sin(2*Math.PI*idleT/1.9 + ph)); ctx.drawImage(img, -fw/2, -fh/2, fw, fh); ctx.restore(); return; }
+      if (L.idle === 'breathe'){ const k = 1 + (L.amount || 0.012)*Math.sin(2*Math.PI*idleT/(L.period || 2.8) + ph); ctx.save(); ctx.translate(ox + W/2, oy + H); ctx.scale(1, k); ctx.drawImage(img, -W/2, -H); ctx.restore(); return; }
+      if (L.idle === 'sway'){ /* hung from the top: a slow stir in a draught */
+        const a = (L.amount || 0.035)*Math.sin(2*Math.PI*idleT/(L.period || 3.4) + ph) + (L.amount || 0.035)*0.4*Math.sin(2*Math.PI*idleT/(L.period || 3.4)*2.3 + ph*1.7);
+        ctx.save(); ctx.translate(ox + W/2, oy + (L.pivot === 'bottom' ? H : 0)); ctx.rotate(a); ctx.drawImage(img, -W/2, L.pivot === 'bottom' ? -H : 0); ctx.restore(); return; }
+    }
     ctx.drawImage(img, ox, oy);
     if (L.over) L.over(ctx, ox, oy, W, H);
   };
@@ -746,6 +759,35 @@ function drawLayer(c, t){
   finish();
   ctx.restore();
 }
+/* rain on a window: faint streaks running down the pane, a few at a time, with the odd drip that hesitates; the pane is the layer's box */
+function drawRain(ctx, t, ox, oy, W, H, L){
+  const n = L.count || 14; ctx.save(); ctx.lineCap = 'round';
+  for (let i = 0; i < n; i++){ const seed = (i*7919 % 1000)/1000, seed2 = (i*104729 % 1000)/1000, speed = 0.55 + seed2*0.5, len = H*(0.08 + seed*0.14);
+    const u = ((t*speed/ (L.period || 4) + seed) % 1), x = ox + W*(0.04 + ((seed*0.92 + i/n) % 0.92)), y = oy - len + (H + len)*u;
+    ctx.globalAlpha = 0.22*(1 - u*0.5); ctx.strokeStyle = 'rgba(230,240,250,1)'; ctx.lineWidth = Math.max(1, W*0.006); ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + W*0.006, y + len); ctx.stroke();
+    if (i % 4 === 0){ ctx.globalAlpha = 0.28; ctx.fillStyle = 'rgba(240,248,255,1)'; ctx.beginPath(); ctx.arc(x + W*0.006, y + len, Math.max(1.2, W*0.011), 0, Math.PI*2); ctx.fill(); } }
+  ctx.restore();
+}
+/* steam: three wisps rising from the bottom of the box and fading as they go */
+function drawSteam(ctx, t, ox, oy, W, H){
+  ctx.save(); ctx.lineCap = 'round'; ctx.strokeStyle = 'rgba(255,255,255,1)';
+  for (let i = 0; i < 3; i++){ const u = ((t/3.2 + i/3) % 1), x0 = ox + W*(0.25 + i*0.25), y = oy + H*(1 - u), sw = W*0.08*Math.sin(2*Math.PI*u*1.5 + i);
+    ctx.globalAlpha = 0.28*Math.sin(Math.PI*u); ctx.lineWidth = Math.max(1.5, W*0.05*(0.6 + u)); ctx.beginPath(); ctx.moveTo(x0, y + H*0.18); ctx.quadraticCurveTo(x0 + sw, y + H*0.09, x0 - sw*0.5, y); ctx.stroke(); }
+  ctx.restore();
+}
+/* the living background's own loop: the current view's idle layers are redrawn about twenty times a second while the room is
+   in view; it rests under a close-up, the menu, a hidden tab, and always under reduced motion */
+const reduceMotion = matchMedia('(prefers-reduced-motion:reduce)').matches;
+let idleFrame = null, idleLast = 0;
+function idleTick(now){
+  idleFrame = null; let any = false;
+  if (!reduceMotion && !document.hidden && $('closeup').hidden && $('menu').hidden){
+    if (now - idleLast > 45){ idleLast = now; layerState.forEach((st, c) => { const L = st.L; if (!c.isConnected || st.anim) return; if (L.idle || L.draw === 'rain' || L.draw === 'steam'){ any = true; drawLayer(c, 0); } }); }
+    else any = true;
+  } else { layerState.forEach(st => { if (st.L.idle || st.L.draw === 'rain' || st.L.draw === 'steam') any = true; }); }
+  if (any) idleFrame = requestAnimationFrame(idleTick);
+}
+function startIdle(){ if (!idleFrame && !reduceMotion) idleFrame = requestAnimationFrame(idleTick); }
 function tick(){
   let live = false; const now = performance.now();
   layerState.forEach((st, c) => {
@@ -794,6 +836,7 @@ function render(){
   layerState.clear();
   (LAYERS[v] || []).forEach(L => { if (L.hideWhen && L.hideWhen()) return; if (L.showWhen && !L.showWhen()) return; hots.appendChild(makeLayer(L)); });
   if (STAGE.overlays && STAGE.overlays[v]) hots.appendChild(STAGE.overlays[v]()); /* things the game draws over the picture, so wall and close-up agree */
+  startIdle();
   /* bigger targets first, so a small thing on a big thing (the mug on the desk) stays tappable */
   [...HOTS[v]].sort((a, b) => b.w*b.h - a.w*a.h).forEach(h => {
     if (h.hideWhen && h.hideWhen()) return;
@@ -1317,10 +1360,10 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-09-30l"></script>
-<script src="stages/packing.js?v=2026-09-30l"></script>
-<script src="stages/eschool.js?v=2026-09-30l"></script>
-<script src="stages/zschool.js?v=2026-09-30l"></script>
+<script src="stages/school.js?v=2026-09-30m"></script>
+<script src="stages/packing.js?v=2026-09-30m"></script>
+<script src="stages/eschool.js?v=2026-09-30m"></script>
+<script src="stages/zschool.js?v=2026-09-30m"></script>
 <script>boot();</script>
 </body>
 </html>

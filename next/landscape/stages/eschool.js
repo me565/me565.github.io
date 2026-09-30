@@ -19,12 +19,13 @@ const HOTS = {
   p1:[
     {id:'e_board', l:31, t:32, w:38, h:38, label:'Whiteboard: GOODBYE 2P!', sound:'tap'},
     {id:'e_desk', l:72, t:70, w:25, h:24, label:'Miss Okafor’s desk', sound:'knock'},
+    {id:'e_balloons', l:69.5, t:53, w:8, h:19, label:'Balloons tied to the desk', sound:'leaf', anim:'swing', layer:'balloons'},
     {id:'e_mug', l:73.5, t:66, w:5, h:7, label:'Miss Okafor’s mug', sound:'tap'},
     {id:'e_pencils', l:91, t:64, w:4.5, h:8, label:'Pot of pencils', sound:'tap'},
     {id:'e_card', l:79, t:55, w:9, h:17, label:'The goodbye card on the desk', sound:'paper', anim:'lift', layer:'card', key:true}],
   p2:[
     {id:'e_window', l:15, t:20, w:29, h:44, label:'Window', sound:'tap'},
-    {id:'e_tank', l:17, t:60, w:11, h:16, label:'Captain, the class goldfish', sound:'leaf', key:true},
+    {id:'e_tank', l:17, t:60, w:11, h:16, label:'Captain, the class goldfish', sound:'leaf', key:true, anim:'wobble', layer:'fish'},
     {id:'e_castle', l:30, t:62, w:10, h:14, label:'Sandcastle ornament', sound:'tap'},
     {id:'e_run', l:54, t:29, w:33, h:38, label:'The marble run', sound:'knock', key:true},
     {id:'e_bell', l:77.5, t:66.5, w:6, h:10, label:'The little bell at the bottom of the run', sound:'tick'},
@@ -64,8 +65,11 @@ const HOTS = {
 };
 const cog = (n, l, t) => ({src:A+'layer-cog.png', group:'cog'+n, l, t, w:2, h:3.56, hideWhen:() => S.cogs.includes(n)});
 const LAYERS = {
-  p1:[{src:A+'layer-card.png', group:'card', l:80.5, t:57.5, w:5.6, h:15.4, shadow:.5, hideWhen:() => S.done}],
-  p2:[{src:A+'layer-straight.png', group:'straight', l:58.5, t:74.2, w:7, h:6.1, shadow:.4, hideWhen:() => got('straight') || placed('straight')}],
+  p1:[{src:A+'layer-card.png', group:'card', l:80.5, t:57.5, w:5.6, h:15.4, shadow:.5, hideWhen:() => S.done},
+      {src:A+'layer-balloons.png', group:'balloons', l:70.5, t:54.5, w:6, h:16.5, idle:'sway', pivot:'bottom', amount:.04, period:4.2}],
+  /* Captain: his box is the water in the tank; he wanders across it and back, behind the tank's glass */
+  p2:[{src:A+'layer-fish.png', group:'fish', l:17.8, t:64.6, w:7.4, h:8.2, idle:'swim', size:.46, depth:.5, period:12, glass:[17.3, 60.5, 8.2, 14.6], tone:'saturate(.85) brightness(.96)'},
+      {src:A+'layer-straight.png', group:'straight', l:58.5, t:74.2, w:7, h:6.1, shadow:.4, hideWhen:() => got('straight') || placed('straight')}],
   p4:[cog(1, 62.5, 52.7)],
   g1:[cog(2, 51.8, 59.5)],
   g2:[{src:A+'layer-curve.png', group:'curve', l:33, t:64, w:6, h:12.5, shadow:.4, hideWhen:() => got('curve') || placed('curve')}],
@@ -205,6 +209,7 @@ const USES = {
 function act(id){
   switch(id){
     case 'e_board': say('GOODBYE 2P! in five colours. Miss Okafor did the balloons.'); break;
+    case 'e_balloons': say('Three balloons, tied to the desk leg. They bob when the door opens.'); break;
     case 'e_desk': say('Miss Okafor’s desk, tidy for once. ' + (S.done ? '' : 'Your card is on it.')); break;
     case 'e_mug': say('WORLD’S OKAYEST TEACHER, says the mug. She thinks it’s funny.'); break;
     case 'e_pencils': say('Pencils, sharpened. Twenty-nine of them, one each.'); break;

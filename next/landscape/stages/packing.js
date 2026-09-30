@@ -86,19 +86,20 @@ const HOTS = {
 const moth = (n, l, t) => ({src:A+'layer-moth.png', group:'moth'+n, l, t, w:2.4, h:2.63, hideWhen:() => S.moths.includes(n)});
 /* the things packed so far are drawn inside the open suitcase on the bed */
 const inCase = (key, l, t, w, h) => ({src:A+'layer-'+key+'.png', group:'in'+key, l, t, w, h, shadow:.5, showWhen:() => packed(key)});
+const rain = (l, t, w, h) => ({draw:'rain', group:'rain', l, t, w, h, count:12});
 const LAYERS = {
   b1:[inCase('jumper', 45.5, 60.5, 4.5, 9.85), inCase('passports', 44, 65.5, 5, 7.1), inCase('torch', 49.5, 64.5, 6.5, 7.8), inCase('present', 53.5, 66, 3.4, 6.5)],
   b2:[{src:A+'layer-list.png', group:'list', l:27.5, t:38, w:8, h:19, lit:.5}],
-  b3:[moth(2, 33.5, 18.5), {src:A+'layer-pencilcase.png', group:'pencilcase', l:53.5, t:65.5, w:6.5, h:5.4, shadow:.5, hideWhen:() => got('tape') || S.tapeGone}],
+  b3:[rain(35, 19, 31, 43), moth(2, 33.5, 18.5), {src:A+'layer-pencilcase.png', group:'pencilcase', l:53.5, t:65.5, w:6.5, h:5.4, shadow:.5, hideWhen:() => got('tape') || S.tapeGone}],
   b4:[moth(1, 57, 17.6), {src:A+'layer-jumper.png', group:'jumper', l:52, t:30.5, w:7, h:15.3, hideWhen:() => got('jumper') || packed('jumper')}],
-  l1:[{src:A+'layer-key.png', group:'key', l:73.4, t:34.8, w:2.8, h:7.97, hideWhen:() => S.keyTaken},
+  l1:[rain(34, 13, 33, 42), {src:A+'layer-key.png', group:'key', l:73.4, t:34.8, w:2.8, h:7.97, hideWhen:() => S.keyTaken},
       {src:A+'layer-paper.png', group:'paper', l:60, t:46, w:2.4, h:19.7, shadow:.5, hideWhen:() => S.paperGone}],
   l2:[{src:A+'layer-snowglobe.png', group:'snowglobe', l:20, t:32.3, w:5.5, h:11.2, shadow:.6}, {src:A+'layer-orchid.png', group:'orchid', l:61, t:30.6, w:5, h:12.95, shadow:.5}, moth(3, 33, 91.5)],
   l4:[moth(4, 59.8, 44)],
-  k1:[{src:A+'layer-mum.png', group:'mum', l:40, t:31, w:17, h:61.8, shadow:.7}],
+  k1:[{draw:'steam', group:'steam', l:30, t:44, w:6, h:9}, {src:A+'layer-mum.png', group:'mum', l:40, t:31, w:17, h:61.8, shadow:.7}],
   k2:[moth(5, 47, 23.4), {src:A+'layer-postcard.png', group:'postcard', l:44, t:52, w:7, h:9.7},
       {src:A+'layer-drawing.png', group:'drawing', l:45.5, t:64, w:9, h:13.5, over:drawSymbols}],
-  k4:[moth(6, 77, 24.6)]
+  k4:[rain(41, 29, 19, 45), moth(6, 77, 24.6)]
 };
 const EXTRA = {living:[A+'closeup-hooks.jpg', A+'closeup-drawer.jpg', A+'closeup-drawer-open.jpg', A+'layer-drawerfront.png', A+'closeup-fort.jpg', A+'closeup-infort.jpg'], kitchen:[A+'closeup-jars.jpg']};
 
