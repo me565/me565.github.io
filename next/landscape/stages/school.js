@@ -614,7 +614,7 @@ function act(id){ /* returns false for a door the engine should open */
 /* Mary's notebook: the to-do list. Each riddle shows how far its trail has got; tap one and the helper's hint for that trail
    goes from a nudge to the answer over three taps. Underneath, what Mary has noticed, so nothing has to be written down. */
 
-const speaker = () => S.room === 'classroom' ? 'Nutmeg squeaks' : 'The moth whispers';
+const speaker = () => 'The moth whispers';
 const THREADS = {1:['Riddle 1: full of lights at night, but not a city', 'slipSc', ['', 'note found', 'star key found', 'cabinet unlocked']],
   2:['Riddle 2: eighty-eight keys, but no doors', 'slipMu', ['', 'page of music found', 'beater found', 'beater on the bars', 'drawer open']],
   3:['Riddle 3: full of colour, but not a rainbow', 'slipAr', ['', 'note found', 'cupboard unlocked']]};
@@ -655,13 +655,13 @@ return {
   postcard:{pic:'../art/postcards/school.jpg'},
   title:'Last day of school', blurb:"Mary's last day of school: the classroom, the corridor, the library, the art room and the hall.",
   track:'../art/music/classroom.mp3', next:'packing', nextLabel:'Go home and pack',
-  intro:'<b>Last day of school.</b> Everyone is at the party, but Mr Hollis left something on your desk. Nutmeg knows something.',
+  intro:'<b>Last day of school.</b> Everyone is at the party, but Mr Hollis left something on your desk. And a little moth is watching from the window.',
   start:{room:'classroom', view:3},
   fresh:() => ({opened:false, bonus:false, spell:'', nightMoth:false, dials:[0,0,0], keyOut:false, stemOpen:false, toppled:false, beater:false, drawerOpen:false, cdials:[0,0,0], paintOpen:false, seen:{}}),
   rooms:ROOMS, walls:WALLS, doors:DOORS, hots:HOTS, layers:LAYERS, extra:EXTRA, notes:NOTES, items:ITEMS, hints:HINTS, uses:USES,
   overlays:{c4:wallTimetable, c1:wallBoard, an:wallStripes},
   onNote:key => { if (key === 'music') S.seen.tune = true; if (key === 'bonus') S.seen.bonus = true; save(); },
-  act, sparkle, rows, noticed, speaker, helper:() => S.room === 'classroom' ? 'Nutmeg' : 'the moth'
+  act, sparkle, rows, noticed, speaker, helper:() => 'the moth'
 };
 
 })());

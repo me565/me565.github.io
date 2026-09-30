@@ -110,6 +110,15 @@ The working rules for every room in the landscape game, distilled from the owner
 - Volumes are 0–10 and kept on the device (`mothhouse.vol`); effects run through one gain node so a slider takes effect at once; music at 0 stops the track and any other value restarts it. The old on/off switch is read once and turned into the two volumes.
 - The build id and sound state still appear only with `?debug`, in the panel's corner.
 
+## 4h. The moth's voice (30 Sept 2026)
+
+- One voice for the whole game, all three stories: the moth. It speaks the story-led lines only: the stage cards and intro, every note and letter when it opens, every hint in the notebook, the notebook's "that's everything", and the postcard home. Tap lines ("a mug, cold tea") are never voiced.
+- Lines are recorded once, at build time, with Google's speech model through the Gemini key (`gemini-2.5-flash-preview-tts`, voice Vindemiatrix, with a fixed style instruction: soft, warm, unhurried, a little whispery, British English), encoded to 48 kbps mono mp3 in `next/art/voice/<key>.mp3`. Nothing is generated while a child plays. The scripts are `extract-lines.js` (pulls the lines out of the stage files by key: `<stage>.hint.<i>.<n>`, `<stage>.note.<key>`, `<stage>.card`, `<stage>.intro`, `<stage>.postcard`, `nb.done`, `nb.that`) and `voice.py` (records only lines whose text changed) in the session scratchpad; keep copies with the repo's tools when the scratchpad is lost.
+- Changing a voiced line means re-recording it: run the two scripts after editing a stage. The speech model allows 10 requests a minute and 100 a day on our key (30 Sept 2026: 93 of 112 lines recorded on the first day; the last 19 follow when the quota resets). `next/art/voice/index.json` lists the recorded lines; the engine speaks only those, so an unrecorded line is silent rather than an error.
+- The engine plays a line by key (`speak`), one at a time; the moth appears beside the message line while it speaks and settles when done; closing a note or the notebook hushes it. "The moth's voice" has its own slider in Settings; at 0 the game is text only.
+- The moth is drawn in two poses: front-on (the portrait) and three-quarter with its wings half raised (speaking). Never cute-babyish; calm, wise, warm.
+- The name is still the owner's to decide; no recorded line says it.
+
 ## 5. Sound and music
 
 - Effects are made in the browser (Web Audio) and must be loud enough for a tablet speaker: taps 0.3, knocks 0.4, chimes 0.25. They start on the first real tap.
@@ -147,13 +156,13 @@ Distilled from player and critic reviews of Rusty Lake, Machinarium, Samorost, D
 The owner's brief: finish the feel and navigation before more levels. Inspiration from the games he plays (Rusty Lake's Servant of the Lake): a single-scene moment the player must act on before the story moves (dragging the curtains shut before the coach leaves), a character voice that speaks the story text, and a settings cog always in the corner with tabbed settings, help, achievements and about. Nothing is copied from those games; only the ideas.
 
 1. ~~Settings, help and about behind the cog, in tabs.~~ Done in build 2026-09-30f (section 4g).
-2. **Character voices.** Checked 30 Sept: Gemini's speech model (`gemini-2.5-flash-preview-tts`) works with our key; named voices plus a style instruction give a consistent voice per character (Mary, the moth, Nutmeg, Mum), generated once into mp3s at build time, never at run time. Voice the story-led lines only: stage cards, notes and letters, the helper's hints, Mum's lines, the postcard; not every tap line. A voice toggle in settings. For Zaina everything shown must be spoken, since she cannot read. Medium effort, high impact for children.
+2. ~~Character voices.~~ Done in build 2026-09-30g as one voice, the moth's (section 4h). Still to do later: Mum's four lines in her own voice; for Zaina everything shown must be spoken.
 3. **Loading feel.** A progress bar while a stage's pictures load, and open the first room as soon as its own walls are in. Low effort, medium impact.
 4. **Sound and music polish.** Music on the title screen, a fade between stage tracks, rain in the flat, party murmur at school. Low to medium effort, medium impact.
 5. **A drag moment.** One single-scene action the player must perform before the story goes on: zipping the suitcase shut by dragging the zip across at the end of packing day is the natural one (and the school's could be pulling the locker door). Needs a drag gesture in the engine. Medium effort, medium to high impact.
 6. **First-time tips.** One line each for tap, hold, pick-up-and-use and the moth button, the first time each is possible. Low effort, medium impact; better once voices exist.
 7. **A postcards page** (the achievements idea): the postcards collected so far, one per stage, plus the Night Moth stars. Low effort once there are more stages.
-8. **Who helps in the flat, and the moth's name.** TO DECIDE with the owner before the voice pass.
+8. ~~Who helps in the flat~~: the moth, everywhere (owner, 30 Sept). **The moth's name** is still TO DECIDE.
 9. Housekeeping before this replaces the live game: service worker and manifest for the landscape engine; Elliot's and Zaina's stories rebuilt in it.
 
 ## Feedback log (owner, 28 Sept 2026)
@@ -178,3 +187,4 @@ The owner's brief: finish the feel and navigation before more levels. Inspiratio
 18. A studio start-up for OG Entertainment, and a landing page with Continue or New game, then the choice of child. → build 2026-09-30a, rules in 4e.
 19. Finalising the feel: stage title cards, a celebration beat and Mary's postcard home at the end of each stage. → build 2026-09-30e, rules in 4f.
 20. Backlog item 1: the cog with tabbed settings, help and about, separate music and effects sliders, and confirmations before any wipe. → build 2026-09-30f, rules in 4g.
+21. Backlog item 2: a moth character and one voice for it, used throughout all three stories. → build 2026-09-30g, rules in 4h.

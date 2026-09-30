@@ -89,9 +89,9 @@ Drawn in code as SVG, to a polished flat-illustration standard. Rules for every 
 - **Nana.** Grandmother in Enfield. Always just "Nana". Warm, knows more than she says. Found the Moth House as a girl; the faded portrait in the Moth House is her.
 - **Jedi.** Grandfather in Enfield. Cheeky but lazy: always "just resting his eyes", bargains with biscuits, and takes the credit for everything the children do. Secretly on their side.
 - **Mum and Dad.** At home in Singapore. Each child sends them a postcard at the end of each stage.
-- **The moth.** A gentle guide whose wings glow like a night light. Gives hints from Enfield onwards (the Hint button). **TO DECIDE:** its name, or let each player name it.
+- **The moth.** A gentle guide whose wings glow like a night light: soft golden-cream wings with dusky-rose eye-spots, a plump brown body, feathery antennae and big kind eyes (portraits `next/art/portraits/moth.png` and `moth-speak.png`, 30 Sept 2026). It is there from the first day, watching from the classroom window, and follows each child all the way to the Moth House; only there do they learn why. It is the one voice of the game (owner, 30 Sept 2026): it whispers the hints, reads notes and letters over the child's shoulder, narrates the stage cards and reads the postcards home, in one soft, warm, slightly whispery voice recorded once per line. Nutmeg, Captain and Peanut can still be tapped for help, but it is the moth who speaks. **TO DECIDE:** its name (no recorded line says it, so it can be chosen at any time).
 - **Miss Okafor** is Elliot's (invented) teacher in class 2P; **Captain**, the class goldfish, is his hint-giver (tapping the tank gives the hints). **Miss Lin** runs Little Waves and gives Zaina her moth sticker. **Priya** is the flight attendant all three children meet on the plane. All invented.
-- **Nutmeg.** Class 5H's hamster. In Mary's school stage he is the hint-giver: tapping his cage gives the same three-step hints as the Hint button. Rule 3 of the class rules: feed Nutmeg once a day, never twice.
+- **Nutmeg.** Class 5H's hamster. Tapping his cage opens Mary's notebook, like the moth button. Rule 3 of the class rules: feed Nutmeg once a day, never twice.
 - **The Moth House.** Appears at dusk to people who are looking. Each moth-light brought home wakes a room.
 
 ## The journey
@@ -138,7 +138,7 @@ Version 2 (29 Sept 2026), designed after reading how Rusty Lake and Dark Dome st
 - **Convergence.** Three slips → the timetable on the classroom wall, read with the picture key Mr Hollis drew on the whiteboard → 4, 3, 6 → the locker → report and Nana's postcard. The last bell.
 - Timetable: Mon En Ma Sc Ar PE Mu · Tue Ma En Mu Ge Sc Li · Wed Sc Ma En PE Mu Ar · Thu En Ar Ma Sc Li PE · Fri Ma Mu Ar En PE Sc.
 - **Night Moth:** the bonus card on the corridor notice board: "Someone in London loves postcards and moths. Spell her name with the first letters of four stories." On the Stories shelf, *Nobody's Garden*, *A Quiet Moon*, *Nine Lanterns* and *Along the River* spell NANA.
-- Mr Hollis is Mary's (invented) teacher; Mrs Ng the (invented) librarian. Everyone else is at the party in the hall's playground… no: at the goodbye party outside. Nutmeg gives hints in the classroom; the moth everywhere else.
+- Mr Hollis is Mary's (invented) teacher; Mrs Ng the (invented) librarian. Everyone else is at the goodbye party. The moth gives the hints everywhere (tapping Nutmeg opens the notebook too).
 
 ### Stage 2: Packing day — the family flat — difficulty 3
 

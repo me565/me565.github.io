@@ -103,3 +103,7 @@ Twelve walls from a home version of the landscape style text ("a family's flat i
 
 `next/art/portraits/elliot.png` (and `elliot-grin.png`): made the same way on 30 Sept 2026 from the owner's photos (not kept): straight dark hair with a fringe, round cheeks, dark-brown eyes, a plain cream t-shirt with a small teal cog; astonished, eyebrows up, mouth in a small "oh" (the alternative: eyes squeezed shut in a grin).
 `next/art/portraits/zaina.png` (and `zaina-grin.png`): the same on 30 Sept 2026: wispy dark hair with a fringe and two high bunches, big dark-brown eyes, round cheeks, a navy dress with tiny white cats and rainbows, Peanut the elephant under her arm; shy with a small closed-mouth smile (the alternative: a delighted open smile).
+
+## The moth (30 Sept 2026)
+
+`next/art/portraits/moth.png` (front-on, wings spread) and `moth-speak.png` (three-quarters, wings half raised, glowing): "a small, friendly moth character… soft golden-cream wings with a faint warm glow and small round eye-spots in dusky rose, a plump fuzzy body in warm brown, two feathery antennae, and a kind, expressive face with two big dark shining eyes and a tiny smile. Cute but not babyish; calm, wise and warm, like a night light that has come to life", on white with the landscape style crop as reference, keyed and hardened like the other cut-outs.

@@ -307,6 +307,13 @@ button{font:inherit;color:inherit;cursor:pointer}
 @media (prefers-reduced-motion:no-preference){.flymoth{animation:mothFly 2.4s cubic-bezier(.35,0,.3,1) forwards}.flymoth .wl,.flymoth .wr{transform-origin:50% 55%}.flymoth .wl{animation:flapL .16s ease-in-out infinite alternate}.flymoth .wr{animation:flapR .16s ease-in-out infinite alternate}}
 @media (prefers-reduced-motion:reduce){.flymoth{display:none}}
 
+/* the moth appears beside the message line while it speaks, and settles when it has finished */
+.talker{position:absolute;left:calc(var(--u)*1.2);bottom:calc(var(--u)*.8);width:calc(var(--u)*8);height:calc(var(--u)*8);pointer-events:none;z-index:3;opacity:0;transform:translateY(calc(var(--u)*2)) scale(.8);transition:opacity .35s, transform .35s;filter:drop-shadow(0 0 calc(var(--u)*1.2) rgba(243,194,106,.7))}
+.talker img{width:100%;height:100%;object-fit:contain;display:block}
+.talker.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:no-preference){.talker.on img{animation:hover 1.6s ease-in-out infinite}@keyframes hover{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(calc(var(--u)*-.6)) rotate(2deg)}}}
+.scene.zoomed .talker{z-index:6}
+
 /* held in portrait: ask for a turn rather than squeezing the scene */
 .rotate{display:none;position:fixed;inset:0;background:var(--bg);color:#fffaf0;place-items:center;text-align:center;padding:24px;font-size:1.2rem;line-height:1.4;z-index:9}
 .rotate svg{width:72px;height:72px;margin-bottom:12px}
@@ -328,6 +335,7 @@ button{font:inherit;color:inherit;cursor:pointer}
     <button class="ctl" id="hintBtn" aria-label="Ask the moth for a hint" title="Hint"><svg viewBox="-14 -10 28 20" aria-hidden="true"><path d="M0 0C-4-9-13-9-13-2-13 3-5 3 0 0Z" fill="#f0b44c"/><path d="M0 0C4-9 13-9 13-2 13 3 5 3 0 0Z" fill="#f0b44c"/><path d="M0 1C-3 7-9 8-9 4-9 1-4 1 0 1Z" fill="#e9b98a"/><path d="M0 1C3 7 9 8 9 4 9 1 4 1 0 1Z" fill="#e9b98a"/><ellipse cx="0" cy="1" rx="1.3" ry="5" fill="#2b3431"/></svg></button>
     <button class="ctl" id="menuBtn" aria-label="Settings and help"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cog"/></svg></button>
     <p class="msg" id="msg" aria-live="polite"></p>
+    <div class="talker" id="talker" aria-hidden="true"><img src="../art/portraits/moth-speak.png" alt=""></div>
     <div class="closeup" id="closeup" hidden></div>
     <div class="stagecard" id="stagecard" hidden></div>
     <div class="menu end" id="endUI" hidden><div class="endwrap"><p class="sent" id="endTitle"></p><div class="postcard" id="postcard"></div><div class="endrow"><button class="ob quiet" id="endAgain">Play this stage again</button><button class="ob" id="endNext" hidden>Next</button></div></div></div>
@@ -377,6 +385,7 @@ button{font:inherit;color:inherit;cursor:pointer}
       <h3>Settings</h3>
       <div class="cols">
         <div class="srow"><label for="volMusic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.5" fill="currentColor"/><circle cx="16.5" cy="16" r="2.5" fill="currentColor"/></svg>Music</label><input type="range" id="volMusic" min="0" max="10" step="1"></div>
+        <div class="srow"><label for="volVoice"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Z" fill="currentColor"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>The moth’s voice</label><input type="range" id="volVoice" min="0" max="10" step="1"></div>
         <div class="srow"><label for="volFx"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Sound effects</label><input type="range" id="volFx" min="0" max="10" step="1"></div>
         <div class="srow"><span>Full screen</span><button class="ob" id="fsBtn">Full screen</button></div>
         <div class="srow game-only"><span>Can’t find something?</span><button class="ob" id="revealBtn">Show what I can tap</button></div>
@@ -426,7 +435,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-30f';
+const BUILD = '2026-09-30g';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -782,8 +791,8 @@ function openCloseup(inner){
   $('closeup').onclick = e => { if (e.target.isConnected && !e.target.closest('.card')) closeCloseup(); };
   $('closeup').hidden = false; $('scene').classList.add('zoomed'); sfx('open');
 }
-function closeCloseup(){ if ($('closeup').hidden) return; $('closeup').hidden = true; $('scene').classList.remove('zoomed'); sfx('close'); }
-function openNote(key){ const n = NOTES[key]; if (STAGE.onNote) STAGE.onNote(key); openCloseup(`<div class="card note${n.hand ? '' : ' print'}">${n.html}</div>`); }
+function closeCloseup(){ if ($('closeup').hidden) return; $('closeup').hidden = true; $('scene').classList.remove('zoomed'); sfx('close'); if (voiceKey && /\.note\.|^nb\./.test(voiceKey)) hush(); }
+function openNote(key){ const n = NOTES[key]; if (STAGE.onNote) STAGE.onNote(key); speak(`${S.stage}.note.${key}`); openCloseup(`<div class="card note${n.hand ? '' : ' print'}">${n.html}</div>`); }
 /* a picture close-up with something drawn over it by the game (a painting, a drawing, a shelf of jars with their labels) */
 function openPic(src, aspect, title, overlay, width){
   openCloseup(`<div class="card pic" style="width:calc(var(--u)*${width || 58})"><div class="picwrap" id="picwrap" style="aspect-ratio:${aspect};background-image:url(${src}?v=${BUILD})">${overlay || ''}${title ? `<p class="otitle">${title}</p>` : ''}</div></div>`);
@@ -798,13 +807,13 @@ function showEnd(title, text, small){
   say(''); $('endTitle').textContent = title;
   $('postcard').innerHTML = `<div class="pic" style="background-image:url(${pc.pic}?v=${BUILD})"></div><div class="pmsg"><span class="body"><span class="stamp" style="background-image:url(${c.portrait}?v=${BUILD})"></span><span class="to" style="display:block;margin-bottom:calc(var(--u)*.5)">Dear Mum and Dad,</span>${text}</span>${small ? `<span class="ps">P.S. ${small}</span>` : ''}<span class="sig">Love, ${c.name} x</span></div>`;
   const nx = $('endNext'); nx.hidden = false; nx.textContent = STAGE.next ? (STAGE.nextLabel || 'Next') : 'To be continued… back to the title';
-  setTimeout(() => { $('endUI').hidden = false; }, matchMedia('(prefers-reduced-motion:reduce)').matches ? 400 : 2000);
+  const wait = matchMedia('(prefers-reduced-motion:reduce)').matches ? 400 : 2000; setTimeout(() => { $('endUI').hidden = false; speak(`${S.stage}.postcard`); }, wait);
 }
 /* a stage's title card on the way in: where and when, one line, then Begin (a tap anywhere also begins) */
 function stageCard(then){
   const c = STAGE.card; if (!c){ then(); return; }
   const el = $('stagecard'); el.innerHTML = `<div class="in"><span class="place">${c.place}</span><h2>${STAGE.title}</h2><p>${c.text}</p><div class="go"><button class="ob" id="cardGo">Begin</button></div></div>`;
-  el.hidden = false; const go = () => { el.hidden = true; el.onclick = null; then(); }; el.onclick = go; $('cardGo').onclick = e => { e.stopPropagation(); go(); };
+  el.hidden = false; speak(`${S.stage}.card`); const go = () => { el.hidden = true; el.onclick = null; then(); speak(`${S.stage}.intro`); }; el.onclick = go; $('cardGo').onclick = e => { e.stopPropagation(); go(); };
 }
 
 /* ---------- using a held item on something: USES maps "item>target" to what happens; anything else gets a friendly line ---------- */
@@ -825,12 +834,13 @@ function act(id){
 /* Mary's notebook: the to-do list. Each trail shows how far it has got; tap one and the helper's hint for that trail
    goes from a nudge to the answer over three taps. Underneath, what Mary has noticed, so nothing has to be written down. */
 function hint(){ openNotebook(); }
-function hintText(i){ S.hint[i] = Math.min((S.hint[i] ?? -1) + 1, 2); save(); return `<b>${STAGE.speaker()}:</b> ${HINTS[i].tips[S.hint[i]]}`; }
+function hintText(i){ S.hint[i] = Math.min((S.hint[i] ?? -1) + 1, 2); save(); speak(`${S.stage}.hint.${i}.${S.hint[i]}`); return `<b>${STAGE.speaker()}:</b> ${HINTS[i].tips[S.hint[i]]}`; }
 function openNotebook(){
   const rows = STAGE.rows(), noticed = STAGE.noticed ? STAGE.noticed() : [];
   const list = rows.map(([i, label, state, done]) => `<button class="nbrow${done ? ' done' : ''}" data-i="${i}"><span>${label}</span><span class="st">${state}</span></button>`).join('');
   openCloseup(`<div class="card note print nb"><span class="head">Mary’s notebook</span><div class="nblist">${list}</div><p class="nbfb" id="nbFb">${rows.some(r => !r[3]) ? 'Tap a line and ' + STAGE.helper() + ' will help with it.' : `<b>${STAGE.speaker()}:</b> That’s everything. Well done!`}</p>${noticed.length ? `<span class="nbsmall"><b>Noticed:</b> ${noticed.join(' ')}</span>` : ''}</div>`);
-  document.querySelectorAll('.nbrow').forEach(b => b.onclick = () => { const i = +b.dataset.i; sfx('paper'); $('nbFb').innerHTML = i < 0 ? `<b>${STAGE.speaker()}:</b> That one’s done. Well found.` : hintText(i); });
+  if (!rows.some(r => !r[3])) speak('nb.done');
+  document.querySelectorAll('.nbrow').forEach(b => b.onclick = () => { const i = +b.dataset.i; sfx('paper'); if (i < 0) speak('nb.that'); $('nbFb').innerHTML = i < 0 ? `<b>${STAGE.speaker()}:</b> That one’s done. Well found.` : hintText(i); });
 }
 /* a long press on the room (or the menu button) shows every tappable thing for a moment; hidden extras stay hidden */
 let pressTimer = null;
@@ -842,7 +852,7 @@ $('scene').addEventListener('pointerdown', e => { if (!$('closeup').hidden || e.
 /* ---------- sound: small effects and a gentle music-box background, all made in the browser ---------- */
 /* two volumes, music and effects, each 0 to 10, kept on the device; effects go through one gain node so the slider works at once */
 const VOL_KEY = 'mothhouse.vol';
-let vol = {music:7, fx:8}; try{ const v = JSON.parse(localStorage.getItem(VOL_KEY)); if (v && typeof v.music === 'number') vol = v; else if (localStorage.getItem('mothhouse.sound') === 'off') vol = {music:0, fx:0}; }catch(e){}
+let vol = {music:7, fx:8, voice:10}; try{ const v = JSON.parse(localStorage.getItem(VOL_KEY)); if (v && typeof v.music === 'number') vol = Object.assign({voice:10}, v); else if (localStorage.getItem('mothhouse.sound') === 'off') vol = {music:0, fx:0, voice:0}; }catch(e){}
 let soundOn = vol.music > 0 || vol.fx > 0;
 let AC = null, music = null, fxBus = null;
 function audio(){
@@ -882,6 +892,18 @@ function sfx(kind){
 }
 /* a chime bar: a clear ringing note with a little of its overtones */
 function chime(f){ if (!vol.fx || !audio()) return; if (AC.state !== 'running') AC.resume(); tone(f, 'sine', .3, .004, 1.1); tone(f*2.76, 'sine', .07, .004, .5); tone(f*5.4, 'sine', .03, .003, .25); noise(.08, .003, .04, 3000, .8); }
+/* The moth's voice: every story-led line (hints, notes, cards, postcards) was recorded once into art/voice/<key>.mp3
+   and is played by key; the moth appears beside the message line while it speaks. One line at a time; a new line stops the last. */
+let voiceEl = null, voiceKey = null, VOICED = null;
+fetch('../art/voice/index.json?v=' + BUILD).then(r => r.json()).then(list => { VOICED = new Set(list); }).catch(() => { VOICED = new Set(); });
+function speak(key){
+  if (!vol.voice || !key || (VOICED && !VOICED.has(key))) return; /* a line not recorded yet is simply not spoken */
+  hush(); const el = new Audio(`../art/voice/${key}.mp3?v=${BUILD}`); el.volume = vol.voice/10; voiceEl = el; voiceKey = key;
+  const show = on => $('talker').classList.toggle('on', on);
+  el.onplay = () => show(true); el.onended = el.onerror = () => { if (voiceEl === el){ show(false); voiceEl = null; } };
+  el.play().catch(() => { show(false); if (voiceEl === el) voiceEl = null; });
+}
+function hush(){ if (voiceEl){ voiceEl.onended = null; voiceEl.pause(); voiceEl = null; } $('talker').classList.remove('on'); }
 /* Background music: a composed sixteen-bar music-box waltz, played by a scheduler and looped.
    To use a recorded track instead, set TRACK to its file (an mp3 that loops cleanly) and the tune below is not used. */
 let TRACK = ''; /* set by the stage: made with Google's Lyria through the Gemini key; see art/music/README.md */
@@ -958,6 +980,7 @@ function setVolume(which, v){
   vol[which] = v; try{ localStorage.setItem(VOL_KEY, JSON.stringify(vol)); }catch(e){}
   soundOn = vol.music > 0 || vol.fx > 0;
   if (which === 'fx'){ if (audio()){ AC.resume(); fxBus.gain.value = v/10; } if (v) sfx('tap'); }
+  else if (which === 'voice'){ if (voiceEl) voiceEl.volume = v/10; if (!v) hush(); }
   else { if (trackEl) trackEl.volume = .5*v/10; if (musicBus) musicBus.master.gain.value = Math.max(.0001, v/10); if (!v) stopMusic(); else { audio() && AC.resume(); startMusic(); } }
 }
 /* Browsers only allow sound after the player has tapped, so the first tap anywhere wakes it. */
@@ -976,7 +999,7 @@ function openMenu(tab){
   closeCloseup(); $('menu').hidden = false; $('confirmUI').hidden = true; showTab(tab || 'settings');
   document.querySelectorAll('.game-only').forEach(el => { el.hidden = !inGame; });
   $('blurb').textContent = inGame && STAGE ? 'Now playing: ' + STAGE.title + '. ' + STAGE.blurb : '';
-  $('volMusic').value = vol.music; $('volFx').value = vol.fx;
+  $('volMusic').value = vol.music; $('volFx').value = vol.fx; $('volVoice').value = vol.voice;
   $('diag').hidden = !DEBUG; if (DEBUG) $('diag').textContent = `build ${BUILD} · sound: ${AC ? AC.state : 'not started'} · music: ${musicState} · reduced motion: ${matchMedia('(prefers-reduced-motion:reduce)').matches ? 'ON (gentle taps)' : 'off'} · ${innerWidth}×${innerHeight} · ${navigator.userAgent.replace(/^.*\((.*?)\).*$/, '$1').slice(0, 40)}`;
 }
 function showTab(name){ document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.dataset.tab === name)); document.querySelectorAll('.pane').forEach(p => p.classList.toggle('on', p.dataset.pane === name)); $('confirmUI').hidden = true; }
@@ -990,6 +1013,7 @@ $('menu').addEventListener('click', e => { if (e.target === $('menu')) closeMenu
 $('revealBtn').onclick = () => { closeMenu(); reveal(); };
 $('volMusic').oninput = e => setVolume('music', +e.target.value);
 $('volFx').oninput = e => setVolume('fx', +e.target.value);
+$('volVoice').oninput = e => setVolume('voice', +e.target.value);
 /* anything that wipes progress asks first */
 function confirmThen(text, fn){ $('confirmText').textContent = text; $('confirmUI').hidden = false; $('confirmYes').onclick = () => { $('confirmUI').hidden = true; fn(); }; $('confirmNo').onclick = () => { $('confirmUI').hidden = true; }; }
 /* Full screen: phones and tablets in a browser get asked once; the menu can toggle it any time. Inside the Android app the game is already full screen. */
@@ -1076,8 +1100,8 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-09-30f"></script>
-<script src="stages/packing.js?v=2026-09-30f"></script>
+<script src="stages/school.js?v=2026-09-30g"></script>
+<script src="stages/packing.js?v=2026-09-30g"></script>
 <script>boot();</script>
 </body>
 </html>
