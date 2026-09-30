@@ -4,6 +4,8 @@ A point-and-click adventure for children: a warm, cosy mystery that works as a f
 
 **The story plan lives in `STORY.md`, and the building rules in `next/PLAYBOOK.md`.** Read both before designing or building any room; the playbook holds every rule and every piece of the owner's feedback, and is the standard each room must meet. Build new rooms from it, update it when the owner changes the story, and never fill in its "TO DECIDE" items without asking him.
 
+**`next/CHECKLIST.md` is the owner's feedback turned into checks.** Read it at the start of any update and mark the lines the work touches; walk it over every amended or new thing, close up at the owner's screen shape, before showing it; run `node tools/audit.js` (with the local server up) before every commit and fix what it reports. A fault the owner reports gets reproduced, confirmed in words, fixed at its cause, and added to the checklist.
+
 The owner is a non-technical but AI-savvy builder working from a Chromebook. Explain what you are about to do in plain language, and keep him in the loop before anything goes live.
 
 ## How it is hosted and shipped
