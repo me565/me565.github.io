@@ -221,10 +221,15 @@ function staff(){
   return s + '</svg>';
 }
 /* the three colour stripes Mary painted under her moth: drawn on the wall picture and in the close-up from the same code */
-function stripesSVG(vb){
-  let s = `<svg viewBox="${vb}" preserveAspectRatio="none" width="100%" height="100%" style="position:absolute;left:0;top:0;width:100%;height:100%" aria-hidden="true">`;
-  PAINT_CODE.forEach((p, i) => { const x = 130 + i*270, tilt = [-1.2, 1, -0.6][i]; s += `<rect x="${x}" y="600" width="230" height="66" rx="10" fill="${PAINTS[p][1]}" transform="rotate(${tilt} ${x+115} 633)"/><rect x="${x+18}" y="612" width="150" height="9" rx="4" fill="rgba(255,255,255,.28)" transform="rotate(${tilt} ${x+115} 633)"/>`; });
-  return s + '</svg>';
+/* the three colour stripes are drawn inside the label card's own shape: TL, TR and BL are the card's corners in the container's
+   percent coordinates, and the stripes sit in that parallelogram, slanting as the card slants (on the wall and in the close-up) */
+const CARD_WALL = [[59.7, 59.4], [69.0, 58.15], [59.8, 63.1]]; /* the card under the moth on the art-room wall */
+const CARD_CU = [[9.5, 74.5], [90, 74], [9.5, 88.5]];            /* the same card in the close-up picture */
+function stripesSVG([tl, tr, bl]){
+  const a = tr[0]-tl[0], b = tr[1]-tl[1], c = bl[0]-tl[0], d = bl[1]-tl[1];
+  let s = `<svg viewBox="0 0 100 100" preserveAspectRatio="none" width="100%" height="100%" style="position:absolute;left:0;top:0;width:100%;height:100%" aria-hidden="true"><g transform="matrix(${a} ${b} ${c} ${d} ${tl[0]} ${tl[1]})">`;
+  PAINT_CODE.forEach((p, i) => { const x = 0.075 + i*0.3; s += `<rect x="${x}" y="0.2" width="0.25" height="0.6" rx="0.02" ry="0.08" fill="${PAINTS[p][1]}"/><rect x="${x+0.03}" y="0.3" width="0.15" height="0.08" rx="0.01" ry="0.04" fill="rgba(255,255,255,.28)"/>`; });
+  return s + '</g></svg>';
 }
 /* the colour discs on the padlock's three dials, drawn over the cut-out (and over the same picture in the close-up) */
 const DIALS = [[31.9, 72.4], [60.0, 70.6], [86.1, 68.9]];
@@ -402,11 +407,11 @@ function wallBoard(){
 }
 /* the three colour stripes under Mary's moth, drawn small on the wall picture so the wall and the close-up agree */
 function wallStripes(){
-  const wrap = document.createElement('div'); wrap.className = 'layer'; wrap.style.cssText = 'left:59.6%;top:58.9%;width:9.4%;height:4.3%';
-  wrap.innerHTML = stripesSVG('92 585 840 96'); return wrap;
+  const wrap = document.createElement('div'); wrap.className = 'layer'; wrap.style.cssText = 'left:0;top:0;width:100%;height:100%';
+  wrap.innerHTML = stripesSVG(CARD_WALL); return wrap;
 }
 function openMoth(){
-  openCloseup(`<div class="card pic" style="width:calc(var(--u)*58)"><div class="picwrap" style="aspect-ratio:4/3;background-image:url(../art/school/closeup-mothpainting.jpg?v=${BUILD})">${stripesSVG('0 0 1024 768')}<p class="otitle">Mary’s moth</p></div></div>`);
+  openCloseup(`<div class="card pic" style="width:calc(var(--u)*58)"><div class="picwrap" style="aspect-ratio:4/3;background-image:url(../art/school/closeup-mothpainting.jpg?v=${BUILD})">${stripesSVG(CARD_CU)}<p class="otitle">Mary’s moth</p></div></div>`);
   S.seen.stripes = true; save();
   say('Mary’s moth, pegged up to dry. Underneath it she painted the three colours she mixed for it: ' + PAINT_CODE.map(p => PAINTS[p][0]).join(', ') + '.');
 }
