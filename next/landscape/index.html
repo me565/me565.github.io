@@ -156,6 +156,16 @@ button{font:inherit;color:inherit;cursor:pointer}
 .nbsmall{font-size:calc(var(--u)*1.7);line-height:1.25;color:var(--muted)}
 /* a long press on the room shows everything that can be tapped, so nothing has to be hunted for */
 .hs{transition:box-shadow .25s, background .25s}
+.hs.point{animation:pointGlow 1.1s ease-in-out 3;background:rgba(255,230,150,.16)}
+@keyframes pointGlow{0%,100%{box-shadow:0 0 0 calc(var(--u)*.35) rgba(255,246,214,.6), 0 0 calc(var(--u)*1.2) rgba(255,196,80,.5)}50%{box-shadow:0 0 0 calc(var(--u)*.6) rgba(255,246,214,1), 0 0 calc(var(--u)*3) rgba(255,196,80,1)}}
+.pointmoth{position:absolute;left:8%;top:88%;width:calc(var(--u)*7);height:calc(var(--u)*5);margin:calc(var(--u)*-2.5) 0 0 calc(var(--u)*-3.5);z-index:4;pointer-events:none;filter:drop-shadow(0 0 calc(var(--u)*1) rgba(243,194,106,.9));transition:left 1.1s cubic-bezier(.4,0,.3,1), top 1.1s cubic-bezier(.4,0,.3,1), opacity .5s}
+.pointmoth svg{width:100%;height:100%}
+.pointmoth .wl,.pointmoth .wr{transform-origin:50% 55%}.pointmoth .wl{animation:flapL .16s ease-in-out infinite alternate}.pointmoth .wr{animation:flapR .16s ease-in-out infinite alternate}
+.pointmoth.go{animation:hover 1.6s ease-in-out .9s infinite}.pointmoth.away{opacity:0}
+.inrun{position:absolute;pointer-events:none;filter:drop-shadow(0 2px 2px rgba(0,0,0,.25))}
+.poster{position:absolute;left:50%;top:4%;width:34%;transform:translateX(-50%);border:calc(var(--u)*.3) solid #fffaf0;box-shadow:0 2px 6px rgba(0,0,0,.3);pointer-events:none}
+.book.inst.hit span{opacity:1}.book.inst{transition:transform .15s}.book.inst.hit{transform:scale(1.06)}
+.dot.on{background:#f2c53d;box-shadow:inset 0 0 0 calc(var(--u)*.25) rgba(0,0,0,.25)}
 #hots.reveal .hs:not(.secret){box-shadow:0 0 0 calc(var(--u)*.35) rgba(255,246,214,.95), 0 0 calc(var(--u)*2.2) rgba(255,196,80,.85);background:rgba(255,230,150,.16)}
 
 /* a drag moment: something the player must pull across a picture (the suitcase zip) before the story goes on */
@@ -406,7 +416,7 @@ button{font:inherit;color:inherit;cursor:pointer}
         <div class="srow"><span>Full screen</span><button class="ob" id="fsBtn">Full screen</button></div>
         <div class="srow game-only"><span>Can’t find something?</span><button class="ob" id="revealBtn">Show what I can tap</button></div>
       </div>
-      <p class="dim">Hints live in Mary’s notebook: tap the moth at the top of the room.</p>
+      <p class="dim">Stuck? Tap the moth at the top of the room: it opens the notebook of hints, or flies to the next thing to look at.</p>
     </div>
     <div class="pane" data-pane="help">
       <h3>Help</h3>
@@ -451,7 +461,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-30i';
+const BUILD = '2026-09-30j';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -731,8 +741,8 @@ const KEY = 'mothhouse.landscape.' + BUILD; /* each build starts a fresh game; S
 /* the three stories: one save each, keyed by child; the title screen's Continue picks up the last one played */
 const CHILDREN = {
   mary:{name:'Mary', age:10, colour:'#8a5cc2', line:'Notices patterns, reads everything.', first:'school', portrait:'../art/portraits/mary.png'},
-  elliot:{name:'Elliot', age:7, colour:'#2f7c83', line:'Wants to know how things work.', first:null, portrait:'../art/portraits/elliot.png'},
-  zaina:{name:'Zaina', age:4, colour:'#d9a622', line:'Sees the small things. Animals trust her.', first:null, portrait:'../art/portraits/zaina.png'}
+  elliot:{name:'Elliot', age:7, colour:'#2f7c83', line:'Wants to know how things work.', first:'eschool', portrait:'../art/portraits/elliot.png'},
+  zaina:{name:'Zaina', age:4, colour:'#d9a622', line:'Sees the small things. Animals trust her.', first:'zschool', portrait:'../art/portraits/zaina.png'}
 };
 let CHILD = 'mary', S;
 const keyFor = child => KEY + '.' + child;
@@ -860,7 +870,7 @@ function showEnd(title, text, small){
 function stageCard(then){
   const c = STAGE.card; if (!c){ then(); return; }
   const el = $('stagecard'); el.innerHTML = `<div class="in"><span class="place">${c.place}</span><h2>${STAGE.title}</h2><p>${c.text}</p><div class="go"><button class="ob" id="cardGo">Begin</button></div></div>`;
-  el.hidden = false; speak(`${S.stage}.card`); const go = () => { el.hidden = true; el.onclick = null; then(); speak(`${S.stage}.intro`); tip('tap', 6000); tip('help', 75000); }; el.onclick = go; $('cardGo').onclick = e => { e.stopPropagation(); go(); };
+  el.hidden = false; speak(`${S.stage}.card`); const go = () => { el.hidden = true; el.onclick = null; then(); speak(`${S.stage}.intro`); tip('tap', 6000); tip(STAGE.hintStyle === 'point' ? 'helpPoint' : 'help', 75000); }; el.onclick = go; $('cardGo').onclick = e => { e.stopPropagation(); go(); };
 }
 
 /* ---------- using a held item on something: USES maps "item>target" to what happens; anything else gets a friendly line ---------- */
@@ -868,6 +878,7 @@ function useItem(item, id, h){
   const fn = USES[item + '>' + id];
   if (fn){ render(); fn(h); return; }
   sfx('knock'); render();
+  if (STAGE.miss){ STAGE.miss(item, id); return; }
   say(id.startsWith('item:') ? `The ${ITEMS[item].name} doesn’t go with the ${ITEMS[id.slice(5)].name}.` : `The ${ITEMS[item].name} doesn’t go there.`);
 }
 const drop = key => { S.got = S.got.filter(k => k !== key); };
@@ -887,7 +898,8 @@ const TIPS = {
   pickup:'Things you pick up wait in the strip below. Tap one to hold it, then tap where it belongs.',
   hold:'Now tap the thing it goes with. Tap it in the strip again to put it down.',
   combine:'Two things in the strip can go together: hold one, then tap the other.',
-  help:'If you get stuck, tap me at the top: Mary’s notebook has a hint for every riddle. And hold a finger on the room to see everything you can tap.'
+  help:'If you get stuck, tap me at the top: your notebook has a hint for every riddle. And hold a finger on the room to see everything you can tap.',
+  helpPoint:'If you get stuck, tap me at the top and I’ll fly to the next thing to look at.'
 };
 let tipsSeen = new Set(); try{ tipsSeen = new Set(JSON.parse(localStorage.getItem('mothhouse.tips') || '[]')); }catch(e){}
 const tipTimers = {};
@@ -901,13 +913,36 @@ function tip(name, delay = 0){
     say(`<b>The moth whispers:</b> ${TIPS[name]}`); speak('tip.' + name);
   }, delay);
 }
-function hint(){ openNotebook(); }
+function hint(){ if (STAGE.hintStyle === 'point') pointNext(); else openNotebook(); }
+/* a spoken tap line (Zaina's stage, where nothing is read): shown like any line and said by the moth, key <stage>.line.<name> */
+function line(key, text){ say(text); speak(`${S.stage}.line.${key}`); }
+/* pointed hints: the first hint whose goal is not met names a room, a view and a thing; the game turns to it, the moth flies over,
+   the thing glows for a moment and the moth says its one line. Peanut in Zaina's stage does the same when tapped. */
+function pointNext(){
+  const i = HINTS.findIndex(h => !h.goal()); if (i < 0){ say(`<b>${STAGE.speaker()}:</b> That’s everything. Well done!`); speak('nb.done'); return; }
+  const h = HINTS[i]; closeCloseup();
+  const turnFirst = h.at && (S.room !== h.at.room || S.view !== h.at.view);
+  if (turnFirst){ S.room = h.at.room; S.view = h.at.view; save(); sfx('turn'); render(); }
+  S.hint[i] = 0; save();
+  setTimeout(() => pointAt(h.at && h.at.id, `<b>${STAGE.speaker()}:</b> ${h.tips[0]}`, `${S.stage}.hint.${i}.0`), turnFirst ? 350 : 0);
+}
+function pointAt(id, html, voiceKey){
+  const b = id && document.querySelector(`.hs[data-id="${id}"]`); say(html); speak(voiceKey);
+  if (!b) return;
+  const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const glow = () => { b.classList.add('point'); setTimeout(() => b.classList.remove('point'), 3200); };
+  if (reduce){ glow(); return; }
+  const m = document.createElement('div'); m.className = 'pointmoth'; m.innerHTML = $('splash').querySelector('.moth').innerHTML; $('scene').appendChild(m);
+  const h = HOTS[curView()].find(x => x.id === id); const cx = h.l + h.w/2, cy = Math.max(6, h.t - 4);
+  requestAnimationFrame(() => requestAnimationFrame(() => { m.style.left = cx + '%'; m.style.top = cy + '%'; m.classList.add('go'); }));
+  setTimeout(glow, 900); setTimeout(() => m.classList.add('away'), 3000); setTimeout(() => m.remove(), 3800);
+}
 function hintText(i){ S.hint[i] = Math.min((S.hint[i] ?? -1) + 1, 2); save(); speak(`${S.stage}.hint.${i}.${S.hint[i]}`); return `<b>${STAGE.speaker()}:</b> ${HINTS[i].tips[S.hint[i]]}`; }
 function openNotebook(){
-  if (!tipsSeen.has('help')){ tipsSeen.add('help'); clearTimeout(tipTimers.help); try{ localStorage.setItem('mothhouse.tips', JSON.stringify([...tipsSeen])); }catch(e){} }
+  if (!tipsSeen.has('help')){ tipsSeen.add('help'); tipsSeen.add('helpPoint'); clearTimeout(tipTimers.help); clearTimeout(tipTimers.helpPoint); try{ localStorage.setItem('mothhouse.tips', JSON.stringify([...tipsSeen])); }catch(e){} }
   const rows = STAGE.rows(), noticed = STAGE.noticed ? STAGE.noticed() : [];
   const list = rows.map(([i, label, state, done]) => `<button class="nbrow${done ? ' done' : ''}" data-i="${i}"><span>${label}</span><span class="st">${state}</span></button>`).join('');
-  openCloseup(`<div class="card note print nb"><span class="head">Mary’s notebook</span><div class="nblist">${list}</div><p class="nbfb" id="nbFb">${rows.some(r => !r[3]) ? 'Tap a line and ' + STAGE.helper() + ' will help with it.' : `<b>${STAGE.speaker()}:</b> That’s everything. Well done!`}</p>${noticed.length ? `<span class="nbsmall"><b>Noticed:</b> ${noticed.join(' ')}</span>` : ''}</div>`);
+  openCloseup(`<div class="card note print nb"><span class="head">${CHILDREN[CHILD].name}’s notebook</span><div class="nblist">${list}</div><p class="nbfb" id="nbFb">${rows.some(r => !r[3]) ? 'Tap a line and ' + STAGE.helper() + ' will help with it.' : `<b>${STAGE.speaker()}:</b> That’s everything. Well done!`}</p>${noticed.length ? `<span class="nbsmall"><b>Noticed:</b> ${noticed.join(' ')}</span>` : ''}</div>`);
   if (!rows.some(r => !r[3])) speak('nb.done');
   document.querySelectorAll('.nbrow').forEach(b => b.onclick = () => { const i = +b.dataset.i; sfx('paper'); if (i < 0) speak('nb.that'); $('nbFb').innerHTML = i < 0 ? `<b>${STAGE.speaker()}:</b> That one’s done. Well found.` : hintText(i); });
 }
@@ -1087,11 +1122,12 @@ document.addEventListener('visibilitychange', () => { if (!AC) return; if (docum
 
 /* ---------- wiring ---------- */
 $('left').onclick = () => turn(-1); $('right').onclick = () => turn(1);
-$('hintBtn').onclick = () => { if ($('closeup').hidden) openNotebook(); else closeCloseup(); };
+$('hintBtn').onclick = () => { if ($('closeup').hidden) hint(); else closeCloseup(); };
 const DEBUG = new URLSearchParams(location.search).has('debug');
 /* the cog's panel: the same panel from a room or from the title screen; the room-only rows hide on the title */
 let inGame = false;
 function openMenu(tab){
+  $('resetStory').textContent = `Start ${CHILDREN[CHILD].name}’s story from the beginning`;
   closeCloseup(); $('menu').hidden = false; $('confirmUI').hidden = true; showTab(tab || 'settings');
   document.querySelectorAll('.game-only').forEach(el => { el.hidden = !inGame; });
   $('blurb').textContent = inGame && STAGE ? 'Now playing: ' + STAGE.title + '. ' + STAGE.blurb : '';
@@ -1130,7 +1166,7 @@ if (canFS && !standalone && matchMedia('(pointer:coarse)').matches && !fsAsked) 
 const restart = () => { S = fresh(S.stage); closeMenu(); $('endUI').hidden = true; closeCloseup(); render(); stageCard(() => say(STAGE.intro)); };
 $('restart').onclick = () => confirmThen(`Start “${STAGE.title}” again from the beginning? Everything found in this stage will be put back.`, restart);
 $('endAgain').onclick = restart;
-$('resetStory').onclick = () => confirmThen(`Start Mary’s whole story again from the first day? All her progress will be wiped.`, () => { try{ localStorage.removeItem(keyFor('mary')); }catch(e){} CHILD = 'mary'; closeMenu(); if (inGame){ const first = CHILDREN.mary.first; loadStage(first); S = fresh(first); save(); enterGame(); } else showTitle(); });
+$('resetStory').onclick = () => confirmThen(`Start ${CHILDREN[CHILD].name}’s whole story again from the first day? All the progress will be wiped.`, () => { try{ localStorage.removeItem(keyFor(CHILD)); }catch(e){} closeMenu(); if (inGame){ const first = CHILDREN[CHILD].first; loadStage(first); S = fresh(first); save(); enterGame(); } else showTitle(); });
 addEventListener('keydown', e => { if (e.key === 'Enter' && !$('stagecard').hidden) $('stagecard').click(); });
 /* on to the next stage: fresh state, the new rooms loaded quietly first */
 function startStage(key){
@@ -1185,16 +1221,18 @@ addEventListener('keydown', e => { if (e.key === 'ArrowLeft') turn(-1); if (e.ke
 
 function boot(){
   try{ const last = localStorage.getItem(KEY + '.last'); if (last && CHILDREN[last]) CHILD = last; }catch(e){}
-  /* ?stage=packing in the address jumps straight to that stage of Mary's story (fresh), for testing a later stage without playing
+  /* ?stage=packing in the address jumps straight to that stage (fresh) of whichever child's story it belongs to, for testing a later stage without playing
      the earlier ones; once you are on it, reloading the same address keeps your progress. It skips the start-up and title. */
   const want = new URLSearchParams(location.search).get('stage');
-  if (want && STAGES[want]){ CHILD = 'mary'; S = load(); if (S.stage !== want){ loadStage(want); S = fresh(want); save(); } enterGame(); return; }
+  if (want && STAGES[want]){ CHILD = STAGES[want].child || 'mary'; S = load(); if (S.stage !== want){ loadStage(want); S = fresh(want); save(); } enterGame(); return; }
   S = load(); /* something to render behind the title screen */
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-09-30i"></script>
-<script src="stages/packing.js?v=2026-09-30i"></script>
+<script src="stages/school.js?v=2026-09-30j"></script>
+<script src="stages/packing.js?v=2026-09-30j"></script>
+<script src="stages/eschool.js?v=2026-09-30j"></script>
+<script src="stages/zschool.js?v=2026-09-30j"></script>
 <script>boot();</script>
 </body>
 </html>

@@ -1,0 +1,33 @@
+const { chromium } = require('playwright');
+(async () => {
+  const b = await chromium.launch({executablePath:'/opt/pw-browsers/chromium'});
+  const p = await b.newPage({viewport:{width:1180,height:820}});
+  const errors = []; p.on('pageerror', e => errors.push(e.message)); p.on('console', m => { if (m.type()==='error' && !/CERT|google|net::|voice\//.test(m.text())) errors.push(m.text()); });
+  await p.goto('http://localhost:8765/next/landscape/?stage=zschool', {waitUntil:'networkidle'}); await p.evaluate(() => { try{ localStorage.clear(); }catch(e){} }); await p.reload({waitUntil:'networkidle'}); await p.waitForTimeout(800);
+  console.log('child', await p.evaluate(() => CHILD)); await p.screenshot({path:'pz-card.png'}); await p.click('#cardGo'); await p.waitForTimeout(300);
+  const st = () => p.evaluate(() => ({room:S.room, view:S.view, got:S.got.join(','), put:S.put.join(','), song:S.song, done:S.done}));
+  const msg = () => p.textContent('#msg');
+  const tap = async (id, wait=400) => { const n = await p.locator(`.hs[data-id="${id}"]`).count(); if (!n){ console.log('NO HOTSPOT', id, JSON.stringify(await st())); return; } await p.click(`.hs[data-id="${id}"]`, {force:true}); await p.waitForTimeout(wait); };
+  const turnTo = async (view) => { for (let i=0;i<5;i++){ const v = await p.evaluate(() => ROOMS[S.room].views[S.view]); if (v===view) return; await p.click('#right'); await p.waitForTimeout(320); } console.log('could not turn to', view); };
+  const back = async () => { await p.keyboard.press('Escape'); await p.waitForTimeout(250); };
+  const hold = async (name) => { await p.click(`.slot[aria-label="${name}"]`); await p.waitForTimeout(150); };
+  const noOverflow = async (label) => { const r = await p.evaluate(() => { const c = document.querySelector('#closeup .card'); if (!c) return 'no card'; const cu = document.querySelector('#closeup').getBoundingClientRect(), r = c.getBoundingClientRect(); return (c.scrollHeight > c.clientHeight + 1 || c.scrollWidth > c.clientWidth + 1) ? 'inner' : (r.bottom > cu.bottom + 1 || r.right > cu.right + 1 ? 'outer' : false); }); if (r !== false) console.log('OVERFLOW?', label, r); };
+  const shot = async (n) => p.screenshot({path:`pz-${n}.png`});
+  console.log('start', JSON.stringify(await st())); await shot('z1');
+  await tap('z_cubby0'); console.log('other cubby:', await msg()); await tap('z_cubby3'); console.log('my cubby:', await msg());
+  // the hint: the moth flies to the shelf
+  await p.click('#hintBtn'); await p.waitForTimeout(1300); await shot('point'); console.log('point:', await msg(), 'moth?', await p.locator('.pointmoth').count(), 'glow?', await p.locator('.hs.point').count());
+  await p.waitForTimeout(2800);
+  await tap('z_shelf', 700); await noOverflow('bottles'); await shot('bottles'); await p.click('#botpic .book[data-i="0"]'); await p.waitForTimeout(200); console.log('wrong bottle:', await p.textContent('#botFb')); await p.click('#botpic .book[data-i="3"]'); await p.waitForTimeout(500); console.log('bottle:', await msg(), JSON.stringify(await st()));
+  await hold('your bottle'); await tap('z_cubby1'); console.log('wrong cubby:', await msg()); await hold('your bottle'); await tap('z_cubby3'); console.log('put bottle:', await msg(), JSON.stringify(await st())); await shot('z1-after');
+  await turnTo('z2'); await shot('z2'); await tap('z_line', 700); await noOverflow('paintings'); await shot('paintings'); await p.click('#paintpic .book[data-i="2"]'); await p.waitForTimeout(200); console.log('wrong painting:', await p.textContent('#paintFb')); await p.click('#paintpic .book[data-i="1"]'); await p.waitForTimeout(500); console.log('painting:', await msg());
+  await p.click('#hintBtn'); await p.waitForTimeout(1500); console.log('point2:', await msg(), JSON.stringify(await st())); await p.waitForTimeout(2500);
+  await hold('your painting'); await tap('z_cubby3'); console.log('put painting:', await msg(), JSON.stringify(await st()));
+  await turnTo('z3'); await shot('z3'); await tap('z_poster'); console.log('poster:', await msg()); await tap('z_shelf3', 700); await noOverflow('instruments'); await shot('instruments');
+  await p.click('#instpic .inst[data-k="bell"]'); await p.waitForTimeout(200); console.log('wrong inst:', await p.textContent('#instFb'));
+  for (const k of ['drum','shaker','bell','xylophone']){ await p.click(`#instpic .inst[data-k="${k}"]`); await p.waitForTimeout(250); } console.log('song:', await p.textContent('#instFb')); await shot('song'); await p.waitForTimeout(1800); console.log(JSON.stringify(await st()));
+  await turnTo('z4'); await shot('z4'); await tap('z_peanut', 1500); await shot('peanut-point'); console.log('peanut:', await msg());
+  await p.waitForTimeout(2500); await tap('z_misslin', 1800); await shot('sticker'); await noOverflow('sticker'); console.log('miss lin:', await msg()); await p.waitForTimeout(5000); await shot('end'); console.log('end shown?', !(await p.evaluate(() => document.getElementById('endUI').hidden)), await p.textContent('#endTitle'));
+  console.log('errors', errors);
+  await b.close();
+})();

@@ -183,9 +183,18 @@ Version 2 (29 Sept 2026), built to the same shape as the school: the goal seen f
 ## Elliot's story (age 7)
 
 ### Stage 1: Last day of school — his classroom and the playground — difficulty 2
-- The class marble run is broken for the goodbye party: put the missing pieces back so the marble reaches the bell.
-- Find his jumper in the lost-property box: the one with an E on the label.
-- Collect the goodbye card his class made him.
+
+Version 2 (30 Sept 2026), built to the playbook: the goal seen early, two trails open at once, pictures carry every clue, a hands-on puzzle you can see working. **Built** in `next/landscape/stages/eschool.js` (build 2026-09-30j).
+
+**Two square rooms**, the open doorway between them:
+- **Classroom 2P** (start, facing the whiteboard): the whiteboard with GOODBYE 2P! and balloons, and Miss Okafor's desk with the goodbye card on it (the goal: "after the marble run works, and not without your jumper"); the window wall with Captain's tank (tap him to open the notebook) and the big marble run along the wall with three gaps and an empty tray under it, the bell at the bottom; the doorway to the playground with the coat pegs (each peg has a child's name card with a little drawing: Elliot's has a rocket) and the party table; the bookcase and the class robot (a hidden cog on the top shelf).
+- **Playground**: the fence with the football goal and the bench with the lost-property box; the sandpit with a bright curved piece sticking out of the sand and the climbing frame; the open doorway back to 2P and the outdoor tap with the flower tubs (a hidden cog); the chalk wall, where the class has drawn the finished marble run: straight piece at the top, curve in the middle, zigzag at the bottom (the picture clue for the run).
+
+- **Trail A, the marble run.** Three pieces are missing. The straight piece is in the tray under the run; the curved piece is in the sandpit; the zigzag piece is at the bottom of the lost-property box under the jumpers. Each piece goes into one gap (tap a piece in the strip, then the gap; a wrong gap says it doesn't fit and shows why). The chalk drawing outside shows where each goes. When all three are in, Roll: the marble runs the whole way and rings the bell. The party can start.
+- **Trail B, the jumper.** Nobody goes home without their jumper. The lost-property box in the playground holds four jumpers; Elliot's is the one with the rocket badge, the same rocket as on his peg's name card. Taking the right one uncovers the zigzag piece.
+- **Convergence.** With the bell rung and the jumper on, Miss Okafor's card can be taken: the whole class has signed it, and someone has drawn a little moth inside. Postcard home.
+- **Hidden:** three brass cogs about the two rooms (top of the bookcase, in the flower tub, behind the goal net), counted in the notebook; optional.
+- Hints: the moth speaks a short line and the notebook shows the trails; Captain's tank opens the notebook.
 
 ### Stage 2: Packing day — his bedroom — difficulty 2
 - His building kit must fit in its box: turn and slot the pieces until the lid closes.
@@ -213,10 +222,14 @@ Version 2 (29 Sept 2026), built to the same shape as the school: the goal seen f
 ## Zaina's story (age 4)
 
 ### Stage 1: Last day of school — Little Waves Kindergarten's goodbye party — difficulty 1
-- Find her water bottle by her colour sticker.
-- Pick her painting off the drying line by her sticker.
-- Play the goodbye song: tap the instruments in the order the pictures show.
-- Her teacher gives her a shiny moth sticker.
+
+Version 2 (30 Sept 2026), **built** in `next/landscape/stages/zschool.js` (build 2026-09-30j). **One square room**, no doors, nothing to read: Zaina's mark is a yellow star, shown on her cubby beside her portrait, and every task is "find the one with the yellow star" or "copy the pictures".
+
+- **The cubby wall** (start): the row of cubbies with the children's marks (Zaina's: a yellow star, with her portrait) and the shelf of water bottles above. Her bottle is the one with the yellow star (a close-up of four bottles).
+- **The painting wall:** the drying line with four paintings pegged up, each with its child's mark in the corner; hers has the yellow star (close-up).
+- **The music corner:** a drum, a shaker, a bell and a xylophone, and above them the goodbye-song poster: four pictures in a row, drum, shaker, bell, xylophone. Tap the instruments in that order (close-up; a wrong one just makes its sound and the moth says "not that one yet").
+- **The party wall:** the table with the cake, Peanut on the cushion (tap him and the moth flies to the next thing), and Miss Lin (drawn from behind at the table). When the bottle, the painting and the song are done, Miss Lin turns round with a shiny moth sticker. Postcard home.
+- Hints are pointed, not read: the moth flies to the right wall and the right thing and says one short line. Every line in this stage is spoken.
 
 ### Stage 2: Packing day — her bedroom — difficulty 1
 - Mum's picture checklist shows a sun hat, a swimsuit and Peanut. Match each thing to its outline in the case.
