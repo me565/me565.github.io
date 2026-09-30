@@ -89,6 +89,13 @@ The working rules for every room in the landscape game, distilled from the owner
 - A stage's optional hunt (the six paper moths) uses `secret:true` hotspots, which the long-press reveal leaves out.
 - Nothing is shared between the three children's stories: no clue, item or hiding place appears in two of them (owner, 29 Sept 2026).
 
+## 4e. Start-up, title and choosing a story (owner, 30 Sept 2026)
+
+- The game opens with the studio start-up: OG Entertainment, drawn by the engine (a moth crosses the dark and lights the name), about four seconds, tap to skip, a plain fade under reduce-motion. Then the title screen: our own moth-and-leaf pattern on deep teal, "The Moth House", Continue and New game, a sound button, and "About this game" with the fiction notice. Nothing on these screens is borrowed from another game; the owner's screenshots were for the idea only.
+- Continue picks up the last story played (it is greyed out until there is something to continue). New game goes to "Whose story?": three cards, Mary, Elliot and Zaina, with their age and a line each; a card whose stages are not built yet says "Coming soon" and cannot be chosen; a card with progress warns that it starts again from the beginning.
+- Saves are one per child (`mothhouse.landscape.<build>.<child>`), with a pointer to the last child played. The in-game menu has "Title screen".
+- `?stage=<key>` in the address still jumps straight into Mary's story for testing, skipping the start-up and title.
+
 ## 5. Sound and music
 
 - Effects are made in the browser (Web Audio) and must be loud enough for a tablet speaker: taps 0.3, knocks 0.4, chimes 0.25. They start on the first real tap.
@@ -140,3 +147,4 @@ Distilled from player and critic reviews of Rusty Lake, Machinarium, Samorost, D
 15. The level felt too linear and too short. → Stage 1 rebuilt as five rooms (art room and hall added) with three parallel trails, each ending in a two-input lock, after reading how Rusty Lake and Dark Dome structure their puzzles; the real school researched for flavour only (an indoor hall, house points, STEM week, an art room), with no names, mottos, house names or staff. Rules in 4c.
 16. Research on the genre's best practices (hints chosen per puzzle, to-do list, clue notebook, hotspot reveal, no repeated puzzle types). → build 2026-09-29c: Mary's notebook behind the moth button, long-press reveal, rules in section 7.
 17. Packing day: the owner sent Mum's photo (her look is now in STORY.md, the photo is not kept), asked for no shared clues across the children's stories, and agreed to the six paper moths. → build 2026-09-29d: stage 2 built as three rooms and three trails; the engine split into engine plus one file per stage.
+18. A studio start-up for OG Entertainment, and a landing page with Continue or New game, then the choice of child. → build 2026-09-30a, rules in 4e.

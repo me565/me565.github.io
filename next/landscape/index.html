@@ -177,6 +177,72 @@ button{font:inherit;color:inherit;cursor:pointer}
 .ob{background:var(--ink);color:#fffaf0;border:0;border-radius:999px;padding:calc(var(--u)*1) calc(var(--u)*2.6);font-size:calc(var(--u)*2.1);min-height:44px}
 .ob.quiet{background:none;color:var(--ink);box-shadow:inset 0 0 0 1px var(--slot-line)}
 
+/* the studio start-up: a moth crosses the dark and lights the name; tap to skip */
+.screen{position:fixed;inset:0;display:grid;place-items:center;z-index:7;color:#fffaf0;text-align:center;-webkit-user-select:none;user-select:none}
+#splash{background:#07090d;z-index:8;cursor:pointer;overflow:hidden}
+#splash .logo{position:relative;display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*1)}
+#splash .og{font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*12);line-height:1;letter-spacing:.04em;color:#f3c26a;opacity:0;text-shadow:0 0 calc(var(--u)*3) rgba(243,194,106,.35)}
+#splash .ent{font-family:"Atkinson Hyperlegible",Verdana,sans-serif;font-size:calc(var(--u)*2.4);letter-spacing:.55em;padding-left:.55em;color:#fffaf0;opacity:0}
+#splash .presents{font-size:calc(var(--u)*1.9);color:rgba(255,250,240,.6);opacity:0;margin-top:calc(var(--u)*1)}
+#splash .glow{position:absolute;left:50%;top:50%;width:calc(var(--u)*70);height:calc(var(--u)*40);transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side, rgba(243,194,106,.22), transparent);opacity:0;pointer-events:none}
+#splash .moth{position:absolute;left:-12%;top:50%;width:calc(var(--u)*7);height:calc(var(--u)*5);filter:drop-shadow(0 0 calc(var(--u)*1.2) rgba(243,194,106,.9));will-change:transform}
+#splash .moth svg{width:100%;height:100%;display:block}
+#splash .moth .wl,#splash .moth .wr{transform-origin:50% 55%}
+#splash .skip{position:absolute;right:calc(var(--u)*2);bottom:calc(var(--u)*1.6);font-size:calc(var(--u)*1.7);color:rgba(255,250,240,.5)}
+@media (prefers-reduced-motion:no-preference){
+  #splash.play .moth{animation:mothFly 2.6s cubic-bezier(.35,0,.3,1) forwards}
+  #splash.play .moth .wl{animation:flapL .16s ease-in-out infinite alternate}
+  #splash.play .moth .wr{animation:flapR .16s ease-in-out infinite alternate}
+  #splash.play .glow{animation:glowIn 1.2s ease-out .9s forwards}
+  #splash.play .og{animation:riseIn .9s ease-out 1.0s forwards}
+  #splash.play .ent{animation:spread 1.1s ease-out 1.35s forwards}
+  #splash.play .presents{animation:riseIn .8s ease-out 2.0s forwards}
+  #splash.play{animation:splashOut .6s ease-in 3.4s forwards}
+  @keyframes mothFly{0%{transform:translate(0,-50%) rotate(8deg)}25%{transform:translate(30vw,-140%) rotate(-6deg)}50%{transform:translate(52vw,-30%) rotate(10deg)}70%{transform:translate(78vw,-160%) rotate(-4deg)}100%{transform:translate(118vw,-90%) rotate(6deg)}}
+  @keyframes flapL{from{transform:scaleX(1)}to{transform:scaleX(.35)}}
+  @keyframes flapR{from{transform:scaleX(1)}to{transform:scaleX(.35)}}
+  @keyframes glowIn{to{opacity:1}}
+  @keyframes riseIn{from{opacity:0;transform:translateY(calc(var(--u)*1.5)) scale(.96)}to{opacity:1;transform:none}}
+  @keyframes spread{from{opacity:0;letter-spacing:.2em}to{opacity:1;letter-spacing:.55em}}
+  @keyframes splashOut{to{opacity:0;visibility:hidden}}
+}
+@media (prefers-reduced-motion:reduce){
+  #splash.play .og,#splash.play .ent,#splash.play .presents,#splash.play .glow{opacity:1;transition:opacity .6s}
+  #splash.play .moth{left:38%;transform:translate(0,-160%)}
+  #splash.play{transition:opacity .5s 2s;opacity:0;visibility:hidden}
+}
+/* the title screen and the choose-a-child screen: our own moth-and-leaf pattern on deep teal */
+#title,#choose{background:#123a3c;background-image:radial-gradient(ellipse at 50% 42%, rgba(120,190,180,.28), rgba(18,58,60,0) 60%)}
+.pattern{position:absolute;inset:0;opacity:.13;pointer-events:none}
+.tcard{position:relative;display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*1.8);padding:calc(var(--u)*2)}
+.tcard h1{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*8.5);line-height:1;color:#fffaf0;text-shadow:0 calc(var(--u)*.4) 0 rgba(0,0,0,.25)}
+.tcard h1 small{display:block;font-family:"Atkinson Hyperlegible",Verdana,sans-serif;font-size:calc(var(--u)*2.2);letter-spacing:.3em;padding-left:.3em;color:#bfe0d8;margin-bottom:calc(var(--u)*1.2)}
+.tcard .tag{margin:0;font-size:calc(var(--u)*2.3);color:#dfeeea}
+.tcard .row{margin-top:calc(var(--u)*1)}
+.tcard .ob{font-size:calc(var(--u)*2.4);padding:calc(var(--u)*1.3) calc(var(--u)*3.6);background:#f3c26a;color:#1d2629;min-width:calc(var(--u)*20)}
+.tcard .ob.quiet{background:rgba(255,250,240,.12);color:#fffaf0;box-shadow:inset 0 0 0 1px rgba(255,250,240,.45)}
+.tcard .ob[disabled]{opacity:.45;cursor:default}
+.tcard .foot{margin:0;font-size:calc(var(--u)*1.7);color:rgba(255,250,240,.65)}
+.tcard .foot button{background:none;border:0;color:inherit;text-decoration:underline;font:inherit;padding:0}
+.tcorner{position:absolute;top:calc(var(--u)*1.6);right:calc(var(--u)*1.6);display:flex;gap:calc(var(--u)*1)}
+.tcorner .ctl{position:static}
+.kids{display:flex;gap:calc(var(--u)*2.4);justify-content:center;margin-top:calc(var(--u)*1)}
+.kid{width:calc(var(--u)*24);background:var(--paper);color:var(--ink);border:0;border-radius:calc(var(--u)*1.6);padding:calc(var(--u)*1.8) calc(var(--u)*1.4);display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*.7);font:inherit;box-shadow:0 calc(var(--u)*1) calc(var(--u)*2.5) rgba(0,0,0,.35);cursor:pointer;transition:transform .15s}
+.kid:hover,.kid:focus-visible{transform:translateY(calc(var(--u)*-.5));outline:none}
+.kid[disabled]{opacity:.55;cursor:default;transform:none}
+.kid .face{width:calc(var(--u)*9);height:calc(var(--u)*9);border-radius:50%;display:grid;place-items:center;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*4.5);color:#fffaf0;box-shadow:inset 0 calc(var(--u)*-.6) 0 rgba(0,0,0,.15)}
+.kid .kname{font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2.8);color:#1d2629}
+.kid .kage{font-size:calc(var(--u)*1.8);color:var(--muted);margin-top:calc(var(--u)*-.5)}
+.kid .kline{font-size:calc(var(--u)*1.75);line-height:1.25;min-height:calc(var(--u)*4.4)}
+.kid .kprog{font-size:calc(var(--u)*1.75);font-weight:700;color:#2f7c83;min-height:calc(var(--u)*2.2)}
+.kid .kprog.warn{color:#c0541f}
+.tcard .back{position:static;width:auto;height:auto;border-radius:999px;padding:calc(var(--u)*.7) calc(var(--u)*2);font-size:calc(var(--u)*1.9);background:rgba(255,250,240,.12);box-shadow:inset 0 0 0 1px rgba(255,250,240,.45)}
+.tcard .back:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
+.notice{position:absolute;inset:0;display:grid;place-items:center;background:rgba(7,9,13,.6)}
+.notice .card{background:var(--paper);color:var(--ink);border-radius:calc(var(--u)*1.4);padding:calc(var(--u)*3) calc(var(--u)*4);max-width:calc(var(--u)*64);font-size:calc(var(--u)*2.1);text-align:center;display:flex;flex-direction:column;gap:calc(var(--u)*1.4);align-items:center}
+.notice h2{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*3.4)}
+.notice p{margin:0}
+
 /* held in portrait: ask for a turn rather than squeezing the scene */
 .rotate{display:none;position:fixed;inset:0;background:var(--bg);color:#fffaf0;place-items:center;text-align:center;padding:24px;font-size:1.2rem;line-height:1.4;z-index:9}
 .rotate svg{width:72px;height:72px;margin-bottom:12px}
@@ -213,12 +279,41 @@ button{font:inherit;color:inherit;cursor:pointer}
         <p id="blurb"></p>
         <p class="small">This is a work of fiction. Its characters, schools and events are imaginary.</p>
         <p class="small" id="diag" style="font-family:monospace;font-size:calc(var(--u)*1.5)"></p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center"><button class="ob quiet" id="soundBtn">Sound: on</button><button class="ob quiet" id="fsBtn">Full screen</button><button class="ob quiet" id="revealBtn">Show what I can tap</button><button class="ob quiet" id="restart">Start again</button><button class="ob" id="closeMenu">Back to the room</button></div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center"><button class="ob quiet" id="soundBtn">Sound: on</button><button class="ob quiet" id="fsBtn">Full screen</button><button class="ob quiet" id="revealBtn">Show what I can tap</button><button class="ob quiet" id="restart">Start this stage again</button><button class="ob quiet" id="toTitle">Title screen</button><button class="ob" id="closeMenu">Back to the room</button></div>
       </div>
     </div>
   </div>
   <div class="inv" id="inv" aria-label="Things you are carrying"></div>
 </div>
+</div>
+<!-- the studio start-up -->
+<div class="screen" id="splash" hidden aria-label="OG Entertainment">
+  <div class="glow"></div>
+  <div class="moth" aria-hidden="true"><svg viewBox="-14 -10 28 20"><g class="wl"><path d="M0 0C-4-9-13-9-13-2-13 3-5 3 0 0Z" fill="#f0b44c"/><path d="M0 1C-3 7-9 8-9 4-9 1-4 1 0 1Z" fill="#e9b98a"/></g><g class="wr"><path d="M0 0C4-9 13-9 13-2 13 3 5 3 0 0Z" fill="#f0b44c"/><path d="M0 1C3 7 9 8 9 4 9 1 4 1 0 1Z" fill="#e9b98a"/></g><ellipse cx="0" cy="1" rx="1.3" ry="5" fill="#2b3431"/></svg></div>
+  <div class="logo"><div class="og">OG</div><div class="ent">ENTERTAINMENT</div><div class="presents">presents</div></div>
+  <span class="skip">Tap to skip</span>
+</div>
+<!-- the title screen -->
+<div class="screen" id="title" hidden>
+  <svg class="pattern" width="100%" height="100%" aria-hidden="true"><rect width="100%" height="100%" fill="url(#mothpat)"/></svg>
+  <div class="tcorner"><button class="ctl" id="tSound" aria-label="Sound"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
+  <div class="tcard">
+    <h1><small>A SUMMER MYSTERY</small>The Moth House</h1>
+    <p class="tag">Three children, one summer, and a house that appears at dusk.</p>
+    <div class="row"><button class="ob" id="tContinue">Continue</button><button class="ob quiet" id="tNew">New game</button></div>
+    <p class="foot"><button id="tAbout">About this game</button></p>
+  </div>
+  <div class="notice" id="aboutUI" hidden><div class="card"><h2>About this game</h2><p>This is a work of fiction. Its characters, schools and events are imaginary. Any resemblance to real people or places is a coincidence.</p><p class="small">Made by OG Entertainment. Art and music made with the help of AI tools and drawn into the story by hand.</p><button class="ob" id="aboutClose">Back</button></div></div>
+</div>
+<!-- choose a child -->
+<div class="screen" id="choose" hidden>
+  <svg class="pattern" width="100%" height="100%" aria-hidden="true"><rect width="100%" height="100%" fill="url(#mothpat)"/></svg>
+  <div class="tcard">
+    <h1 style="font-size:calc(var(--u)*5)" id="chooseTitle">Whose story?</h1>
+    <div class="kids" id="kids"></div>
+    <p class="foot" id="chooseFoot"></p>
+    <div class="row"><button class="ob back" id="chooseBack">Back</button></div>
+  </div>
 </div>
 <div class="fsask" id="fsask" hidden><div class="card"><h2>The Moth House</h2><p>Play full screen?</p><div class="row"><button class="ob" id="fsYes">Full screen</button><button class="ob quiet" id="fsNo">Not now</button></div></div></div>
 <div class="rotate"><div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2" fill="none" stroke="#fffaf0" stroke-width="1.6"/><circle cx="12" cy="18.5" r="1" fill="#fffaf0"/></svg><br>Turn your phone sideways to play.</div></div>
@@ -232,13 +327,14 @@ button{font:inherit;color:inherit;cursor:pointer}
     <symbol id="i-ge" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/><ellipse cx="6" cy="6" rx="2.2" ry="5" fill="none" stroke="currentColor" stroke-width="1"/><path d="M1 6h10" stroke="currentColor" stroke-width="1"/></symbol>
     <symbol id="i-li" viewBox="0 0 12 12"><rect x="1.5" y="8" width="9" height="2.6" rx=".6" fill="currentColor"/><rect x="2.5" y="4.8" width="8" height="2.6" rx=".6" fill="currentColor" opacity=".75"/><rect x="1.8" y="1.6" width="7" height="2.6" rx=".6" fill="currentColor" opacity=".5"/></symbol>
     <symbol id="i-mu" viewBox="0 0 12 12"><path d="M4.5 9.5V2.5l5-1.2v6.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="3" cy="9.5" r="1.7" fill="currentColor"/><circle cx="8" cy="8" r="1.7" fill="currentColor"/></symbol>
+    <pattern id="mothpat" width="120" height="120" patternUnits="userSpaceOnUse"><g fill="#fffaf0"><path d="M60 40c-4-9-13-9-13-2 0 5 8 5 13 2Zm0 0c4-9 13-9 13-2 0 5-8 5-13 2Zm0 1c-3 7-9 8-9 4 0-3 5-3 9-4Zm0 1c3 7 9 8 9 4 0-3-5-3-9-4Z"/><ellipse cx="60" cy="41" rx="1.2" ry="5"/><path d="M12 100c8-14 20-16 30-10-8 2-18 6-30 10Zm96 0c-8-14-20-16-30-10 8 2 18 6 30 10Z"/><circle cx="18" cy="24" r="1.5"/><circle cx="102" cy="24" r="1.5"/><circle cx="60" cy="96" r="1.5"/></g></pattern>
     <symbol id="i-ar" viewBox="0 0 12 12"><path d="M1.5 10.5c0-2 1-3 2.5-3.5L9.5 1.5l1 1L5 8c-.5 1.5-1.5 2.5-3.5 2.5Z" fill="currentColor"/></symbol>
   </defs>
 </svg>
 
 <script>
 'use strict';
-const BUILD = '2026-09-29e';
+const BUILD = '2026-09-30a';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -506,10 +602,19 @@ function animate(h){
 
 /* ---------- state ---------- */
 const KEY = 'mothhouse.landscape.' + BUILD; /* each build starts a fresh game; Start again is in the menu */
-let S;
+/* the three stories: one save each, keyed by child; the title screen's Continue picks up the last one played */
+const CHILDREN = {
+  mary:{name:'Mary', age:10, colour:'#8a5cc2', line:'Notices patterns, reads everything.', first:'school'},
+  elliot:{name:'Elliot', age:7, colour:'#2f7c83', line:'Wants to know how things work.', first:null},
+  zaina:{name:'Zaina', age:4, colour:'#d9a622', line:'Sees the small things. Animals trust her.', first:null}
+};
+let CHILD = 'mary', S;
+const keyFor = child => KEY + '.' + child;
+function saved(child){ try{ const s = JSON.parse(localStorage.getItem(keyFor(child))); return s && Array.isArray(s.got) && STAGES[s.stage] ? s : null; }catch(e){ return null; } }
+const hasProgress = s => !!s && (s.got.length > 0 || s.stage !== CHILDREN[CHILD].first || s.done);
 function fresh(stage){ return Object.assign({stage, room:STAGES[stage].start.room, view:STAGES[stage].start.view, got:[], held:null, hint:{}, done:false}, STAGES[stage].fresh()); }
-function load(){ try{ const s = JSON.parse(localStorage.getItem(KEY)); if (s && Array.isArray(s.got) && STAGES[s.stage]){ loadStage(s.stage); if (ROOMS[s.room]) return Object.assign(fresh(s.stage), s); } }catch(e){} loadStage('school'); return fresh('school'); }
-function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+function load(){ const s = saved(CHILD); if (s){ loadStage(s.stage); if (ROOMS[s.room]) return Object.assign(fresh(s.stage), s); } const first = CHILDREN[CHILD].first; loadStage(first); return fresh(first); }
+function save(){ try{ localStorage.setItem(keyFor(CHILD), JSON.stringify(S)); localStorage.setItem(KEY + '.last', CHILD); }catch(e){} }
 const curView = () => ROOMS[S.room].views[S.view];
 
 /* ---------- drawing ---------- */
@@ -787,26 +892,67 @@ function startStage(key){
   Promise.all(roomArt(S.room).map(preload)).then(() => { render(); say(STAGE.intro); $('scene').classList.remove('fade'); Object.keys(ROOMS).filter(r => r !== S.room).forEach(r => roomArt(r).forEach(preload)); });
 }
 $('endNext').onclick = () => { if (STAGE.next) startStage(STAGE.next); };
+$('toTitle').onclick = () => { $('menu').hidden = true; closeCloseup(); showTitle(); };
+
+/* ---------- the start-up, the title screen and choosing a child ---------- */
+function playSplash(){
+  return new Promise(res => {
+    const el = $('splash'); el.hidden = false; requestAnimationFrame(() => el.classList.add('play'));
+    let done = false; const end = () => { if (done) return; done = true; el.hidden = true; el.classList.remove('play'); res(); };
+    el.addEventListener('click', end, {once:true}); el.addEventListener('animationend', e => { if (e.target === el) end(); });
+    setTimeout(end, matchMedia('(prefers-reduced-motion:reduce)').matches ? 2600 : 4200);
+  });
+}
+function showTitle(){
+  $('choose').hidden = true; $('title').hidden = false;
+  let last = null; try{ last = localStorage.getItem(KEY + '.last'); }catch(e){}
+  const any = Object.keys(CHILDREN).some(c => { const s = saved(c); return s && (s.got.length > 0 || s.done || (CHILDREN[c].first && s.stage !== CHILDREN[c].first)); });
+  $('tContinue').disabled = !any; $('tContinue').textContent = any && last && CHILDREN[last] ? `Continue ${CHILDREN[last].name}'s story` : 'Continue';
+  $('tSound').style.opacity = soundOn ? 1 : .5;
+}
+function showChoose(mode){ /* mode: 'continue' resumes each child's save; 'new' starts a fresh story */
+  $('title').hidden = true; $('choose').hidden = false; $('chooseTitle').textContent = mode === 'new' ? 'Whose story?' : 'Carry on with…';
+  $('chooseFoot').textContent = mode === 'new' ? 'Each child has their own rooms and puzzles for their age.' : 'Each story keeps its own place.';
+  const kids = $('kids'); kids.innerHTML = '';
+  Object.entries(CHILDREN).forEach(([key, c]) => {
+    const s = saved(key), prog = s ? (STAGES[s.stage].title + (s.done ? ', finished' : '')) : '';
+    const b = document.createElement('button'); b.className = 'kid'; b.dataset.child = key;
+    b.innerHTML = `<span class="face" style="background:${c.colour}">${c.name[0]}</span><span class="kname">${c.name}</span><span class="kage">age ${c.age}</span><span class="kline">${c.line}</span><span class="kprog ${mode === 'new' && s && (s.got.length || s.done) ? 'warn' : ''}">${!c.first ? 'Coming soon' : mode === 'continue' ? (prog || 'Not started') : (s && (s.got.length || s.done) ? 'Starts again from the beginning' : '')}</span>`;
+    if (!c.first || (mode === 'continue' && !s)) b.disabled = true;
+    b.onclick = () => { CHILD = key; if (mode === 'new'){ const first = c.first; loadStage(first); S = fresh(first); save(); } else S = load(); enterGame(); };
+    kids.appendChild(b);
+  });
+}
+function enterGame(){
+  $('choose').hidden = true; $('title').hidden = true; $('scene').classList.add('fade');
+  Promise.all(roomArt(S.room).map(preload)).then(() => {
+    const l = $('loading'); if (l) l.remove();
+    render(); say(S.got.length ? `Back in ${ROOMS[S.room].into}.` : STAGE.intro); $('scene').classList.remove('fade');
+    Object.keys(ROOMS).filter(r => r !== S.room).forEach(r => roomArt(r).forEach(preload));
+  });
+}
+$('tContinue').onclick = () => { let last = null; try{ last = localStorage.getItem(KEY + '.last'); }catch(e){} const withSaves = Object.keys(CHILDREN).filter(c => saved(c));
+  if (withSaves.length === 1 || (last && saved(last) && withSaves.length <= 1)){ CHILD = withSaves[0]; S = load(); enterGame(); } else showChoose('continue'); };
+$('tNew').onclick = () => showChoose('new');
+$('chooseBack').onclick = () => showTitle();
+$('tAbout').onclick = () => { $('aboutUI').hidden = false; }; $('aboutClose').onclick = () => { $('aboutUI').hidden = true; };
+$('tSound').onclick = () => { setSound(!soundOn); $('tSound').style.opacity = soundOn ? 1 : .5; };
 $('app').addEventListener('click', e => { if (e.target === $('app')) closeCloseup(); }); /* a tap on the dark margin also steps back */
 addEventListener('keydown', e => { if (e.key === 'ArrowLeft') turn(-1); if (e.key === 'ArrowRight') turn(1); if (e.key === 'Escape'){ closeCloseup(); $('menu').hidden = true; } });
 
 function boot(){
-  S = load();
-  /* ?stage=packing in the address jumps straight to that stage (fresh), for testing a later stage without playing the earlier ones;
-     once you are on it, reloading the same address keeps your progress */
+  try{ const last = localStorage.getItem(KEY + '.last'); if (last && CHILDREN[last]) CHILD = last; }catch(e){}
+  /* ?stage=packing in the address jumps straight to that stage of Mary's story (fresh), for testing a later stage without playing
+     the earlier ones; once you are on it, reloading the same address keeps your progress. It skips the start-up and title. */
   const want = new URLSearchParams(location.search).get('stage');
-  if (want && STAGES[want] && S.stage !== want){ loadStage(want); S = fresh(want); save(); }
-  Promise.all(roomArt(S.room).map(preload)).then(() => {
-    $('loading').remove();
-    render();
-    say(S.got.length ? `Back in ${ROOMS[S.room].into}.` : STAGE.intro);
-    /* the other rooms load quietly in the background */
-    Object.keys(ROOMS).filter(r => r !== S.room).forEach(r => roomArt(r).forEach(preload));
-  });
+  if (want && STAGES[want]){ CHILD = 'mary'; S = load(); if (S.stage !== want){ loadStage(want); S = fresh(want); save(); } enterGame(); return; }
+  S = load(); /* something to render behind the title screen */
+  const l = $('loading'); if (l) l.textContent = '';
+  playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-09-29e"></script>
-<script src="stages/packing.js?v=2026-09-29e"></script>
+<script src="stages/school.js?v=2026-09-30a"></script>
+<script src="stages/packing.js?v=2026-09-30a"></script>
 <script>boot();</script>
 </body>
 </html>

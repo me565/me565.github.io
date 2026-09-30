@@ -28,7 +28,7 @@ The owner's rule: stay as close as possible to real life without anything that c
 
 ## Choosing a story
 
-The game opens on the three children. Tapping one starts that child's story. Each story can be played on its own and in any order. Progress is saved per child (postcards home act as saves). The finale opens only when all three stories are finished.
+The game opens with the OG Entertainment start-up, then a title screen with Continue or New game (owner, 30 Sept 2026). New game shows the three children; tapping one starts that child's story. Each story can be played on its own and in any order. Progress is saved per child (postcards home act as saves). The finale opens only when all three stories are finished.
 
 | | Mary | Elliot | Zaina |
 |---|---|---|---|
