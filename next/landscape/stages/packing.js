@@ -338,7 +338,7 @@ return {
   card:{place:'SINGAPORE · LATER THAT AFTERNOON', text:'Rain on the windows and the taxi at four. Mum has stuck a list on Mary’s bedroom door: three things that must not be forgotten.'},
   postcard:{pic:'../art/postcards/flat.jpg'},
   title:'Packing day', blurb:"Packing day at home: Mary's room, the living room and the kitchen. The taxi is at four.",
-  track:'../art/music/flat.mp3', next:null,
+  track:'../art/music/flat.mp3', ambient:'rain', next:null,
   intro:'<b>Packing day.</b> Rain outside, the taxi at four, and a list from Mum on the wall by your door.',
   start:{room:'bedroom', view:0},
   fresh:() => ({packed:[], moths:[], listRead:false, postcardRead:false, ehnoteRead:false, drawingSeen:false, fortOpen:false, keyTaken:false, keyTurned:false, drawerStuck:false, mumTip:false, passportsOut:false, kayaTaken:false, paperGone:false, tapeGone:false}),

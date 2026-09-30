@@ -319,14 +319,22 @@ button{font:inherit;color:inherit;cursor:pointer}
 .rotate svg{width:72px;height:72px;margin-bottom:12px}
 @media (orientation:portrait) and (max-width:820px){.rotate{display:grid}}
 @media (prefers-reduced-motion:no-preference){.rotate svg{animation:turn 2.4s ease-in-out infinite}@keyframes turn{0%,20%{transform:rotate(0)}60%,100%{transform:rotate(-90deg)}}}
-.loading{position:absolute;inset:0;display:grid;place-items:center;background:#e9e2d2;color:var(--muted);font-size:calc(var(--u)*2.4)}
+.loading{position:absolute;inset:0;display:grid;place-items:center;background:#123a3c;color:#fffaf0;font-size:calc(var(--u)*2.4);z-index:4;text-align:center;transition:opacity .35s}
+.loading[hidden]{display:none}
+.loading .lin{display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*1.6)}
+.loading .lmoth{width:calc(var(--u)*9);height:calc(var(--u)*9);filter:drop-shadow(0 0 calc(var(--u)*1.2) rgba(243,194,106,.7))}
+.loading .lmoth img{width:100%;height:100%;object-fit:contain}
+@media (prefers-reduced-motion:no-preference){.loading .lmoth{animation:hover 1.6s ease-in-out infinite}}
+.loading .lbar{width:calc(var(--u)*36);height:calc(var(--u)*1.2);border-radius:999px;background:rgba(255,250,240,.18);overflow:hidden}
+.loading .lbar i{display:block;height:100%;width:0;background:#f3c26a;border-radius:999px;transition:width .25s ease-out}
+.loading .lt{font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2.8)}
 </style>
 </head>
 <body>
 <div id="app">
 <div class="stage" id="stage">
   <div class="scene" id="scene">
-    <div class="loading" id="loading">Opening the school…</div>
+    <div class="loading" id="loading" hidden><div class="lin"><div class="lmoth"><img src="../art/portraits/moth.png" alt=""></div><div class="lt" id="loadText">Opening…</div><div class="lbar"><i id="loadBar"></i></div></div></div>
     <div id="walls"></div>
     <div id="hots"></div>
     <button class="arrow l" id="left" aria-label="Turn left"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -435,7 +443,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-30g';
+const BUILD = '2026-09-30h';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -458,11 +466,20 @@ function loadStage(key){
   /* the walls are pictures stacked in the scene; the current one shows */
   $('walls').innerHTML = '';
   Object.entries(WALLS).forEach(([k, src]) => { const im = document.createElement('img'); im.className = 'wall'; im.id = 'w-' + k; im.alt = ''; im.src = src + '?v=' + BUILD; $('walls').appendChild(im); });
-  if (TRACK !== STAGE.track){ TRACK = STAGE.track || ''; stopMusic(); if (trackEl){ trackEl.pause(); trackEl = null; } musicState = 'not started'; }
 }
 const IMG = {};
 function preload(src){ return IMG[src] || (IMG[src] = new Promise(res => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(im); im.src = src + '?v=' + BUILD; })); }
 function roomArt(room){ const list = []; ROOMS[room].views.forEach(v => { list.push(WALLS[v]); (LAYERS[v] || []).forEach(L => { if (L.src) list.push(L.src); if (L.inside) list.push(L.inside); }); }); (EXTRA[room] || []).forEach(p => list.push(p)); return list; }
+/* just the pictures one view needs: the wall and its cut-outs. A room opens as soon as its first view is in; the rest follows behind */
+function viewArt(v){ const list = [WALLS[v]]; (LAYERS[v] || []).forEach(L => { if (L.src) list.push(L.src); if (L.inside) list.push(L.inside); }); return list; }
+/* the loading screen: the moth, a line, and a bar that fills as the pictures arrive */
+function loadWithBar(list, label){
+  const el = $('loading'), bar = $('loadBar'); let n = 0; el.hidden = false; el.style.opacity = 1; $('loadText').textContent = label; bar.style.width = '0%';
+  const tick = () => { n++; bar.style.width = Math.round(100*n/list.length) + '%'; };
+  return Promise.all(list.map(src => preload(src).then(tick))).then(() => new Promise(res => { bar.style.width = '100%'; setTimeout(() => { el.style.opacity = 0; setTimeout(() => { el.hidden = true; res(); }, 350); }, 150); }));
+}
+/* the rest of the stage's pictures, quietly, current room first */
+function loadRest(){ roomArt(S.room).forEach(preload); Object.keys(ROOMS).filter(r => r !== S.room).forEach(r => roomArt(r).forEach(preload)); }
 /* ---------- the animator: each layer is a canvas; a tap starts a short, damped, organic movement ----------
    bend: base fixed, tip moves most (plants). swing: hangs from the top, hem lags (a coat). lift: rises and settles (paper).
    hop: squash, jump, land (a hamster). wobble: rocks on its base (a bag, an apple). pop: jumps up twice (things in a box). */
@@ -905,8 +922,14 @@ function speak(key){
 }
 function hush(){ if (voiceEl){ voiceEl.onended = null; voiceEl.pause(); voiceEl = null; } $('talker').classList.remove('on'); }
 /* Background music: a composed sixteen-bar music-box waltz, played by a scheduler and looped.
-   To use a recorded track instead, set TRACK to its file (an mp3 that loops cleanly) and the tune below is not used. */
-let TRACK = ''; /* set by the stage: made with Google's Lyria through the Gemini key; see art/music/README.md */
+   It plays only if a track file fails to load. */
+/* Tracks are mp3s made with Google's Lyria through the Gemini key (art/music/README.md): one for the title, one per stage.
+   The game keeps one wanted track; changing it cross-fades from the old one. A track needs a real tap before the browser lets it play. */
+const TITLE_TRACK = '../art/music/title.mp3';
+let wantTrack = TITLE_TRACK;
+function setTrack(src){ wantTrack = src || ''; if (trackEl && trackEl.dataset.src !== wantTrack){ fadeOut(trackEl); trackEl = null; musicState = 'changing'; } if (wantTrack && soundOn && AC && AC.state === 'running') startMusic(); }
+function fadeOut(el, ms = 1000){ const v0 = el.volume, t0 = performance.now(); const step = () => { const k = Math.min(1, (performance.now() - t0)/ms); el.volume = v0*(1-k); if (k < 1) requestAnimationFrame(step); else el.pause(); }; step(); }
+function fadeTo(el, target, ms = 1500){ const v0 = el.volume, t0 = performance.now(); el.dataset.fading = '1'; const step = () => { if (el.dataset.fading !== '1') return; const k = Math.min(1, (performance.now() - t0)/ms); el.volume = v0 + (target - v0)*k; if (k < 1) requestAnimationFrame(step); else delete el.dataset.fading; }; step(); }
 const TEMPO = 84, BEATS_PER_BAR = 3;
 const TUNE = {
   bars: ['C','Am','F','G','C','Am','F','G','Am','F','C','G','F','G','C','C'],
@@ -941,19 +964,15 @@ function softNote(midi, t, dur, vol, type){
   o.start(t); o.stop(t + dur + 0.05);
 }
 function startMusic(){
-  if (music || !vol.music || !audio()) return;
-  if (TRACK){
-    /* A recorded track needs a real tap before the browser lets it play. If this attempt is refused,
-       nothing is kept, so the next tap tries again; once it plays, it stays. */
-    if (!trackEl){ trackEl = new Audio(TRACK + '?v=' + BUILD); trackEl.loop = true; trackEl.volume = .5*vol.music/10; trackEl.preload = 'auto';
-      trackEl.onerror = () => { musicState = 'file failed, using the built-in tune'; trackEl = null; music = null; startTune(); }; }
-    if (musicState === 'starting') return;
-    musicState = 'starting';
-    trackEl.play().then(() => { musicState = 'playing'; music = {stop(){ trackEl.pause(); musicState = 'off'; }}; })
-      .catch(err => { musicState = 'blocked until a tap (' + (err && err.name) + ')'; music = null; });
-    return;
-  }
-  startTune();
+  if (!vol.music || !audio() || !wantTrack) return;
+  if (trackEl && trackEl.dataset.src === wantTrack) return;
+  if (music){ music.stop(); music = null; }
+  /* If this attempt is refused (no tap yet), nothing is kept, so the next tap tries again; once it plays, it stays and fades in. */
+  const el = new Audio(wantTrack + '?v=' + BUILD); el.loop = true; el.volume = 0; el.preload = 'auto'; el.dataset.src = wantTrack; trackEl = el;
+  el.onerror = () => { if (trackEl === el){ musicState = 'file failed, using the built-in tune'; trackEl = null; startTune(); } };
+  musicState = 'starting';
+  el.play().then(() => { if (trackEl !== el){ el.pause(); return; } musicState = 'playing'; fadeTo(el, .5*vol.music/10); })
+    .catch(err => { if (trackEl === el) trackEl = null; musicState = 'blocked until a tap (' + (err && err.name) + ')'; });
 }
 let trackEl = null, musicState = 'not started';
 function startTune(){
@@ -975,16 +994,39 @@ function startTune(){
   schedule(); const timer = setInterval(() => { if (ac.state === 'running') schedule(); }, 120);
   music = {stop(){ clearInterval(timer); const g = musicBus.master.gain; g.cancelScheduledValues(ac.currentTime); g.setValueAtTime(g.value, ac.currentTime); g.exponentialRampToValueAtTime(.0001, ac.currentTime + .8); setTimeout(() => musicBus.master.disconnect(), 900); }};
 }
-function stopMusic(){ if (music){ music.stop(); music = null; } }
+function stopMusic(){ if (music){ music.stop(); music = null; } if (trackEl){ fadeOut(trackEl, 600); trackEl = null; } musicState = 'off'; }
+/* Ambient sound, made in the browser and tied to the music slider: rain for the flat, distant birds and party for the school. */
+let amb = null, ambKind = null;
+function setAmbient(kind){ ambKind = kind || null; if (amb && amb.kind !== ambKind){ amb.stop(); amb = null; } if (ambKind && soundOn && AC && AC.state === 'running') startAmbient(); }
+function startAmbient(){
+  if (amb || !ambKind || !vol.music || !audio()) return;
+  const ac = AC, out = ac.createGain(); out.gain.value = 0; out.connect(ac.destination); const nodes = [], timers = [];
+  const noiseSrc = (lp, hp, g) => { const len = ac.sampleRate*4, buf = ac.createBuffer(1, len, ac.sampleRate), d = buf.getChannelData(0); let b = 0; for (let i = 0; i < len; i++){ const w = Math.random()*2-1; b = 0.98*b + 0.02*w; d[i] = w*0.6 + b*3; }
+    const src = ac.createBufferSource(); src.buffer = buf; src.loop = true; const f1 = ac.createBiquadFilter(); f1.type = 'lowpass'; f1.frequency.value = lp; const f2 = ac.createBiquadFilter(); f2.type = 'highpass'; f2.frequency.value = hp; const gn = ac.createGain(); gn.gain.value = g;
+    src.connect(f1); f1.connect(f2); f2.connect(gn); gn.connect(out); src.start(); nodes.push(src); return gn; };
+  const wobble = (gn, base, depth, hz) => { const o = ac.createOscillator(), og = ac.createGain(); o.frequency.value = hz; og.gain.value = depth; o.connect(og); og.connect(gn.gain); gn.gain.value = base; o.start(); nodes.push(o); };
+  if (ambKind === 'rain'){
+    const g = noiseSrc(1400, 300, .11); wobble(g, .11, .04, .13);
+    const drip = () => { const t = ac.currentTime, o = ac.createOscillator(), og = ac.createGain(); o.type = 'sine'; o.frequency.setValueAtTime(1400 + Math.random()*1200, t); o.frequency.exponentialRampToValueAtTime(700, t + .08); og.gain.setValueAtTime(.0001, t); og.gain.exponentialRampToValueAtTime(.05, t + .005); og.gain.exponentialRampToValueAtTime(.0001, t + .12); o.connect(og); og.connect(out); o.start(t); o.stop(t + .15); timers.push(setTimeout(drip, 300 + Math.random()*1400)); };
+    timers.push(setTimeout(drip, 800));
+  } else if (ambKind === 'school'){
+    const g = noiseSrc(600, 120, .035); wobble(g, .035, .015, .07); /* the party, far off */
+    const bird = () => { const t = ac.currentTime, n = 2 + Math.floor(Math.random()*3), f0 = 2400 + Math.random()*1200; for (let i = 0; i < n; i++){ const o = ac.createOscillator(), og = ac.createGain(), ts = t + i*.14; o.type = 'sine'; o.frequency.setValueAtTime(f0, ts); o.frequency.exponentialRampToValueAtTime(f0*1.35, ts + .05); o.frequency.exponentialRampToValueAtTime(f0*.9, ts + .1); og.gain.setValueAtTime(.0001, ts); og.gain.exponentialRampToValueAtTime(.04, ts + .01); og.gain.exponentialRampToValueAtTime(.0001, ts + .11); o.connect(og); og.connect(out); o.start(ts); o.stop(ts + .13); } timers.push(setTimeout(bird, 2500 + Math.random()*5000)); };
+    timers.push(setTimeout(bird, 1500));
+  }
+  out.gain.setTargetAtTime(0.9*vol.music/10, ac.currentTime, 1.2);
+  amb = {kind:ambKind, out, stop(){ timers.forEach(clearTimeout); out.gain.setTargetAtTime(0, ac.currentTime, .4); setTimeout(() => { nodes.forEach(n => { try{ n.stop(); }catch(e){} }); out.disconnect(); }, 1500); }};
+}
 function setVolume(which, v){
   vol[which] = v; try{ localStorage.setItem(VOL_KEY, JSON.stringify(vol)); }catch(e){}
   soundOn = vol.music > 0 || vol.fx > 0;
   if (which === 'fx'){ if (audio()){ AC.resume(); fxBus.gain.value = v/10; } if (v) sfx('tap'); }
   else if (which === 'voice'){ if (voiceEl) voiceEl.volume = v/10; if (!v) hush(); }
-  else { if (trackEl) trackEl.volume = .5*v/10; if (musicBus) musicBus.master.gain.value = Math.max(.0001, v/10); if (!v) stopMusic(); else { audio() && AC.resume(); startMusic(); } }
+  else if (which === 'music'){ if (trackEl){ delete trackEl.dataset.fading; trackEl.volume = .5*v/10; } if (musicBus) musicBus.master.gain.value = Math.max(.0001, v/10); if (amb) amb.out.gain.value = 0.9*v/10;
+    if (!v){ stopMusic(); if (amb){ amb.stop(); amb = null; } } else { audio() && AC.resume(); startMusic(); startAmbient(); } }
 }
 /* Browsers only allow sound after the player has tapped, so the first tap anywhere wakes it. */
-function wake(){ if (!soundOn) return; audio(); if (AC && AC.state !== 'running') AC.resume(); startMusic(); }
+function wake(){ if (!soundOn) return; audio(); if (AC && AC.state !== 'running') AC.resume(); startMusic(); startAmbient(); }
 
 ['touchend','click'].forEach(ev => addEventListener(ev, wake, {passive:true})); addEventListener('keydown', wake);
 document.addEventListener('visibilitychange', () => { if (!AC) return; if (document.hidden) AC.suspend(); else if (soundOn) AC.resume(); });
@@ -1038,9 +1080,8 @@ $('resetStory').onclick = () => confirmThen(`Start Mary’s whole story again fr
 addEventListener('keydown', e => { if (e.key === 'Enter' && !$('stagecard').hidden) $('stagecard').click(); });
 /* on to the next stage: fresh state, the new rooms loaded quietly first */
 function startStage(key){
-  loadStage(key); S = fresh(key); save(); $('endUI').hidden = true; closeCloseup();
-  $('scene').classList.add('fade');
-  Promise.all(roomArt(S.room).map(preload)).then(() => { render(); $('scene').classList.remove('fade'); stageCard(() => say(STAGE.intro)); Object.keys(ROOMS).filter(r => r !== S.room).forEach(r => roomArt(r).forEach(preload)); });
+  loadStage(key); S = fresh(key); save(); $('endUI').hidden = true; closeCloseup(); hush(); setTrack(STAGE.track); setAmbient(STAGE.ambient);
+  loadWithBar(viewArt(curView()), `Opening ${ROOMS[S.room].into}…`).then(() => { render(); stageCard(() => say(STAGE.intro)); loadRest(); });
 }
 $('endNext').onclick = () => { if (STAGE.next) startStage(STAGE.next); else { $('endUI').hidden = true; showTitle(); } };
 $('toTitle').onclick = () => { closeMenu(); closeCloseup(); showTitle(); };
@@ -1055,7 +1096,7 @@ function playSplash(){
   });
 }
 function showTitle(){
-  inGame = false; $('endUI').hidden = true; $('choose').hidden = true; $('title').hidden = false;
+  inGame = false; $('endUI').hidden = true; $('choose').hidden = true; $('title').hidden = false; hush(); setTrack(TITLE_TRACK); setAmbient(null);
   let last = null; try{ last = localStorage.getItem(KEY + '.last'); }catch(e){}
   const any = Object.keys(CHILDREN).some(c => { const s = saved(c); return s && (s.got.length > 0 || s.done || (CHILDREN[c].first && s.stage !== CHILDREN[c].first)); });
   $('tContinue').disabled = !any; $('tContinue').textContent = any && last && CHILDREN[last] ? `Continue ${CHILDREN[last].name}'s story` : 'Continue';
@@ -1074,11 +1115,10 @@ function showChoose(mode){ /* mode: 'continue' resumes each child's save; 'new' 
   });
 }
 function enterGame(){
-  inGame = true; $('choose').hidden = true; $('title').hidden = true; $('scene').classList.add('fade');
-  Promise.all(roomArt(S.room).map(preload)).then(() => {
-    const l = $('loading'); if (l) l.remove();
-    render(); $('scene').classList.remove('fade'); if (S.got.length || S.done) say(`Back in ${ROOMS[S.room].into}.`); else stageCard(() => say(STAGE.intro));
-    Object.keys(ROOMS).filter(r => r !== S.room).forEach(r => roomArt(r).forEach(preload));
+  inGame = true; $('choose').hidden = true; $('title').hidden = true; setTrack(STAGE.track); setAmbient(STAGE.ambient);
+  loadWithBar(viewArt(curView()), `Opening ${ROOMS[S.room].into}…`).then(() => {
+    render(); if (S.got.length || S.done) say(`Back in ${ROOMS[S.room].into}.`); else stageCard(() => say(STAGE.intro));
+    loadRest();
   });
 }
 $('tContinue').onclick = () => { let last = null; try{ last = localStorage.getItem(KEY + '.last'); }catch(e){} const withSaves = Object.keys(CHILDREN).filter(c => saved(c));
@@ -1096,12 +1136,11 @@ function boot(){
   const want = new URLSearchParams(location.search).get('stage');
   if (want && STAGES[want]){ CHILD = 'mary'; S = load(); if (S.stage !== want){ loadStage(want); S = fresh(want); save(); } enterGame(); return; }
   S = load(); /* something to render behind the title screen */
-  const l = $('loading'); if (l) l.textContent = '';
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-09-30g"></script>
-<script src="stages/packing.js?v=2026-09-30g"></script>
+<script src="stages/school.js?v=2026-09-30h"></script>
+<script src="stages/packing.js?v=2026-09-30h"></script>
 <script>boot();</script>
 </body>
 </html>

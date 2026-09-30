@@ -119,10 +119,16 @@ The working rules for every room in the landscape game, distilled from the owner
 - The moth is drawn in two poses: front-on (the portrait) and three-quarter with its wings half raised (speaking). Never cute-babyish; calm, wise, warm.
 - The name is still the owner's to decide; no recorded line says it.
 
+## 4i. Opening a stage (30 Sept 2026)
+
+- A stage or a room never opens on a blank. The loading screen is the moth, "Opening your classroom…" and a bar that fills as pictures arrive. Only the first view's wall and cut-outs are waited for; the rest of the room, then the other rooms, load quietly behind, so a stage opens in a second or two on a good connection instead of after the whole 9 MB.
+- Turning to a wall that has not arrived yet fades it in when it does; cut-outs draw themselves as they land.
+
 ## 5. Sound and music
 
 - Effects are made in the browser (Web Audio) and must be loud enough for a tablet speaker: taps 0.3, knocks 0.4, chimes 0.25. They start on the first real tap.
-- Music is a recorded track (`TRACK`), currently made with Google's Lyria model through the same Gemini key (`art/music/README.md`). Random notes are not music; the built-in composed waltz is only a fallback if the file fails.
+- Music is recorded tracks made with Google's Lyria model through the same Gemini key (`art/music/README.md`): one for the title screen and one per stage (`track` in the stage). The engine keeps one wanted track (`setTrack`) and cross-fades when it changes: title → school → flat → title, never a cut. Random notes are not music; the built-in composed waltz is only a fallback if a file fails.
+- Ambient sound is made in the browser and named by the stage (`ambient`): rain with the odd drip for the flat, distant birds and a far-off party for the school. It sits under the music slider, quietly, and starts with the music after the first tap.
 - A recorded track needs a *completed* tap (`touchend`/`click`), not finger-down, before the browser allows it. If refused, keep nothing and retry on the next tap. Report the state in the menu. This was why the owner heard effects but no music.
 - Every sound clue must also be shown.
 
@@ -157,8 +163,8 @@ The owner's brief: finish the feel and navigation before more levels. Inspiratio
 
 1. ~~Settings, help and about behind the cog, in tabs.~~ Done in build 2026-09-30f (section 4g).
 2. ~~Character voices.~~ Done in build 2026-09-30g as one voice, the moth's (section 4h). Still to do later: Mum's four lines in her own voice; for Zaina everything shown must be spoken.
-3. **Loading feel.** A progress bar while a stage's pictures load, and open the first room as soon as its own walls are in. Low effort, medium impact.
-4. **Sound and music polish.** Music on the title screen, a fade between stage tracks, rain in the flat, party murmur at school. Low to medium effort, medium impact.
+3. ~~Loading feel.~~ Done in build 2026-09-30h (section 4i).
+4. ~~Sound and music polish.~~ Done in build 2026-09-30h: a title theme, cross-fades, rain, birds and party (section 5).
 5. **A drag moment.** One single-scene action the player must perform before the story goes on: zipping the suitcase shut by dragging the zip across at the end of packing day is the natural one (and the school's could be pulling the locker door). Needs a drag gesture in the engine. Medium effort, medium to high impact.
 6. **First-time tips.** One line each for tap, hold, pick-up-and-use and the moth button, the first time each is possible. Low effort, medium impact; better once voices exist.
 7. **A postcards page** (the achievements idea): the postcards collected so far, one per stage, plus the Night Moth stars. Low effort once there are more stages.
@@ -188,3 +194,4 @@ The owner's brief: finish the feel and navigation before more levels. Inspiratio
 19. Finalising the feel: stage title cards, a celebration beat and Mary's postcard home at the end of each stage. → build 2026-09-30e, rules in 4f.
 20. Backlog item 1: the cog with tabbed settings, help and about, separate music and effects sliders, and confirmations before any wipe. → build 2026-09-30f, rules in 4g.
 21. Backlog item 2: a moth character and one voice for it, used throughout all three stories. → build 2026-09-30g, rules in 4h.
+22. Backlog items 3 and 4: the loading screen with a bar and per-view opening; a title theme, cross-faded stage tracks, rain in the flat, birds and party at school. → build 2026-09-30h, rules in 4i and 5.

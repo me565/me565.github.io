@@ -654,7 +654,7 @@ return {
   card:{place:'SINGAPORE · THE LAST DAY OF TERM', text:'Everyone is at the goodbye party in the hall. Tomorrow the whole family flies to London, to Nana and Jedi’s. But Mr Hollis has left something on Mary’s desk.'},
   postcard:{pic:'../art/postcards/school.jpg'},
   title:'Last day of school', blurb:"Mary's last day of school: the classroom, the corridor, the library, the art room and the hall.",
-  track:'../art/music/classroom.mp3', next:'packing', nextLabel:'Go home and pack',
+  track:'../art/music/classroom.mp3', ambient:'school', next:'packing', nextLabel:'Go home and pack',
   intro:'<b>Last day of school.</b> Everyone is at the party, but Mr Hollis left something on your desk. And a little moth is watching from the window.',
   start:{room:'classroom', view:3},
   fresh:() => ({opened:false, bonus:false, spell:'', nightMoth:false, dials:[0,0,0], keyOut:false, stemOpen:false, toppled:false, beater:false, drawerOpen:false, cdials:[0,0,0], paintOpen:false, seen:{}}),
