@@ -151,6 +151,12 @@ The working rules for every room in the landscape game, distilled from the owner
 - No clue crosses over. The switch is a mood and a convenience, never a puzzle; the finale is where the stories meet (STORY.md).
 - Reduced motion: no flight, a short fade, the same card.
 
+## 4m. The How to play page (30 Sept 2026)
+
+- After Continue or New game and the choice of child, before the first room loads, one calm page: five drawn panels with the game's own things and a Play button. Tap (a finger on Nutmeg's cage), the arrows (the room box with its two small arrows), use a thing (the star key in a strip slot, 1, then the padlock, 2), combine (the paper + the kaya = the present) and the moth (tap me at the top). Once per device (`mothhouse.howto`), never on a `?stage=` test link, and always from the cog's Help tab ("Show me, with pictures"), where it closes back to the room.
+- The panels are the game's own pictures: two crops of walls with their cut-outs composited (`next/art/howto/tap.jpg`, `use.jpg`), the room box and the hand drawn in SVG, the strip slots and item pictures the real ones. No text inside the pictures; the lines sit under them in the child's words.
+- It does not replace the moth's first-time tips (4j), which still arrive at the moment each is useful; on a pictures-only stage (Zaina's) the moth reads the page in one line (`howto`).
+
 ## 5. Sound and music
 
 - Effects are made in the browser (Web Audio) and must be loud enough for a tablet speaker: taps 0.3, knocks 0.4, chimes 0.25. They start on the first real tap.
@@ -209,7 +215,7 @@ The owner's brief: finish the feel and navigation before more levels. Inspiratio
 
 1. ~~**12, hands-on close-ups, on one moment: Dad's stuck drawer as lift-then-pull, beside the room.**~~ Built in 2026-09-30l (rule in 4j); the owner judges it, then the padlock dials, the paint dials and the marble cup follow the same way.
 2. ~~**16, living background.**~~ Built in 2026-09-30m (rule in section 4): Captain, Nutmeg, Peanut, rain, steam, balloons, paintings. Bunting and the plane past the window want cut-outs later.
-3. **13, the How to play page.** Half a day; its pictures cut from art we have.
+3. ~~**13, the How to play page.**~~ Built in 2026-09-30n (4m).
 4. **14, the comic intro's page-turner** with the postcards as stand-in panels, so the real panels drop in the day the key is back. A day.
 5. **11, the opening gestures** for the two we can cut from existing walls (the flat's curtains, the classroom blind); the rest with the key.
 6. **15, openables**: the engine's two-state layer and the jar cupboard now; the other open faces with the key.
@@ -253,3 +259,4 @@ The owner's brief: finish the feel and navigation before more levels. Inspiratio
 31. A fifth video: piranhas that keep swimming in their tank while you look. "What about moving parts of what is ordinarily static background… only where relevant, realistic and applicable. Some could be things the player needs to get items from, but others could just be background elements like the weather outside behind the window" (owner, 30 Sept 2026). → backlog item 16 and the rule in section 4.
 32. "Just added more credits to Gemini. Check and start with highest WSJF tasks" (owner, 30 Sept 2026). → build 2026-09-30l: the top-up list cleared (close-ups, postcards, tracks, voice), and the drawer as the first hands-on close-up beside the room (4j).
 33. "Go" on the living background (owner, 30 Sept 2026). → build 2026-09-30m, rule in section 4.
+34. "Next please" (owner, 30 Sept 2026): the How to play page. → build 2026-09-30n, rules in 4m.

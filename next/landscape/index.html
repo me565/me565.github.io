@@ -276,6 +276,26 @@ button{font:inherit;color:inherit;cursor:pointer}
   #splash.play{transition:opacity .5s 2s;opacity:0;visibility:hidden}
 }
 /* the title screen and the choose-a-child screen: our own moth-and-leaf pattern on deep teal */
+#howto{background:#123a3c;background-image:radial-gradient(ellipse at 50% 42%, rgba(120,190,180,.28), rgba(18,58,60,0) 60%);z-index:8}
+.hcard{position:relative;width:calc(var(--u)*88);max-height:96vh;background:var(--paper);color:var(--ink);border-radius:calc(var(--u)*1.6);padding:calc(var(--u)*1.6) calc(var(--u)*2.4) calc(var(--u)*1.8);display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*1.2);box-shadow:0 calc(var(--u)*1.5) calc(var(--u)*4) rgba(0,0,0,.5)}
+.hcard h2{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*3.6);line-height:1}
+.hpanels{display:grid;grid-template-columns:repeat(5,1fr);gap:calc(var(--u)*1.2);width:100%}
+.hp{background:#efe6d4;border-radius:calc(var(--u)*1.2);padding:calc(var(--u)*.9);display:flex;flex-direction:column;gap:calc(var(--u)*.7)}
+.hp p{margin:0;font-size:calc(var(--u)*1.55);line-height:1.3;text-align:center}
+.hpic{position:relative;width:100%;aspect-ratio:16/9;border-radius:calc(var(--u)*.8);overflow:hidden;background:#f4ead8}
+.hpic>img{width:100%;height:100%;object-fit:cover;display:block}
+.hpic.room svg{width:100%;height:100%;display:block}
+.hpic.moth{display:grid;place-items:center;background:radial-gradient(circle at 50% 55%, rgba(243,194,106,.45), rgba(243,194,106,0) 65%),#f4ead8}
+.hpic.moth img{width:70%;height:90%;object-fit:contain}
+.hpic.combine{display:flex;align-items:center;justify-content:center;gap:calc(var(--u)*.5);font-size:calc(var(--u)*2.2);font-weight:700;color:#4a3b2a}
+.hslot{position:absolute;width:calc(var(--u)*3.6);height:calc(var(--u)*3.6);background:var(--paper);border-radius:calc(var(--u)*.7);box-shadow:inset 0 0 0 1px var(--slot-line),0 1px 3px rgba(0,0,0,.25);display:grid;place-items:center;padding:calc(var(--u)*.3)}
+.hpic.combine .hslot{position:static}
+.hslot img{max-width:100%;max-height:100%;display:block}
+.hnum{position:absolute;font-weight:700;font-size:calc(var(--u)*1.8);color:#4a3b2a;text-shadow:0 0 4px #fff,0 0 4px #fff}
+.hand{position:absolute;width:calc(var(--u)*3.2);height:calc(var(--u)*3.2);margin:calc(var(--u)*-.6) 0 0 calc(var(--u)*-.6);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M10 4c0-1.7 1.3-3 3-3s3 1.3 3 3v9l2 0c.6-1.2 1.8-2 3.2-2 1.3 0 2.4.7 3 1.7 1.7-.5 3.8.6 3.8 3.2v6.5C28 25.7 24.7 30 19.5 30h-3.4c-2.2 0-4.3-1-5.6-2.8L5 20.6c-1-1.3-.7-3.2.7-4.1 1.1-.7 2.6-.5 3.4.5L10 18z' fill='%23f6d3b5' stroke='%234a3b2a' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));pointer-events:none}
+@media (prefers-reduced-motion:no-preference){.hand{animation:handTap 1.4s ease-in-out infinite}@keyframes handTap{0%,100%{transform:translateY(0)}50%{transform:translateY(calc(var(--u)*.7)) scale(.92)}}}
+.hcard .ob.go{background:#f3c26a;color:#1d2629;font-size:calc(var(--u)*2.3);padding:calc(var(--u)*1) calc(var(--u)*5)}
+@media (max-height:420px){.hcard{gap:calc(var(--u)*.6);padding-top:calc(var(--u)*1)}.hp p{font-size:calc(var(--u)*1.35)}.hcard h2{font-size:calc(var(--u)*3)}}
 #title,#choose{background:#123a3c;background-image:radial-gradient(ellipse at 50% 42%, rgba(120,190,180,.28), rgba(18,58,60,0) 60%)}
 .pattern{position:absolute;inset:0;opacity:.13;pointer-events:none}
 .tcard{position:relative;display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*1.8);padding:calc(var(--u)*2)}
@@ -402,6 +422,20 @@ button{font:inherit;color:inherit;cursor:pointer}
   <span class="skip">Tap to skip</span>
 </div>
 <!-- the title screen -->
+<div class="screen" id="howto" hidden>
+  <svg class="pattern" width="100%" height="100%" aria-hidden="true"><rect width="100%" height="100%" fill="url(#mothpat)"/></svg>
+  <div class="hcard">
+    <h2>How to play</h2>
+    <div class="hpanels">
+      <div class="hp"><div class="hpic"><img src="../art/howto/tap.jpg" alt=""><span class="hand" style="left:46%;top:58%"></span></div><p>Tap anything you are curious about. Nutmeg likes it.</p></div>
+      <div class="hp"><div class="hpic room"><svg viewBox="0 0 160 90" aria-hidden="true"><path d="M8 8h144v74H8Z" fill="#f4ead8" stroke="#4a3b2a" stroke-width="2.5" stroke-linejoin="round"/><path d="M8 8l24 18h96l24-18M8 82l24-18h96l24 18M32 26v38M128 26v38" fill="none" stroke="#4a3b2a" stroke-width="2"/><circle cx="20" cy="45" r="9" fill="#1d2629"/><path d="M23 40l-5 5 5 5" fill="none" stroke="#fffaf0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="140" cy="45" r="9" fill="#1d2629"/><path d="M137 40l5 5-5 5" fill="none" stroke="#fffaf0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The small arrows at the sides turn you round the room.</p></div>
+      <div class="hp"><div class="hpic"><img src="../art/howto/use.jpg" alt=""><span class="hslot" style="left:6%;bottom:6%"><img src="../art/school/item-starkey.png" alt=""></span><span class="hnum" style="left:6%;top:8%">1.</span><span class="hand" style="left:56%;top:52%"></span><span class="hnum" style="left:74%;top:30%">2.</span></div><p>Tap a thing in the strip, then tap where it goes.</p></div>
+      <div class="hp"><div class="hpic combine"><span class="hslot"><img src="../art/flat/layer-paper.png" alt=""></span><b>+</b><span class="hslot"><img src="../art/flat/layer-kaya.png" alt=""></span><b>=</b><span class="hslot"><img src="../art/flat/layer-present.png" alt=""></span></div><p>Two things in the strip can go together: hold one, tap the other.</p></div>
+      <div class="hp"><div class="hpic moth"><img src="../art/portraits/moth.png" alt=""></div><p>Stuck? Tap me at the top. I always know where to look.</p></div>
+    </div>
+    <button class="ob go" id="howtoGo">Play</button>
+  </div>
+</div>
 <div class="screen" id="title" hidden>
   <svg class="pattern" width="100%" height="100%" aria-hidden="true"><rect width="100%" height="100%" fill="url(#mothpat)"/></svg>
   <div class="tcorner"><button class="ctl" id="tMenu" aria-label="Settings and help"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cog"/></svg></button></div>
@@ -452,7 +486,7 @@ button{font:inherit;color:inherit;cursor:pointer}
     <div class="pane" data-pane="help">
       <h3>Help</h3>
       <div class="cols">
-        <div><p><b>How to play</b></p><ul><li>Tap things to look. The side arrows turn you round.</li><li>Tap a thing in the strip, then tap where it goes. Two strip things can go together.</li><li>Hold a finger on the room to see what can be tapped.</li><li>Stuck? Tap the moth for the notebook and a hint.</li></ul></div>
+        <div><p><b>How to play</b></p><ul><li>Tap things to look. The side arrows turn you round.</li><li>Tap a thing in the strip, then tap where it goes. Two strip things can go together.</li><li>Hold a finger on the room to see what can be tapped.</li><li>Stuck? Tap the moth for the notebook and a hint.</li></ul><p style="margin-top:calc(var(--u)*.8)"><button class="ob" id="howtoBtn">Show me, with pictures</button></p></div>
         <div style="display:flex;flex-direction:column;gap:calc(var(--u)*1);align-items:flex-start">
           <button class="ob game-only" id="toTitle">Back to the title screen</button>
           <button class="ob warn game-only" id="restart">Start this stage again</button>
@@ -492,7 +526,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-30m';
+const BUILD = '2026-09-30n';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -1335,8 +1369,19 @@ function showChoose(mode){ /* mode: 'continue' resumes each child's save; 'new' 
     kids.appendChild(b);
   });
 }
+/* the How to play page (4m): five drawn panels with the game's own things. Once per device on the way into the first room,
+   and any time from the cog's Help tab; on a pictures-only stage (Zaina's) the moth reads it */
+const HOWTO = 'Tap anything you are curious about. The little arrows turn you round. Things you pick up wait in the strip: tap one, then tap where it goes. And if you are stuck, tap me.';
+let howtoSeen = false; try{ howtoSeen = localStorage.getItem('mothhouse.howto') === '1'; }catch(e){}
+function showHowto(then){
+  const el = $('howto'); el.hidden = false; $('howtoGo').textContent = then ? 'Play' : 'Close'; sfx('open');
+  if (STAGE && STAGE.hintStyle === 'point') speak('howto');
+  $('howtoGo').onclick = () => { el.hidden = true; howtoSeen = true; try{ localStorage.setItem('mothhouse.howto', '1'); }catch(e){} hush(); sfx('tap'); if (then) then(); };
+}
+$('howtoBtn').onclick = () => { closeMenu(); showHowto(null); };
 function enterGame(){
   inGame = true; $('choose').hidden = true; $('title').hidden = true; setTrack(STAGE.track); setAmbient(STAGE.ambient);
+  if (!howtoSeen && !new URLSearchParams(location.search).get('stage')){ showHowto(() => enterGame()); return; }
   loadWithBar(viewArt(curView()), `Opening ${ROOMS[S.room].into}…`).then(() => {
     render(); if (S.got.length || S.done) say(`Back in ${ROOMS[S.room].into}.`); else stageCard(() => say(STAGE.intro));
     loadRest();
@@ -1360,10 +1405,10 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-09-30m"></script>
-<script src="stages/packing.js?v=2026-09-30m"></script>
-<script src="stages/eschool.js?v=2026-09-30m"></script>
-<script src="stages/zschool.js?v=2026-09-30m"></script>
+<script src="stages/school.js?v=2026-09-30n"></script>
+<script src="stages/packing.js?v=2026-09-30n"></script>
+<script src="stages/eschool.js?v=2026-09-30n"></script>
+<script src="stages/zschool.js?v=2026-09-30n"></script>
 <script>boot();</script>
 </body>
 </html>
