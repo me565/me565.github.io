@@ -230,7 +230,8 @@ button{font:inherit;color:inherit;cursor:pointer}
 .kid{width:calc(var(--u)*24);background:var(--paper);color:var(--ink);border:0;border-radius:calc(var(--u)*1.6);padding:calc(var(--u)*1.8) calc(var(--u)*1.4);display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*.7);font:inherit;box-shadow:0 calc(var(--u)*1) calc(var(--u)*2.5) rgba(0,0,0,.35);cursor:pointer;transition:transform .15s}
 .kid:hover,.kid:focus-visible{transform:translateY(calc(var(--u)*-.5));outline:none}
 .kid[disabled]{opacity:.55;cursor:default;transform:none}
-.kid .face{width:calc(var(--u)*9);height:calc(var(--u)*9);border-radius:50%;display:grid;place-items:center;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*4.5);color:#fffaf0;box-shadow:inset 0 calc(var(--u)*-.6) 0 rgba(0,0,0,.15)}
+.kid .face{width:calc(var(--u)*11);height:calc(var(--u)*11);border-radius:50%;display:grid;place-items:center;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*4.5);color:#fffaf0;box-shadow:inset 0 calc(var(--u)*-.6) 0 rgba(0,0,0,.15);overflow:hidden;position:relative}
+.kid .face img{position:absolute;left:50%;top:6%;width:96%;transform:translateX(-50%);display:block}
 .kid .kname{font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2.8);color:#1d2629}
 .kid .kage{font-size:calc(var(--u)*1.8);color:var(--muted);margin-top:calc(var(--u)*-.5)}
 .kid .kline{font-size:calc(var(--u)*1.75);line-height:1.25;min-height:calc(var(--u)*4.4)}
@@ -334,7 +335,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-09-30a';
+const BUILD = '2026-09-30b';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -604,7 +605,7 @@ function animate(h){
 const KEY = 'mothhouse.landscape.' + BUILD; /* each build starts a fresh game; Start again is in the menu */
 /* the three stories: one save each, keyed by child; the title screen's Continue picks up the last one played */
 const CHILDREN = {
-  mary:{name:'Mary', age:10, colour:'#8a5cc2', line:'Notices patterns, reads everything.', first:'school'},
+  mary:{name:'Mary', age:10, colour:'#8a5cc2', line:'Notices patterns, reads everything.', first:'school', portrait:'../art/portraits/mary.png'},
   elliot:{name:'Elliot', age:7, colour:'#2f7c83', line:'Wants to know how things work.', first:null},
   zaina:{name:'Zaina', age:4, colour:'#d9a622', line:'Sees the small things. Animals trust her.', first:null}
 };
@@ -917,7 +918,7 @@ function showChoose(mode){ /* mode: 'continue' resumes each child's save; 'new' 
   Object.entries(CHILDREN).forEach(([key, c]) => {
     const s = saved(key), prog = s ? (STAGES[s.stage].title + (s.done ? ', finished' : '')) : '';
     const b = document.createElement('button'); b.className = 'kid'; b.dataset.child = key;
-    b.innerHTML = `<span class="face" style="background:${c.colour}">${c.name[0]}</span><span class="kname">${c.name}</span><span class="kage">age ${c.age}</span><span class="kline">${c.line}</span><span class="kprog ${mode === 'new' && s && (s.got.length || s.done) ? 'warn' : ''}">${!c.first ? 'Coming soon' : mode === 'continue' ? (prog || 'Not started') : (s && (s.got.length || s.done) ? 'Starts again from the beginning' : '')}</span>`;
+    b.innerHTML = `<span class="face" style="background:${c.colour}">${c.portrait ? `<img src="${c.portrait}?v=${BUILD}" alt="">` : c.name[0]}</span><span class="kname">${c.name}</span><span class="kage">age ${c.age}</span><span class="kline">${c.line}</span><span class="kprog ${mode === 'new' && s && (s.got.length || s.done) ? 'warn' : ''}">${!c.first ? 'Coming soon' : mode === 'continue' ? (prog || 'Not started') : (s && (s.got.length || s.done) ? 'Starts again from the beginning' : '')}</span>`;
     if (!c.first || (mode === 'continue' && !s)) b.disabled = true;
     b.onclick = () => { CHILD = key; if (mode === 'new'){ const first = c.first; loadStage(first); S = fresh(first); save(); } else S = load(); enterGame(); };
     kids.appendChild(b);
@@ -951,8 +952,8 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-09-30a"></script>
-<script src="stages/packing.js?v=2026-09-30a"></script>
+<script src="stages/school.js?v=2026-09-30b"></script>
+<script src="stages/packing.js?v=2026-09-30b"></script>
 <script>boot();</script>
 </body>
 </html>
