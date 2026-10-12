@@ -57,13 +57,13 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 
 33. Two typefaces at most (log 14). The child's reading level: Zaina reads nothing, hears everything.
 34. Every story-led line has a voice key, and the line is recorded before the build is called finished; a changed line is re-recorded (audit lists unrecorded keys).
-35. Lines in the child's words; the postcard in the child's voice; the moth never names itself.
+35. Lines in the child's words; the postcard in the child's voice; the moth never names itself. The moth's voice is its normal narrating voice, never a whisper, and every spoken line shows its words being read (the read-along, playbook 4q).
 
 ## G. Devices and delivery
 
 36. **Check at the owner's screen shape**: 2000×700 (a phone-shaped tablet with the browser's bar), plus 740×360 and 2200×1300, and once with reduced motion on. A fix is not done until it is seen close up at that shape (log 38).
 37. No page scroll at any size; the whole game fits; portrait asks to turn.
-38. Every picture preloads; nothing pops in late; a fresh link never resumes another build's progress (log 9).
+38. Every picture preloads; nothing pops in late; a fresh link never resumes another build's progress (log 9). A screen's own pictures and the lines spoken on the way into it are ready before the screen shows (the portraits, a comic's pages and captions, the stage card; log 49); a caption never appears before its picture.
 39. Sound starts on a real tap and works after the first; music never "random noise" (logs 3, 4, 10).
 40. Bump `BUILD` (and the stage script tags), run every stage's play script, then commit, push, republish the artifact and give a link pinned to the commit. Never make the owner ask for it.
 41. When the owner reports a fault: reproduce it at his screen shape, confirm in words that the same thing is seen, fix the cause not the symptom, and add the rule here.

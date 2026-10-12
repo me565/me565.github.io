@@ -95,6 +95,11 @@ button{font:inherit;color:inherit;cursor:pointer}
   box-shadow:0 0 0 var(--rule) var(--line), var(--cut);transition:opacity .25s;pointer-events:none}
 .msg:empty{opacity:0}
 .msg b{color:var(--gold-deep)}
+/* read-along: said words in the teal pen, the word being said on gold */
+.w{border-radius:.2em;transition:color .15s, background-color .15s}
+.w.read{color:var(--pen)}
+.w.now{background:rgba(243,194,106,.7);box-shadow:0 0 0 .08em rgba(243,194,106,.7)}
+.comic .cbox .w.read,.stagecard .w.read{color:var(--pen)}
 
 /* close-ups: the object comes forward, the room stays behind, softened */
 .closeup{position:absolute;inset:0;display:grid;place-items:center;padding:calc(var(--u)*3) calc(var(--u)*10) calc(var(--u)*5.5);cursor:pointer}
@@ -558,7 +563,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-10-12a';
+const BUILD = '2026-10-12b';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -591,10 +596,21 @@ function viewArt(v){ const list = [WALLS[v]]; (LAYERS[v] || []).forEach(L => { i
 function loadWithBar(list, label){
   const el = $('loading'), bar = $('loadBar'); let n = 0; el.hidden = false; el.style.opacity = 1; $('loadText').textContent = label; bar.style.width = '0%';
   const tick = () => { n++; bar.style.width = Math.round(100*n/list.length) + '%'; };
-  return Promise.all(list.map(src => preload(src).then(tick))).then(() => new Promise(res => { bar.style.width = '100%'; setTimeout(() => { el.style.opacity = 0; setTimeout(() => { el.hidden = true; res(); }, 350); }, 150); }));
+  /* an item is a picture's path, or a function that makes something else ready (a voice line) and returns a promise */
+  return Promise.all(list.map(item => (typeof item === 'function' ? item() : preload(item)).then(tick))).then(() => new Promise(res => { bar.style.width = '100%'; setTimeout(() => { el.style.opacity = 0; setTimeout(() => { el.hidden = true; res(); }, 350); }, 150); }));
 }
 /* the rest of the stage's pictures, quietly, current room first */
-function loadRest(){ roomArt(S.room).forEach(preload); Object.keys(ROOMS).filter(r => r !== S.room).forEach(r => roomArt(r).forEach(preload)); }
+function loadRest(){ roomArt(S.room).forEach(preload); Object.keys(ROOMS).filter(r => r !== S.room).forEach(r => roomArt(r).forEach(preload)); setTimeout(() => stageVoiceKeys().forEach(prepVoice), 1500); }
+/* what a stage needs before its first screen: the comic's pages and the lines the moth says on the way in (so a caption never waits for its picture,
+   and a tap never waits for the voice); the rest of the stage's lines follow quietly behind the pictures */
+function openers(){
+  const list = [], keys = [];
+  if (STAGE.comic && freshStart()){ STAGE.comic.forEach((pg, p) => { list.push(pg.pic); pg.lines.forEach((l, i) => keys.push(`${S.stage}.comic.${p}.${i}`)); }); }
+  keys.push(`${S.stage}.card`, `${S.stage}.intro`, `${S.stage}.meanwhile`, 'tip.tap', 'tip.pickup', 'tip.hold', STAGE.hintStyle === 'point' ? 'tip.helpPoint' : 'tip.help', 'howto');
+  keys.forEach(k => list.push(() => prepVoice(k)));
+  return list;
+}
+function stageVoiceKeys(){ return VOICED ? [...VOICED].filter(k => k.startsWith(S.stage + '.') || k.startsWith('nb.')) : []; }
 /* ---------- the animator: each layer is a canvas; a tap starts a short, damped, organic movement ----------
    bend: base fixed, tip moves most (plants). swing: hangs from the top, hem lags (a coat). lift: rises and settles (paper).
    hop: squash, jump, land (a hamster). wobble: rocks on its base (a bag, an apple). pop: jumps up twice (things in a box). */
@@ -1001,7 +1017,7 @@ function openLiftPull(o){
   draw();
 }
 function closeCloseup(){ if ($('closeup').hidden) return; $('closeup').hidden = true; $('closeup').classList.remove('aside', 'left', 'right'); $('scene').classList.remove('zoomed', 'aside'); sfx('close'); if (voiceKey && /\.note\.|^nb\./.test(voiceKey)) hush(); }
-function openNote(key){ const n = NOTES[key]; if (STAGE.onNote) STAGE.onNote(key); speak(`${S.stage}.note.${key}`); openCloseup(`<div class="card note${n.hand ? '' : ' print'}">${n.html}</div>`); }
+function openNote(key){ const n = NOTES[key]; if (STAGE.onNote) STAGE.onNote(key); speak(`${S.stage}.note.${key}`, () => $('closeup').querySelector('.card')); openCloseup(`<div class="card note${n.hand ? '' : ' print'}">${n.html}</div>`); }
 /* a picture close-up with something drawn over it by the game (a painting, a drawing, a shelf of jars with their labels) */
 function openPic(src, aspect, title, overlay, width){
   openCloseup(`<div class="card pic" style="width:calc(var(--u)*${width || 58})"><div class="picwrap" id="picwrap" style="aspect-ratio:${aspect};background-image:url(${src}?v=${BUILD})">${overlay || ''}${title ? `<p class="otitle">${title}</p>` : ''}</div></div>`);
@@ -1047,9 +1063,10 @@ function showComic(pages, then){
   el.hidden = false; hush();
   const end = () => { if (!comicOn) return; comicOn = false; el.hidden = true; el.onclick = null; hush(); if (then){ S.comicSeen = true; save(); then(); } };
   const showPage = () => { const pg = pages[p]; boxes.innerHTML = ''; next.classList.remove('on'); i = 0;
-    pic.classList.add('turn'); preload(pg.pic).then(() => { pic.style.backgroundImage = `url(${pg.pic}?v=${BUILD})`; pic.classList.remove('turn'); }); step(); };
+    pic.classList.add('turn'); preload(pg.pic).then(() => { pic.style.backgroundImage = `url(${pg.pic}?v=${BUILD})`; pic.classList.remove('turn'); step(); });
+    if (pages[p + 1]){ preload(pages[p + 1].pic); pages[p + 1].lines.forEach((l, i) => prepVoice(`${S.stage}.comic.${p + 1}.${i}`)); } };
   const step = () => { const pg = pages[p];
-    if (i < pg.lines.length){ const [text, at] = Array.isArray(pg.lines[i]) ? pg.lines[i] : [pg.lines[i], ['tl','br','tr','bl'][i % 4]]; const b = document.createElement('div'); b.className = 'cbox ' + at; b.textContent = text; boxes.appendChild(b); speak(`${S.stage}.comic.${p}.${i}`); i++; if (i === pg.lines.length) next.classList.add('on'); sfx('paper'); }
+    if (i < pg.lines.length){ const [text, at] = Array.isArray(pg.lines[i]) ? pg.lines[i] : [pg.lines[i], ['tl','br','tr','bl'][i % 4]]; const b = document.createElement('div'); b.className = 'cbox ' + at; b.textContent = text; boxes.appendChild(b); speak(`${S.stage}.comic.${p}.${i}`, b); i++; if (i === pg.lines.length) next.classList.add('on'); sfx('paper'); }
     else if (p < pages.length - 1){ p++; showPage(); }
     else end(); };
   el.onclick = e => { if (e.target === $('cskip')) return; step(); };
@@ -1063,7 +1080,7 @@ $('comicBtn').onclick = () => { closeMenu(); if (STAGE.comic) showComic(STAGE.co
 function stageCard(then){
   const c = STAGE.card; if (!c){ then(); return; }
   const el = $('stagecard'); el.innerHTML = `<div class="in"><span class="place">${c.place}</span><h2>${STAGE.title}</h2><p>${c.text}</p><div class="go"><button class="ob" id="cardGo">Begin</button></div></div>`;
-  el.hidden = false; speak(`${S.stage}.card`); const go = () => { el.hidden = true; el.onclick = null; then(); speak(`${S.stage}.intro`); tip('tap', 6000); tip(STAGE.hintStyle === 'point' ? 'helpPoint' : 'help', 75000); }; el.onclick = go; $('cardGo').onclick = e => { e.stopPropagation(); go(); };
+  el.hidden = false; speak(`${S.stage}.card`, el.querySelector('p')); const go = () => { el.hidden = true; el.onclick = null; then(); speak(`${S.stage}.intro`, $('msg')); tip('tap', 6000); tip(STAGE.hintStyle === 'point' ? 'helpPoint' : 'help', 75000); }; el.onclick = go; $('cardGo').onclick = e => { e.stopPropagation(); go(); };
 }
 
 /* ---------- using a held item on something: USES maps "item>target" to what happens; anything else gets a friendly line ---------- */
@@ -1103,12 +1120,12 @@ function tip(name, delay = 0){
     if (tipsSeen.has(name)) return;
     if (!$('closeup').hidden || !$('menu').hidden || !$('stagecard').hidden || !$('loading').hidden || comicOn || (voiceEl && !voiceEl.paused) || !$('endUI').hidden){ tip(name, 1500); return; } /* not now: try again shortly */
     tipsSeen.add(name); try{ localStorage.setItem('mothhouse.tips', JSON.stringify([...tipsSeen])); }catch(e){}
-    say(`<b>The moth whispers:</b> ${TIPS[name]}`); speak('tip.' + name);
+    say(`<b>The moth says:</b> ${TIPS[name]}`); speak('tip.' + name, $('msg'));
   }, delay);
 }
 function hint(){ if (STAGE.hintStyle === 'point') pointNext(); else openNotebook(); }
 /* a spoken tap line (Zaina's stage, where nothing is read): shown like any line and said by the moth, key <stage>.line.<name> */
-function line(key, text){ say(text); speak(`${S.stage}.line.${key}`); }
+function line(key, text){ say(text); speak(`${S.stage}.line.${key}`, $('msg')); }
 /* pointed hints: the first hint whose goal is not met names a room, a view and a thing; the game turns to it, the moth flies over,
    the thing glows for a moment and the moth says its one line. Peanut in Zaina's stage does the same when tapped. */
 function pointNext(){
@@ -1120,7 +1137,7 @@ function pointNext(){
   setTimeout(() => pointAt(h.at && h.at.id, `<b>${STAGE.speaker()}:</b> ${h.tips[0]}`, `${S.stage}.hint.${i}.0`), turnFirst ? 350 : 0);
 }
 function pointAt(id, html, voiceKey){
-  const b = id && document.querySelector(`.hs[data-id="${id}"]`); say(html); speak(voiceKey);
+  const b = id && document.querySelector(`.hs[data-id="${id}"]`); say(html); speak(voiceKey, $('msg'));
   if (!b) return;
   const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
   const glow = () => { b.classList.add('point'); setTimeout(() => b.classList.remove('point'), 3200); };
@@ -1130,7 +1147,7 @@ function pointAt(id, html, voiceKey){
   requestAnimationFrame(() => requestAnimationFrame(() => { m.style.left = cx + '%'; m.style.top = cy + '%'; m.classList.add('go'); }));
   setTimeout(glow, 900); setTimeout(() => m.classList.add('away'), 3000); setTimeout(() => m.remove(), 3800);
 }
-function hintText(i){ S.hint[i] = Math.min((S.hint[i] ?? -1) + 1, 2); save(); speak(`${S.stage}.hint.${i}.${S.hint[i]}`); return `<b>${STAGE.speaker()}:</b> ${HINTS[i].tips[S.hint[i]]}`; }
+function hintText(i){ S.hint[i] = Math.min((S.hint[i] ?? -1) + 1, 2); save(); speak(`${S.stage}.hint.${i}.${S.hint[i]}`, () => $('nbFb')); return `<b>${STAGE.speaker()}:</b> ${HINTS[i].tips[S.hint[i]]}`; }
 function openNotebook(){
   if (!tipsSeen.has('help')){ tipsSeen.add('help'); tipsSeen.add('helpPoint'); clearTimeout(tipTimers.help); clearTimeout(tipTimers.helpPoint); try{ localStorage.setItem('mothhouse.tips', JSON.stringify([...tipsSeen])); }catch(e){} }
   const rows = STAGE.rows(), noticed = STAGE.noticed ? STAGE.noticed() : [];
@@ -1197,14 +1214,49 @@ function chime(f){ if (!vol.fx || !audio()) return; if (AC.state !== 'running') 
    and is played by key; the moth appears beside the message line while it speaks. One line at a time; a new line stops the last. */
 let voiceEl = null, voiceKey = null, VOICED = null;
 fetch('../art/voice/index.json?v=' + BUILD).then(r => r.json()).then(list => { VOICED = new Set(list); }).catch(() => { VOICED = new Set(); });
-function speak(key){
-  if (!vol.voice || !key || (VOICED && !VOICED.has(key))) return; /* a line not recorded yet is simply not spoken */
-  hush(); const el = new Audio(`../art/voice/${key}.mp3?v=${BUILD}`); el.volume = vol.voice/10; voiceEl = el; voiceKey = key;
-  const show = on => $('talker').classList.toggle('on', on);
-  el.onplay = () => show(true); el.onended = el.onerror = () => { if (voiceEl === el){ show(false); voiceEl = null; } };
-  el.play().catch(() => { show(false); if (voiceEl === el) voiceEl = null; });
+/* Every line is an Audio element kept once it has been made ready, so a tap never waits for the network (owner, 12 Oct 2026). */
+const VOICE = {};
+function voiceAudio(key){ if (VOICE[key]) return VOICE[key]; const a = new Audio(); a.preload = 'auto'; a.src = `../art/voice/${key}.mp3?v=${BUILD}`; VOICE[key] = a; return a; }
+/* make a line ready: settles when it can play through, or after a few seconds, so a slow network never holds the loading bar */
+function prepVoice(key){
+  if (!key || (VOICED && !VOICED.has(key))) return Promise.resolve();
+  const a = voiceAudio(key); if (a.readyState >= 4) return Promise.resolve();
+  return new Promise(res => { const done = () => { a.removeEventListener('canplaythrough', done); a.removeEventListener('error', done); res(); }; a.addEventListener('canplaythrough', done); a.addEventListener('error', done); setTimeout(done, 4000); try{ a.load(); }catch(e){ done(); } });
 }
-function hush(){ if (voiceEl){ voiceEl.onended = null; voiceEl.pause(); voiceEl = null; } $('talker').classList.remove('on'); }
+/* speak(key, el): el (or a function giving it) is the element whose words are being read, for the read-along */
+function speak(key, el){
+  if (!vol.voice || !key || (VOICED && !VOICED.has(key))) return; /* a line not recorded yet is simply not spoken */
+  hush(); const a = voiceAudio(key); a.volume = vol.voice/10; voiceEl = a; voiceKey = key;
+  const show = on => $('talker').classList.toggle('on', on);
+  a.onplay = () => { show(true); const t = typeof el === 'function' ? el() : el; if (t) readAlong(t, a); }; a.onended = a.onerror = () => { if (voiceEl === a){ show(false); voiceEl = null; } };
+  try{ if (a.currentTime) a.currentTime = 0; }catch(e){}
+  a.play().catch(() => { show(false); if (voiceEl === a) voiceEl = null; });
+}
+function hush(){ if (voiceEl){ voiceEl.onended = null; voiceEl.pause(); voiceEl = null; } $('talker').classList.remove('on'); stopReadAlong(); }
+/* Read-along (owner, 12 Oct 2026): as the moth reads, the words it has said turn teal and the one it is on sits on gold, so a young reader can follow.
+   The recordings carry no word times, so the time is shared out by letters, with a pause at a full stop or a comma. Labels in <b> are not read. */
+let readTimer = null, readSpans = [];
+function stopReadAlong(){ if (readTimer) cancelAnimationFrame(readTimer); readTimer = null; readSpans.forEach(sp => sp.classList.remove('read', 'now')); readSpans = []; }
+function wrapWords(el){
+  const spans = [];
+  const walk = node => { [...node.childNodes].forEach(ch => {
+    if (ch.nodeType === 3){ if (!ch.textContent.trim()) return; const frag = document.createDocumentFragment();
+      ch.textContent.split(/(\s+)/).forEach(t => { if (!t) return; if (/^\s+$/.test(t)) frag.appendChild(document.createTextNode(t)); else { const sp = document.createElement('span'); sp.className = 'w'; sp.textContent = t; frag.appendChild(sp); spans.push(sp); } });
+      node.replaceChild(frag, ch); }
+    else if (ch.nodeType === 1 && ch.tagName !== 'B' && ch.tagName !== 'BUTTON' && ch.tagName !== 'SVG' && !ch.classList.contains('w')) walk(ch); }); };
+  walk(el); return spans;
+}
+function readAlong(el, a){
+  stopReadAlong(); const spans = el.querySelector('.w') ? [...el.querySelectorAll('.w')] : wrapWords(el); if (!spans.length) return; readSpans = spans;
+  const w = spans.map(sp => sp.textContent.length + 1 + (/[.!?…]$/.test(sp.textContent) ? 5 : /[,;:]$/.test(sp.textContent) ? 2 : 0));
+  const total = w.reduce((x, y) => x + y, 0); let acc = 0; const ends = w.map(x => (acc += x) / total);
+  const step = () => {
+    if (voiceEl !== a || a.ended){ if (a.ended) spans.forEach(sp => { sp.classList.add('read'); sp.classList.remove('now'); }); readTimer = null; return; }
+    const d = a.duration, t = d && isFinite(d) ? Math.min(1, a.currentTime / Math.max(0.1, d - 0.2)) : 0;
+    spans.forEach((sp, i) => { const done = ends[i] <= t, now = !done && (i === 0 || ends[i - 1] <= t); sp.classList.toggle('read', done); sp.classList.toggle('now', now); });
+    readTimer = requestAnimationFrame(step); };
+  step();
+}
 /* Background music: a composed sixteen-bar music-box waltz, played by a scheduler and looped.
    It plays only if a track file fails to load. */
 /* Tracks are mp3s made with Google's Lyria through the Gemini key (art/music/README.md): one for the title, one per stage.
@@ -1353,14 +1405,14 @@ function switchChild(key){
   setTimeout(() => {
     CHILD = key; S = load(); save(); setTrack(STAGE.track); setAmbient(STAGE.ambient);
     const fresh = !S.got.length && !S.done && S.stage === CHILDREN[key].first && !hasProgress(S);
-    loadWithBar(viewArt(curView()), `Meanwhile, ${ROOMS[S.room].into}…`).then(() => { render(); scene.classList.remove('fade'); meanwhileCard(() => { if (fresh){ say(STAGE.intro); speak(`${S.stage}.intro`); } else say(`Back in ${ROOMS[S.room].into}.`); }); loadRest(); });
+    loadWithBar([...viewArt(curView()), ...openers()], `Meanwhile, ${ROOMS[S.room].into}…`).then(() => { render(); scene.classList.remove('fade'); meanwhileCard(() => { if (fresh){ say(STAGE.intro); speak(`${S.stage}.intro`, $('msg')); } else say(`Back in ${ROOMS[S.room].into}.`); }); loadRest(); });
   }, reduce ? 350 : 1400);
 }
 /* the card between children: MEANWHILE, the child's name and the stage's one fixed line about where they are in their day */
 function meanwhileCard(then){
   const el = $('stagecard'), c = CHILDREN[CHILD];
   el.innerHTML = `<div class="in"><span class="place">Meanwhile</span><h2>${c.name}</h2><p>${STAGE.meanwhile || `${c.name} is in ${ROOMS[S.room].into}.`}</p><div class="go"><button class="ob" id="cardGo">Go on</button></div></div>`;
-  el.hidden = false; speak(`${S.stage}.meanwhile`); const go = () => { el.hidden = true; el.onclick = null; then(); }; el.onclick = go; $('cardGo').onclick = e => { e.stopPropagation(); go(); };
+  el.hidden = false; speak(`${S.stage}.meanwhile`, el.querySelector('p')); const go = () => { el.hidden = true; el.onclick = null; then(); }; el.onclick = go; $('cardGo').onclick = e => { e.stopPropagation(); go(); };
 }
 $('tMenu').onclick = () => openMenu('settings');
 $('tAbout').onclick = () => openMenu('about');
@@ -1396,7 +1448,7 @@ addEventListener('keydown', e => { if (e.key === 'Enter' && !$('stagecard').hidd
 /* on to the next stage: fresh state, the new rooms loaded quietly first */
 function startStage(key){
   loadStage(key); S = fresh(key); save(); $('endUI').hidden = true; closeCloseup(); hush(); setTrack(STAGE.track); setAmbient(STAGE.ambient);
-  loadWithBar(viewArt(curView()), `Opening ${ROOMS[S.room].into}…`).then(() => { render(); openStage(); loadRest(); });
+  loadWithBar([...viewArt(curView()), ...openers()], `Opening ${ROOMS[S.room].into}…`).then(() => { render(); openStage(); loadRest(); });
 }
 $('endNext').onclick = () => { if (STAGE.next) startStage(STAGE.next); else { $('endUI').hidden = true; showTitle(); } };
 $('toTitle').onclick = () => { closeMenu(); closeCloseup(); showTitle(); };
@@ -1442,7 +1494,7 @@ $('howtoBtn').onclick = () => { closeMenu(); showHowto(null); };
 function enterGame(){
   inGame = true; $('choose').hidden = true; $('title').hidden = true; setTrack(STAGE.track); setAmbient(STAGE.ambient);
   if (!howtoSeen && !new URLSearchParams(location.search).get('stage')){ showHowto(() => enterGame()); return; }
-  loadWithBar(viewArt(curView()), `Opening ${ROOMS[S.room].into}…`).then(() => {
+  loadWithBar([...viewArt(curView()), ...openers()], `Opening ${ROOMS[S.room].into}…`).then(() => {
     render(); if (S.got.length || S.done) say(`Back in ${ROOMS[S.room].into}.`); else openStage();
     loadRest();
   });
@@ -1462,13 +1514,14 @@ function boot(){
   const want = new URLSearchParams(location.search).get('stage');
   if (want && STAGES[want]){ CHILD = STAGES[want].child || 'mary'; S = load(); if (S.stage !== want){ loadStage(want); S = fresh(want); save(); } enterGame(); return; }
   S = load(); /* something to render behind the title screen */
+  Object.values(CHILDREN).forEach(c => c.portrait && preload(c.portrait)); preload('../art/portraits/moth.png'); preload('../art/portraits/moth-speak.png'); /* so the children's faces are there the moment the cards are */
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-10-12a"></script>
-<script src="stages/packing.js?v=2026-10-12a"></script>
-<script src="stages/eschool.js?v=2026-10-12a"></script>
-<script src="stages/zschool.js?v=2026-10-12a"></script>
+<script src="stages/school.js?v=2026-10-12b"></script>
+<script src="stages/packing.js?v=2026-10-12b"></script>
+<script src="stages/eschool.js?v=2026-10-12b"></script>
+<script src="stages/zschool.js?v=2026-10-12b"></script>
 <script>boot();</script>
 <script>if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('../../sw.js').catch(() => {});</script>
 </body>

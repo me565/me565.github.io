@@ -634,7 +634,7 @@ function act(id){ /* returns false for a door the engine should open */
 /* Mary's notebook: the to-do list. Each riddle shows how far its trail has got; tap one and the helper's hint for that trail
    goes from a nudge to the answer over three taps. Underneath, what Mary has noticed, so nothing has to be written down. */
 
-const speaker = () => 'The moth whispers';
+const speaker = () => 'The moth says';
 const THREADS = {1:['Riddle 1: full of lights at night, but not a city', 'slipSc', ['', 'note found', 'star key found', 'cabinet unlocked']],
   2:['Riddle 2: eighty-eight keys, but no doors', 'slipMu', ['', 'page of music found', 'beater found', 'beater on the bars', 'drawer open']],
   3:['Riddle 3: full of colour, but not a rainbow', 'slipAr', ['', 'note found', 'cupboard unlocked']]};

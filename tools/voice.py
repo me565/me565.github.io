@@ -9,10 +9,11 @@ key = os.environ["GEMINI_API_KEY"]
 lines = json.load(open('lines.json'))
 done = json.load(open('voice-done.json')) if os.path.exists('voice-done.json') else {}
 STYLE = ("Speak as a small, gentle, magical moth who guides a child through a cosy mystery: soft, warm and unhurried, "
-         "a little whispery but perfectly clear, kind and slightly playful, like a night light that can talk. British English. "
+         "clear and easy to hear, never whispered, kind and slightly playful, like a night light that can talk. Natural British English at a normal reading pace. "
          "Say only the words after the colon, nothing else")
 def kind(k):
-    if '.hint.' in k: return "Whisper this hint to Mary"
+    if k.startswith('tip.') or k == 'howto': return "Say this clearly and warmly in your normal speaking voice, exactly as you narrate the story, not whispered"
+    if '.hint.' in k: return "Give this hint to Mary, gently and clearly"
     if '.note.' in k: return "Read this note aloud to Mary, as if reading it over her shoulder"
     if k.endswith('.card') or k.endswith('.intro') or '.comic.' in k: return "Narrate this softly, like the start of a bedtime story"
     if k.endswith('.postcard'): return "Read Mary's postcard home aloud, warmly and a little proudly"

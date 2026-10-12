@@ -164,7 +164,7 @@ const HINTS = [
 const THREADS = {1:['Find the torch', 'torch', ['', 'postcard read', 'Elliot’s note read', 'password seen', 'fort open']],
   2:['Find the passports', 'passports', ['', 'desk key found', 'drawer stuck', 'Mum’s tip']],
   3:['Nana’s present', 'present', ['', 'postcard read', 'kaya found', 'half wrapped']]};
-const speaker = () => 'The moth whispers';
+const speaker = () => 'The moth says';
 
 /* ---------- close-ups ---------- */
 function openHooks(){
