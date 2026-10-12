@@ -16,8 +16,8 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 ## B. Every cut-out (a thing placed on a wall)
 
 9. **Proportions.** The box keeps the picture's own proportions: h = w × pictureH / pictureW × 16/9. A squashed or stretched cut-out fails (audit checks this).
-10. **Standing on a surface.** A thing on the floor stands below the skirting line, never on it (the trolley, log 40). A thing on a seat sits back from the front edge with the seat visible in front of it (the hamster, log 40). A thing on a shelf or table stands on the surface, not on its front edge. Every one of these has a contact shadow (`shadow`), so nothing floats (logs 6, 40).
-11. **Inside something.** A thing in a box or cupboard sits behind the box's own front, which is cut from the wall and drawn over it; tops show above the rim, bottoms are hidden (logs 8, 9, 37).
+10. **Standing on a surface.** A thing that still looks pasted on after placement and shadow is painted into a second rendering of its wall and lifted out, so it carries the wall's own light (playbook 4r, log 50). A thing on the floor stands below the skirting line, never on it (the trolley, log 40). A thing on a seat sits back from the front edge with the seat visible in front of it (the hamster, log 40). A thing on a shelf or table stands on the surface, not on its front edge. Every one of these has a contact shadow (`shadow`), so nothing floats (logs 6, 40).
+11. **Inside something.** The box's front is cut from the wall with the rim's ink line as its top edge, column by column, never from a little below it (log 50). A thing in a box or cupboard sits behind the box's own front, which is cut from the wall and drawn over it; tops show above the rim, bottoms are hidden (logs 8, 9, 37).
 12. **Hanging.** Anything hanging hangs from something drawn: a hook, a peg, a staple through a padlock's shackle. A lock glued to a door fails (log 37).
 13. **Behind glass.** Clipped to the glass, toned down, the glass painted over it in every frame (logs 5, 7, 8).
 14. **Light.** The room's light on a cut-out is blurred broad light only, never the lines behind it; a thing that looks see-through fails (the coat, the bin lid, the hat, logs 12, 13, 37).
@@ -50,6 +50,8 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 32. Tap targets are finger-sized, never under the turn arrows (the strips halfway up each side in the landscape engine), never covered by a bigger target unless the bigger one is listed first (audit checks size and the arrow strips). Hotspot ids are unique across every stage (audit checks).
 
 32b. A long press anywhere on the room glows the tappables and never opens the browser's own menu (tester round 1, T1): the scene prevents `contextmenu` and its pictures have no touch callout.
+
+32d. The moth's line lives in the caption band under the room and never over it; nothing tappable is ever covered by a message (log 50). A note leaves the strip when its job is done.
 
 32c. Every piece of chrome is paper with the ink rule on the one dusk sky (playbook 4p): no dark translucent pills, no tracked capitals, one gold primary button per screen, disabled buttons as muted paper. A new element that is not paper with the rule is a stranger.
 

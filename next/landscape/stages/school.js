@@ -155,9 +155,9 @@ const LAYERS = {
     {src:'../art/classroom/layer-plant4-pot.png', l:59.3, t:57.70, w:7.7, h:8.80, shadow:.5}],
   c3:[
     {src:'../art/classroom/layer-coat.png', group:'coat', l:67.1, t:50.6, w:10.8, h:24.2, lit:.45},
-    {src:'../art/classroom/layer-lost.png', group:'lost', l:79.2, t:77.2, w:8.8, h:7.85},
+    {src:'../art/classroom/layer-lost.png', group:'lost', l:79.2, t:78.0, w:8.8, h:7.85},  /* inside the box: tops above the rim, bases hidden by the front */
     /* the front of the box, cut from the wall picture itself, drawn over the things inside it */
-    {src:'../art/classroom/layer-boxfront.png', l:75.78, t:82.31, w:13.85, h:14.72},
+    {src:'../art/classroom/layer-boxfront.png', l:75.78, t:81.16, w:13.85, h:16.38},  /* cut from the wall with the rim's ink line as its top edge, so the rim covers the things inside */
     {src:'../art/classroom/layer-lid.png', group:'lid', l:27.4, t:68.6, w:10.4, h:10.7}],
   c4:[
     {src:'../art/classroom/layer-envelope.png', group:'envelope', l:50.5, t:66.5, w:6.5, h:5.5, hideWhen:() => S.got.includes('envelope')},
@@ -182,8 +182,8 @@ const LAYERS = {
     {src:'../art/school/layer-mallet.png', group:'mallet', l:21.5, t:76, w:5, h:9.45, shadow:.6, showWhen:() => S.toppled, hideWhen:() => S.got.includes('mallet') || S.beater},
     /* three whole soft blocks, stacked; each flies to its own landing place when the stack is tapped (kind 'block', see drawBlock) */
     {src:'../art/school/layer-block-blue.png', group:'blocks', kind:'block', l:24, t:69.7, w:9, h:15.36, padX:2.8, drop:0, fall:{dx:.15, rot:.03, delay:.2, lift:.05}, done:() => S.toppled},
-    {src:'../art/school/layer-block-red.png', group:'blocks', kind:'block', l:24.8, t:60.9, w:7.4, h:13.3, padX:2.8, padBelow:1.1, drop:.82, fall:{dx:1.3, rot:.08, delay:.1, lift:.3}, done:() => S.toppled},
-    {src:'../art/school/layer-block-yellow.png', group:'blocks', kind:'block', l:24.3, t:53.3, w:8.4, h:11.35, padX:2.8, padBelow:2.1, drop:1.81, fall:{dx:2.3, rot:.62, delay:0, lift:.5}, done:() => S.toppled}],
+    {src:'../art/school/layer-block-red.png', group:'blocks', kind:'block', l:24.8, t:60.9, w:7.4, h:13.3, padX:2.8, padBelow:1.1, drop:.82, fall:{dx:1.3, rot:.08, delay:.1, lift:.3, land:.06}, done:() => S.toppled},
+    {src:'../art/school/layer-block-yellow.png', group:'blocks', kind:'block', l:24.3, t:53.3, w:8.4, h:11.35, padX:2.8, padBelow:2.1, drop:1.81, fall:{dx:2.3, rot:.62, delay:0, lift:.5, land:.12}, done:() => S.toppled}],
   /* art room */
   ae:[ /* the combination padlock: its three white dials show the colours the player has set, drawn over the picture */
     {src:'../art/school/layer-diallock.png', group:'diallock', l:47.7, t:62, w:4.4, h:10.19, padBelow:1.6, gone:() => S.paintOpen, over:drawDials}],
@@ -287,15 +287,15 @@ const CODE = [4, 3, 6]; /* Science on Thursday = 4, Music on Tuesday = 3, Art on
 const SUBJECT = {Ma:['i-ma','#2f7c83','Maths'], En:['i-en','#d9a622','English'], Sc:['i-sc','#3b78b8','Science'], Mu:['i-mu','#7a5cc2','Music'], Ar:['i-ar','#d0602f','Art'], PE:['i-pe','#27794c','PE'], Ge:['i-ge','#a8744a','Geography'], Li:['i-li','#c4589a','Library']};
 
 const ITEMS = {
-  envelope:{name:'riddle envelope', note:'envelope', icon:'<img src="../art/classroom/item-envelope.png" alt="">'},
-  noteStar:{name:'note from The Night Sky', note:'noteStar', found:'A folded note falls out of {b}!', icon:'<img src="../art/school/item-note.png" alt="">'},
-  music:{name:'page of music', note:'music', found:'A loose page slips out of {b}!', icon:'<img src="../art/school/item-music.png" alt="">'},
-  notePaint:{name:'note from the painting book', note:'notePaint', found:'A folded note falls out of {b}!', icon:'<img src="../art/school/item-note.png" alt="">'},
+  envelope:{name:'riddle envelope', note:'envelope', spent:() => ['slipSc','slipMu','slipAr'].every(k => S.got.includes(k)), icon:'<img src="../art/classroom/item-envelope.png" alt="">'},
+  noteStar:{name:'note from The Night Sky', note:'noteStar', spent:() => S.stemOpen, found:'A folded note falls out of {b}!', icon:'<img src="../art/school/item-note.png" alt="">'},
+  music:{name:'page of music', note:'music', spent:() => S.drawerOpen, found:'A loose page slips out of {b}!', icon:'<img src="../art/school/item-music.png" alt="">'},
+  notePaint:{name:'note from the painting book', note:'notePaint', spent:() => S.paintOpen, found:'A folded note falls out of {b}!', icon:'<img src="../art/school/item-note.png" alt="">'},
   starkey:{name:'star key', icon:'<img src="../art/school/item-starkey.png" alt="">'},
   mallet:{name:'beater', icon:'<img src="../art/school/item-mallet.png" alt="">'},
-  slipSc:{name:'Science slip', note:'slipSc', icon:'<img src="../art/school/item-slipSc.png" alt="">'},
-  slipMu:{name:'Music slip', note:'slipMu', icon:'<img src="../art/school/item-slipMu.png" alt="">'},
-  slipAr:{name:'Art slip', note:'slipAr', icon:'<img src="../art/school/item-slipAr.png" alt="">'}
+  slipSc:{name:'Science slip', note:'slipSc', spent:() => S.opened, icon:'<img src="../art/school/item-slipSc.png" alt="">'},
+  slipMu:{name:'Music slip', note:'slipMu', spent:() => S.opened, icon:'<img src="../art/school/item-slipMu.png" alt="">'},
+  slipAr:{name:'Art slip', note:'slipAr', spent:() => S.opened, icon:'<img src="../art/school/item-slipAr.png" alt="">'}
 };
 /* Hints follow three threads at once: the moth helps with whichever trail the player has got furthest along. */
 const HINTS = [

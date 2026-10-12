@@ -94,7 +94,8 @@ const LAYERS = {
   b4:[moth(1, 57, 17.6), {src:A+'layer-jumper.png', group:'jumper', l:52, t:30.5, w:7, h:15.3, hideWhen:() => got('jumper') || packed('jumper')}],
   l1:[rain(34, 13, 33, 42), {src:A+'layer-key.png', group:'key', l:73.4, t:34.8, w:2.8, h:7.97, hideWhen:() => S.keyTaken},
       {src:A+'layer-paper.png', group:'paper', l:60, t:46, w:2.4, h:19.7, shadow:.5, hideWhen:() => S.paperGone}],
-  l2:[{src:A+'layer-snowglobe.png', group:'snowglobe', l:20, t:32.3, w:5.5, h:11.2, shadow:.6}, {src:A+'layer-orchid.png', group:'orchid', l:61, t:30.6, w:5, h:12.95, shadow:.5}, moth(3, 33, 91.5)],
+  /* the globe and the orchid were painted into this wall by the same hand (a second rendering of l2 with them on the shelf), then lifted out as cut-outs, so they carry the wall's own light and shadow */
+  l2:[{src:A+'layer-snowglobe.png', group:'snowglobe', l:19.53, t:19.54, w:9.84, h:13.98}, {src:A+'layer-orchid.png', group:'orchid', l:57.45, t:14.72, w:12.08, h:18.8}, moth(3, 33, 91.5)],
   l4:[moth(4, 59.8, 44)],
   k1:[{draw:'steam', group:'steam', l:30, t:44, w:6, h:9}, {src:A+'layer-mum.png', group:'mum', l:40, t:31, w:17, h:61.8, shadow:.7}],
   k2:[moth(5, 47, 23.4), {src:A+'layer-postcard.png', group:'postcard', l:44, t:52, w:7, h:9.7},

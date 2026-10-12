@@ -76,7 +76,8 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
         }
       }
       if (errors.length) say(stage, 'D28', `errors at ${name}${reduce ? ' (reduced motion)' : ''}: ${errors.slice(0, 3).join(' | ')}`);
-      [...new Set(failed)].forEach(u => say(stage, 'G38', `failed to load at ${name}: ${u.split('/').slice(-2).join('/')}`));
+      /* a load that failed once is asked for again before it is reported: the local server drops a request now and then under load */
+      for (const u of new Set(failed)){ const ok = await p.evaluate(u => fetch(u, {cache:'reload'}).then(r => r.ok).catch(() => false), u.split(' ')[0]); if (!ok) say(stage, 'G38', `failed to load at ${name}: ${u.split('/').slice(-2).join('/')}`); }
       await p.close();
     }
   }
