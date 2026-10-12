@@ -51,6 +51,8 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 
 32b. A long press anywhere on the room glows the tappables and never opens the browser's own menu (tester round 1, T1): the scene prevents `contextmenu` and its pictures have no touch callout.
 
+32c. Every piece of chrome is paper with the ink rule on the one dusk sky (playbook 4p): no dark translucent pills, no tracked capitals, one gold primary button per screen, disabled buttons as muted paper. A new element that is not paper with the rule is a stranger.
+
 ## F. Words and voice
 
 33. Two typefaces at most (log 14). The child's reading level: Zaina reads nothing, hears everything.

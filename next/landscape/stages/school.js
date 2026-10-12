@@ -671,7 +671,7 @@ function sparkle(id){
   return false;
 }
 return {
-  card:{place:'SINGAPORE · THE LAST DAY OF TERM', text:'Everyone is at the goodbye party in the hall. Tomorrow the whole family flies to London, to Nana and Jedi’s. But Mr Hollis has left something on Mary’s desk.'},
+  card:{place:'Singapore, the last day of term', text:'Everyone is at the goodbye party in the hall. Tomorrow the whole family flies to London, to Nana and Jedi’s. But Mr Hollis has left something on Mary’s desk.'},
   meanwhile:'Meanwhile, at Knightsbrook, Mary is still hunting for the words in Mr Hollis’s riddle.',
   comic:[{pic:'../art/comic/school-1.jpg', lines:['“Last day of school, Mary!” said Mum.', 'Two more sleeps, then the plane to Nana’s.']}, {pic:'../art/comic/school-2.jpg', lines:['Knightsbrook International School. Mary knew every corridor.', 'Today she would walk them one last time.']}, {pic:'../art/comic/school-3.jpg', lines:['On her desk: an envelope with her name on it, in Mr Hollis’s writing.', 'Inside, a riddle. Of course.']}, {pic:'../art/comic/school-4.jpg', lines:['And on the window, a little moth, watching.', 'The last bell was at three.']}],
   postcard:{pic:'../art/postcards/school.jpg'},
