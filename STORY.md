@@ -160,10 +160,20 @@ Version 2 (29 Sept 2026), built to the same shape as the school: the goal seen f
 - No clue in this stage is shared with Elliot's or Zaina's stories (owner, 29 Sept 2026).
 
 ### Stage 3: The flight — her seat, the flight map, the magazine — difficulty 4
-- Work out what time it will be in London when they land. Singapore is 7 hours ahead of London in the British summer.
-- A note in the seat pocket is in mirror writing; the dark seat-back screen works as a mirror.
-- The note points to the flight map, where a tiny moth marks Enfield.
-- **Night Moth:** the magazine crossword spells a word Nana used on her postcard.
+
+Version 2 (13 Oct 2026), built in the landscape engine to the same shape as the school and the flat: the goal seen first, three trails open at once, each needing two inputs, clues crossing rooms, nothing shared with the other children's stories. Hour thirteen of fourteen, somewhere over Europe, the cabin dark; Elliot and Zaina asleep across the aisle, Mary the only one awake in row 34.
+
+**Two rooms**: **row 34** (the seat-back in front with its dark screen, latched tray and pocket; the window at dawn; across the aisle, Elliot and Zaina asleep under their blankets, Zaina hugging Peanut; back down the aisle to the galley curtain) and **the galley** (Priya at the counter with the breakfast trays and two wall clocks labelled SINGAPORE and LONDON; the toilet door; the bulkhead with the big screen; the curtain back).
+
+**The seat pocket** holds the goal and the three threads at once: a folded note poking out, written entirely backwards; the flight card ("Landing: 13:40 Singapore time"); and Cloud Nine, the in-flight magazine.
+
+- **Trail A, wake the sleepy screen (a card, and two clocks in another room).** The seat-back screen is asleep and asks for the local time at landing; it shows 13:40 and wants London. The flight card gives the landing time in Singapore time; the galley clocks show 12:40 and 05:40 side by side, seven hours apart. Set 06:40 and tap Wake: the map appears on the seat-back screen and on the big screen in the galley. Priya gives the seven-hours tip, but only once the screen has been tried and refused (the person-gives-a-clue rule). A wrong time blinks and waits.
+- **Trail B, read the backwards note (an item and a dark shiny surface).** Held up to the dark seat-back screen (before it wakes) or to the mirror in the toilet, the writing turns the right way round: "Look at the map. Find the moth. It knows the way. – N." The moth reads the backwards note as Mary sees it, never the words.
+- **Trail C, the magnifying glass (a page, then a person in the other room).** The magazine's Junior Explorer page: free magnifying glass, ask the crew. Priya hands one over.
+- **Convergence.** The map, awake, shows London as a dot with a smudge beside it. The magnifying glass on either screen opens London big as a page, with four felt-tip doodles someone has drawn on it: a boat on the river, a star to the west, a bird to the east, and a moth beside Enfield. The note says which: tap the moth and it glows, "Cabin crew, seats for landing", and the postcard home: Wheels down.
+- Priya is the second person to give a clue, drawn into the galley wall from the front (invented, no airline). The magnifying glass is a lens on other things too, for fun (clouds, Zaina's nose, the clocks).
+- **Night Moth:** the magazine crossword, four clues with a choice of words; the gold first letters spell KAYA, the word on Nana's postcard. The notebook notes it; the postcard's P.S. says it.
+- Who is N, and who is flying with the children, is not said (open decision 3).
 
 ### Stage 4: Nana and Jedi's — Nana's attic and the hallway photos — difficulty 3
 - The dates on the family photos give the code to Nana's childhood tin.

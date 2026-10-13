@@ -16,6 +16,8 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 ## B. Every cut-out (a thing placed on a wall)
 
 9. **Proportions.** The box keeps the picture's own proportions: h = w × pictureH / pictureW × 16/9. A squashed or stretched cut-out fails (audit checks this).
+9b. **Made alone.** A cut-out or icon is generated on white with no picture reference (a style crop makes the model draw the object into that scene). A thing that must sit *in* something (a pocket, a box) is painted into a second rendering of its wall and lifted out, so it carries the wall's own shadow (playbook 4r, 4s).
+
 10. **Standing on a surface.** A thing that still looks pasted on after placement and shadow is painted into a second rendering of its wall and lifted out, so it carries the wall's own light (playbook 4r, log 50). A thing on the floor stands below the skirting line, never on it (the trolley, log 40). A thing on a seat sits back from the front edge with the seat visible in front of it (the hamster, log 40). A thing on a shelf or table stands on the surface, not on its front edge. Every one of these has a contact shadow (`shadow`), so nothing floats (logs 6, 40).
 11. **Inside something.** The box's front is cut from the wall with the rim's ink line as its top edge, column by column, never from a little below it (log 50). A thing in a box or cupboard sits behind the box's own front, which is cut from the wall and drawn over it; tops show above the rim, bottoms are hidden (logs 8, 9, 37).
 12. **Hanging.** Anything hanging hangs from something drawn: a hook, a peg, a staple through a padlock's shackle. A lock glued to a door fails (log 37).

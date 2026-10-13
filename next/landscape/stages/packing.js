@@ -361,7 +361,7 @@ return {
   comic:[{pic:'../art/comic/packing-1.jpg', lines:['Rain. The taxi at four.', 'And a list on her door, from Mum.']}, {pic:'../art/comic/packing-2.jpg', lines:['Torch. Passports. Nana’s present.', 'Three things that must not be forgotten.']}, {pic:'../art/comic/packing-3.jpg', lines:['Somewhere in the flat, Elliot had built a base.', 'With a password.']}],
   postcard:{pic:'../art/postcards/flat.jpg'},
   title:'Packing day', blurb:"Packing day at home: Mary's room, the living room and the kitchen. The taxi is at four.",
-  track:'../art/music/flat.mp3', ambient:'rain', next:null,
+  track:'../art/music/flat.mp3', ambient:'rain', next:'flight', nextLabel:'To the airport',
   intro:'<b>Packing day.</b> Rain outside, the taxi at four, and a list from Mum on the wall by your door.',
   start:{room:'bedroom', view:0},
   fresh:() => ({packed:[], moths:[], zipped:false, listRead:false, postcardRead:false, ehnoteRead:false, drawingSeen:false, fortOpen:false, keyTaken:false, keyTurned:false, drawerStuck:false, drawerOpen:false, mumTip:false, passportsOut:false, kayaTaken:false, paperGone:false, tapeGone:false}),

@@ -176,6 +176,34 @@ button{font:inherit;color:inherit;cursor:pointer}
 .picwrap svg{position:absolute;inset:0;width:100%;height:100%}
 .picwrap .otitle{position:absolute;left:calc(var(--u)*1.2);top:calc(var(--u)*1);margin:0;background:var(--paper);color:var(--ink);border-radius:calc(var(--u)*.6);padding:calc(var(--u)*.45) calc(var(--u)*1.4);font-size:calc(var(--u)*2.2);box-shadow:0 0 0 var(--rule) var(--line), var(--cut)}
 .card.note svg.staff{width:100%;height:auto;display:block}
+/* a note in mirror writing: every line but its heading is flipped, so it reads only in a mirror */
+.card.note.mirror > span:not(.head){display:block;transform:scaleX(-1)} /* the direct lines only: the read-along's word spans inside them stay inline */
+/* the sleepy seat-back screen: a dark screen drawn inside the paper card, with its own buttons */
+.wake{background:#141c28;color:#bfe0ea;border-radius:calc(var(--u)*.8);padding:calc(var(--u)*1.2) calc(var(--u)*2.4);display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*.6);box-shadow:inset 0 0 0 calc(var(--u)*.3) #2b3a4a;width:calc(var(--u)*40);max-width:100%}
+.wake .wq{margin:0;font-size:calc(var(--u)*2);color:#fffaf0}
+.wake .wsmall{margin:0;font-size:calc(var(--u)*1.5);color:#7fa8b8}
+.wrow{display:flex;align-items:center;gap:calc(var(--u)*1.6)}
+.wcol{display:flex;flex-direction:column;gap:calc(var(--u)*.5)}
+.wb{min-width:44px;min-height:40px;width:calc(var(--u)*6);height:calc(var(--u)*5);border-radius:calc(var(--u)*.8);border:0;background:#2f7c83;color:#fffaf0;font:inherit;font-size:calc(var(--u)*3);font-weight:700;cursor:pointer;line-height:1}
+.wb:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
+.wdigits{font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*7);letter-spacing:.06em;color:#f3c26a;font-variant-numeric:tabular-nums;min-width:calc(var(--u)*20);text-align:center}
+.card.xw{width:calc(var(--u)*66);display:flex;flex-direction:column;gap:calc(var(--u)*.6);align-items:center}
+.xwlist{display:flex;flex-direction:column;gap:calc(var(--u)*.5);width:100%}
+.xwlist .clue{display:grid;grid-template-columns:auto 1fr;gap:calc(var(--u)*.3) calc(var(--u)*1.2);align-items:center;font-size:calc(var(--u)*1.9)}
+.xwlist .q{grid-column:1/-1;color:var(--ink)}
+.xwlist .letters{display:flex;gap:calc(var(--u)*.3)}
+.xwlist .cell{width:calc(var(--u)*2.8);height:calc(var(--u)*2.8);display:grid;place-items:center;background:#fff;color:var(--ink);font-weight:700;border-radius:calc(var(--u)*.3);box-shadow:inset 0 0 0 1px var(--line)}
+.xwlist .cell.gold{background:#f3c26a}
+.xwlist .opts{display:flex;gap:calc(var(--u)*.6);flex-wrap:wrap}
+.xwlist .opts .ob{padding:calc(var(--u)*.3) calc(var(--u)*1.2);font-size:calc(var(--u)*1.7);min-height:32px}
+.xwlist .opts .ob.on{background:#f3c26a;color:var(--ink)}
+/* at a phone's height the sleepy screen and the crossword draw in tighter, so neither card scrolls (checklist G36) */
+@media (max-height:460px){
+.wake{padding:calc(var(--u)*.6) calc(var(--u)*1.6);gap:calc(var(--u)*.3)}.wake .wq{font-size:calc(var(--u)*1.7)}.wake .wsmall{display:none}
+.wb{min-height:34px;min-width:38px;height:calc(var(--u)*4.2)}.wdigits{font-size:calc(var(--u)*5.5)}.wcol{gap:calc(var(--u)*.3)}.card.locker{gap:calc(var(--u)*.6)}
+.card.xw{gap:calc(var(--u)*.3)}.xwlist{gap:calc(var(--u)*.3)}.xwlist .clue{grid-template-columns:auto auto 1fr;gap:calc(var(--u)*.3) calc(var(--u)*1)}.xwlist .q{grid-column:auto;font-size:calc(var(--u)*1.7)}.xwlist .opts .ob{min-height:26px;padding:calc(var(--u)*.15) calc(var(--u)*1);border-radius:calc(var(--u)*1.2)}.xwlist .opts{gap:calc(var(--u)*.4)}
+.card.locker .ob{padding-left:calc(var(--u)*4);padding-right:calc(var(--u)*4)}
+}
 
 /* Mary's notebook: the riddles with where each has got to, tap one for the moth's help; and what she has noticed */
 .card.nb{width:calc(var(--u)*64);font-style:normal;gap:calc(var(--u)*.5)}
@@ -564,7 +592,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-10-12c';
+const BUILD = '2026-10-13a';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -951,6 +979,7 @@ function render(){
       /* a note is read by tapping it; anything else is picked up in hand, then used by tapping where it goes, or on another thing in the strip */
       b.onclick = () => {
         if (S.held && S.held !== key){ const item = S.held; S.held = null; useItem(item, 'item:' + key, null); return; }
+        if (ITEMS[key].open){ sfx('paper'); ITEMS[key].open(); return; }
         if (ITEMS[key].note && !ITEMS[key].usable){ sfx('paper'); openNote(ITEMS[key].note); return; }
         sfx('tap'); S.held = S.held === key ? null : key; render(); say(S.held ? `Holding the ${ITEMS[key].name}. Tap where it goes.` : ''); if (S.held) tip('hold', 3500); }; }
     else b.setAttribute('aria-hidden', 'true');
@@ -1020,10 +1049,10 @@ function openLiftPull(o){
   draw();
 }
 function closeCloseup(){ if ($('closeup').hidden) return; $('closeup').hidden = true; $('closeup').classList.remove('aside', 'left', 'right'); $('scene').classList.remove('zoomed', 'aside'); sfx('close'); if (voiceKey && /\.note\.|^nb\./.test(voiceKey)) hush(); }
-function openNote(key){ const n = NOTES[key]; if (STAGE.onNote) STAGE.onNote(key); speak(`${S.stage}.note.${key}`, () => $('closeup').querySelector('.card')); openCloseup(`<div class="card note${n.hand ? '' : ' print'}">${n.html}</div>`); }
+function openNote(key){ const n = NOTES[key]; if (STAGE.onNote) STAGE.onNote(key); speak(`${S.stage}.note.${key}`, n.voice ? null : () => $('closeup').querySelector('.card')); /* a note with its own voice line (mirror writing) is not read along */ openCloseup(`<div class="card note${n.hand ? '' : ' print'}${n.mirror ? ' mirror' : ''}">${n.html}</div>`); }
 /* a picture close-up with something drawn over it by the game (a painting, a drawing, a shelf of jars with their labels) */
 function openPic(src, aspect, title, overlay, width){
-  openCloseup(`<div class="card pic" style="width:calc(var(--u)*${width || 58})"><div class="picwrap" id="picwrap" style="aspect-ratio:${aspect};background-image:url(${src}?v=${BUILD})">${overlay || ''}${title ? `<p class="otitle">${title}</p>` : ''}</div></div>`);
+  openCloseup(`<div class="card pic" style="width:calc(var(--u)*${width || 58})"><div class="picwrap" id="picwrap" style="aspect-ratio:${aspect};${src ? `background-image:url(${src}?v=${BUILD})` : ''}">${overlay || ''}${title ? `<p class="otitle">${title}</p>` : ''}</div></div>`);
 }
 /* the end of a stage: a card with the story's last line, and the way on to the next stage */
 /* A drag moment: a close-up picture with a tab the player pulls along a path (in picture percentages) from start to end.
@@ -1348,6 +1377,8 @@ function startAmbient(){
     const g = noiseSrc(1400, 300, .11); wobble(g, .11, .04, .13);
     const drip = () => { const t = ac.currentTime, o = ac.createOscillator(), og = ac.createGain(); o.type = 'sine'; o.frequency.setValueAtTime(1400 + Math.random()*1200, t); o.frequency.exponentialRampToValueAtTime(700, t + .08); og.gain.setValueAtTime(.0001, t); og.gain.exponentialRampToValueAtTime(.05, t + .005); og.gain.exponentialRampToValueAtTime(.0001, t + .12); o.connect(og); og.connect(out); o.start(t); o.stop(t + .15); timers.push(setTimeout(drip, 300 + Math.random()*1400)); };
     timers.push(setTimeout(drip, 800));
+  } else if (ambKind === 'plane'){ /* the engines, far off and steady, with a slow swell */
+    const g = noiseSrc(380, 50, .06); wobble(g, .06, .012, .045);
   } else if (ambKind === 'school'){
     const g = noiseSrc(600, 120, .035); wobble(g, .035, .015, .07); /* the party, far off */
     const bird = () => { const t = ac.currentTime, n = 2 + Math.floor(Math.random()*3), f0 = 2400 + Math.random()*1200; for (let i = 0; i < n; i++){ const o = ac.createOscillator(), og = ac.createGain(), ts = t + i*.14; o.type = 'sine'; o.frequency.setValueAtTime(f0, ts); o.frequency.exponentialRampToValueAtTime(f0*1.35, ts + .05); o.frequency.exponentialRampToValueAtTime(f0*.9, ts + .1); og.gain.setValueAtTime(.0001, ts); og.gain.exponentialRampToValueAtTime(.04, ts + .01); og.gain.exponentialRampToValueAtTime(.0001, ts + .11); o.connect(og); og.connect(out); o.start(ts); o.stop(ts + .13); } timers.push(setTimeout(bird, 2500 + Math.random()*5000)); };
@@ -1521,10 +1552,11 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-10-12c"></script>
-<script src="stages/packing.js?v=2026-10-12c"></script>
-<script src="stages/eschool.js?v=2026-10-12c"></script>
-<script src="stages/zschool.js?v=2026-10-12c"></script>
+<script src="stages/school.js?v=2026-10-13a"></script>
+<script src="stages/packing.js?v=2026-10-13a"></script>
+<script src="stages/eschool.js?v=2026-10-13a"></script>
+<script src="stages/zschool.js?v=2026-10-13a"></script>
+<script src="stages/flight.js?v=2026-10-13a"></script>
 <script>boot();</script>
 <script>if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('../../sw.js').catch(() => {});</script>
 </body>
