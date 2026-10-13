@@ -13,6 +13,8 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 7. Every clue given by sound is also shown; every clue is in a picture, never only in words.
 8. TO DECIDE items (the moth's name) are never filled in without asking.
 
+8b. **The opening view carries no clue and no item.** The goal may be in sight; the first thing to read or pick up is at least one turn away (log 52, playbook 4t).
+
 ## B. Every cut-out (a thing placed on a wall)
 
 9. **Proportions.** The box keeps the picture's own proportions: h = w × pictureH / pictureW × 16/9. A squashed or stretched cut-out fails (audit checks this).
@@ -24,6 +26,8 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 13. **Behind glass.** Clipped to the glass, toned down, the glass painted over it in every frame (logs 5, 7, 8).
 14. **Light.** The room's light on a cut-out is blurred broad light only, never the lines behind it; a thing that looks see-through fails (the coat, the bin lid, the hat, logs 12, 13, 37).
 15. **Physical sense.** A coat hung by its loop shows its back; a hood and buttons both facing out is impossible (log 7). A plant bends, its pot never does (log 5). Only the part that would really move moves.
+16b. **A real place keeps its real layout and its real crowd.** Seats on a plane all face the front (backs when looking forward, faces when looking back, profiles sideways); a flight is three-quarters full, a classroom has children. Each view's prompt says which way things face; the wall is checked against the floor plan before it is accepted (log 52).
+
 16. **Wall and close-up agree.** What is on the wall is on its close-up, in the same place, with the same marks (the timetable, the bottles, the paintings; log 6, playbook 4k).
 
 ## C. Everything the game draws onto a picture (words, marks, colours)
@@ -48,6 +52,8 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 
 29. Tap outside to step back; nothing scrolls inside; the picture is crisper than the room behind (log 11).
 30. A thing worked by hand asks for the real movement, beside the room with the room left sharp; a plain look stays a tap (playbook 4j, log 27). A wrong move waits, never fails.
+30b. **A place is seen before an item is used there.** A door opens on the room, the mirror is in view, the note goes on the mirror; an item is never used on the door or box that hides its target (log 52).
+
 31. Every stage opens with one gesture and a comic; the switch between children never replays them (4j, 4n, 4l).
 32. Tap targets are finger-sized, never under the turn arrows (the strips halfway up each side in the landscape engine), never covered by a bigger target unless the bigger one is listed first (audit checks size and the arrow strips). Hotspot ids are unique across every stage (audit checks).
 
@@ -63,6 +69,8 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 34. Every story-led line has a voice key, and the line is recorded before the build is called finished; a changed line is re-recorded (audit lists unrecorded keys).
 35. Lines in the child's words; the postcard in the child's voice; the moth never names itself. The moth's voice is its normal narrating voice, never a whisper, and every spoken line shows its words being read (the read-along, playbook 4q).
 
+35b. One Night Moth challenge per stage, of a kind not used before (school: riddle; packing: paper moths; flight: crossword) (log 52).
+
 ## G. Devices and delivery
 
 36. **Check at the owner's screen shape**: 2000×700 (a phone-shaped tablet with the browser's bar), plus 740×360 and 2200×1300, and once with reduced motion on. A fix is not done until it is seen close up at that shape (log 38).
@@ -71,3 +79,7 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 39. Sound starts on a real tap and works after the first; music never "random noise" (logs 3, 4, 10).
 40. Bump `BUILD` (and the stage script tags), run every stage's play script, then commit, push, republish the artifact and give a link pinned to the commit. Never make the owner ask for it. The commit id in the link is pasted from `git rev-parse HEAD` after `git ls-remote` shows it on the remote, never typed (log 51).
 41. When the owner reports a fault: reproduce it at his screen shape, confirm in words that the same thing is seen, fix the cause not the symptom, and add the rule here.
+
+## H. People and things move
+
+42. **Someone or something moves with the story.** Each stage lists in STORY.md who moves, after which beat, to where, and why it makes sense (Priya from the galley to the aisle with breakfast once the screen is awake); the hints follow them (log 52).

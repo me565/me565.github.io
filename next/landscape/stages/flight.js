@@ -13,39 +13,47 @@ const ROOMS = {
 };
 const WALLS = {s1:A+'s1.jpg', s2:A+'s2.jpg', s3:A+'s3.jpg', s4:A+'s4.jpg', g1:A+'g1.jpg', g2:A+'g2.jpg', g3:A+'g3.jpg', g4:A+'g4.jpg'};
 /* through the curtain at the back of the cabin you arrive in the galley facing its far wall (the big screen); back through it you face your seat */
-const DOORS = {f_curtain:['galley', 2], g_curtain:['seat', 0]};
+/* once Priya and the trolley stand in the aisle, the way to the back is the whole end of the cabin around her (she is drawn on top) */
+const DOORS = {f_curtain:['galley', 2], f_curtain2:['galley', 2], g_curtain:['seat', 0]};
 const got = k => S.got.includes(k);
 const LAND = {h:13, m:40};            /* landing, Singapore time, on the flight card */
 const BEHIND = 7;                     /* London is seven hours behind Singapore in the British summer: the two galley clocks show it */
 const ANSWER = {h:6, m:40};
 const HOTS = {
   s1:[
-    {id:'f_screen', l:40, t:34, w:20, h:23, label:'Seat-back screen', sound:'tap', key:true},
-    {id:'f_tray', l:45, t:57, w:10, h:9, label:'Tray table latch', sound:'tick'},
-    {id:'f_pocket', l:36, t:86, w:30, h:13, label:'Seat pocket', sound:'paper', key:true},
-    {id:'f_note', l:38.97, t:76.43, w:9.23, h:11.57, label:'A folded note poking out of the seat pocket', sound:'paper', anim:'lift', layer:'notecorner', key:true, hideWhen:() => S.noteSeen},
-    {id:'f_mag', l:48.38, t:72.46, w:14.25, h:15.54, label:'Magazine in the seat pocket', sound:'paper', anim:'lift', layer:'magtop', key:true, hideWhen:() => S.magTaken},
-    {id:'f_light', l:35, t:18, w:9, h:7, label:'Reading light', sound:'tick'},
-    {id:'f_seatl', l:26, t:36, w:10, h:44, label:'The seat on the left', sound:'leaf'},
-    {id:'f_seatr', l:65, t:36, w:10, h:44, label:'The seat on the right', sound:'leaf'}],
+    {id:'f_screen', l:42, t:34, w:16, h:18, label:'Seat-back screen', sound:'tap', key:true},
+    {id:'f_tray', l:40, t:53, w:20, h:17, label:'Tray table, latched', sound:'tick'},
+    {id:'f_pocket', l:40, t:74, w:20, h:17, label:'Seat pocket', sound:'paper', key:true},
+    {id:'f_note', l:42, t:67, w:9, h:11.5, label:'A folded note poking out of the seat pocket', sound:'paper', anim:'lift', layer:'notecorner', key:true, hideWhen:() => S.noteSeen},
+    {id:'f_mag', l:49, t:63, w:9, h:15.5, label:'Magazine in the seat pocket', sound:'paper', anim:'lift', layer:'magtop', key:true, hideWhen:() => S.magTaken},
+    {id:'f_light', l:44, t:16, w:10, h:8, label:'Reading light', sound:'tick'},
+    {id:'f_seatl', l:18, t:28, w:19, h:44, label:'The seat on the left, and a sleeping head', sound:'leaf'},
+    {id:'f_seatr', l:63, t:28, w:19, h:44, label:'The seat on the right, and a sleeping head', sound:'leaf'}],
   s2:[
-    {id:'f_window', l:42, t:30, w:16, h:38, label:'Window', sound:'tap'},
-    {id:'f_myseat', l:46, t:68, w:22, h:30, label:'Mary’s seat and blanket', sound:'leaf'},
-    {id:'f_light2', l:43, t:16, w:14, h:8, label:'Reading light', sound:'tick'}],
+    {id:'f_window', l:42, t:31, w:16, h:31, label:'Window', sound:'tap'},
+    {id:'f_seatfront', l:16, t:28, w:22, h:55, label:'The seat in front, from the side', sound:'leaf'},
+    {id:'f_sleeper', l:66, t:36, w:28, h:58, label:'The sleeping passenger behind Mary', sound:'leaf'},
+    {id:'f_light2', l:45, t:13, w:10, h:8, label:'Reading light', sound:'tick'}],
   s4:[
-    {id:'f_curtain', l:45, t:33, w:10, h:40, label:'The curtain to the galley at the back', sound:'leaf'},
+    {id:'f_curtain', l:42, t:31, w:9, h:38, label:'The curtain to the galley at the back', sound:'leaf', hideWhen:() => S.awake},
+    {id:'f_toiletfar', l:51, t:33, w:9, h:36, label:'The toilet door at the back', sound:'knock', hideWhen:() => S.awake},
+    {id:'f_curtain2', l:38, t:28, w:22, h:44, label:'The back of the cabin: the curtain and the toilet door, past Priya', sound:'leaf', hideWhen:() => !S.awake},
+    {id:'f_priya', l:45.5, t:38, w:9, h:36, label:'Priya with the breakfast trolley', sound:'leaf', key:true, anim:'sniff', layer:'priya2', hideWhen:() => !S.awake},
+    {id:'f_trolley', l:45, t:62, w:10, h:28, label:'The breakfast trolley', sound:'knock', anim:'sniff', layer:'priya2', hideWhen:() => !S.awake},
     {id:'f_rowsl', l:8, t:54, w:30, h:42, label:'Rows of sleeping passengers', sound:'leaf'},
     {id:'f_rowsr', l:62, t:54, w:30, h:42, label:'Rows of sleeping passengers', sound:'leaf'}],
   s3:[
-    {id:'f_kids', l:31, t:40, w:42, h:50, label:'Elliot and Zaina, asleep', sound:'leaf'},
-    {id:'f_seatfar', l:80, t:40, w:12, h:45, label:'The seats across the aisle', sound:'leaf'}],
+    {id:'f_kids', l:10, t:40, w:30, h:58, label:'Elliot, asleep', sound:'leaf'},
+    {id:'f_zaina', l:56, t:45, w:26, h:52, label:'Zaina, asleep with Peanut', sound:'leaf'},
+    {id:'f_sleeper2', l:33, t:38, w:12, h:30, label:'A sleeping passenger by the window', sound:'leaf'},
+    {id:'f_sleeper3', l:71, t:35, w:14, h:36, label:'A sleeping passenger by the window', sound:'leaf'}],
   /* the galley */
   g4:[
     {id:'g_curtain', l:30, t:14, w:40, h:76, label:'The curtain back to the cabin', sound:'leaf'}],
   g1:[
     {id:'g_counter', l:36, t:53, w:28, h:33, label:'Galley counter', sound:'knock'},
     {id:'g_lockers', l:37, t:15, w:27, h:17, label:'Galley lockers', sound:'knock'},
-    {id:'g_priya', l:41, t:27, w:12, h:27, label:'Priya, the flight attendant', sound:'leaf', key:true},
+    {id:'g_priya', l:41, t:27, w:12, h:27, label:'Priya, the flight attendant', sound:'leaf', key:true, anim:'sniff', layer:'priya', hideWhen:() => S.awake},
     {id:'g_pot', l:53, t:45, w:6, h:9, label:'Coffee pot', sound:'tap'},
     {id:'g_cups', l:58, t:43, w:5, h:11, label:'Paper cups', sound:'tap'},
     {id:'g_clocks', l:65, t:19, w:17, h:20, label:'Two clocks on the wall', sound:'tick', key:true}],
@@ -59,10 +67,12 @@ const HOTS = {
     {id:'g_hatch', l:61, t:50, w:12, h:36, label:'Serving counter', sound:'knock'}]
 };
 const LAYERS = {
-  s1:[{src:A+'layer-notecorner.png', group:'notecorner', l:39.97, t:77.93, w:7.23, h:15.95, hideWhen:() => S.noteSeen},
-      {src:A+'layer-magtop.png', group:'magtop', l:49.38, t:73.96, w:12.25, h:19.73, hideWhen:() => S.magTaken}]
+  g1:[{src:A+'layer-priya.png', group:'priya', l:41.64, t:27.73, w:9.77, h:24.67, hideWhen:() => S.awake}],
+  s4:[{src:A+'layer-priya2.png', group:'priya2', l:45.24, t:37.76, w:9.63, h:51.56, shadow:.5, showWhen:() => S.awake}],
+  s1:[{src:A+'layer-notecorner.png', group:'notecorner', l:43, t:68.68, w:7.01, h:9.18, hideWhen:() => S.noteSeen},
+      {src:A+'layer-magtop.png', group:'magtop', l:49.89, t:64.78, w:6.98, h:12.89, hideWhen:() => S.magTaken}]
 };
-const EXTRA = {seat:[A+'closeup-magazine.jpg', A+'item-flightcard.png', A+'item-note.png', A+'item-mag.png', A+'item-lens.png']};
+const EXTRA = {seat:[A+'closeup-magazine.jpg', A+'item-flightcard.png', A+'item-note.png', A+'item-mag.png', A+'item-lens.png'], galley:[A+'closeup-toilet.jpg']};
 
 /* ---------- things the game draws over the pictures, so wall and close-up agree ---------- */
 const fmt = t => `${String(t.h).padStart(2, '0')}:${String(t.m).padStart(2, '0')}`;
@@ -117,17 +127,18 @@ const HINTS = [
   {thread:1, goal:() => S.clocksSeen || S.priyaTip, tips:['13:40 is Singapore time. London is behind Singapore. How far behind?', 'The crew keep two clocks in the galley at the back, one for each city.', 'Go through the curtain at the back and tap the two clocks: Singapore 12:40, London 05:40. Seven hours apart.']},
   {thread:1, goal:() => S.awake, tips:['Landing at 13:40 in Singapore. Take seven hours off for London.', 'Tap the dark seat-back screen and turn the hours down, seven times.', 'Set the screen to 06:40 and tap Wake.']},
   /* trail 2: read the note */
-  {thread:2, goal:() => S.noteRead, tips:['The note is written backwards. What turns writing the right way round?', 'A mirror does. The dark seat-back screen is as shiny as one, and the toilet at the back has a real mirror.', 'Tap the backwards note in the strip, then tap the dark seat-back screen (or the toilet door in the galley).']},
+  {thread:2, goal:() => S.noteRead, tips:['The note is written backwards. What turns writing the right way round?', 'A mirror does. The dark seat-back screen is as shiny as one, and the toilet at the back has a real mirror over its basin.', 'Hold the backwards note (tap it in the strip), then tap the dark seat-back screen; or open the toilet door in the galley and tap the mirror with the note.']},
   /* trail 3: the magnifying glass */
   {thread:3, goal:() => S.magRead, tips:['The magazine in the seat pocket is worth a look.', 'Tap the magazine in the seat pocket, then tap it in the strip to open it.', 'Open the magazine: the Junior Explorer page says to ask the crew for a magnifying glass.']},
-  {thread:3, goal:() => S.lensGiven, tips:['The magazine says to ask the crew for the magnifying glass.', 'Priya is in the galley behind the curtain, with the breakfast trays.', 'Tap Priya in the galley and she will give you the magnifying glass.']},
+  {thread:3, goal:() => S.lensGiven || S.awake, tips:['The magazine says to ask the crew for the magnifying glass.', 'Priya is in the galley behind the curtain, with the breakfast trays.', 'Tap Priya in the galley and she will give you the magnifying glass.']},
+  {thread:3, goal:() => S.lensGiven || !S.awake, tips:['The magazine says to ask the crew for the magnifying glass.', 'Priya has left the galley: breakfast is coming up the aisle.', 'Turn to the back of the cabin and tap Priya at the trolley; she will give you the magnifying glass.']},
   /* convergence */
   {goal:() => S.zoomed, tips:['The map is awake, and the note says: find the moth.', 'The moth is too small to see. A magnifying glass makes small things big.', 'Tap the magnifying glass in the strip, then tap the map on the screen.']},
   {goal:() => S.done, tips:['Someone has doodled on the map. The note says which drawing matters.', 'Find the moth among the drawings, near the top of London.', 'Tap the little moth beside Enfield.']}
 ];
 const THREADS = {1:['Wake the sleepy screen', () => S.awake, ['', 'flight card read', 'clocks seen', 'set it to London time']],
   2:['Read the backwards note', () => S.noteRead, ['', 'needs a mirror']],
-  3:['A magnifying glass', () => S.lensGiven, ['', 'ask the crew']]};
+  3:['A magnifying glass', () => S.lensGiven, ['', 'ask the crew', 'ask the crew']]};
 const speaker = () => 'The moth says';
 
 /* ---------- close-ups ---------- */
@@ -195,6 +206,12 @@ function openLondon(){
     say({boat:'A little boat on the river, in felt tip.', star:'A star, in felt tip, out to the west.', bird:'A bird, in felt tip, over the east.'}[k] + (S.noteRead ? ' Not what the note said. Find the moth.' : ' Someone has doodled on the map. Which one matters?')); });
   say(S.noteRead ? 'London, big as a page. Someone has drawn on the map in felt tip: a boat, a star, a bird… and a moth, up near Enfield.' : 'London, big as a page. Someone has drawn little pictures on the map in felt tip. Why?');
 }
+/* inside the toilet: the basin and the mirror. A thing held in the strip can be used on the mirror from here, the way it would on the wall */
+function openToilet(){
+  const target = (id, l, t, w, h, label) => `<button class="book" data-id="${id}" style="left:${l}%;top:${t}%;width:${w}%;height:${h}%" aria-label="${label}"><span></span></button>`;
+  openPic(A+'closeup-toilet.jpg', '16/9', 'The toilet', target('t_mirror', 40, 14, 20, 38, 'The mirror over the basin') + target('t_basin', 34, 62, 32, 14, 'Basin') + target('t_sign', 28, 22, 7, 16, 'A round sign') + target('t_button', 36, 55, 6, 8, 'The big button'), 60);
+  $('picwrap').querySelectorAll('.book').forEach(b => b.onclick = e => { e.stopPropagation(); const id = b.dataset.id; if (S.held){ const item = S.held; S.held = null; useItem(item, id, null); return; } sfx(id === 't_mirror' ? 'tap' : 'knock'); act(id); });
+}
 function readNote(where){
   if (!S.noteRead){ S.noteRead = true; drop('note'); S.got.push('noteread'); save(); render(); }
   say(where === 'screen' ? 'Mary holds the note up to the dark screen. In the reflection, the writing turns the right way round!' : 'Mary holds the note up to the mirror over the basin. The writing turns the right way round!');
@@ -202,12 +219,18 @@ function readNote(where){
 }
 const USES = {
   'note>f_screen':() => { if (S.awake){ sfx('knock'); say('The screen is bright now, and shows no reflection at all. The toilet at the back has a real mirror.'); return; } readNote('screen'); },
-  'note>g_toilet':() => readNote('mirror'),
+  /* the note on the door only opens the door: the mirror is inside, and the note goes on the mirror (checklist E30b) */
+  'note>g_toilet':() => { S.held = 'note'; render(); openToilet(); say('The door folds open. A mirror over the basin: tap it, with the note.'); },
+  'note>t_mirror':() => readNote('mirror'),
+  'note>t_basin':() => { sfx('knock'); say('Not the basin. The mirror above it is the shiny thing.'); },
+  'note>t_sign':() => { sfx('knock'); say('The sign is shiny, but not that shiny. The mirror.'); },
+  'note>t_button':() => { sfx('knock'); say('Not the button! Never the button. The mirror.'); },
   'note>g_screen':() => { sfx('knock'); say(S.awake ? 'Bright, and no reflection. The toilet beside the galley has a mirror.' : 'Too far away and too high up to read anything in. The screen at Mary’s seat is closer.'); },
   'lens>f_screen':() => { if (!S.awake){ sfx('knock'); say('A magnifying glass on a dark screen shows Mary her own nose, bigger.'); return; } S.lensUsed = true; save(); openLondon(); },
   'lens>g_screen':() => { if (!S.awake){ sfx('knock'); say('The big screen is asleep too. Nothing to make bigger yet.'); return; } S.lensUsed = true; save(); openLondon(); },
   'lens>f_window':() => { sfx('tap'); say('Clouds, bigger. Still clouds.'); },
-  'lens>f_kids':() => { sfx('tap'); say('Zaina’s nose, enormous. She does not wake up.'); },
+  'lens>f_kids':() => { sfx('tap'); say('Elliot’s open mouth, enormous. He does not wake up.'); },
+  'lens>f_zaina':() => { sfx('tap'); say('Zaina’s nose, enormous. She does not wake up.'); },
   'lens>g_clocks':() => { sfx('tap'); say('Bigger clocks. Still 12:40 and 05:40.'); },
   'flightcard>f_screen':() => { sfx('knock'); say('The screen can’t read the card. But Mary can: tap it in the strip.'); },
   'mag>g_priya':() => { sfx('tap'); say('“The crossword? Someone beat you to it, I think. The Junior Explorer page is the one for you.”'); },
@@ -227,20 +250,24 @@ function act(id){
     case 'f_note': S.noteSeen = true; S.got.push('note'); save(); sfx('pickup'); render(); say('A folded note in loopy purple handwriting. But the writing is all backwards!'); setTimeout(() => openNote('noteMirror'), 700); return;
     case 'f_mag': S.magTaken = true; S.got.push('mag'); save(); sfx('pickup'); render(); say('Cloud Nine, the in-flight magazine. It goes in the strip below: tap it there to open it.'); return;
     case 'f_light': case 'f_light2': say('Mary’s reading light, the only one on in row 34.'); break;
-    case 'f_seatl': say('An empty seat, its blanket still folded.'); break;
-    case 'f_seatr': say('The seat by the aisle. Someone’s headphones are on the armrest.'); break;
+    case 'f_seatl': say('The seat in front on the left. A head is tipped against the headrest, fast asleep.'); break;
+    case 'f_seatr': say('The seat in front on the right. Someone is snoring, very gently.'); break;
     case 'f_window': say('Clouds like a duvet, and a sunrise the colour of kaya. London is somewhere under there.'); break;
-    case 'f_myseat': say('Mary’s seat, and the blanket she has not used.'); break;
-    case 'f_rowsl': case 'f_rowsr': say('Rows and rows of sleeping passengers. Somebody is snoring, very gently.'); break;
-    case 'f_kids': say('Elliot has slept through the whole film. Zaina is hugging Peanut. Both are snoring, very slightly.'); break;
-    case 'f_seatfar': say('More seats, more sleepers.'); break;
+    case 'f_seatfront': say('The side of the seat in front, with its tray table folded up.'); break;
+    case 'f_sleeper': say('The passenger behind Mary, asleep under a blanket, one hand on the armrest. Best not to wake him.'); break;
+    case 'f_rowsl': case 'f_rowsr': say('Rows and rows of sleeping passengers, all the way to the back. Somebody is snoring.'); break;
+    case 'f_toiletfar': say('The toilet door, right at the back beside the galley curtain. A walk down the aisle.'); break;
+    case 'f_kids': say('Elliot, straight across the aisle, has slept through the whole film. Mouth open.'); break;
+    case 'f_zaina': say('Zaina, in the row in front of Elliot, hugging Peanut. Both of them snoring, very slightly.'); break;
+    case 'f_sleeper2': case 'f_sleeper3': say('A sleeping stranger in a window seat. The whole plane is asleep but Mary.'); break;
     /* the galley */
-    case 'g_counter': say('The galley counter, with the breakfast still to come.'); break;
+    case 'g_counter': say(S.awake ? 'The galley counter, empty: breakfast has gone out on the trolley.' : 'The galley counter, with the breakfast still to come.'); break;
     case 'g_lockers': say('Galley lockers. Crew only.'); break;
-    case 'g_priya':
+    case 'g_priya': case 'f_priya': case 'f_trolley':
       if (S.magRead && !S.lensGiven){ S.lensGiven = true; S.got.push('lens'); save(); sfx('pickup'); render(); say('“A junior explorer! Here you are: one magnifying glass. Mind you don’t lose it.” It goes in the strip below.'); return; }
       if (S.screenTried && !S.awake){ if (!S.priyaTip){ S.priyaTip = true; save(); } say('“The sleepy screen? It wants London time. London is seven hours behind Singapore, all summer long. See the two clocks?”'); break; }
       if (S.done) say('“Seats for landing, junior explorer!”');
+      else if (S.awake) say(S.lensGiven ? '“Breakfast! Eggs or pancakes? And found anything with that magnifying glass yet?”' : '“Breakfast! Eggs or pancakes? An hour to go.”');
       else if (S.lensGiven && !S.zoomed) say('“Found anything with that magnifying glass yet?”');
       else say('“Can’t sleep? Nearly there now. Breakfast in a little while.”');
       break;
@@ -252,7 +279,11 @@ function act(id){
       else say('The big screen on the far wall, dark and asleep, like the one at Mary’s seat.');
       break;
     case 'g_panell': case 'g_panelr': say('A blank panel. The crew keep their notices in their heads.'); break;
-    case 'g_toilet': say('The toilet is free. Inside: a basin, a mirror, and a sign that says PLEASE DO NOT PRESS THE BIG BUTTON. Mary would never.'); break;
+    case 'g_toilet': openToilet(); say('The door folds open. The toilet is free: a tiny basin, and a mirror above it.'); return;
+    case 't_mirror': say(S.noteRead ? 'The mirror over the basin. Mary, looking tired, and the wall behind her.' : 'A mirror over the basin: Mary, and the wall behind her. A mirror turns everything the wrong way round. Or the right way.'); break;
+    case 't_basin': say('A tiny basin and a tap that runs for exactly three seconds.'); break;
+    case 't_sign': say('A round sign with no words on it. Mary knows what it means anyway.'); break;
+    case 't_button': say('The big button. A sticker beside it once said PLEASE DO NOT PRESS. Mary would never.'); break;
     case 'g_holder': say('A holder on the wall, full of menus. Breakfast: eggs or pancakes.'); break;
     case 'g_hatch': say('The serving counter. Nothing on it yet.'); break;
     default: return false;
@@ -276,6 +307,7 @@ function noticed(){
   if (S.cardRead) n.push('Flight card: landing 13:40, Singapore time.');
   if (S.clocksSeen) n.push('Galley clocks: Singapore 12:40, London 05:40.');
   if (S.priyaTip) n.push('Priya: London is seven hours behind Singapore.');
+  if (S.awake && !S.lensGiven && S.magRead) n.push('Priya is in the aisle now, with the breakfast trolley.');
   if (S.noteRead) n.push('The note: look at the map, find the moth. Signed N.');
   if (S.magRead && !S.lensGiven) n.push('Junior Explorer: ask the crew for a magnifying glass.');
   if (S.nightMoth) n.push('The crossword’s gold squares spell KAYA. ★');
@@ -287,7 +319,7 @@ function sparkle(id){
   if (id === 'f_pocket') return S.noteSeen && !S.cardRead;
   if (id === 'f_screen') return (S.noteSeen && !S.noteRead) || (S.cardRead && (S.clocksSeen || S.priyaTip) && !S.awake) || (S.awake && S.lensGiven && !S.done);
   if (id === 'g_clocks') return S.cardRead && !S.clocksSeen;
-  if (id === 'g_priya') return (S.magRead && !S.lensGiven) || (S.screenTried && !S.priyaTip && !S.clocksSeen);
+  if (id === 'g_priya' || id === 'f_priya' || id === 'f_trolley') return (S.magRead && !S.lensGiven) || (S.screenTried && !S.priyaTip && !S.clocksSeen && !S.awake);
   if (id === 'g_toilet') return S.noteSeen && !S.noteRead;
   if (id === 'g_screen') return S.awake && S.lensGiven && !S.done;
   return false;
@@ -299,10 +331,10 @@ return {
   postcard:{pic:'../art/postcards/flight.jpg'},
   title:'The flight', blurb:'Hour thirteen of fourteen, somewhere over Europe: row 34 and the galley. A backwards note, a sleepy screen and a moth on the map.',
   track:'../art/music/flight.mp3', ambient:'plane', next:null,
-  intro:'<b>Hour thirteen of fourteen.</b> Everyone is asleep but you. Something in the seat pocket in front of you is not the usual magazine.',
-  start:{room:'seat', view:0},
+  intro:'<b>Hour thirteen of fourteen.</b> Dawn at the window, and everyone asleep but you. Something in the seat pocket in front of you is not the usual magazine.',
+  start:{room:'seat', view:1},
   fresh:() => ({noteSeen:false, cardRead:false, magTaken:false, magRead:false, noteRead:false, clocksSeen:false, priyaTip:false, screenTried:false, awake:false, time:null, lensGiven:false, lensUsed:false, zoomed:false, xw:[null, null, null, null], nightMoth:false}),
-  rooms:ROOMS, walls:WALLS, doors:DOORS, hots:HOTS, layers:LAYERS, extra:EXTRA, notes:NOTES, items:ITEMS, hints:HINTS, uses:USES,
+  rooms:ROOMS, walls:WALLS, doors:DOORS, hots:HOTS, layers:LAYERS, extra:EXTRA, notes:NOTES, items:ITEMS, hints:HINTS, uses:USES, moves:'Priya: behind the galley counter with the breakfast trays until the screen is awake; then in the aisle with the trolley, the counter empty.',
   overlays:{g1:wallClocks, s1:screenLayer(41.5, 36.2, 17, 18.8), g3:screenLayer(33.5, 23.5, 33, 31.5)},
   act, sparkle, rows, noticed, speaker, helper:() => 'the moth'
 };
