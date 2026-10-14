@@ -19,6 +19,8 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 
 9. **Proportions.** The box keeps the picture's own proportions: h = w × pictureH / pictureW × 16/9. A squashed or stretched cut-out fails (audit checks this).
 9b. **Made alone.** A cut-out or icon is generated on white with no picture reference (a style crop makes the model draw the object into that scene). A thing that must sit *in* something (a pocket, a box) is painted into a second rendering of its wall and lifted out, so it carries the wall's own shadow (playbook 4r, 4s).
+9c. **A person is keyed, never differenced.** A figure painted into a wall is lifted by asking for the same picture as a cut-out sheet on flat magenta (the person only, same pose, size and place) and keying the magenta (`tools/keymag.py`), never by differencing against the wall: a difference mask leaves see-through patches wherever the figure's colour meets a like colour behind it (Nana's cardigan on the cream wall, Jedi's trousers on the chair, log 54). An enclosed magenta patch is a real gap (between a hand and a teapot, a ladder's rungs) and stays see-through. The `-check.jpg` of every cut-out is looked at close up: no hole, no fringe. A sheet that keeps the furniture is thrown away and asked for again, never keyed.
+9d. **A painted-in thing is checked as the real thing.** A loft ladder drops nearly straight from its hatch with its feet under the opening and a hatch door hangs from its hinge; a thing that leans, floats or hangs on the wrong plane is redrawn. Two candidates are generated and the natural one picked (log 54).
 
 10. **Standing on a surface.** A thing that still looks pasted on after placement and shadow is painted into a second rendering of its wall and lifted out, so it carries the wall's own light (playbook 4r, log 50). A thing on the floor stands below the skirting line, never on it (the trolley, log 40). A thing on a seat sits back from the front edge with the seat visible in front of it (the hamster, log 40). A thing on a shelf or table stands on the surface, not on its front edge. Every one of these has a contact shadow (`shadow`), so nothing floats (logs 6, 40).
 11. **Inside something.** The box's front is cut from the wall with the rim's ink line as its top edge, column by column, never from a little below it (log 50). A thing in a box or cupboard sits behind the box's own front, which is cut from the wall and drawn over it; tops show above the rim, bottoms are hidden (logs 8, 9, 37).
@@ -43,6 +45,7 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 22. **Organic, never a shifted rectangle** (log 4). Drawn in slices or as whole parts; a tap always shows something, shorter and gentler under reduced motion (log 3).
 23. **Parts are parts.** A thing that comes apart is drawn as its parts from the start, one cut-out each; never slice one picture (the blocks, log 42). Parts land apart, each on a face, never on a corner or on top of one another.
 24. **Revealed things appear when uncovered**, not seconds later; a re-render keeps a movement going (the beater, log 37).
+24b. **A thing that opens is drawn opening by the movement it really makes.** A hatch door swings down from its hinge, then the ladder slides out of the opening and lands (`unfold`); a padlock springs and falls (`drop`). A movement made for one thing is never borrowed for another kind of thing (the hatch had the padlock's fall, log 54).
 25. **Liquids land where they should**: water from the spout into the basin, not above it (logs 12, 37).
 26. **Living background** only where a real thing would move, slow and small, one or two per view, at rest under reduced motion, never the sole carrier of a clue (log 31).
 27. **Openables open and close**, before and after their contents are taken, and stay as left (log 30). Doorways between rooms are exempt.
@@ -51,11 +54,13 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 ## E. Every close-up and gesture
 
 29. Tap outside to step back; nothing scrolls inside; the picture is crisper than the room behind (log 11).
+29b. **A thing taken is gone from the picture.** A close-up that holds things to take draws them as parts over the picture without them (`.part`); taking one removes it, and opening the close-up again shows it gone (the suitcase's torch and present, log 54). The stage's play script checks it.
 30. A thing worked by hand asks for the real movement, beside the room with the room left sharp; a plain look stays a tap (playbook 4j, log 27). A wrong move waits, never fails.
 30b. **A place is seen before an item is used there.** A door opens on the room, the mirror is in view, the note goes on the mirror; an item is never used on the door or box that hides its target (log 52).
 
 31. Every stage opens with one gesture and a comic; the switch between children never replays them (4j, 4n, 4l).
 32. Tap targets are finger-sized, never under the turn arrows (the strips halfway up each side in the landscape engine), never covered by a bigger target unless the bigger one is listed first (audit checks size and the arrow strips). Hotspot ids are unique across every stage (audit checks).
+32e. **After a thing changes, its whole new shape is the target.** Once the hatch is open, the door, the cord's end and every rung are one way up (`showWhen` on the new target, `hideWhen` on the old); a tap anywhere on the thing that changed does the next thing. A tap on the latch that does nothing tells the player there is a puzzle left (log 54).
 
 32b. A long press anywhere on the room glows the tappables and never opens the browser's own menu (tester round 1, T1): the scene prevents `contextmenu` and its pictures have no touch callout.
 

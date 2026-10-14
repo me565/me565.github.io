@@ -15,7 +15,7 @@ const ROOMS = {
 };
 const WALLS = Object.fromEntries(['h1','h2','h3','h4','l1','l2','l3','l4','k1','k2','k3','k4','d1','d2','d3','d4','a1','a2','a3','a4'].map(k => [k, A + k + '.jpg']));
 /* doors: the living room and kitchen open off the back of the hall; the stairs go up from the hall's east wall; the hatch, once open, leads up; the ladder leads down */
-const DOORS = {nh_living:['living', 0], nh_kitchen:['kitchen', 0], nh_stairs:['landing', 0], nl_door:['hall', 0], nk_door:['hall', 0], nk_door2:['hall', 0], nd_stairs:['hall', 3], nd_hatch:['attic', 0], na_hatchdown:['landing', 1]};
+const DOORS = {nh_living:['living', 0], nh_kitchen:['kitchen', 0], nh_stairs:['landing', 0], nl_door:['hall', 0], nk_door:['hall', 0], nk_door2:['hall', 0], nd_stairs:['hall', 3], nd_hatch:['attic', 0], nd_ladder:['attic', 0], na_hatchdown:['landing', 1]};
 const got = k => S.got.includes(k);
 const CODE = [1, 9, 6, 7];           /* Nana was nine in 1967: baby Nana's photo says 1958 */
 const HOTS = {
@@ -91,8 +91,10 @@ const HOTS = {
     {id:'nk_shelf', l:16, t:14, w:16, h:16, label:'Shelf with the best teapot', sound:'tap'}],
   /* the landing */
   d1:[
-    {id:'nd_hatch', l:40, t:1, w:20, h:14, label:'Attic hatch', sound:'knock', key:true},
-    {id:'nd_cord', l:47, t:13, w:7, h:13, label:'The hatch cord, out of reach', sound:'tick'},
+    {id:'nd_hatch', l:40, t:1, w:20, h:14, label:'Attic hatch', sound:'knock', key:true, hideWhen:() => S.hatchOpen},
+    {id:'nd_cord', l:47, t:13, w:7, h:13, label:'The hatch cord, out of reach', sound:'tick', hideWhen:() => S.hatchOpen},
+    /* once open, the whole hatch and ladder are one door up, so a tap on the door, the cord's end or any rung climbs */
+    {id:'nd_ladder', l:39, t:1, w:24, h:92, label:'Up the ladder to the attic', sound:'knock', key:true, showWhen:() => S.hatchOpen},
     {id:'nd_vase', l:45, t:48, w:12, h:36, label:'Dried flowers on the little table', sound:'leaf'},
     {id:'nd_window', l:82, t:30, w:9, h:30, label:'Landing window', sound:'tap'}],
   d2:[
@@ -130,13 +132,13 @@ const HOTS = {
     {id:'na_dummy', l:68, t:36, w:12, h:56, label:'Dressmaker’s dummy', sound:'leaf'}]
 };
 const LAYERS = {
-  l1:[{src:A+'layer-jedi.png', group:'jedi', l:36.23, t:48.05, w:23.84, h:48.11, hideWhen:() => S.jediMoved},
+  l1:[{src:A+'layer-jedi.png', group:'jedi', l:36.23, t:48.05, w:23.84, h:48.53, shadow:.5, hideWhen:() => S.jediMoved},
       {src:A+'layer-pole.png', group:'pole', l:86.08, t:41.67, w:5.01, h:53.52, hideWhen:() => S.poleGot}],
-  k1:[{src:A+'layer-nana.png', group:'nana', l:16.97, t:31.97, w:25.11, h:67.19}],
-  k2:[{src:A+'layer-jedi2.png', group:'jedi2', l:36.95, t:47.79, w:19.11, h:43.16, showWhen:() => S.jediMoved}],
-  d1:[{src:A+'layer-hatchopen.png', group:'hatchopen', l:40.19, t:2.8, w:25.91, h:77.34, showWhen:() => S.hatchOpen}]
+  k1:[{src:A+'layer-nana.png', group:'nana', l:17.15, t:32.42, w:20.57, h:67.07, shadow:.5}],
+  k2:[{src:A+'layer-jedi2.png', group:'jedi2', l:37.14, t:44.92, w:18.82, h:44.95, shadow:.6, showWhen:() => S.jediMoved}],
+  d1:[{src:A+'layer-hatchopen.png', group:'hatchopen', l:40.04, t:2.08, w:21.51, h:89.78, fold:{door:0.35, ladder:0.1}, showWhen:() => S.hatchOpen}]
 };
-const EXTRA = {hall:[A+'closeup-photos.jpg'], landing:[A+'closeup-suitcase.jpg'], attic:[A+'closeup-tin.jpg', A+'closeup-map.jpg']};
+const EXTRA = {hall:[A+'closeup-photos.jpg'], landing:[A+'closeup-suitcase.jpg', A+'layer-case-torch.png', A+'layer-case-present.png'], attic:[A+'closeup-tin.jpg', A+'closeup-map.jpg']};
 
 /* ---------- things the game draws ---------- */
 const FONT = 'Atkinson Hyperlegible,Verdana,sans-serif';
@@ -208,13 +210,18 @@ function openPhotos(){
   openPic(A+'closeup-photos.jpg', '16/9', 'The photographs on the stairs', platesSVG(19), 64);
   say('Five photographs, five little brass plates: Baby Nana, 1958. Nana and Tom. Wedding day, 1984. Mum at school, 1991. Elliot walks, 2020.');
 }
+/* the suitcase close-up is the empty case with the torch and the present laid over it as parts, so a thing taken is gone from the picture */
+const CASE_PARTS = {torch:[55.23, 49.09, 13.95], present:[37.57, 48.7, 20.13]};
 function openCase(){
   S.caseOpen = true; save();
-  const btn = (id, l, t, w, h, label) => got(id) || S[id + 'Taken'] ? '' : `<button class="book" data-id="${id}" style="left:${l}%;top:${t}%;width:${w}%;height:${h}%" aria-label="${label}"><span></span></button>`;
-  openPic(A+'closeup-suitcase.jpg', '16/9', 'Your suitcase', btn('torch', 54, 48, 11, 16, 'The torch') + btn('present', 35, 55, 17, 28, 'Nana’s present'), 60);
+  const here = id => !got(id) && !S[id + 'Taken'];
+  const part = id => here(id) ? `<img class="part" data-part="${id}" src="${A}layer-case-${id}.png" alt="" style="left:${CASE_PARTS[id][0]}%;top:${CASE_PARTS[id][1]}%;width:${CASE_PARTS[id][2]}%">` : '';
+  const btn = (id, l, t, w, h, label) => here(id) ? `<button class="book" data-id="${id}" style="left:${l}%;top:${t}%;width:${w}%;height:${h}%" aria-label="${label}"><span></span></button>` : '';
+  openPic(A+'closeup-suitcase.jpg', '16/9', 'Your suitcase', part('present') + part('torch') + btn('torch', 54, 46, 17, 19, 'The torch') + btn('present', 36, 46, 23, 33, 'Nana’s present'), 60);
   $('picwrap').querySelectorAll('.book').forEach(b => b.onclick = e => { e.stopPropagation(); const id = b.dataset.id; S[id + 'Taken'] = true; S.got.push(id); save(); sfx('pickup'); b.remove(); render();
+    const im = $('picwrap').querySelector(`.part[data-part="${id}"]`); if (im){ im.classList.add('taken'); setTimeout(() => im.remove(), 400); }
     say(id === 'torch' ? 'The little torch. Nana said you’d need it. It goes in the strip below.' : 'Nana’s present, the jar of kaya wrapped in moths. It goes in the strip below.'); });
-  const left = ['torch', 'present'].filter(k => !got(k) && !S[k + 'Taken']);
+  const left = ['torch', 'present'].filter(here);
   say(left.length ? 'Your suitcase, unzipped on the bed: your jumper, your things, ' + (left.length === 2 ? 'the torch and Nana’s present.' : left[0] === 'torch' ? 'and the torch.' : 'and Nana’s present.') : 'Your suitcase. Just clothes now.');
 }
 /* the tin's lock: four dials, checked only when Open is tapped */
@@ -249,7 +256,7 @@ function openMap(){
 }
 function openCipher(){
   const rows = [...SECRET].map((ch, i) => { const pick = S.cipher[i];
-    return `<div class="cph"><svg viewBox="-4 -4 38 38" width="100%" height="auto" aria-hidden="true">${pigSymbol(ch, 30)}</svg><div class="opts">${CIPHER_OPTS[i].map(o => `<button class="ob quiet${pick === o ? ' on' : ''}" data-i="${i}" data-o="${o}">${o}</button>`).join('')}</div></div>`; }).join('');
+    return `<div class="cph"><svg viewBox="-4 -4 38 38" style="width:100%;height:auto" aria-hidden="true">${pigSymbol(ch, 30)}</svg><div class="opts">${CIPHER_OPTS[i].map(o => `<button class="ob quiet${pick === o ? ' on' : ''}" data-i="${i}" data-o="${o}">${o}</button>`).join('')}</div></div>`; }).join('');
   openCloseup(`<div class="card xw"><p class="otitle">The back of the map: four shapes, in Nana’s secret alphabet.</p><p class="nbsmall">${S.keySeen ? 'The key is inside the tin’s lid.' : 'Somewhere there must be a key to it.'}</p><div class="cphrow" id="cph">${rows}</div><p class="ofb" id="cphFb"></p></div>`);
   $('cph').querySelectorAll('button').forEach(b => b.onclick = () => { S.cipher[+b.dataset.i] = b.dataset.o; save(); sfx('tick'); openCipher(); });
   const word = S.cipher.map(c => c || '·').join('');
@@ -273,7 +280,7 @@ const USES = {
   'map>nl_jedi':() => { sfx('tap'); say('“A map? Of where I put my glasses, I hope.”'); },
   'map>nk_jedi2':() => { sfx('tap'); say('“A map? Of where I put my glasses, I hope.”'); }
 };
-function openHatch(){ if (S.hatchOpen) return; S.hatchOpen = true; drop('pole'); save(); render(); sfx('knock'); animate({anim:'drop', layer:'hatchopen'}); say('The hook catches the cord. The hatch swings down, and a ladder slides out with a clatter. “Mind that ladder!” calls Nana from the kitchen.'); }
+function openHatch(){ if (S.hatchOpen) return; S.hatchOpen = true; drop('pole'); save(); render(); sfx('knock'); animate({anim:'unfold', layer:'hatchopen'}); say('The hook catches the cord. The hatch swings down, and a ladder slides out with a clatter. “Mind that ladder!” calls Nana from the kitchen.'); }
 
 function act(id){
   if (S.room === 'attic' && !S.lit && !/^na_dark|^na_hatchdown/.test(id)){ say('Shapes in the dark. Nothing you can make out without a light.'); return; }
@@ -342,6 +349,7 @@ function act(id){
     case 'na_rug': say('A rolled-up rug, taller than Mary.'); break;
     case 'nk_larder': say('The larder. Jam, and more jam.'); break;
     /* the landing */
+    case 'nd_ladder': return false;
     case 'nd_hatch': S.hatchSeen = true; save(); if (S.hatchOpen) return false; say('The attic hatch, shut, with a loop of cord hanging from it. Far too high to reach, even on tiptoe.'); break;
     case 'nd_cord': S.hatchSeen = true; save(); say('The cord. Mary jumps. Not even close. Something with a hook would do it.'); break;
     case 'nd_vase': say('Dried flowers in a vase, on the little table under the hatch. Not for standing on.'); break;
@@ -399,6 +407,7 @@ function sparkle(id){
   if (id === 'nk_nana') return (S.jediAsked && !S.presentGiven && got('present')) || got('map');
   if (id === 'nk_tin') return S.jediAsked && !S.presentGiven;
   if (id === 'nd_hatch') return !S.hatchSeen || (got('pole') && !S.hatchOpen);
+  if (id === 'nd_ladder') return !S.lit;
   if (id === 'nd_spare') return S.hatchSeen && !(S.torchTaken && S.presentTaken);
   if (id === 'na_tin') return S.lit && !S.tinOpen;
   return false;
