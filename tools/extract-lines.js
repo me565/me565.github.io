@@ -2,7 +2,7 @@
 const fs = require('fs'), vm = require('vm');
 const strip = h => h.replace(/<br\s*\/?>/g, ' ').replace(/<svg[\s\S]*?<\/svg>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g,' ').replace(/\s+/g, ' ').replace(/ ([.,!?])/g, '$1').trim();
 const out = {};
-for (const st of ['school', 'packing', 'flight', 'nana', 'eschool', 'zschool']){
+for (const st of ['school', 'packing', 'flight', 'nana', 'park', 'eschool', 'zschool']){
   const src = fs.readFileSync(`${__dirname}/../next/landscape/stages/${st}.js`, 'utf8');
   const ctx = {S:{got:[], seen:{}, moths:[], packed:[], placed:[], cogs:[], put:[], hint:{}, cdials:[0,0,0], xw:[null,null,null,null], time:null, dials:[0,0,0,0], cipher:[null,null,null,null]}, registerStage:(k, s) => { ctx.STAGE = s; }, save(){}, render(){}, say(){}, sfx(){}, openCloseup(){}, closeCloseup(){}, openNote(){}, openPic(){}, animate(){}, showEnd(){}, drop(){}, go(){}, chime(){}, $(){ return {}; }, document:{querySelectorAll(){ return []; }, createElementNS(){ return {setAttribute(){}, style:{}}; }}, line(){}, pointNext(){}, rasp(){}, matchMedia(){ return {matches:false}; }, requestAnimationFrame(){}, Image:function(){}, BUILD:'x', CHILDREN:{}, setTimeout(){}, console};
   vm.createContext(ctx); vm.runInContext(src, ctx);

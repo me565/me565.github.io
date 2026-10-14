@@ -30,6 +30,8 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 15. **Physical sense.** A coat hung by its loop shows its back; a hood and buttons both facing out is impossible (log 7). A plant bends, its pot never does (log 5). Only the part that would really move moves.
 16b. **A real place keeps its real layout and its real crowd.** Seats on a plane all face the front (backs when looking forward, faces when looking back, profiles sideways); a flight is three-quarters full, a classroom has children. Each view's prompt says which way things face; the wall is checked against the floor plan before it is accepted (log 52).
 
+16c. **Outdoors, each view keeps its compass.** A landmark that belongs to one direction (the big house south of the obelisk) is named in that view's prompt and told to stay out of the others; a view that shows it where it cannot be is redrawn (Trent Park, log 55).
+
 16. **Wall and close-up agree.** What is on the wall is on its close-up, in the same place, with the same marks (the timetable, the bottles, the paintings; log 6, playbook 4k).
 
 ## C. Everything the game draws onto a picture (words, marks, colours)

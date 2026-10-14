@@ -199,6 +199,18 @@ button{font:inherit;color:inherit;cursor:pointer}
 .xwlist .opts .ob{padding:calc(var(--u)*.3) calc(var(--u)*1.2);font-size:calc(var(--u)*1.7);min-height:32px}
 .xwlist .opts .ob.on{background:#f3c26a;color:var(--ink)}
 /* the dark attic before the torch, the words scratched on the tin, and Nana's secret alphabet */
+/* Trent Park: the flashing lamp, dusk over the park, the moths, the glow in the gate, the tap code's grid and box, Jedi's watch */
+.glow{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle, rgba(255,230,150,.95), rgba(255,200,90,.55) 45%, rgba(255,180,60,0) 72%);opacity:0;transition:opacity .08s}.glow.on{opacity:1}
+.dusk{position:absolute;inset:0;background:linear-gradient(180deg, rgba(30,30,90,.42), rgba(70,30,80,.3) 55%, rgba(20,20,50,.45));mix-blend-mode:multiply}
+.mothdot{position:absolute;width:calc(var(--u)*1.1);height:calc(var(--u)*1.1);border-radius:50%;background:radial-gradient(circle, #fff6d0, rgba(255,220,140,.6) 50%, rgba(255,210,120,0) 80%);box-shadow:0 0 calc(var(--u)*1.6) rgba(255,220,140,.8);animation:mothdot 3.6s ease-in-out infinite}
+@keyframes mothdot{0%,100%{opacity:.2;transform:translate(0,0)}30%{opacity:1;transform:translate(calc(var(--u)*1.2),calc(var(--u)*-1.4))}65%{opacity:.6;transform:translate(calc(var(--u)*-.8),calc(var(--u)*-2.2))}}
+.hglow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 55%, rgba(255,220,140,.55), rgba(255,200,100,.2) 40%, rgba(255,200,100,0) 70%)}
+.tapgrid{border-collapse:collapse;margin:calc(var(--u)*.8) auto;font-size:calc(var(--u)*2.1)}.tapgrid th,.tapgrid td{border:var(--rule) solid var(--line);padding:calc(var(--u)*.25) calc(var(--u)*.9);text-align:center}.tapgrid th{color:var(--muted);font-weight:400;border-color:transparent}
+.card.tapper .taps{margin:0;min-height:calc(var(--u)*3.4);font-size:calc(var(--u)*2.6);letter-spacing:.08em;color:var(--ink);text-align:center;line-height:1.2}.card.tapper .taps b{color:var(--accent)}.card.tapper .taps .gap{display:inline-block;width:calc(var(--u)*2.2)}
+.card.watch .watchrow{align-items:center;gap:calc(var(--u)*1.6);flex-wrap:nowrap}.watchface{display:block;width:calc(var(--u)*17);height:calc(var(--u)*17)}.card.watch .watchrow .ob{padding-left:calc(var(--u)*1.6);padding-right:calc(var(--u)*1.6);white-space:nowrap}
+@media (max-height:460px){.watchface{width:calc(var(--u)*11);height:calc(var(--u)*11)}.card.watch{gap:calc(var(--u)*.6)}}
+.card.note .sign{text-align:right;margin-top:calc(var(--u)*1)}.card.note .compact{font-size:.84em;line-height:1.28}.card.note .compact p{margin:0 0 .5em}.card.note .compact .head{font-size:calc(var(--u)*2.5);margin-bottom:.3em}.card.note .compact .tapgrid{font-size:calc(var(--u)*1.8)}.card.note .compact .tapgrid th,.card.note .compact .tapgrid td{padding:calc(var(--u)*.12) calc(var(--u)*.8)}.row.wrap{flex-wrap:wrap;justify-content:center}
+@media (prefers-reduced-motion:reduce){.mothdot{animation:none;opacity:.8}}
 .veil{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 55%, rgba(8,10,16,.93), rgba(4,5,8,.995) 70%);pointer-events:none}
 .scratch{margin:0;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2);color:#6b5f55;letter-spacing:.04em;text-align:center}
 .cphrow{display:flex;gap:calc(var(--u)*2.5);justify-content:center;width:100%}
@@ -607,7 +619,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-10-14b';
+const BUILD = '2026-10-14c';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -857,6 +869,11 @@ function drawLayer(c, t){
       ctx.beginPath(); ctx.rect(ox - W, oy + ladY, 3*W, ladH + H); ctx.clip();
       ctx.drawImage(img, 0, ladY, W, ladH, ox, oy + ladY + dy, W, ladH);
       ctx.restore();
+      break; }
+    case 'wipe': { /* a gate or door swinging on a side hinge: the open leaf shows from its hinge side outward, with a little overshoot. L.hinge is 'left' or 'right' */
+      const T = 0.75; if (t > T + 0.35){ st.anim = null; ctx.drawImage(img, ox, oy); break; }
+      const k = Math.min(1, 1 - Math.pow(1 - Math.min(1, t/T), 3)) + (t > T ? Math.sin((t - T)/0.35*Math.PI)*0.04 : 0);
+      ctx.save(); ctx.beginPath(); if (L.hinge === 'left') ctx.rect(ox, oy - H, W*k, 3*H); else ctx.rect(ox + W*(1 - k), oy - H, W*k, 3*H); ctx.clip(); ctx.drawImage(img, ox, oy); ctx.restore();
       break; }
     case 'rattle': { /* a locked thing shakes a little and stays put */
       if (t > 0.6){ st.anim = null; restDraw(); break; }
@@ -1587,12 +1604,13 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-10-14b"></script>
-<script src="stages/packing.js?v=2026-10-14b"></script>
-<script src="stages/eschool.js?v=2026-10-14b"></script>
-<script src="stages/zschool.js?v=2026-10-14b"></script>
-<script src="stages/flight.js?v=2026-10-14b"></script>
-<script src="stages/nana.js?v=2026-10-14b"></script>
+<script src="stages/school.js?v=2026-10-14c"></script>
+<script src="stages/packing.js?v=2026-10-14c"></script>
+<script src="stages/eschool.js?v=2026-10-14c"></script>
+<script src="stages/zschool.js?v=2026-10-14c"></script>
+<script src="stages/flight.js?v=2026-10-14c"></script>
+<script src="stages/nana.js?v=2026-10-14c"></script>
+<script src="stages/park.js?v=2026-10-14c"></script>
 <script>boot();</script>
 <script>if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('../../sw.js').catch(() => {});</script>
 </body>

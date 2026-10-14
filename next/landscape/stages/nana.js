@@ -418,7 +418,7 @@ return {
   comic:[{pic:'../art/comic/nana-1.jpg', lines:['Nana at the barrier, waving with both arms.', 'Jedi said he had carried all the bags.']}, {pic:'../art/comic/nana-2.jpg', lines:['The end of the road, the end of the day.', 'The last of the sun on Nana’s front door.']}, {pic:'../art/comic/nana-3.jpg', lines:['“There is something of mine in the attic,” said Nana.', '“From when I was nine. If you can get up there.”']}],
   postcard:{pic:'../art/postcards/nana.jpg'},
   title:'Nana and Jedi’s', blurb:'Enfield, the first evening: the hall, the living room, the kitchen, the landing and the attic. A tin from when Nana was nine.',
-  track:'../art/music/nana.mp3', ambient:'evening', next:null,
+  track:'../art/music/nana.mp3', ambient:'evening', next:'park', nextLabel:'To the park',
   intro:'<b>Enfield, the first evening.</b> Tea in a minute, Jedi resting his eyes, and something of Nana’s in the attic, if you can get up there.',
   start:{room:'hall', view:0},
   fresh:() => ({hatchSeen:false, jediAsked:false, caseOpen:false, torchTaken:false, presentTaken:false, presentGiven:false, biscuitGiven:false, poleGot:false, jediMoved:false, hatchOpen:false, lit:false, photosSeen:false, tinSeen:false, dials:[0, 0, 0, 0], tinOpen:false, mapTaken:false, keySeen:false, cipher:[null, null, null, null], nightMoth:false}),
