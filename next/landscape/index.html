@@ -197,6 +197,15 @@ button{font:inherit;color:inherit;cursor:pointer}
 .xwlist .opts{display:flex;gap:calc(var(--u)*.6);flex-wrap:wrap}
 .xwlist .opts .ob{padding:calc(var(--u)*.3) calc(var(--u)*1.2);font-size:calc(var(--u)*1.7);min-height:32px}
 .xwlist .opts .ob.on{background:#f3c26a;color:var(--ink)}
+/* the dark attic before the torch, the words scratched on the tin, and Nana's secret alphabet */
+.veil{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 55%, rgba(8,10,16,.93), rgba(4,5,8,.995) 70%);pointer-events:none}
+.scratch{margin:0;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2);color:#6b5f55;letter-spacing:.04em;text-align:center}
+.cphrow{display:flex;gap:calc(var(--u)*2.5);justify-content:center;width:100%}
+.cph{display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*.6);width:calc(var(--u)*12)}
+.cph svg{width:calc(var(--u)*6);height:calc(var(--u)*6)}
+.cph .opts{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--u)*.4)}
+.cph .opts .ob{padding:calc(var(--u)*.3) calc(var(--u)*.8);font-size:calc(var(--u)*1.9);min-height:32px}
+.cph .opts .ob.on{background:#f3c26a;color:var(--ink)}
 /* at a phone's height the sleepy screen and the crossword draw in tighter, so neither card scrolls (checklist G36) */
 @media (max-height:460px){
 .wake{padding:calc(var(--u)*.6) calc(var(--u)*1.6);gap:calc(var(--u)*.3)}.wake .wq{font-size:calc(var(--u)*1.7)}.wake .wsmall{display:none}
@@ -373,7 +382,12 @@ button{font:inherit;color:inherit;cursor:pointer}
 .kid:hover,.kid:focus-visible{transform:translateY(calc(var(--u)*-.5));outline:none}
 .kid[disabled]{opacity:.6;cursor:default;transform:none}
 .kid .face{width:calc(var(--u)*11);height:calc(var(--u)*11);border-radius:50%;display:grid;place-items:center;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*4.5);color:#fffaf0;box-shadow:inset 0 calc(var(--u)*-.6) 0 rgba(0,0,0,.15);overflow:hidden;position:relative}
-.kid .face img{position:absolute;left:50%;top:6%;width:96%;transform:translateX(-50%);display:block}
+.kid .face img{position:absolute;left:50%;top:6%;width:96%;transform:translateX(-50%);display:block;transition:opacity .22s ease}
+/* the child's face lights up (the second portrait) when the card is hovered, focused or pressed */
+.kid .face .grin{opacity:0}
+.kid:hover .face .grin,.kid:focus-visible .face .grin,.kid.lit .face .grin{opacity:1}
+.kid:hover:not(:disabled) .face img:not(.grin),.kid:focus-visible .face img:not(.grin),.kid.lit .face img:not(.grin){opacity:0}
+@media (prefers-reduced-motion:reduce){.kid .face img{transition:none}}
 .kid .kname{font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2.8);color:#1d2629}
 .kid .kage{font-size:calc(var(--u)*1.8);color:var(--muted);margin-top:calc(var(--u)*-.5)}
 .kid .kline{font-size:calc(var(--u)*1.75);line-height:1.25;min-height:calc(var(--u)*4.4)}
@@ -592,7 +606,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-10-13b';
+const BUILD = '2026-10-14a';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -926,9 +940,9 @@ function animate(h){
 const KEY = 'mothhouse.landscape.' + BUILD; /* each build starts a fresh game; Start again is in the menu */
 /* the three stories: one save each, keyed by child; the title screen's Continue picks up the last one played */
 const CHILDREN = {
-  mary:{name:'Mary', age:10, level:'for ages 10 and up, with puzzles for grown-ups', colour:'#8a5cc2', line:'Notices patterns, reads everything.', first:'school', portrait:'../art/portraits/mary.png'},
-  elliot:{name:'Elliot', age:7, level:'for ages 7 and up', colour:'#2f7c83', line:'Wants to know how things work.', first:'eschool', portrait:'../art/portraits/elliot.png'},
-  zaina:{name:'Zaina', age:4, level:'for ages 4 and up, nothing to read', colour:'#d9a622', line:'Sees the small things. Animals trust her.', first:'zschool', portrait:'../art/portraits/zaina.png'}
+  mary:{name:'Mary', age:10, level:'for ages 10 and up, with puzzles for grown-ups', colour:'#8a5cc2', line:'Notices patterns, reads everything.', first:'school', portrait:'../art/portraits/mary.png', grin:'../art/portraits/mary-grin.png'},
+  elliot:{name:'Elliot', age:7, level:'for ages 7 and up', colour:'#2f7c83', line:'Wants to know how things work.', first:'eschool', portrait:'../art/portraits/elliot.png', grin:'../art/portraits/elliot-grin.png'},
+  zaina:{name:'Zaina', age:4, level:'for ages 4 and up, nothing to read', colour:'#d9a622', line:'Sees the small things. Animals trust her.', first:'zschool', portrait:'../art/portraits/zaina.png', grin:'../art/portraits/zaina-grin.png'}
 };
 let CHILD = 'mary', S;
 const keyFor = child => KEY + '.' + child;
@@ -1377,6 +1391,10 @@ function startAmbient(){
     const g = noiseSrc(1400, 300, .11); wobble(g, .11, .04, .13);
     const drip = () => { const t = ac.currentTime, o = ac.createOscillator(), og = ac.createGain(); o.type = 'sine'; o.frequency.setValueAtTime(1400 + Math.random()*1200, t); o.frequency.exponentialRampToValueAtTime(700, t + .08); og.gain.setValueAtTime(.0001, t); og.gain.exponentialRampToValueAtTime(.05, t + .005); og.gain.exponentialRampToValueAtTime(.0001, t + .12); o.connect(og); og.connect(out); o.start(t); o.stop(t + .15); timers.push(setTimeout(drip, 300 + Math.random()*1400)); };
     timers.push(setTimeout(drip, 800));
+  } else if (ambKind === 'evening'){ /* an English garden at dusk: a blackbird now and then, far-off and unhurried */
+    const g = noiseSrc(500, 80, .02); wobble(g, .02, .008, .05);
+    const bird = () => { const t = ac.currentTime, n = 3 + Math.floor(Math.random()*4), f0 = 1800 + Math.random()*900; for (let i = 0; i < n; i++){ const o = ac.createOscillator(), og = ac.createGain(), ts = t + i*.22; o.type = 'sine'; o.frequency.setValueAtTime(f0*(1 + (i%2)*.18), ts); o.frequency.exponentialRampToValueAtTime(f0*1.25, ts + .09); o.frequency.exponentialRampToValueAtTime(f0*.85, ts + .18); og.gain.setValueAtTime(.0001, ts); og.gain.exponentialRampToValueAtTime(.035, ts + .02); og.gain.exponentialRampToValueAtTime(.0001, ts + .2); o.connect(og); og.connect(out); o.start(ts); o.stop(ts + .22); } timers.push(setTimeout(bird, 6000 + Math.random()*9000)); };
+    timers.push(setTimeout(bird, 2500));
   } else if (ambKind === 'plane'){ /* the engines, far off and steady, with a slow swell */
     const g = noiseSrc(380, 50, .06); wobble(g, .06, .012, .045);
   } else if (ambKind === 'school'){
@@ -1509,8 +1527,10 @@ function showChoose(mode){ /* mode: 'continue' resumes each child's save; 'new' 
   Object.entries(CHILDREN).forEach(([key, c]) => {
     const s = saved(key), prog = s ? (STAGES[s.stage].title + (s.done ? ', finished' : '')) : '';
     const b = document.createElement('button'); b.className = 'kid'; b.dataset.child = key;
-    b.innerHTML = `<span class="face" style="background:${c.colour}">${c.portrait ? `<img src="${c.portrait}?v=${BUILD}" alt="">` : c.name[0]}</span><span class="kname">${c.name}, ${c.age}</span><span class="kage">${c.level}</span><span class="kline">${c.line}</span><span class="kprog ${mode === 'new' && s && (s.got.length || s.done) ? 'warn' : ''}">${!c.first ? 'Coming soon' : mode === 'continue' ? (prog || 'Not started') : (s && (s.got.length || s.done) ? 'Starts again from the beginning' : '')}</span>`;
+    b.innerHTML = `<span class="face" style="background:${c.colour}">${c.portrait ? `<img src="${c.portrait}?v=${BUILD}" alt="">${c.grin ? `<img class="grin" src="${c.grin}?v=${BUILD}" alt="">` : ''}` : c.name[0]}</span><span class="kname">${c.name}, ${c.age}</span><span class="kage">${c.level}</span><span class="kline">${c.line}</span><span class="kprog ${mode === 'new' && s && (s.got.length || s.done) ? 'warn' : ''}">${!c.first ? 'Coming soon' : mode === 'continue' ? (prog || 'Not started') : (s && (s.got.length || s.done) ? 'Starts again from the beginning' : '')}</span>`;
     if (!c.first || (mode === 'continue' && !s)) b.disabled = true;
+    /* a finger has no hover: the face lights up while the card is pressed, and stays lit a moment after */
+    b.onpointerdown = () => { b.classList.add('lit'); }; b.onpointerup = b.onpointercancel = b.onpointerleave = () => setTimeout(() => b.classList.remove('lit'), 350);
     b.onclick = () => { CHILD = key; if (mode === 'new'){ const first = c.first; loadStage(first); S = fresh(first); save(); } else S = load(); enterGame(); };
     kids.appendChild(b);
   });
@@ -1548,15 +1568,16 @@ function boot(){
   const want = new URLSearchParams(location.search).get('stage');
   if (want && STAGES[want]){ CHILD = STAGES[want].child || 'mary'; S = load(); if (S.stage !== want){ loadStage(want); S = fresh(want); save(); } enterGame(); return; }
   S = load(); /* something to render behind the title screen */
-  Object.values(CHILDREN).forEach(c => c.portrait && preload(c.portrait)); preload('../art/portraits/moth.png'); preload('../art/portraits/moth-speak.png'); /* so the children's faces are there the moment the cards are */
+  Object.values(CHILDREN).forEach(c => { if (c.portrait) preload(c.portrait); if (c.grin) preload(c.grin); }); preload('../art/portraits/moth.png'); preload('../art/portraits/moth-speak.png'); /* so the children's faces are there the moment the cards are */
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-10-13b"></script>
-<script src="stages/packing.js?v=2026-10-13b"></script>
-<script src="stages/eschool.js?v=2026-10-13b"></script>
-<script src="stages/zschool.js?v=2026-10-13b"></script>
-<script src="stages/flight.js?v=2026-10-13b"></script>
+<script src="stages/school.js?v=2026-10-14a"></script>
+<script src="stages/packing.js?v=2026-10-14a"></script>
+<script src="stages/eschool.js?v=2026-10-14a"></script>
+<script src="stages/zschool.js?v=2026-10-14a"></script>
+<script src="stages/flight.js?v=2026-10-14a"></script>
+<script src="stages/nana.js?v=2026-10-14a"></script>
 <script>boot();</script>
 <script>if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('../../sw.js').catch(() => {});</script>
 </body>

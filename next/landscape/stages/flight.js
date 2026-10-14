@@ -330,7 +330,7 @@ return {
   comic:[{pic:'../art/comic/flight-1.jpg', lines:['Night at the airport. Suitcases on the pavement, one with a jar of kaya in it.', 'Fourteen hours to London.']}, {pic:'../art/comic/flight-2.jpg', lines:['Hour thirteen. Everyone asleep.', 'Everyone except Mary.']}, {pic:'../art/comic/flight-3.jpg', lines:['And in the seat pocket, beside the magazine…', 'something that was not the usual magazine.']}],
   postcard:{pic:'../art/postcards/flight.jpg'},
   title:'The flight', blurb:'Hour thirteen of fourteen, somewhere over Europe: row 34 and the galley. A backwards note, a sleepy screen and a moth on the map.',
-  track:'../art/music/flight.mp3', ambient:'plane', next:null,
+  track:'../art/music/flight.mp3', ambient:'plane', next:'nana', nextLabel:'To Enfield',
   intro:'<b>Hour thirteen of fourteen.</b> Dawn at the window, and everyone asleep but you. Something in the seat pocket in front of you is not the usual magazine.',
   start:{room:'seat', view:1},
   fresh:() => ({noteSeen:false, cardRead:false, magTaken:false, magRead:false, noteRead:false, clocksSeen:false, priyaTip:false, screenTried:false, awake:false, time:null, lensGiven:false, lensUsed:false, zoomed:false, xw:[null, null, null, null], nightMoth:false}),

@@ -69,7 +69,7 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 34. Every story-led line has a voice key, and the line is recorded before the build is called finished; a changed line is re-recorded (audit lists unrecorded keys).
 35. Lines in the child's words; the postcard in the child's voice; the moth never names itself. The moth's voice is its normal narrating voice, never a whisper, and every spoken line shows its words being read (the read-along, playbook 4q).
 
-35b. One Night Moth challenge per stage, of a kind not used before (school: riddle; packing: paper moths; flight: crossword) (log 52).
+35b. One Night Moth challenge per stage, of a kind not used before (school: riddle; packing: paper moths; flight: crossword; Nana's: a secret alphabet) (log 52).
 
 ## G. Devices and delivery
 
