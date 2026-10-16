@@ -15,6 +15,9 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 
 8b. **The opening view carries no clue and no item.** The goal may be in sight; the first thing to read or pick up is at least one turn away (log 52, playbook 4t).
 
+8c. **A level starts from the owner's materials and a design on paper.** Materials (plan, rooms, view, people) are listed back as they arrive with what is still missing; the brief's decisions are asked once with defaults; the design (rooms, card, trails with both inputs of every lock, who moves, Night Moth, difficulty) is approved before any picture is made (playbook 4x). Photographs never enter the repo.
+8d. **A wall drawn from a photograph keeps the room and loses the people.** Two references, the game's box and the photograph; the prompt forbids people, faces, photographs of people and lettering; anything unsafe in the photograph (knives) is painted out (log 56).
+
 ## B. Every cut-out (a thing placed on a wall)
 
 9. **Proportions.** The box keeps the picture's own proportions: h = w × pictureH / pictureW × 16/9. A squashed or stretched cut-out fails (audit checks this).
