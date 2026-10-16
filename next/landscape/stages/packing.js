@@ -93,11 +93,11 @@ const HOTS = {
     {id:'cr_basket', l:62, t:62, w:10, h:24, label:'Laundry basket', sound:'leaf'}],
   /* Mum and Dad's room */
   p1:[
-    {id:'pr_window', l:10, t:8, w:56, h:76, label:'The window and the view', sound:'tap'},
+    {id:'pr_view', l:10, t:8, w:56, h:76, label:'The window and the view', sound:'tap'},
     {id:'pr_lamp', l:76, t:36, w:10, h:48, label:'The driftwood lamp', sound:'tick'},
     {id:'pr_chest', l:86, t:64, w:14, h:32, label:'Dad’s chest of drawers', sound:'knock', key:true}],
   p2:[
-    {id:'pr_desk', l:8, t:48, w:22, h:34, label:'Dad’s desk', sound:'knock'},
+    {id:'pr_daddesk', l:8, t:48, w:22, h:34, label:'Dad’s desk', sound:'knock'},
     {id:'pr_wardrobe', l:26, t:22, w:12, h:62, label:'Wardrobe', sound:'knock'},
     {id:'pr_basket', l:38, t:62, w:10, h:22, label:'A basket', sound:'leaf'}],
   p3:[
@@ -192,7 +192,7 @@ const HOTS = {
 /* rain on every window while the storm lasts: a drawn layer, gone once the sky clears */
 const rain = (l, t, w, h) => ({draw:'rain', group:'rain', l, t, w, h, count:12, hideWhen:() => S.clear});
 const LAYERS = {
-  m1:[rain(12, 8, 76, 36), {src:A+'item-diary.png', group:'diary', l:60.5, t:41, w:8, h:17.07, shadow:.3}],
+  m1:[rain(12, 8, 76, 36), {src:A+'item-diary.png', group:'diary', l:60.5, t:39, w:8, h:19.94, shadow:.3}],
   m2:[{src:A+'item-book.png', group:'book', l:51, t:50, w:10, h:13.9, shadow:.3, hideWhen:() => got('book') || packed('book') || S.bookBack}],
   k1:[rain(26, 8, 46, 76)],
   k2:[rain(82, 6, 16, 80)],
@@ -465,10 +465,10 @@ function act(id){
     case 'cr_bath': openBath(); return;
     case 'cr_basket': say('The laundry basket, half full. Not Mary’s problem today.'); break;
     /* Mum and Dad's room */
-    case 'pr_window': say('The best view in the flat: the white tower opposite, the palms below, the green hill, and the rain over all of it.'); break;
+    case 'pr_view': say('The best view in the flat: the white tower opposite, the palms below, the green hill, and the rain over all of it.'); break;
     case 'pr_lamp': say('The driftwood lamp, lit against the rain. Mum found the wood on a beach. Dad carried it.'); break;
     case 'pr_chest': openChest('right'); return;
-    case 'pr_desk': say('Dad’s desk: a screen, off, and a tidy that happened this morning and will not last.'); break;
+    case 'pr_daddesk': say('Dad’s desk: a screen, off, and a tidy that happened this morning and will not last.'); break;
     case 'pr_wardrobe': say('The wardrobe, with the big suitcases’ shapes missing from the top of it.'); break;
     case 'pr_basket': case 'pr_basket2': say('A basket of things that did not make it into the big cases. A whole second holiday.'); break;
     case 'pr_pic': say('A picture of a beach. The one with the driftwood.'); break;
