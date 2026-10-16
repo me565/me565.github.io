@@ -40,7 +40,7 @@ const HOTS = {
     {id:'pw_cafe', l:50, t:22, w:24, h:30, label:'The café', sound:'knock'},
     {id:'pw_umbrellas', l:30, t:40, w:18, h:16, label:'Tables and umbrellas', sound:'leaf'}],
   w2:[
-    {id:'pw_jedi', l:35, t:46, w:18, h:27, label:'Jedi, on the bench', sound:'leaf', key:true, anim:'sniff', layer:'jedibench', hideWhen:() => S.jediMoved},
+    {id:'pw_jedi', l:35, t:46, w:18, h:30, label:'Jedi, on the bench', sound:'leaf', key:true, anim:'sniff', layer:'jedibench', hideWhen:() => S.jediMoved},
     {id:'pw_bench', l:36, t:56, w:16, h:16, label:'The bench', sound:'knock', showWhen:() => S.jediMoved},
     {id:'pw_bin', l:69, t:58, w:6, h:12, label:'Litter bin', sound:'knock'},
     {id:'pw_chestnut', l:10, t:4, w:45, h:40, label:'Chestnut tree', sound:'leaf'}],
@@ -136,10 +136,10 @@ const HOTS = {
 };
 const LAYERS = {
   w1:[{src:A+'item-spade.png', group:'spade', l:41.5, t:74, w:8, h:14.76, shadow:.4, hideWhen:() => S.spadeGot}],
-  w2:[{src:A+'layer-jedibench.png', group:'jedibench', l:35, t:47, w:18, h:26.36, shadow:.5, hideWhen:() => S.jediMoved}],
+  w2:[{src:A+'layer-jedibench.png', group:'jedibench', l:34, t:46, w:20, h:31.19, shadow:.5, hideWhen:() => S.jediMoved}],
   o2:[{src:A+'layer-hole.png', group:'hole', l:46, t:62, w:16, h:14.1, showWhen:() => S.dug},
       {src:A+'item-key.png', group:'key', l:51.5, t:65, w:5, h:10.3, showWhen:() => S.dug && !S.keyGot}],
-  o3:[{src:A+'layer-jedistand.png', group:'jedistand', l:62, t:50, w:9, h:24.47, shadow:.5, showWhen:() => S.jediMoved}],
+  o3:[{src:A+'layer-jedistand.png', group:'jedistand', l:62, t:50, w:9, h:25.41, shadow:.5, showWhen:() => S.jediMoved}],
   /* the open gate is two pieces lifted from the wall painted with it open: the dark arch where the gate was, and the leaf swung out on its hinge */
   m4:[{src:A+'layer-gatearch.png', group:'gatearch', l:45.28, t:33.59, w:11.77, h:46.37, showWhen:() => S.gateOpen},
       {src:A+'layer-gateleaf.png', group:'gateleaf', l:26.6, t:30.99, w:19.11, h:48.96, hinge:'right', showWhen:() => S.gateOpen},

@@ -193,7 +193,7 @@ Version 2 (14 Oct 2026), built in the landscape engine to the playbook (4c, 4t):
 - **Convergence.** In the lit attic the tin opens on marbles, a badge, a pressed flower, a conker and a folded map: Nana's Trent Park in pencil and crayon (the lake, the obelisk, Camlet Moat, the big house) with a little house in the trees, a moth drawn over it and a dotted line to it, which is on no real map. Show Nana: "My map." She looks at the little house, and at Mary. "Well. Go on, then." Postcard home.
 - **Who moves (4t):** Jedi, from his armchair (pole beside him) to the kitchen table with his biscuit once he has it, the armchair empty and the pole gone; the hatch from shut to open with the ladder down. Nana stays at the counter: she is the end.
 - **Night Moth:** Nana's secret alphabet. Inside the tin's lid she pencilled a key (every letter with a shape beside it, a pigpen cipher); on the back of the map four shapes spell DUSK, the hour the Moth House appears. A new kind of challenge after the riddle, the paper moths and the crossword.
-- **Looks (invented, until the owner sends photos):** Nana has short silver-grey hair, round glasses, a lilac cardigan and beads; Jedi is bald on top with white hair at the sides, a big white moustache, a checked shirt with red braces and tartan slippers. Nana's brother Tom is a name on a plate only.
+- **Looks:** from 16 Oct 2026 Nana and Jedi are drawn from the owner's photographs (see Mary's stage 2 for the description); the invented pair with the lilac cardigan and the white moustache are gone from the cut-outs, the comic pages and the park's café. Nana's brother Tom is a name on a plate only.
 
 ### Stage 5: Trent Park — the big house, the obelisk and Camlet Moat — difficulty 4
 

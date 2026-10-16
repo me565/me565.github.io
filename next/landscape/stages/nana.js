@@ -41,7 +41,7 @@ const HOTS = {
     {id:'nh_plant', l:81, t:44, w:10, h:46, label:'Tall plant', sound:'leaf'}],
   /* the living room */
   l1:[
-    {id:'nl_jedi', l:36, t:46, w:24, h:46, label:'Jedi, resting his eyes', sound:'leaf', key:true, anim:'sniff', layer:'jedi', hideWhen:() => S.jediMoved},
+    {id:'nl_jedi', l:34, t:54, w:26, h:42, label:'Jedi, resting his eyes', sound:'leaf', key:true, anim:'sniff', layer:'jedi', hideWhen:() => S.jediMoved},
     {id:'nl_chair', l:30, t:50, w:26, h:44, label:'Jedi’s armchair', sound:'leaf'},
     {id:'nl_pole', l:84, t:62, w:9, h:32, label:'A long pole with a hook', sound:'knock', key:true, anim:'wobble', layer:'pole', hideWhen:() => S.poleGot},
     {id:'nl_lamp', l:46, t:22, w:11, h:33, label:'Standard lamp', sound:'tick'},
@@ -65,7 +65,7 @@ const HOTS = {
     {id:'nl_coatstand', l:70, t:24, w:13, h:70, label:'Coat stand', sound:'leaf'}],
   /* the kitchen */
   k1:[
-    {id:'nk_nana', l:16.0, t:31.0, w:27.1, h:68.2, label:'Nana', sound:'leaf', key:true, anim:'sniff', layer:'nana'},
+    {id:'nk_nana', l:17, t:32, w:19, h:66, label:'Nana', sound:'leaf', key:true, anim:'sniff', layer:'nana'},
     {id:'nk_counter', l:7, t:62, w:62, h:32, label:'Kitchen counter', sound:'knock'},
     {id:'nk_kettle', l:13, t:45, w:10, h:16, label:'Kettle', sound:'tick'},
     {id:'nk_teapot', l:23, t:49, w:10, h:12, label:'Teapot in its cosy', sound:'tap'},
@@ -75,7 +75,7 @@ const HOTS = {
     {id:'nk_tin', l:39, t:17, w:9, h:11, label:'Biscuit tin, high on the dresser', sound:'tap', key:true},
     {id:'nk_dresser', l:24, t:26, w:26, h:48, label:'Dresser', sound:'knock'},
     {id:'nk_table', l:18, t:62, w:30, h:24, label:'Kitchen table', sound:'knock'},
-    {id:'nk_jedi2', l:40, t:48, w:12, h:20, label:'Jedi, at the table', sound:'leaf', anim:'sniff', layer:'jedi2', hideWhen:() => !S.jediMoved},
+    {id:'nk_jedi2', l:40, t:50, w:13, h:24, label:'Jedi, at the table', sound:'leaf', anim:'sniff', layer:'jedi2', hideWhen:() => !S.jediMoved},
     {id:'nk_fruit', l:29, t:58, w:8, h:9, label:'Fruit bowl', sound:'tap'},
     {id:'nk_door2', l:52, t:25, w:16, h:60, label:'Doorway to the hall', sound:'knock'},
     {id:'nk_calendar', l:71, t:32, w:9, h:19, label:'Calendar', sound:'paper'}],
@@ -132,10 +132,10 @@ const HOTS = {
     {id:'na_dummy', l:68, t:36, w:12, h:56, label:'Dressmaker’s dummy', sound:'leaf'}]
 };
 const LAYERS = {
-  l1:[{src:A+'layer-jedi.png', group:'jedi', l:36.23, t:48.05, w:23.84, h:48.53, shadow:.5, hideWhen:() => S.jediMoved},
+  l1:[{src:A+'layer-jedi.png', group:'jedi', l:34, t:56, w:26, h:43.19, shadow:.5, hideWhen:() => S.jediMoved},
       {src:A+'layer-pole.png', group:'pole', l:86.08, t:41.67, w:5.01, h:53.52, hideWhen:() => S.poleGot}],
-  k1:[{src:A+'layer-nana.png', group:'nana', l:17.15, t:32.42, w:20.57, h:67.07, shadow:.5}],
-  k2:[{src:A+'layer-jedi2.png', group:'jedi2', l:37.14, t:44.92, w:18.82, h:44.95, shadow:.6, showWhen:() => S.jediMoved}],
+  k1:[{src:A+'layer-nana.png', group:'nana', l:18, t:33, w:17, h:70.15, shadow:.5}],
+  k2:[{src:A+'layer-jedi2.png', group:'jedi2', l:37.5, t:50, w:18, h:37.32, shadow:.6, showWhen:() => S.jediMoved}],
   d1:[{src:A+'layer-hatchopen.png', group:'hatchopen', l:40.04, t:2.08, w:21.51, h:89.78, fold:{door:0.35, ladder:0.1}, showWhen:() => S.hatchOpen}]
 };
 const EXTRA = {hall:[A+'closeup-photos.jpg'], landing:[A+'closeup-suitcase.jpg', A+'layer-case-torch.png', A+'layer-case-present.png'], attic:[A+'closeup-tin.jpg', A+'closeup-map.jpg']};
