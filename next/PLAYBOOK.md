@@ -207,6 +207,22 @@ Four faults from the owner's first look at stage 4, fixed there and written here
 - **Dusk is a change over the whole place**, not one wall: a tinted veil on every view (`duskVeil`) with moths in the wood views, switched by the story (the watch set), with the person who moves and the ending both waiting on it.
 - **Night Moth kinds so far:** the riddle (school), the paper moths (packing), the crossword (flight), the secret alphabet (Nana's), the tape's word in the tap code (Trent Park). The next stage picks something new.
 
+## 4w. What a stage is made of: the files (owner's question, 16 Oct 2026)
+
+Every stage since the flight has the same parts. Trent Park (`park`) is the model; each line is one file or folder and what it is for.
+
+- `next/landscape/stages/<key>.js` — the stage itself, one file: its rooms and the turning order of their views, the doors between them, the tap targets on every wall (`HOTS`), the cut-outs that sit on the walls and move (`LAYERS`), the things the game draws over a picture (`overlays`), the notes and items, what every tap says (`act`), what happens when an item is used on a thing (`USES`), the three-step hints for each trail and the notebook's rows, the comic's lines, the card, the postcard text and the ending.
+- `next/landscape/index.html` — the engine, shared by every stage: one new `<script>` line per stage, plus any new movement, close-up kind or style the stage needed (the flight added the mirror note and the wake dials, Nana's the dark veil and `unfold`, the park the flashing lamp's glow, dusk and `wipe`); the previous stage's `next:` points at the new one.
+- `next/art/<key>/` — the pictures: four walls per room (`w1`–`w4`…), the cut-outs (`layer-*.png`, with a `-check.jpg` showing each in place), the inventory icons (`item-*.png`) and the close-up pictures (`closeup-*.jpg`).
+- `next/art/comic/<key>-1.jpg` to `-3.jpg` — the three pages of the stage's comic intro.
+- `next/art/postcards/<key>.jpg` — the picture on the postcard home at the end.
+- `next/art/music/<key>.mp3` — the stage's track from Lyria, with its prompt added to `next/art/music/README.md`.
+- `next/art/voice/<key>.*.mp3` and `index.json` — every line the moth says (hints, notes, card, intro, comic, postcard), recorded once; `tools/extract-lines.js` pulls the lines out of the stage file into `tools/lines.json`, `tools/voice.py` records the new ones, and `index.json` is the list of what exists.
+- `tools/play-<x>.js` — a script that plays the whole stage end to end against the local server and prints every step; `tools/shots-<x>.js` checks its close-ups and end card at the owner's tablet shape, a phone and a desktop. Both run before every commit, with `tools/audit.js` over every stage.
+- `tools/gen.py`, `tools/lift.py`, `tools/keymag.py`, `tools/lyria.py`, `tools/voice.py` — how the pictures, cut-outs, music and voice are made (prompts in `next/art/classroom/PROMPTS.md`, methods in 4r, 4u, 4v); the key is in the environment, never in the files.
+- `STORY.md` — the stage's section: the places, the goal on the card, each trail and what it needs from where, who moves, the Night Moth, and any real history with its sources.
+- `next/PLAYBOOK.md`, `next/CHECKLIST.md` — a section for what building the stage taught, a line in the feedback log, and any new check; `CLAUDE.md` gets the folder in its file list.
+
 ## 4o. The checklist (owner, 30 Sept 2026)
 
 - `next/CHECKLIST.md` turns every fault the owner has pointed out into a check, grouped by what is being made (a cut-out, lettering on a picture, a movement, a close-up, words and voice, delivery). It is read at the start of any update, walked over every amended or new thing before it is shown, and `tools/audit.js` runs its automatic lines (proportions, shadows to look at, loading, hotspot bounds and corners, overflow at three sizes, unrecorded voice, an error-free run under reduced motion at the owner's screen shape) and writes one screenshot per view for the visual lines. Every new fault the owner finds becomes a line.
