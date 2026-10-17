@@ -3,9 +3,9 @@
 Version 2 of this level is live as the lite release (built 28–30 Sept 2026, walked back through the gates on paper on 17 Oct 2026; its brief, map and chart are in this file's history before commit `v3`). On 17 Oct 2026 the owner asked for puzzles to the standard of Rusty Lake and Dark Dome, young-adult difficulty, no sparkles by default and a longer level, and said "go" to version 3 below. Version 3 is built through the gates as stage `school3` beside the live stage and replaces `school` when its final sign-off is given. Sign-off lines are the owner's; none has been written.
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: outline (version 3 brief, map and chart drafted 17 Oct 2026; the greybox follows)
-Build id of the latest play link: 2026-10-17d (version 2, live)
-Latest play link: https://me565.github.io/next/landscape/?stage=school (version 2)
+Current status: greybox (version 3 playable as `school3` in build 2026-10-17e, 17 Oct 2026; waits on the owner's tablet play for Gate C)
+Build id of the latest play link: 2026-10-17e
+Latest play link: see the chat of 17 Oct 2026 (a githack link pinned to the commit, with `?stage=school3`); version 2 stays live at https://me565.github.io/next/landscape/?stage=school
 
 ---
 
@@ -84,7 +84,10 @@ Signed off:
 
 - Stage key and plugin file: version 3 is built as `school3`, `next/landscape/stages/school3.js`, beside the live `school` (version 2); `?stage=school3` opens it. It takes `school`'s place when its final sign-off is given.
 - Version 2's greybox record (it never had one; walked on paper 17 Oct 2026) is kept below for the ledger; version 3's greybox: existing walls and cut-outs, labelled boxes for the blind, the food tin, the counter, the world map, the arrow lock, the star dial, the badges and the handbell; all drawn-over things (glow stars, banner letters, mirror line, Ben's note, the Thursday timetable) drawn by the game as they will be in the finished level.
-- Play link (pinned to commit): the level never had a greybox; it was built straight into art. The live build is https://me565.github.io/next/landscape/?stage=school (build 2026-09-30x).
+- Play link (pinned to commit): version 3's greybox is build 2026-10-17e, `?stage=school3` (version 2 never had a greybox; it was built straight into art).
+- Version 3 greybox, what is placeholder: grey labelled boxes for the blind and its cord, the food tin, the lap counter, the world map on the library wall, the badges inside the three cabinets, the handbell (its strip icon too), the two pull tabs of the gestures; the star dial, the pair dials and the arrow lock as plain cards. What is real: every wall and cut-out of version 2; the puzzle logic of all six locks and the counter; the glow stars, the banner's coloured letters, the whiteboard's plan with its mirror line, Ben's note and the Thursday timetable, all drawn by the game as they will be; hints in three tiers with the second tier pulsing the thing; the notebook in two columns; saves; the two gestures (the blind up, the bell swung) on the engine's drag; the ending and the postcard.
+- Version 3 tests (17 Oct 2026): `tools/play-s3.js` plays it start to ending with every wrong try (second feed, wrong star, wrong pairs, wrong arrows, wrong tune, wrong code, the bell too early, the bell in the wrong room), checks the notebook at 844×390 and 2000×700 after the library, after the hall and at the end, and the page at both widths: no overflow, no page errors. The audit on `school3`: no failures (a stage that `supersedes` another may share its hotspot ids). Version 2 and packing day still pass their scripts on the same engine.
+- Found and fixed on the way (learning loop): the opening gesture did not play because the comic sets `comicSeen` before the card, so "fresh start" was already false; the engine now runs a stage's `begin` once on its own flag. The letter overflowed its card with five riddles in large type; the riddles are now one paragraph. The notebook overflowed with seven lines and nine notices; a stage with five or more trails lists them in two columns and Noticed keeps the newest four still in use.
 - What is placeholder: nothing. Every wall, cut-out and close-up is real; every story-led line is recorded.
 - What is real: everything: puzzle logic, inventory, hints, saves, doors, the ending, the postcard.
 

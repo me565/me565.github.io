@@ -20,7 +20,9 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
   /* hotspot ids unique across stages */
   { const p = await b.newPage(); await p.goto(base + '?stage=school', {waitUntil:'networkidle'});
     const ids = await p.evaluate(() => { const out = []; for (const [k, st] of Object.entries(STAGES)) for (const v of Object.keys(st.hots)) for (const h of st.hots[v]) out.push([k, h.id]); return out; });
-    const seen = new Map(); ids.forEach(([k, id]) => { if (seen.has(id) && seen.get(id) !== k) say(k, 'E32', `hotspot id ${id} also in ${seen.get(id)}`); seen.set(id, k); }); await p.close(); }
+    const SUP = await p.evaluate(() => Object.fromEntries(Object.entries(STAGES).map(([k, st]) => [k, st.supersedes || null]))); /* a stage built to replace another (school3 for school) may share its ids: they never load together */
+    const sup = (a, b) => SUP[a] === b || SUP[b] === a;
+    const seen = new Map(); ids.forEach(([k, id]) => { if (seen.has(id) && seen.get(id) !== k && !sup(k, seen.get(id))) say(k, 'E32', `hotspot id ${id} also in ${seen.get(id)}`); seen.set(id, k); }); await p.close(); }
   for (const stage of stages){
     /* voice */
     Object.keys(lines).filter(k => k.startsWith(stage + '.')).forEach(k => { if (!voiced.has(k)) say(stage, 'F34', `unrecorded: ${k}`); });
