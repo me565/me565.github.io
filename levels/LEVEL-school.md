@@ -34,7 +34,7 @@ Signed off:
 
 ## 2. Game map
 
-- draw.io file: `levels/LEVEL-school-map.drawio` (open at app.diagrams.net or in the draw.io app; rooms as boxes, each with its four views in turning order, doorways as arrows labelled with the view you arrive facing, locked things in red).
+- Floor plan: `levels/LEVEL-school-map.json`, drawn by `tools/levelmap.py` into `levels/LEVEL-school-map.drawio` (open at app.diagrams.net). North up: the corridor in the middle with the lockers on its north wall, the library east, the hall south, the classroom and art room sharing its west wall. Door tabs on the shared walls, labelled walks naming the arrival view, red for locked, green for the start.
 - Rooms and their views (in turning order):
   - **Classroom 5H**: c1 whiteboard wall (the picture key to the timetable; supplies cupboard; Mr Hollis's desk, mug, apple) · c2 window wall (bean plants, the window; quiet) · c3 door wall (open door to the corridor; coat pegs; lost-property box; bin) · c4 timetable wall (Mary's desk with the envelope; the timetable; class rules; clock at twenty to three; Nutmeg's cage; filing cabinet; bookshelf; Mary's bag). **Start: c4, facing her desk.**
   - **Corridor**: h1 the lockers (Mary's purple locker, three number dials; certificates; bench) · h2 the open library doors (water fountain; trophy cabinet) · h3 notice board with the bonus card, and the open doorway to the hall · h4 the open doorways to 5H and the art room (bunting).

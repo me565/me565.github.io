@@ -167,6 +167,13 @@ The working rules for every room in the landscape game, distilled from the owner
 
 - `next/CHECKLIST.md` turns every fault the owner has pointed out into a check, grouped by what is being made (a cut-out, lettering on a picture, a movement, a close-up, words and voice, delivery). It is read at the start of any update, walked over every amended or new thing before it is shown, and `tools/audit.js` runs its automatic lines (proportions, shadows to look at, loading, hotspot bounds and corners, overflow at three sizes, unrecorded voice, an error-free run under reduced motion at the owner's screen shape) and writes one screenshot per view for the visual lines. Every new fault the owner finds becomes a line.
 
+## 4p. The level map is a floor plan (owner, 17 Oct 2026)
+
+- A level's game map (stage 2 of the level file) is drawn as a floor plan, never as a flowchart of boxes and arrows: the rooms are thick-walled boxes placed where they really stand, north up, each wall carrying its view key and what is on it, white tabs on a shared wall for a doorway, and a labelled walk each way that names the view you arrive facing. Red marks what is locked at the start, green where the child starts. The owner's reference was a drawn point-and-click map with rooms directly east, west, north or south of one another.
+- The compass comes from the turning order: a room's four views run north, east, south, west, and the door wall of each room must face the room it leads to. Lay the rooms out so every doorway's two walls really meet; a plan that cannot be drawn this way means the views or doors are inconsistent, which is a Gate B finding.
+- It is generated, not hand-drawn: `python3 tools/levelmap.py levels/LEVEL-<key>-map.json` writes `levels/LEVEL-<key>-map.drawio` from a short JSON of rooms (position, size, colour, four walls) and doorways (which wall, where along it, the two walk labels). The JSON is the record; the draw.io file is for looking at. Mary's school day (`levels/LEVEL-school-map.json`) is the example.
+- The puzzle chart (stage 3) stays a dependency chart in lanes, one lane per trail: item → clue → lock → reward.
+
 ## 5. Sound and music
 
 - Effects are made in the browser (Web Audio) and must be loud enough for a tablet speaker: taps 0.3, knocks 0.4, chimes 0.25. They start on the first real tap.
