@@ -679,6 +679,7 @@ return {
   intro:'<b>Last day of school.</b> Everyone is at the party, but Mr Hollis left something on your desk. And a little moth is watching from the window.',
   start:{room:'classroom', view:3},
   fresh:() => ({opened:false, bonus:false, spell:'', nightMoth:false, dials:[0,0,0], keyOut:false, stemOpen:false, toppled:false, beater:false, drawerOpen:false, cdials:[0,0,0], paintOpen:false, seen:{}}),
+  /* `sides` (engine-painted corners, playbook 4q) is switched off for this stage: the owner judged the prototype on 17 Oct 2026 and the baked side panels are too flat for it to look right. The measurements are kept in levels/LEVEL-school.md for when the walls are regenerated flat. */
   rooms:ROOMS, walls:WALLS, doors:DOORS, hots:HOTS, layers:LAYERS, extra:EXTRA, notes:NOTES, items:ITEMS, hints:HINTS, uses:USES,
   overlays:{c4:wallTimetable, c1:wallBoard, an:wallStripes},
   onNote:key => { if (key === 'music') S.seen.tune = true; if (key === 'bonus') S.seen.bonus = true; save(); },

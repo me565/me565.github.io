@@ -36,7 +36,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .scene{position:relative;width:100%;aspect-ratio:16/9;border-radius:calc(var(--u) * 1.6);overflow:hidden;background:#e9e2d2;box-shadow:0 calc(var(--u)*1.2) calc(var(--u)*3) rgba(0,0,0,.5)}
 .wall{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .28s ease}
 .wall.on{opacity:1}
-.scene.zoomed .wall.on,.scene.zoomed #hots{filter:blur(calc(var(--u)*.5)) brightness(.72) saturate(.85)}
+.scene.zoomed .wall.on,.scene.zoomed #hots,.scene.zoomed #sides{filter:blur(calc(var(--u)*.5)) brightness(.72) saturate(.85)}
 #hots{position:absolute;inset:0;transition:filter .3s ease}
 .wall{transition:opacity .28s ease, filter .3s ease}
 
@@ -114,6 +114,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .slot img{position:absolute;left:12%;top:12%;width:76%;height:76%;object-fit:contain;display:block}
 
 #walls{position:absolute;inset:0}
+#sides{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;display:block}
 .scene.fade #walls,.scene.fade #hots{opacity:0}
 #walls,#hots{transition:opacity .35s ease, filter .3s ease}
 .scene.pan-l #walls,.scene.pan-l #hots{animation:panOutL .24s ease-in forwards}
@@ -548,7 +549,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-10-17a';
+const BUILD = '2026-10-17d';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -557,7 +558,7 @@ function fit(){
   const w = Math.min(vw, vh / 0.6725, 1400);   /* scene 9/16 tall plus the strip and gap */
   document.documentElement.style.setProperty('--u', (w / 100) + 'px');
 }
-addEventListener('resize', fit); fit();
+addEventListener('resize', () => { fit(); if (typeof inGame !== 'undefined' && inGame && typeof STAGE !== 'undefined' && STAGE) drawSides(curView()); }); fit();
 
 /* ---------- stages: each stage is a plugin (stages/*.js) that registers its rooms, walls, doors, tap targets, cut-out layers,
    notes, items, hints, item uses and what happens on a tap. The engine handles turning, doors, the inventory, close-ups,
@@ -570,7 +571,8 @@ function loadStage(key){
   EXTRA = STAGE.extra || {}; NOTES = STAGE.notes; ITEMS = STAGE.items; HINTS = STAGE.hints; USES = STAGE.uses || {};
   /* the walls are pictures stacked in the scene; the current one shows */
   $('walls').innerHTML = '';
-  Object.entries(WALLS).forEach(([k, src]) => { const im = document.createElement('img'); im.className = 'wall'; im.id = 'w-' + k; im.alt = ''; im.src = src + '?v=' + BUILD; $('walls').appendChild(im); });
+  Object.entries(WALLS).forEach(([k, src]) => { const im = document.createElement('img'); im.className = 'wall'; im.id = 'w-' + k; im.alt = ''; im.src = src + '?v=' + BUILD; im.addEventListener('load', () => { if (inGame) drawSides(curView()); }); $('walls').appendChild(im); });
+  const sc = document.createElement('canvas'); sc.id = 'sides'; $('walls').appendChild(sc);
 }
 const IMG = {};
 function preload(src){ return IMG[src] || (IMG[src] = new Promise(res => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(im); im.src = src + '?v=' + BUILD; })); }
@@ -868,7 +870,20 @@ function animate(h){
 }
 
 /* ---------- state ---------- */
-const KEY = 'mothhouse.landscape.' + BUILD; /* each build starts a fresh game; Start again is in the menu */
+/* Saves survive a release (backlog 18, 17 Oct 2026): one key for the game, never the build id, and a version in the save. A save written
+   by an older shape is brought forward by `migrate`; a save that cannot be read starts that child's story again, nothing else is touched.
+   `?fresh` on the address wipes the game's saves first, for test links; a player's game is never wiped by a new build. */
+const KEY = 'mothhouse.landscape.v1', SAVE_VERSION = 1;
+function migrate(s){ /* one step per change to the save's shape; v1 is the first versioned shape, an unversioned save is treated as v1 */
+  if (!s.v) s.v = 1;
+  return s.v === SAVE_VERSION ? s : null;
+}
+let persistAsked = false; try{ persistAsked = localStorage.getItem('mothhouse.persist') === '1'; }catch(e){}
+function askPersist(){ /* once: ask the browser to keep this site's storage, so Android does not clear the saves under pressure */
+  if (persistAsked) return; persistAsked = true; try{ localStorage.setItem('mothhouse.persist', '1'); }catch(e){}
+  try{ if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {}); }catch(e){}
+}
+if (new URLSearchParams(location.search).has('fresh')){ try{ Object.keys(localStorage).filter(k => k.startsWith(KEY)).forEach(k => localStorage.removeItem(k)); }catch(e){} }
 /* the three stories: one save each, keyed by child; the title screen's Continue picks up the last one played */
 /* the lite release (owner, 17 Oct 2026): only these stages are playable from the title; a child whose first stage is not
    in the list is greyed out as "Coming soon" on the choose screen and in the Family tab. ?stage=<key> still opens any stage for testing. */
@@ -881,18 +896,73 @@ const CHILDREN = {
 };
 let CHILD = 'mary', S;
 const keyFor = child => KEY + '.' + child;
-function saved(child){ try{ const s = JSON.parse(localStorage.getItem(keyFor(child))); return s && Array.isArray(s.got) && STAGES[s.stage] ? s : null; }catch(e){ return null; } }
+function saved(child){ try{ const s = JSON.parse(localStorage.getItem(keyFor(child))); return s && Array.isArray(s.got) && STAGES[s.stage] ? migrate(s) : null; }catch(e){ return null; } }
 const hasProgress = s => !!s && (s.got.length > 0 || s.stage !== CHILDREN[CHILD].first || s.done);
 function fresh(stage){ return Object.assign({stage, room:STAGES[stage].start.room, view:STAGES[stage].start.view, got:[], held:null, hint:{}, done:false}, STAGES[stage].fresh()); }
 function load(){ const s = saved(CHILD); if (s){ loadStage(s.stage); if (ROOMS[s.room]) return Object.assign(fresh(s.stage), s); } const first = CHILDREN[CHILD].first; loadStage(first); return fresh(first); }
-function save(){ try{ localStorage.setItem(keyFor(CHILD), JSON.stringify(S)); localStorage.setItem(KEY + '.last', CHILD); }catch(e){} }
+function save(){ try{ S.v = SAVE_VERSION; localStorage.setItem(keyFor(CHILD), JSON.stringify(S)); localStorage.setItem(KEY + '.last', CHILD); askPersist(); }catch(e){} }
 const curView = () => ROOMS[S.room].views[S.view];
 
 /* ---------- drawing ---------- */
 function say(html){ $('msg').innerHTML = html; }
+/* Corners that agree (backlog 19, 17 Oct 2026). Every wall picture was generated as its own shallow box, so its side walls were the
+   image model's guess. Where a stage gives `sides` for a view, the engine paints the side walls itself from the neighbouring views:
+   the left side wall from the near end of the previous view's back wall, the right from the near end of the next view's, each
+   skewed into the measured trapezoid in perspective (vertical strips; the texture position runs with depth, which is 1/height).
+   sides[v] = {back:[xL, xR, yT, yB] (the view's own back wall in picture %), l:{x, yT, yB, yT0, yB0}, r:{...}, depth?}:
+   the inner edge of a side wall is at x with the corners yT..yB, the outer edge at the picture's edge with yT0..yB0. */
+let sidesToken = 0;
+function drawSides(v){
+  const sc = $('sides'); if (!sc) return; const views = ROOMS[S.room].views, n = views.length, i = views.indexOf(v);
+  const box = sc.parentElement.getBoundingClientRect(), dpr = Math.min(2, devicePixelRatio || 1);
+  const W = Math.max(1, Math.round(box.width * dpr)), H = Math.max(1, Math.round(box.height * dpr));
+  if (sc.width !== W || sc.height !== H){ sc.width = W; sc.height = H; }
+  const ctx = sc.getContext('2d'); ctx.clearRect(0, 0, W, H); const token = ++sidesToken;
+  const cfg = STAGE.sides && STAGE.sides[v]; if (!cfg || i < 0) return;
+  const side = (q, nb, fromRight, outerX) => {
+    const ncfg = STAGE.sides[nb], img = $('w-' + nb); if (!q || !ncfg || !img || !img.complete || !img.naturalWidth) return;
+    const [bL, bR, bT, bB] = ncfg.back, bw = bR - bL, bh = bB - bT, iw = img.naturalWidth / 100, ih = img.naturalHeight / 100;
+    const sideW = Math.abs(outerX - q.x), backW = cfg.back[1] - cfg.back[0];
+    const depth = cfg.depth || Math.min(0.35, Math.max(0.08, 1.3 * sideW / backW)); /* how much of the neighbour's wall shows */
+    const sx0 = fromRight ? bR : bL, sx1 = fromRight ? bR - depth * bw : bL + depth * bw; /* the corner end first, then away from it */
+    const hIn = q.yB - q.yT, hOut = q.yB0 - q.yT0, flat = hOut <= hIn * 1.02;
+    const inset = 0.25; /* keep the picture's own ink line at the corner */
+    const xa = q.x + (outerX > q.x ? inset : -inset), xb = outerX;
+    const px0 = Math.round(Math.min(xa, xb) / 100 * W), px1 = Math.round(Math.max(xa, xb) / 100 * W);
+    const u = t => flat ? t : ((1 / hIn - 1 / (hIn + (hOut - hIn) * t)) / (1 / hIn - 1 / hOut));
+    /* walk the side wall one screen column at a time: each column shows one thin slice of the neighbour's wall */
+    const columns = fn => { for (let px = px0; px < px1; px++){
+      const tA = Math.min(1, Math.max(0, (px / W * 100 - xa) / (xb - xa))), tB = Math.min(1, Math.max(0, ((px + 1) / W * 100 - xa) / (xb - xa)));
+      const sA = sx0 + (sx1 - sx0) * u(tA), sB = sx0 + (sx1 - sx0) * u(tB);
+      const top = (q.yT + (q.yT0 - q.yT) * tA) / 100 * H, h = (hIn + (hOut - hIn) * tA) / 100 * H;
+      fn(px, Math.min(sA, sB), Math.max(0.02, Math.abs(sB - sA)), top, h); } };
+    ctx.save(); ctx.imageSmoothingQuality = 'high';
+    columns((px, sl, sw, top, h) => ctx.drawImage(img, sl * iw, bT * ih, Math.max(0.5, sw * iw), bh * ih, px, top, 1, h));
+    /* the corner falls into shade, so the join reads as a fold and not a seam */
+    const shade = () => { const g = ctx.createLinearGradient(q.x / 100 * W, 0, (q.x + (outerX > q.x ? 1 : -1) * sideW * 0.6) / 100 * W, 0);
+      g.addColorStop(0, 'rgba(25,20,35,.16)'); g.addColorStop(1, 'rgba(25,20,35,0)'); ctx.save(); ctx.fillStyle = g; ctx.beginPath();
+      ctx.moveTo(xa / 100 * W, q.yT / 100 * H); ctx.lineTo(xb / 100 * W, q.yT0 / 100 * H); ctx.lineTo(xb / 100 * W, q.yB0 / 100 * H); ctx.lineTo(xa / 100 * W, q.yB / 100 * H); ctx.closePath(); ctx.fill(); ctx.restore(); };
+    shade(); ctx.restore();
+    /* the neighbour's cut-outs at rest (a cupboard's doors, a cabinet's lid) belong in the corner too, or the two views disagree */
+    const lays = (LAYERS[nb] || []).filter(L => L.src && !(L.hideWhen && L.hideWhen()) && !(L.showWhen && !L.showWhen()) && !(L.gone && L.gone()));
+    if (!lays.length) return;
+    Promise.all(lays.map(L => preload(L.src))).then(imgs => {
+      if (token !== sidesToken) return; ctx.save(); ctx.imageSmoothingQuality = 'high';
+      lays.forEach((L, k) => { const li = imgs[k]; if (!li || !li.naturalWidth) return;
+        const vis = L.clipBottom ? Math.min(1, Math.max(0, (L.clipBottom - L.t) / L.h)) : 1; /* a thing inside a pocket shows only above the rim */
+        columns((px, sl, sw, top, h) => { if (sl + sw <= L.l || sl >= L.l + L.w) return;
+          const fx0 = Math.max(0, (sl - L.l) / L.w), fx1 = Math.min(1, (sl + sw - L.l) / L.w);
+          ctx.drawImage(li, fx0 * li.naturalWidth, 0, Math.max(0.5, (fx1 - fx0) * li.naturalWidth), li.naturalHeight * vis, px, top + (L.t - bT) / bh * h, 1, L.h * vis / bh * h); }); });
+      shade(); ctx.restore();
+    });
+  };
+  side(cfg.l, views[(i - 1 + n) % n], true, 0);
+  side(cfg.r, views[(i + 1) % n], false, 100);
+}
 function render(){
   const v = curView();
   Object.keys(WALLS).forEach(k => $('w-'+k).classList.toggle('on', k === v));
+  drawSides(v);
   $('where').textContent = ROOMS[S.room].name;
   const hots = $('hots'); hots.innerHTML = '';
   const going = new Map(); layerState.forEach((st, c) => { if (st.anim && st.L.group) going.set(st.L.group, {anim:st.anim, t0:st.t0}); }); /* movements still going carry over a re-render */
@@ -1456,10 +1526,10 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-10-17a"></script>
-<script src="stages/packing.js?v=2026-10-17a"></script>
-<script src="stages/eschool.js?v=2026-10-17a"></script>
-<script src="stages/zschool.js?v=2026-10-17a"></script>
+<script src="stages/school.js?v=2026-10-17d"></script>
+<script src="stages/packing.js?v=2026-10-17d"></script>
+<script src="stages/eschool.js?v=2026-10-17d"></script>
+<script src="stages/zschool.js?v=2026-10-17d"></script>
 <script>boot();</script>
 <script>if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('../../sw.js').catch(() => {});</script>
 </body>

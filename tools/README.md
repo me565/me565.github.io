@@ -14,3 +14,7 @@ The checklist's automatic lines (`next/CHECKLIST.md`), run over every stage: `no
 ## levelmap.py
 
 Draws a level's game map as a floor plan: `python3 tools/levelmap.py levels/LEVEL-<key>-map.json` writes `levels/LEVEL-<key>-map.drawio` (rooms where they really stand, north up, door tabs on shared walls, labelled walks; playbook 4p). Open the result at app.diagrams.net.
+
+## sides.py
+
+Proposes a wall's box for the engine-painted side walls (playbook 4q): `python3 tools/sides.py next/art/school/h1.jpg`. Prints a `sides` entry and draws the quads on a copy of the picture to check by eye; pick the right lines when a wall has several.
