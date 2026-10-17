@@ -217,6 +217,8 @@ Every fault found in this level, where it was found, and what happened to it.
 
 ## Notes for this level only
 
+- 17 Oct 2026, build 2026-10-17b: the classroom's four walls are the prototype for engine-painted side walls (playbook 4q). Their boxes are measured in `sides` in `school.js`. The corridor, library, art room and hall still have baked corners (checklist 46, known) until the rollout.
+
 - 17 Oct 2026, build 2026-10-17a (the lite release: Elliot's and Zaina's cards greyed out as Coming soon): the build id changed, so this build starts every player's game again (checklist 45; backlog 18 is the fix). Said here before merging, as the checklist asks.
 
 - 17 Oct 2026: the owner sent photos of the real school; `next/art/REFERENCE.md` holds what they show in words and five changes they could suggest (dark exposed ceiling, beech-and-black desks with red chairs, a marker-written whiteboard, a projector screen in the hall, Mandarin on the timetable). Any of them is a new pass through Gates D and E for this level, with an estimate, before a single wall is remade.

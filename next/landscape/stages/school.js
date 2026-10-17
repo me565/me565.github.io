@@ -679,6 +679,13 @@ return {
   intro:'<b>Last day of school.</b> Everyone is at the party, but Mr Hollis left something on your desk. And a little moth is watching from the window.',
   start:{room:'classroom', view:3},
   fresh:() => ({opened:false, bonus:false, spell:'', nightMoth:false, dials:[0,0,0], keyOut:false, stemOpen:false, toppled:false, beater:false, drawerOpen:false, cdials:[0,0,0], paintOpen:false, seen:{}}),
+  /* the measured box of each classroom wall, so the engine can paint its side walls from the neighbouring views (playbook backlog 19; measured 17 Oct 2026 on a 1% grid from the ink lines) */
+  sides:{
+    c1:{back:[5.8, 94.2, 14.1, 88.1], l:{x:5.8, yT:14.1, yB:88.1, yT0:19.1, yB0:92.8}, r:{x:94.2, yT:14.1, yB:88.1, yT0:19.1, yB0:92.6}},
+    c2:{back:[7.6, 92.3, 8.6, 88.9], l:{x:7.6, yT:8.6, yB:88.9, yT0:0.5, yB0:95.2}, r:{x:92.3, yT:8.6, yB:88.9, yT0:0.6, yB0:95.1}},
+    c3:{back:[7.6, 92.4, 9.7, 91.9], l:{x:7.6, yT:9.7, yB:91.9, yT0:1.7, yB0:94.8}, r:{x:92.4, yT:9.7, yB:91.9, yT0:1.5, yB0:94.7}},
+    c4:{back:[19.5, 80.4, 9.4, 83.9], l:{x:19.5, yT:9.4, yB:83.9, yT0:8.0, yB0:84.5}, r:{x:80.4, yT:9.4, yB:83.9, yT0:8.0, yB0:84.5}}
+  },
   rooms:ROOMS, walls:WALLS, doors:DOORS, hots:HOTS, layers:LAYERS, extra:EXTRA, notes:NOTES, items:ITEMS, hints:HINTS, uses:USES,
   overlays:{c4:wallTimetable, c1:wallBoard, an:wallStripes},
   onNote:key => { if (key === 'music') S.seen.tune = true; if (key === 'bonus') S.seen.bonus = true; save(); },
