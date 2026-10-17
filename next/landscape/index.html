@@ -549,7 +549,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-10-17c';
+const BUILD = '2026-10-17d';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -870,7 +870,20 @@ function animate(h){
 }
 
 /* ---------- state ---------- */
-const KEY = 'mothhouse.landscape.' + BUILD; /* each build starts a fresh game; Start again is in the menu */
+/* Saves survive a release (backlog 18, 17 Oct 2026): one key for the game, never the build id, and a version in the save. A save written
+   by an older shape is brought forward by `migrate`; a save that cannot be read starts that child's story again, nothing else is touched.
+   `?fresh` on the address wipes the game's saves first, for test links; a player's game is never wiped by a new build. */
+const KEY = 'mothhouse.landscape.v1', SAVE_VERSION = 1;
+function migrate(s){ /* one step per change to the save's shape; v1 is the first versioned shape, an unversioned save is treated as v1 */
+  if (!s.v) s.v = 1;
+  return s.v === SAVE_VERSION ? s : null;
+}
+let persistAsked = false; try{ persistAsked = localStorage.getItem('mothhouse.persist') === '1'; }catch(e){}
+function askPersist(){ /* once: ask the browser to keep this site's storage, so Android does not clear the saves under pressure */
+  if (persistAsked) return; persistAsked = true; try{ localStorage.setItem('mothhouse.persist', '1'); }catch(e){}
+  try{ if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {}); }catch(e){}
+}
+if (new URLSearchParams(location.search).has('fresh')){ try{ Object.keys(localStorage).filter(k => k.startsWith(KEY)).forEach(k => localStorage.removeItem(k)); }catch(e){} }
 /* the three stories: one save each, keyed by child; the title screen's Continue picks up the last one played */
 /* the lite release (owner, 17 Oct 2026): only these stages are playable from the title; a child whose first stage is not
    in the list is greyed out as "Coming soon" on the choose screen and in the Family tab. ?stage=<key> still opens any stage for testing. */
@@ -883,11 +896,11 @@ const CHILDREN = {
 };
 let CHILD = 'mary', S;
 const keyFor = child => KEY + '.' + child;
-function saved(child){ try{ const s = JSON.parse(localStorage.getItem(keyFor(child))); return s && Array.isArray(s.got) && STAGES[s.stage] ? s : null; }catch(e){ return null; } }
+function saved(child){ try{ const s = JSON.parse(localStorage.getItem(keyFor(child))); return s && Array.isArray(s.got) && STAGES[s.stage] ? migrate(s) : null; }catch(e){ return null; } }
 const hasProgress = s => !!s && (s.got.length > 0 || s.stage !== CHILDREN[CHILD].first || s.done);
 function fresh(stage){ return Object.assign({stage, room:STAGES[stage].start.room, view:STAGES[stage].start.view, got:[], held:null, hint:{}, done:false}, STAGES[stage].fresh()); }
 function load(){ const s = saved(CHILD); if (s){ loadStage(s.stage); if (ROOMS[s.room]) return Object.assign(fresh(s.stage), s); } const first = CHILDREN[CHILD].first; loadStage(first); return fresh(first); }
-function save(){ try{ localStorage.setItem(keyFor(CHILD), JSON.stringify(S)); localStorage.setItem(KEY + '.last', CHILD); }catch(e){} }
+function save(){ try{ S.v = SAVE_VERSION; localStorage.setItem(keyFor(CHILD), JSON.stringify(S)); localStorage.setItem(KEY + '.last', CHILD); askPersist(); }catch(e){} }
 const curView = () => ROOMS[S.room].views[S.view];
 
 /* ---------- drawing ---------- */
@@ -1513,10 +1526,10 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-10-17c"></script>
-<script src="stages/packing.js?v=2026-10-17c"></script>
-<script src="stages/eschool.js?v=2026-10-17c"></script>
-<script src="stages/zschool.js?v=2026-10-17c"></script>
+<script src="stages/school.js?v=2026-10-17d"></script>
+<script src="stages/packing.js?v=2026-10-17d"></script>
+<script src="stages/eschool.js?v=2026-10-17d"></script>
+<script src="stages/zschool.js?v=2026-10-17d"></script>
 <script>boot();</script>
 <script>if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('../../sw.js').catch(() => {});</script>
 </body>

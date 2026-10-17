@@ -59,12 +59,12 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 
 36. **Check at the owner's screen shape**: 2000×700 (a phone-shaped tablet with the browser's bar), plus 740×360 and 2200×1300, and once with reduced motion on. A fix is not done until it is seen close up at that shape (log 38).
 37. No page scroll at any size; the whole game fits; portrait asks to turn.
-38. Every picture preloads; nothing pops in late; a fresh link never resumes another build's progress (log 9).
+38. Every picture preloads; nothing pops in late. A test link that must start clean carries `?fresh`; a player's game is never wiped by a new build (log 9; reworded 17 Oct 2026 for backlog 18).
 39. Sound starts on a real tap and works after the first; music never "random noise" (logs 3, 4, 10).
 40. Bump `BUILD` (and the stage script tags), run every stage's play script (it plays the stage to its ending and exercises every wrong-try line, in the room where it can happen), then commit, push, republish the artifact and give a link pinned to the commit. Never make the owner ask for it.
 41. When the owner reports a fault: reproduce it at his screen shape, confirm in words that the same thing is seen, fix the cause not the symptom, and add the rule here.
 42. **No soft-lock.** Before Gate C, walk every state the player can reach and show there is always a way on: nothing consumed by a wrong use, no item or close-up that can be lost, no door that shuts behind you (review research, 17 Oct 2026; playbook 7b).
 43. **Art side by side.** Before a level's final sign-off, its walls, cut-outs and close-ups are looked at next to the finished levels' at the same size: same line weight, same palette, same level of detail, no view that reads as from a different hand (playbook 7b; the sample pack at Gate E is the first pass).
 44. **A real phone.** Each level is played once on a mid-range Android phone before release, as well as on the owner's tablet: tap targets, text size, dark corners, the notes (playbook 7b).
-45. **Progress survives a release.** Until backlog 18 is built, say so in the level file's notes before merging a build that resets saves; once built, a new build never wipes a player's game (playbook 7b, backlog 18).
+45. **Progress survives a release.** The save key never carries the build id; the save carries a version and `migrate` brings an old shape forward; a change to a save's shape comes with its migration step in the same build (playbook 7b; backlog 18, done in 2026-10-17d).
 46. **Corners agree.** Whatever stands at the end of a wall shows, foreshortened, in the corner of the view beside it, and nothing shows in a corner that is not on the wall next door (owner, 17 Oct 2026; playbook backlog 19). Until backlog 19 is built this is a known fault on every room; after it, a wall whose side walls are still baked in fails this line.
