@@ -29,6 +29,33 @@ The owner is a non-technical but AI-savvy builder working from a Chromebook. Exp
 - Before putting real Trent Park or Enfield history into the game, check the facts and tell the owner what you checked.
 - Legal safety: follow "Fiction and legal safety" in `STORY.md`. Use the fictional school names (Knightsbrook International School, Little Waves Kindergarten), never the real ones. No real brands, logos or airline names, and never the Merlion, which is a protected symbol in Singapore. Keep the fiction notice in the game's credits.
 
+## Level-building gates (owner, 17 Oct 2026)
+
+Every level is built in the order below, and the record of it lives in `levels/LEVEL-<key>.md`, made from `levels/LEVEL-TEMPLATE.md`. Read that file before any work on the level. The rules here override anything else in this document that would let a step be skipped.
+
+**The rule that matters most: nothing that spends API credit is made until the level file shows the gates before it signed off by the owner.** That means no call to the image model, the speech model or Lyria for a level until its file has `Signed off:` lines, with a date, under gates A, B, C and D (and E for the batch). A sign-off is the owner's own words in the file, added by the owner or at the owner's clear instruction in chat ("sign off gate B"). Never write a sign-off line on your own judgement, and never treat silence as approval.
+
+The stages and their gates:
+
+1. **Brief** → *Gate A, story.* Setting, child and age, objective, difficulty, signature moment. Checked against `STORY.md`, the age, and the fiction and legal rules.
+2. **Game map** and 3. **Puzzle chart** → *Gate B, level outline.* Rooms, views, doors, what starts locked and what opens it, drawn in draw.io; then every trail, item, clue, lock and tiered hint as one dependency chart. Paper-played from the chart before it is shown: every answer has an in-game clue, no puzzle type used more than twice, no clue shared with another child's story.
+4. **Greybox** → *Gate C, it plays right.* The whole level playable with plain labelled boxes and the real puzzle logic, hints and saves. No generated art, no recorded voice. Fresh play link, scripted playthrough, audit. The owner plays it on the tablet. A fault here is fixed here; it is far cheaper than after the art exists.
+5. **Asset and script list** → *Gate D, list and budget.* Every picture, voice line and track the level needs, each with its prompt, checked against the asset register (reuse before making), with a credit estimate. The script is locked here: a voice line changed after this point is a re-record, and is noted as one.
+6a. **Sample pack** → *Gate E, samples.* The hardest wall, one cut-out, one close-up, two or three voice lines spanning hint, story and wrong-try, and about thirty seconds of the track. Dropped into the greybox and judged there, on the tablet, never as loose files. A failed sample goes back to its prompt, not to the batch.
+6b. **Batch.** Everything else, made to match the signed-off samples. Originals (the 2K PNGs and raw audio) are copied to the owner's Drive folder for the level before the session ends; the repo keeps only the shipped sizes.
+7. **Integrate and polish** → *Final sign-off.* Art placed, animation, ambient sound, comic intro, opening gesture. Full checklist walk at the owner's screen shapes, audit clean.
+8. **Release.** Merge; outside playtesters; their notes logged in the level file.
+
+Going back is normal. A gate that fails sends the work back to the stage it belongs to; it does not open a shortcut to a later stage.
+
+Every test, at every stage, feeds the learning loop: a fault is reproduced, confirmed in words, fixed at its cause in this level, then classified. If it is a rule for every level, it is written into `PLAYBOOK.md`, as a line in `CHECKLIST.md`, and into `tools/audit.js` when a machine can check it. If it is only this level's, it goes in the level file's notes. Never skip the classification; that is how each level starts smarter than the last.
+
+While a level is between Gate A and release, the whole-game layer is frozen: the engine, navigation, controls, saves, hint system, art style guide, the moth's voice, music themes. Ideas for it go to the backlog in `PLAYBOOK.md` and are built between levels, then tested across every level.
+
+One level file covers one child's stage. The three children's versions of the same stage are three level files, each with its own gates and budget; they may share rooms and reuse assets, and the asset register says which.
+
+At the end of every stage, record the credit actually spent in the level file's ledger next to the estimate. Re-dos are counted separately, with their reason, because they are what the loop is trying to reduce.
+
 ## Files
 
 - `index.html` — the app's start page: it registers the service worker and sends the player straight to `next/landscape/`, which is the game. Keep it at the root, because the manifest's `start_url` is `./`.
@@ -49,6 +76,7 @@ The owner is a non-technical but AI-savvy builder working from a Chromebook. Exp
 - `next/art/flat/` — packing day: the twelve walls of the flat (`b1`–`b4` Mary's room, `l1`–`l4` living room, `k1`–`k4` kitchen), cut-outs (`layer-*.png`: Mum from behind, the list, the desk key, the paper roll, snow globe, orchid, pencil case, jumper, postcard, Elliot's drawing, the paper moth, and the items torch, passports, present, tape, kaya, which double as inventory icons and as the things drawn inside the suitcase) and close-ups (`closeup-hooks/drawer/fort/infort/jars.jpg`). Prompts in `next/art/classroom/PROMPTS.md`.
 - `next/art/school/` — the corridor, library, art room and hall walls (`h1`–`h4`, `ln`/`le`/`ls`/`lw`, `an`/`ae`/`as`/`aw`, `hn`/`he`/`hs`/`hw`; doorways you can walk through are drawn open; padlocks are not on the walls, only their hasps), their cut-outs (`layer-*.png`: the star and colour-dial padlocks, the stage drawer, the three soft blocks, the beater, the star key…), the close-up pictures (`shelf-*.jpg` with book boxes in `SHELVES[].slots`; `closeup-bells`, `closeup-mothpainting`, `closeup-stem`, `closeup-paint`) and the item icons (`item-*.png`). Mary's locker door is cut from the wall's own lockers and recoloured purple. Prompts in `next/art/classroom/PROMPTS.md`.
 - `next/art/classroom/` — the four walls of Mary's classroom as generated pictures (Gemini image model, `gemini-3-pro-image`, 28 Sept 2026): the `landscape-` files follow the owner's brief (16:9, clean and sparse); the earlier portrait ones are kept for comparison. Prompts in `PROMPTS.md`. The key is in the environment as `GEMINI_API_KEY`; the script that made them is described there. Not wired into the game.
+- `levels/LEVEL-TEMPLATE.md` — the level file every stage is built from (copy to `levels/LEVEL-<key>.md`); see "Level-building gates" above. A level's gates, asset list, credit ledger and learning loop all live in its level file.
 - `STORY.md` — the story plan: characters, places, every scene with its puzzle map, rules for every chapter, open decisions.
 - `.well-known/assetlinks.json`, `.nojekyll` — Android app verification (see Launch status).
 
