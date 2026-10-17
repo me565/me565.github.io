@@ -66,7 +66,7 @@ Signed off:
 - What is placeholder: every wall, cut-out and close-up as labelled boxes; the moth's lines as text
 - What is real: puzzle logic, inventory, hints, saves, doors, the ending
 
-Tests: scripted playthrough passes · audit clean · owner played it on the tablet at 2000×700 · reduced motion checked
+Tests: scripted playthrough passes · audit clean · no soft-lock (checklist 42) · owner played it on the tablet at 2000×700 · played once on a real Android phone (checklist 44) · reduced motion checked
 Target-age tester (if available): who, what they got stuck on, what they said
 Result:
 
@@ -121,6 +121,7 @@ Signed off:
 - Play link:
 - Checklist walk at 2000×700, 740×360, 2200×1300, reduced motion:
 - Audit:
+- Art looked at side by side with the finished levels' (checklist 43):
 - Voice lines recorded (`tools/voice.py`), none missing:
 
 ### Final sign-off
