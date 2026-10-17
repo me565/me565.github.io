@@ -1,45 +1,199 @@
 {
-  "title": "Mary, last day of school — floor plan",
-  "rooms": [
-    {"key": "classroom", "name": "Classroom 5H", "x": 120, "y": 140, "w": 360, "h": 300, "fill": "#dae8fc",
-     "walls": {"N": {"view": "c2", "text": "window wall · bean plants, the moth watching"},
-               "E": {"view": "c3", "text": "door wall · coat pegs, lost property"},
-               "S": {"view": "c4", "text": "timetable wall · Mary's desk + envelope, timetable, Nutmeg", "mark": "start"},
-               "W": {"view": "c1", "text": "whiteboard wall · picture key to the timetable"}}},
-    {"key": "art", "name": "Art room", "x": 120, "y": 520, "w": 360, "h": 300, "fill": "#ffe6cc",
-     "walls": {"N": {"view": "ae", "text": "paint cupboard · LOCKED, three colour dials", "mark": "lock"},
-               "E": {"view": "as", "text": "doorway · clay animals"},
-               "S": {"view": "aw", "text": "sink + three aprons · star key in the splattered apron"},
-               "W": {"view": "an", "text": "drying rack · Mary's moth: purple, green, orange"}}},
-    {"key": "corridor", "name": "Corridor<br>(the hub)", "x": 560, "y": 140, "w": 240, "h": 680, "fill": "#f5f5f5",
-     "walls": {"N": {"view": "h1", "text": "the lockers · Mary's locker 4 3 6", "mark": "goal"},
-               "E": {"view": "h2", "text": "library doors · fountain, trophies"},
-               "S": {"view": "h3", "text": "notice board (bonus riddle) · hall doorway"},
-               "W": {"view": "h4", "text": "doorways to 5H and the art room · bunting"}}},
-    {"key": "library", "name": "Library", "x": 880, "y": 140, "w": 360, "h": 300, "fill": "#d5e8d4",
-     "walls": {"N": {"view": "lw", "text": "Art shelf, trolley, Stories · The Painting Book, Playing the Piano, NANA"},
-               "E": {"view": "ln", "text": "Science + Music · The Night Sky, the gap + sticky note"},
-               "S": {"view": "le", "text": "window seat + storytime chair · quiet"},
-               "W": {"view": "ls", "text": "entrance + Mrs Ng's desk"}}},
-    {"key": "hall", "name": "Hall", "x": 480, "y": 920, "w": 400, "h": 300, "fill": "#e1d5e7",
-     "walls": {"N": {"view": "hs", "text": "doors back + bench"},
-               "E": {"view": "hw", "text": "indoor playground · soft blocks hide the beater"},
-               "S": {"view": "hn", "text": "stage · four chime bars · drawer LOCKED", "mark": "lock"},
-               "W": {"view": "he", "text": "STEM cabinet · star padlock LOCKED", "mark": "lock"}}}
-  ],
-  "doors": [
-    {"from": "classroom", "side": "E", "to": "corridor", "at": 0.48, "out": "walk east → h2", "back": "walk west → c1", "label": "door"},
-    {"from": "art", "side": "E", "to": "corridor", "at": 0.48, "out": "walk east → h2", "back": "walk west → an", "label": "door"},
-    {"from": "corridor", "side": "E", "to": "library", "at": 0.21, "out": "walk east → ln", "back": "walk west → h4", "label": "doors"},
-    {"from": "corridor", "side": "S", "to": "hall", "at": 0.5, "out": "walk south → hn", "back": "walk north → h1", "label": "doorway"}
-  ],
-  "legend": [
-    "<b>Locked at the start</b>",
-    "STEM cabinet (hall, west wall): star key from the apron, after The Night Sky's note",
-    "Stage drawer (hall, south wall): the beater struck green, red, blue, yellow",
-    "Paint cupboard (art room, north wall): dials purple, green, orange",
-    "Mary's locker (corridor, north wall): 4 3 6",
-    "Every doorway is open from the start."
-  ],
-  "legend_box": {"x": 880, "y": 520, "w": 360, "h": 150}
+ "title": "Mary, last day of school (version 3, The Last Bell) — floor plan",
+ "rooms": [
+  {
+   "key": "classroom",
+   "name": "Classroom 5H",
+   "x": 120,
+   "y": 140,
+   "w": 360,
+   "h": 300,
+   "fill": "#dae8fc",
+   "walls": {
+    "N": {
+     "view": "c2",
+     "text": "window wall · the blind (pull up to begin; pull down for the stars)",
+     "mark": "start"
+    },
+    "E": {
+     "view": "c3",
+     "text": "door wall · coat pegs, lost property"
+    },
+    "S": {
+     "view": "c4",
+     "text": "timetable wall · envelope, Nutmeg + food tin (counter 7), timetable, rules, clock"
+    },
+    "W": {
+     "view": "c1",
+     "text": "whiteboard wall · day's plan, mirror line, picture key; glow stars when dark"
+    }
+   }
+  },
+  {
+   "key": "art",
+   "name": "Art room",
+   "x": 120,
+   "y": 520,
+   "w": 360,
+   "h": 300,
+   "fill": "#ffe6cc",
+   "walls": {
+    "N": {
+     "view": "ae",
+     "text": "paint cupboard · LOCKED, three dials of primary pairs",
+     "mark": "lock"
+    },
+    "E": {
+     "view": "as",
+     "text": "doorway · clay animals"
+    },
+    "S": {
+     "view": "aw",
+     "text": "sink + three aprons · star key in the splattered apron"
+    },
+    "W": {
+     "view": "an",
+     "text": "drying rack · Mary's moth: purple, green, orange; Ben's note"
+    }
+   }
+  },
+  {
+   "key": "corridor",
+   "name": "Corridor<br>(the hub)",
+   "x": 560,
+   "y": 140,
+   "w": 240,
+   "h": 680,
+   "fill": "#f5f5f5",
+   "walls": {
+    "N": {
+     "view": "h1",
+     "text": "the lockers · Mary's locker 5 7 2 3 · GOAL · ring the bell here",
+     "mark": "goal"
+    },
+    "E": {
+     "view": "h2",
+     "text": "library doors · fountain, trophies"
+    },
+    "S": {
+     "view": "h3",
+     "text": "notice board (bonus riddle) · hall doorway"
+    },
+    "W": {
+     "view": "h4",
+     "text": "doorways to 5H and the art room · bunting"
+    }
+   }
+  },
+  {
+   "key": "library",
+   "name": "Library",
+   "x": 880,
+   "y": 140,
+   "w": 360,
+   "h": 300,
+   "fill": "#d5e8d4",
+   "walls": {
+    "N": {
+     "view": "lw",
+     "text": "Art shelf, trolley, Stories · The Painting Book, Playing the Piano, NANA"
+    },
+    "E": {
+     "view": "ln",
+     "text": "Science + Music · The Night Sky; cabinet LOCKED, four arrows",
+     "mark": "lock"
+    },
+    "S": {
+     "view": "le",
+     "text": "window seat · world map with the flight route"
+    },
+    "W": {
+     "view": "ls",
+     "text": "entrance + Mrs Ng's desk"
+    }
+   }
+  },
+  {
+   "key": "hall",
+   "name": "Hall",
+   "x": 480,
+   "y": 920,
+   "w": 400,
+   "h": 300,
+   "fill": "#e1d5e7",
+   "walls": {
+    "N": {
+     "view": "hs",
+     "text": "doors back + bench"
+    },
+    "E": {
+     "view": "hw",
+     "text": "indoor playground · soft blocks hide the beater"
+    },
+    "S": {
+     "view": "hn",
+     "text": "stage · banner with four coloured letters · chime bars · drawer LOCKED: the handbell",
+     "mark": "lock"
+    },
+    "W": {
+     "view": "he",
+     "text": "STEM cabinet · star dial LOCKED (the Kite)",
+     "mark": "lock"
+    }
+   }
+  }
+ ],
+ "doors": [
+  {
+   "from": "classroom",
+   "side": "E",
+   "to": "corridor",
+   "at": 0.48,
+   "out": "walk east → h2",
+   "back": "walk west → c1",
+   "label": "door"
+  },
+  {
+   "from": "art",
+   "side": "E",
+   "to": "corridor",
+   "at": 0.48,
+   "out": "walk east → h2",
+   "back": "walk west → an",
+   "label": "door"
+  },
+  {
+   "from": "corridor",
+   "side": "E",
+   "to": "library",
+   "at": 0.21,
+   "out": "walk east → ln",
+   "back": "walk west → h4",
+   "label": "doors"
+  },
+  {
+   "from": "corridor",
+   "side": "S",
+   "to": "hall",
+   "at": 0.5,
+   "out": "walk south → hn",
+   "back": "walk north → h1",
+   "label": "doorway"
+  }
+ ],
+ "legend": [
+  "<b>Locked at the start</b>",
+  "STEM cabinet (hall, W): star dial, the Kite's tail star (glow stars on c1 with the blind down + The Night Sky)",
+  "Paint cupboard (art room, N): pairs red+blue, yellow+blue, red+yellow (the moth's stripes + Ben's note)",
+  "Library cabinet (library, E): arrows N W W N (the world map's route)",
+  "Stage drawer (hall, S): the beater struck green, red, blue, yellow (the banner's coloured letters)",
+  "Mary's locker (corridor, N): 5 7 2 3 in Thursday's order (mirror line + timetable)",
+  "Nutmeg's counter (classroom, S): feed once → 7. Every doorway is open from the start."
+ ],
+ "legend_box": {
+  "x": 880,
+  "y": 520,
+  "w": 360,
+  "h": 190
+ }
 }
