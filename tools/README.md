@@ -10,3 +10,7 @@ The speech model allows 10 requests a minute and 100 a day on our key, so the sc
 ## audit.js
 
 The checklist's automatic lines (`next/CHECKLIST.md`), run over every stage: `node tools/audit.js [stage ...]` with the local server up (`python3 -m http.server 8765` in the repo root). It needs Playwright and the pre-installed Chromium: in a cloud session, `NODE_PATH=<scratchpad>/node_modules`. The report (`tools/audit-out/report.txt`, kept out of git) lists failures first, then `B10?` lines that only ask for a look; the screenshots beside it are for the visual lines of the checklist, crop each cut-out and look at it close up. It prints one line per finding (stage, checklist line, what) and writes a screenshot of every view to `tools/audit-out/` for the visual lines. Run it before every commit; fix what it reports.
+
+## levelmap.py
+
+Draws a level's game map as a floor plan: `python3 tools/levelmap.py levels/LEVEL-<key>-map.json` writes `levels/LEVEL-<key>-map.drawio` (rooms where they really stand, north up, door tabs on shared walls, labelled walks; playbook 4p). Open the result at app.diagrams.net.

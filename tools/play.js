@@ -28,7 +28,9 @@ const { chromium } = require('playwright');
   await tap('aw_apronP', 800); console.log('splattered apron:', await msg()); await shot('key-out');
   await tap('aw_key'); console.log('key:', JSON.stringify(await st()));
   await tap('aw_tap', 300); await shot('pour');
-  await turnTo('ae'); await tap('ae_lock'); await noOverflow('paint lock'); await shot('paintlock');
+  // the wrong key on the colour padlock: a friendly line, nothing lost
+  await turnTo('ae'); await p.click('.slot[aria-label="star key"]'); await p.waitForTimeout(200); await tap('ae_lock', 600); console.log('star key on colour lock:', await msg()); await back();
+  await tap('ae_lock'); await noOverflow('paint lock'); await shot('paintlock');
   await p.click('#openPaint'); await p.waitForTimeout(300); console.log('wrong colours:', await p.textContent('#lockFb'));
   const cd = async (i, n) => { for (let k=0;k<n;k++){ await p.click(`.cdial[data-i="${i}"]`); await p.waitForTimeout(40); } };
   await cd(0, 5); await cd(1, 3); await cd(2, 4); await p.click('#openPaint'); await p.waitForTimeout(1100); console.log('paint open:', JSON.stringify(await st()), await msg()); await shot('paint-drop');

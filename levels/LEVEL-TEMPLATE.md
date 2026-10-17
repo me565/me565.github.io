@@ -28,7 +28,7 @@ Signed off:
 
 ## 2. Game map
 
-- draw.io file:
+- Floor plan: `levels/LEVEL-<key>-map.json`, drawn with `python3 tools/levelmap.py` into `levels/LEVEL-<key>-map.drawio` (the owner's style, playbook 4p: rooms where they really stand, north up, door tabs on shared walls, labelled walks, red for locked, green for the start):
 - Rooms and their views (in turning order):
 - Doors: which door leads to which room, and the view you arrive facing:
 - Locked at the start, and what opens it:
