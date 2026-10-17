@@ -214,6 +214,8 @@ Every fault found in this level, where it was found, and what happened to it.
 
 ## Notes for this level only
 
+- 17 Oct 2026: the owner sent photos of the real school; `next/art/REFERENCE.md` holds what they show in words and five changes they could suggest (dark exposed ceiling, beech-and-black desks with red chairs, a marker-written whiteboard, a projector screen in the hall, Mandarin on the timetable). Any of them is a new pass through Gates D and E for this level, with an estimate, before a single wall is remade.
+
 - Puzzle values, for anyone checking the chart against the game: tune green, red, blue, yellow (`TUNE_ORDER`); paint code purple, green, orange (`PAINT_CODE` = pots 5, 3, 4 of red, yellow, blue, green, orange, purple); locker 4, 3, 6 (`CODE`); timetable Mon En Ma Sc Ar PE Mu · Tue Ma En Mu Ge Sc Li · Wed Sc Ma En PE Mu Ar · Thu En Ar Ma Sc Li PE · Fri Ma Mu Ar En PE Sc.
 - Two owner rulings asked for under Gate A: the lost-property box that appears in both Mary's and Elliot's classrooms (Mary's has no puzzle role), and the STEM WEEK "one small explosion" joke.
 - The bonus's "someone in London" depends on Nana having been named by the comic or the title card; fine for an optional layer, noted under the paper playtest.

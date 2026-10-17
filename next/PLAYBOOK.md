@@ -21,6 +21,7 @@ The working rules for every room in the landscape game, distilled from the owner
 - Inventory icons are made the same way (on white, keyed out), never small vector drawings.
 - Text in generated art is unreliable: keep lettering to short labels (SUPPLIES, 5H, LOST PROPERTY). Anything the puzzle depends on (the timetable grid) is drawn by the game over the picture so it exactly matches its close-up.
 - Save walls at 1920×1080 JPEG quality 88; keep the 2K PNG originals out of the repo.
+- Photos of real places the owner sends are reference, never source: they are not kept in the repo and no face, name, crest, logo or uniform in them is reproduced. What is kept is `next/art/REFERENCE.md`, a word picture of the place with the must-not-copy items marked; prompts draw on it at Gate D (owner's photos of the real school, 17 Oct 2026).
 
 ## 3. Placement and measurement
 
