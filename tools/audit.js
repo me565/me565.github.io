@@ -65,7 +65,7 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
             await p.evaluate(([r, i]) => { closeCloseup(); S.room = r; S.view = i; S.held = null; save(); render(); }, [room, i]); await p.waitForTimeout(120);
             const n = await p.locator(`.hs[data-id="${id}"]`).count(); if (!n) continue;
             try{ await p.evaluate(id => { const b = document.querySelector(`.hs[data-id="${id}"]`); if (b) b.click(); }, id); }catch(e){ say(stage, 'D28', `${v}: tapping ${id} threw: ${e.message.slice(0, 80)}`); continue; }
-            await p.waitForTimeout(350);
+            await p.waitForTimeout(800); /* a note can open half a second after its tap (the envelope), so wait for it, or the fault is pinned on the next hotspot */
             const r = await p.evaluate(() => { const c = document.querySelector('#closeup .card'); if (!c || document.getElementById('closeup').hidden) return null; const cu = document.getElementById('closeup').getBoundingClientRect(), r = c.getBoundingClientRect(); const inner = c.scrollHeight > c.clientHeight + 1 || c.scrollWidth > c.clientWidth + 1; const outer = r.bottom > cu.bottom + 1 || r.right > cu.right + 1 || r.top < cu.top - 1;
               const spans = [...c.querySelectorAll('.book span, .ofb, .otitle, .cbox, .head, .big')].filter(s => s.scrollWidth > s.clientWidth + 2 || s.scrollHeight > s.clientHeight + 2).map(s => s.textContent.slice(0, 30)); return {inner, outer, spans}; });
             if (r && (r.inner || r.outer)) say(stage, 'E29', `${v}: ${id} close-up overflows at ${name} (${r.inner ? 'inside' : 'outside'})`);
