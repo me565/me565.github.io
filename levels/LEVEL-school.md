@@ -4,7 +4,7 @@ A retrofit, started 17 Oct 2026. This level was built and released before the ga
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
 Current status: brief (retrofit: the level is live; gates A to D are being walked on paper; no credit is being spent)
-Build id of the latest play link: 2026-09-30x (the live build; nothing playable changed in this retrofit)
+Build id of the latest play link: 2026-10-17a (the lite release build: Coming soon cards, note card fit)
 Latest play link: https://me565.github.io/next/landscape/?stage=school
 
 ---
@@ -179,7 +179,7 @@ Signed off:
 
 - Play link: https://me565.github.io/next/landscape/?stage=school (live build 2026-09-30x).
 - Checklist walk at 2000×700, 740×360, 2200×1300, reduced motion: 17 Oct 2026 by script at 844×390, 1180×820 and 2000×700: one fault (the envelope note's padding, above). Owner's walk at his shapes: to do.
-- Audit: one failure, E29 on the envelope note (above). The audit itself was corrected to wait for a late-opening note.
+- Audit: clean as of build 2026-10-17a (the envelope note's padding fixed in the engine, backlog 17). The audit itself was corrected to wait for a late-opening note.
 - Voice lines recorded (`tools/voice.py`), none missing: all 65 `school.*` keys are in `next/art/voice/index.json`.
 
 ### Final sign-off
@@ -209,13 +209,15 @@ Every fault found in this level, where it was found, and what happened to it.
 
 | Found at | Fault | Fixed how | Rule for every level? | Written to (Playbook § / Checklist line / audit) |
 |---|---|---|---|---|
-| 4 Greybox (audit, 17 Oct 2026) | The envelope note's card clips its bottom padding by 9–18 px at every tested size, so the card can scroll a little (checklist 29, audit E29). | Not yet. The cause is the note card's fixed height against the game's longest note; the fix belongs in the engine (shrink the type a step or let the card grow within the stage), which is the frozen whole-game layer. Shortening the text would mean re-recording a voice line. | Yes: every note in every stage must fit its card. | Playbook §8 backlog item 17 (17 Oct 2026); checklist 29 already covers it; audit E29 already catches it. |
+| 4 Greybox (audit, 17 Oct 2026) | The envelope note's card clips its bottom padding by 9–18 px at every tested size, so the card can scroll a little (checklist 29, audit E29). | Fixed in build 2026-10-17a: the note card's type, line height and gap eased a step in the engine (no text changed, no re-record). Measured again at 844×390, 1180×820 and 2000×700: the card fits with room to spare; audit clean. | Yes: every note in every stage must fit its card. | Playbook §8 backlog item 17 (17 Oct 2026); checklist 29 already covers it; audit E29 already catches it. |
 | 4 Greybox (audit, 17 Oct 2026) | The audit pinned the overflow on the wrong hotspot (the bag), because the envelope's note opens 500 ms after the tap and the audit waited 350 ms. | Audit waits 800 ms after each tap before measuring. | Yes. | `tools/audit.js` (17 Oct 2026). |
 | 3 Puzzle chart (paper playtest) | `tools/play.js` never exercised the star-key-on-the-colour-padlock wrong try, so one of the level's friendly lines had no test. | The step was added to the play script (in the art room, holding the key); the line comes back as written. | Yes: a stage's play script exercises every wrong-try line, in the room where it can happen. | Checklist G40 (17 Oct 2026). |
 | 1 Brief | No opening gesture (the classroom blind, backlog 11); checklist 31 requires one per stage. | Not yet; needs the blind as a cut-out (possibly cut from c2 at no credit) and a few lines in the stage. Waits on Gate D for this level. | Already a rule (checklist 31). | Recorded here; backlog 11 already lists it. |
 | 6b Batch | No originals kept; no Drive folder. | Nothing to recover. From now on, originals to Drive before the session ends (CLAUDE.md gates, 6b). | Already a rule. | Recorded here. |
 
 ## Notes for this level only
+
+- 17 Oct 2026, build 2026-10-17a (the lite release: Elliot's and Zaina's cards greyed out as Coming soon): the build id changed, so this build starts every player's game again (checklist 45; backlog 18 is the fix). Said here before merging, as the checklist asks.
 
 - 17 Oct 2026: the owner sent photos of the real school; `next/art/REFERENCE.md` holds what they show in words and five changes they could suggest (dark exposed ceiling, beech-and-black desks with red chairs, a marker-written whiteboard, a projector screen in the hall, Mandarin on the timetable). Any of them is a new pass through Gates D and E for this level, with an estimate, before a single wall is remade.
 
