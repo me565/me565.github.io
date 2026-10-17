@@ -111,7 +111,7 @@ Every story passes through six stages in the same order. The finale and epilogue
 
 Decided on 28 Sept 2026 (the owner left it to Claude):
 
-- **The MVP is a "lite" game** (owner, 17 Oct 2026): one or two levels, no ads, so a child can finish it and a grown-up can judge it. The full version follows later and carries ads. Which level or two make the lite version is TO DECIDE; Mary's school day is the only one that has been through the gates.
+- **The MVP is a "lite" game** (owner, 17 Oct 2026): one or two levels, no ads, so a child can finish it and a grown-up can judge it. The full version follows later and carries ads. Decided 17 Oct 2026: the lite game is **Mary's last day of school and packing day**. Elliot's and Zaina's cards are greyed out and say "Coming soon" until the full version.
 - **Part 1: Leaving Singapore** is the first release: stages 1 to 3 for all three children, so nine small rooms. Each story ends with a small magical moment on the plane, and all three end with a short shared teaser: as the plane comes down over London at dusk, a glow flickers in the woods below.
 - **Part 2: The Moth House** follows as an update: stages 4 to 6, the finale and the epilogue.
 - Build order: the choose-a-child screen and shared systems (hints, saves, postcards), then Mary's stages 1 to 3 (her packing draft already exists), then Elliot's, then Zaina's. Owner testing after each room.
