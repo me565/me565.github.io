@@ -65,7 +65,7 @@ const { chromium } = require('playwright');
   await tap('h_locker', 2600); await shot('end-beat'); console.log('ending shown:', await p.evaluate(() => !document.getElementById('endUI').hidden), JSON.stringify(await st())); await shot('end');
   // phone and large-size overflow checks on the close-ups, opened through their hotspots
   for (const [w,h] of [[844,390],[2000,1200]]){ await p.setViewportSize({width:w,height:h}); await p.waitForTimeout(300);
-    await p.evaluate(() => { document.getElementById('endUI').hidden = true; S.got.push('music'); S.room='art'; S.view=0; S.paintOpen=false; S.stemOpen=false; render(); });
+    await p.evaluate(() => { document.getElementById('endUI').hidden = true; S.got.push('music'); S.drawerOpen=false; S.room='art'; S.view=0; S.paintOpen=false; S.stemOpen=false; render(); });
     await tap('an_moth'); await noOverflow(`moth ${w}`); await back(); await turnTo('ae'); await tap('ae_lock'); await noOverflow(`paintlock ${w}`); await back();
     await p.evaluate(() => { S.room='hall'; S.view=0; S.beater=true; render(); }); await tap('hn_bars'); await noOverflow(`bells ${w}`); await back();
     await p.click('.slot[aria-label="page of music"]'); await p.waitForTimeout(200); await noOverflow(`music ${w}`); await back();

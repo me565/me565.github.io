@@ -20,7 +20,9 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
   /* hotspot ids unique across stages */
   { const p = await b.newPage(); await p.goto(base + '?stage=school', {waitUntil:'networkidle'});
     const ids = await p.evaluate(() => { const out = []; for (const [k, st] of Object.entries(STAGES)) for (const v of Object.keys(st.hots)) for (const h of st.hots[v]) out.push([k, h.id]); return out; });
-    const seen = new Map(); ids.forEach(([k, id]) => { if (seen.has(id) && seen.get(id) !== k) say(k, 'E32', `hotspot id ${id} also in ${seen.get(id)}`); seen.set(id, k); }); await p.close(); }
+    const SUP = await p.evaluate(() => Object.fromEntries(Object.entries(STAGES).map(([k, st]) => [k, st.supersedes || null]))); /* a stage built to replace another (school3 for school) may share its ids: they never load together */
+    const sup = (a, b) => SUP[a] === b || SUP[b] === a;
+    const seen = new Map(); ids.forEach(([k, id]) => { if (seen.has(id) && seen.get(id) !== k && !sup(k, seen.get(id))) say(k, 'E32', `hotspot id ${id} also in ${seen.get(id)}`); seen.set(id, k); }); await p.close(); }
   for (const stage of stages){
     /* voice */
     Object.keys(lines).filter(k => k.startsWith(stage + '.')).forEach(k => { if (!voiced.has(k)) say(stage, 'F34', `unrecorded: ${k}`); });
@@ -53,7 +55,11 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
             if (!h.secret){ const ox = Math.max(0, Math.min(h.l + h.w, 7) - h.l) + Math.max(0, h.l + h.w - Math.max(h.l, 93)), oy = Math.max(0, Math.min(h.t + h.h, 60) - Math.max(h.t, 40));
               const part = ox*oy/(h.w*h.h), cx = h.l + h.w/2; /* a big target losing a sliver to the arrow is fine; one mostly hidden, or small with its middle under the arrow, is not */
               if (part > 0.4 || (h.w < 12 && (cx < 7 || cx > 93) && h.t < 60 && h.t + h.h > 40)) say(stage, 'E32', `${v}: ${h.id} lies under a turn arrow (the side strips, 40–60% up; ${Math.round(part*100)}% covered)`); }
+
           }
+          /* a smaller target drawn over the middle of a bigger one takes the bigger one's tap (the engine puts small things on top): fine for a mug on a desk, wrong for a window on the stairs (14 Oct 2026) */
+          for (const h of hs) for (const g of hs){ if (g === h || g.w*g.h <= h.w*h.h) continue; const gx = g.l + g.w/2, gy = g.t + g.h/2;
+            if (gx > h.l && gx < h.l + h.w && gy > h.t && gy < h.t + h.h) say(stage, 'E32?', `${v}: ${h.id} covers the middle of ${g.id}, so a tap on ${g.id}'s centre goes to ${h.id} (fine only if that is the intent)`); }
           await p.screenshot({path:path.join(OUT, `${stage}-${v}.png`), clip:await p.locator('#scene').boundingBox()});
         }
       }
@@ -76,13 +82,14 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
         }
       }
       if (errors.length) say(stage, 'D28', `errors at ${name}${reduce ? ' (reduced motion)' : ''}: ${errors.slice(0, 3).join(' | ')}`);
-      [...new Set(failed)].forEach(u => say(stage, 'G38', `failed to load at ${name}: ${u.split('/').slice(-2).join('/')}`));
+      /* a load that failed once is asked for again before it is reported: the local server drops a request now and then under load */
+      for (const u of new Set(failed)){ const ok = await p.evaluate(u => fetch(u, {cache:'reload'}).then(r => r.ok).catch(() => false), u.split(' ')[0]); if (!ok) say(stage, 'G38', `failed to load at ${name}: ${u.split('/').slice(-2).join('/')}`); }
       await p.close();
     }
   }
   await b.close();
   /* failures first (fix them), then the lines that only ask for a look (B10?) */
-  const fails = report.filter(r => !r.includes('\tB10?\t')), looks = report.filter(r => r.includes('\tB10?\t'));
-  const txt = (fails.length ? 'FAILS (fix before committing)\n' + fails.join('\n') : 'no failures') + (looks.length ? '\n\nFOR A LOOK (no shadow: fine only if it hangs, lies flat on a wall or sits inside something)\n' + looks.join('\n') : '');
+  const fails = report.filter(r => !/\t[A-Z]\d+\?\t/.test(r)), looks = report.filter(r => /\t[A-Z]\d+\?\t/.test(r)); /* a code ending in ? only asks for a look */
+  const txt = (fails.length ? 'FAILS (fix before committing)\n' + fails.join('\n') : 'no failures') + (looks.length ? '\n\nFOR A LOOK (B10?: no shadow, fine only if it hangs, lies flat or sits inside something; E32?: a small target over a big one\'s middle, fine only if meant)\n' + looks.join('\n') : '');
   fs.writeFileSync(path.join(OUT, 'report.txt'), txt); console.log(txt); console.log(`\n${fails.length} failures, ${looks.length} to look at; screenshots in ${OUT}`);
 })();

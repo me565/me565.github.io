@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Propose a wall's box for the engine's side walls (playbook 4q): python3 tools/sides.py <wall.jpg> [more.jpg ...]
+"""Propose a wall's box for the engine's side walls (playbook 4z): python3 tools/sides.py <wall.jpg> [more.jpg ...]
 Finds the long ink lines (the back wall's edges) and the ceiling and floor diagonals where they meet the picture's edge, prints a
 `sides` entry in picture percentages, and writes <wall>-quads.png next to the scratch folder with the quads drawn on, to check by eye.
 The proposal is a start, not an answer: pick the right lines when a wall has several, and look at the drawing before trusting it."""

@@ -17,24 +17,32 @@
    Layout follows the owner's brief of 28 Sept 2026: a 16:9 scene, small turn arrows halfway up each side,
    the inventory as a strip of slots under the scene, close-ups brought forward over the softened room. */
 :root{
-  --bg:#141a28; --frame:#0c101a; --ink:#1d2629; --paper:#fffaf0; --muted:#55635d;
-  --accent:#c98320; --accent-soft:#f6e6c8; --slot:#e6e1d3; --slot-line:#b9b2a1;
+  /* one world: a dusk sky behind everything; paper and ink for everything read or pressed; the moth's gold for the one thing that matters */
+  --bg:#0f1b26; --bg2:#16343a; --frame:#0c101a;
+  --paper:#fffaf0; --paper2:#f4ead8; --ink:#2b2622; --line:#4a3b2a; --muted:#6b5f55;
+  --gold:#f3c26a; --gold-deep:#b8731a; --accent:#c98320; --accent-soft:#f6e6c8;
+  --pen:#2f7c83; --pen2:#6d4fb8; --warn:#b5432f;
+  --slot:#fffaf0; --slot-line:rgba(74,59,42,.55);
+  --rule:calc(var(--u)*.3); /* the ink line round every piece of paper */
+  --cut:0 calc(var(--u)*.5) calc(var(--u)*1.2) rgba(0,0,0,.3); /* the shadow of cut paper */
   --u:6px; /* one hundredth of the scene width, set by script */
   box-sizing:border-box;
 }
 *,*::before,*::after{box-sizing:border-box}
-html,body{height:100%;margin:0;overflow:hidden;background:var(--bg);color:var(--ink);
+html,body{height:100%;margin:0;overflow:hidden;background:var(--bg) linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%) fixed;color:var(--ink);
   font-family:"Atkinson Hyperlegible",Verdana,"Segoe UI",sans-serif;-webkit-tap-highlight-color:transparent;
   -webkit-user-select:none;user-select:none}
 button{font:inherit;color:inherit;cursor:pointer}
 [hidden]{display:none!important}
 
-#app{height:100%;display:grid;place-items:center;padding:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0)}
+#app{position:relative;height:100%;display:grid;place-items:center;padding:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0)}
 .stage{width:calc(var(--u) * 100);display:flex;flex-direction:column;gap:calc(var(--u) * 1.2)}
+.stage .inv{margin-top:calc(var(--u)*-.4)}
 
 /* the scene */
-.scene{position:relative;width:100%;aspect-ratio:16/9;border-radius:calc(var(--u) * 1.6);overflow:hidden;background:#e9e2d2;box-shadow:0 calc(var(--u)*1.2) calc(var(--u)*3) rgba(0,0,0,.5)}
+.scene{position:relative;width:100%;aspect-ratio:16/9;border-radius:calc(var(--u) * .8);overflow:hidden;background:#e9e2d2;box-shadow:0 0 0 var(--rule) var(--line), 0 calc(var(--u)*1) calc(var(--u)*3) rgba(0,0,0,.55)}
 .wall{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .28s ease}
+.scene img,.scene canvas,.scene svg{-webkit-touch-callout:none;-webkit-user-drag:none}
 .wall.on{opacity:1}
 .scene.zoomed .wall.on,.scene.zoomed #hots,.scene.zoomed #sides{filter:blur(calc(var(--u)*.5)) brightness(.72) saturate(.85)}
 #hots{position:absolute;inset:0;transition:filter .3s ease}
@@ -52,13 +60,13 @@ button{font:inherit;color:inherit;cursor:pointer}
 }
 
 /* turn arrows, halfway up each side */
-.arrow{position:absolute;top:50%;transform:translateY(-50%);width:calc(var(--u)*6.5);height:calc(var(--u)*11);display:grid;place-items:center;background:none;border:0;color:#2b2d33;opacity:.85}
+.arrow{position:absolute;top:50%;transform:translateY(-50%);width:calc(var(--u)*6.5);height:calc(var(--u)*11);display:grid;place-items:center;background:none;border:0;color:var(--line);opacity:.9}
 .arrow.l{left:calc(var(--u)*.4)} .arrow.r{right:calc(var(--u)*.4)}
 .arrow svg{width:calc(var(--u)*3.6);height:calc(var(--u)*3.6);filter:drop-shadow(0 0 calc(var(--u)*.5) rgba(255,255,255,.9))}
 .arrow:focus-visible{outline:calc(var(--u)*.4) solid var(--accent);border-radius:999px}
-.scene.zoomed .arrow,.scene.zoomed .msg{display:none}
+.scene.zoomed .arrow{display:none}
 /* a hands-on close-up beside the room: the room stays sharp and you are still standing in it; the panel slides in from one side */
-.scene.aside .arrow,.scene.aside .msg{display:none}
+.scene.aside .arrow{display:none}
 .closeup.aside{padding:calc(var(--u)*2.5) calc(var(--u)*2.5) calc(var(--u)*5.5);place-items:center end;background:linear-gradient(to left, rgba(7,9,13,.35), transparent 60%)}
 .closeup.aside.left{place-items:center start;background:linear-gradient(to right, rgba(7,9,13,.35), transparent 60%)}
 .closeup.aside .card.shelf{width:calc(var(--u)*46);animation:slideIn .38s cubic-bezier(.2,.7,.2,1) both}
@@ -75,37 +83,43 @@ button{font:inherit;color:inherit;cursor:pointer}
 @keyframes handHint{0%,100%{transform:translate(-50%,0)}40%{transform:translate(-50%,calc(var(--u)*-2.2))}70%{transform:translate(-50%,calc(var(--u)*2.2))}}
 
 /* corner controls */
-.where{position:absolute;left:calc(var(--u)*1.6);top:calc(var(--u)*1.4);background:rgba(20,26,40,.78);color:#fffaf0;border-radius:999px;padding:calc(var(--u)*.55) calc(var(--u)*1.6);font-size:calc(var(--u)*1.9);font-family:Caprasimo,"Cooper Black",Georgia,serif;letter-spacing:.02em}
-.ctl{position:absolute;top:calc(var(--u)*1.2);width:calc(var(--u)*6);height:calc(var(--u)*6);border-radius:50%;border:0;background:rgba(20,26,40,.78);color:#fffaf0;display:grid;place-items:center}
+.where{position:absolute;left:calc(var(--u)*1.6);top:calc(var(--u)*1.4);background:var(--paper);color:var(--ink);border-radius:calc(var(--u)*.6);padding:calc(var(--u)*.5) calc(var(--u)*1.4);font-size:calc(var(--u)*2);font-family:Caprasimo,"Cooper Black",Georgia,serif;letter-spacing:.01em;box-shadow:0 0 0 var(--rule) var(--line), var(--cut)}
+.ctl{position:absolute;top:calc(var(--u)*1.2);width:calc(var(--u)*6);height:calc(var(--u)*6);border-radius:50%;border:0;background:var(--paper);color:var(--ink);display:grid;place-items:center;box-shadow:0 0 0 var(--rule) var(--line), var(--cut)}
 .ctl svg{width:60%;height:60%}
 #hintBtn{right:calc(var(--u)*8.2)} #menuBtn{right:calc(var(--u)*1.4)}
 .tcorner .ctl{position:static}
 .ctl:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
 
 /* the line the game speaks */
-.msg{position:absolute;left:calc(var(--u)*9);right:calc(var(--u)*9);bottom:calc(var(--u)*1.6);margin:0;padding:calc(var(--u)*1) calc(var(--u)*1.8);
-  background:rgba(20,26,40,.8);color:#fffaf0;border-radius:calc(var(--u)*1.2);font-size:calc(var(--u)*2);line-height:1.3;text-align:center;
-  transition:opacity .25s;pointer-events:none}
+.caption{position:relative;min-height:calc(var(--u)*6.2);display:flex;align-items:center;justify-content:center;padding:0 calc(var(--u)*9)}
+.msg{position:relative;max-width:100%;margin:0;padding:calc(var(--u)*.9) calc(var(--u)*1.8);
+  background:var(--paper);color:var(--ink);border-radius:calc(var(--u)*.6);font-size:calc(var(--u)*2);line-height:1.35;text-align:center;
+  box-shadow:0 0 0 var(--rule) var(--line), var(--cut);transition:opacity .25s;pointer-events:none}
 .msg:empty{opacity:0}
-.msg b{color:#f3c26a}
+.msg b{color:var(--gold-deep)}
+/* read-along: said words in the teal pen, the word being said on gold */
+.w{border-radius:.2em;transition:color .15s, background-color .15s}
+.w.read{color:var(--pen)}
+.w.now{background:rgba(243,194,106,.7);box-shadow:0 0 0 .08em rgba(243,194,106,.7)}
+.comic .cbox .w.read,.stagecard .w.read{color:var(--pen)}
 
 /* close-ups: the object comes forward, the room stays behind, softened */
 .closeup{position:absolute;inset:0;display:grid;place-items:center;padding:calc(var(--u)*3) calc(var(--u)*10) calc(var(--u)*5.5);cursor:pointer}
 .closeup .card{cursor:auto}
-.closeup .stepback{position:absolute;left:0;right:0;bottom:calc(var(--u)*1.4);text-align:center;color:#fffaf0;opacity:.8;font-size:calc(var(--u)*1.8);pointer-events:none;text-shadow:0 1px 3px rgba(0,0,0,.6)}
-.closeup .card{position:relative;max-width:100%;max-height:100%;background:var(--paper);color:var(--ink);border-radius:calc(var(--u)*1);
-  box-shadow:0 calc(var(--u)*1.5) calc(var(--u)*4) rgba(0,0,0,.45), inset 0 0 0 1px rgba(0,0,0,.08);padding:calc(var(--u)*2.4) calc(var(--u)*3);overflow:hidden;
+.closeup .stepback{position:absolute;left:0;right:0;bottom:calc(var(--u)*1.4);text-align:center;color:#fffaf0;opacity:.85;font-size:calc(var(--u)*1.8);pointer-events:none;text-shadow:0 1px 3px rgba(0,0,0,.7)}
+.closeup .card{position:relative;max-width:100%;max-height:100%;background:var(--paper);color:var(--ink);border-radius:calc(var(--u)*.8);
+  box-shadow:0 0 0 var(--rule) var(--line), 0 calc(var(--u)*1.2) calc(var(--u)*3) rgba(0,0,0,.45);padding:calc(var(--u)*2.4) calc(var(--u)*3);overflow:hidden;
   transform-origin:center;animation:forward .28s ease-out}
 @media (prefers-reduced-motion:reduce){.closeup .card{animation:none}}
 @keyframes forward{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
 .card.note{font-family:inherit;font-style:italic;font-size:calc(var(--u)*2.2);line-height:1.28;display:flex;flex-direction:column;gap:calc(var(--u)*.7);width:calc(var(--u)*62)} /* sized so the longest note (the envelope) fits its card with room to spare at every screen shape (backlog 17, 17 Oct 2026) */
-.card.note .head{font-family:Caprasimo,Georgia,serif;font-style:normal;font-weight:400;font-size:calc(var(--u)*3);color:#6d4fb8}
+.card.note .head{font-family:Caprasimo,Georgia,serif;font-style:normal;font-weight:400;font-size:calc(var(--u)*3);color:var(--pen2)}
 .card.note .big{font-size:calc(var(--u)*2.5);font-weight:700;color:#2f7c83}
 .card.note.print{font-style:normal;font-size:calc(var(--u)*2.2);line-height:1.35}
 .card.note.print .head{font-family:Caprasimo,Georgia,serif;font-weight:400;font-size:calc(var(--u)*2.8);color:#2f7c83}
 .card.tt{padding:calc(var(--u)*1.2);width:calc(var(--u)*64)}
 .card.tt svg{display:block;width:100%;height:auto}
-.back{position:absolute;right:calc(var(--u)*1.4);top:calc(var(--u)*1.2);width:calc(var(--u)*6);height:calc(var(--u)*6);border-radius:50%;border:0;background:rgba(20,26,40,.85);color:#fffaf0;display:grid;place-items:center;font-size:calc(var(--u)*3);z-index:2}
+.back{position:absolute;right:calc(var(--u)*1.4);top:calc(var(--u)*1.2);width:calc(var(--u)*6);height:calc(var(--u)*6);border-radius:50%;border:0;background:var(--paper);color:var(--ink);display:grid;place-items:center;font-size:calc(var(--u)*3);z-index:2;box-shadow:0 0 0 var(--rule) var(--line), var(--cut)}
 .back:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
 
 /* moving things are cut-outs on their own canvas layer, bent and swung in slices by script */
@@ -115,6 +129,10 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 #walls{position:absolute;inset:0}
 #sides{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;display:block}
+.scene.dark .wall.on,.scene.dark #hots .layer{filter:brightness(.42) saturate(.75);transition:filter .6s ease} /* the blind down: the room dims, and only what glows stays bright */
+.scene.dark #hots .glow{opacity:1}
+#hots .glow{opacity:0;transition:opacity .6s ease}
+.gbox{position:absolute;display:grid;place-items:center;background:rgba(150,150,160,.92);border:calc(var(--u)*.3) solid #2a2a33;border-radius:calc(var(--u)*.6);color:#fff;font-weight:700;font-size:calc(var(--u)*1.6);text-align:center;line-height:1.1;pointer-events:none;box-shadow:0 calc(var(--u)*.3) calc(var(--u)*.8) rgba(0,0,0,.25)} /* a greybox stand-in: a labelled box where a picture will be */
 .scene.fade #walls,.scene.fade #hots{opacity:0}
 #walls,#hots{transition:opacity .35s ease, filter .3s ease}
 .scene.pan-l #walls,.scene.pan-l #hots{animation:panOutL .24s ease-in forwards}
@@ -130,7 +148,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .card.shelf{width:calc(var(--u)*58);padding:0;overflow:hidden;display:flex;flex-direction:column}
 .card .otitle{margin:0;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2.8);color:#2f7c83;text-align:center}
 .shelfpic{position:relative;width:100%;aspect-ratio:16/9;background:#8a5a3a center/cover no-repeat}
-.shelfpic .otitle{position:absolute;left:calc(var(--u)*1.2);top:calc(var(--u)*1);margin:0;background:rgba(20,26,40,.78);color:#fffaf0;border-radius:999px;padding:calc(var(--u)*.5) calc(var(--u)*1.6);font-size:calc(var(--u)*2.2)}
+.shelfpic .otitle{position:absolute;left:calc(var(--u)*1.2);top:calc(var(--u)*1);margin:0;background:var(--paper);color:var(--ink);border-radius:calc(var(--u)*.6);padding:calc(var(--u)*.45) calc(var(--u)*1.4);font-size:calc(var(--u)*2.2);box-shadow:0 0 0 var(--rule) var(--line), var(--cut)}
 .book{position:absolute;background:transparent;border:0;padding:0;cursor:pointer;display:grid;place-items:center;border-radius:calc(var(--u)*.6)}
 .book span{writing-mode:vertical-rl;text-orientation:mixed;color:#fffaf0;font:inherit;font-weight:700;font-size:calc(var(--u)*1.9);line-height:1;letter-spacing:.02em;text-shadow:0 1px 3px rgba(0,0,0,.6);max-height:94%;overflow:hidden;white-space:nowrap}
 .book.gap span{writing-mode:horizontal-tb;color:#5b4a2e;font-weight:400;font-size:calc(var(--u)*1.2);white-space:normal;max-height:none;text-shadow:none;transform:rotate(-3deg);text-align:center;line-height:1.1;padding:0 calc(var(--u)*.4)}
@@ -141,7 +159,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .ofb{margin:0;min-height:calc(var(--u)*2.6);font-size:calc(var(--u)*2);text-align:center;color:var(--ink)}
 .spell{margin:0;text-align:center;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*3);letter-spacing:.25em;color:#6d4fb8;min-height:calc(var(--u)*3.4)}
 .row{display:flex;gap:calc(var(--u)*1.2);justify-content:center;flex-wrap:wrap}
-.card.locker{width:calc(var(--u)*52);display:flex;flex-direction:column;gap:calc(var(--u)*1.4);align-items:center}
+.card.locker{width:calc(var(--u)*52);display:flex;flex-direction:column;gap:calc(var(--u)*1.1);align-items:center}
 .dials{display:flex;gap:calc(var(--u)*2)}
 .dial{width:calc(var(--u)*10);height:calc(var(--u)*13);border-radius:calc(var(--u)*1);border:0;background:#2b2836;color:#fffaf0;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*6);cursor:pointer;box-shadow:inset 0 calc(var(--u)*-.8) 0 rgba(0,0,0,.4), inset 0 calc(var(--u)*.6) 0 rgba(255,255,255,.12)}
 .dial:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
@@ -154,26 +172,84 @@ button{font:inherit;color:inherit;cursor:pointer}
 .bar:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
 .tune{margin:0;min-height:calc(var(--u)*3.4);display:flex;align-items:center;gap:calc(var(--u)*1)}
 .dot{display:inline-block;width:calc(var(--u)*2.8);height:calc(var(--u)*2.8);border-radius:50%;background:#e6e1d3;box-shadow:inset 0 0 0 calc(var(--u)*.25) rgba(0,0,0,.18)}
-.lockpic{position:relative;height:calc(var(--u)*21);aspect-ratio:700/912}
+.lockpic{position:relative;height:calc(var(--u)*19.5);aspect-ratio:700/912}
 .lockpic img{width:100%;height:100%;display:block}
 .cdial{position:absolute;width:19%;height:17%;border-radius:50%;border:0;transform:translate(-50%,-50%);cursor:pointer;box-shadow:inset 0 0 0 calc(var(--u)*.3) rgba(0,0,0,.28), inset 0 calc(var(--u)*-.5) 0 rgba(0,0,0,.18)}
 .cdial:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
 .card.pic{padding:0;overflow:hidden}
 .picwrap{position:relative;width:100%;background:#fff center/cover no-repeat}
 .picwrap svg{position:absolute;inset:0;width:100%;height:100%}
-.picwrap .otitle{position:absolute;left:calc(var(--u)*1.2);top:calc(var(--u)*1);margin:0;background:rgba(20,26,40,.78);color:#fffaf0;border-radius:999px;padding:calc(var(--u)*.5) calc(var(--u)*1.6);font-size:calc(var(--u)*2.2)}
+.picwrap .part{position:absolute;height:auto;pointer-events:none;transition:opacity .35s,transform .35s}.picwrap .part.taken{opacity:0;transform:translateY(-12%)}
+.picwrap .otitle{position:absolute;left:calc(var(--u)*1.2);top:calc(var(--u)*1);margin:0;background:var(--paper);color:var(--ink);border-radius:calc(var(--u)*.6);padding:calc(var(--u)*.45) calc(var(--u)*1.4);font-size:calc(var(--u)*2.2);box-shadow:0 0 0 var(--rule) var(--line), var(--cut)}
 .card.note svg.staff{width:100%;height:auto;display:block}
+/* a note in mirror writing: every line but its heading is flipped, so it reads only in a mirror */
+.card.note.mirror > span:not(.head){display:block;transform:scaleX(-1)} /* the direct lines only: the read-along's word spans inside them stay inline */
+/* the sleepy seat-back screen: a dark screen drawn inside the paper card, with its own buttons */
+.wake{background:#141c28;color:#bfe0ea;border-radius:calc(var(--u)*.8);padding:calc(var(--u)*1.2) calc(var(--u)*2.4);display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*.6);box-shadow:inset 0 0 0 calc(var(--u)*.3) #2b3a4a;width:calc(var(--u)*40);max-width:100%}
+.wake .wq{margin:0;font-size:calc(var(--u)*2);color:#fffaf0}
+.wake .wsmall{margin:0;font-size:calc(var(--u)*1.5);color:#7fa8b8}
+.wrow{display:flex;align-items:center;gap:calc(var(--u)*1.6)}
+.wcol{display:flex;flex-direction:column;gap:calc(var(--u)*.5)}
+.wb{min-width:44px;min-height:40px;width:calc(var(--u)*6);height:calc(var(--u)*5);border-radius:calc(var(--u)*.8);border:0;background:#2f7c83;color:#fffaf0;font:inherit;font-size:calc(var(--u)*3);font-weight:700;cursor:pointer;line-height:1}
+.wb:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
+.wdigits{font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*7);letter-spacing:.06em;color:#f3c26a;font-variant-numeric:tabular-nums;min-width:calc(var(--u)*20);text-align:center}
+.card.xw{width:calc(var(--u)*66);display:flex;flex-direction:column;gap:calc(var(--u)*.6);align-items:center}
+.xwlist{display:flex;flex-direction:column;gap:calc(var(--u)*.5);width:100%}
+.xwlist .clue{display:grid;grid-template-columns:auto 1fr;gap:calc(var(--u)*.3) calc(var(--u)*1.2);align-items:center;font-size:calc(var(--u)*1.9)}
+.xwlist .q{grid-column:1/-1;color:var(--ink)}
+.xwlist .letters{display:flex;gap:calc(var(--u)*.3)}
+.xwlist .cell{width:calc(var(--u)*2.8);height:calc(var(--u)*2.8);display:grid;place-items:center;background:#fff;color:var(--ink);font-weight:700;border-radius:calc(var(--u)*.3);box-shadow:inset 0 0 0 1px var(--line)}
+.xwlist .cell.gold{background:#f3c26a}
+.xwlist .opts{display:flex;gap:calc(var(--u)*.6);flex-wrap:wrap}
+.xwlist .opts .ob{padding:calc(var(--u)*.3) calc(var(--u)*1.2);font-size:calc(var(--u)*1.7);min-height:32px}
+.xwlist .opts .ob.on{background:#f3c26a;color:var(--ink)}
+/* the dark attic before the torch, the words scratched on the tin, and Nana's secret alphabet */
+/* Trent Park: the flashing lamp, dusk over the park, the moths, the glow in the gate, the tap code's grid and box, Jedi's watch */
+.glow{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle, rgba(255,230,150,.95), rgba(255,200,90,.55) 45%, rgba(255,180,60,0) 72%);opacity:0;transition:opacity .08s}.glow.on{opacity:1}
+.gold{position:absolute;inset:0;background:linear-gradient(180deg, rgba(255,214,120,.28), rgba(255,190,110,.16) 60%, rgba(255,170,90,.22));mix-blend-mode:multiply}
+.dusk{position:absolute;inset:0;background:linear-gradient(180deg, rgba(30,30,90,.42), rgba(70,30,80,.3) 55%, rgba(20,20,50,.45));mix-blend-mode:multiply}
+.mothdot{position:absolute;width:calc(var(--u)*1.1);height:calc(var(--u)*1.1);border-radius:50%;background:radial-gradient(circle, #fff6d0, rgba(255,220,140,.6) 50%, rgba(255,210,120,0) 80%);box-shadow:0 0 calc(var(--u)*1.6) rgba(255,220,140,.8);animation:mothdot 3.6s ease-in-out infinite}
+@keyframes mothdot{0%,100%{opacity:.2;transform:translate(0,0)}30%{opacity:1;transform:translate(calc(var(--u)*1.2),calc(var(--u)*-1.4))}65%{opacity:.6;transform:translate(calc(var(--u)*-.8),calc(var(--u)*-2.2))}}
+.hglow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 55%, rgba(255,220,140,.55), rgba(255,200,100,.2) 40%, rgba(255,200,100,0) 70%)}
+.tapgrid{border-collapse:collapse;margin:calc(var(--u)*.8) auto;font-size:calc(var(--u)*2.1)}.tapgrid th,.tapgrid td{border:var(--rule) solid var(--line);padding:calc(var(--u)*.25) calc(var(--u)*.9);text-align:center}.tapgrid th{color:var(--muted);font-weight:400;border-color:transparent}
+.card.tapper .taps{margin:0;min-height:calc(var(--u)*3.4);font-size:calc(var(--u)*2.6);letter-spacing:.08em;color:var(--ink);text-align:center;line-height:1.2}.card.tapper .taps b{color:var(--accent)}.card.tapper .taps .gap{display:inline-block;width:calc(var(--u)*2.2)}
+.card.watch .watchrow{align-items:center;gap:calc(var(--u)*1.6);flex-wrap:nowrap}.watchface{display:block;width:calc(var(--u)*17);height:calc(var(--u)*17)}.card.watch .watchrow .ob{padding-left:calc(var(--u)*1.6);padding-right:calc(var(--u)*1.6);white-space:nowrap}
+@media (max-height:460px){.watchface{width:calc(var(--u)*11);height:calc(var(--u)*11)}.card.watch{gap:calc(var(--u)*.6)}}
+.card.note .sign{text-align:right;margin-top:calc(var(--u)*1)}.dials.five .dial{width:calc(var(--u)*8);height:calc(var(--u)*11);font-size:calc(var(--u)*5)}.dials.five{gap:calc(var(--u)*1.2)}.card.note .compact{font-size:.84em;line-height:1.28}.card.note .compact p{margin:0 0 .5em}.card.note .compact .head{font-size:calc(var(--u)*2.5);margin-bottom:.3em}.card.note .compact .tapgrid{font-size:calc(var(--u)*1.8)}.card.note .compact .tapgrid th,.card.note .compact .tapgrid td{padding:calc(var(--u)*.12) calc(var(--u)*.8)}.row.wrap{flex-wrap:wrap;justify-content:center}
+@media (prefers-reduced-motion:reduce){.mothdot{animation:none;opacity:.8}}
+.veil{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 55%, rgba(8,10,16,.93), rgba(4,5,8,.995) 70%);pointer-events:none}
+.scratch{margin:0;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2);color:#6b5f55;letter-spacing:.04em;text-align:center}
+.cphrow{display:flex;gap:calc(var(--u)*2.5);justify-content:center;width:100%}
+.cph{display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*.6);width:calc(var(--u)*12)}
+.cph svg{width:calc(var(--u)*6);height:calc(var(--u)*6)}
+.cph .opts{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--u)*.4)}
+.cph .opts .ob{padding:calc(var(--u)*.3) calc(var(--u)*.8);font-size:calc(var(--u)*1.9);min-height:32px}
+.cph .opts .ob.on{background:#f3c26a;color:var(--ink)}
+/* at a phone's height the sleepy screen and the crossword draw in tighter, so neither card scrolls (checklist G36) */
+@media (max-height:460px){
+.wake{padding:calc(var(--u)*.6) calc(var(--u)*1.6);gap:calc(var(--u)*.3)}.wake .wq{font-size:calc(var(--u)*1.7)}.wake .wsmall{display:none}
+.wb{min-height:34px;min-width:38px;height:calc(var(--u)*4.2)}.wdigits{font-size:calc(var(--u)*5.5)}.wcol{gap:calc(var(--u)*.3)}.card.locker{gap:calc(var(--u)*.6)}
+.card.xw{gap:calc(var(--u)*.3)}.xwlist{gap:calc(var(--u)*.3)}.xwlist .clue{grid-template-columns:auto auto 1fr;gap:calc(var(--u)*.3) calc(var(--u)*1)}.xwlist .q{grid-column:auto;font-size:calc(var(--u)*1.7)}.xwlist .opts .ob{min-height:26px;padding:calc(var(--u)*.15) calc(var(--u)*1);border-radius:calc(var(--u)*1.2)}.xwlist .opts{gap:calc(var(--u)*.4)}
+.card.locker .ob{padding-left:calc(var(--u)*4);padding-right:calc(var(--u)*4)}
+}
 
 /* Mary's notebook: the riddles with where each has got to, tap one for the moth's help; and what she has noticed */
 .card.nb{width:calc(var(--u)*64);font-style:normal;gap:calc(var(--u)*.5)}
 .nblist{display:flex;flex-direction:column;gap:calc(var(--u)*.4)}
-.nbrow{display:flex;justify-content:space-between;align-items:center;gap:calc(var(--u)*1.5);background:none;border:0;text-align:left;padding:calc(var(--u)*.55) calc(var(--u)*1);border-radius:calc(var(--u)*.8);font:inherit;font-size:calc(var(--u)*2.05);box-shadow:inset 0 0 0 1px var(--slot-line);min-height:36px}
+.nblist.two{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--u)*.4) calc(var(--u)*.8)} /* a stage with five or more trails lists them in two columns so the notebook stays on one card */
+.nblist.two .nbrow{font-size:calc(var(--u)*1.8);padding:calc(var(--u)*.4) calc(var(--u)*.8)}.nblist.two .nbrow .st{font-size:calc(var(--u)*1.6)}
+.nbrow{display:flex;justify-content:space-between;align-items:center;gap:calc(var(--u)*1.5);background:var(--paper2);border:0;text-align:left;padding:calc(var(--u)*.55) calc(var(--u)*1);border-radius:calc(var(--u)*.6);font:inherit;font-size:calc(var(--u)*2.05);box-shadow:inset 0 0 0 1px var(--slot-line);min-height:36px}
 .nbrow:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
 .nbrow .st{color:#2f7c83;font-weight:700;white-space:nowrap;font-size:calc(var(--u)*1.8)}
 .nbrow.done{opacity:.6}.nbrow.done .st{color:#27794c}
 .nbfb{margin:0;min-height:calc(var(--u)*4.4);font-size:calc(var(--u)*2.05);line-height:1.3;color:var(--ink)}
 .nbfb b{color:#6d4fb8}
 .nbsmall{font-size:calc(var(--u)*1.7);line-height:1.25;color:var(--muted)}
+.nbclues{display:flex;flex-wrap:wrap;align-items:center;gap:calc(var(--u)*.5);font-size:calc(var(--u)*1.7);color:var(--ink)}
+.nbclues .clue{font:inherit;font-size:calc(var(--u)*1.6);font-weight:700;color:#1d2629;background:#fff2c8;border:1px solid #d9b85a;border-radius:calc(var(--u)*.6);padding:calc(var(--u)*.25) calc(var(--u)*.9);cursor:pointer}
+.nbclues .clue:focus-visible{outline:calc(var(--u)*.3) solid var(--accent)}
+@media (max-height:460px){.card.nb{gap:calc(var(--u)*.3)}.nblist.two .nbrow{min-height:26px;padding:calc(var(--u)*.25) calc(var(--u)*.6);font-size:calc(var(--u)*1.6)}.nblist.two .nbrow .st{font-size:calc(var(--u)*1.45)}.card.nb:has(.nblist.two) .nbfb{min-height:calc(var(--u)*2.6);font-size:calc(var(--u)*1.7);line-height:1.2}.nbclues{font-size:calc(var(--u)*1.5)}.nbclues .clue{font-size:calc(var(--u)*1.4);padding:calc(var(--u)*.1) calc(var(--u)*.6)}.card.nb:has(.nblist.two) .nbsmall{font-size:calc(var(--u)*1.35);line-height:1.2}} /* a phone-height screen: the seven-line notebook with its clue chips still fits */
+.card.nb:has(.nblist.two) .nbsmall{font-size:calc(var(--u)*1.5)}.card.nb:has(.nblist.two) .nbfb{min-height:calc(var(--u)*3.6);font-size:calc(var(--u)*1.9)}
 /* a long press on the room shows everything that can be tapped, so nothing has to be hunted for */
 .hs{transition:box-shadow .25s, background .25s}
 .hs.point{animation:pointGlow 1.1s ease-in-out 3;background:rgba(255,230,150,.16)}
@@ -197,53 +273,53 @@ button{font:inherit;color:inherit;cursor:pointer}
 @media (prefers-reduced-motion:no-preference){.dragpic .dtab.nudge{animation:nudge 1.4s ease-in-out infinite}@keyframes nudge{0%,100%{transform:translate(-50%,-18%)}50%{transform:translate(-35%,-18%)}}}
 
 /* the inventory strip */
-.inv{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:calc(var(--u)*1);padding:0 calc(var(--u)*.2)}
-.slot{aspect-ratio:1/1;min-width:0;overflow:hidden;border-radius:calc(var(--u)*1.2);background:var(--slot);box-shadow:inset 0 0 0 calc(var(--u)*.22) var(--slot-line);border:0;padding:12%;display:grid;place-items:center}
+.inv{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:calc(var(--u)*1);padding:calc(var(--u)*.3) calc(var(--u)*.3) 0}
+.slot{aspect-ratio:1/1;min-width:0;overflow:hidden;border-radius:calc(var(--u)*.6);background:var(--slot);box-shadow:0 0 0 calc(var(--u)*.22) var(--slot-line), 0 calc(var(--u)*.4) calc(var(--u)*.9) rgba(0,0,0,.35);border:0;padding:12%;display:grid;place-items:center}
 .slot:empty{pointer-events:none}
 .slot svg{width:100%;height:100%;display:block}
-.slot.sel{box-shadow:inset 0 0 0 calc(var(--u)*.4) var(--accent);background:var(--accent-soft)}
+.slot.sel{box-shadow:0 0 0 var(--rule) var(--gold-deep), 0 0 calc(var(--u)*1.4) var(--gold);background:var(--accent-soft)}
 .slot:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
 
 /* menu */
 .menu{position:absolute;inset:0;display:grid;place-items:center;background:rgba(20,26,40,.55)}
 /* the cog's panel: settings, help and about in tabs, drawn over whatever is showing (a room or the title screen) */
-#menu{position:fixed;inset:0;z-index:9;background:rgba(7,9,13,.78)}
-.panel{position:relative;width:calc(var(--u)*78);height:calc(var(--u)*50);background:#16333a;color:#fffaf0;border-radius:calc(var(--u)*1.6);box-shadow:0 calc(var(--u)*1.5) calc(var(--u)*4) rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,250,240,.12);display:flex;flex-direction:column;overflow:hidden}
-.panel .pattern{opacity:.07}
-.tabs{position:relative;display:flex;justify-content:center;gap:calc(var(--u)*1);padding:calc(var(--u)*1.2) calc(var(--u)*8) 0}
-.tab{background:none;border:0;color:rgba(255,250,240,.55);font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2.2);padding:calc(var(--u)*.6) calc(var(--u)*1.8);border-radius:999px;display:flex;align-items:center;gap:calc(var(--u)*.7);min-height:40px}
+#menu{position:fixed;inset:0;z-index:9;background:rgba(10,20,28,.72)}
+.panel{position:relative;width:calc(var(--u)*78);height:calc(var(--u)*50);background:var(--paper2);color:var(--ink);border-radius:calc(var(--u)*.8);box-shadow:0 0 0 var(--rule) var(--line), 0 calc(var(--u)*1.5) calc(var(--u)*4) rgba(0,0,0,.5);display:flex;flex-direction:column;overflow:hidden}
+.panel .pattern{display:none}
+.tabs{position:relative;display:flex;justify-content:center;gap:calc(var(--u)*.6);padding:calc(var(--u)*1.2) calc(var(--u)*8) 0;border-bottom:var(--rule) solid var(--line);margin:0 calc(var(--u)*2)}
+.tab{background:none;border:0;color:var(--muted);font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2.2);padding:calc(var(--u)*.6) calc(var(--u)*1.8);border-radius:calc(var(--u)*.6) calc(var(--u)*.6) 0 0;display:flex;align-items:center;gap:calc(var(--u)*.7);min-height:40px;margin-bottom:calc(var(--rule)*-1)}
 .tab svg{width:calc(var(--u)*2.4);height:calc(var(--u)*2.4)}
-.tab.on{color:#fffaf0;background:rgba(255,250,240,.12)}
+.tab.on{color:var(--ink);background:var(--paper);box-shadow:0 0 0 var(--rule) var(--line);clip-path:inset(calc(var(--rule)*-1) calc(var(--rule)*-1) 0 calc(var(--rule)*-1))}
 .tab:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
-.panel .x{position:absolute;right:calc(var(--u)*1.2);top:calc(var(--u)*1.2);width:calc(var(--u)*5);height:calc(var(--u)*5);border-radius:50%;border:0;background:rgba(255,250,240,.12);color:#fffaf0;font-size:calc(var(--u)*2.6);display:grid;place-items:center}
+.panel .x{position:absolute;right:calc(var(--u)*1.2);top:calc(var(--u)*1.2);width:calc(var(--u)*5);height:calc(var(--u)*5);border-radius:50%;border:0;background:var(--paper);color:var(--ink);font-size:calc(var(--u)*2.6);display:grid;place-items:center;box-shadow:0 0 0 var(--rule) var(--line)}
 .pane{position:relative;flex:1;padding:calc(var(--u)*1.2) calc(var(--u)*5) calc(var(--u)*1.6);display:none;flex-direction:column;gap:calc(var(--u)*1.1);font-size:calc(var(--u)*2);overflow:hidden}
 .pane.on{display:flex}
 .pane h3{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*3);text-align:center}
-.pane h3::after{content:"";display:block;width:calc(var(--u)*24);height:1px;background:rgba(255,250,240,.45);margin:calc(var(--u)*.6) auto 0}
+.pane h3::after{display:none}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--u)*1) calc(var(--u)*4);flex:1;align-content:start}
 .srow{display:flex;align-items:center;justify-content:space-between;gap:calc(var(--u)*2);min-height:44px}
 .srow label{display:flex;align-items:center;gap:calc(var(--u)*1)}
 .srow svg{width:calc(var(--u)*2.4);height:calc(var(--u)*2.4);flex:none}
-.srow input[type=range]{width:calc(var(--u)*20);accent-color:#f3c26a;height:44px}
-.pane .ob{background:rgba(255,250,240,.12);color:#fffaf0;box-shadow:inset 0 0 0 1px rgba(255,250,240,.4);padding:calc(var(--u)*.7) calc(var(--u)*2);font-size:calc(var(--u)*1.9);min-height:40px}
-.pane .ob.warn{box-shadow:inset 0 0 0 1px #e07a6a;color:#ffb3a7}
-.pane .ob.go{background:#f3c26a;color:#1d2629;box-shadow:none}
+.srow input[type=range]{width:calc(var(--u)*20);accent-color:var(--gold-deep);height:44px}
+.pane .ob{background:var(--paper);color:var(--ink);box-shadow:0 0 0 var(--rule) var(--line);padding:calc(var(--u)*.7) calc(var(--u)*2);font-size:calc(var(--u)*1.9);min-height:40px}
+.pane .ob.warn{box-shadow:0 0 0 var(--rule) var(--warn);color:var(--warn)}
+.pane .ob.go{background:var(--gold);color:var(--ink);box-shadow:0 0 0 var(--rule) var(--line)}
 .pane p{margin:0;line-height:1.35}
-.pane .dim{color:rgba(255,250,240,.6);font-size:calc(var(--u)*1.75)}
+.pane .dim{color:var(--muted);font-size:calc(var(--u)*1.75)}
 .pane ul{margin:0;padding-left:calc(var(--u)*2.2);line-height:1.3}
 .pane li{margin-bottom:calc(var(--u)*.3)}
-.confirm{position:absolute;inset:0;background:rgba(22,51,58,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:calc(var(--u)*1.6);padding:calc(var(--u)*4);text-align:center}
+.confirm{position:absolute;inset:0;background:var(--paper2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:calc(var(--u)*1.6);padding:calc(var(--u)*4);text-align:center}
 .confirm p{font-size:calc(var(--u)*2.2);max-width:calc(var(--u)*56)}
-#diag{position:absolute;left:calc(var(--u)*2);bottom:calc(var(--u)*.8);font-family:monospace;font-size:calc(var(--u)*1.35);color:rgba(255,250,240,.45)}
-.menu .card{background:var(--paper);border-radius:calc(var(--u)*1.4);padding:calc(var(--u)*3) calc(var(--u)*4);display:flex;flex-direction:column;gap:calc(var(--u)*1.4);align-items:center;font-size:calc(var(--u)*2.1);text-align:center;max-width:calc(var(--u)*70)}
+#diag{position:absolute;left:calc(var(--u)*2);bottom:calc(var(--u)*.8);font-size:calc(var(--u)*1.35);color:var(--muted);opacity:.7}
+.menu .card{background:var(--paper);border-radius:calc(var(--u)*.8);padding:calc(var(--u)*3) calc(var(--u)*4);display:flex;flex-direction:column;gap:calc(var(--u)*1.4);align-items:center;font-size:calc(var(--u)*2.1);text-align:center;max-width:calc(var(--u)*70);box-shadow:0 0 0 var(--rule) var(--line), var(--cut)}
 .menu h2{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*3.6)}
 .menu .small{color:var(--muted);font-size:calc(var(--u)*1.8)}
-.fsask{position:fixed;inset:0;display:grid;place-items:center;background:rgba(20,26,40,.82);z-index:8}
-.fsask .card{background:var(--paper);border-radius:calc(var(--u)*1.4);padding:calc(var(--u)*3) calc(var(--u)*4);display:flex;flex-direction:column;gap:calc(var(--u)*1.4);align-items:center;font-size:calc(var(--u)*2.1);text-align:center}
+.fsask{position:fixed;inset:0;display:grid;place-items:center;background:rgba(10,20,28,.8);z-index:8}
+.fsask .card{background:var(--paper);border-radius:calc(var(--u)*.8);padding:calc(var(--u)*3) calc(var(--u)*4);display:flex;flex-direction:column;gap:calc(var(--u)*1.4);align-items:center;font-size:calc(var(--u)*2.1);text-align:center;box-shadow:0 0 0 var(--rule) var(--line), var(--cut)}
 .fsask h2{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*3.6)}
 .fsask p{margin:0}
-.ob{background:var(--ink);color:#fffaf0;border:0;border-radius:999px;padding:calc(var(--u)*1) calc(var(--u)*2.6);font-size:calc(var(--u)*2.1);min-height:44px}
-.ob.quiet{background:none;color:var(--ink);box-shadow:inset 0 0 0 1px var(--slot-line)}
+.ob{background:var(--gold);color:var(--ink);border:0;border-radius:999px;padding:calc(var(--u)*1) calc(var(--u)*2.6);font-size:calc(var(--u)*2.1);min-height:44px;box-shadow:0 0 0 var(--rule) var(--line)}
+.ob.quiet{background:var(--paper);color:var(--ink);box-shadow:0 0 0 var(--rule) var(--line)}
 
 /* the studio start-up: a moth crosses the dark and lights the name; tap to skip */
 .screen{position:fixed;inset:0;display:grid;place-items:center;z-index:7;color:#fffaf0;text-align:center;-webkit-user-select:none;user-select:none}
@@ -280,11 +356,11 @@ button{font:inherit;color:inherit;cursor:pointer}
   #splash.play{transition:opacity .5s 2s;opacity:0;visibility:hidden}
 }
 /* the title screen and the choose-a-child screen: our own moth-and-leaf pattern on deep teal */
-#howto{background:#123a3c;background-image:radial-gradient(ellipse at 50% 42%, rgba(120,190,180,.28), rgba(18,58,60,0) 60%);z-index:8}
-.hcard{position:relative;width:calc(var(--u)*88);max-height:96vh;background:var(--paper);color:var(--ink);border-radius:calc(var(--u)*1.6);padding:calc(var(--u)*1.6) calc(var(--u)*2.4) calc(var(--u)*1.8);display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*1.2);box-shadow:0 calc(var(--u)*1.5) calc(var(--u)*4) rgba(0,0,0,.5)}
+#howto{background:var(--bg) linear-gradient(180deg, var(--bg), var(--bg2));z-index:8}
+.hcard{position:relative;width:calc(var(--u)*88);max-height:96vh;background:var(--paper2);color:var(--ink);border-radius:calc(var(--u)*.8);padding:calc(var(--u)*1.6) calc(var(--u)*2.4) calc(var(--u)*1.8);display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*1.2);box-shadow:0 calc(var(--u)*1.5) calc(var(--u)*4) rgba(0,0,0,.5)}
 .hcard h2{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*3.6);line-height:1}
 .hpanels{display:grid;grid-template-columns:repeat(5,1fr);gap:calc(var(--u)*1.2);width:100%}
-.hp{background:#efe6d4;border-radius:calc(var(--u)*1.2);padding:calc(var(--u)*.9);display:flex;flex-direction:column;gap:calc(var(--u)*.7)}
+.hp{background:var(--paper);border-radius:calc(var(--u)*.6);padding:calc(var(--u)*.9);display:flex;flex-direction:column;gap:calc(var(--u)*.7);box-shadow:0 0 0 calc(var(--u)*.22) var(--line)}
 .hp p{margin:0;font-size:calc(var(--u)*1.55);line-height:1.3;text-align:center}
 .hpic{position:relative;width:100%;aspect-ratio:16/9;border-radius:calc(var(--u)*.8);overflow:hidden;background:#f4ead8}
 .hpic>img{width:100%;height:100%;object-fit:cover;display:block}
@@ -298,49 +374,58 @@ button{font:inherit;color:inherit;cursor:pointer}
 .hnum{position:absolute;font-weight:700;font-size:calc(var(--u)*1.8);color:#4a3b2a;text-shadow:0 0 4px #fff,0 0 4px #fff}
 .hand{position:absolute;width:calc(var(--u)*3.2);height:calc(var(--u)*3.2);margin:calc(var(--u)*-.6) 0 0 calc(var(--u)*-.6);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M10 4c0-1.7 1.3-3 3-3s3 1.3 3 3v9l2 0c.6-1.2 1.8-2 3.2-2 1.3 0 2.4.7 3 1.7 1.7-.5 3.8.6 3.8 3.2v6.5C28 25.7 24.7 30 19.5 30h-3.4c-2.2 0-4.3-1-5.6-2.8L5 20.6c-1-1.3-.7-3.2.7-4.1 1.1-.7 2.6-.5 3.4.5L10 18z' fill='%23f6d3b5' stroke='%234a3b2a' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));pointer-events:none}
 @media (prefers-reduced-motion:no-preference){.hand{animation:handTap 1.4s ease-in-out infinite}@keyframes handTap{0%,100%{transform:translateY(0)}50%{transform:translateY(calc(var(--u)*.7)) scale(.92)}}}
-.hcard .ob.go{background:#f3c26a;color:#1d2629;font-size:calc(var(--u)*2.3);padding:calc(var(--u)*1) calc(var(--u)*5)}
+.hcard .ob.go{font-size:calc(var(--u)*2.3);padding:calc(var(--u)*1) calc(var(--u)*5)}
 @media (max-height:420px){.hcard{gap:calc(var(--u)*.6);padding-top:calc(var(--u)*1)}.hp p{font-size:calc(var(--u)*1.35)}.hcard h2{font-size:calc(var(--u)*3)}}
-#title,#choose{background:#123a3c;background-image:radial-gradient(ellipse at 50% 42%, rgba(120,190,180,.28), rgba(18,58,60,0) 60%)}
-.pattern{position:absolute;inset:0;opacity:.13;pointer-events:none}
+#title,#choose{background:var(--bg) linear-gradient(180deg, var(--bg), var(--bg2))}
+.pattern{position:absolute;inset:0;opacity:.09;pointer-events:none}
 .tcard{position:relative;display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*1.8);padding:calc(var(--u)*2)}
-.tcard h1{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*8.5);line-height:1;color:#fffaf0;text-shadow:0 calc(var(--u)*.4) 0 rgba(0,0,0,.25)}
-.tcard h1 small{display:block;font-family:"Atkinson Hyperlegible",Verdana,sans-serif;font-size:calc(var(--u)*2.2);letter-spacing:.3em;padding-left:.3em;color:#bfe0d8;margin-bottom:calc(var(--u)*1.2)}
+.tcard h1{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*8.5);line-height:1;color:var(--paper);text-shadow:0 calc(var(--u)*.4) 0 rgba(0,0,0,.3)}
+.tcard h1 small{display:block;font-family:"Atkinson Hyperlegible",Verdana,sans-serif;font-style:italic;font-size:calc(var(--u)*2.2);color:#bfe0d8;margin-bottom:calc(var(--u)*.8)}
+.tcard .hero{width:calc(var(--u)*16);height:calc(var(--u)*16);filter:drop-shadow(0 0 calc(var(--u)*2.5) rgba(243,194,106,.85));margin-bottom:calc(var(--u)*-1.2)}
+.tcard .hero img{width:100%;height:100%;object-fit:contain;display:block}
+@media (prefers-reduced-motion:no-preference){.tcard .hero{animation:hover 2.2s ease-in-out infinite}}
+@media (max-height:520px){.tcard .hero{width:calc(var(--u)*11);height:calc(var(--u)*11)}.tcard h1{font-size:calc(var(--u)*7)}}
 .tcard .tag{margin:0;font-size:calc(var(--u)*2.3);color:#dfeeea}
 .tcard .row{margin-top:calc(var(--u)*1)}
-.tcard .ob{font-size:calc(var(--u)*2.4);padding:calc(var(--u)*1.3) calc(var(--u)*3.6);background:#f3c26a;color:#1d2629;min-width:calc(var(--u)*20)}
-.tcard .ob.quiet{background:rgba(255,250,240,.12);color:#fffaf0;box-shadow:inset 0 0 0 1px rgba(255,250,240,.45)}
-.tcard .ob[disabled]{opacity:.45;cursor:default}
+.tcard .ob{font-size:calc(var(--u)*2.4);padding:calc(var(--u)*1.3) calc(var(--u)*3.6);min-width:calc(var(--u)*20)}
+.tcard .ob.quiet{background:var(--paper);color:var(--ink)}
+.tcard .ob[disabled]{background:var(--paper);color:var(--muted);opacity:.7;cursor:default}
 .tcard .foot{margin:0;font-size:calc(var(--u)*1.7);color:rgba(255,250,240,.65)}
 .tcard .foot button{background:none;border:0;color:inherit;text-decoration:underline;font:inherit;padding:0}
 .tcorner{position:absolute;top:calc(var(--u)*1.6);right:calc(var(--u)*1.6);display:flex;gap:calc(var(--u)*1)}
 .tcorner .ctl{position:static}
 .fam{display:flex;gap:calc(var(--u)*2);justify-content:center;align-items:stretch;flex:1;padding-top:calc(var(--u)*.6)}
-.fkid{width:calc(var(--u)*21);background:var(--paper);color:var(--ink);border:0;border-radius:calc(var(--u)*1.4);padding:calc(var(--u)*1.2) calc(var(--u)*1.2);display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*.5);font:inherit;box-shadow:0 calc(var(--u)*.8) calc(var(--u)*2) rgba(0,0,0,.35);cursor:pointer;transition:transform .15s}
+.fkid{width:calc(var(--u)*21);background:var(--paper);color:var(--ink);border:0;border-radius:calc(var(--u)*.8);box-shadow:0 0 0 var(--rule) var(--line), var(--cut);padding:calc(var(--u)*1.2) calc(var(--u)*1.2);display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*.5);font:inherit;box-shadow:0 calc(var(--u)*.8) calc(var(--u)*2) rgba(0,0,0,.35);cursor:pointer;transition:transform .15s}
 .fkid:hover,.fkid:focus-visible{transform:translateY(calc(var(--u)*-.5));outline:none}
-.fkid.now{cursor:default;transform:none;box-shadow:0 0 0 calc(var(--u)*.4) #f3c26a}
+.fkid.now{cursor:default;transform:none;box-shadow:0 0 0 var(--rule) var(--line), 0 0 0 calc(var(--u)*.9) var(--gold)}
 .fkid .face{width:calc(var(--u)*8.5);height:calc(var(--u)*8.5);border-radius:50%;overflow:hidden;position:relative;box-shadow:inset 0 calc(var(--u)*-.5) 0 rgba(0,0,0,.15)}
 .fkid .face img{position:absolute;left:50%;top:6%;width:96%;transform:translateX(-50%);display:block}
 .fkid .kname{font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2.5);color:#1d2629}
 .fkid .kwhere{font-size:calc(var(--u)*1.7);line-height:1.25;text-align:center;color:var(--muted)}
 .fkid .kgo{font-size:calc(var(--u)*1.7);font-weight:700;color:#2f7c83;margin-top:auto}
 .kids{display:flex;gap:calc(var(--u)*2.4);justify-content:center;margin-top:calc(var(--u)*1)}
-.kid{width:calc(var(--u)*24);background:var(--paper);color:var(--ink);border:0;border-radius:calc(var(--u)*1.6);padding:calc(var(--u)*1.8) calc(var(--u)*1.4);display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*.7);font:inherit;box-shadow:0 calc(var(--u)*1) calc(var(--u)*2.5) rgba(0,0,0,.35);cursor:pointer;transition:transform .15s}
+.kid{width:calc(var(--u)*24);background:var(--paper);color:var(--ink);border:0;border-radius:calc(var(--u)*.8);box-shadow:0 0 0 var(--rule) var(--line), var(--cut);padding:calc(var(--u)*1.8) calc(var(--u)*1.4);display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*.7);font:inherit;box-shadow:0 calc(var(--u)*1) calc(var(--u)*2.5) rgba(0,0,0,.35);cursor:pointer;transition:transform .15s}
 .kid:hover,.kid:focus-visible{transform:translateY(calc(var(--u)*-.5));outline:none}
-.kid[disabled]{opacity:.55;cursor:default;transform:none}
+.kid[disabled]{opacity:.6;cursor:default;transform:none}
 .kid.soon .face img,.fkid.soon .face img{filter:grayscale(.75)}
 .kid.soon .kprog,.fkid.soon .kgo{color:var(--muted)}
 .fkid[disabled]:not(.now){opacity:.55;cursor:default;transform:none}
 .kid .face{width:calc(var(--u)*11);height:calc(var(--u)*11);border-radius:50%;display:grid;place-items:center;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*4.5);color:#fffaf0;box-shadow:inset 0 calc(var(--u)*-.6) 0 rgba(0,0,0,.15);overflow:hidden;position:relative}
-.kid .face img{position:absolute;left:50%;top:6%;width:96%;transform:translateX(-50%);display:block}
+.kid .face img{position:absolute;left:50%;top:6%;width:96%;transform:translateX(-50%);display:block;transition:opacity .22s ease}
+/* the child's face lights up (the second portrait) when the card is hovered, focused or pressed */
+.kid .face .grin{opacity:0}
+.kid:hover .face .grin,.kid:focus-visible .face .grin,.kid.lit .face .grin{opacity:1}
+.kid:hover:not(:disabled) .face img:not(.grin),.kid:focus-visible .face img:not(.grin),.kid.lit .face img:not(.grin){opacity:0}
+@media (prefers-reduced-motion:reduce){.kid .face img{transition:none}}
 .kid .kname{font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2.8);color:#1d2629}
 .kid .kage{font-size:calc(var(--u)*1.8);color:var(--muted);margin-top:calc(var(--u)*-.5)}
 .kid .kline{font-size:calc(var(--u)*1.75);line-height:1.25;min-height:calc(var(--u)*4.4)}
 .kid .kprog{font-size:calc(var(--u)*1.75);font-weight:700;color:#2f7c83;min-height:calc(var(--u)*2.2)}
 .kid .kprog.warn{color:#c0541f}
-.tcard .back{position:static;width:auto;height:auto;border-radius:999px;padding:calc(var(--u)*.7) calc(var(--u)*2);font-size:calc(var(--u)*1.9);background:rgba(255,250,240,.12);box-shadow:inset 0 0 0 1px rgba(255,250,240,.45)}
+.tcard .back{position:static;width:auto;height:auto;border-radius:999px;padding:calc(var(--u)*.7) calc(var(--u)*2);font-size:calc(var(--u)*1.9);background:var(--paper);color:var(--ink);box-shadow:0 0 0 var(--rule) var(--line)}
 .tcard .back:focus-visible{outline:calc(var(--u)*.4) solid var(--accent)}
 .notice{position:absolute;inset:0;display:grid;place-items:center;background:rgba(7,9,13,.6)}
-.notice .card{background:var(--paper);color:var(--ink);border-radius:calc(var(--u)*1.4);padding:calc(var(--u)*3) calc(var(--u)*4);max-width:calc(var(--u)*64);font-size:calc(var(--u)*2.1);text-align:center;display:flex;flex-direction:column;gap:calc(var(--u)*1.4);align-items:center}
+.notice .card{background:var(--paper);color:var(--ink);border-radius:calc(var(--u)*.8);box-shadow:0 0 0 var(--rule) var(--line), var(--cut);padding:calc(var(--u)*3) calc(var(--u)*4);max-width:calc(var(--u)*64);font-size:calc(var(--u)*2.1);text-align:center;display:flex;flex-direction:column;gap:calc(var(--u)*1.4);align-items:center}
 .notice h2{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*3.4)}
 .notice p{margin:0}
 
@@ -358,18 +443,19 @@ button{font:inherit;color:inherit;cursor:pointer}
 .comic .cnext::after{content:"";width:0;height:0;border-style:solid;border-width:calc(var(--u)*.9) 0 calc(var(--u)*.9) calc(var(--u)*1.4);border-color:transparent transparent transparent #fffaf0;margin-left:calc(var(--u)*.3)}
 .comic .cnext.on{display:grid}
 @media (prefers-reduced-motion:no-preference){.comic .cnext.on{animation:nudge 1.2s ease-in-out infinite}@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(calc(var(--u)*.5))}}}
-.comic .cskip{position:absolute;right:calc(var(--u)*2.2);top:calc(var(--u)*2.2);background:rgba(29,38,41,.75);color:#fffaf0;border:0;border-radius:999px;padding:calc(var(--u)*.6) calc(var(--u)*1.6);font-size:calc(var(--u)*1.8);min-height:36px;z-index:2}
+.comic .cskip{position:absolute;right:calc(var(--u)*2.2);top:calc(var(--u)*2.2);background:var(--paper);color:var(--ink);border:0;border-radius:999px;padding:calc(var(--u)*.6) calc(var(--u)*1.6);font-size:calc(var(--u)*1.8);min-height:36px;z-index:2;box-shadow:0 0 0 var(--rule) var(--line), var(--cut)}
 .comic .cfoot{position:absolute;left:0;right:0;bottom:calc(var(--u)*1.1);margin:0;text-align:center;color:#4a3b2a;font-size:calc(var(--u)*1.7);opacity:.75}
-.stagecard{position:absolute;inset:0;display:grid;place-items:center;background:rgba(7,9,13,.92);z-index:5;color:#fffaf0;text-align:center;cursor:pointer}
-.stagecard .in{display:flex;flex-direction:column;gap:calc(var(--u)*1.2);align-items:center;animation:riseIn .8s ease-out both}
-.stagecard .place{font-size:calc(var(--u)*2);letter-spacing:.3em;padding-left:.3em;color:#bfe0d8}
-.stagecard h2{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*6.5);line-height:1.05}
-.stagecard p{margin:0;font-size:calc(var(--u)*2.3);max-width:calc(var(--u)*60);line-height:1.35}
-.stagecard .go{margin-top:calc(var(--u)*1.5)}
-.stagecard .go .ob{background:#f3c26a;color:#1d2629;font-size:calc(var(--u)*2.3)}
+.stagecard{position:absolute;inset:0;display:grid;place-items:center;background:rgba(10,20,28,.82);z-index:5;color:var(--ink);text-align:center;cursor:pointer}
+.stagecard .in{display:flex;flex-direction:column;gap:calc(var(--u)*1);align-items:center;animation:riseIn .8s ease-out both;background:var(--paper2);border-radius:calc(var(--u)*.8);box-shadow:0 0 0 var(--rule) var(--line), 0 calc(var(--u)*1.2) calc(var(--u)*3) rgba(0,0,0,.5);padding:calc(var(--u)*2.6) calc(var(--u)*4) calc(var(--u)*2.4);max-width:calc(var(--u)*70)}
+.stagecard .place{font-style:italic;font-size:calc(var(--u)*2);color:var(--muted)}
+.stagecard h2{font-family:Caprasimo,Georgia,serif;font-weight:400;margin:0;font-size:calc(var(--u)*5.5);line-height:1.05;color:var(--pen)}
+.stagecard p{margin:0;font-size:calc(var(--u)*2.2);max-width:calc(var(--u)*60);line-height:1.35}
+.stagecard .go{margin-top:calc(var(--u)*.8)}
+.stagecard .go .ob{font-size:calc(var(--u)*2.3)}
+@media (max-height:520px){.stagecard .in{padding:calc(var(--u)*1.6) calc(var(--u)*3) calc(var(--u)*1.6);gap:calc(var(--u)*.6)}.stagecard h2{font-size:calc(var(--u)*4.5)}.stagecard p{font-size:calc(var(--u)*2)}}
 @keyframes riseIn{from{opacity:0;transform:translateY(calc(var(--u)*1.5))}to{opacity:1;transform:none}}
-.menu.end{background:rgba(7,9,13,.55)}
-.postcard{position:relative;width:calc(var(--u)*64);aspect-ratio:1.55;background:#fffaf0;border-radius:calc(var(--u)*.6);box-shadow:0 calc(var(--u)*1.5) calc(var(--u)*4) rgba(0,0,0,.5);display:grid;grid-template-columns:1fr 1fr;overflow:hidden;color:var(--ink);text-align:left;animation:cardIn .7s cubic-bezier(.2,.8,.3,1) both;font-size:calc(var(--u)*1.9)}
+.menu.end{background:rgba(10,20,28,.6)}
+.postcard{position:relative;width:calc(var(--u)*64);aspect-ratio:1.55;background:#fffaf0;border-radius:calc(var(--u)*.6);box-shadow:0 0 0 var(--rule) var(--line), 0 calc(var(--u)*1.5) calc(var(--u)*4) rgba(0,0,0,.5);display:grid;grid-template-columns:1fr 1fr;overflow:hidden;color:var(--ink);text-align:left;animation:cardIn .7s cubic-bezier(.2,.8,.3,1) both;font-size:calc(var(--u)*1.9)}
 @keyframes cardIn{from{opacity:0;transform:translateY(calc(var(--u)*6)) rotate(-4deg) scale(.9)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.postcard,.stagecard .in{animation:none}}
 .postcard .pic{background:#ddd center/cover no-repeat;border-right:1px dashed #b9b2a1;margin:calc(var(--u)*1.1);margin-right:0;border-radius:calc(var(--u)*.3)}
@@ -382,8 +468,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .postcard .sig{font-family:Caprasimo,Georgia,serif;font-style:normal;color:#6d4fb8}
 .endrow{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:calc(var(--u)*1.2)}
 .endrow .ob{min-height:36px;padding:calc(var(--u)*.8) calc(var(--u)*2.4)}
-.endrow .ob{background:#f3c26a;color:#1d2629}
-.endrow .ob.quiet{background:rgba(255,250,240,.12);color:#fffaf0;box-shadow:inset 0 0 0 1px rgba(255,250,240,.45)}
+.endrow .ob.quiet{background:var(--paper);color:var(--ink)}
 .endwrap{display:flex;flex-direction:column;align-items:center}
 .endwrap .sent{color:#fffaf0;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2.8);margin:0 0 calc(var(--u)*.7);text-shadow:0 2px 6px rgba(0,0,0,.5)}
 /* the moth crossing the room at the end of a stage */
@@ -393,30 +478,31 @@ button{font:inherit;color:inherit;cursor:pointer}
 @media (prefers-reduced-motion:reduce){.flymoth{display:none}}
 
 /* the moth appears beside the message line while it speaks, and settles when it has finished */
-.talker{position:absolute;left:calc(var(--u)*1.2);bottom:calc(var(--u)*.8);width:calc(var(--u)*8);height:calc(var(--u)*8);pointer-events:none;z-index:3;opacity:0;transform:translateY(calc(var(--u)*2)) scale(.8);transition:opacity .35s, transform .35s;filter:drop-shadow(0 0 calc(var(--u)*1.2) rgba(243,194,106,.7))}
+.talker{position:absolute;left:calc(var(--u)*.6);bottom:calc(var(--u)*-.4);width:calc(var(--u)*7.4);height:calc(var(--u)*7.4);pointer-events:none;z-index:3;opacity:0;transform:translateY(calc(var(--u)*2)) scale(.8);transition:opacity .35s, transform .35s;filter:drop-shadow(0 0 calc(var(--u)*1.2) rgba(243,194,106,.7))}
 .talker img{width:100%;height:100%;object-fit:contain;display:block}
 .talker.on{opacity:1;transform:none}
 @media (prefers-reduced-motion:no-preference){.talker.on img{animation:hover 1.6s ease-in-out infinite}@keyframes hover{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(calc(var(--u)*-.6)) rotate(2deg)}}}
-.scene.zoomed .talker{z-index:6}
+
 
 /* held in portrait: ask for a turn rather than squeezing the scene */
-.rotate{display:none;position:fixed;inset:0;background:var(--bg);color:#fffaf0;place-items:center;text-align:center;padding:24px;font-size:1.2rem;line-height:1.4;z-index:9}
+.rotate{display:none;position:fixed;inset:0;background:var(--bg) linear-gradient(180deg, var(--bg), var(--bg2));color:#fffaf0;place-items:center;text-align:center;padding:24px;font-size:1.2rem;line-height:1.4;z-index:9}
 .rotate svg{width:72px;height:72px;margin-bottom:12px}
 @media (orientation:portrait) and (max-width:820px){.rotate{display:grid}}
 @media (prefers-reduced-motion:no-preference){.rotate svg{animation:turn 2.4s ease-in-out infinite}@keyframes turn{0%,20%{transform:rotate(0)}60%,100%{transform:rotate(-90deg)}}}
-.loading{position:absolute;inset:0;display:grid;place-items:center;background:#123a3c;color:#fffaf0;font-size:calc(var(--u)*2.4);z-index:4;text-align:center;transition:opacity .35s}
+.loading{position:absolute;inset:0;display:grid;place-items:center;background:var(--bg2);color:var(--paper);font-size:calc(var(--u)*2.4);z-index:4;text-align:center;transition:opacity .35s}
 .loading[hidden]{display:none}
 .loading .lin{display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*1.6)}
 .loading .lmoth{width:calc(var(--u)*9);height:calc(var(--u)*9);filter:drop-shadow(0 0 calc(var(--u)*1.2) rgba(243,194,106,.7))}
 .loading .lmoth img{width:100%;height:100%;object-fit:contain}
 @media (prefers-reduced-motion:no-preference){.loading .lmoth{animation:hover 1.6s ease-in-out infinite}}
 .loading .lbar{width:calc(var(--u)*36);height:calc(var(--u)*1.2);border-radius:999px;background:rgba(255,250,240,.18);overflow:hidden}
-.loading .lbar i{display:block;height:100%;width:0;background:#f3c26a;border-radius:999px;transition:width .25s ease-out}
+.loading .lbar i{display:block;height:100%;width:0;background:var(--gold);border-radius:999px;transition:width .25s ease-out}
 .loading .lt{font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*2.8)}
 </style>
 </head>
 <body>
 <div id="app">
+<svg class="pattern" width="100%" height="100%" aria-hidden="true"><rect width="100%" height="100%" fill="url(#mothpat)"/></svg>
 <div class="stage" id="stage">
   <div class="scene" id="scene">
     <div class="loading" id="loading" hidden><div class="lin"><div class="lmoth"><img src="../art/portraits/moth.png" alt=""></div><div class="lt" id="loadText">Opening…</div><div class="lbar"><i id="loadBar"></i></div></div></div>
@@ -427,13 +513,12 @@ button{font:inherit;color:inherit;cursor:pointer}
     <span class="where" id="where">Classroom 5H</span>
     <button class="ctl" id="hintBtn" aria-label="Ask the moth for a hint" title="Hint"><svg viewBox="-14 -10 28 20" aria-hidden="true"><path d="M0 0C-4-9-13-9-13-2-13 3-5 3 0 0Z" fill="#f0b44c"/><path d="M0 0C4-9 13-9 13-2 13 3 5 3 0 0Z" fill="#f0b44c"/><path d="M0 1C-3 7-9 8-9 4-9 1-4 1 0 1Z" fill="#e9b98a"/><path d="M0 1C3 7 9 8 9 4 9 1 4 1 0 1Z" fill="#e9b98a"/><ellipse cx="0" cy="1" rx="1.3" ry="5" fill="#2b3431"/></svg></button>
     <button class="ctl" id="menuBtn" aria-label="Settings and help"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cog"/></svg></button>
-    <p class="msg" id="msg" aria-live="polite"></p>
-    <div class="talker" id="talker" aria-hidden="true"><img src="../art/portraits/moth-speak.png" alt=""></div>
     <div class="closeup" id="closeup" hidden></div>
     <div class="comic" id="comic" hidden><div class="cpage"><div class="cpic" id="cpic"></div><div class="cboxes" id="cboxes"></div><span class="cnext" id="cnext" aria-hidden="true"></span></div><button class="cskip" id="cskip">Skip</button><p class="cfoot" id="cfoot">Tap to go on</p></div>
     <div class="stagecard" id="stagecard" hidden></div>
     <div class="menu end" id="endUI" hidden><div class="endwrap"><p class="sent" id="endTitle"></p><div class="postcard" id="postcard"></div><div class="endrow"><button class="ob quiet" id="endAgain">Play this stage again</button><button class="ob" id="endNext" hidden>Next</button></div></div></div>
   </div>
+  <div class="caption" id="caption"><div class="talker" id="talker" aria-hidden="true"><img src="../art/portraits/moth-speak.png" alt=""></div><p class="msg" id="msg" aria-live="polite"></p></div>
   <div class="inv" id="inv" aria-label="Things you are carrying"></div>
 </div>
 </div>
@@ -463,7 +548,8 @@ button{font:inherit;color:inherit;cursor:pointer}
   <svg class="pattern" width="100%" height="100%" aria-hidden="true"><rect width="100%" height="100%" fill="url(#mothpat)"/></svg>
   <div class="tcorner"><button class="ctl" id="tMenu" aria-label="Settings and help"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cog"/></svg></button></div>
   <div class="tcard">
-    <h1><small>A SUMMER MYSTERY</small>The Moth House</h1>
+    <div class="hero" aria-hidden="true"><img src="../art/portraits/moth.png" alt=""></div>
+    <h1><small>A summer mystery</small>The Moth House</h1>
     <p class="tag">Three children, one summer, and a house that appears at dusk.</p>
     <div class="row"><button class="ob" id="tContinue">Continue</button><button class="ob quiet" id="tNew">New game</button></div>
     <p class="foot"><button id="tAbout">About this game</button></p>
@@ -501,7 +587,7 @@ button{font:inherit;color:inherit;cursor:pointer}
         <div class="srow"><label for="volMusic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.5" fill="currentColor"/><circle cx="16.5" cy="16" r="2.5" fill="currentColor"/></svg>Music</label><input type="range" id="volMusic" min="0" max="10" step="1"></div>
         <div class="srow"><label for="volVoice"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Z" fill="currentColor"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>The moth’s voice</label><input type="range" id="volVoice" min="0" max="10" step="1"></div>
         <div class="srow"><label for="volFx"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Sound effects</label><input type="range" id="volFx" min="0" max="10" step="1"></div>
-        <div class="srow"><span>Full screen</span><button class="ob" id="fsBtn">Full screen</button></div>
+        <div class="srow" id="fsRow"><span>Full screen</span><button class="ob" id="fsBtn">Full screen</button></div>
         <div class="srow game-only"><span>Can’t find something?</span><button class="ob" id="revealBtn">Show what I can tap</button></div>
       </div>
       <p class="dim">Stuck? Tap the moth at the top of the room: it opens the notebook of hints, or flies to the next thing to look at.</p>
@@ -521,7 +607,7 @@ button{font:inherit;color:inherit;cursor:pointer}
       <h3>About</h3>
       <div class="cols">
         <div><p><b>The Moth House</b> is a summer mystery for children: three stories, one summer, and a house that appears at dusk to people who are looking.</p><p class="dim" style="margin-top:calc(var(--u)*1)">This is a work of fiction. Its characters, schools and events are imaginary. Any resemblance to real people or places is a coincidence.</p></div>
-        <div><p><b>Made by OG Entertainment.</b></p><p class="dim">Story, puzzles and design by the studio. Pictures and music made with the help of AI tools and drawn into the story by hand. Typefaces: Caprasimo and Atkinson Hyperlegible.</p></div>
+        <div><p><b>Made by OG Entertainment.</b></p><p class="dim">Story, puzzles and design by the studio. Pictures and music made with the help of AI tools and drawn into the story by hand. Typefaces: Caprasimo and Atkinson Hyperlegible.</p><p class="dim" style="margin-top:calc(var(--u)*1)">Each story is made for its child’s age: Zaina’s (4) has nothing to read and the moth shows the way; Elliot’s (7) asks how things work; Mary’s (10) has riddles and, for grown-ups, a bonus puzzle in every chapter.</p></div>
       </div>
       <p class="dim" id="blurb"></p>
     </div>
@@ -549,13 +635,13 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-10-17d';
+const BUILD = '2026-10-18b';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
 function fit(){
   const vw = innerWidth - 16, vh = innerHeight - 12;
-  const w = Math.min(vw, vh / 0.6725, 1400);   /* scene 9/16 tall plus the strip and gap */
+  const w = Math.min(vw, vh / 0.746, 1400);   /* scene 9/16 tall, the caption band, the strip and the gaps */
   document.documentElement.style.setProperty('--u', (w / 100) + 'px');
 }
 addEventListener('resize', () => { fit(); if (typeof inGame !== 'undefined' && inGame && typeof STAGE !== 'undefined' && STAGE) drawSides(curView()); }); fit();
@@ -583,10 +669,21 @@ function viewArt(v){ const list = [WALLS[v]]; (LAYERS[v] || []).forEach(L => { i
 function loadWithBar(list, label){
   const el = $('loading'), bar = $('loadBar'); let n = 0; el.hidden = false; el.style.opacity = 1; $('loadText').textContent = label; bar.style.width = '0%';
   const tick = () => { n++; bar.style.width = Math.round(100*n/list.length) + '%'; };
-  return Promise.all(list.map(src => preload(src).then(tick))).then(() => new Promise(res => { bar.style.width = '100%'; setTimeout(() => { el.style.opacity = 0; setTimeout(() => { el.hidden = true; res(); }, 350); }, 150); }));
+  /* an item is a picture's path, or a function that makes something else ready (a voice line) and returns a promise */
+  return Promise.all(list.map(item => (typeof item === 'function' ? item() : preload(item)).then(tick))).then(() => new Promise(res => { bar.style.width = '100%'; setTimeout(() => { el.style.opacity = 0; setTimeout(() => { el.hidden = true; res(); }, 350); }, 150); }));
 }
 /* the rest of the stage's pictures, quietly, current room first */
-function loadRest(){ roomArt(S.room).forEach(preload); Object.keys(ROOMS).filter(r => r !== S.room).forEach(r => roomArt(r).forEach(preload)); }
+function loadRest(){ roomArt(S.room).forEach(preload); Object.keys(ROOMS).filter(r => r !== S.room).forEach(r => roomArt(r).forEach(preload)); setTimeout(() => stageVoiceKeys().forEach(prepVoice), 1500); }
+/* what a stage needs before its first screen: the comic's pages and the lines the moth says on the way in (so a caption never waits for its picture,
+   and a tap never waits for the voice); the rest of the stage's lines follow quietly behind the pictures */
+function openers(){
+  const list = [], keys = [];
+  if (STAGE.comic && freshStart()){ STAGE.comic.forEach((pg, p) => { list.push(pg.pic); pg.lines.forEach((l, i) => keys.push(`${S.stage}.comic.${p}.${i}`)); }); }
+  keys.push(`${S.stage}.card`, `${S.stage}.intro`, `${S.stage}.meanwhile`, 'tip.tap', 'tip.pickup', 'tip.hold', STAGE.hintStyle === 'point' ? 'tip.helpPoint' : 'tip.help', 'howto');
+  keys.forEach(k => list.push(() => prepVoice(k)));
+  return list;
+}
+function stageVoiceKeys(){ return VOICED ? [...VOICED].filter(k => k.startsWith(S.stage + '.') || k.startsWith('nb.')) : []; }
 /* ---------- the animator: each layer is a canvas; a tap starts a short, damped, organic movement ----------
    bend: base fixed, tip moves most (plants). swing: hangs from the top, hem lags (a coat). lift: rises and settles (paper).
    hop: squash, jump, land (a hamster). wobble: rocks on its base (a bag, an apple). pop: jumps up twice (things in a box). */
@@ -635,11 +732,11 @@ function drawLayer(c, t){
     ctx.filter = 'none'; ctx.globalAlpha = 0.5; ctx.drawImage(wall, L.glass[0]/100*wall.naturalWidth, L.glass[1]/100*wall.naturalHeight, L.glass[2]/100*wall.naturalWidth, L.glass[3]/100*wall.naturalHeight, ...glassRect); ctx.globalAlpha = 1; };
   const damp = (f, tau) => Math.sin(2*Math.PI*f*t) * Math.exp(-t/tau);
   /* the three soft blocks: each band of the picture is one block; they tumble apart to the right and lie where they land */
-  const blockShadow = (cx, cy, w, a) => { ctx.save(); ctx.filter = `blur(${Math.max(2, W*0.03)}px)`; ctx.fillStyle = `rgba(30,25,40,${0.28*a})`; ctx.beginPath(); ctx.ellipse(cx, cy, w*0.46, Math.max(3, w*0.07), 0, 0, Math.PI*2); ctx.fill(); ctx.restore(); };
+  const blockShadow = (cx, cy, w, a) => { ctx.save(); ctx.filter = `blur(${Math.max(2, W*0.035)}px)`; ctx.fillStyle = `rgba(30,25,40,${0.42*a})`; ctx.beginPath(); ctx.ellipse(cx, cy, w*0.5, Math.max(3, w*0.085), 0, 0, Math.PI*2); ctx.fill(); ctx.restore(); };
   /* a soft block of a stack (kind 'block'): its own whole cut-out. L.fall = {dx (widths), rot, delay, lift}; L.drop = how many of its own
      heights the floor is below its box; L.done() says the stack has fallen. k runs 0 (in the stack) to 1 (landed) */
   const drawBlock = (k, airborne) => {
-    const P = L.fall, floor = oy + H*(1 + (L.drop || 0)), e = 1 - Math.pow(1-k, 2.2), rot = P.rot*e;
+    const P = L.fall, e = 1 - Math.pow(1-k, 2.2), rot = P.rot*e, floor = oy + H*(1 + (L.drop || 0) + (P.land || 0)*e); /* land: extra heights down, for a piece that rolls out onto the nearer mat */
     const rotH = th => (W*Math.abs(Math.sin(th)) + H*Math.abs(Math.cos(th)))/2;
     const cx0 = ox + W/2, cy0 = oy + H/2, cx1 = cx0 + P.dx*W, cy1 = floor - rotH(P.rot);
     let cx = cx0 + (cx1-cx0)*e, cy = cy0 + (cy1-cy0)*e - (airborne ? P.lift*H*Math.sin(Math.PI*k) : 0);
@@ -776,6 +873,25 @@ function drawLayer(c, t){
         if (sh > 0) ctx.drawImage(img, sx, sy, 2, sh, ox + x, oy + cy - hh, 2, sh); }
       ctx.restore(); ctx.drawImage(st.arc, ox, oy);
       break; }
+    case 'unfold': { /* a loft hatch: the door swings down from its hinge at the top, then the ladder slides out of the opening and lands with a small bounce. L.fold = {door: fraction of the height the door takes, ladder: fraction where the ladder begins} */
+      const F = L.fold || {door:0.35, ladder:0.1}; if (t > 1.9){ st.anim = null; ctx.drawImage(img, ox, oy); break; }
+      const ease = x => 1 - Math.pow(1 - Math.max(0, Math.min(1, x)), 3);
+      const doorH = H*F.door, swing = ease(t/0.55), ladY = H*F.ladder, ladH = H - ladY;
+      ctx.save(); ctx.beginPath(); ctx.rect(ox - W, oy - H, 3*W, 3*H); ctx.clip();
+      /* the door: foreshortened as it comes down, so it grows from a sliver at the hinge to its full height */
+      ctx.drawImage(img, 0, 0, W, doorH, ox, oy, W, Math.max(1, doorH*swing));
+      /* the ladder: the part below the opening slides down into place, then settles */
+      const k = ease((t - 0.45)/0.9), over = t > 1.35 ? Math.sin((t - 1.35)/0.55*Math.PI)*0.02*Math.exp(-(t - 1.35)*3) : 0;
+      const dy = -(1 - k)*ladH + over*ladH;
+      ctx.beginPath(); ctx.rect(ox - W, oy + ladY, 3*W, ladH + H); ctx.clip();
+      ctx.drawImage(img, 0, ladY, W, ladH, ox, oy + ladY + dy, W, ladH);
+      ctx.restore();
+      break; }
+    case 'wipe': { /* a gate or door swinging on a side hinge: the open leaf shows from its hinge side outward, with a little overshoot. L.hinge is 'left' or 'right' */
+      const T = 0.75; if (t > T + 0.35){ st.anim = null; ctx.drawImage(img, ox, oy); break; }
+      const k = Math.min(1, 1 - Math.pow(1 - Math.min(1, t/T), 3)) + (t > T ? Math.sin((t - T)/0.35*Math.PI)*0.04 : 0);
+      ctx.save(); ctx.beginPath(); if (L.hinge === 'left') ctx.rect(ox, oy - H, W*k, 3*H); else ctx.rect(ox + W*(1 - k), oy - H, W*k, 3*H); ctx.clip(); ctx.drawImage(img, ox, oy); ctx.restore();
+      break; }
     case 'rattle': { /* a locked thing shakes a little and stays put */
       if (t > 0.6){ st.anim = null; restDraw(); break; }
       if (L.gone && L.gone()){ st.anim = null; break; }
@@ -889,10 +1005,12 @@ if (new URLSearchParams(location.search).has('fresh')){ try{ Object.keys(localSt
    in the list is greyed out as "Coming soon" on the choose screen and in the Family tab. ?stage=<key> still opens any stage for testing. */
 const LITE = ['school', 'packing'];
 const released = key => !!CHILDREN[key] && LITE.includes(CHILDREN[key].first);
+// the stage a stage's end card leads into, or null while that stage is not in the lite release (the card then says "Coming soon")
+const nextStage = () => STAGE && STAGE.next && LITE.includes(STAGE.next) ? STAGE.next : null;
 const CHILDREN = {
-  mary:{name:'Mary', age:10, colour:'#8a5cc2', line:'Notices patterns, reads everything.', first:'school', portrait:'../art/portraits/mary.png'},
-  elliot:{name:'Elliot', age:7, colour:'#2f7c83', line:'Wants to know how things work.', first:'eschool', portrait:'../art/portraits/elliot.png'},
-  zaina:{name:'Zaina', age:4, colour:'#d9a622', line:'Sees the small things. Animals trust her.', first:'zschool', portrait:'../art/portraits/zaina.png'}
+  mary:{name:'Mary', age:10, level:'for ages 10 and up, with puzzles for grown-ups', colour:'#8a5cc2', line:'Notices patterns, reads everything.', first:'school', portrait:'../art/portraits/mary.png', grin:'../art/portraits/mary-grin.png'},
+  elliot:{name:'Elliot', age:7, level:'for ages 7 and up', colour:'#2f7c83', line:'Wants to know how things work.', first:'eschool', portrait:'../art/portraits/elliot.png', grin:'../art/portraits/elliot-grin.png'},
+  zaina:{name:'Zaina', age:4, level:'for ages 4 and up, nothing to read', colour:'#d9a622', line:'Sees the small things. Animals trust her.', first:'zschool', portrait:'../art/portraits/zaina.png', grin:'../art/portraits/zaina-grin.png'}
 };
 let CHILD = 'mary', S;
 const keyFor = child => KEY + '.' + child;
@@ -963,6 +1081,7 @@ function render(){
   const v = curView();
   Object.keys(WALLS).forEach(k => $('w-'+k).classList.toggle('on', k === v));
   drawSides(v);
+  if (STAGE.onRender) STAGE.onRender(v); /* a stage may set the scene's mood on every render (the blind down: a dark room) */
   $('where').textContent = ROOMS[S.room].name;
   const hots = $('hots'); hots.innerHTML = '';
   const going = new Map(); layerState.forEach((st, c) => { if (st.anim && st.L.group) going.set(st.L.group, {anim:st.anim, t0:st.t0}); }); /* movements still going carry over a re-render */
@@ -972,7 +1091,7 @@ function render(){
   startIdle();
   /* bigger targets first, so a small thing on a big thing (the mug on the desk) stays tappable */
   [...HOTS[v]].sort((a, b) => b.w*b.h - a.w*a.h).forEach(h => {
-    if (h.hideWhen && h.hideWhen()) return;
+    if (h.hideWhen && h.hideWhen()) return; if (h.showWhen && !h.showWhen()) return;
     const b = document.createElement('button');
     b.className = 'hs' + (h.secret ? ' secret' : ''); b.dataset.id = h.id; b.setAttribute('aria-label', h.label);
     b.style.cssText = `left:${h.l}%;top:${h.t}%;width:${h.w}%;height:${h.h}%`;
@@ -989,13 +1108,16 @@ function render(){
   if (usable.length >= 1) tip('pickup', 2500);
   if (usable.length >= 2) tip('combine', 2500);
   const inv = $('inv'); inv.innerHTML = '';
+  /* a note whose job is done (its key found, its lock opened) leaves the strip, so the strip only shows what is still of use (owner, 12 Oct 2026) */
+  const shown = S.got.filter(k => ITEMS[k] && !(ITEMS[k].note && ITEMS[k].spent && ITEMS[k].spent()));
   for (let i = 0; i < 10; i++){
-    const key = S.got[i];
+    const key = shown[i];
     const b = document.createElement('button'); b.className = 'slot';
     if (key){ b.innerHTML = ITEMS[key].icon.replace('.png"', '.png?v=' + BUILD + '"'); b.setAttribute('aria-label', ITEMS[key].name); if (S.held === key) b.classList.add('sel');
       /* a note is read by tapping it; anything else is picked up in hand, then used by tapping where it goes, or on another thing in the strip */
       b.onclick = () => {
         if (S.held && S.held !== key){ const item = S.held; S.held = null; useItem(item, 'item:' + key, null); return; }
+        if (ITEMS[key].open){ sfx('paper'); ITEMS[key].open(); return; }
         if (ITEMS[key].note && !ITEMS[key].usable){ sfx('paper'); openNote(ITEMS[key].note); return; }
         sfx('tap'); S.held = S.held === key ? null : key; render(); say(S.held ? `Holding the ${ITEMS[key].name}. Tap where it goes.` : ''); if (S.held) tip('hold', 3500); }; }
     else b.setAttribute('aria-hidden', 'true');
@@ -1064,11 +1186,11 @@ function openLiftPull(o){
     if (lifted && pull >= PULL*0.9){ finish(); return; } lift = 0; pull = 0; lifted = false; draw(); if (!/Stuck/.test($('handsFb').textContent)) $('handsFb').textContent = o.label; };
   draw();
 }
-function closeCloseup(){ if ($('closeup').hidden) return; $('closeup').hidden = true; $('closeup').classList.remove('aside', 'left', 'right'); $('scene').classList.remove('zoomed', 'aside'); sfx('close'); if (voiceKey && /\.note\.|^nb\./.test(voiceKey)) hush(); }
-function openNote(key){ const n = NOTES[key]; if (STAGE.onNote) STAGE.onNote(key); speak(`${S.stage}.note.${key}`); openCloseup(`<div class="card note${n.hand ? '' : ' print'}">${n.html}</div>`); }
+function closeCloseup(){ if ($('closeup').hidden) return; $('closeup').hidden = true; if (pendingPoint){ const id = pendingPoint; pendingPoint = null; setTimeout(() => pointAt(id), 250); } $('closeup').classList.remove('aside', 'left', 'right'); $('scene').classList.remove('zoomed', 'aside'); sfx('close'); if (voiceKey && /\.note\.|^nb\./.test(voiceKey)) hush(); }
+function openNote(key){ const n = NOTES[key]; if (STAGE.onNote) STAGE.onNote(key); speak(`${S.stage}.note.${key}`, n.voice ? null : () => $('closeup').querySelector('.card')); /* a note with its own voice line (mirror writing) is not read along */ openCloseup(`<div class="card note${n.hand ? '' : ' print'}${n.mirror ? ' mirror' : ''}">${n.html}</div>`); }
 /* a picture close-up with something drawn over it by the game (a painting, a drawing, a shelf of jars with their labels) */
 function openPic(src, aspect, title, overlay, width){
-  openCloseup(`<div class="card pic" style="width:calc(var(--u)*${width || 58})"><div class="picwrap" id="picwrap" style="aspect-ratio:${aspect};background-image:url(${src}?v=${BUILD})">${overlay || ''}${title ? `<p class="otitle">${title}</p>` : ''}</div></div>`);
+  openCloseup(`<div class="card pic" style="width:calc(var(--u)*${width || 58})"><div class="picwrap" id="picwrap" style="aspect-ratio:${aspect};${src ? `background-image:url(${src}?v=${BUILD})` : ''}">${overlay || ''}${title ? `<p class="otitle">${title}</p>` : ''}</div></div>`);
 }
 /* the end of a stage: a card with the story's last line, and the way on to the next stage */
 /* A drag moment: a close-up picture with a tab the player pulls along a path (in picture percentages) from start to end.
@@ -1098,7 +1220,7 @@ function showEnd(title, text, small){
   const pc = STAGE.postcard || {}, c = CHILDREN[CHILD];
   say(''); $('endTitle').textContent = title;
   $('postcard').innerHTML = `<div class="pic" style="background-image:url(${pc.pic}?v=${BUILD})"></div><div class="pmsg"><span class="body"><span class="stamp" style="background-image:url(${c.portrait}?v=${BUILD})"></span><span class="to" style="display:block;margin-bottom:calc(var(--u)*.5)">Dear Mum and Dad,</span>${text}</span>${small ? `<span class="ps">P.S. ${small}</span>` : ''}<span class="sig">Love, ${c.name} x</span></div>`;
-  const nx = $('endNext'); nx.hidden = false; nx.textContent = STAGE.next ? (STAGE.nextLabel || 'Next') : 'To be continued… back to the title';
+  const nx = $('endNext'); nx.hidden = false; nx.textContent = nextStage() ? (STAGE.nextLabel || 'Next') : STAGE.next ? 'Coming soon… back to the title' : 'To be continued… back to the title';
   const wait = matchMedia('(prefers-reduced-motion:reduce)').matches ? 400 : 2000; setTimeout(() => { $('endUI').hidden = false; speak(`${S.stage}.postcard`); }, wait);
 }
 /* the comic intro: STAGE.comic is a list of pages, each a picture and a few short lines with a corner each; a tap brings the next
@@ -1111,9 +1233,10 @@ function showComic(pages, then){
   el.hidden = false; hush();
   const end = () => { if (!comicOn) return; comicOn = false; el.hidden = true; el.onclick = null; hush(); if (then){ S.comicSeen = true; save(); then(); } };
   const showPage = () => { const pg = pages[p]; boxes.innerHTML = ''; next.classList.remove('on'); i = 0;
-    pic.classList.add('turn'); preload(pg.pic).then(() => { pic.style.backgroundImage = `url(${pg.pic}?v=${BUILD})`; pic.classList.remove('turn'); }); step(); };
+    pic.classList.add('turn'); preload(pg.pic).then(() => { pic.style.backgroundImage = `url(${pg.pic}?v=${BUILD})`; pic.classList.remove('turn'); step(); });
+    if (pages[p + 1]){ preload(pages[p + 1].pic); pages[p + 1].lines.forEach((l, i) => prepVoice(`${S.stage}.comic.${p + 1}.${i}`)); } };
   const step = () => { const pg = pages[p];
-    if (i < pg.lines.length){ const [text, at] = Array.isArray(pg.lines[i]) ? pg.lines[i] : [pg.lines[i], ['tl','br','tr','bl'][i % 4]]; const b = document.createElement('div'); b.className = 'cbox ' + at; b.textContent = text; boxes.appendChild(b); speak(`${S.stage}.comic.${p}.${i}`); i++; if (i === pg.lines.length) next.classList.add('on'); sfx('paper'); }
+    if (i < pg.lines.length){ const [text, at] = Array.isArray(pg.lines[i]) ? pg.lines[i] : [pg.lines[i], ['tl','br','tr','bl'][i % 4]]; const b = document.createElement('div'); b.className = 'cbox ' + at; b.textContent = text; boxes.appendChild(b); speak(`${S.stage}.comic.${p}.${i}`, b); i++; if (i === pg.lines.length) next.classList.add('on'); sfx('paper'); }
     else if (p < pages.length - 1){ p++; showPage(); }
     else end(); };
   el.onclick = e => { if (e.target === $('cskip')) return; step(); };
@@ -1127,7 +1250,7 @@ $('comicBtn').onclick = () => { closeMenu(); if (STAGE.comic) showComic(STAGE.co
 function stageCard(then){
   const c = STAGE.card; if (!c){ then(); return; }
   const el = $('stagecard'); el.innerHTML = `<div class="in"><span class="place">${c.place}</span><h2>${STAGE.title}</h2><p>${c.text}</p><div class="go"><button class="ob" id="cardGo">Begin</button></div></div>`;
-  el.hidden = false; speak(`${S.stage}.card`); const go = () => { el.hidden = true; el.onclick = null; then(); speak(`${S.stage}.intro`); tip('tap', 6000); tip(STAGE.hintStyle === 'point' ? 'helpPoint' : 'help', 75000); }; el.onclick = go; $('cardGo').onclick = e => { e.stopPropagation(); go(); };
+  el.hidden = false; speak(`${S.stage}.card`, el.querySelector('p')); const go = () => { el.hidden = true; el.onclick = null; if (STAGE.begin && !S.begun){ S.begun = true; save(); STAGE.begin(() => { then(); speak(`${S.stage}.intro`, $('msg')); }); } else { then(); speak(`${S.stage}.intro`, $('msg')); } /* a stage's opening gesture (4j) plays between the card and the first line */ tip('tap', 6000); tip(STAGE.hintStyle === 'point' ? 'helpPoint' : 'help', 75000); }; el.onclick = go; $('cardGo').onclick = e => { e.stopPropagation(); go(); };
 }
 
 /* ---------- using a held item on something: USES maps "item>target" to what happens; anything else gets a friendly line ---------- */
@@ -1167,12 +1290,12 @@ function tip(name, delay = 0){
     if (tipsSeen.has(name)) return;
     if (!$('closeup').hidden || !$('menu').hidden || !$('stagecard').hidden || !$('loading').hidden || comicOn || (voiceEl && !voiceEl.paused) || !$('endUI').hidden){ tip(name, 1500); return; } /* not now: try again shortly */
     tipsSeen.add(name); try{ localStorage.setItem('mothhouse.tips', JSON.stringify([...tipsSeen])); }catch(e){}
-    say(`<b>The moth whispers:</b> ${TIPS[name]}`); speak('tip.' + name);
+    say(`<b>The moth says:</b> ${TIPS[name]}`); speak('tip.' + name, $('msg'));
   }, delay);
 }
 function hint(){ if (STAGE.hintStyle === 'point') pointNext(); else openNotebook(); }
 /* a spoken tap line (Zaina's stage, where nothing is read): shown like any line and said by the moth, key <stage>.line.<name> */
-function line(key, text){ say(text); speak(`${S.stage}.line.${key}`); }
+function line(key, text){ say(text); speak(`${S.stage}.line.${key}`, $('msg')); }
 /* pointed hints: the first hint whose goal is not met names a room, a view and a thing; the game turns to it, the moth flies over,
    the thing glows for a moment and the moth says its one line. Peanut in Zaina's stage does the same when tapped. */
 function pointNext(){
@@ -1184,7 +1307,7 @@ function pointNext(){
   setTimeout(() => pointAt(h.at && h.at.id, `<b>${STAGE.speaker()}:</b> ${h.tips[0]}`, `${S.stage}.hint.${i}.0`), turnFirst ? 350 : 0);
 }
 function pointAt(id, html, voiceKey){
-  const b = id && document.querySelector(`.hs[data-id="${id}"]`); say(html); speak(voiceKey);
+  const b = id && document.querySelector(`.hs[data-id="${id}"]`); say(html); speak(voiceKey, $('msg'));
   if (!b) return;
   const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
   const glow = () => { b.classList.add('point'); setTimeout(() => b.classList.remove('point'), 3200); };
@@ -1194,12 +1317,17 @@ function pointAt(id, html, voiceKey){
   requestAnimationFrame(() => requestAnimationFrame(() => { m.style.left = cx + '%'; m.style.top = cy + '%'; m.classList.add('go'); }));
   setTimeout(glow, 900); setTimeout(() => m.classList.add('away'), 3000); setTimeout(() => m.remove(), 3800);
 }
-function hintText(i){ S.hint[i] = Math.min((S.hint[i] ?? -1) + 1, 2); save(); speak(`${S.stage}.hint.${i}.${S.hint[i]}`); return `<b>${STAGE.speaker()}:</b> ${HINTS[i].tips[S.hint[i]]}`; }
+let pendingPoint = null;
+function hintText(i){ S.hint[i] = Math.min((S.hint[i] ?? -1) + 1, 2); save(); speak(`${S.stage}.hint.${i}.${S.hint[i]}`, () => $('nbFb')); if (S.hint[i] >= 1 && HINTS[i].target) pendingPoint = HINTS[i].target; return `<b>${STAGE.speaker()}:</b> ${HINTS[i].tips[S.hint[i]]}`; }
+function pointAt(id){ const el = document.querySelector(`.hs[data-id="${id}"]`); if (!el) return false; el.classList.remove('point'); void el.offsetWidth; el.classList.add('point'); setTimeout(() => el.classList.remove('point'), 3400); return true; }
 function openNotebook(){
   if (!tipsSeen.has('help')){ tipsSeen.add('help'); tipsSeen.add('helpPoint'); clearTimeout(tipTimers.help); clearTimeout(tipTimers.helpPoint); try{ localStorage.setItem('mothhouse.tips', JSON.stringify([...tipsSeen])); }catch(e){} }
-  const rows = STAGE.rows(), noticed = STAGE.noticed ? STAGE.noticed() : [];
+  const rows = STAGE.rows(), noticed = STAGE.noticed ? STAGE.noticed() : [], clues = STAGE.clues ? STAGE.clues() : [];
   const list = rows.map(([i, label, state, done]) => `<button class="nbrow${done ? ' done' : ''}" data-i="${i}"><span>${label}</span><span class="st">${state}</span></button>`).join('');
-  openCloseup(`<div class="card note print nb"><span class="head">${CHILDREN[CHILD].name}’s notebook</span><div class="nblist">${list}</div><p class="nbfb" id="nbFb">${rows.some(r => !r[3]) ? 'Tap a line and ' + STAGE.helper() + ' will help with it.' : `<b>${STAGE.speaker()}:</b> That’s everything. Well done!`}</p>${noticed.length ? `<span class="nbsmall"><b>Noticed:</b> ${noticed.join(' ')}</span>` : ''}</div>`);
+  /* clues Mary has copied into her notebook (a page she read, a map, a banner) reopen from here, wherever she is, so nothing has to be memorised or walked back to (owner, 18 Oct 2026) */
+  const chips = clues.map((c, k) => `<button class="clue" data-k="${k}">${c.label}</button>`).join('');
+  openCloseup(`<div class="card note print nb"><span class="head">${CHILDREN[CHILD].name}’s notebook</span><div class="nblist${rows.length > 4 ? ' two' : ''}">${list}</div><p class="nbfb" id="nbFb">${rows.some(r => !r[3]) ? 'Tap a line and ' + STAGE.helper() + ' will help with it.' : `<b>${STAGE.speaker()}:</b> That’s everything. Well done!`}</p>${clues.length ? `<div class="nbclues"><b>Copied in:</b> ${chips}</div>` : ''}${noticed.length ? `<span class="nbsmall"><b>Noticed:</b> ${noticed.join(' ')}</span>` : ''}</div>`);
+  document.querySelectorAll('.nb .clue').forEach(b => b.onclick = () => { const c = clues[+b.dataset.k]; sfx('paper'); closeCloseup(); setTimeout(() => c.open(), 120); });
   if (!rows.some(r => !r[3])) speak('nb.done');
   document.querySelectorAll('.nbrow').forEach(b => b.onclick = () => { const i = +b.dataset.i; sfx('paper'); if (i < 0) speak('nb.that'); $('nbFb').innerHTML = i < 0 ? `<b>${STAGE.speaker()}:</b> That one’s done. Well found.` : hintText(i); });
 }
@@ -1207,6 +1335,8 @@ function openNotebook(){
 let pressTimer = null;
 function reveal(){ $('hots').classList.add('reveal'); sfx('leaf'); setTimeout(() => $('hots').classList.remove('reveal'), 1600); }
 $('scene').addEventListener('pointerdown', e => { if (!$('closeup').hidden || e.target.closest('.ctl, .arrow')) return; pressTimer = setTimeout(() => { pressTimer = null; reveal(); }, 600); });
+/* a long press is ours: the browser's own "share image" menu never opens on the room (tester round 1, checklist 32b) */
+$('stage').addEventListener('contextmenu', e => e.preventDefault());
 ['pointerup', 'pointercancel', 'pointerleave', 'pointermove'].forEach(ev => $('scene').addEventListener(ev, e => { if (ev === 'pointermove' && pressTimer === null) return; if (ev !== 'pointermove' || (e.movementX*e.movementX + e.movementY*e.movementY) > 36){ clearTimeout(pressTimer); pressTimer = null; } }));
 
 
@@ -1259,14 +1389,49 @@ function chime(f){ if (!vol.fx || !audio()) return; if (AC.state !== 'running') 
    and is played by key; the moth appears beside the message line while it speaks. One line at a time; a new line stops the last. */
 let voiceEl = null, voiceKey = null, VOICED = null;
 fetch('../art/voice/index.json?v=' + BUILD).then(r => r.json()).then(list => { VOICED = new Set(list); }).catch(() => { VOICED = new Set(); });
-function speak(key){
-  if (!vol.voice || !key || (VOICED && !VOICED.has(key))) return; /* a line not recorded yet is simply not spoken */
-  hush(); const el = new Audio(`../art/voice/${key}.mp3?v=${BUILD}`); el.volume = vol.voice/10; voiceEl = el; voiceKey = key;
-  const show = on => $('talker').classList.toggle('on', on);
-  el.onplay = () => show(true); el.onended = el.onerror = () => { if (voiceEl === el){ show(false); voiceEl = null; } };
-  el.play().catch(() => { show(false); if (voiceEl === el) voiceEl = null; });
+/* Every line is an Audio element kept once it has been made ready, so a tap never waits for the network (owner, 12 Oct 2026). */
+const VOICE = {};
+function voiceAudio(key){ if (VOICE[key]) return VOICE[key]; const a = new Audio(); a.preload = 'auto'; a.src = `../art/voice/${key}.mp3?v=${BUILD}`; VOICE[key] = a; return a; }
+/* make a line ready: settles when it can play through, or after a few seconds, so a slow network never holds the loading bar */
+function prepVoice(key){
+  if (!key || (VOICED && !VOICED.has(key))) return Promise.resolve();
+  const a = voiceAudio(key); if (a.readyState >= 4) return Promise.resolve();
+  return new Promise(res => { const done = () => { a.removeEventListener('canplaythrough', done); a.removeEventListener('error', done); res(); }; a.addEventListener('canplaythrough', done); a.addEventListener('error', done); setTimeout(done, 4000); try{ a.load(); }catch(e){ done(); } });
 }
-function hush(){ if (voiceEl){ voiceEl.onended = null; voiceEl.pause(); voiceEl = null; } $('talker').classList.remove('on'); }
+/* speak(key, el): el (or a function giving it) is the element whose words are being read, for the read-along */
+function speak(key, el){
+  if (!vol.voice || !key || (VOICED && !VOICED.has(key))) return; /* a line not recorded yet is simply not spoken */
+  hush(); const a = voiceAudio(key); a.volume = vol.voice/10; voiceEl = a; voiceKey = key;
+  const show = on => $('talker').classList.toggle('on', on);
+  a.onplay = () => { show(true); const t = typeof el === 'function' ? el() : el; if (t) readAlong(t, a); }; a.onended = a.onerror = () => { if (voiceEl === a){ show(false); voiceEl = null; } };
+  try{ if (a.currentTime) a.currentTime = 0; }catch(e){}
+  a.play().catch(() => { show(false); if (voiceEl === a) voiceEl = null; });
+}
+function hush(){ if (voiceEl){ voiceEl.onended = null; voiceEl.pause(); voiceEl = null; } $('talker').classList.remove('on'); stopReadAlong(); }
+/* Read-along (owner, 12 Oct 2026): as the moth reads, the words it has said turn teal and the one it is on sits on gold, so a young reader can follow.
+   The recordings carry no word times, so the time is shared out by letters, with a pause at a full stop or a comma. Labels in <b> are not read. */
+let readTimer = null, readSpans = [];
+function stopReadAlong(){ if (readTimer) cancelAnimationFrame(readTimer); readTimer = null; readSpans.forEach(sp => sp.classList.remove('read', 'now')); readSpans = []; }
+function wrapWords(el){
+  const spans = [];
+  const walk = node => { [...node.childNodes].forEach(ch => {
+    if (ch.nodeType === 3){ if (!ch.textContent.trim()) return; const frag = document.createDocumentFragment();
+      ch.textContent.split(/(\s+)/).forEach(t => { if (!t) return; if (/^\s+$/.test(t)) frag.appendChild(document.createTextNode(t)); else { const sp = document.createElement('span'); sp.className = 'w'; sp.textContent = t; frag.appendChild(sp); spans.push(sp); } });
+      node.replaceChild(frag, ch); }
+    else if (ch.nodeType === 1 && ch.tagName !== 'B' && ch.tagName !== 'BUTTON' && ch.tagName !== 'SVG' && !ch.classList.contains('w')) walk(ch); }); };
+  walk(el); return spans;
+}
+function readAlong(el, a){
+  stopReadAlong(); const spans = el.querySelector('.w') ? [...el.querySelectorAll('.w')] : wrapWords(el); if (!spans.length) return; readSpans = spans;
+  const w = spans.map(sp => sp.textContent.length + 1 + (/[.!?…]$/.test(sp.textContent) ? 5 : /[,;:]$/.test(sp.textContent) ? 2 : 0));
+  const total = w.reduce((x, y) => x + y, 0); let acc = 0; const ends = w.map(x => (acc += x) / total);
+  const step = () => {
+    if (voiceEl !== a || a.ended){ if (a.ended) spans.forEach(sp => { sp.classList.add('read'); sp.classList.remove('now'); }); readTimer = null; return; }
+    const d = a.duration, t = d && isFinite(d) ? Math.min(1, a.currentTime / Math.max(0.1, d - 0.2)) : 0;
+    spans.forEach((sp, i) => { const done = ends[i] <= t, now = !done && (i === 0 || ends[i - 1] <= t); sp.classList.toggle('read', done); sp.classList.toggle('now', now); });
+    readTimer = requestAnimationFrame(step); };
+  step();
+}
 /* Background music: a composed sixteen-bar music-box waltz, played by a scheduler and looped.
    It plays only if a track file fails to load. */
 /* Tracks are mp3s made with Google's Lyria through the Gemini key (art/music/README.md): one for the title, one per stage.
@@ -1355,6 +1520,12 @@ function startAmbient(){
     const g = noiseSrc(1400, 300, .11); wobble(g, .11, .04, .13);
     const drip = () => { const t = ac.currentTime, o = ac.createOscillator(), og = ac.createGain(); o.type = 'sine'; o.frequency.setValueAtTime(1400 + Math.random()*1200, t); o.frequency.exponentialRampToValueAtTime(700, t + .08); og.gain.setValueAtTime(.0001, t); og.gain.exponentialRampToValueAtTime(.05, t + .005); og.gain.exponentialRampToValueAtTime(.0001, t + .12); o.connect(og); og.connect(out); o.start(t); o.stop(t + .15); timers.push(setTimeout(drip, 300 + Math.random()*1400)); };
     timers.push(setTimeout(drip, 800));
+  } else if (ambKind === 'evening'){ /* an English garden at dusk: a blackbird now and then, far-off and unhurried */
+    const g = noiseSrc(500, 80, .02); wobble(g, .02, .008, .05);
+    const bird = () => { const t = ac.currentTime, n = 3 + Math.floor(Math.random()*4), f0 = 1800 + Math.random()*900; for (let i = 0; i < n; i++){ const o = ac.createOscillator(), og = ac.createGain(), ts = t + i*.22; o.type = 'sine'; o.frequency.setValueAtTime(f0*(1 + (i%2)*.18), ts); o.frequency.exponentialRampToValueAtTime(f0*1.25, ts + .09); o.frequency.exponentialRampToValueAtTime(f0*.85, ts + .18); og.gain.setValueAtTime(.0001, ts); og.gain.exponentialRampToValueAtTime(.035, ts + .02); og.gain.exponentialRampToValueAtTime(.0001, ts + .2); o.connect(og); og.connect(out); o.start(ts); o.stop(ts + .22); } timers.push(setTimeout(bird, 6000 + Math.random()*9000)); };
+    timers.push(setTimeout(bird, 2500));
+  } else if (ambKind === 'plane'){ /* the engines, far off and steady, with a slow swell */
+    const g = noiseSrc(380, 50, .06); wobble(g, .06, .012, .045);
   } else if (ambKind === 'school'){
     const g = noiseSrc(600, 120, .035); wobble(g, .035, .015, .07); /* the party, far off */
     const bird = () => { const t = ac.currentTime, n = 2 + Math.floor(Math.random()*3), f0 = 2400 + Math.random()*1200; for (let i = 0; i < n; i++){ const o = ac.createOscillator(), og = ac.createGain(), ts = t + i*.14; o.type = 'sine'; o.frequency.setValueAtTime(f0, ts); o.frequency.exponentialRampToValueAtTime(f0*1.35, ts + .05); o.frequency.exponentialRampToValueAtTime(f0*.9, ts + .1); og.gain.setValueAtTime(.0001, ts); og.gain.exponentialRampToValueAtTime(.04, ts + .01); og.gain.exponentialRampToValueAtTime(.0001, ts + .11); o.connect(og); og.connect(out); o.start(ts); o.stop(ts + .13); } timers.push(setTimeout(bird, 2500 + Math.random()*5000)); };
@@ -1415,14 +1586,14 @@ function switchChild(key){
   setTimeout(() => {
     CHILD = key; S = load(); save(); setTrack(STAGE.track); setAmbient(STAGE.ambient);
     const fresh = !S.got.length && !S.done && S.stage === CHILDREN[key].first && !hasProgress(S);
-    loadWithBar(viewArt(curView()), `Meanwhile, ${ROOMS[S.room].into}…`).then(() => { render(); scene.classList.remove('fade'); meanwhileCard(() => { if (fresh){ say(STAGE.intro); speak(`${S.stage}.intro`); } else say(`Back in ${ROOMS[S.room].into}.`); }); loadRest(); });
+    loadWithBar([...viewArt(curView()), ...openers()], `Meanwhile, ${ROOMS[S.room].into}…`).then(() => { render(); scene.classList.remove('fade'); meanwhileCard(() => { if (fresh){ say(STAGE.intro); speak(`${S.stage}.intro`, $('msg')); } else say(`Back in ${ROOMS[S.room].into}.`); }); loadRest(); });
   }, reduce ? 350 : 1400);
 }
 /* the card between children: MEANWHILE, the child's name and the stage's one fixed line about where they are in their day */
 function meanwhileCard(then){
   const el = $('stagecard'), c = CHILDREN[CHILD];
-  el.innerHTML = `<div class="in"><span class="place">MEANWHILE</span><h2>${c.name}</h2><p>${STAGE.meanwhile || `${c.name} is in ${ROOMS[S.room].into}.`}</p><div class="go"><button class="ob" id="cardGo">Go on</button></div></div>`;
-  el.hidden = false; speak(`${S.stage}.meanwhile`); const go = () => { el.hidden = true; el.onclick = null; then(); }; el.onclick = go; $('cardGo').onclick = e => { e.stopPropagation(); go(); };
+  el.innerHTML = `<div class="in"><span class="place">Meanwhile</span><h2>${c.name}</h2><p>${STAGE.meanwhile || `${c.name} is in ${ROOMS[S.room].into}.`}</p><div class="go"><button class="ob" id="cardGo">Go on</button></div></div>`;
+  el.hidden = false; speak(`${S.stage}.meanwhile`, el.querySelector('p')); const go = () => { el.hidden = true; el.onclick = null; then(); }; el.onclick = go; $('cardGo').onclick = e => { e.stopPropagation(); go(); };
 }
 $('tMenu').onclick = () => openMenu('settings');
 $('tAbout').onclick = () => openMenu('about');
@@ -1437,7 +1608,7 @@ function confirmThen(text, fn){ $('confirmText').textContent = text; $('confirmU
 /* Full screen: phones and tablets in a browser get asked once; the menu can toggle it any time. Inside the Android app the game is already full screen. */
 const canFS = !!(document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen), standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
 async function goFullscreen(){
-  try{ const el = document.documentElement; await (el.requestFullscreen ? el.requestFullscreen({navigationUI:'hide'}) : el.webkitRequestFullscreen()); }catch(e){}
+  try{ const el = document.documentElement; await (el.requestFullscreen ? el.requestFullscreen({navigationUI:'hide'}) : el.webkitRequestFullscreen()); }catch(e){ say('This browser won’t go full screen. Add the game to your home screen instead: it opens full screen from there.'); }
   try{ await screen.orientation.lock('landscape'); }catch(e){}
   setTimeout(fit, 300); setTimeout(fit, 900);
 }
@@ -1448,7 +1619,8 @@ document.addEventListener('fullscreenchange', () => { $('fsBtn').textContent = i
 $('fsYes').onclick = () => { $('fsask').hidden = true; goFullscreen(); };
 $('fsNo').onclick = () => { $('fsask').hidden = true; try{ sessionStorage.setItem('mothhouse.fsasked', '1'); }catch(e){} };
 let fsAsked = false; try{ fsAsked = !!sessionStorage.getItem('mothhouse.fsasked'); }catch(e){}
-if (canFS && !standalone && matchMedia('(pointer:coarse)').matches && !fsAsked) $('fsask').hidden = false; else $('fsBtn').hidden = !canFS || standalone;
+if (canFS && !standalone && matchMedia('(pointer:coarse)').matches && !fsAsked) $('fsask').hidden = false;
+$('fsRow').hidden = !canFS || standalone; /* inside the installed app the page is already full screen */
 const restart = () => { S = fresh(S.stage); closeMenu(); $('endUI').hidden = true; closeCloseup(); render(); openStage(); };
 $('restart').onclick = () => confirmThen(`Start “${STAGE.title}” again from the beginning? Everything found in this stage will be put back.`, restart);
 $('endAgain').onclick = restart;
@@ -1457,9 +1629,9 @@ addEventListener('keydown', e => { if (e.key === 'Enter' && !$('stagecard').hidd
 /* on to the next stage: fresh state, the new rooms loaded quietly first */
 function startStage(key){
   loadStage(key); S = fresh(key); save(); $('endUI').hidden = true; closeCloseup(); hush(); setTrack(STAGE.track); setAmbient(STAGE.ambient);
-  loadWithBar(viewArt(curView()), `Opening ${ROOMS[S.room].into}…`).then(() => { render(); openStage(); loadRest(); });
+  loadWithBar([...viewArt(curView()), ...openers()], `Opening ${ROOMS[S.room].into}…`).then(() => { render(); openStage(); loadRest(); });
 }
-$('endNext').onclick = () => { if (STAGE.next) startStage(STAGE.next); else { $('endUI').hidden = true; showTitle(); } };
+$('endNext').onclick = () => { if (nextStage()) startStage(nextStage()); else { $('endUI').hidden = true; showTitle(); } };
 $('toTitle').onclick = () => { closeMenu(); closeCloseup(); showTitle(); };
 
 /* ---------- the start-up, the title screen and choosing a child ---------- */
@@ -1484,8 +1656,10 @@ function showChoose(mode){ /* mode: 'continue' resumes each child's save; 'new' 
   Object.entries(CHILDREN).forEach(([key, c]) => {
     const s = saved(key), prog = s ? (STAGES[s.stage].title + (s.done ? ', finished' : '')) : '';
     const b = document.createElement('button'); b.className = 'kid' + (released(key) ? '' : ' soon'); b.dataset.child = key;
-    b.innerHTML = `<span class="face" style="background:${c.colour}">${c.portrait ? `<img src="${c.portrait}?v=${BUILD}" alt="">` : c.name[0]}</span><span class="kname">${c.name}</span><span class="kage">age ${c.age}</span><span class="kline">${c.line}</span><span class="kprog ${mode === 'new' && s && (s.got.length || s.done) ? 'warn' : ''}">${!released(key) ? 'Coming soon' : mode === 'continue' ? (prog || 'Not started') : (s && (s.got.length || s.done) ? 'Starts again from the beginning' : '')}</span>`;
+    b.innerHTML = `<span class="face" style="background:${c.colour}">${c.portrait ? `<img src="${c.portrait}?v=${BUILD}" alt="">${c.grin ? `<img class="grin" src="${c.grin}?v=${BUILD}" alt="">` : ''}` : c.name[0]}</span><span class="kname">${c.name}, ${c.age}</span><span class="kage">${c.level}</span><span class="kline">${c.line}</span><span class="kprog ${mode === 'new' && s && (s.got.length || s.done) ? 'warn' : ''}">${!released(key) ? 'Coming soon' : mode === 'continue' ? (prog || 'Not started') : (s && (s.got.length || s.done) ? 'Starts again from the beginning' : '')}</span>`;
     if (!released(key) || (mode === 'continue' && !s)) b.disabled = true;
+    /* a finger has no hover: the face lights up while the card is pressed, and stays lit a moment after */
+    b.onpointerdown = () => { b.classList.add('lit'); }; b.onpointerup = b.onpointercancel = b.onpointerleave = () => setTimeout(() => b.classList.remove('lit'), 350);
     b.onclick = () => { CHILD = key; if (mode === 'new'){ const first = c.first; loadStage(first); S = fresh(first); save(); } else S = load(); enterGame(); };
     kids.appendChild(b);
   });
@@ -1503,7 +1677,7 @@ $('howtoBtn').onclick = () => { closeMenu(); showHowto(null); };
 function enterGame(){
   inGame = true; $('choose').hidden = true; $('title').hidden = true; setTrack(STAGE.track); setAmbient(STAGE.ambient);
   if (!howtoSeen && !new URLSearchParams(location.search).get('stage')){ showHowto(() => enterGame()); return; }
-  loadWithBar(viewArt(curView()), `Opening ${ROOMS[S.room].into}…`).then(() => {
+  loadWithBar([...viewArt(curView()), ...openers()], `Opening ${ROOMS[S.room].into}…`).then(() => {
     render(); if (S.got.length || S.done) say(`Back in ${ROOMS[S.room].into}.`); else openStage();
     loadRest();
   });
@@ -1523,13 +1697,18 @@ function boot(){
   const want = new URLSearchParams(location.search).get('stage');
   if (want && STAGES[want]){ CHILD = STAGES[want].child || 'mary'; S = load(); if (S.stage !== want){ loadStage(want); S = fresh(want); save(); } enterGame(); return; }
   S = load(); /* something to render behind the title screen */
+  Object.values(CHILDREN).forEach(c => { if (c.portrait) preload(c.portrait); if (c.grin) preload(c.grin); }); preload('../art/portraits/moth.png'); preload('../art/portraits/moth-speak.png'); /* so the children's faces are there the moment the cards are */
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-10-17d"></script>
-<script src="stages/packing.js?v=2026-10-17d"></script>
-<script src="stages/eschool.js?v=2026-10-17d"></script>
-<script src="stages/zschool.js?v=2026-10-17d"></script>
+<script src="stages/school.js?v=2026-10-18b"></script>
+<script src="stages/packing.js?v=2026-10-18b"></script>
+<script src="stages/school3.js?v=2026-10-18b"></script>
+<script src="stages/eschool.js?v=2026-10-18b"></script>
+<script src="stages/zschool.js?v=2026-10-18b"></script>
+<script src="stages/flight.js?v=2026-10-18b"></script>
+<script src="stages/nana.js?v=2026-10-18b"></script>
+<script src="stages/park.js?v=2026-10-18b"></script>
 <script>boot();</script>
 <script>if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('../../sw.js').catch(() => {});</script>
 </body>
