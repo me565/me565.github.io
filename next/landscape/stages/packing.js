@@ -247,31 +247,31 @@ const ITEMS = {
   list:{name:'Mum’s list', note:'list', icon:`<img src="${F}layer-list.png" alt="">`, open:() => openNote('list')}
 };
 const HINTS = [
-  {goal:() => S.briefed, tips:['Mum said the list is on the fridge, and that Dad hid the three things that matter.', 'The fridge is in the kitchen, past the dining table. Dad is wherever the shower is running.', 'Read the list on the fridge, then knock on the bathroom door in Mum and Dad’s room.']},
+  {goal:() => S.briefed, target:'nr_fridge', tips:['Mum said the list is on the fridge, and that Dad hid the three things that matter.', 'The fridge is in the kitchen, past the dining table. Dad is wherever the shower is running.', 'Read the list on the fridge, then knock on the bathroom door in Mum and Dad’s room.']},
   /* trail 1: the passports */
-  {thread:1, goal:() => S.dadAsked, tips:['Somebody in this flat knows where the passports are.', 'Dad is in the shower, and talks through the door.', 'In Mum and Dad’s room, tap the shut bathroom door.']},
-  {thread:1, goal:() => S.chestSeen, tips:['“My drawer,” Dad said.', 'His chest of drawers is by the window in their room.', 'Tap the chest of drawers in Mum and Dad’s room.']},
-  {thread:1, goal:() => S.bookingSeen, tips:['The code is “when we take off”. Something in the flat says when that is.', 'The fridge is covered in papers.', 'Open the fridge close-up and read the booking.']},
-  {thread:1, goal:() => S.chestOpen, tips:['Four numbers: the time the plane takes off. The booking gives several times, and Mum has stuck a note on it.', 'Departure is printed as 22:45, and Mum’s note says the flight moved an hour earlier.', 'Set the dials to 2, 1, 4, 5 and tap Open.']},
-  {thread:1, goal:() => got('passports') || packed('passports'), tips:['The drawer is open.', 'Lift the front and pull.', 'Take the passports from the drawer.']},
+  {thread:1, goal:() => S.dadAsked, target:'pr_ensuite', tips:['Somebody in this flat knows where the passports are.', 'Dad is in the shower, and talks through the door.', 'In Mum and Dad’s room, tap the shut bathroom door.']},
+  {thread:1, goal:() => S.chestSeen, target:'pr_chest', tips:['“My drawer,” Dad said.', 'His chest of drawers is by the window in their room.', 'Tap the chest of drawers in Mum and Dad’s room.']},
+  {thread:1, goal:() => S.bookingSeen, target:'nr_fridge', tips:['The code is “when we take off”. Something in the flat says when that is.', 'The fridge is covered in papers.', 'Open the fridge close-up and read the booking.']},
+  {thread:1, goal:() => S.chestOpen, target:'pr_chest', tips:['Four numbers: the time the plane takes off. The booking gives several times, and Mum has stuck a note on it.', 'Departure is printed as 22:45, and Mum’s note says the flight moved an hour earlier.', 'Set the dials to 2, 1, 4, 5 and tap Open.']},
+  {thread:1, goal:() => got('passports') || packed('passports'), target:'pr_chest', tips:['The drawer is open.', 'Lift the front and pull.', 'Take the passports from the drawer.']},
   /* trail 2: the torch */
-  {thread:2, goal:() => S.postcardRead, tips:['Nana wrote this morning. She wants something.', 'Her postcard is on the pinboard in your room, by the door.', 'Open the pinboard and read today’s postcard.']},
-  {thread:2, goal:() => S.ovenSeen, tips:['A small red torch could be anywhere a small person puts things.', 'Zaina is cooking. What is in her oven?', 'In the little ones’ room, tap the toy kitchen.']},
-  {thread:2, goal:() => S.zainaAsked, tips:['Zaina has the torch and will not give it up for nothing.', 'Ask her what she wants.', 'Tap Zaina.']},
-  {thread:2, goal:() => S.elliotAsked || got('peanut'), tips:['Peanut is lost. Somebody saw him last.', 'Elliot is on the living-room rug and notices everything.', 'Tap Elliot.']},
-  {thread:2, goal:() => got('peanut') || S.peanutGiven, tips:['“On the sofa,” said Elliot. Sofas have more than one place to lose things.', 'Lift the cushions one by one.', 'In the sofa close-up, lift the fourth cushion.']},
-  {thread:2, goal:() => got('torch') || packed('torch'), tips:['Peanut for the torch.', 'Tap Peanut in the strip, then Zaina.', 'Give Zaina Peanut; the torch is yours.']},
+  {thread:2, goal:() => S.postcardRead, target:'mr_board', tips:['Nana wrote this morning. She wants something.', 'Her postcard is on the pinboard in your room, by the door.', 'Open the pinboard and read today’s postcard.']},
+  {thread:2, goal:() => S.ovenSeen, target:'kr_kitchen', tips:['A small red torch could be anywhere a small person puts things.', 'Zaina is cooking. What is in her oven?', 'In the little ones’ room, tap the toy kitchen.']},
+  {thread:2, goal:() => S.zainaAsked, target:'kr_zaina', tips:['Zaina has the torch and will not give it up for nothing.', 'Ask her what she wants.', 'Tap Zaina.']},
+  {thread:2, goal:() => S.elliotAsked || got('peanut'), target:'lr_elliot', tips:['Peanut is lost. Somebody saw him last.', 'Elliot is on the living-room rug and notices everything.', 'Tap Elliot.']},
+  {thread:2, goal:() => got('peanut') || S.peanutGiven, target:'lr_sofa', tips:['“On the sofa,” said Elliot. Sofas have more than one place to lose things.', 'Lift the cushions one by one.', 'In the sofa close-up, lift the fourth cushion.']},
+  {thread:2, goal:() => got('torch') || packed('torch'), target:'kr_zaina', tips:['Peanut for the torch.', 'Tap Peanut in the strip, then Zaina.', 'Give Zaina Peanut; the torch is yours.']},
   /* trail 3: the present */
-  {thread:3, goal:() => S.dadAsked2, tips:['Dad hid Nana’s present too.', 'He says where if you ask again.', 'Tap the bathroom door in Mum and Dad’s room a second time.']},
-  {thread:3, goal:() => S.boxesSeen, tips:['“In the yard, in a box,” said Dad.', 'The yard is through the kitchen.', 'Tap the shelf of boxes in the yard.']},
-  {thread:3, goal:() => S.rocketSeen, tips:['“The one Elliot drew on.” Which drawing is Elliot’s? He signs everything the same way.', 'Elliot’s drawings are on the fridge and on his pinboard. Look at the corner of each.', 'Elliot draws rockets, and puts a little cog in the corner.']},
-  {thread:3, goal:() => got('present') || packed('present'), tips:['Four boxes, four drawings.', 'Open the one with Elliot’s mark on it.', 'In the yard, open the rocket box.']},
+  {thread:3, goal:() => S.dadAsked2, target:'pr_ensuite', tips:['Dad hid Nana’s present too.', 'He says where if you ask again.', 'Tap the bathroom door in Mum and Dad’s room a second time.']},
+  {thread:3, goal:() => S.boxesSeen, target:'yr_boxes', tips:['“In the yard, in a box,” said Dad.', 'The yard is through the kitchen.', 'Tap the shelf of boxes in the yard.']},
+  {thread:3, goal:() => S.rocketSeen, target:'nr_fridge', tips:['“The one Elliot drew on.” Which drawing is Elliot’s? He signs everything the same way.', 'Elliot’s drawings are on the fridge and on his pinboard. Look at the corner of each.', 'Elliot draws rockets, and puts a little cog in the corner.']},
+  {thread:3, goal:() => got('present') || packed('present'), target:'yr_boxes', tips:['Four boxes, four drawings.', 'Open the one with Elliot’s mark on it.', 'In the yard, open the rocket box.']},
   /* the list */
-  {goal:() => got('jumper') || packed('jumper'), tips:['A jumper, for England.', 'The washing is in the yard.', 'Take the purple jumper off the drying rack.']},
-  {goal:() => got('toothbrush') || packed('toothbrush'), tips:['A toothbrush, says the list.', 'The children’s bathroom is off the corridor.', 'Take the toothbrush with the star from the cup.']},
+  {goal:() => got('jumper') || packed('jumper'), target:'yr_jumper', tips:['A jumper, for England.', 'The washing is in the yard.', 'Take the purple jumper off the drying rack.']},
+  {goal:() => got('toothbrush') || packed('toothbrush'), target:'cr_bath', tips:['A toothbrush, says the list.', 'The children’s bathroom is off the corridor.', 'Take the toothbrush with the star from the cup.']},
   /* convergence */
-  {goal:() => S.zipped, tips:['Everything on the list, and the three hidden things, into the case.', 'The case is in your room. Tap it with each thing held.', 'When nothing is missing, tap the case and pull the zip across.']},
-  {goal:() => S.done, tips:['Zipped. Mum is calling.', 'The taxi is downstairs.', 'Go to the front door at the dining end.']}
+  {goal:() => S.zipped, target:'mr_case', tips:['Everything on the list, and the three hidden things, into the case.', 'The case is in your room. Tap it with each thing held.', 'When nothing is missing, tap the case and pull the zip across.']},
+  {goal:() => S.done, target:'dr_front', tips:['Zipped. Mum is calling.', 'The taxi is downstairs.', 'Go to the front door at the dining end.']}
 ];
 const THREADS = {1:['The passports', () => packed('passports'), ['', 'Dad asked', 'the drawer found', 'the booking read', 'the drawer open']],
   2:['Nana’s torch', () => packed('torch'), ['', 'postcard read', 'the oven looked in', 'Zaina asked', 'Elliot asked', 'Peanut found']],
@@ -404,7 +404,7 @@ function pack(key){ return () => { drop(key); S.packed.push(key); const n = HIDD
   const missing = PACK.filter(k => !packed(k)); say((n >= 2 && !S.clearSaid ? (S.clearSaid = true, 'Outside, the rain has stopped as suddenly as it started, and the glass is going gold. ') : '') + (missing.length ? `In it goes. Still to pack: ${missing.map(k => ITEMS[k].name).join(', ')}.` : 'That is everything. Now the zip.')); }; }
 const USES = {
   'passports>mr_case':pack('passports'), 'torch>mr_case':pack('torch'), 'present>mr_case':pack('present'), 'jumper>mr_case':pack('jumper'), 'toothbrush>mr_case':pack('toothbrush'),
-  'book>mr_case':() => { drop('book'); S.bookBack = true; save(); render(); sfx('knock'); say('In it goes, and out it comes again: Mum, from the kitchen, without turning round: “NOT the library book.” It goes back on the sofa.'); setTimeout(() => { S.bookBack = false; save(); render(); }, 1500); },
+  'book>mr_case':() => { drop('book'); S.bookBack = true; render(); /* not saved: a reload mid-bounce must find the book back on the sofa */ sfx('knock'); say('In it goes, and out it comes again: Mum, from the kitchen, without turning round: “NOT the library book.” It goes back on the sofa.'); setTimeout(() => { S.bookBack = false; save(); render(); }, 1500); },
   'peanut>kr_zaina':() => { drop('peanut'); S.peanutGiven = true; S.got.push('torch'); save(); render(); sfx('pickup'); say('“PEANUT.” Zaina takes him with both arms, opens the oven with her foot and hands over the torch without looking at it. “Cake’s ready.” The torch goes in the strip below.'); setTimeout(() => { S.zainaMoved = true; S.mumMoved = true; save(); render(); }, 2500); },
   'peanut>kr_kitchen':() => { sfx('knock'); say('Peanut does not go in the oven. Give him to Zaina.'); },
   'torch>pr_ensuite':() => { sfx('tap'); say('“Found it? Good. In the case, not in my bathroom.”'); },
@@ -580,21 +580,7 @@ function noticed(){
   if (S.nightMoth) n.push('The diary’s word is ATTIC. ★');
   return n;
 }
-function sparkle(id){
-  if (id === 'nr_fridge') return !S.briefed;
-  if (id === 'nr_mum') return !S.briefed;
-  if (id === 'pr_ensuite') return S.briefed && (!S.dadAsked || !S.dadAsked2);
-  if (id === 'pr_chest') return S.dadAsked && !S.chestOpen;
-  if (id === 'mr_board') return S.briefed && !S.postcardRead;
-  if (id === 'kr_kitchen') return S.postcardRead && !S.ovenSeen;
-  if (id === 'kr_zaina') return (S.ovenSeen && !S.zainaAsked) || got('peanut');
-  if (id === 'lr_elliot') return S.zainaAsked && !S.elliotAsked && !got('peanut');
-  if (id === 'lr_sofa') return S.elliotAsked && !got('peanut') && !S.peanutGiven;
-  if (id === 'yr_boxes') return S.dadAsked2 && !got('present') && !packed('present');
-  if (id === 'mr_case') return PACK.some(got) || (PACK.every(packed) && !S.zipped);
-  if (id === 'dr_front') return S.zipped && !S.done;
-  return false;
-}
+/* no sparkles: nothing glows by default; the second hint tier pulses the hint's target (owner, 17 Oct 2026) */
 return {
   card:{place:'Singapore, the afternoon before the flight', text:'Rain on every window of the flat, and dinner on early. Mum has said one thing to Mary: “Your case, packed and zipped before the taxi. My list is on the fridge. The three things that are not on the list are the ones that matter, and your father has hidden all three.”'},
   meanwhile:'Meanwhile, in the flat, Mary has a suitcase to fill and a father in the shower.',
@@ -608,6 +594,6 @@ return {
     ovenSeen:false, zainaAsked:false, elliotAsked:false, sofaSeen:false, peanutGiven:false, zainaMoved:false, mumMoved:false, boxesSeen:false, bathSeen:false, bookBack:false, diarySeen:false, ldials:[0, 0, 0, 0, 0], diaryOpen:false, nightMoth:false, clear:false, clearSaid:false, zipped:false}),
   rooms:ROOMS, walls:WALLS, doors:DOORS, hots:HOTS, layers:LAYERS, extra:EXTRA, notes:NOTES, items:ITEMS, hints:HINTS, uses:USES, overlays,
   moves:'Zaina: at her toy kitchen until she has Peanut, then asleep on the living-room sofa. Mum: at the hob until the torch is found, then folding in the children’s room, then (after the zip) back to the kitchen calling for shoes. Dad: a voice behind the en suite door until the case is zipped, then in the lobby with the big cases. The light: rain on every window until two of the three hidden things are packed, then clear and gold.',
-  act, sparkle, rows, noticed, speaker, helper:() => 'the moth'
+  act, rows, noticed, speaker, helper:() => 'the moth'
 };
 })());

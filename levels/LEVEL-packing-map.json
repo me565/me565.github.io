@@ -1,0 +1,75 @@
+{
+ "title": "Mary, packing day (version 2, the family flat) — floor plan",
+ "rooms": [
+  {"key": "yard", "name": "The yard", "x": 340, "y": 120, "w": 300, "h": 240, "fill": "#f5f5f5",
+   "walls": {
+    "N": {"view": "y3", "text": "the little washroom · a door to the back stairs, always locked"},
+    "E": {"view": "y4", "text": "fire blanket · back into the kitchen"},
+    "S": {"view": "y1", "text": "drying rack: the purple JUMPER · louvred window · mop and bucket"},
+    "W": {"view": "y2", "text": "four boxes on the shelf (flower, ROCKET, cat, moth): Nana's present · washing machine · broom", "mark": "lock"}}},
+  {"key": "parents", "name": "Mum and Dad's room", "x": 340, "y": 360, "w": 300, "h": 240, "fill": "#e1d5e7",
+   "walls": {
+    "N": {"view": "p1", "text": "window and the view · driftwood lamp · Dad's chest of drawers: LOCKED, four digits", "mark": "lock"},
+    "E": {"view": "p2", "text": "Dad's desk · wardrobe · a basket"},
+    "S": {"view": "p3", "text": "door out · the en suite, shut: Dad talks through it (two knocks) · a picture"},
+    "W": {"view": "p4", "text": "the bed · the old bear · Dad's sloping shelf · bedside table"}}},
+  {"key": "corridor", "name": "The corridor", "x": 340, "y": 600, "w": 300, "h": 120, "fill": "#f5f5f5",
+   "walls": {
+    "N": {"view": "c4", "text": "Mum and Dad's door · laundry basket"},
+    "E": {"view": "c1", "text": "through to the dining end · intercom"},
+    "S": {"view": "c2", "text": "Mary's door · a picture"},
+    "W": {"view": "c3", "text": "Elliot and Zaina's door · the bathroom (the TOOTHBRUSH cup) · a picture"}}},
+  {"key": "mary", "name": "Mary's room", "x": 340, "y": 720, "w": 300, "h": 240, "fill": "#dae8fc",
+   "walls": {
+    "N": {"view": "m3", "text": "wardrobes · the pinboard: Nana's five postcards and today's · the door"},
+    "E": {"view": "m4", "text": "loft bed, desk, cube bookcase · the level opens here", "mark": "start"},
+    "S": {"view": "m1", "text": "window · the sill · the DIARY with its five-letter padlock (Night Moth)", "mark": "lock"},
+    "W": {"view": "m2", "text": "the sofa · the library book (a decoy) · the SUITCASE on the rug: five things in, then the zip", "mark": "goal"}}},
+  {"key": "kids", "name": "Elliot and<br>Zaina's room", "x": 100, "y": 540, "w": 240, "h": 240, "fill": "#ffe6cc",
+   "walls": {
+    "N": {"view": "k2", "text": "bunks · family pictures · Elliot's pinboard (a rocket, the cog) · Mum folding, later"},
+    "E": {"view": "k3", "text": "door · felt animals · Zaina, cooking · the toy kitchen: the TORCH in the oven"},
+    "S": {"view": "k4", "text": "cube wall · doll's house · teal clock"},
+    "W": {"view": "k1", "text": "window: the big tree · patchwork chair · Rope the snake"}}},
+  {"key": "kitchen", "name": "Kitchen", "x": 640, "y": 120, "w": 300, "h": 460, "fill": "#d5e8d4",
+   "walls": {
+    "N": {"view": "n1", "text": "cupboards · the hob · Mum, cooking · the oven"},
+    "E": {"view": "n2", "text": "the FRIDGE: Mum's list, the booking, Mum's note, Elliot's rocket · kettle · window"},
+    "S": {"view": "n3", "text": "door back to the dining end · kitchen clock · fruit bowl"},
+    "W": {"view": "n4", "text": "window over the sink · through to the yard"}}},
+  {"key": "dining", "name": "The dining end<br>(the hub)", "x": 640, "y": 580, "w": 300, "h": 240, "fill": "#fff2cc",
+   "walls": {
+    "N": {"view": "d1", "text": "the WORLD MAP with Dad's pins · banners · into the kitchen · Elliot's tall chair"},
+    "E": {"view": "d2", "text": "the FRONT DOOR: opens only once the case is zipped · intercom · hall table", "mark": "goal"},
+    "S": {"view": "d3", "text": "windows · the long table · bookcase · piano · the round lamp"},
+    "W": {"view": "d4", "text": "into the living room · the corridor to the bedrooms · a tall plant"}}},
+  {"key": "living", "name": "Living room", "x": 640, "y": 820, "w": 300, "h": 240, "fill": "#dae8fc",
+   "walls": {
+    "N": {"view": "l3", "text": "through to the dining end · Elliot, building · the brick box"},
+    "E": {"view": "l4", "text": "big plant · shelf unit · Mum's little desk · Dad's backpack"},
+    "S": {"view": "l1", "text": "balcony doors, plants, the storm · navy armchair · pouffe"},
+    "W": {"view": "l2", "text": "the SOFA: four cushions, PEANUT under the fourth · fairy lights · shelf · Zaina asleep, later"}}},
+  {"key": "lobby", "name": "Lift lobby<br>(the last scene)", "x": 940, "y": 580, "w": 240, "h": 240, "fill": "#eeeeee", "walls": {}}
+ ],
+ "doors": [
+  {"from": "dining", "side": "N", "to": "kitchen", "at": 0.5, "out": "walk north → n1", "back": "walk south → d2", "label": "doorway"},
+  {"from": "kitchen", "side": "W", "to": "yard", "at": 0.2, "out": "walk west → y1", "back": "walk east → n4", "label": "door"},
+  {"from": "dining", "side": "W", "to": "corridor", "at": 0.35, "out": "walk west → c1", "back": "walk east → d3", "label": "opening"},
+  {"from": "dining", "side": "S", "to": "living", "at": 0.5, "out": "walk south → l1", "back": "walk north → d4", "label": "opening"},
+  {"from": "dining", "side": "E", "to": "lobby", "at": 0.5, "out": "after the zip → the lobby, then the postcard", "label": "front door"},
+  {"from": "corridor", "side": "S", "to": "mary", "at": 0.5, "out": "walk south → m3", "back": "walk north → c2", "label": "door"},
+  {"from": "corridor", "side": "N", "to": "parents", "at": 0.5, "out": "walk north → p1", "back": "walk south → c2", "label": "door"},
+  {"from": "corridor", "side": "W", "to": "kids", "at": 0.5, "out": "walk west → k2", "back": "walk east → c1", "label": "door"}
+ ],
+ "legend": [
+  "<b>Locked or kept at the start</b>",
+  "Dad's chest (Mum and Dad's, N): four digits, 2 1 4 5. The booking on the fridge says departure 22:45; Mum's note across it says an hour earlier. Inside: the passports (lift the drawer front, then pull).",
+  "The toy oven (Elliot and Zaina's, E): Nana's torch is Zaina's cake. She gives it up for Peanut, who is under the fourth sofa cushion (Elliot saw her with him there).",
+  "The yard boxes (yard, W): four drawings; Dad put the present in the one Elliot drew on. Elliot signs with a little cog (the rocket on the fridge and on his pinboard).",
+  "Mary's diary (Mary's room, S), the Night Moth: five letters. Nana's postcards (pinboard, dated) matched to Dad's pins (the map, named), in date order: A T T I C.",
+  "The front door (dining end, E) opens only when the case is zipped: five things in (passports, torch, present, jumper, toothbrush); the library book bounces out.",
+  "The bathroom is a close-up off the corridor's west wall, not a room. Every doorway is open from the start.",
+  "<b>A note on the walls:</b> this level was built before the floor-plan rule (playbook 4y), so a room's first view is not always its north wall. Each view is shown on the wall where it stands, and the four still run clockwise."
+ ],
+ "legend_box": {"x": 940, "y": 120, "w": 300, "h": 440}
+}
