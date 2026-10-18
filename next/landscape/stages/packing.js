@@ -19,8 +19,9 @@ const ROOMS = {
 };
 const WALLS = Object.fromEntries(Object.values(ROOMS).flatMap(r => r.views).map(k => [k, A + k + '.jpg']));
 /* doors: each bedroom opens on the corridor; the corridor opens on the dining end; the dining end opens on the living room and the kitchen; the kitchen on the yard */
-const DOORS = {mr_door:['hall', 1], cr_mary:['mary', 2], cr_kids:['kids', 1], kr_door:['hall', 0], cr_parents:['parents', 0], pr_door:['hall', 1], cr_dining:['dining', 2],
-  dr_corridor:['hall', 0], dr_living:['living', 0], lr_todining:['dining', 3], dr_kitchen:['kitchen', 0], nr_door:['dining', 1], nr_yard:['yard', 0], yr_kitchen:['kitchen', 3]};
+/* after a door the player faces away from it: the arrival view is the wall opposite the door just used, never the wall that holds it (MOTH-11) */
+const DOORS = {mr_door:['hall', 3], cr_mary:['mary', 0], cr_kids:['kids', 0], kr_door:['hall', 0], cr_parents:['parents', 0], pr_door:['hall', 1], cr_dining:['dining', 2],
+  dr_corridor:['hall', 2], dr_living:['living', 0], lr_todining:['dining', 1], dr_kitchen:['kitchen', 0], nr_door:['dining', 1], nr_yard:['yard', 0], yr_kitchen:['kitchen', 1]};
 const got = k => S.got.includes(k);
 const packed = k => S.packed.includes(k);
 const PACK = ['passports', 'torch', 'present', 'jumper', 'toothbrush']; /* what must be in the case before it will zip */
@@ -42,10 +43,10 @@ const HOTS = {
     {id:'mr_tin', l:60, t:50, w:8, h:8, label:'A blue tin', sound:'tick'},
     {id:'mr_case', l:34, t:68, w:34, h:28, label:'Your suitcase, open on the rug', sound:'knock', key:true}],
   m3:[
-    {id:'mr_wardrobe', l:10, t:18, w:28, h:70, label:'Wardrobes', sound:'knock'},
-    {id:'mr_door', l:48, t:18, w:22, h:72, label:'Out to the corridor', sound:'knock'},
-    {id:'mr_board', l:76, t:20, w:14, h:22, label:'The pinboard', sound:'paper', key:true},
-    {id:'mr_whiteboard', l:84, t:46, w:10, h:12, label:'A little whiteboard', sound:'tap'}],
+    {id:'mr_wardrobe', l:15, t:18, w:29, h:72, label:'Wardrobes', sound:'knock'},
+    {id:'mr_door', l:48, t:18, w:30, h:74, label:'Out to the corridor', sound:'knock'},
+    {id:'mr_board', l:76, t:28, w:13, h:20, label:'The pinboard', sound:'paper', key:true},
+    {id:'mr_whiteboard', l:76, t:51, w:12, h:18, label:'A little whiteboard', sound:'tap'}],
   m4:[
     {id:'mr_bed', l:22, t:6, w:56, h:24, label:'The loft bed', sound:'leaf'},
     {id:'mr_books', l:28, t:30, w:20, h:42, label:'The cube bookcase', sound:'paper'},
@@ -55,67 +56,67 @@ const HOTS = {
     {id:'mr_sheep', l:72, t:80, w:16, h:12, label:'Sheepskin', sound:'leaf'}],
   /* Elliot and Zaina's room */
   k1:[
-    {id:'kr_bunkend', l:2, t:12, w:16, h:78, label:'The end of the bunks', sound:'knock'},
-    {id:'kr_window', l:26, t:8, w:46, h:76, label:'The big tree, dripping', sound:'tap'},
-    {id:'kr_chair', l:62, t:56, w:14, h:30, label:'Patchwork armchair', sound:'leaf'},
-    {id:'kr_snake', l:16, t:82, w:22, h:10, label:'Toy snake', sound:'leaf'}],
+    {id:'kr_bunkend', l:1, t:18, w:29, h:78, label:'The end of the bunks', sound:'knock'},
+    {id:'kr_window', l:31, t:10, w:42, h:74, label:'The big tree, dripping', sound:'tap'},
+    {id:'kr_chair', l:63, t:58, w:19, h:36, label:'Patchwork armchair', sound:'leaf'},
+    {id:'kr_snake', l:33, t:85, w:21, h:13, label:'Toy snake', sound:'leaf'}],
   k2:[
-    {id:'kr_bunk', l:20, t:38, w:52, h:54, label:'The bunks', sound:'leaf'},
-    {id:'kr_frames', l:24, t:8, w:24, h:14, label:'Family pictures', sound:'tap'},
-    {id:'kr_board', l:56, t:8, w:16, h:16, label:'Elliot’s pinboard', sound:'paper', key:true},
-    {id:'kr_lamp', l:68, t:58, w:8, h:24, label:'Reading lamp', sound:'tick'}],
+    {id:'kr_bunk', l:21, t:28, w:50, h:66, label:'The bunks', sound:'leaf'},
+    {id:'kr_frames', l:24, t:11, w:22, h:18, label:'Family pictures', sound:'tap'},
+    {id:'kr_board', l:49, t:12, w:15, h:17, label:'Elliot’s pinboard', sound:'paper', key:true},
+    {id:'kr_lamp', l:69, t:66, w:12, h:26, label:'Reading lamp', sound:'tick'}],
   k3:[
-    {id:'kr_door', l:12, t:18, w:14, h:68, label:'Out to the corridor', sound:'knock'},
-    {id:'kr_animals', l:30, t:22, w:8, h:40, label:'Felt animals on a string', sound:'leaf'},
-    {id:'kr_pockets', l:44, t:34, w:20, h:14, label:'Soft toys in their pockets', sound:'leaf'},
-    {id:'kr_clock', l:64, t:16, w:10, h:14, label:'Wooden clock', sound:'tick'},
-    {id:'kr_zaina', l:50, t:44, w:12, h:40, label:'Zaina, cooking', sound:'leaf', key:true, anim:'wobble', layer:'zaina', hideWhen:() => S.zainaMoved},
-    {id:'kr_kitchen', l:62, t:48, w:22, h:40, label:'The toy kitchen', sound:'knock', key:true},
-    {id:'kr_bricks', l:44, t:72, w:16, h:16, label:'A box of bricks', sound:'tick'}],
+    {id:'kr_door', l:13, t:18, w:18, h:72, label:'Out to the corridor', sound:'knock'},
+    {id:'kr_animals', l:32, t:24, w:8, h:54, label:'Felt animals on a string', sound:'leaf'},
+    {id:'kr_pockets', l:42, t:43, w:20, h:20, label:'Soft toys in their pockets', sound:'leaf'},
+    {id:'kr_clock', l:64, t:27, w:10, h:17, label:'Wooden clock', sound:'tick'},
+    {id:'kr_zaina', l:57, t:48, w:16, h:45, label:'Zaina, cooking', sound:'leaf', key:true, anim:'wobble', layer:'zaina', hideWhen:() => S.zainaMoved},
+    {id:'kr_kitchen', l:62, t:40, w:24, h:55, label:'The toy kitchen', sound:'knock', key:true},
+    {id:'kr_bricks', l:45, t:78, w:17, h:18, label:'A box of bricks', sound:'tick'}],
   k4:[
-    {id:'kr_toys', l:36, t:6, w:50, h:12, label:'Toys on top', sound:'leaf'},
+    {id:'kr_toys', l:36, t:5, w:50, h:18, label:'Toys on top', sound:'leaf'},
     {id:'kr_cubes', l:36, t:18, w:50, h:76, label:'The cube wall', sound:'paper'},
-    {id:'kr_clock2', l:72, t:56, w:10, h:14, label:'The teal clock', sound:'tick'},
-    {id:'kr_dolls', l:6, t:64, w:20, h:30, label:'Doll’s house', sound:'tap'}],
+    {id:'kr_clock2', l:55, t:65, w:9, h:16, label:'The teal clock', sound:'tick'},
+    {id:'kr_dolls', l:10, t:62, w:21, h:34, label:'Doll’s house', sound:'tap'}],
   /* the corridor */
   c1:[
     {id:'cr_dining', l:20, t:10, w:66, h:82, label:'Through to the dining end', sound:'knock'},
     {id:'cr_intercom', l:72, t:38, w:6, h:12, label:'Intercom', sound:'tick'}],
   c2:[
-    {id:'cr_mary', l:44, t:22, w:16, h:66, label:'Mary’s door', sound:'knock'},
-    {id:'cr_pic', l:68, t:32, w:10, h:14, label:'A picture', sound:'tap'}],
+    {id:'cr_mary', l:42, t:24, w:17, h:66, label:'Mary’s door', sound:'knock'},
+    {id:'cr_pic', l:68, t:31, w:11, h:16, label:'A picture', sound:'tap'}],
   c3:[
     {id:'cr_kids', l:26, t:20, w:18, h:68, label:'Elliot and Zaina’s door', sound:'knock'},
     {id:'cr_bath', l:56, t:20, w:20, h:68, label:'The bathroom', sound:'knock', key:true},
     {id:'cr_pic2', l:14, t:30, w:8, h:12, label:'A picture', sound:'tap'}],
   c4:[
-    {id:'cr_parents', l:36, t:18, w:20, h:72, label:'Mum and Dad’s door', sound:'knock'},
-    {id:'cr_basket', l:62, t:62, w:10, h:24, label:'Laundry basket', sound:'leaf'}],
+    {id:'cr_parents', l:17, t:20, w:17, h:60, label:'Mum and Dad’s door', sound:'knock'},
+    {id:'cr_basket', l:34, t:60, w:12, h:24, label:'Laundry basket', sound:'leaf'}],
   /* Mum and Dad's room */
   p1:[
     {id:'pr_view', l:10, t:8, w:56, h:76, label:'The window and the view', sound:'tap'},
-    {id:'pr_lamp', l:76, t:36, w:10, h:48, label:'The driftwood lamp', sound:'tick'},
-    {id:'pr_chest', l:86, t:64, w:14, h:32, label:'Dad’s chest of drawers', sound:'knock', key:true}],
+    {id:'pr_lamp', l:78, t:34, w:11, h:58, label:'The driftwood lamp', sound:'tick'},
+    {id:'pr_chest', l:85, t:62, w:15, h:36, label:'Dad’s chest of drawers', sound:'knock', key:true}],
   p2:[
-    {id:'pr_daddesk', l:8, t:48, w:22, h:34, label:'Dad’s desk', sound:'knock'},
+    {id:'pr_daddesk', l:9, t:50, w:22, h:44, label:'Dad’s desk', sound:'knock'},
     {id:'pr_wardrobe', l:26, t:22, w:12, h:62, label:'Wardrobe', sound:'knock'},
-    {id:'pr_basket', l:38, t:62, w:10, h:22, label:'A basket', sound:'leaf'}],
+    {id:'pr_basket', l:35, t:64, w:10, h:20, label:'A basket', sound:'leaf'}],
   p3:[
     {id:'pr_door', l:4, t:14, w:22, h:80, label:'Out to the corridor', sound:'knock'},
-    {id:'pr_pic', l:46, t:34, w:10, h:16, label:'A picture', sound:'tap'},
-    {id:'pr_ensuite', l:66, t:16, w:14, h:76, label:'The bathroom door, shut, shower running', sound:'knock', key:true},
+    {id:'pr_pic', l:43, t:29, w:12, h:17, label:'A picture', sound:'tap'},
+    {id:'pr_ensuite', l:66, t:16, w:16, h:76, label:'The bathroom door, shut, shower running', sound:'knock', key:true},
     {id:'pr_basket2', l:54, t:66, w:10, h:22, label:'A basket', sound:'leaf'}],
   p4:[
-    {id:'pr_bed', l:12, t:44, w:58, h:50, label:'Mum and Dad’s bed', sound:'leaf'},
-    {id:'pr_teddy', l:34, t:40, w:8, h:12, label:'An old bear', sound:'leaf'},
-    {id:'pr_books', l:12, t:8, w:32, h:10, label:'Books on the shelf', sound:'paper'},
-    {id:'pr_table', l:4, t:54, w:10, h:22, label:'Bedside table', sound:'tick'}],
+    {id:'pr_bed', l:14, t:34, w:58, h:60, label:'Mum and Dad’s bed', sound:'leaf'},
+    {id:'pr_teddy', l:30, t:52, w:9, h:14, label:'An old bear', sound:'leaf'},
+    {id:'pr_books', l:15, t:16, w:28, h:13, label:'Books on the shelf', sound:'paper'},
+    {id:'pr_table', l:6, t:54, w:14, h:36, label:'Bedside table', sound:'tick'}],
   /* the living room */
   l1:[
     {id:'lr_balcony', l:12, t:8, w:62, h:40, label:'The balcony doors, rain hammering', sound:'tap'},
-    {id:'lr_plants', l:14, t:46, w:30, h:28, label:'The balcony plants', sound:'leaf'},
-    {id:'lr_armchair', l:70, t:44, w:20, h:34, label:'The navy armchair', sound:'leaf'},
-    {id:'lr_pouffe', l:54, t:76, w:10, h:14, label:'Knitted pouffe', sound:'leaf'}],
+    {id:'lr_plants', l:14, t:46, w:26, h:32, label:'The balcony plants', sound:'leaf'},
+    {id:'lr_armchair', l:66, t:55, w:24, h:38, label:'The navy armchair', sound:'leaf'},
+    {id:'lr_pouffe', l:59, t:77, w:12, h:16, label:'Knitted pouffe', sound:'leaf'}],
   l2:[
     {id:'lr_lights', l:8, t:4, w:56, h:12, label:'Fairy lights', sound:'tick'},
     {id:'lr_pics', l:10, t:16, w:32, h:20, label:'Pictures over the sofa', sound:'tap'},
@@ -124,31 +125,32 @@ const HOTS = {
     {id:'lr_zaina2', l:30, t:46, w:22, h:18, label:'Zaina, asleep', sound:'leaf', anim:'sniff', layer:'zaina2', showWhen:() => S.zainaMoved}],
   l3:[
     {id:'lr_todining', l:48, t:24, w:34, h:46, label:'Through to the dining end', sound:'knock'},
-    {id:'lr_elliot', l:30, t:48, w:16, h:30, label:'Elliot, building', sound:'leaf', key:true, anim:'wobble', layer:'elliot'},
-    {id:'lr_bricks', l:26, t:72, w:22, h:14, label:'A spill of bricks', sound:'tick'},
+    {id:'lr_elliot', l:32, t:58, w:11, h:30, label:'Elliot, building', sound:'leaf', key:true, anim:'wobble', layer:'elliot'},
+    {id:'lr_bricks', l:43, t:74, w:14, h:14, label:'A spill of bricks', sound:'tick'},
     {id:'lr_box', l:58, t:60, w:14, h:14, label:'A green box', sound:'knock'},
     {id:'lr_fan', l:44, t:2, w:14, h:8, label:'Ceiling fan', sound:'leaf'}],
   l4:[
-    {id:'lr_plant', l:6, t:46, w:20, h:40, label:'A big leafy plant', sound:'leaf'},
-    {id:'lr_shelf2', l:56, t:14, w:18, h:60, label:'The shelf unit', sound:'tap'},
-    {id:'lr_desk2', l:74, t:52, w:14, h:20, label:'A little desk', sound:'knock'},
-    {id:'lr_bag', l:76, t:74, w:8, h:14, label:'Dad’s backpack', sound:'leaf'}],
+    {id:'lr_plant', l:1, t:50, w:14, h:48, label:'A big leafy plant', sound:'leaf'},
+    {id:'lr_shelf2', l:39, t:26, w:16, h:56, label:'The shelf unit', sound:'tap'},
+    {id:'lr_desk2', l:49, t:60, w:18, h:24, label:'A little desk', sound:'knock'},
+    {id:'lr_bag', l:58, t:72, w:8, h:18, label:'Dad’s backpack', sound:'leaf'}],
   /* the dining end */
   d1:[
-    {id:'dr_map', l:12, t:20, w:28, h:30, label:'The world map', sound:'paper', key:true},
-    {id:'dr_banners', l:8, t:50, w:30, h:10, label:'Paper banners and lanterns', sound:'leaf'},
+    {id:'dr_map', l:39, t:25, w:24, h:26, label:'The world map', sound:'paper', key:true},
+    {id:'dr_banners', l:34, t:50, w:32, h:10, label:'Paper banners and lanterns', sound:'leaf'},
     {id:'dr_kitchen', l:64, t:18, w:22, h:74, label:'Into the kitchen', sound:'knock'},
-    {id:'dr_table', l:16, t:60, w:32, h:32, label:'The end of the table, and Elliot’s tall chair', sound:'knock'}],
+    {id:'dr_table', l:34, t:62, w:32, h:34, label:'The end of the table, and Elliot’s tall chair', sound:'knock'}],
   d2:[
     {id:'dr_front', l:22, t:8, w:24, h:88, label:'The front door', sound:'knock', key:true},
-    {id:'dr_intercom', l:50, t:28, w:10, h:10, label:'Intercom', sound:'tick'},
-    {id:'dr_console', l:52, t:62, w:24, h:30, label:'The hall table', sound:'tap'}],
+    {id:'dr_intercom', l:49, t:37, w:9, h:13, label:'Intercom', sound:'tick'},
+    {id:'dr_console', l:48, t:52, w:24, h:42, label:'The hall table', sound:'tap'}],
   d3:[
-    {id:'dr_lamp', l:44, t:8, w:12, h:16, label:'The big round lamp', sound:'tick'},
-    {id:'dr_pics', l:60, t:14, w:30, h:16, label:'Pictures', sound:'tap'},
-    {id:'dr_bookcase', l:58, t:32, w:14, h:46, label:'The bookcase', sound:'paper'},
+    {id:'dr_lamp', l:44, t:16, w:12, h:20, label:'The big round lamp', sound:'tick'},
+    {id:'dr_pics', l:62, t:17, w:13, h:15, label:'Pictures', sound:'tap'},
+    {id:'dr_pics2', l:77, t:31, w:11, h:14, label:'Pictures', sound:'tap'},
+    {id:'dr_bookcase', l:59, t:33, w:17, h:47, label:'The bookcase', sound:'paper'},
     {id:'dr_piano', l:76, t:52, w:16, h:30, label:'The piano', sound:'tick'},
-    {id:'dr_table2', l:24, t:54, w:34, h:40, label:'The dining table', sound:'knock'}],
+    {id:'dr_table2', l:24, t:54, w:40, h:42, label:'The dining table', sound:'knock'}],
   d4:[
     {id:'dr_living', l:6, t:22, w:60, h:72, label:'Into the living room', sound:'knock'},
     {id:'dr_corridor', l:82, t:18, w:12, h:60, label:'The corridor to the bedrooms', sound:'knock'},
@@ -156,37 +158,37 @@ const HOTS = {
   /* the kitchen */
   n1:[
     {id:'nr_cupboards', l:10, t:10, w:62, h:24, label:'Cupboards', sound:'knock'},
-    {id:'nr_hob', l:26, t:46, w:22, h:10, label:'The hob', sound:'tick'},
-    {id:'nr_oven', l:30, t:56, w:16, h:20, label:'The oven, with its gloves', sound:'knock'},
-    {id:'nr_mum', l:20, t:34, w:14, h:56, label:'Mum, cooking', sound:'leaf', key:true, anim:'sniff', layer:'mum', hideWhen:() => S.mumMoved}],
+    {id:'nr_hob', l:39, t:50, w:18, h:9, label:'The hob', sound:'tick'},
+    {id:'nr_oven', l:42, t:61, w:16, h:27, label:'The oven, with its gloves', sound:'knock'},
+    {id:'nr_mum', l:40, t:27, w:21, h:66, label:'Mum, cooking', sound:'leaf', key:true, anim:'sniff', layer:'mum', hideWhen:() => S.mumMoved}],
   n2:[
-    {id:'nr_fridge', l:10, t:16, w:20, h:76, label:'The fridge, and everything on it', sound:'paper', key:true},
-    {id:'nr_kettle', l:36, t:46, w:8, h:12, label:'Kettle', sound:'tick'},
-    {id:'nr_window', l:74, t:12, w:22, h:60, label:'The kitchen window', sound:'tap'}],
+    {id:'nr_fridge', l:9, t:22, w:22, h:72, label:'The fridge, and everything on it', sound:'paper', key:true},
+    {id:'nr_kettle', l:31, t:49, w:8, h:12, label:'Kettle', sound:'tick'},
+    {id:'nr_window', l:60, t:12, w:30, h:74, label:'The kitchen window', sound:'tap'}],
   n3:[
     {id:'nr_door', l:6, t:18, w:22, h:76, label:'Back to the dining end', sound:'knock'},
-    {id:'nr_clock', l:28, t:28, w:10, h:14, label:'The kitchen clock', sound:'tick'},
-    {id:'nr_fruit', l:30, t:52, w:10, h:10, label:'Fruit bowl', sound:'tap'}],
+    {id:'nr_clock', l:29, t:30, w:9, h:13, label:'The kitchen clock', sound:'tick'},
+    {id:'nr_fruit', l:30, t:53, w:9, h:9, label:'Fruit bowl', sound:'tap'}],
   n4:[
-    {id:'nr_window2', l:34, t:18, w:36, h:32, label:'Window over the sink', sound:'tap'},
+    {id:'nr_window2', l:34, t:18, w:36, h:40, label:'Window over the sink', sound:'tap'},
     {id:'nr_sink', l:14, t:58, w:56, h:20, label:'The sink', sound:'tick'},
     {id:'nr_yard', l:72, t:18, w:22, h:74, label:'Through to the yard', sound:'knock'}],
   /* the yard */
   y1:[
-    {id:'yr_jumper', l:18, t:28, w:12, h:24, label:'Your jumper, dry', sound:'leaf', key:true, anim:'swing', layer:'jumper', hideWhen:() => got('jumper') || packed('jumper')},
-    {id:'yr_rack', l:14, t:8, w:62, h:24, label:'The drying rack', sound:'tick'},
-    {id:'yr_window', l:14, t:34, w:48, h:30, label:'The yard window', sound:'tap'},
-    {id:'yr_mop', l:6, t:60, w:12, h:34, label:'Mop and bucket', sound:'knock'}],
+    {id:'yr_jumper', l:29, t:14, w:11, h:24, label:'Your jumper, dry', sound:'leaf', key:true, anim:'swing', layer:'jumper', hideWhen:() => got('jumper') || packed('jumper')},
+    {id:'yr_rack', l:26, t:2, w:48, h:22, label:'The drying rack', sound:'tick'},
+    {id:'yr_window', l:20, t:20, w:60, h:40, label:'The yard window', sound:'tap'},
+    {id:'yr_mop', l:17, t:60, w:14, h:34, label:'Mop and bucket', sound:'knock'}],
   y2:[
-    {id:'yr_boxes', l:42, t:52, w:34, h:16, label:'Four boxes on the shelf', sound:'knock', key:true},
+    {id:'yr_boxes', l:41, t:50, w:38, h:14, label:'Four boxes on the shelf', sound:'knock', key:true},
     {id:'yr_washer', l:40, t:70, w:20, h:24, label:'Washing machine', sound:'knock'},
-    {id:'yr_win2', l:50, t:20, w:30, h:26, label:'Yard window', sound:'tap'},
-    {id:'yr_broom', l:14, t:50, w:8, h:40, label:'Broom', sound:'leaf'}],
+    {id:'yr_win2', l:42, t:10, w:36, h:38, label:'Yard window', sound:'tap'},
+    {id:'yr_broom', l:7, t:42, w:10, h:52, label:'Broom', sound:'leaf'}],
   y3:[
     {id:'yr_wc', l:10, t:30, w:50, h:60, label:'The little washroom', sound:'tap'},
-    {id:'yr_wcdoor', l:62, t:28, w:16, h:60, label:'A door', sound:'knock'}],
+    {id:'yr_wcdoor', l:67, t:16, w:20, h:74, label:'A door', sound:'knock'}],
   y4:[
-    {id:'yr_fire', l:46, t:40, w:8, h:14, label:'A fire blanket', sound:'tap'},
+    {id:'yr_fire', l:40, t:33, w:8, h:21, label:'A fire blanket', sound:'tap'},
     {id:'yr_kitchen', l:62, t:18, w:30, h:74, label:'Back into the kitchen', sound:'knock'}]
 };
 /* rain on every window while the storm lasts: a drawn layer, gone once the sky clears */
@@ -196,19 +198,19 @@ const LAYERS = {
   m2:[{src:A+'item-book.png', group:'book', l:51, t:50, w:10, h:13.9, shadow:.3, hideWhen:() => got('book') || packed('book') || S.bookBack}],
   k1:[rain(26, 8, 46, 76)],
   k2:[rain(82, 6, 16, 80)],
-  k3:[{src:A+'layer-zaina-cook.png', group:'zaina', l:50, t:46, w:11, h:30.7, shadow:.5, hideWhen:() => S.zainaMoved}],
+  k3:[{src:A+'layer-zaina-cook.png', group:'zaina', l:57, t:48, w:16, h:44.65, shadow:.5, hideWhen:() => S.zainaMoved}],
   p1:[rain(10, 8, 56, 76)],
   l1:[rain(12, 8, 62, 60)],
   l2:[rain(74, 6, 24, 60), {src:A+'layer-zaina-sleep.png', group:'zaina2', l:30, t:50, w:22, h:20.85, shadow:.4, showWhen:() => S.zainaMoved}],
-  l3:[rain(2, 4, 50, 50), {src:A+'layer-elliot-bricks.png', group:'elliot', l:30, t:48, w:16, h:46.3, shadow:.5}],
+  l3:[rain(2, 4, 50, 50), {src:A+'layer-elliot-bricks.png', group:'elliot', l:33, t:60, w:10, h:28.95, shadow:.5}],
   l4:[rain(2, 6, 30, 70)],
   d1:[rain(0, 10, 10, 70), rain(48, 10, 20, 44)],
   d3:[rain(0, 4, 56, 70)],
   d4:[rain(30, 20, 50, 40)],
-  n1:[{src:A+'layer-mum-hob.png', group:'mum', l:20, t:36, w:14, h:44, shadow:.5, hideWhen:() => S.mumMoved}],
+  n1:[{src:A+'layer-mum-hob.png', group:'mum', l:40, t:27, w:21, h:66, shadow:.5, hideWhen:() => S.mumMoved}],
   n2:[rain(74, 10, 22, 62)],
   n4:[rain(34, 18, 36, 32)],
-  y1:[{src:F+'layer-jumper.png', group:'jumper', l:19, t:28, w:11, h:24, hideWhen:() => got('jumper') || packed('jumper')}],
+  y1:[{src:F+'layer-jumper.png', group:'jumper', l:29, t:14, w:11, h:24, hideWhen:() => got('jumper') || packed('jumper')}],
   k2b:[], /* Mum folding in the children's room appears on the bunk view once she has moved */
 };
 LAYERS.k2.push({src:A+'layer-mum-fold.png', group:'mumfold', l:24, t:56, w:22, h:38.2, shadow:.5, showWhen:() => S.mumMoved});
@@ -225,7 +227,7 @@ const overlays = {}; Object.keys(WALLS).forEach(v => { overlays[v] = goldVeil; }
 const FONT = 'Atkinson Hyperlegible,Verdana,sans-serif';
 const CARDS = [['athens', 'Athens', 2018], ['tromso', 'Tromsø', 2019], ['trent', 'Trent Park', 2021], ['istanbul', 'Istanbul', 2023], ['cornwall', 'Cornwall', 2025]];
 /* the six card places on the pinboard close-up (picture percentages): five old postcards and Nana's new one */
-const SLOTS = [[12, 14], [37, 14], [62, 14], [12, 52], [37, 52], [62, 52]];
+const SLOTS = [[18, 16], [38.5, 16], [18, 40], [38.5, 40], [18, 65], [60, 15]]; /* the five drawn cards the postcards cover (the sixth drawn card stays bare), then the big slanted card for today's (MOTH-33) */
 const PINS = {athens:[55, 37], tromso:[52.5, 15], trent:[47.5, 27], istanbul:[57.5, 33], cornwall:[45.5, 29]}; /* on the world map close-up */
 
 /* ---------- notes and items ---------- */
@@ -282,10 +284,10 @@ const speaker = () => 'The moth says';
 /* the pinboard: five old postcards from Nana, pictures and dates, and today's */
 function openBoard(){
   S.boardSeen = true; save();
-  const cards = CARDS.map(([k, name, year], i) => { const [x, y] = SLOTS[i]; return `<img class="part" src="${A}pc-${k}.jpg" alt="" style="left:${x}%;top:${y}%;width:22%"><button class="book" data-k="${k}" style="left:${x}%;top:${y}%;width:22%;height:30%" aria-label="A postcard from ${year}"><span></span></button>`; }).join('');
-  const dates = `<svg viewBox="0 0 1600 900" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none" aria-hidden="true">${CARDS.map(([k, name, year], i) => { const [x, y] = SLOTS[i]; return `<text x="${(x+11)*16}" y="${(y+34)*9}" text-anchor="middle" font-size="22" font-family="${FONT}" font-weight="700" fill="#4a3a2a">${year}</text>`; }).join('')}</svg>`;
-  const today = `<button class="book" id="todayCard" style="left:${SLOTS[5][0]}%;top:${SLOTS[5][1]}%;width:22%;height:30%" aria-label="Today’s postcard from Nana"><span></span></button>`;
-  const moth = `<svg viewBox="0 0 100 100" style="position:absolute;left:${SLOTS[5][0]+6}%;top:${SLOTS[5][1]+6}%;width:10%;height:auto;pointer-events:none" aria-hidden="true"><path d="M50 30 C 35 10, 10 20, 20 45 C 30 60, 45 50, 50 55 C 55 50, 70 60, 80 45 C 90 20, 65 10, 50 30 Z" fill="none" stroke="#5a4a3a" stroke-width="3"/><line x1="50" y1="30" x2="50" y2="70" stroke="#5a4a3a" stroke-width="3"/></svg>`;
+  const cards = CARDS.map(([k, name, year], i) => { const [x, y] = SLOTS[i]; return `<img class="part" src="${A}pc-${k}.jpg" alt="" style="left:${x}%;top:${y}%;width:19%"><button class="book" data-k="${k}" style="left:${x}%;top:${y}%;width:19%;height:23%" aria-label="A postcard from ${year}"><span></span></button>`; }).join('');
+  const dates = `<svg viewBox="0 0 1600 900" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none" aria-hidden="true">${CARDS.map(([k, name, year], i) => { const [x, y] = SLOTS[i]; return `<rect x="${(x+12.4)*16}" y="${(y+17.2)*9}" width="92" height="36" rx="6" fill="#fffaf0" stroke="#4a3a2a" stroke-width="2"/><text x="${(x+15.3)*16}" y="${(y+20.2)*9}" text-anchor="middle" font-size="24" font-family="${FONT}" font-weight="700" fill="#4a3a2a">${year}</text>`; }).join('')}</svg>`;
+  const today = `<button class="book" id="todayCard" style="left:${SLOTS[5][0]}%;top:${SLOTS[5][1]}%;width:23%;height:52%" aria-label="Today’s postcard from Nana"><span></span></button>`;
+  const moth = `<svg viewBox="0 0 100 100" style="position:absolute;left:${SLOTS[5][0]+6}%;top:${SLOTS[5][1]+14}%;width:10%;height:auto;pointer-events:none;transform:rotate(-8deg)" aria-hidden="true"><path d="M50 30 C 35 10, 10 20, 20 45 C 30 60, 45 50, 50 55 C 55 50, 70 60, 80 45 C 90 20, 65 10, 50 30 Z" fill="none" stroke="#5a4a3a" stroke-width="3"/><line x1="50" y1="30" x2="50" y2="70" stroke="#5a4a3a" stroke-width="3"/></svg>`;
   openPic(A+'closeup-board.jpg', '16/9', 'The pinboard', cards + dates + moth + today, 62);
   $('picwrap').querySelectorAll('.book[data-k]').forEach(b => b.onclick = e => { e.stopPropagation(); const c = CARDS.find(x => x[0] === b.dataset.k); S.cardsSeen = true; save(); sfx('paper'); say(`A postcard from Nana, ${c[2]}: ${describe(c[0])}. The name on the back has faded to nothing.`); });
   $('todayCard').onclick = e => { e.stopPropagation(); S.postcardRead = true; save(); openNote('postcard'); };
@@ -305,9 +307,9 @@ function openWorldMap(){
 function openDiary(){
   S.diarySeen = true; save();
   if (S.diaryOpen){ openNote('diary'); return; }
-  openCloseup(`<div class="card locker"><p class="otitle">Mary’s diary. Five letters.</p><p class="nbsmall">${S.cardsSeen && S.mapSeen ? 'The word Nana’s postcards spell, in the right order.' : 'Nana set the word. Mary has forgotten it, which was the point.'}</p><div class="dials five" id="ldials"></div><p class="ofb" id="diaryFb">Tap a dial to turn it.</p><div class="row"><button class="ob" id="openDiary">Open</button></div></div>`);
+  openCloseup(`<div class="card locker"><p class="otitle">Mary’s diary. Five letters.</p><p class="nbsmall">${S.cardsSeen && S.mapSeen ? 'The word Nana’s postcards spell, in the right order.' : 'Nana set the word. Mary has forgotten it, which was the point.'}</p><div class="dials five" id="ldials"></div><p class="ofb" id="diaryFb">Tap the top of a dial to turn it up, the bottom to turn it back.</p><div class="row"><button class="ob" id="openDiary">Open</button></div></div>`);
   const draw = () => { $('ldials').innerHTML = S.ldials.map((d, i) => `<button class="dial" data-i="${i}" aria-label="Dial ${i+1}, showing ${LETTERS[d]}">${LETTERS[d]}</button>`).join('');
-    $('ldials').querySelectorAll('.dial').forEach(b => b.onclick = () => { const i = +b.dataset.i; S.ldials[i] = (S.ldials[i] + 1) % LETTERS.length; sfx('tick'); save(); draw(); }); };
+    $('ldials').querySelectorAll('.dial').forEach(b => b.onclick = e => { const i = +b.dataset.i; S.ldials[i] = (S.ldials[i] + dialStep(e, b, LETTERS.length)) % LETTERS.length; sfx('tick'); save(); draw(); }); };
   draw();
   $('openDiary').onclick = () => { sfx('tap'); const w = S.ldials.map(d => LETTERS[d]).join('');
     if (w === WORD){ S.diaryOpen = true; if (!S.nightMoth){ S.nightMoth = true; } save(); sfx('pickup'); $('diaryFb').textContent = '★ A, T, T, I, C. The padlock springs.'; setTimeout(() => { closeCloseup(); openNote('diary'); }, 900); }
@@ -318,11 +320,17 @@ function openDiary(){
 function openFridge(){
   S.fridgeSeen = true; save();
   const b = (id, l, t, w, h, label) => `<button class="book" data-p="${id}" style="left:${l}%;top:${t}%;width:${w}%;height:${h}%" aria-label="${label}"><span></span></button>`;
-  openPic(A+'closeup-fridge.jpg', '16/9', 'The fridge door', b('list', 20, 6, 14, 24, 'Mum’s list') + b('booking', 42, 16, 16, 40, 'A printed sheet') + b('sticky', 30, 46, 12, 14, 'A small square note') + b('rocket', 58, 60, 20, 30, 'A drawing of a rocket'), 60);
+  /* what is written on each paper, drawn by the game so the papers can be told apart (C20): the list in Mum's hand, the booking printed, her sticky note, a shopping note */
+  const t = (x, y, txt, size, extra = '') => `<text x="${x*16}" y="${y*9}" font-size="${size}" font-family="${FONT}" fill="#3a3040" ${extra}>${txt}</text>`;
+  const words = `<svg viewBox="0 0 1600 900" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none" aria-hidden="true">${t(33, 11, 'MARY', 28, 'font-weight="700" font-style="italic"')}${t(33, 16.5, 'case – list', 20, 'font-style="italic"')}${t(33, 21, 'jumper', 20, 'font-style="italic"')}${t(33, 25.5, 'toothbrush', 20, 'font-style="italic"')}${t(33, 30, 'book (NOT', 20, 'font-style="italic"')}${t(33, 34.5, 'the library one)', 20, 'font-style="italic"')}${t(49, 29, 'E-TICKET', 22, 'font-weight="700"')}${t(49, 34, 'SIN – LHR', 18)}${t(49, 38.5, 'Passengers: 4', 18)}${t(49, 43, 'Taxi 18:30', 18)}${t(49, 47.5, 'Dep 22:45', 18)}${t(49, 52, 'Arr 05:50', 18)}${t(35, 60, 'EARLIER!', 22, 'font-weight="700" font-style="italic"')}${t(35, 65, '– M.', 20, 'font-style="italic"')}${t(43, 76, 'milk, eggs,', 20, 'font-style="italic"')}${t(43, 81, 'plants → Mrs Tan', 20, 'font-style="italic"')}</svg>`;
+  openPic(A+'closeup-fridge.jpg', '16/9', 'The fridge door', words + b('list', 30, 4, 16, 40, 'Mum’s list') + b('booking', 46, 20, 16, 42, 'A printed sheet') + b('sticky', 32, 51, 11, 20, 'A small square note') + b('yellow', 40, 69, 17, 20, 'A pale yellow note') + b('photo', 61, 43, 13, 20, 'A photo') + b('rocket', 57, 63, 20, 36, 'A drawing of a rocket'), 60);
+  const title = $('picwrap').querySelector('.otitle'); if (title){ title.style.left = 'auto'; title.style.right = 'calc(var(--u)*1.2)'; } /* the title sits on the fridge's bare side, never over the list (MOTH-16) */
   $('picwrap').querySelectorAll('.book').forEach(x => x.onclick = e => { e.stopPropagation(); const p = x.dataset.p; sfx('paper');
-    if (p === 'list'){ S.briefed = true; if (!got('list')) S.got.push('list'); save(); render(); openNote('list'); }
-    else if (p === 'booking' || p === 'sticky'){ S.bookingSeen = true; save(); openNote('booking'); }
-    else { S.rocketSeen = true; save(); openRocket(); } });
+    if (p === 'list'){ S.briefed = true; if (!got('list')) S.got.push('list'); save(); render(); openNote('list', openFridge); }
+    else if (p === 'booking' || p === 'sticky'){ S.bookingSeen = true; save(); openNote('booking', openFridge); }
+    else if (p === 'yellow') say('Mum’s other list: milk, eggs, and the plants to Mrs Tan next door. Not Mary’s.');
+    else if (p === 'photo') say('A photo of all five of them on a beach, squinting. Zaina is a baby in it and furious about the sand.');
+    else { S.rocketSeen = true; save(); openRocket(); noteBack = openFridge; } }); /* every paper comes back to the fridge when closed (MOTH-38) */
   say('The fridge door: Mum’s list, the printed booking with a note stuck across it, a drawing of Elliot’s, and magnets shaped like fruit.');
 }
 function openRocket(){ S.rocketSeen = true; save(); openPic(A+'rocket.jpg', '1/1', 'Elliot’s rocket', '', 36); say('A rocket in wax crayon, red and blue, with flames. And in the bottom corner, the way Elliot signs everything: a little cog.'); }
@@ -340,33 +348,33 @@ function openOven(){
   say(got('torch') || packed('torch') ? 'The toy oven, empty. Zaina’s cake is done.' : 'The toy oven, open, and inside it, on the little rack: a small red torch. “It’s a cake,” says Zaina, “and it is not ready.” She shuts the door.');
 }
 /* the sofa: four cushions to lift, Peanut under the last, the games drawer under everything */
-function openSofa(){
+function openSofa(line){
   S.sofaSeen = true; save();
   const bare = S.lifted.length === 4;
   const cush = [[2, 36], [26, 36], [50, 36], [74, 36]].map(([l, t], i) => S.lifted.includes(i) ? '' : `<div class="part" data-c="${i}" style="left:${l}%;top:${t}%;width:24%;height:34%;background-image:url(${A}closeup-sofa.jpg?v=${BUILD});background-size:${100/24*100}% ${100/34*100}%;background-position:${l/(100-24)*100}% ${t/(100-34)*100}%"></div><button class="book" data-c="${i}" style="left:${l}%;top:${t}%;width:24%;height:34%" aria-label="Cushion ${i+1}"><span></span></button>`).join('');
   const peanut = S.lifted.includes(3) && !got('peanut') && !S.peanutGiven ? `<img class="part" id="peanutPic" src="${Z}layer-peanut.png" alt="" style="left:80%;top:46%;width:12%"><button class="book" id="takePeanut" style="left:76%;top:40%;width:20%;height:30%" aria-label="Peanut"><span></span></button>` : '';
   openPic(A+'closeup-sofa-bare.jpg', '16/9', 'The sofa', cush + peanut + `<button class="book" id="gamesDrawer" style="left:20%;top:78%;width:60%;height:18%" aria-label="The games drawer"><span></span></button>`, 62);
-  $('picwrap').querySelectorAll('.book[data-c]').forEach(b => b.onclick = e => { e.stopPropagation(); const i = +b.dataset.c; S.lifted.push(i); save(); sfx('leaf'); const im = $('picwrap').querySelector(`.part[data-c="${i}"]`); if (im){ im.classList.add('taken'); setTimeout(() => { closeCloseup(); openSofa(); }, 380); } b.remove();
-    say(i === 3 ? 'Under the last cushion: crumbs, a coin, a hair band… and one grey elephant, flat as a pancake. Peanut.' : ['Crumbs and a coin.', 'A hair band and a brick.', 'Nothing. A pen.'][i]); });
+  $('picwrap').querySelectorAll('.book[data-c]').forEach(b => b.onclick = e => { e.stopPropagation(); const i = +b.dataset.c; S.lifted.push(i); save(); sfx('leaf'); const im = $('picwrap').querySelector(`.part[data-c="${i}"]`); const line = i === 3 ? 'Under the last cushion: crumbs, a coin, a hair band… and one grey elephant, flat as a pancake. Peanut.' : ['Crumbs and a coin.', 'A hair band and a brick.', 'Nothing. A pen.'][i]; say(line);
+    if (im){ im.classList.add('taken'); setTimeout(() => { closeCloseup(); openSofa(line); }, 380); } b.remove(); }); /* the redraw keeps the cushion's line (MOTH-17) */
   if ($('takePeanut')) $('takePeanut').onclick = e => { e.stopPropagation(); S.got.push('peanut'); save(); sfx('pickup'); $('peanutPic').classList.add('taken'); $('takePeanut').remove(); render(); say('Peanut, rescued. He goes in the strip below.'); };
   $('gamesDrawer').onclick = e => { e.stopPropagation(); sfx('knock'); say('The games drawer: a word game, cards, half a jigsaw. No elephant. Elliot said the sofa, not under the sofa.'); };
-  say(bare ? 'The sofa with its cushions off. Mum will have a word.' : 'The long sofa, and its four cushions. Things go down the sides of sofas. Lift them.');
+  say(line || (bare ? 'The sofa with its cushions off. Mum will have a word.' : 'The long sofa, and its four cushions. Things go down the sides of sofas. Lift them.'));
 }
 /* the bathroom off the corridor: the toothbrush cup */
 function openBath(){
   S.bathSeen = true; save();
-  const tb = got('toothbrush') || packed('toothbrush') ? '' : `<img class="part" id="tbPic" src="${A}item-toothbrush.png" alt="" style="left:5%;top:46%;width:7%"><button class="book" id="takeTb" style="left:2%;top:40%;width:14%;height:30%" aria-label="The toothbrush with the star"><span></span></button>`;
+  const tb = got('toothbrush') || packed('toothbrush') ? '' : `<img class="part" id="tbPic" src="${A}item-toothbrush.png" alt="" style="left:19%;top:27%;width:8%"><button class="book" id="takeTb" style="left:16%;top:24%;width:14%;height:26%" aria-label="The toothbrush with the star"><span></span></button>`;
   openPic(A+'closeup-bath.jpg', '16/9', 'The bathroom', tb, 60);
   if ($('takeTb')) $('takeTb').onclick = e => { e.stopPropagation(); S.got.push('toothbrush'); save(); sfx('pickup'); $('tbPic').classList.add('taken'); $('takeTb').remove(); render(); say('The purple toothbrush with the star: Mary’s. It goes in the strip below.'); };
-  say(got('toothbrush') || packed('toothbrush') ? 'The bathroom: three toothbrushes in the cup now, and the bath toys.' : 'The bathroom: the cup of toothbrushes, Mum’s basin, and the rack of bath toys that are staying.');
+  say(got('toothbrush') || packed('toothbrush') ? 'The bathroom: the other toothbrushes in the cup, Mary’s gone from among them, and the bath toys.' : 'The bathroom: the cup of toothbrushes, Mum’s basin, and the rack of bath toys that are staying.');
 }
 /* Dad's chest of drawers: a four-digit lock, checked only when Open is tapped; then the drawer itself, lifted and pulled */
 function openChest(side){
   S.chestSeen = true; save();
   if (S.chestOpen){ openDrawer(side); return; }
-  openCloseup(`<div class="card locker"><p class="otitle">Dad’s drawer. Four numbers.</p><p class="nbsmall">${S.dadAsked ? '“When we take off,” said Dad.' : 'A little lock with four dials. Dad’s.'}</p><div class="dials" id="cdials"></div><p class="ofb" id="chestFb">Tap a dial to turn it.</p><div class="row"><button class="ob" id="openChest">Open</button></div></div>`);
+  openCloseup(`<div class="card locker"><p class="otitle">Dad’s drawer. Four numbers.</p><p class="nbsmall">${S.dadAsked ? '“When we take off,” said Dad.' : 'A little lock with four dials. Dad’s.'}</p><div class="dials" id="cdials"></div><p class="ofb" id="chestFb">Tap the top of a dial to turn it up, the bottom to turn it back.</p><div class="row"><button class="ob" id="openChest">Open</button></div></div>`);
   $('cdials').innerHTML = S.cdials.map((d, i) => `<button class="dial" data-i="${i}" aria-label="Dial ${i+1}, showing ${d}">${d}</button>`).join('');
-  $('cdials').querySelectorAll('.dial').forEach(b => b.onclick = () => { const i = +b.dataset.i; S.cdials[i] = (S.cdials[i] + 1) % 10; b.textContent = S.cdials[i]; sfx('tick'); save(); });
+  $('cdials').querySelectorAll('.dial').forEach(b => b.onclick = e => { const i = +b.dataset.i; S.cdials[i] = (S.cdials[i] + dialStep(e, b, 10)) % 10; b.textContent = S.cdials[i]; sfx('tick'); save(); });
   $('openChest').onclick = () => { sfx('tap');
     if (S.cdials.join() === CODE.join()){ S.chestOpen = true; save(); sfx('pickup'); $('chestFb').textContent = 'Click.'; setTimeout(() => { closeCloseup(); openDrawer(side); }, 700); }
     else if (S.cdials.join() === '2,2,4,5'){ sfx('knock'); $('chestFb').textContent = 'Nothing. That is what the printout says. What did Mum stick across it?'; }
@@ -398,13 +406,13 @@ function suitcaseTap(){
 function openZip(){
   openDrag({pic:F+'closeup-suitcase.jpg', title:'Zip it shut', tab:F+'layer-zip.png', tabW:4.2, tabRatio:'99/300', path:[[16,41],[29,64],[84,46]],
     label:'Everything’s in. Pull the zip all the way across.', missLabel:'Take hold of the zip pull first.', moreLabel:'Keep pulling, right to the corner.', doneLabel:'Zzzzip!',
-    done:() => { S.zipped = true; S.clear = true; S.mumMoved = false; save(); render(); sfx('pickup'); say('Zzzzip. And from the hall, Mum: “Taxi! Shoes! Mary, have you seen my…” The sun has come out, late and gold, as if it had been waiting.'); }});
+    done:() => { S.zipped = true; S.clear = true; S.mumMoved = false; save(); render(); sfx('pickup'); say('Zzzzip. The sun has come out, late and gold, as if it had been waiting.'); setTimeout(() => { sfx('buzz'); say('<b>BZZZZT.</b> The intercom, from the hall. And Mum: “Taxi! Shoes! Mary, have you seen my…” The front door is at the dining end.'); }, 2600); }});
 }
 function pack(key){ return () => { drop(key); S.packed.push(key); const n = HIDDEN.filter(packed).length; if (n >= 2 && !S.clear){ S.clear = true; } save(); render(); sfx('pickup');
   const missing = PACK.filter(k => !packed(k)); say((n >= 2 && !S.clearSaid ? (S.clearSaid = true, 'Outside, the rain has stopped as suddenly as it started, and the glass is going gold. ') : '') + (missing.length ? `In it goes. Still to pack: ${missing.map(k => ITEMS[k].name).join(', ')}.` : 'That is everything. Now the zip.')); }; }
 const USES = {
   'passports>mr_case':pack('passports'), 'torch>mr_case':pack('torch'), 'present>mr_case':pack('present'), 'jumper>mr_case':pack('jumper'), 'toothbrush>mr_case':pack('toothbrush'),
-  'book>mr_case':() => { drop('book'); S.bookBack = true; save(); render(); sfx('knock'); say('In it goes, and out it comes again: Mum, from the kitchen, without turning round: “NOT the library book.” It goes back on the sofa.'); setTimeout(() => { S.bookBack = false; save(); render(); }, 1500); },
+  'book>mr_case':() => { drop('book'); S.bookBack = true; save(); render(); sfx('knock'); say(`In it goes, and out it comes again: Mum, from ${S.mumMoved ? 'the little ones’ room' : 'the kitchen'}, without turning round: “NOT the library book.” It goes back on the sofa.`); setTimeout(() => { S.bookBack = false; save(); render(); }, 1500); },
   'peanut>kr_zaina':() => { drop('peanut'); S.peanutGiven = true; S.got.push('torch'); save(); render(); sfx('pickup'); say('“PEANUT.” Zaina takes him with both arms, opens the oven with her foot and hands over the torch without looking at it. “Cake’s ready.” The torch goes in the strip below.'); setTimeout(() => { S.zainaMoved = true; S.mumMoved = true; save(); render(); }, 2500); },
   'peanut>kr_kitchen':() => { sfx('knock'); say('Peanut does not go in the oven. Give him to Zaina.'); },
   'torch>pr_ensuite':() => { sfx('tap'); say('“Found it? Good. In the case, not in my bathroom.”'); },
@@ -460,7 +468,7 @@ function act(id){
     case 'kr_clock2': say('A teal clock with no numbers, which suits Zaina, who cannot read them yet.'); break;
     case 'kr_dolls': say('The doll’s house, with its front open. The doll family is having a very tidy day.'); break;
     /* the corridor */
-    case 'cr_intercom': say('The intercom to the lobby downstairs, with its little blank screen. It will buzz when the taxi is here.'); break;
+    case 'cr_intercom': say(S.zipped ? 'The intercom, its little screen lit: a taxi, in the lobby, and a driver looking at his watch.' : 'The intercom to the lobby downstairs, with its little blank screen. It will buzz when the taxi is here.'); break;
     case 'cr_pic': case 'cr_pic2': say('A small framed picture of hills. Jedi painted it, says Dad. Nana says Jedi bought it.'); break;
     case 'cr_bath': openBath(); return;
     case 'cr_basket': say('The laundry basket, half full. Not Mary’s problem today.'); break;
@@ -503,10 +511,10 @@ function act(id){
     case 'dr_banners': say('Red paper banners from New Year, still up in the summer, and a string of paper decorations the children made.'); break;
     case 'dr_table': say('The end of the long table, and Elliot’s tall chair, which he is too big for and will not give up.'); break;
     case 'dr_front': if (S.zipped){ finish(); return; } say('The front door, dark wood, with the lift lobby beyond. Nobody goes out until the case is zipped and the taxi has buzzed.'); break;
-    case 'dr_intercom': say('The intercom. Silent. The taxi has not come, because nobody is ready.'); break;
+    case 'dr_intercom': say(S.zipped ? 'The intercom, still buzzing in Mary’s ears. The taxi is downstairs.' : 'The intercom. Silent. The taxi has not come, because nobody is ready.'); break;
     case 'dr_console': say('The hall table: a bowl of keys, a plant, and the place where the passports are NOT.'); break;
     case 'dr_lamp': say('The big round lamp over the table, like a moon on a string.'); break;
-    case 'dr_pics': say('Two pictures of hills and a sea.'); break;
+    case 'dr_pics': case 'dr_pics2': say('Two pictures of hills and a sea.'); break;
     case 'dr_bookcase': say('The grown-up bookcase. Mary has read the bottom two shelves and is working up.'); break;
     case 'dr_piano': say('The electric piano, lid up, where Mary practises the piece on the music stand. Not today.'); break;
     case 'dr_table2': say('The long pine table, cleared for once, with Elliot’s tall chair at the end.'); break;

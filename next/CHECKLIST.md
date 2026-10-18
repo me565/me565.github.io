@@ -69,6 +69,12 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 
 32b. A long press anywhere on the room glows the tappables and never opens the browser's own menu (tester round 1, T1): the scene prevents `contextmenu` and its pictures have no touch callout.
 
+32e2. **A door lands you facing away from it.** The view a door arrives on never holds a door back to the room just left; the arrival is the wall opposite where that makes sense (MOTH-11, 18 Oct 2026; audit checks, E32f).
+
+32f. **Every tap area is measured on the shipped picture.** Boxes are placed from a grid overlay of the wall or close-up (`tools`-style render with the boxes drawn), then walked with "Show what I can tap" before the build goes out; a box placed for an earlier version of a picture, or from memory, fails. A title label never covers a tap area (MOTH-15, 16, 33).
+
+32g. **A close-up that redraws keeps the line just spoken.** A redraw passes the line on, never replaces it with the close-up's opening line (the sofa cushions, MOTH-17). A note read from a close-up comes back to that close-up when it closes (MOTH-38).
+
 32d. The moth's line lives in the caption band under the room and never over it; nothing tappable is ever covered by a message (log 50). A note leaves the strip when its job is done.
 
 32c. Every piece of chrome is paper with the ink rule on the one dusk sky (playbook 4p): no dark translucent pills, no tracked capitals, one gold primary button per screen, disabled buttons as muted paper. A new element that is not paper with the rule is a stranger.
@@ -79,12 +85,15 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 34. Every story-led line has a voice key, and the line is recorded before the build is called finished; a changed line is re-recorded (audit lists unrecorded keys).
 35. Lines in the child's words; the postcard in the child's voice; the moth never names itself. The moth's voice is its normal narrating voice, never a whisper, and every spoken line shows its words being read (the read-along, playbook 4q).
 
+35c. **"Holding …" takes no article before a name or a possessive** (Holding Peanut, Holding Nana's present; an item may give its own `held` phrase, MOTH-20). A restart clears the bar before the comic (MOTH-18). A dial turns both ways: top half up, bottom half back (MOTH-35).
+
 35b. One Night Moth challenge per stage, of a kind not used before (school: riddle; packing: paper moths; flight: crossword; Nana's: a secret alphabet) (log 52).
 
 ## G. Devices and delivery
 
 36. **Check at the owner's screen shape**: 2000×700 (a phone-shaped tablet with the browser's bar), plus 740×360 and 2200×1300, and once with reduced motion on. A fix is not done until it is seen close up at that shape (log 38).
 37. No page scroll at any size; the whole game fits; portrait asks to turn.
+37b. **The caption band is a fixed height and the layout never moves.** A line that would not fit shrinks (`long`, `longer`); the strip's bottom edge stays on screen at every message length (MOTH-19; the end card's message shrinks the same way so its P.S. is never behind the buttons, MOTH-25).
 38. Every picture preloads; nothing pops in late. A test link that must start clean carries `?fresh`; a player's game is never wiped by a new build (log 9; reworded 17 Oct 2026 for backlog 18). A screen's own pictures and the lines spoken on the way into it are ready before the screen shows (the portraits, a comic's pages and captions, the stage card; log 49); a caption never appears before its picture.
 39. Sound starts on a real tap and works after the first; music never "random noise" (logs 3, 4, 10).
 40. Bump `BUILD` (and the stage script tags), run every stage's play script (it plays the stage to its ending and exercises every wrong-try line, in the room where it can happen), then commit, push, republish the artifact and give a link pinned to the commit. Never make the owner ask for it. The commit id in the link is pasted from `git rev-parse HEAD` after `git ls-remote` shows it on the remote, never typed (log 51).

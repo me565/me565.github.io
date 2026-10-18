@@ -1,7 +1,7 @@
 /* The Moth House: the checklist's automatic lines (next/CHECKLIST.md), run over every stage.
    usage: node tools/audit.js [stage ...]   (needs the local server: cd <repo> && python3 -m http.server 8765)
    Checks: cut-out proportions (B9), a shadow on things that stand (B10, listed for a look), pictures that fail to load (G38),
-   hotspot bounds, size and the turn-arrow strips (E32), unique hotspot ids, close-up overflow and page scroll at three sizes (G36, G37),
+   hotspot bounds, size and the turn-arrow strips (E32), unique hotspot ids, doors that land facing the door back (E32f), close-up overflow and page scroll at three sizes (G36, G37),
    unrecorded voice keys (F34), and an error-free run with reduced motion at the owner's screen shape (G36).
    Writes screenshots of every view to tools/audit-out/<stage>-<view>.png for the visual lines. */
 const { chromium } = require('playwright');
@@ -22,7 +22,10 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
     const ids = await p.evaluate(() => { const out = []; for (const [k, st] of Object.entries(STAGES)) for (const v of Object.keys(st.hots)) for (const h of st.hots[v]) out.push([k, h.id]); return out; });
     const SUP = await p.evaluate(() => Object.fromEntries(Object.entries(STAGES).map(([k, st]) => [k, st.supersedes || null]))); /* a stage built to replace another (school3 for school) may share its ids: they never load together */
     const sup = (a, b) => SUP[a] === b || SUP[b] === a;
-    const seen = new Map(); ids.forEach(([k, id]) => { if (seen.has(id) && seen.get(id) !== k && !sup(k, seen.get(id))) say(k, 'E32', `hotspot id ${id} also in ${seen.get(id)}`); seen.set(id, k); }); await p.close(); }
+    const seen = new Map(); ids.forEach(([k, id]) => { if (seen.has(id) && seen.get(id) !== k && !sup(k, seen.get(id))) say(k, 'E32', `hotspot id ${id} also in ${seen.get(id)}`); seen.set(id, k); });
+    /* a door lands the player facing away from it: the arrival view never holds a door back to the room just left (E32f, MOTH-11) */
+    const facing = await p.evaluate(() => { const out = []; for (const [k, st] of Object.entries(STAGES)){ for (const [id, [room, view]] of Object.entries(st.doors || {})){ const fromView = Object.keys(st.hots).find(v => st.hots[v].some(h => h.id === id)); const fromRoom = (Object.entries(st.rooms).find(([r, R]) => R.views.includes(fromView)) || [])[0]; const arrive = st.rooms[room] && st.rooms[room].views[view]; if (!arrive || !st.hots[arrive]) continue; const back = st.hots[arrive].find(h => st.doors[h.id] && st.doors[h.id][0] === fromRoom); if (back) out.push([k, id, arrive, back.id]); } } return out; });
+    facing.forEach(([k, id, arrive, back]) => say(k, 'E32f', `door ${id} lands on ${arrive}, which holds ${back}, the door back`)); await p.close(); }
   for (const stage of stages){
     /* voice */
     Object.keys(lines).filter(k => k.startsWith(stage + '.')).forEach(k => { if (!voiced.has(k)) say(stage, 'F34', `unrecorded: ${k}`); });
