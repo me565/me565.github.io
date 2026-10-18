@@ -3,8 +3,8 @@
 Version 2 of this level is live as the lite release (built 28–30 Sept 2026, walked back through the gates on paper on 17 Oct 2026; its brief, map and chart are in this file's history before commit `v3`). On 17 Oct 2026 the owner asked for puzzles to the standard of Rusty Lake and Dark Dome, young-adult difficulty, no sparkles by default and a longer level, and said "go" to version 3 below. Version 3 is built through the gates as stage `school3` beside the live stage and replaces `school` when its final sign-off is given. Sign-off lines are the owner's; none has been written.
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: greybox (version 3 playable as `school3` in build 2026-10-17e, 17 Oct 2026; waits on the owner's tablet play for Gate C)
-Build id of the latest play link: 2026-10-17e
+Current status: greybox (version 3 playable as `school3`; build 2026-10-18a after the owner's first tablet notes; Gate C waits on his next play)
+Build id of the latest play link: 2026-10-18a
 Latest play link: see the chat of 17 Oct 2026 (a githack link pinned to the commit, with `?stage=school3`); version 2 stays live at https://me565.github.io/next/landscape/?stage=school
 
 ---
@@ -204,6 +204,8 @@ Every fault found in this level, where it was found, and what happened to it.
 | 3 Puzzle chart (paper playtest) | `tools/play.js` never exercised the star-key-on-the-colour-padlock wrong try, so one of the level's friendly lines had no test. | The step was added to the play script (in the art room, holding the key); the line comes back as written. | Yes: a stage's play script exercises every wrong-try line, in the room where it can happen. | Checklist G40 (17 Oct 2026). |
 | 1 Brief | No opening gesture (the classroom blind, backlog 11); checklist 31 requires one per stage. | Not yet; needs the blind as a cut-out (possibly cut from c2 at no credit) and a few lines in the stage. Waits on Gate D for this level. | Already a rule (checklist 31). | Recorded here; backlog 11 already lists it. |
 | 4 Greybox / 7 Polish (owner, 17 Oct 2026, build 2026-10-17b) | Corners do not agree between walls, and the engine-painted prototype looked odd: the baked side panels are flat, and the room's walls disagree on band height, ceiling, floor line and colour. | Prototype switched off. Permanent fix: walls regenerated flat under one room specification, the engine drawing the box (playbook 4q, backlog 19); a Gate D item for this level. | Yes: every room has one written specification before its first prompt, and corners agree (checklist 46). | Playbook 4q and 2; checklist 46; this file's notes. |
+| 4 Greybox (owner, tablet, 18 Oct 2026) | Clues read in the library (a book page) or elsewhere had to be remembered or walked back to; other games let you carry them. | The first reading of a page, the map, the banner, the whiteboard or the timetable copies it into Mary's notebook; a chip there reopens the card anywhere (`copyClue`, `STAGE.clues()`, the engine's notebook). | Yes. | Checklist 47; playbook 7; the engine's notebook. |
+| 4 Greybox (owner, tablet, 18 Oct 2026) | With the blind down the whole level went dark, not just the classroom. | The dark applies only while the player is in the classroom (`onRender` checks the room). | Yes: a room's mood stays in its room. | Checklist 48. |
 | 6b Batch | No originals kept; no Drive folder. | Nothing to recover. From now on, originals to Drive before the session ends (CLAUDE.md gates, 6b). | Already a rule. | Recorded here. |
 
 ## Notes for this level only

@@ -342,9 +342,9 @@ function ttGrid(x0, y0, dayW, cw, rh, ic, fs){
   });
   return out;
 }
-function openTimetable(){
+function openTimetable(again){
   openCloseup(`<div class="card tt"><svg viewBox="0 0 230 140" aria-label="The class timetable, with a picture for each lesson"><rect width="230" height="140" rx="4" fill="#fffdf6"/><rect width="230" height="18" fill="#2f7c83"/><text x="115" y="13" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fffdf6" letter-spacing="1" font-family="Atkinson Hyperlegible,Verdana,sans-serif">5H TIMETABLE</text><g>${ttGrid(8, 24, 34, 28, 17, 13, 9)}</g></svg></div>`);
-  say('The class timetable: days down the side, period numbers along the top. But which picture is which lesson? Mr Hollis drew the key on the whiteboard.');
+  if (!again) say('The class timetable: days down the side, period numbers along the top. But which picture is which lesson? Mr Hollis drew the key on the whiteboard.' + copyClue('timetable'));
 }
 /* the whiteboard: Mr Hollis's key to the timetable pictures, in his marker pen. Without it the timetable cannot be read, so the front wall matters. */
 function boardKey(x0, y0, colW, rowH, ic, fs){
@@ -364,9 +364,9 @@ function boardCard(){ /* the whiteboard: the picture key on the left, Mr Hollis'
     <text x="200" y="${44 + PLAN.length*22 + 4}" font-size="10.5" fill="#b22222" font-family="Caprasimo,Georgia,serif" transform="translate(${200*2 + 112},0) scale(-1,1)">${MIRROR}</text></svg>
   </div><p class="ofb">Mr Hollis’s picture key, and the plan for the day in his writing. One line is back to front.</p></div>`;
 }
-function openBoard(){
-  S.seen.mirror = Date.now(); save(); openCloseup(boardCard());
-  say('Mr Hollis has drawn the timetable pictures on the board, with the plan for the day. One line is written backwards. Mary knows that trick.');
+function openBoard(again){
+  if (!again){ S.seen.mirror = Date.now(); save(); } openCloseup(boardCard());
+  if (!again) say('Mr Hollis has drawn the timetable pictures on the board, with the plan for the day. One line is written backwards. Mary knows that trick.' + copyClue('board'));
 }
 function wallBoard(){
   const d = document.createElement('div'); d.style.cssText = 'position:absolute;left:33.5%;top:36%;width:34%;height:33%;pointer-events:none';
@@ -457,8 +457,8 @@ function openArrowLock(){
   };
 }
 /* the world map: the dotted flight route from Singapore to London, four legs */
-function openMap(){
-  S.seen.route = Date.now(); save();
+function openMap(again){
+  if (!again){ S.seen.route = Date.now(); save(); }
   openCloseup(`<div class="card shelf"><div class="shelfpic" style="background:#dfe9f0;border-radius:calc(var(--u)*.6)"><p class="otitle">World map (greybox)</p>
     <svg viewBox="0 0 320 180" style="position:absolute;inset:0;width:100%;height:100%" aria-label="A map with a dotted route from Singapore to London: north, west, west, north">
       <rect x="20" y="30" width="280" height="120" fill="#cfe3d2" stroke="#7a8a7a"/><text x="236" y="146" font-size="9" fill="#2b2836">Singapore</text><text x="52" y="52" font-size="9" fill="#2b2836">London</text>
@@ -466,18 +466,41 @@ function openMap(){
       <circle cx="232" cy="138" r="4" fill="#b22222"/><circle cx="70" cy="58" r="4" fill="#b22222"/>
       <g transform="translate(290,40)" font-size="8" fill="#2b2836" text-anchor="middle"><text y="-6">N</text><text y="18">S</text><text x="-11" y="6">W</text><text x="11" y="6">E</text></g>
     </svg></div><p class="ofb">The plane from home to Nana’s: up, left, left, up. Four legs.</p></div>`);
-  say('A world map, with the way home to Nana’s drawn on in red: north, then west, west, and north again.');
+  if (!again) say('A world map, with the way home to Nana’s drawn on in red: north, then west, west, and north again.' + copyClue('map'));
 }
 /* the book pages the library gives as references: never an answer, always the key to one */
-function openPage(key){
+function openPage(key, again){
   const pages = {
     nightsky:{title:'The Night Sky, page 40: the Kite', body:`<svg viewBox="0 0 320 180" style="position:absolute;inset:0;width:100%;height:100%" aria-label="The Kite: seven stars, the brightest at the tail">${KITE.map(([x, y], i) => `<circle cx="${(x-24)*7.5 + 40}" cy="${(y-16)*3.5 + 10}" r="${i === TAIL ? 7 : 4}" fill="${i === TAIL ? '#ffe68a' : '#fff'}"/>`).join('')}<text x="180" y="60" font-size="10" fill="#fff">The Kite</text><text x="180" y="80" font-size="8" fill="#fff">A small constellation of seven stars.</text><text x="180" y="96" font-size="8" fill="#fff">Its brightest star is at the tail,</text><text x="180" y="112" font-size="8" fill="#fff">the last star of the string.</text></svg>`, bg:'#1d2240', fb:'A constellation shaped like a kite. Its brightest star is at the tail.', seen:'kite', line:'The Night Sky. A kite of seven stars, and its brightest is at the tail.'},
     piano:{title:'Playing the Piano, page 12', body:staff() + '<p style="position:absolute;left:6%;right:6%;bottom:8%;font-size:calc(var(--u)*1.5)">Chime bars are tuned like the piano: each colour is one note. Red is the lowest, then yellow, green, and blue the highest.</p>', bg:'#f7f3e8', fb:'Which bar is which note. The tune itself is written somewhere else.', seen:'bars', line:'Playing the Piano. Each coloured bar is one note; red low, blue high.'},
     painting:{title:'The Painting Book: the colour wheel', body:`<svg viewBox="0 0 320 180" style="position:absolute;inset:0;width:100%;height:100%" aria-label="Colour wheel: red and yellow make orange, red and blue make purple, yellow and blue make green">${[['red', 160, 40], ['orange', 230, 80], ['yellow', 230, 140], ['green', 160, 170], ['blue', 90, 140], ['purple', 90, 80]].map(([c, x, y]) => `<circle cx="${x}" cy="${y}" r="18" fill="${PAINTS.find(p => p[0] === c)[1]}" stroke="#2b2836"/>`).join('')}<text x="160" y="105" font-size="9" fill="#2b2836" text-anchor="middle">two neighbours make the one between</text></svg>`, bg:'#fffaf0', fb:'Red and yellow make orange. Red and blue make purple. Yellow and blue make green.', seen:'wheel', line:'The Painting Book. Two primaries make the colour between them.'}
   };
-  const pg = pages[key]; S.seen[pg.seen] = Date.now(); save();
+  const pg = pages[key]; if (!again){ S.seen[pg.seen] = Date.now(); save(); }
   openCloseup(`<div class="card shelf"><div class="shelfpic" style="background:${pg.bg};border-radius:calc(var(--u)*.6)"><p class="otitle" style="${pg.bg === '#1d2240' ? 'color:#fff' : ''}">${pg.title}</p>${pg.body}</div><p class="ofb">${pg.fb}</p></div>`);
-  say(pg.line);
+  if (!again) say(pg.line + copyClue({nightsky:'kite', painting:'wheel', piano:'bars'}[key]));
+}
+/* Clues travel (owner, 18 Oct 2026): a page, a map, a banner or a board read in one room is copied into Mary's notebook the first
+   time she sees it, and reopens from the notebook anywhere, so nothing has to be memorised or walked back to. */
+const CLUES = {
+  kite:{label:'The Kite', open:() => openPage('nightsky', true)},
+  wheel:{label:'Colour wheel', open:() => openPage('painting', true)},
+  bars:{label:'Piano page', open:() => openPage('piano', true)},
+  map:{label:'World map', open:() => openMap(true)},
+  banner:{label:'The banner', open:() => openBanner(true)},
+  board:{label:'Whiteboard', open:() => openBoard(true)},
+  timetable:{label:'Timetable', open:() => openTimetable(true)}
+};
+function clues(){ return (S.clues || []).map(k => CLUES[k]).filter(Boolean); }
+function copyClue(key){
+  if (!S.clues) S.clues = [];
+  if (S.clues.includes(key)) return '';
+  S.clues.push(key); save();
+  return S.clues.length === 1 ? ' Mary copies it into her notebook: tap the moth to look at it again, wherever you are.' : ' Copied into the notebook.';
+}
+function openBanner(again){
+  if (!again){ S.seen.tune = Date.now(); save(); }
+  openCloseup(`<div class="card shelf"><div class="shelfpic" style="background:#fff7e8;border-radius:calc(var(--u)*.6)"><p class="otitle">The banner</p><div style="position:absolute;inset:30% 6% 30% 6%;display:flex;justify-content:center;align-items:center;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*5);letter-spacing:.08em;color:#2b2836">${bannerHTML('120%')}</div></div><p class="ofb">Mrs Ng’s lettering. Four of the letters are coloured: green, red, blue, yellow, reading left to right. Like the chime bars.</p></div>`);
+  if (!again) say('HAPPY HOLIDAYS. Four of the letters are painted in colours. Green, red, blue, yellow, left to right.' + copyClue('banner'));
 }
 /* badges inside the opened cabinets: a numbered token each (greybox: a labelled box) */
 function openBadge(which){
@@ -622,7 +645,7 @@ function act(id){ /* returns false for a door the engine should open */
     case 'h_bunting': say('Bunting from the summer fair. Nobody has taken it down, and nobody will.'); break;
     /* hall */
     case 'hn_stage': say('The stage. Assemblies, the winter play, and the day Mary forgot her line and made up a better one.'); break;
-    case 'hn_banner': S.seen.tune = Date.now(); save(); openCloseup(`<div class="card shelf"><div class="shelfpic" style="background:#fff7e8;border-radius:calc(var(--u)*.6)"><p class="otitle">The banner</p><div style="position:absolute;inset:30% 6% 30% 6%;display:flex;justify-content:center;align-items:center;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*5);letter-spacing:.08em;color:#2b2836">${bannerHTML('120%')}</div></div><p class="ofb">Mrs Ng’s lettering. Four of the letters are coloured: green, red, blue, yellow, reading left to right. Like the chime bars.</p></div>`); say('HAPPY HOLIDAYS. Four of the letters are painted in colours. Green, red, blue, yellow, left to right.'); return;
+    case 'hn_banner': openBanner(); return;
     case 'hn_bars': if (S.beater) openBells(); else say('Four chime bars: red, yellow, green and blue. There is nothing to strike them with.'); return;
     case 'hn_drawer':
       if (!S.drawerOpen){ say('A tiny drawer in the front of the stage. It won’t budge.'); break; }
@@ -741,12 +764,12 @@ return {
   intro:'<b>Last day of school.</b> Nobody goes home until the last bell rings, and the bell is missing. Mr Hollis left something on your desk. And a little moth is watching from the window.',
   start:{room:'classroom', view:1},
   begin:then => openBlindDrag(then), /* the opening gesture: pull the blind up */
-  fresh:() => ({blind:'down', lit:false, fed:0, laps:0, shown:0, asleep:false, starPick:null, stemOpen:false, cdials:[0,0,0], paintOpen:false, arrows:[0,0,0,0], cabOpen:false, toppled:false, beater:false, drawerOpen:false, dials:[0,0,0,0], lockerOpen:false, opened:false, rung:false, bonus:false, spell:'', nightMoth:false, seen:{}}),
+  fresh:() => ({blind:'down', lit:false, fed:0, laps:0, shown:0, asleep:false, starPick:null, stemOpen:false, cdials:[0,0,0], paintOpen:false, arrows:[0,0,0,0], cabOpen:false, toppled:false, beater:false, drawerOpen:false, dials:[0,0,0,0], lockerOpen:false, opened:false, rung:false, bonus:false, spell:'', nightMoth:false, seen:{}, clues:[]}),
   rooms:ROOMS, walls:WALLS, doors:DOORS, hots:HOTS, layers:LAYERS, extra:EXTRA, notes:NOTES, items:ITEMS, hints:HINTS, uses:USES,
   overlays:{c4:() => wrap(wallTimetable(), wallTinCounter()), c1:() => wrap(wallBoard(), wallGlow()), c2:wallBlind, an:() => wrap(wallStripes(), wallBen()), le:wallMap, hn:wallBanner},
-  onRender:v => { const dark = S.lit && S.blind === 'down'; $('scene').classList.toggle('dark', dark || !S.lit); if (dark && v === 'c1' && !S.seen.stars){ S.seen.stars = Date.now(); save(); } },
+  onRender:v => { const dark = S.room === 'classroom' && (!S.lit || S.blind === 'down'); $('scene').classList.toggle('dark', dark); /* the blind darkens the classroom only */ if (dark && v === 'c1' && !S.seen.stars){ S.seen.stars = Date.now(); save(); } },
   onNote:key => { if (key === 'bonus') S.seen.bonus = Date.now(); save(); },
-  act, sparkle, rows, noticed, speaker, helper:() => 'the moth'
+  act, sparkle, rows, noticed, clues, speaker, helper:() => 'the moth'
 };
 
 })());

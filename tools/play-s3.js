@@ -29,6 +29,7 @@ const { chromium } = require('playwright');
   await turnTo('c2'); await tap('blind', 800); console.log('blind down:', await msg()); await shot('05-dark-c2');
   await turnTo('c1'); await p.waitForTimeout(700); console.log('stars seen', await p.evaluate(() => !!S.seen.stars)); await shot('06-dark-stars');
   await tap('board', 800); await noOverflow('board'); await shot('07-board'); await back();
+  await turnTo('c3'); await go('door'); console.log('corridor dark while the blind is down?', await p.evaluate(() => document.getElementById('scene').classList.contains('dark')), '(must be false)'); await turnTo('h4'); await go('h_door5H'); console.log('classroom dark again?', await p.evaluate(() => document.getElementById('scene').classList.contains('dark')), '(must be true)');
   await turnTo('c2'); await tap('blind', 800); console.log('blind up:', await msg());
   // library
   await turnTo('c3'); await go('door'); await turnTo('h2'); await go('h_libdoors'); console.log('library', JSON.stringify(await st()));
@@ -48,7 +49,8 @@ const { chromium } = require('playwright');
   await tap('ae_cupboard', 600); await p.click('#takeBadge'); await p.waitForTimeout(500); console.log('badgeAr:', JSON.stringify(await st()));
   // hall
   await turnTo('as'); await go('as_door'); await turnTo('h3'); await go('h_hall'); console.log('hall', JSON.stringify(await st()));
-  await tap('hn_banner', 800); await noOverflow('banner'); await shot('12-banner'); await back(); console.log('tune seen', await p.evaluate(() => !!S.seen.tune));
+  await tap('hn_banner', 800); await noOverflow('banner'); await shot('12-banner'); await back(); console.log('tune seen', await p.evaluate(() => !!S.seen.tune), '| clues copied:', await p.evaluate(() => S.clues.join(',')));
+  await p.evaluate(() => openNotebook()); await p.waitForTimeout(300); await noOverflow('notebook with clues'); await shot('12b-notebook-clues'); await p.evaluate(() => [...document.querySelectorAll('.nb .clue')].find(c => c.textContent === 'World map').click()); await p.waitForTimeout(500); console.log('world map reopened from the notebook in the hall:', await p.evaluate(() => { const t = document.querySelector('#closeup .otitle'); return t ? t.textContent : 'no card'; })); await back();
   await turnTo('he'); await tap('he_lock', 600); await p.evaluate(() => document.querySelector('#kdial .kstar[data-i="2"]').click()); await p.click('#openStem'); await p.waitForTimeout(300); console.log('wrong star:', await p.textContent('#lockFb'));
   await p.evaluate(() => document.querySelector('#kdial .kstar[data-i="6"]').click()); await shot('13-stardial'); await p.click('#openStem'); await p.waitForTimeout(1100); console.log('star right:', JSON.stringify(await st()));
   await tap('he_cabinet', 600); await p.click('#takeBadge'); await p.waitForTimeout(500); console.log('badgeSc:', JSON.stringify(await st()));

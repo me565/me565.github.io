@@ -180,6 +180,10 @@ button{font:inherit;color:inherit;cursor:pointer}
 .nbfb{margin:0;min-height:calc(var(--u)*4.4);font-size:calc(var(--u)*2.05);line-height:1.3;color:var(--ink)}
 .nbfb b{color:#6d4fb8}
 .nbsmall{font-size:calc(var(--u)*1.7);line-height:1.25;color:var(--muted)}
+.nbclues{display:flex;flex-wrap:wrap;align-items:center;gap:calc(var(--u)*.5);font-size:calc(var(--u)*1.7);color:var(--ink)}
+.nbclues .clue{font:inherit;font-size:calc(var(--u)*1.6);font-weight:700;color:#1d2629;background:#fff2c8;border:1px solid #d9b85a;border-radius:calc(var(--u)*.6);padding:calc(var(--u)*.25) calc(var(--u)*.9);cursor:pointer}
+.nbclues .clue:focus-visible{outline:calc(var(--u)*.3) solid var(--accent)}
+@media (max-height:460px){.card.nb{gap:calc(var(--u)*.3)}.nblist.two .nbrow{min-height:26px;padding:calc(var(--u)*.25) calc(var(--u)*.6);font-size:calc(var(--u)*1.6)}.nblist.two .nbrow .st{font-size:calc(var(--u)*1.45)}.card.nb:has(.nblist.two) .nbfb{min-height:calc(var(--u)*2.6);font-size:calc(var(--u)*1.7);line-height:1.2}.nbclues{font-size:calc(var(--u)*1.5)}.nbclues .clue{font-size:calc(var(--u)*1.4);padding:calc(var(--u)*.1) calc(var(--u)*.6)}.card.nb:has(.nblist.two) .nbsmall{font-size:calc(var(--u)*1.35);line-height:1.2}} /* a phone-height screen: the seven-line notebook with its clue chips still fits */
 .card.nb:has(.nblist.two) .nbsmall{font-size:calc(var(--u)*1.5)}.card.nb:has(.nblist.two) .nbfb{min-height:calc(var(--u)*3.6);font-size:calc(var(--u)*1.9)}
 /* a long press on the room shows everything that can be tapped, so nothing has to be hunted for */
 .hs{transition:box-shadow .25s, background .25s}
@@ -556,7 +560,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-10-17e';
+const BUILD = '2026-10-18a';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -1207,9 +1211,12 @@ function hintText(i){ S.hint[i] = Math.min((S.hint[i] ?? -1) + 1, 2); save(); sp
 function pointAt(id){ const el = document.querySelector(`.hs[data-id="${id}"]`); if (!el) return false; el.classList.remove('point'); void el.offsetWidth; el.classList.add('point'); setTimeout(() => el.classList.remove('point'), 3400); return true; }
 function openNotebook(){
   if (!tipsSeen.has('help')){ tipsSeen.add('help'); tipsSeen.add('helpPoint'); clearTimeout(tipTimers.help); clearTimeout(tipTimers.helpPoint); try{ localStorage.setItem('mothhouse.tips', JSON.stringify([...tipsSeen])); }catch(e){} }
-  const rows = STAGE.rows(), noticed = STAGE.noticed ? STAGE.noticed() : [];
+  const rows = STAGE.rows(), noticed = STAGE.noticed ? STAGE.noticed() : [], clues = STAGE.clues ? STAGE.clues() : [];
   const list = rows.map(([i, label, state, done]) => `<button class="nbrow${done ? ' done' : ''}" data-i="${i}"><span>${label}</span><span class="st">${state}</span></button>`).join('');
-  openCloseup(`<div class="card note print nb"><span class="head">${CHILDREN[CHILD].name}’s notebook</span><div class="nblist${rows.length > 4 ? ' two' : ''}">${list}</div><p class="nbfb" id="nbFb">${rows.some(r => !r[3]) ? 'Tap a line and ' + STAGE.helper() + ' will help with it.' : `<b>${STAGE.speaker()}:</b> That’s everything. Well done!`}</p>${noticed.length ? `<span class="nbsmall"><b>Noticed:</b> ${noticed.join(' ')}</span>` : ''}</div>`);
+  /* clues Mary has copied into her notebook (a page she read, a map, a banner) reopen from here, wherever she is, so nothing has to be memorised or walked back to (owner, 18 Oct 2026) */
+  const chips = clues.map((c, k) => `<button class="clue" data-k="${k}">${c.label}</button>`).join('');
+  openCloseup(`<div class="card note print nb"><span class="head">${CHILDREN[CHILD].name}’s notebook</span><div class="nblist${rows.length > 4 ? ' two' : ''}">${list}</div><p class="nbfb" id="nbFb">${rows.some(r => !r[3]) ? 'Tap a line and ' + STAGE.helper() + ' will help with it.' : `<b>${STAGE.speaker()}:</b> That’s everything. Well done!`}</p>${clues.length ? `<div class="nbclues"><b>Copied in:</b> ${chips}</div>` : ''}${noticed.length ? `<span class="nbsmall"><b>Noticed:</b> ${noticed.join(' ')}</span>` : ''}</div>`);
+  document.querySelectorAll('.nb .clue').forEach(b => b.onclick = () => { const c = clues[+b.dataset.k]; sfx('paper'); closeCloseup(); setTimeout(() => c.open(), 120); });
   if (!rows.some(r => !r[3])) speak('nb.done');
   document.querySelectorAll('.nbrow').forEach(b => b.onclick = () => { const i = +b.dataset.i; sfx('paper'); if (i < 0) speak('nb.that'); $('nbFb').innerHTML = i < 0 ? `<b>${STAGE.speaker()}:</b> That one’s done. Well found.` : hintText(i); });
 }
@@ -1536,11 +1543,11 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-10-17e"></script>
-<script src="stages/packing.js?v=2026-10-17e"></script>
-<script src="stages/school3.js?v=2026-10-17e"></script>
-<script src="stages/eschool.js?v=2026-10-17e"></script>
-<script src="stages/zschool.js?v=2026-10-17e"></script>
+<script src="stages/school.js?v=2026-10-18a"></script>
+<script src="stages/packing.js?v=2026-10-18a"></script>
+<script src="stages/school3.js?v=2026-10-18a"></script>
+<script src="stages/eschool.js?v=2026-10-18a"></script>
+<script src="stages/zschool.js?v=2026-10-18a"></script>
 <script>boot();</script>
 <script>if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('../../sw.js').catch(() => {});</script>
 </body>
