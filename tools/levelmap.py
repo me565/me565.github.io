@@ -4,7 +4,7 @@
     python3 tools/levelmap.py levels/LEVEL-<key>-map.json
 
 writes levels/LEVEL-<key>-map.drawio next to it. The style is the one the owner chose on 17 Oct 2026
-(see next/PLAYBOOK.md 4p): rooms are thick-walled boxes placed where they really are, north up; each
+(see next/PLAYBOOK.md 4y): rooms are thick-walled boxes placed where they really are, north up; each
 wall carries its view key and what is on it; white tabs on a shared wall are doorways, with a labelled
 walk each way that names the view you arrive facing; red = locked at the start, green = the start.
 

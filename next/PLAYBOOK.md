@@ -2,6 +2,8 @@
 
 The working rules for every room in the landscape game, distilled from the owner's brief and his feedback on the classroom test (28 Sept 2026). Read this before touching `next/landscape/` or generating any art. `STORY.md` says *what* each room contains; this says *how* it is built and what "good" looks like. Every rule here came from a real problem, so none is optional.
 
+
+
 ## 1. Layout and screen
 
 - Landscape only. The scene is 16:9; the inventory is a strip of ten slots under it, always visible. Held in portrait on a phone, ask the player to turn it; never squeeze the scene.
@@ -11,17 +13,21 @@ The working rules for every room in the landscape game, distilled from the owner
 - Close-ups bring the object forward over the room, which is blurred and dimmed, **including the cut-out layers** (blur `#hots`, not just the wall). Tapping anywhere outside the card, or on the dark margin, steps back; there is no × button; a small "Tap anywhere to step back" caption sits under the card.
 - A build id (`BUILD`) appears in the menu's diagnostics line with sound state, music state, reduce-motion and screen size. Bump it with every change. Saves are keyed by build, so every build starts fresh; "Start again" is in the menu.
 
+
+
 ## 2. Art pipeline (Gemini through the key in the environment)
 
 - Walls: `gemini-3-pro-image`, 16:9, 2K, the shared style text in `art/classroom/PROMPTS.md` plus a paragraph naming only the objects the wall needs. Sparse and purposeful: no clutter that is not a puzzle, a hint or a thing a child would poke.
 - Consistency: generate one wall alone, then give the others a crop of it (objects cut off) as a style reference, with "copy only its style, not its objects".
-- Never mention the arrows or the interface in a prompt (the model draws them). Walls made before 17 Oct 2026 were prompted as a "shallow box with narrow side walls"; new walls are prompted flat and the engine paints the side walls from the neighbouring views (4q). Never draw boxes, panels or placeholder shapes.
+- Never mention the arrows or the interface in a prompt (the model draws them). Walls made before 17 Oct 2026 were prompted as a "shallow box with narrow side walls"; new walls are prompted flat and the engine paints the side walls from the neighbouring views (4z). Never draw boxes, panels or placeholder shapes.
 - Anything that will move, be picked up, or change state is **not drawn on the wall**. Describe its place as empty ("the purple locker has no door", "the end of the cabinet is empty") and generate the thing separately as a cut-out. This avoids the edit-and-drift cycle (editing a finished wall shifts everything slightly and every position must be re-measured).
 - Cut-outs: 1:1 or 3:4, 1K, "alone on a pure flat white background, same style as the attached crop, no surface, no shadow, no frame, no text". Flood-fill the white away from the edges (so white inside the object survives), crop to content, quantise to 256 colours. Give the model a crop of the object from the wall when one exists.
 - Inventory icons are made the same way (on white, keyed out), never small vector drawings.
 - Text in generated art is unreliable: keep lettering to short labels (SUPPLIES, 5H, LOST PROPERTY). Anything the puzzle depends on (the timetable grid) is drawn by the game over the picture so it exactly matches its close-up.
 - Save walls at 1920×1080 JPEG quality 88; keep the 2K PNG originals out of the repo.
 - Photos of real places the owner sends are reference, never source: they are not kept in the repo and no face, name, crest, logo or uniform in them is reproduced. What is kept is `next/art/REFERENCE.md`, a word picture of the place with the must-not-copy items marked; prompts draw on it at Gate D (owner's photos of the real school, 17 Oct 2026).
+
+
 
 ## 3. Placement and measurement
 
@@ -30,6 +36,8 @@ The working rules for every room in the landscape game, distilled from the owner
 - Things that stand on a surface sit exactly on it (the apple on the books, the mug on the desk, the pots on the sill) and get a soft contact shadow (`shadow`). Nothing floats.
 - Small tap targets are placed above large ones (the engine sorts by area), so the mug on the desk stays tappable.
 - Hotspots may be bigger than the object for fingers, but never so big they steal a neighbour's tap.
+
+
 
 ## 4. Animation ("physics")
 
@@ -47,12 +55,16 @@ The working rules for every room in the landscape game, distilled from the owner
 - Anything with an openable part (a drawer, a cupboard, a lid, a box, a wardrobe) opens and closes on a tap, before and after what was inside has been taken, with its own sound, and stays as you left it on the wall and in the close-up. An empty open drawer is still a drawer. Doorways between rooms are exempt: you walk through them (owner, 30 Sept 2026; backlog item 15).
 - Tap animations must never be skipped silently on the owner's device: the tablet reports reduce-motion, and the early version showed nothing at all.
 
+
+
 ## 4a. Rooms are boxes with four sides, or rectangles
 
 - A room has four walls. A square room is four views. A long room has two short walls and two long walls, and each long wall is two views that continue into each other: the first half shows one corner and runs off the far edge, the second half shows the other corner. Stepping between the two halves pans the picture sideways; turning a corner fades. Never draw six closed boxes and call it a room: it reads as a hexagon.
 - Prompt the halves as "the LEFT half of one long wall: the left side wall visible, the back wall and floor running straight off the right edge with no corner" and the mirror for the right half. Declare the room's `long` pairs in `ROOMS` so the engine pans.
 - Clues arrive in order. A book (or drawer, or box) that holds the next clue gives it up only once the previous clue has pointed at it; before that it is just a book, with a friendly line. Reading "that's all three" while missing one feels like cheating. Parallel streams are fine when the story says so; a chain is a chain.
 - Things inside close-ups (books on a shelf, dials, cards) are pictures to the same standard as the walls, never flat coloured buttons. Titles are drawn by the game along the spines so the words stay exact.
+
+
 
 ## 4a-ii. Doors and rooms, the Dark Dome way
 
@@ -65,6 +77,8 @@ The working rules for every room in the landscape game, distilled from the owner
 - Things that turn (a globe) really turn: the map slides round the sphere under a still arc.
 - On a phone or tablet in a browser, offer full screen once and keep a toggle in the menu; inside the Android app the game is already full screen.
 
+
+
 ## 4b. No empty walls
 
 - Every wall must earn its place in the critical path or the bonus path: a clue, an item, a hint-giver, a door, or a piece of the puzzle's information. A wall that is only atmosphere is wasted time; the owner's yardstick is that in the games he loves everything feels connected. Before generating a wall, write down what it contributes.
@@ -72,6 +86,8 @@ The working rules for every room in the landscape game, distilled from the owner
 - A tap on something with no clue gets one short in-page line, never a close-up. Close-ups are for reading something that matters (a note, a riddle, a key) or working something (a lock, a shelf).
 - Never show technical details (build id, sound state) to a player; the menu's diagnostics line appears only with `?debug` in the address.
 - Going through a door leans the picture in towards the door before the room changes, so the player sees the intent.
+
+
 
 ## 4c. Parallel trails, the Rusty Lake and Dark Dome way (owner, 29 Sept 2026)
 
@@ -84,6 +100,8 @@ The working rules for every room in the landscape game, distilled from the owner
 - Padlocks and drawers are cut-outs over a wall that has only a hasp; an opened padlock springs, falls and is gone. Inside a cabinet or cupboard is a generated close-up with the slip on its shelf; once the slip is taken the close-up is not shown again (a tap gives a line), so the picture never shows a slip the player already has.
 - Anything the puzzle depends on (the coloured notes on the page, the three stripes under the moth, the colour of each dial) is drawn by the game over the pictures, so wall, close-up and inventory always agree exactly.
 
+
+
 ## 4d. Stages (29 Sept 2026)
 
 - The engine (`next/landscape/index.html`) knows nothing about any room. Each stage is a file in `next/landscape/stages/` that calls `registerStage(key, {…})` with its rooms, walls, doors, tap targets, cut-out layers, close-up pictures to preload, notes, items, hints, item uses, `act(id)` (return `false` for a door the engine should open), `rows()` and `noticed()` for the notebook, `sparkle(id)`, `fresh()` state, `start`, `intro`, `blurb`, `track` and `next`. Overlays the game draws on a wall (a timetable, three stripes) are `overlays:{view: fn}`.
@@ -94,13 +112,19 @@ The working rules for every room in the landscape game, distilled from the owner
 - A stage's optional hunt (the six paper moths) uses `secret:true` hotspots, which the long-press reveal leaves out.
 - Nothing is shared between the three children's stories: no clue, item or hiding place appears in two of them (owner, 29 Sept 2026).
 
+
+
 ## 4e. Start-up, title and choosing a story (owner, 30 Sept 2026)
 
 - The game opens with the studio start-up: OG Entertainment, drawn by the engine (a moth crosses the dark and lights the name), about four seconds, tap to skip, a plain fade under reduce-motion. Then the title screen: our own moth-and-leaf pattern on deep teal, "The Moth House", Continue and New game, a sound button, and "About this game" with the fiction notice. Nothing on these screens is borrowed from another game; the owner's screenshots were for the idea only.
 - Continue picks up the last story played (it is greyed out until there is something to continue). New game goes to "Whose story?": three cards, Mary, Elliot and Zaina, with their age and a line each; a card whose stages are not built yet says "Coming soon" and cannot be chosen; a card with progress warns that it starts again from the beginning.
 - Saves are one per child (`mothhouse.landscape.<build>.<child>`), with a pointer to the last child played. The in-game menu has "Title screen".
-- **The lite release** (owner, 17 Oct 2026): `LITE` in the engine lists the stages playable from the title (`school`, `packing`). A child whose first stage is not listed is greyed out as "Coming soon" on the choose screen and in the Family tab ("In the full game"), and `switchChild` refuses them, so no Meanwhile switch leads into an unreleased stage. Built in 2026-10-17a.
+- **The lite release** (owner, 17 Oct 2026): `LITE` in the engine lists the stages playable from the title (`school`, `packing`). A child whose first stage is not listed is greyed out as "Coming soon" on the choose screen and in the Family tab ("In the full game"), and `switchChild` refuses them, so no Meanwhile switch leads into an unreleased stage. Built in 2026-10-17a. A stage's end card leads into its `next` only when that stage is in `LITE` too (`nextStage`); otherwise the button reads "Coming soon… back to the title", so packing day's card does not open the flight in the lite game (2026-10-18b, when the flight, Nana and Jedi's and Trent Park came into this line).
 - `?stage=<key>` in the address still jumps straight into any stage for testing, released or not, skipping the start-up and title.
+
+- The children's cards carry two portraits each: the resting face, and the lit face that fades in on hover, focus or press (log 53).
+
+
 
 ## 4f. A stage's frame (owner, 30 Sept 2026: "finalise the game feel")
 
@@ -109,12 +133,16 @@ The working rules for every room in the landscape game, distilled from the owner
 - Postcard pictures are generated 3:2 in the game's style, saved 900×600 in `next/art/postcards/`; they never carry text.
 - Never reuse the scene's class names inside a card (`.msg` is the message line); a clash made the postcard's writing dark and centred.
 
+
+
 ## 4g. The cog (30 Sept 2026)
 
 - A cog sits top-right on the title screen and in every room and opens one panel with three tabs: Settings (music and sound effects as separate sliders, full screen, show what I can tap), Help (how to play in four lines, back to the title, start this stage again, start the story again) and About (what the game is, the fiction notice, the studio credit). Tap outside, ×, or Escape closes it. The room-only rows hide on the title.
 - Anything that wipes progress asks first, inside the panel ("Yes, start again" / "No, keep going"). Never a bare wipe.
 - Volumes are 0–10 and kept on the device (`mothhouse.vol`); effects run through one gain node so a slider takes effect at once; music at 0 stops the track and any other value restarts it. The old on/off switch is read once and turned into the two volumes.
 - The build id and sound state still appear only with `?debug`, in the panel's corner.
+
+
 
 ## 4h. The moth's voice (30 Sept 2026)
 
@@ -125,10 +153,14 @@ The working rules for every room in the landscape game, distilled from the owner
 - The moth is drawn in two poses: front-on (the portrait) and three-quarter with its wings half raised (speaking). Never cute-babyish; calm, wise, warm.
 - The name is still the owner's to decide; no recorded line says it.
 
+
+
 ## 4i. Opening a stage (30 Sept 2026)
 
 - A stage or a room never opens on a blank. The loading screen is the moth, "Opening your classroom…" and a bar that fills as pictures arrive. Only the first view's wall and cut-outs are waited for; the rest of the room, then the other rooms, load quietly behind, so a stage opens in a second or two on a good connection instead of after the whole 9 MB.
 - Turning to a wall that has not arrived yet fades it in when it does; cut-outs draw themselves as they land.
+
+
 
 ## 4j. First-time tips and drag moments (30 Sept 2026)
 
@@ -139,6 +171,8 @@ The working rules for every room in the landscape game, distilled from the owner
 - The first of these is Dad's desk drawer (build 2026-09-30l): `openAside(inner, side)` puts a close-up beside the room with the room left sharp and the arrows hidden, on the side away from the thing tapped (`sideAwayFrom(h)`); `openLiftPull({bg, front, inside, lift, pull, stuck, done})` moves a cut-out front over the empty cavity, with what is inside showing as it comes out. A straight pull jams and springs back (and marks the drawer stuck, so Mum's tip lands); lifting a finger's width and then pulling, still holding, brings it out. A player who lifts before asking Mum is simply right. The front is cut from the close-up itself and the cavity painted behind it, so no new picture was needed. Once emptied, the drawer slides shut and open again on a tap (the first of backlog 15).
 - A stage's opening gesture is its `begin(then)`: the engine runs it once, after the title card and before the first line, on the save's own flag (`begun`), never on resume (built 17 Oct 2026 for Mary's version 3: the blind cord, a drag on the window wall). Every stage should open with one such gesture, before the first line and before any puzzle, and it should mean something in the story: waking, letting the light in, opening the way (owner, 30 Sept 2026; backlog item 11 lists the one chosen for each stage). The gesture is never a test: a wrong direction or an early release simply waits.
 
+
+
 ## 4k. Elliot's and Zaina's first stages: a stage for each age (30 Sept 2026)
 
 - Every child's story now starts in the landscape engine: `eschool` (Elliot, Classroom 2P and the playground) and `zschool` (Zaina, the party room at Little Waves). A stage says whose it is with `child:'elliot'`, so `?stage=eschool` opens as that child; the notebook, the postcard's stamp and the "start the story again" wipe all follow the child being played.
@@ -147,6 +181,8 @@ The working rules for every room in the landscape game, distilled from the owner
 - The picture rule again: what is on a wall is on its close-up. The peg name cards and the cubby marks are drawn by the game (SVG overlays, `overlays:{p3:…}`) on the wall and in the close-up from one list; the bottles and paintings that are not Zaina's were composited onto the walls from the close-ups, and her own bottle and painting are cut-outs that leave the wall when taken and appear inside her cubby when put away.
 - When the Gemini credits ran out mid-build (HTTP 402, 30 Sept 2026) the last two close-ups (the star bottle on the shelf, the rocket jumper in the box) and both postcards were composited from art already made, and both stages use the classroom track. The key was topped up the same evening: the two close-ups, both postcards and a Lyria track each (`eschool.mp3`, `zschool.mp3`) were then generated properly, and the voice lines recorded.
 
+
+
 ## 4l. Switching child mid-game: "Meanwhile…" (owner, 30 Sept 2026)
 
 - The three stories are the same afternoon, so a switch is the camera moving to another child, not a menu. The cog's first tab, **Family**, shows the three portraits with where each one is ("Packing day, in the kitchen", "Not started yet", "Playing now"). Tap another child: the moth flies off across the room, the room fades, the loading bar says "Meanwhile, the party room…", and a MEANWHILE card names the child with the stage's one fixed line about their day (`meanwhile` in the stage, voiced as `<stage>.meanwhile`, written so it is true at any point of the stage). Go on lands in their room where they left it, or on their first day if they have not started.
@@ -154,11 +190,15 @@ The working rules for every room in the landscape game, distilled from the owner
 - No clue crosses over. The switch is a mood and a convenience, never a puzzle; the finale is where the stories meet (STORY.md).
 - Reduced motion: no flight, a short fade, the same card.
 
+
+
 ## 4m. The How to play page (30 Sept 2026)
 
 - After Continue or New game and the choice of child, before the first room loads, one calm page: five drawn panels with the game's own things and a Play button. Tap (a finger on Nutmeg's cage), the arrows (the room box with its two small arrows), use a thing (the star key in a strip slot, 1, then the padlock, 2), combine (the paper + the kaya = the present) and the moth (tap me at the top). Once per device (`mothhouse.howto`), never on a `?stage=` test link, and always from the cog's Help tab ("Show me, with pictures"), where it closes back to the room.
 - The panels are the game's own pictures: two crops of walls with their cut-outs composited (`next/art/howto/tap.jpg`, `use.jpg`), the room box and the hand drawn in SVG, the strip slots and item pictures the real ones. No text inside the pictures; the lines sit under them in the child's words.
 - It does not replace the moth's first-time tips (4j), which still arrive at the moment each is useful; on a pictures-only stage (Zaina's) the moth reads the page in one line (`howto`).
+
+
 
 ## 4n. The comic intro (30 Sept 2026)
 
@@ -166,18 +206,145 @@ The working rules for every room in the landscape game, distilled from the owner
 - The pictures are single 16:9 panels in the walls' style, the child drawn small from their portrait (the portrait is passed as a second reference), no lettering anywhere: a first pass put GOODBYE on the balloons and a timetable's title on a poster, and split one page into two frames; the prompt now says one single picture, blank whiteboards, posters as plain pictures. Mum from behind as in the flat; Miss Okafor tall with braided hair and a mustard cardigan; Miss Lin as her cut-out. Pages: Mary's school 4, packing day 3, Elliot 4, Zaina 3 (pictures with one line each, read by the moth). Prompts in `next/art/classroom/PROMPTS.md`.
 - The opening gesture (backlog 11) belongs at the end of the comic, its last panel come to life; not built yet.
 
+
+
+## 4s. A third stage for Mary, and what building it added (13 Oct 2026)
+
+- The flight (`stages/flight.js`) follows 4c exactly: the goal and all three threads come out of one seat pocket on the first wall; each trail's lock takes two inputs from two rooms (the flight card and the galley clocks; the note and a dark shiny surface; the magazine page and Priya); the convergence takes one thing from each (the woken map, the magnifying glass, the note's instruction) and one observation (four doodles, only one of them the moth). No clue is shared with the other children's flights to come: they will see their own things in the same cabin.
+- A person who gives a clue stays silent about it until the player has met the problem (Priya and the seven hours, like Mum and the drawer), and hands over an item only once the page that promises it has been read.
+- A puzzle that depends on reading something the player must *not* yet understand (the backwards note) is voiced as what the child sees, not as the words: `voice:` on the note. The engine flips every line but the heading (`mirror:true`), so the note reads only in a mirror.
+- Two mirrors, one of which stops working: the dark screen reads the note until it wakes; after that the toilet mirror does. Every "no" line says where else to try.
+- Things the puzzle depends on are drawn by the game, on the wall and in the close-up from one function (the clocks, the map on both screens, London under the glass). A close-up may be drawn entirely, with no picture (`openPic(null, …)`).
+- Sleepers and a person behind a counter are painted into the wall by its own hand (4r) and used as the wall, since nothing of them moves; things poking out of a pocket are painted the same way and lifted out as cut-outs, so they carry the pocket's shadow. Cut-outs on white are generated with no picture reference at all (a style crop makes the model draw the object into that scene).
+- An item with a close-up of its own (the magazine) carries `open:` and opens it from the strip; a note that has done its job (the flight card once the screen is awake, the note once the moth is found) leaves the strip (`spent`).
+- Ambient sound has a third kind, `plane`: the engines far off with a slow swell.
+- Checked at the three shapes (G36) before the link went out; the sleepy screen's card and the crossword needed smaller measures at the phone shape.
+
+
+
+## 4t. Openings, real places, moving people (owner, 13 Oct 2026, on the first flight build)
+
+Five rules from the owner's first look at the flight, written here so they hold for every stage from now on and never need raising again. Each has a checklist line (A8b, B16b, E30b, F35b, H42).
+
+- **The opening view carries no clue and no item.** The goal may be in sight (the suitcase, the locker), but the first thing to pick up or read is at least one turn away. Landing on the clues makes the stage easy and obvious. The flight now opens on the window; the pocket is a turn to the left. (Mary's school opens on the whiteboard and desk, packing on the bed and suitcase, Elliot's on the card on the desk: the card is to be moved when that stage is next touched.)
+- **A real place keeps its real layout, and is as full as it really is.** Every aeroplane seat faces the front; looking back down the aisle shows faces, looking forward shows seat backs, looking sideways shows seats in profile; a flight is three-quarters full of sleeping strangers, a classroom has children, a street has people. Before accepting a wall, draw the room's floor plan with its compass, say for each view which way things face, put that sentence in the prompt ("every seat faces the front of the plane; in this view that is to the left"), and check the picture against the plan. The first flight walls had seats angled towards each other, the view back showed seat backs, and the cabin was empty but for the family: all redrawn.
+- **One Night Moth challenge per stage, a different kind each time.** The crossword was liked for the extra challenge; a second crossword would be repetition. Keep a list of the kinds used (school: the bonus riddle; packing: the six paper moths; flight: the crossword) and pick something new for each stage: a cipher, a count, a map, a melody.
+- **A place is seen before an item is used there.** Nobody uses a note on a door. The door opens on the toilet, the mirror is in view, and the note goes on the mirror. If a thing is inside something, the inside is a view or a close-up with its own tap target, and the item is used on the thing itself. "Use it on the door" fails this.
+- **People and things move with the story.** A character who gives a clue or an item is somewhere else after the beat that changes their circumstance, in a way that makes sense (Priya is behind the galley counter with the breakfast trays; once the screen is awake and landing is an hour away she is in the aisle with the trolley, and the counter is empty). Each stage lists who moves, when and where, in STORY.md, and the hints follow them. Mum in the kitchen and the teachers are to be given a move when their stages are next touched.
+
+
+
+## 4u. Taken things go, people are keyed, openings open (owner, 14 Oct 2026, on the first look at Nana and Jedi's)
+
+Four faults from the owner's first look at stage 4, fixed there and written here so they hold for every stage. Each has a checklist line (B9c, B9d, D24b, E29b, E32e).
+
+- **A thing taken is gone from the picture.** A close-up that holds things to take is drawn without them (the model edits the finished close-up to remove them), and the things are lifted from the full picture by difference and laid over it as parts (`.part` images in `openPic`'s overlay, positioned by the lift's box). Taking one fades it out and it is not drawn again. The suitcase's torch and present were painted into the close-up and stayed there after they were in the strip.
+- **People are lifted as cut-out sheets, never by difference.** A figure painted into a wall sits on colours like its own (a cardigan on a cream wall, trousers on a chair), and a difference mask leaves see-through patches there, which a wall shows through as "invisible patches". The lift for a person: ask the model for the painted picture again as a character cut-out sheet, "only the person, same pose, size and place, everything else one flat magenta", then key the magenta (`tools/keymag.py`: keeps the largest shape, grows the inside colours over the edge band so no pink fringe remains, prints the box). An enclosed magenta patch is a gap the model drew on purpose and stays see-through. The model will sometimes keep the furniture or redraw the figure larger: a sheet with furniture is asked for again; a larger figure is scaled to its box and checked in place. Things that are not people (a ladder, a hatch) key the same way. `tools/lift.py` (the difference lift) stays for things on plain surfaces.
+- **An opening opens by its own movement.** The hatch had borrowed the padlock's `drop` (it fell away and faded, then reappeared). Now `unfold`: the door swings down from its hinge, foreshortened, then the ladder slides out of the opening and settles with a small bounce; the layer's `fold` says where the door ends and the ladder begins. The painted-in ladder is checked as a real loft ladder: straight down from the hatch, feet under the opening.
+- **After a thing changes, its whole new shape is the target.** The open hatch and ladder are one tap target up to the attic (`nd_ladder`, shown by `showWhen`); the shut hatch's small target and the cord go (`hideWhen`). Hotspots now take `showWhen` like layers.
+
+
+
+## 4v. Mary's stage 5, Trent Park, and what building it added (14 Oct 2026)
+
+- **A real park, checked first.** Before a word of history went in, the facts were checked on the web and written into STORY.md (stage 5) with their sources; the museum's notice in the game says only what the sources agree on, with no numbers and no names. The owner is told what was checked (CLAUDE.md rule).
+- **Outdoors, the four views are still a compass.** Each place's prompt says what is north, east, south and west, and a thing that belongs to one direction (the big house, south of the obelisk) is told to stay out of the others; the model puts a landmark into every view unless told not to, and three obelisk views and two moat views were redrawn for it.
+- **New characters come as cut-out sheets.** Jedi asleep on the bench and Jedi standing with his watch were asked for straight onto flat magenta, with the stage-4 cut-out as the likeness reference, and keyed (4u). A sheet that comes back with a white sticker edge or a background patch is asked for again with "no outline, no halo".
+- **A thing that opens by a side hinge** (the gate) is two pieces lifted from the wall painted with it open: the dark arch where the leaf was, and the leaf swung out; the leaf comes in with `wipe` from its hinge side (`hinge:'right'`), the arch simply appears behind it.
+- **A clue that flashes is also a clue that knocks**, and the other way round: the lamp's pattern is visual all the time (`flasher`, a timed glow) and audible while Mary listens, so no clue is sound alone (CLAUDE.md) and nothing is a looping noise.
+- **The sundial is a real sundial.** The hour numerals round Nana's stones are drawn by the game on the true hour lines of a horizontal dial at Enfield's latitude (`hourAngle`), so the painted shadow reads as the time it says; the watch accepts a quarter-hour either side.
+- **Dusk is a change over the whole place**, not one wall: a tinted veil on every view (`duskVeil`) with moths in the wood views, switched by the story (the watch set), with the person who moves and the ending both waiting on it.
+- **Night Moth kinds so far:** the riddle (school), the paper moths (packing), the crossword (flight), the secret alphabet (Nana's), the tape's word in the tap code (Trent Park). The next stage picks something new.
+
+
+
+## 4w. What a stage is made of: the files (owner's question, 16 Oct 2026)
+
+Every stage since the flight has the same parts. Trent Park (`park`) is the model; each line is one file or folder and what it is for.
+
+- `next/landscape/stages/<key>.js` — the stage itself, one file: its rooms and the turning order of their views, the doors between them, the tap targets on every wall (`HOTS`), the cut-outs that sit on the walls and move (`LAYERS`), the things the game draws over a picture (`overlays`), the notes and items, what every tap says (`act`), what happens when an item is used on a thing (`USES`), the three-step hints for each trail and the notebook's rows, the comic's lines, the card, the postcard text and the ending.
+- `next/landscape/index.html` — the engine, shared by every stage: one new `<script>` line per stage, plus any new movement, close-up kind or style the stage needed (the flight added the mirror note and the wake dials, Nana's the dark veil and `unfold`, the park the flashing lamp's glow, dusk and `wipe`); the previous stage's `next:` points at the new one.
+- `next/art/<key>/` — the pictures: four walls per room (`w1`–`w4`…), the cut-outs (`layer-*.png`, with a `-check.jpg` showing each in place), the inventory icons (`item-*.png`) and the close-up pictures (`closeup-*.jpg`).
+- `next/art/comic/<key>-1.jpg` to `-3.jpg` — the three pages of the stage's comic intro.
+- `next/art/postcards/<key>.jpg` — the picture on the postcard home at the end.
+- `next/art/music/<key>.mp3` — the stage's track from Lyria, with its prompt added to `next/art/music/README.md`.
+- `next/art/voice/<key>.*.mp3` and `index.json` — every line the moth says (hints, notes, card, intro, comic, postcard), recorded once; `tools/extract-lines.js` pulls the lines out of the stage file into `tools/lines.json`, `tools/voice.py` records the new ones, and `index.json` is the list of what exists.
+- `tools/play-<x>.js` — a script that plays the whole stage end to end against the local server and prints every step; `tools/shots-<x>.js` checks its close-ups and end card at the owner's tablet shape, a phone and a desktop. Both run before every commit, with `tools/audit.js` over every stage.
+- `tools/gen.py`, `tools/lift.py`, `tools/keymag.py`, `tools/lyria.py`, `tools/voice.py` — how the pictures, cut-outs, music and voice are made (prompts in `next/art/classroom/PROMPTS.md`, methods in 4r, 4u, 4v); the key is in the environment, never in the files.
+- `STORY.md` — the stage's section: the places, the goal on the card, each trail and what it needs from where, who moves, the Night Moth, and any real history with its sources.
+- `next/PLAYBOOK.md`, `next/CHECKLIST.md` — a section for what building the stage taught, a line in the feedback log, and any new check; `CLAUDE.md` gets the folder in its file list.
+
+
+
+## 4x. A level from the owner's materials: packing day, version 2 (16 Oct 2026)
+
+The first level made the way every level will be made from now on, with Mary's packing day rebuilt as the example.
+
+- **Materials first, and a running list.** The owner sends what he has: a floor plan, photographs of every room and the view, photographs of the people. Each batch is played back in a few lines (what is in it, what it settles, what is still missing) and the list of have and still-to-come is repeated every time. Nothing is generated until he says the materials are complete. Photographs and plans stay in the session and never enter the repo.
+- **The brief, asked once.** The handful of decisions only he can make, each with the default that applies if he just says "go": which rooms; the story and premise; the time of day and weather; who moves; who still needs a look; the difficulty. He answers in one message.
+- **The design on paper before any picture.** Rooms and how they connect, the goal on the card, each trail with every lock and where its two inputs come from, the list for pacing, the convergence, who moves and when, the Night Moth, what makes it harder than the last level. He approves or changes it; then the pictures, the code and the voice are made. A level this size is not built twice.
+- **Walls from photographs.** Each wall's prompt carries two references: the game's box (`nana/ref-flat.png`) for the drawing style and framing, and the photograph of that room for its furniture, materials and colours, "simplified and tidied into the drawing style". The prompt says no people, no faces, no photographs of people and no lettering, so the family in the photographs never reaches the picture. Thirty-two walls came back right first time; the knife block the photograph had was painted out afterwards (nothing unsafe to copy).
+- **People from photographs.** A character sheet on flat magenta with two references: the game's cut-out style (`nana/layer-nana.png`) and the person's photograph, with the likeness described in words as well (hair, brows, beard, skin, smile, clothes), keyed with `tools/keymag.py`. The lobby scene carries the whole family in one picture the same way. The looks are written into STORY.md so later levels draw the same people.
+- **Things that leave a picture are lifted from it first.** The jumper on the rack and the cushions on the sofa are edits ("remove the jumper", "remove the cushions") of the finished picture, so the bare version is the wall or close-up and the thing laid over it as a part or layer can go (checklist E29b).
+- **One light over the whole flat**, as dusk in the park: rain layers on every window until two of the three hidden things are packed, then a gold veil on every view.
+- **Night Moth kinds so far:** the riddle (school), the paper moths (packing v1), the crossword (flight), the secret alphabet (Nana's), the tap code (Trent Park), the postcards and the map (packing v2).
+
+
+
 ## 4o. The checklist (owner, 30 Sept 2026)
 
 - `next/CHECKLIST.md` turns every fault the owner has pointed out into a check, grouped by what is being made (a cut-out, lettering on a picture, a movement, a close-up, words and voice, delivery). It is read at the start of any update, walked over every amended or new thing before it is shown, and `tools/audit.js` runs its automatic lines (proportions, shadows to look at, loading, hotspot bounds and corners, overflow at three sizes, unrecorded voice, an error-free run under reduced motion at the owner's screen shape) and writes one screenshot per view for the visual lines. Every new fault the owner finds becomes a line.
 
-## 4p. The level map is a floor plan (owner, 17 Oct 2026)
+
+
+## 4p. The interface language: a page of the comic (12 Oct 2026, proposed to the owner with build 2026-10-12a)
+
+Everything the player reads or presses is drawn in the comic intro's own hand, on one dusk sky. Before this the chrome was three worlds at once (a navy slab round the scene, a teal patterned title world, dark translucent pills over cream paintings) and carried the usual tells of generated design (tracked all-caps eyebrows, identical rounded cards with the same grey shadow). Now:
+
+- **The sky.** One background behind everything: dusk, `#0f1b26` at the top to `#16343a` at the horizon, with the moth-and-leaf pattern at 9%. The title, choose-a-child, How to play and loading screens use the same sky; nothing else is teal.
+- **Paper and ink.** Every panel, caption, card, slot and button is paper (`--paper` #fffaf0, or the comic page's cream `--paper2` #f4ead8) with the ink rule (`--rule`, 0.3u of `--line` #4a3b2a, the comic's border colour) and the shadow of cut paper (`--cut`). Text is warm ink `--ink` #2b2622; muted text `--muted`. Corners are small: 0.8u for panels, 0.6u for captions and slots.
+- **The scene is a comic panel**: the ink rule round it, small corners. The room's name is a caption box in Caprasimo at the top left. The moth and the cog are paper circles with the rule.
+- **The moth speaks in a caption box**: the message line is paper with the rule, its "The moth whispers:" in deep gold (`--gold-deep` #b8731a, gold that reads on paper).
+- **Close-ups, the notebook, the shelf and picture labels, the stage card, the postcard, the How to play card and the cog's panel** are all paper with the rule. The cog's panel has notebook tabs along its top edge: the open tab is paper and joins the page, the others sit back in muted ink.
+- **Buttons.** Primary: gold (`--gold` #f3c26a) with the rule and ink text, one per screen (Begin, Play, New game, Go home and pack). Secondary (`.quiet`): paper with the rule. Danger (`.warn`): paper with a red rule (`--warn` #b5432f). Disabled: paper, muted text. Never a dark pill.
+- **The two pens** stay: teal `--pen` #2f7c83 for riddles, status and the stage card's title, purple `--pen2` #6d4fb8 for a note's heading and the postcard's greeting.
+- **Type.** Caprasimo for titles, the room's name, tabs and headings; Atkinson Hyperlegible for everything else. No tracked capitals anywhere: the title's eyebrow is "A summer mystery" in italic, a stage card's place line is "Singapore, the last day of term" in italic muted ink.
+- **The moth is the hero and the only glowing thing**: large on the title screen with its gold glow, drifting gently unless motion is reduced; the gold glow on a selected slot and on pointed hotspots is the same light.
+- **Spent once.** The boldness is the caption-box voice and the moth hero; everything else is quiet. Before adding any new piece of chrome, ask whether it is paper with the rule; if it is not, it is a stranger.
+
+The design plan that led here, with its review against the generic default, is kept with the session's notes; the tokens are at the top of the stylesheet in `next/landscape/index.html`.
+
+
+
+## 4q. Ready before it is needed, and the read-along (owner, 12 Oct 2026)
+
+- **Nothing the player is about to see or hear arrives late.** The children's portraits are made ready while the start-up plays. A stage's loading bar waits for its first view's pictures, its comic's pages and the lines the moth says on the way in (the comic's captions, the title card, the intro, the first tips, the How to play line); the rest of the stage's lines follow quietly after the pictures (`openers`, `stageVoiceKeys`, `prepVoice`). In the comic a caption never appears before its picture, and the next page is made ready while the current one is read.
+- **One Audio element per line, kept** (`VOICE`, `voiceAudio`), so a tap starts the voice at once instead of fetching it. `speak(key, el)` takes the element whose words are being read.
+- **The read-along.** As the moth reads, the words it has said turn the teal pen and the word it is on sits on gold (`readAlong`, `.w.read`, `.w.now`), in the comic's captions, the stage card, the message line (intro, tips, pointed hints, Zaina's lines), a note and the notebook's hint. The recordings carry no word times, so the time is shared out by letters, with a pause at a full stop or a comma; labels in bold ("The moth says:") are not read and are not marked. It stops the moment the voice stops.
+- **No whispering.** The tips were re-recorded in the moth's normal narrating voice and the label is "The moth says". The recording style no longer asks for a whispery voice, and hints are no longer asked for as whispers; lines recorded before 12 Oct keep the old style until the voice pass (backlog T13) re-records them.
+
+
+
+## 4r. The caption band, spent notes, and things painted by the wall's own hand (owner, 12 Oct 2026)
+
+- **The moth's line has a permanent place**: a caption band between the room and the inventory strip, with the moth at its left end. It never covers the room, so no tap target is ever under it. The stage is scene + band + strip (`fit()` uses 0.738 of the width as the height), which makes the room about nine percent smaller on a phone-shaped screen than before; the owner chose a fixed place over the overlap.
+- **A note leaves the strip when its job is done** (`ITEMS[k].spent()`): the star note once the star padlock is open, the music page once the drawer is open, the painting note once the paint cupboard is open, the three slips once the locker is open, the envelope once all three slips are found. The note stays in the save (`S.got`), only the strip hides it, so hints and progress are untouched.
+- **Blocks that land**: a firmer contact shadow under every piece at rest, and `fall.land` lowers a piece that rolls out onto the nearer mat, so the three sit on the mat at different depths like real things.
+- **A box front is cut with the rim's ink line as its top edge**, column by column, so what is inside is covered exactly where the rim is drawn (the lost property box: the earlier cut began a little below the line and the things inside seemed to stand on the rim).
+- **Things on a surface are painted by the wall's own hand.** When a cut-out looks pasted on (the snow globe and the orchid), the fix is not a shadow or a filter: the wall is rendered again with the things in place, in its own style and light, and the things are lifted out of that rendering as cut-outs (the difference against the original wall, grown from a seed inside each object, cut above the shelf's line). The original wall stays the wall. `tools/lift.py` does the difference lift and prints the box; for people and anything on a like colour use the magenta sheet and `tools/keymag.py` (4u).
+
+
+
+## 4y. The level map is a floor plan (owner, 17 Oct 2026)
 
 - A level's game map (stage 2 of the level file) is drawn as a floor plan, never as a flowchart of boxes and arrows: the rooms are thick-walled boxes placed where they really stand, north up, each wall carrying its view key and what is on it, white tabs on a shared wall for a doorway, and a labelled walk each way that names the view you arrive facing. Red marks what is locked at the start, green where the child starts. The owner's reference was a drawn point-and-click map with rooms directly east, west, north or south of one another.
 - The compass comes from the turning order: a room's four views run north, east, south, west, and the door wall of each room must face the room it leads to. Lay the rooms out so every doorway's two walls really meet; a plan that cannot be drawn this way means the views or doors are inconsistent, which is a Gate B finding.
 - It is generated, not hand-drawn: `python3 tools/levelmap.py levels/LEVEL-<key>-map.json` writes `levels/LEVEL-<key>-map.drawio` from a short JSON of rooms (position, size, colour, four walls) and doorways (which wall, where along it, the two walk labels). The JSON is the record; the draw.io file is for looking at. Mary's school day (`levels/LEVEL-school-map.json`) is the example.
 - The puzzle chart (stage 3) stays a dependency chart in lanes, one lane per trail: item → clue → lock → reward.
 
-## 4q. Corners that agree: the engine paints the side walls (owner, 17 Oct 2026)
+
+
+## 4z. Corners that agree: the engine paints the side walls (owner, 17 Oct 2026)
 
 - A wall picture is a flat back wall; its two side walls are the engine's, painted from the neighbouring views so the corners always agree: the left side wall from the near end of the *previous* view (its right-hand end, which meets this wall at the corner), the right side wall from the near end of the *next* view (its left-hand end). Whatever stands at the end of a wall, picture and cut-outs alike, appears foreshortened in the corner of the view beside it, and a change to one wall ripples to its neighbours for free (`drawSides` in the engine; backlog 19).
 - How it is drawn: one screen column at a time, each column a thin slice of the neighbour's back wall, the slice position running with depth (1/height along the trapezoid, so the far end is squeezed and the edges stay straight); the neighbour's cut-outs at rest are sliced the same way (a thing in a pocket shows only above its rim); the corner falls into a soft shade so the join reads as a fold. The picture's own ink line at the corner is left showing (an inset of a quarter of a percent).
@@ -187,6 +354,8 @@ The working rules for every room in the landscape game, distilled from the owner
 - **Judged by the owner on 17 Oct 2026 (build 2026-10-17b, Mary's classroom): "looks really weird", and he is right.** Two causes. (1) The baked side panels of the generated walls are not in perspective (the timetable wall's are flat rectangles a fifth of the picture wide), so a neighbour painted onto them is a wide, barely foreshortened picture pasted beside the room, not a fold. (2) The walls of one room disagree with each other: the mint band sits at mid-height on the timetable wall and far lower on the whiteboard wall, ceilings and floor lines differ, the creams differ; no corner can join lines that do not meet. So: **painting over baked corners is switched off** (no stage gives `sides`; the code stays, dormant, in `drawSides`). The fix that holds is the one the visual style always said: walls generated **flat under one room specification** (one wall colour, one band height, one skirting and ceiling line, one floor, written down per room before any prompt), and the engine drawing the whole box, ceiling, floor and side walls, in one perspective it controls. That is a regeneration of a room's walls, so it goes through Gate D with an estimate; it is noted in the school level file. Until then the baked corners stay and checklist 46 is a known fault.
 - The classroom's measured boxes (for when its walls are redone) are in `levels/LEVEL-school.md`, Notes.
 
+
+
 ## 5. Sound and music
 
 - Effects are made in the browser (Web Audio) and must be loud enough for a tablet speaker: taps 0.3, knocks 0.4, chimes 0.25. They start on the first real tap.
@@ -195,12 +364,16 @@ The working rules for every room in the landscape game, distilled from the owner
 - A recorded track needs a *completed* tap (`touchend`/`click`), not finger-down, before the browser allows it. If refused, keep nothing and retry on the next tap. Report the state in the menu. This was why the owner heard effects but no music.
 - Every sound clue must also be shown.
 
+
+
 ## 6. Delivery and testing
 
 - Every reply that changes the game ends with a fresh play link pinned to the new commit: `https://rawcdn.githack.com/me565/me565.github.io/<commit>/next/landscape/index.html`. Never reuse a link or the branch form; the tablet caches. When a later stage is what changed, add `?stage=<key>` (for example `?stage=packing`) so the owner lands on it without replaying the earlier stages.
 - Before sending: run the headless checks (no page errors; no overflow on any card at three sizes; a simulated touch starts the music; each cut-out at rest and mid-movement looks right in a screenshot; the puzzle path can be played through by script).
 - When the owner sends a video, pull frames at 15 fps around each tap and measure the audio track; it shows exactly what moved and whether any sound played.
 - The owner's feedback log lives at the end of this file; add to it, never delete from it.
+
+
 
 ## 7. Lessons from the genre's reviews (owner's research, 29 Sept 2026)
 
@@ -220,6 +393,8 @@ Distilled from player and critic reviews of Rusty Lake, Machinarium, Samorost, D
 - **Post-game secrets** for dedicated players, always solvable in-game. → The Night Moth riddle per chapter.
 - Monetisation: never gate hints or progress behind ads. Not relevant yet (no ads planned).
 
+
+
 ## 7b. What 162,575 player reviews say (owner's research, 17 Oct 2026)
 
 Every English Google Play review (Singapore store) of 41 point-and-click and escape games from Dark Dome, Rusty Lake, Amanita, Yak & Co, Revolution and Devolver, tagged by keyword against 25 themes (the owner's deck "What 162k player reviews tell us about The Moth House"; keyword tagging, one storefront, correlation only, so the small themes are directional). Dark Dome and Rusty Lake are 88% of the data and the closest to us. What it says, and what we do with it:
@@ -230,6 +405,8 @@ Every English Google Play review (Singapore store) of 41 point-and-click and esc
 - **Phones, not tablets** (91.5% of reviews from phones; "UI readability" averages 3.83★: small text, dark scenes, hard-to-read notes). → The checklist's screen shapes already include 740×360; new: each level is played once on a **real mid-range Android phone**, not only the owner's tablet and the Chromebook (checklist 44).
 - **Ads are tolerated when the player chooses them** (praise for few ads 4.87★, rewarded ads for hints 4.39★, forced ads 4.19★). → Decided by the owner, 17 Oct 2026: the MVP is a "lite" game of one or two levels with no ads; the full version ships later with ads (`STORY.md`, open decision 4 and the launch plan). Nothing in the engine assumes ads until then. If ads ever come, the rule from the data is rewarded ads tied to hints only, plus a one-off remove-ads purchase, never interstitials between scenes.
 - **Story and atmosphere are what players praise most** (1 in 4 reviews, 4.8★; "wants more" is the highest-rated theme at 4.93★). → The comic intros, the moth's voice, the postcards home and one connected summer across three stories are the right bets; keep every stage's story beat (section 4f) and plan the series (CLAUDE.md, "Longer term").
+
+
 
 ## 8. Backlog for the game's feel (ranked 30 Sept 2026, impact against effort)
 
@@ -243,7 +420,7 @@ The owner's brief: finish the feel and navigation before more levels. Inspiratio
 6. ~~First-time tips.~~ Done in build 2026-09-30i (section 4j); the five tip lines are recorded with the next voice run.
 7. **A postcards page** (the achievements idea): the postcards collected so far, one per stage, plus the Night Moth stars. Low effort once there are more stages.
 8. ~~Who helps in the flat~~: the moth, everywhere (owner, 30 Sept). **The moth's name** is still TO DECIDE.
-9. Housekeeping before this replaces the live game: service worker and manifest for the landscape engine. ~~Elliot's and Zaina's stories rebuilt in it~~: their first stages are built (build 2026-09-30j, section 4k); packing day and the flight for both are still to come.
+9. ~~Housekeeping before this replaces the live game: service worker and manifest for the landscape engine.~~ Done with the root swap, 30 Sept 2026 (log 45): the landscape game is the live game. ~~Elliot's and Zaina's stories rebuilt in it~~: their first stages are built (build 2026-09-30j, section 4k); packing day and the flight for both are still to come.
 11. **An opening gesture for every stage** (owner, 30 Sept 2026, from a video of a game he plays: the player drags the sleeper's eyes open and only then does the room light up). One simple drag before the story starts and before any thinking is asked for, tied to the game's meaning, waking up or letting the light in. The engine's `openDrag` already does the mechanics (the suitcase zip); what is needed is one moment per stage, placed between the title card and the first line, with the room dark or still until it is done. Our own versions, none borrowed: the game's first start, drag the moth from the dark edge to the lamp and the title glows; Mary's school, open the cover of her notebook; packing day, draw the curtains back on the rainy window; the flight, slide the window shade up; Elliot's classroom, pull the roller blind up and the sun comes in on the marble run; Zaina's party, pull the sheet off the party table (or lift Peanut onto his cushion); Nana and Jedi's, push open the garden gate; the Moth House, turn the big key. Each is a picture at 16:9 with the moving part as a cut-out and a path in picture percentages (4j). Low effort per stage once the art exists; do them together so they feel like one idea. Also: a wrong direction or letting go early never fails, it just waits.
 12. **Hands-on close-ups beside the room, not over it** (owner, 30 Sept 2026, from a second video: the room stays in view with the character standing at the door, and a panel beside it holds just the door handle, which must be pressed down with a drag before the door opens). Two things to take from it. (a) **Presentation:** for a thing you work with your hands, the zoom slides in beside the room from the side you tapped and the room stays sharp, so you are still standing there; today every close-up is a card over a blurred room. (b) **Gesture, not button:** the close-up asks for the real movement, and the movement is the puzzle's answer, so the player's hand does what the character's would. A small gesture library in the engine on top of `openDrag`: turn (drag round a pivot: a handle, a dial, a key), slide (a bolt, a zip, a blind), lift-then-pull (two directions in order), press-and-hold, tap in rhythm. Our own uses, none borrowed: Dad's stuck drawer becomes lift-then-pull, so Mum's tip is a movement you make rather than a button you press; the star padlock's dials and the paint cupboard's colour dials turn under the finger; the marble run's Roll becomes dropping the marble into the cup at the top; the classroom door's handle turns to let you out at the last bell; the winding handle and the big key in the Moth House. Never a gesture for its own sake: a plain look stays a tap. Medium effort: the engine's part is a week of small pieces; each stage then swaps a button for a movement. Do (a) and (b) together for one moment first (the drawer) and judge it with the owner.
 13. **A "How to play" page between the title and the first room** (owner, 30 Sept 2026, from a screenshot of a game he plays: after Continue or New game and before the level loads, one calm page with four drawn panels and a Play button: tap objects to interact; the arrows move you round the room; pick a thing from the strip then tap where to use it; some things in the strip go together). Ours: the same four ideas, drawn in the game's own style with the game's own things (a finger tapping Nutmeg's cage; the room box with its two small arrows; the desk key taken from the strip and used on the locker; the paper and the kaya making the present), in the child's words, plus a fifth for the moth (tap it for help). Shown once per device on the way into the first room, and always reachable from the cog's Help tab, where the same panels replace today's bulleted list. It does not replace the moth's first-time tips (4j), which arrive at the moment each is useful; it gives the shape of the game in one look before the first room, so the tips confirm rather than teach. Zaina's version: pictures only, the moth reads it. Low effort once the four small pictures exist (they can be cut from art we already have); text in the child's reading level.
@@ -252,7 +429,7 @@ The owner's brief: finish the feel and navigation before more levels. Inspiratio
 16. **Living background** (owner, 30 Sept 2026, from a video: a fish tank in close-up whose piranhas keep swimming about while you look, and a line when you reach in; "moving parts of what is ordinarily static background… only where relevant, realistic and applicable; some could be things the player needs to get items from, others just background elements like the weather outside behind the window"). Today a cut-out moves only when tapped. The rule: a few cut-outs per stage move on their own, slowly and forever, on the wall and in the close-up, each with an `idle` movement in the animator: `swim` (a slow wander inside a box with a turn at each end), `sway` (a hang that stirs: bunting, balloons on strings, paintings on the line, a coat), `drift` (steam, a cloud), `rain` (streaks down a window), `tick` (a clock's hand), `breathe` (Nutmeg's flank, Peanut). Ours: Captain the goldfish drifting in his tank and Nutmeg's sniff now and then; rain on every window of the flat and the plane climbing past the living-room window; the 2P balloons and Zaina's bunting and paintings stirring in a draught; the orchid; the classroom clock; steam off the toaster. Some are the thing you need (Captain's tank hides nothing today, but the pattern is there for later: reaching in gets a line); most are just alive. Only the current view's idle layers tick, at a gentle frame rate, paused under a close-up or the menu, at rest under reduce-motion. Engine: medium (one loop, six movements); art: each living thing is a cut-out, and most already are. Captain can be done now: his cut-out is still in the session's scratchpad (`ez/sp-fish-raw.png`); the tank on the wall would then need the drawn fish painted out.
 10. When the Gemini key is topped up: record the 99 outstanding voice lines, regenerate the two composited close-ups and the two postcards, make a Lyria track each for Elliot's classroom and Zaina's party room.
 
-19. **Corners that agree** → prototype built in 2026-10-17b on Mary's classroom and judged odd by the owner (4q says why: flat baked panels, and walls that disagree with each other). Switched off. The real fix is flat walls under one room specification with the engine drawing the box; a Gate D item per room. (owner, 17 Oct 2026, from two screenshots of Mary's classroom: the whiteboard wall's left side shows nothing of the filing cabinet that stands at that end of the timetable wall, and the timetable wall's right side shows nothing of Mr Hollis's desk; "I notice this generally everywhere"). Cause: every wall picture is generated as its own shallow box, so its two side walls are the image model's guess, made without seeing the walls next door. Permanent fix, in the engine: each view's picture is treated as a flat back wall; the left side wall is drawn by the engine from the near end of the *previous* view's picture, the right side wall from the near end of the *next* view's, each skewed into the side-wall trapezoid in true perspective (vertical strips, texture position proportional to depth, which is 1/height; the edges stay straight lines). Then whatever stands at the end of a wall appears, foreshortened, in the corner of the view beside it, by construction, and a change to a wall ripples to its neighbours for free. For the 52 walls already made, the engine paints its side walls *over* the baked ones, so hotspot and cut-out percentages stay as they are; each wall needs its two side-wall trapezoids and its back-wall rectangle measured once (a helper can propose them from the ink outlines). New walls are generated flat (no box in the prompt), which also ends the "it flattens the wall" dance in section 2. Cut-outs that stand at a wall's end can be drawn into the neighbour's corner the same way, later. Prototype on Mary's classroom first, judged on the tablet, then every room. Whole-game layer: between levels, before the full version; the lite release can go first, since the fault is already live.
+19. **Corners that agree** → prototype built in 2026-10-17b on Mary's classroom and judged odd by the owner (4z says why: flat baked panels, and walls that disagree with each other). Switched off. The real fix is flat walls under one room specification with the engine drawing the box; a Gate D item per room. (owner, 17 Oct 2026, from two screenshots of Mary's classroom: the whiteboard wall's left side shows nothing of the filing cabinet that stands at that end of the timetable wall, and the timetable wall's right side shows nothing of Mr Hollis's desk; "I notice this generally everywhere"). Cause: every wall picture is generated as its own shallow box, so its two side walls are the image model's guess, made without seeing the walls next door. Permanent fix, in the engine: each view's picture is treated as a flat back wall; the left side wall is drawn by the engine from the near end of the *previous* view's picture, the right side wall from the near end of the *next* view's, each skewed into the side-wall trapezoid in true perspective (vertical strips, texture position proportional to depth, which is 1/height; the edges stay straight lines). Then whatever stands at the end of a wall appears, foreshortened, in the corner of the view beside it, by construction, and a change to a wall ripples to its neighbours for free. For the 52 walls already made, the engine paints its side walls *over* the baked ones, so hotspot and cut-out percentages stay as they are; each wall needs its two side-wall trapezoids and its back-wall rectangle measured once (a helper can propose them from the ink outlines). New walls are generated flat (no box in the prompt), which also ends the "it flattens the wall" dance in section 2. Cut-outs that stand at a wall's end can be drawn into the neighbour's corner the same way, later. Prototype on Mary's classroom first, judged on the tablet, then every room. Whole-game layer: between levels, before the full version; the lite release can go first, since the fault is already live.
 18. ~~**Saves that survive a release**~~ Done in build 2026-10-17d: the key is `mothhouse.landscape.v1.<child>` with no build id; every save carries `v` and `migrate(s)` brings an older shape forward (one step per change, written in the same build as the change); `navigator.storage.persist()` is asked once on the first save; `?fresh` on the address wipes the game's saves for a test link; checklist 38 and 45 reworded. Players who were mid-game before this build start again one last time, because their save sits under the old build-stamped key. The original finding: (from the review research, 17 Oct 2026, section 7b): today the save key carries the build id, so every new build wipes every player's progress; and the game never calls `navigator.storage.persist()`, so Android may evict the save under storage pressure. Wanted: one save key for the game, a `version` field in the save with a migration step per change to its shape, `navigator.storage.persist()` asked for once on the first save, and checklist 38 reworded (a fresh *test* link may start fresh with `?fresh`, a player's game never does). Engine work, between levels; test on every stage.
 17. ~~**A note card that always fits its text**~~ Done in build 2026-10-17a: the note's type, line height and gap were eased a step (2.3→2.2 units, 1.3→1.28, .8→.7) so the envelope fits with room to spare at 844×390, 1180×820 and 2000×700; the audit is clean. The original finding: (found 17 Oct 2026, walking Mary's school day back through the level gates): the envelope's note, the longest in the game, clips its bottom padding by a few pixels at 2000×700, 844×390 and 1180×820 (audit E29, checklist 29). The fix belongs in the engine (the card shrinks its type a step or grows within the stage), not in the text, which is a recorded voice line. Whole-game layer: build between levels, then check every note in every stage.
 
@@ -265,9 +442,67 @@ The owner's brief: finish the feel and navigation before more levels. Inspiratio
 5. **11, the opening gestures** for the two we can cut from existing walls (the flat's curtains, the classroom blind); the rest with the key.
 6. **15, openables**: the engine's two-state layer and the jar cupboard now; the other open faces with the key.
 7. **7, the postcards page**, folded into the Family tab (each child's postcards under their portrait). Half a day, best done after 14 so the pages share one look.
-8. **9, housekeeping** (service worker and manifest for the landscape engine) before anything replaces the live game.
+8. ~~**9, housekeeping**~~ Done with the root swap (log 45).
 9. ~~**10, the key top-up list**~~: the key was topped up the same evening; the two close-ups, both postcards and two tracks are done and the voice lines recorded (build 2026-09-30l). Left of it: the art for 11, 14, 15 and the remaining Part 1 stages (Mary's flight, packing day and the flight for Elliot and Zaina).
 10. **8, the moth's name**: the owner's.
+
+### Tester round 1 (a senior engineering manager with a games background, 30 Sept 2026): reviewed and ranked by WSJF
+
+His verdict: delightful, the style and feel work, enough to do without being too hard; on the easy side for a grown-up, with room for more puzzles and a ramp; the per-child difficulty is a good idea but a challenge for a public release; the moth is not connected to the family in the intro; for the stores, think about state, save games, achievements, ads and monetisation. Each point below says what the code does, what we take from it and what we do not.
+
+Confirmed bugs (fix in one tester-round build):
+- ~~**T1.**~~ Fixed in 2026-10-01a. **Long press shows the browser's image menu, not the tappable glow.** Android's context menu fires on the wall picture before our 600 ms timer. Fix: `contextmenu` prevented on the scene, `-webkit-touch-callout:none` on the scene's pictures and canvases. Adds checklist line E32b: a long press on any part of the room never opens a browser menu.
+- ~~**T2.**~~ Fixed in 2026-10-01a. **The Nana bonus riddle offers itself again after it is solved**, and only says "done" when you step away. Fix: the card's tap says it is solved once `S.nightMoth` is set.
+- ~~**T3.**~~ Fixed in 2026-10-01a. **Elliot's cogs go nowhere.** They are counted (the pickup line says "n of 3", the notebook keeps the count) but the robot never reacts. Fix: with three cogs, tapping the robot puts them in (a whirr, a little dance, a star on the postcard); the robot's line before that says what it wants. The tester's "they did not show anywhere" also means the notebook count is easy to miss: T7 covers it.
+- ~~**T4.**~~ Fixed in 2026-10-01a. **"If you find the door before the envelope it won't let you leave."** By design (the envelope is the stage's brief), but a refusal line is the wrong tool: the moth should fly to the desk (`pointAt`), as in Zaina's stage. Fix: point instead of refuse, and the same for every "not yet" gate.
+- ~~**T5.**~~ Fixed in 2026-10-01a (verify on his device). **Full screen "does nothing" on his device.** The button calls the browser's full-screen request; inside the installed app the page is already full screen, and some browsers refuse the request. Fix: hide the row when full screen is unavailable or already on (`canFS`, `standalone`), and label it honestly. Verify on his device.
+- **T6. A text error, "The in…", somewhere in Elliot's card strings.** Not found by search; a screenshot is requested.
+
+Design points we take (each a backlog item):
+- **T7. The optional layer is not announced.** He did not know paper moths existed, how many there were, or that the school has a riddle instead. Rule: every stage's optional hunt (the school's bonus riddle, the flat's six moths, Elliot's three cogs, and Zaina's to come) is introduced once by the moth when the first one is seen, counted in the notebook and in the postcard's star line, and looks the same across stages. Zaina's stage gets one too, sized for four (stickers to find).
+- **T8. Notes and items share the strip, so used-up things look un-removed.** Items that are consumed are removed (the key, the beater, the star key already are); notes stay because they are re-read. The two must look different: notes as paper, items as things, and a spoken tip the first time a note is tapped.
+- **T9. Speech should not replay on every tap of the same thing.** For Mary and Elliot, a note or card is read aloud the first time and shows a small replay button after; Zaina's stage keeps speaking everything, because she cannot read.
+- **T10. Difficulty and the audience.** (The age labels and the About line: done in 2026-10-01a; the ramp and the Night Moth challenges remain.) Per-child difficulty stays: it is the point of the three stories. For the public it must be said plainly: the choose-a-child cards carry an age ("for 4 and up", "7 and up", "10 and up, with bonus puzzles for grown-ups"), and the About tab says the same. The grown-up layer is the Night Moth challenge per chapter (STORY.md), plus a ramp across each child's three stages. His "layers between puzzles, bottom-up" is exactly the school's three trails feeding the timetable; later chapters build deeper.
+- **T11. "Perhaps a butterfly", and the moth is not connected to the family.** The moth stays: the series is the Moth House, moths fly at night, which is when the mystery happens, and Nana's postcards carry one. What he is right about is that the intro never says so. The first comic of each child's story plants it (Nana's postcard with the moth on it, the paper moth in the pencil case), and the moth introduces itself by name, which needs the TO DECIDE name.
+- **T12. Return to a finished stage** for a bonus you missed, without restarting. Folded into backlog 7 (the postcards page): each postcard reopens its stage.
+- **T13. The voice**: "postcadd", an American idea of a British accent, a touch slow. A second voice pass: three candidate voices recorded on the same five lines for the owner to pick, a style line asking for natural southern English at reading pace, then all 226 lines re-recorded (three days on the free quota, or the paid model).
+- **T14. The comic panels are small on his device.** Check at phone size; on a phone the pages fill the screen rather than the scene box.
+- **T15. Release engineering.** Decisions for the owner now, work later: no ads (a children's app under Play's Families policy is far simpler without them), free during the test and a one-off price or free at launch to decide, saves stay on the device for now with a "copy my progress" code in the Family tab later, achievements are the postcards page (backlog 7), state management is the per-child saves already in place.
+- **T16. "Missed tropes"**: something under the cushions, a toy screwdriver, "Dad's story" as a chapter. Ideas for Part 2's parlour and the Moth House; noted in STORY.md's open decisions.
+- ~~**T17.**~~ Done in 2026-10-01a. **The fish bowl opens the notebook.** By design (Captain is Elliot's helper, as Nutmeg is Mary's), but it surprised him: the line becomes "Captain keeps your notebook safe", said once, and the moth button does the same.
+- **T18. Elliot has no packing stage** and Zaina no bonus: known, the remaining Part 1 stages and T7.
+
+### Backlog by WSJF (30 Sept 2026, after tester round 1)
+
+WSJF = (user value + time criticality + risk or opportunity) ÷ job size, each 1–10; size 1 is under an hour, 3 half a day, 5 a day, 8 several days, 10+ a week or more.
+
+| # | Item | Value | Time | Risk | Size | WSJF |
+|---|------|------:|-----:|-----:|-----:|-----:|
+| 1 | ~~T1 long press fix~~ done | 6 | 5 | 4 | 1 | 15 |
+| 2 | T15 release decisions (ads, price, saves), owner's call | 5 | 5 | 5 | 1 | 15 |
+| 3 | ~~T10 age labels on the cards and in About~~ done | 6 | 5 | 3 | 1 | 14 |
+| 4 | ~~T2 bonus riddle state, T4 point instead of refuse, T5 full-screen row~~ done | 4 | 3 | 2 | 1 | 9 each |
+| 5 | Launch assets: privacy policy page, store texts, feature graphic, screenshots, form answers | 8 | 8 | 5 | 3 | 7 |
+| 6 | T6 the "The in" text, once seen | 3 | 2 | 2 | 1 | 7 |
+| 7 | ~~T3 cogs into the robot~~ done | 6 | 4 | 3 | 2 | 6.5 |
+| 8 | T9 read once, replay button | 5 | 2 | 2 | 2 | 4.5 |
+| 9 | T11 the moth planted in the intro (needs the name) | 8 | 4 | 5 | 4 | 4.25 |
+| 10 | T7 the optional layer announced and counted, Zaina's stickers | 6 | 3 | 3 | 3 | 4 |
+| 11 | T8 notes look like notes | 6 | 3 | 3 | 3 | 4 |
+| 12 | T14 comic pages on phones | 4 | 2 | 2 | 2 | 4 |
+| 13 | Backlog 7 postcards page, with T12 return to a stage | 7 | 3 | 3 | 4 | 3.25 |
+| 14 | Backlog 11 opening gestures | 7 | 2 | 3 | 4 | 3 |
+| 15 | T13 voice pass 2 | 7 | 3 | 4 | 5 | 2.8 |
+| 16 | Hands-on close-ups for the dials and the marble cup | 5 | 2 | 2 | 4 | 2.25 |
+| 17 | Backlog 15 openables | 6 | 2 | 3 | 5 | 2.2 |
+| 18 | Remaining Part 1 stages (Mary's flight; packing and flight for Elliot and Zaina) | 9 | 5 | 4 | 10 | 1.8 |
+| 19 | T10 difficulty ramp and the Night Moth challenge per chapter | 7 | 2 | 4 | 8 | 1.6 |
+| 20 | T15 saves that survive a device change | 5 | 2 | 4 | 8 | 1.4 |
+| 21 | Part 2, the Moth House | 10 | 3 | 4 | 20 | 0.85 |
+
+Items 1, 3, 4, 6 and 7 are one build, about a day, the "tester round 1" build; 2 is a conversation; 5 runs while the Play account verifies.
+
+
 
 ## Feedback log (owner, 28 Sept 2026)
 
@@ -316,3 +551,15 @@ The owner's brief: finish the feel and navigation before more levels. Inspiratio
 43. "Go back through all the feedback and document what went wrong so it can be applied systemically; use it at the start of any update and on anything amended or new; test-run it on the other levels" (owner, 30 Sept 2026). → `next/CHECKLIST.md` and `tools/audit.js` (4o); first run over packing day, Elliot's day and Zaina's party (log 44).
 44. The checklist's first test-run (30 Sept 2026, build 2026-09-30w), over Mary's packing day, Elliot's day and Zaina's party: every view screenshotted and every cut-out looked at close up, the audit run at four screen sizes. Found and fixed: the brass cog on Elliot's bookcase floated above the top board (B10: now stands on the board's front edge with a shadow); four hotspot ids in the flat's living room (`l_window`, `l_desk`, `l_globe`, `l_cabinet`) were the same as the school library's (E32: now `lv_…`); 49 story-led lines unrecorded, the comic pages, Mary's packing hints and the tips among them (F34: recorded). The audit itself was wrong twice and was corrected: it flagged bottom corners, where the portrait engine's arrows were, when the landscape arrows sit halfway up each side; and it counted blocked Google Fonts as a failed load. Everything else passed: Zaina's bottle, Peanut on the cushion, Miss Lin, the four paintings on their pegs; the flat's paper roll, snow globe, orchid, key, jumper, list, pencil case, Mum, the postcard and drawing on the fridge, the five paper moths; Elliot's card, balloons, straight piece in its tray, curve in the sand, Captain behind the glass, the cogs in the net and the flower tub. Lesson for the audit: a rule copied from an older layout must be re-measured against the current one before it is trusted.
 45. "Merge, I want to ship this version in a PWA" (owner, 30 Sept 2026). Pull request #3 merged the landscape game into `main` (live at https://me565.github.io/next/landscape/). Then, on the branch for the owner to test first: the root page now sends players to the landscape game and registers the service worker, the manifest says `landscape` with the children's description, the landscape page links the manifest and registers the service worker too, and the old adult room moved to `parlour.html`. The Android package ID and the manifest's `id`, `start_url` and `scope` are unchanged, so the existing app keeps working.
+46. Tester round 1 (owner's friend, a senior engineering manager with a games background, 30 Sept 2026): "delightful"; six bugs, twelve design points, reviewed one by one in section 8 (T1–T18) and folded into the backlog, which is now ordered by WSJF. Rule: a tester's report is walked the same way as the owner's, each line checked against the code, answered as fixed, by design (with the reason) or taken to the backlog, and the checklist gets a line for each new class of fault (E32b from T1).
+47. Tester-round build (2026-10-01a, 1 Oct 2026), the first step of "fix one level before building new ones": the engine fixes checked on Mary's school. A long press never opens the browser's menu (`contextmenu` prevented on the stage, no touch callout on the room's pictures); the door before the envelope turns you to the desk and the moth points at it; a solved bonus riddle says so; the full-screen row hides where it cannot work and a refused request says to use Add to Home screen; the choose-a-child cards say "Mary, 10 · for ages 10 and up, with puzzles for grown-ups" (and so on), with the same in About. On Elliot's day: the three cogs go into the robot (a whirr, a star on the postcard, the notebook line), the robot says how many it still wants, and Captain says he keeps the notebook the first time. Rule: a gate ("not yet") is never a refusal line alone; the moth turns the player to what is needed and points.
+48. "Use the front end design skill to improve the UI" (owner, 12 Oct 2026). → build 2026-10-12a, the interface drawn as a page of the comic (4p): one dusk sky, paper and ink for everything read or pressed, the moth as the title's hero, the tracked-caps place lines and eyebrow replaced with italic sentence case, dark pills gone. Checked at 2000×700, 740×360 and 1600×1000, with the play scripts and the audit. Awaiting the owner's verdict before it goes live.
+49. Owner's round on the interface build (12 Oct 2026): the children's portraits and the comic's pictures loaded last; a delay between a tap and the voice; "the words could be highlighted once read, for younger players"; the tip's whisper voice unwanted. → build 2026-10-12b (4q): portraits ready during the start-up, the comic's pages and the opening lines in the loading bar, captions never before their picture, one kept Audio element per line, the read-along in teal and gold, the seven tip lines re-recorded without the whisper and the label changed to "The moth says". Rule: anything shown or said on the way into a screen is made ready before that screen, and a spoken line shows its progress.
+50. Owner's second round on the interface build (12 Oct 2026): the lost-property shoe and hat still misaligned; spent clues should leave the strip; the fallen blocks still floating; the message box overlaps playable parts of the room and needs a permanent place; the snow globe and orchid do not sit naturally on the shelf. → build 2026-10-12c (4r): the box front re-cut from the rim line and the things lowered into the box; notes with a `spent` rule leave the strip; firmer block shadows and a lower landing for the pieces that roll out; the caption band under the room; the globe and orchid painted into a second rendering of the wall and lifted out as cut-outs. Each was reproduced at 2000×700 before and after.
+51. "Getting 404s from the links" (owner, 13 Oct 2026). The play links for build 2026-10-12c carried a commit id whose first seven characters were right and whose remaining thirty-three were invented: the short id had been read from the log and the rest typed from memory. Rule: the full id in a play link is always the output of `git rev-parse HEAD`, pasted, never typed or completed by hand; and the link is given only after `git ls-remote` shows that id on the remote.
+52. Owner's first look at the flight (13 Oct 2026, three screenshots): (1) never open a stage on a view with the key clues and items on it, it is too easy and obvious; (2) the cabin is not how a plane is: one seat faces the side of two others, one faces backwards, there are too few seats and nobody on board but the family, when flights are at least three-quarters full; (3) the crossword was really liked for the extra challenge, but not every stage should have one; (4) using the backwards note on the toilet door was not obvious: the door should open and show the mirror, and the note be used on the mirror; (5) characters and things should move with the story, as Priya could be serving breakfast once Mary has worked out the time to London, and Mum or a teacher likewise in their stages. He wants this feedback kept permanently so it never has to be raised again: no regressions, only progress. → playbook 4t, checklist A8b, B16b, E30b, F35b, H42; the flight redrawn and rewired to all five.
+53. "On the choose-a-child page, hovering over a character should change the profile picture from a neutral starting face to an accentuated expression (laugh, smile, frown)" (owner, 13 Oct 2026). → build 2026-10-14a: each child has a second portrait (`grin` in CHILDREN, the alternative face drawn on 30 Sept) that fades in while the card is hovered, focused or pressed; a finger has no hover, so a press lights the face too and it stays lit a moment after. Rule for any new character card: two faces, a resting one and a lit one.
+54. Owner's first look at Nana and Jedi's (14 Oct 2026, four screenshots): (1) things taken from the suitcase stayed in its picture; (2) the hatch's movement was wrong (the padlock's fall), the painted ladder leaned unnaturally, and after opening, the tap target did not cover the latch and ladder, so it seemed another puzzle remained; (3, 4) see-through patches on Nana and Jedi, where the difference lift had lost the figure against like colours behind. → build 2026-10-14b: the suitcase drawn empty with the torch and present as parts that go when taken; the hatch repainted with a straight loft ladder, keyed from a magenta sheet, opened by the new `unfold` movement, with the whole open hatch one target up; Nana and both Jedis re-lifted from magenta cut-out sheets (`tools/keymag.py`). Rules in 4u and checklist B9c, B9d, D24b, E29b, E32e. Then Mary's stage 5, Trent Park.
+55. "Build the next level" (owner, 14 Oct 2026, after the four fixes). → build 2026-10-14c: Mary's stage 5, Trent Park (4v): the lawn, the terrace, the listening room, the obelisk and Camlet Moat; the lamp's tap code, the buried key, the sundial and Jedi's watch, dusk, the gate and the house in the trees; the museum's history checked and sourced in STORY.md. Twenty walls, six cut-outs, five icons, two close-ups, three comic pages, a postcard, a track and the moth's lines.
+56. "I'd like to create a perfect level and redo packing day as the example; I will give you reference materials; don't recreate anything until you have what you need" (owner, 16 Oct 2026). The floor plan, every room, the view, Mum, Dad, Nana and Jedi came as photographs; Bedroom 3 is Mary's and Bedroom 2 the little ones'; every room in the level, Dad in the en suite, the level aimed at 12 to 15; Nana and Jedi to be drawn from life. → build 2026-10-16a: packing day version 2 (4x), the first level made materials-first with its design approved on paper: nine places, three trails (the passports behind a four-digit lock set to the moved flight time; the torch in Zaina's oven for Peanut from under the fourth cushion; the present in the box with Elliot's cog-signed rocket), the list, the zip, the lobby; the postcards-and-map Night Moth.
+57. "Credits topped up, finish the voice and Nana and Jedi" (owner, 16 Oct 2026). → build 2026-10-16b: the 74 lines of packing day recorded; Nana and Jedi redrawn from the photographs as magenta character sheets (Nana pouring tea; Jedi asleep, at the table with his biscuit, asleep on the park bench, standing with his watch), the café wall edited and the five comic pages they appear in regenerated with their photographs as likeness references; the diary icon generated to replace the hand-drawn stand-in. One sheet (Jedi standing) was refused by the model's filter on the first wording and came on the second; a refused prompt is reworded, not retried.
