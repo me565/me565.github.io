@@ -16,6 +16,7 @@ The owner is a non-technical but AI-savvy builder working from a Chromebook. Exp
 
 ## Working rules
 
+- **Log every fault or idea the owner reports in Jira before touching the fix.** Run the `game-feedback-jira` skill the moment he describes something wrong, missing or improvable, even when the message reads as a fix request with a screenshot and even mid-task. The fix follows in the same turn, with the item key named in the commit message and the reply. Chat is forgotten; the Jira space (MOTH) is the record the triage and builder agents work from.
 - Never commit directly to `main`. Work on a branch, share a preview or test steps, and merge only after the owner has tested and said yes.
 - **Always give the owner a fresh play link.** Every reply that builds or changes something playable ends with a githack link pinned to the new commit, in the form `https://rawcdn.githack.com/me565/me565.github.io/<full commit id>/next/landscape/index.html`. A new commit means a new address, so his tablet can never show a cached copy; never reuse a link or give the branch-name form. Bump `BUILD` in the page with each change so the menu's diagnostics line shows which version he is on. Once merged, the address is https://me565.github.io/next/landscape/. Never make him ask for it.
 - Never commit the Android signing keystore, its passwords or `signing-key-info.txt`. This repo is public.
