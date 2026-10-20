@@ -43,6 +43,7 @@ Result:
 - Chart (draw.io file or table): every trail as item → clue → lock → reward
 - Trails that run in parallel:
 - Puzzle types used (cap: two of any type):
+- Design library mechanics each puzzle builds on (MECH IDs from `me565/core-skills/game-design`, `love` ones first), and confirmation that none breaks an AVOID entry:
 - For every lock, the in-game clue that points to its answer and where the player sees it:
 - Tiered hints per trail (nudge · what to try · the answer):
 - The notebook's "Noticed" lines:

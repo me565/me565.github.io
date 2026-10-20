@@ -6,6 +6,8 @@ A point-and-click adventure for children: a warm, cosy mystery that works as a f
 
 **`next/CHECKLIST.md` is the owner's feedback turned into checks.** Read it at the start of any update and mark the lines the work touches; walk it over every amended or new thing, close up at the owner's screen shape, before showing it; run `node tools/audit.js` (with the local server up) before every commit and fix what it reports. A fault the owner reports gets reproduced, confirmed in words, fixed at its cause, and added to the checklist.
 
+**The owner's game design library is the third reference for designing puzzles.** It lives in his private repo `me565/core-skills`, folder `game-design/` (attach that repo, read-only, if it isn't in the session). It holds the mechanics he likes from games he has reviewed, each written as a general rule with examples (`mechanics/`), the experiences he wants avoided (`avoid.md`), one review per game (`games/`), and how to use it (`README.md`). Read its README and `mechanics/_index.md` at Gate B, before drawing a puzzle chart, and draw on the mechanics marked `love` first. Two rules: this repo's own rules (this file, `STORY.md`, `next/PLAYBOOK.md`) win wherever they differ, because the library's examples come from games for adults and The Moth House is a children's game; and never copy a reviewed game's puzzles, art, text or characters, only the idea underneath. Never edit the library from here; ideas for it go to the owner.
+
 The owner is a non-technical but AI-savvy builder working from a Chromebook. Explain what you are about to do in plain language, and keep him in the loop before anything goes live.
 
 ## How it is hosted and shipped
