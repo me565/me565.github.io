@@ -79,7 +79,7 @@ def run_case(case, prompt, out, made=None):
         body = {"model": case["model"], "prompt": prompt, "n": case.get("n", 1)}
         for k in ("resolution", "aspect_ratio", "seed"):
             if k in case: body[k] = case[k]
-        if refs: body["image"] = refs if len(refs) > 1 else refs[0]
+        if refs: body["input_references"] = [{"type": "image_url", "image_url": {"url": u}} for u in refs]
         body.update(case.get("params", {}))
         path = "/images/generations"
     t0 = time.time(); last = None

@@ -28,6 +28,8 @@ Compiled 21 Oct 2026 from the sweep (31 models) and round two (6 models), the ow
 
 Round three (v3 prompt) result: four of six pictures showed no gotcha at all (Sunburst, Seedream Pro, Nano Banana Pro, Nano Banana 2), MAI 2.6 kept one sliver of window, Qwen 2.1 Pro ignored the room shape and object order for the third time. The prompt is no longer the reason a picture fails; what fails now is the model.
 
+A correction (21 Oct 2026, evening): the runner sent reference pictures in a field named `image`, which the images endpoint ignores without error; the right field is `input_references`. So the window wall's "with reference" pictures and the second wall of every corner pair were drawn from words alone. The corners still met, which says the words carry most of it; the reference tests are redone properly in the room run.
+
 Not the prompt's to fix, and recorded so nobody tries: the model's native size (OpenAI 1536×864, Microsoft 1360×768); a model that ignores the box twice running (Qwen 2.1 Pro); a model that writes on every surface however it is told (MAI 2.6, so far).
 
 ## Prompt-ready block
