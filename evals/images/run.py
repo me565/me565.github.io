@@ -54,10 +54,17 @@ def size_of(path):
     except Exception:
         return None
 
-def run_case(case, prompt, out):
+def run_case(case, prompt, out, made=None):
     cid = case["id"]
     route = case.get("route", "images")
-    refs = [data_uri(p) for p in case.get("references", [])]
+    refs = []
+    for p in case.get("references", []):
+        if p.startswith("case:"):
+            dep = (made or {}).get(p[5:])
+            if not dep: return {"id": cid, "model": case["model"], "ok": False, "error": f"reference {p} did not produce a picture", "seconds": 0}
+            refs.append(data_uri(os.path.join(out, dep)))
+        else:
+            refs.append(data_uri(p))
     rec = {"id": cid, "model": case["model"], "route": route,
            "settings": {k: case[k] for k in ("resolution", "aspect_ratio", "seed", "n") if k in case},
            "references": case.get("references", []), "params": case.get("params", {}),
@@ -127,11 +134,18 @@ def main():
         cases.append({**m.get("defaults", {}), **c})
     os.makedirs(a.out, exist_ok=True)
     log(f"{m.get('name', a.manifest)}: {len(cases)} cases")
-    results = []
-    with cf.ThreadPoolExecutor(a.workers) as ex:
-        for rec in ex.map(lambda c: run_case(c, prompt_for(c), a.out), cases):
-            results.append(rec)
-            log(f"  {rec['id']:32s} {'ok ' if rec.get('ok') else 'FAIL'} {rec.get('seconds', '?')}s  ${rec.get('cost_usd') if rec.get('cost_usd') is not None else '?'}  {rec.get('error', '')[:120]}")
+    results = []; made = {}
+    def report(rec):
+        results.append(rec)
+        if rec.get("ok") and rec.get("files"): made[rec["id"]] = rec["files"][0]["file"]
+        log(f"  {rec['id']:32s} {'ok ' if rec.get('ok') else 'FAIL'} {rec.get('seconds', '?')}s  ${rec.get('cost_usd') if rec.get('cost_usd') is not None else '?'}  {rec.get('error', '')[:120]}")
+    pending = list(cases)
+    while pending:
+        ready = [c for c in pending if all(not r.startswith("case:") or r[5:] in made or r[5:] not in {p["id"] for p in pending} for r in c.get("references", []))]
+        if not ready: ready = pending
+        pending = [c for c in pending if c not in ready]
+        with cf.ThreadPoolExecutor(a.workers) as ex:
+            for rec in ex.map(lambda c: run_case(c, prompt_for(c), a.out, made), ready): report(rec)
     total = sum(r.get("cost_usd") or 0 for r in results)
     json.dump({"name": m.get("name"), "manifest": a.manifest, "ran_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                "total_cost_usd": round(total, 4), "results": results}, open(os.path.join(a.out, "results.json"), "w"), indent=1)
