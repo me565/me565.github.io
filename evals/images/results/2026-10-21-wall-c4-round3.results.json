@@ -1,0 +1,306 @@
+{
+ "name": "wall-c4-round3: the shortlist on the v3 prompt (the gotcha list folded in)",
+ "manifest": "evals/images/runs/wall-c4-round3.json",
+ "ran_at": "2026-10-21T02:54:04Z",
+ "total_cost_usd": 0.4074,
+ "results": [
+  {
+   "id": "seedream-5-pro",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "seed": 11,
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 108.5,
+   "cost_usd": 0.045,
+   "usage": {
+    "prompt_tokens": 885,
+    "completion_tokens": 9216,
+    "total_tokens": 10101,
+    "cost": 0.045,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.045,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.045
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 9216
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "seedream-5-pro.jpg",
+     "bytes": 303353,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "nb2",
+   "model": "google/gemini-3.1-flash-image",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 16.5,
+   "cost_usd": 0.101207,
+   "usage": {
+    "prompt_tokens": 814,
+    "completion_tokens": 1680,
+    "total_tokens": 2494,
+    "cost": 0.101207,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.101207,
+     "upstream_inference_prompt_cost": 0.000407,
+     "upstream_inference_completions_cost": 0.1008
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1680
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "nb2.png",
+     "bytes": 4970289,
+     "size": [
+      2752,
+      1536
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "mai-2.6",
+   "model": "microsoft/mai-image-2.6",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 25.1,
+   "cost_usd": 0.042765,
+   "usage": {
+    "prompt_tokens": 801,
+    "completion_tokens": 1020,
+    "total_tokens": 1821,
+    "cost": 0.042765,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.042765,
+     "upstream_inference_prompt_cost": 0.004005,
+     "upstream_inference_completions_cost": 0.03876
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1020
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "mai-2.6.png",
+     "bytes": 1324922,
+     "size": [
+      1360,
+      768
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "sunburst",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 29.0,
+   "cost_usd": 0.03638,
+   "usage": {
+    "prompt_tokens": 808,
+    "completion_tokens": 1078,
+    "total_tokens": 1886,
+    "cost": 0.03638,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.03638,
+     "upstream_inference_prompt_cost": 0.00404,
+     "upstream_inference_completions_cost": 0.03234
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1078
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "sunburst.png",
+     "bytes": 1523316,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "qwen-2.1-pro",
+   "model": "qwen/qwen-image-2.1-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "seed": 11,
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 34.3,
+   "cost_usd": 0.046,
+   "usage": {
+    "prompt_tokens": 885,
+    "completion_tokens": 4175,
+    "total_tokens": 5060,
+    "cost": 0.046,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.046,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.046
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "qwen-2.1-pro.png",
+     "bytes": 3382639,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "nb2.1",
+   "model": "google/gemini-nano-banana-2.1",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "ok": false,
+   "error": "HTTP 429: {\"error\":{\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current us\u2026\",\"code\":429,\"metadata\":{\"provider_name\":\"Google AI Studio\"}}}",
+   "seconds": 15.4
+  },
+  {
+   "id": "nbpro",
+   "model": "google/gemini-3-pro-image",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 31.6,
+   "cost_usd": 0.136028,
+   "usage": {
+    "prompt_tokens": 814,
+    "completion_tokens": 1120,
+    "total_tokens": 1934,
+    "cost": 0.136028,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.136028,
+     "upstream_inference_prompt_cost": 0.001628,
+     "upstream_inference_completions_cost": 0.1344
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "nbpro.png",
+     "bytes": 4817607,
+     "size": [
+      2752,
+      1536
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}

@@ -21,6 +21,9 @@ Compiled 21 Oct 2026 from the sweep (31 models) and round two (6 models), the ow
 | 15 | Missing objects: the desk, the hamster, the envelope | owner (FLUX), Claude (Qwen) | A numbered object list, one per line, so each is easy to check. |
 | 16 | Too flat, childish, basic; or dark and hazy | owner, many | The rendered style sentence (shadow side, cast shadows, finishing) plus "bright and clear, not hazy or dark; drawn for a game, not a picture book for toddlers". |
 | 17 | Lettering garbled (Tuee, Soday, Firday) | both (FLUX, Krea) | Only two words are asked for: RULES and 5H TIMETABLE. Everything else is game-drawn or blank. |
+| 18 | Furniture crowded into the right half, the left half of the wall empty (round three: Seedream Pro, Nano Banana Pro) | Claude | Caused by "bare wall to its left" and "left to right". Say instead: "the bookshelf in the left third of the wall, the desk in the middle third, the cabinet in the right third, so the wall is evenly filled". Goes into v4. |
+
+Round three (v3 prompt) result: four of six pictures showed no gotcha at all (Sunburst, Seedream Pro, Nano Banana Pro, Nano Banana 2), MAI 2.6 kept one sliver of window, Qwen 2.1 Pro ignored the room shape and object order for the third time. The prompt is no longer the reason a picture fails; what fails now is the model.
 
 Not the prompt's to fix, and recorded so nobody tries: the model's native size (OpenAI 1536×864, Microsoft 1360×768); a model that ignores the box twice running (Qwen 2.1 Pro); a model that writes on every surface however it is told (MAI 2.6, so far).
 
