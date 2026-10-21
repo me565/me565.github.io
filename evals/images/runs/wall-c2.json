@@ -1,0 +1,70 @@
+{
+ "name": "wall-c2: the three finalists draw the Classroom 5H window wall, alone and with their own back wall as a style reference",
+ "prompt_file": "../prompts/wall-c2-v3.txt",
+ "defaults": {
+  "aspect_ratio": "16:9",
+  "n": 1
+ },
+ "notes": [
+  "Second scene for the shortlist (owner, 21 Oct 2026): a view through glass, weather, plants, a count the puzzle depends on (four pots at four heights), no lettering.",
+  "The reference cases prepend a line to the prompt asking for the attached picture's style; the picture is the same model's own round-three wall, so the test is whether a model can hold its own style from one wall to the next.",
+  "Benchmark in the game: next/art/classroom/landscape-c2-window.jpg (Nano Banana Pro, 28 Sept 2026)."
+ ],
+ "cases": [
+  {
+   "id": "sunburst",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "est_usd": 0.036,
+   "note": "prompt alone"
+  },
+  {
+   "id": "sunburst-ref",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "est_usd": 0.036,
+   "references": [
+    "evals/images/refs/c4-sunburst.jpg"
+   ],
+   "note": "with the model's own round-three back wall as a style reference: draw this wall in exactly the style of the attached picture, the same room, the same hand",
+   "prompt_prefix": "Draw this wall in exactly the style of the attached picture: the same room, the same hand, the same ink outlines, shading, palette and paper texture, the same box with its side walls, ceiling strip and floor band. It is the next wall round in the same classroom. Do not copy the attached picture's furniture; draw only what is listed below.\n\n"
+  },
+  {
+   "id": "seedream-5-pro",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "est_usd": 0.045,
+   "note": "prompt alone",
+   "resolution": "2K",
+   "seed": 11
+  },
+  {
+   "id": "seedream-5-pro-ref",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "est_usd": 0.045,
+   "references": [
+    "evals/images/refs/c4-seedream-5-pro.jpg"
+   ],
+   "note": "with the model's own round-three back wall as a style reference: draw this wall in exactly the style of the attached picture, the same room, the same hand",
+   "resolution": "2K",
+   "seed": 11,
+   "prompt_prefix": "Draw this wall in exactly the style of the attached picture: the same room, the same hand, the same ink outlines, shading, palette and paper texture, the same box with its side walls, ceiling strip and floor band. It is the next wall round in the same classroom. Do not copy the attached picture's furniture; draw only what is listed below.\n\n"
+  },
+  {
+   "id": "nb2",
+   "model": "google/gemini-3.1-flash-image",
+   "est_usd": 0.1,
+   "note": "prompt alone",
+   "resolution": "2K"
+  },
+  {
+   "id": "nb2-ref",
+   "model": "google/gemini-3.1-flash-image",
+   "est_usd": 0.1,
+   "references": [
+    "evals/images/refs/c4-nb2.jpg"
+   ],
+   "note": "with the model's own round-three back wall as a style reference: draw this wall in exactly the style of the attached picture, the same room, the same hand",
+   "resolution": "2K",
+   "prompt_prefix": "Draw this wall in exactly the style of the attached picture: the same room, the same hand, the same ink outlines, shading, palette and paper texture, the same box with its side walls, ceiling strip and floor band. It is the next wall round in the same classroom. Do not copy the attached picture's furniture; draw only what is listed below.\n\n"
+  }
+ ],
+ "est_total_usd": 0.36
+}

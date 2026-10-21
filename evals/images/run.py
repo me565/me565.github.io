@@ -116,10 +116,10 @@ def main():
     m = json.load(open(a.manifest))
     base = os.path.dirname(a.manifest)
     def prompt_for(c):
-        if "prompt" in c: return c["prompt"]
+        if "prompt" in c: return c.get("prompt_prefix", "") + c["prompt"]
         pf = c.get("prompt_file") or m.get("prompt_file")
-        if pf: return open(pf if os.path.exists(pf) else os.path.join(base, pf)).read().strip()
-        return m["prompt"]
+        if pf: return c.get("prompt_prefix", "") + open(pf if os.path.exists(pf) else os.path.join(base, pf)).read().strip()
+        return c.get("prompt_prefix", "") + m["prompt"]
     only = {s.strip() for s in a.only.split(",") if s.strip()}
     cases = []
     for c in m["cases"]:
