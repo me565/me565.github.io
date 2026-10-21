@@ -18,3 +18,5 @@ Tests of image models and their settings before one is chosen for a level's art.
 **Costs.** A manifest's estimate is the sum of its cases' `est_usd`; the three first manifests are about a dollar each. Every run's real total is in its `results.json` and goes in the level file's ledger when the run is for a level.
 
 **The rule that still applies.** These are whole-game-layer tests, not a level's assets: they do not need a level's gates, but each run is agreed with the owner before it starts, with its estimate, and nothing from a run goes into the game without passing the criteria and the owner's eye on the tablet.
+
+**Pages from 21 Oct 2026** (private artifacts, the owner's account): the review of all three rounds, https://claude.ai/artifact/CJjfBjis5Jgw594iYarp34 (the sweep), https://claude.ai/artifact/Y92NJ2jZTxfbH5B1eP6WC8 (round two), https://claude.ai/artifact/7cq2JdjMbspxXmp8HcKwXr (round three). The data behind them is in `results/`; the pages can be rebuilt from it with `page.py` and the session's picture copies.
