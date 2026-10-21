@@ -1,0 +1,216 @@
+{
+ "name": "wall-c4-models: every reachable image model draws the Classroom 5H back wall",
+ "prompt_file": "../prompts/wall-c4.txt",
+ "defaults": {
+  "aspect_ratio": "16:9",
+  "n": 1
+ },
+ "notes": [
+  "2K where the model offers it, else its largest tier up to 2K. OpenAI and Microsoft models take no resolution field and draw at their native size.",
+  "est_usd is the list price per picture; results.json carries what was actually billed."
+ ],
+ "cases": [
+  {
+   "id": "flux-3-image",
+   "model": "black-forest-labs/flux-3-image",
+   "resolution": "2K",
+   "est_usd": 0.1
+  },
+  {
+   "id": "flux-3-image-klein",
+   "model": "black-forest-labs/flux-3-image-klein",
+   "resolution": "2K",
+   "est_usd": 0.014
+  },
+  {
+   "id": "flux.2-max",
+   "model": "black-forest-labs/flux.2-max",
+   "est_usd": 0.07
+  },
+  {
+   "id": "flux.2-pro",
+   "model": "black-forest-labs/flux.2-pro",
+   "est_usd": 0.03
+  },
+  {
+   "id": "seedream-4.5",
+   "model": "bytedance-seed/seedream-4.5",
+   "resolution": "2K",
+   "est_usd": 0.04
+  },
+  {
+   "id": "seedream-5-0-flash",
+   "model": "bytedance-seed/seedream-5-0-flash",
+   "resolution": "2K",
+   "est_usd": 0.018
+  },
+  {
+   "id": "seedream-5-0-lite",
+   "model": "bytedance-seed/seedream-5-0-lite",
+   "resolution": "2K",
+   "est_usd": 0.035
+  },
+  {
+   "id": "seedream-5-0-pro",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "resolution": "2K",
+   "est_usd": 0.045
+  },
+  {
+   "id": "gemini-3-pro-image",
+   "model": "google/gemini-3-pro-image",
+   "resolution": "2K",
+   "est_usd": 0.14,
+   "est_note": "token-billed or unpriced: estimate"
+  },
+  {
+   "id": "gemini-3.1-flash-image",
+   "model": "google/gemini-3.1-flash-image",
+   "resolution": "2K",
+   "est_usd": 0.07,
+   "est_note": "token-billed or unpriced: estimate"
+  },
+  {
+   "id": "gemini-3.1-flash-lite-image",
+   "model": "google/gemini-3.1-flash-lite-image",
+   "resolution": "1K",
+   "est_usd": 0.03,
+   "est_note": "token-billed or unpriced: estimate"
+  },
+  {
+   "id": "gemini-nano-banana-2.1",
+   "model": "google/gemini-nano-banana-2.1",
+   "resolution": "2K",
+   "est_usd": 0.04,
+   "est_note": "token-billed or unpriced: estimate"
+  },
+  {
+   "id": "krea-2-large",
+   "model": "krea/krea-2-large",
+   "resolution": "1K",
+   "est_usd": 0.05,
+   "est_note": "token-billed or unpriced: estimate"
+  },
+  {
+   "id": "krea-2-medium",
+   "model": "krea/krea-2-medium",
+   "resolution": "1K",
+   "est_usd": 0.03,
+   "est_note": "token-billed or unpriced: estimate"
+  },
+  {
+   "id": "krea-2-medium-turbo",
+   "model": "krea/krea-2-medium-turbo",
+   "resolution": "1K",
+   "est_usd": 0.02,
+   "est_note": "token-billed or unpriced: estimate"
+  },
+  {
+   "id": "mai-image-2.5",
+   "model": "microsoft/mai-image-2.5",
+   "est_usd": 0.06,
+   "est_note": "token-billed or unpriced: estimate"
+  },
+  {
+   "id": "mai-image-2.5-pro",
+   "model": "microsoft/mai-image-2.5-pro",
+   "est_usd": 0.12,
+   "est_note": "token-billed or unpriced: estimate"
+  },
+  {
+   "id": "mai-image-2.6",
+   "model": "microsoft/mai-image-2.6",
+   "est_usd": 0.1,
+   "est_note": "token-billed or unpriced: estimate"
+  },
+  {
+   "id": "mai-image-2.6-flash",
+   "model": "microsoft/mai-image-2.6-flash",
+   "est_usd": 0.05,
+   "est_note": "token-billed or unpriced: estimate"
+  },
+  {
+   "id": "gpt-5.4-image-2",
+   "model": "openai/gpt-5.4-image-2",
+   "est_usd": 0.15,
+   "est_note": "token-billed or unpriced: estimate"
+  },
+  {
+   "id": "gpt-image-1-mini",
+   "model": "openai/gpt-image-1-mini",
+   "est_usd": 0.05,
+   "est_note": "token-billed or unpriced: estimate"
+  },
+  {
+   "id": "gpt-image-2",
+   "model": "openai/gpt-image-2",
+   "est_usd": 0.15,
+   "est_note": "token-billed or unpriced: estimate"
+  },
+  {
+   "id": "gpt-image-2.5-flare",
+   "model": "openai/gpt-image-2.5-flare",
+   "est_usd": 0.08,
+   "est_note": "token-billed or unpriced: estimate"
+  },
+  {
+   "id": "gpt-image-2.5-sunburst",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "est_usd": 0.2,
+   "est_note": "token-billed or unpriced: estimate"
+  },
+  {
+   "id": "qwen-image-2.1-pro",
+   "model": "qwen/qwen-image-2.1-pro",
+   "resolution": "2K",
+   "est_usd": 0.046
+  },
+  {
+   "id": "qwen-image-2.1-turbo",
+   "model": "qwen/qwen-image-2.1-turbo",
+   "resolution": "2K",
+   "est_usd": 0.0184
+  },
+  {
+   "id": "qwen-image-3",
+   "model": "qwen/qwen-image-3",
+   "resolution": "2K",
+   "est_usd": 0.03
+  },
+  {
+   "id": "qwen-image-3-pro",
+   "model": "qwen/qwen-image-3-pro",
+   "resolution": "2K",
+   "est_usd": 0.075
+  },
+  {
+   "id": "recraft-v4.1",
+   "model": "recraft/recraft-v4.1",
+   "est_usd": 0.035
+  },
+  {
+   "id": "recraft-v4.1-pro",
+   "model": "recraft/recraft-v4.1-pro",
+   "est_usd": 0.21
+  },
+  {
+   "id": "riverflow-v2.5-fast",
+   "model": "sourceful/riverflow-v2.5-fast",
+   "resolution": "2K",
+   "est_usd": 0.021
+  },
+  {
+   "id": "riverflow-v2.5-pro",
+   "model": "sourceful/riverflow-v2.5-pro",
+   "resolution": "2K",
+   "est_usd": 0.15
+  },
+  {
+   "id": "grok-imagine-image-2.0",
+   "model": "x-ai/grok-imagine-image-2.0",
+   "resolution": "2K",
+   "est_usd": 0.04
+  }
+ ],
+ "est_total_usd": 2.32
+}
