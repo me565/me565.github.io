@@ -1,0 +1,394 @@
+{
+ "name": "rooms-2: the school corridor and Nana's kitchen, four walls each, Sunburst, under everything learned on 21 Oct 2026",
+ "manifest": "evals/images/runs/rooms-2.json",
+ "ran_at": "2026-10-21T04:16:43Z",
+ "total_cost_usd": 0.2752,
+ "results": [
+  {
+   "id": "corridor-h1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/corridor/layout-h1.png"
+   ],
+   "params": {},
+   "note": "the lockers wall (north)",
+   "seconds": 17.6,
+   "cost_usd": 0.022215,
+   "usage": {
+    "prompt_tokens": 2118,
+    "completion_tokens": 280,
+    "total_tokens": 2398,
+    "cost": 0.022215,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.022215,
+     "upstream_inference_prompt_cost": 0.013815,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "corridor-h1.png",
+     "bytes": 1829471,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "kitchen-k1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/nana-kitchen/layout-k1.png"
+   ],
+   "params": {},
+   "note": "the counter wall (north)",
+   "seconds": 22.7,
+   "cost_usd": 0.028405,
+   "usage": {
+    "prompt_tokens": 2156,
+    "completion_tokens": 480,
+    "total_tokens": 2636,
+    "cost": 0.028405,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.028405,
+     "upstream_inference_prompt_cost": 0.014005,
+     "upstream_inference_completions_cost": 0.0144
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 480
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "kitchen-k1.png",
+     "bytes": 1705083,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "corridor-h2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/corridor/layout-h2.png",
+    "case:corridor-h1"
+   ],
+   "params": {},
+   "note": "the library doors wall (east), to the right of the lockers wall",
+   "seconds": 17.5,
+   "cost_usd": 0.028248,
+   "usage": {
+    "prompt_tokens": 3507,
+    "completion_tokens": 120,
+    "total_tokens": 3627,
+    "cost": 0.028248,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.028248,
+     "upstream_inference_prompt_cost": 0.024648,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "corridor-h2.png",
+     "bytes": 1814983,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "corridor-h4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/corridor/layout-h4.png",
+    "case:corridor-h1"
+   ],
+   "params": {},
+   "note": "the classroom doorways wall (west), to the left of the lockers wall",
+   "seconds": 23.7,
+   "cost_usd": 0.028428,
+   "usage": {
+    "prompt_tokens": 3543,
+    "completion_tokens": 120,
+    "total_tokens": 3663,
+    "cost": 0.028428,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.028428,
+     "upstream_inference_prompt_cost": 0.024828,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "corridor-h4.png",
+     "bytes": 1777227,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "kitchen-k2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/nana-kitchen/layout-k2.png",
+    "case:kitchen-k1"
+   ],
+   "params": {},
+   "note": "the dresser wall (east), to the right of the counter wall",
+   "seconds": 22.3,
+   "cost_usd": 0.028393,
+   "usage": {
+    "prompt_tokens": 3536,
+    "completion_tokens": 120,
+    "total_tokens": 3656,
+    "cost": 0.028393,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.028393,
+     "upstream_inference_prompt_cost": 0.024793,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "kitchen-k2.png",
+     "bytes": 1758665,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "kitchen-k4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/nana-kitchen/layout-k4.png",
+    "case:kitchen-k1"
+   ],
+   "params": {},
+   "note": "the fridge wall (west), to the left of the counter wall",
+   "seconds": 18.4,
+   "cost_usd": 0.028308,
+   "usage": {
+    "prompt_tokens": 3519,
+    "completion_tokens": 120,
+    "total_tokens": 3639,
+    "cost": 0.028308,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.028308,
+     "upstream_inference_prompt_cost": 0.024708,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "kitchen-k4.png",
+     "bytes": 1552822,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "corridor-h3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/corridor/layout-h3.png",
+    "case:corridor-h2",
+    "case:corridor-h4",
+    "case:corridor-h1"
+   ],
+   "params": {},
+   "note": "the notice-board wall (south), opposite the lockers wall",
+   "seconds": 26.3,
+   "cost_usd": 0.061074,
+   "usage": {
+    "prompt_tokens": 6357,
+    "completion_tokens": 480,
+    "total_tokens": 6837,
+    "cost": 0.061074,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.061074,
+     "upstream_inference_prompt_cost": 0.046674,
+     "upstream_inference_completions_cost": 0.0144
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 480
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "corridor-h3.png",
+     "bytes": 1667839,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "kitchen-k3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/nana-kitchen/layout-k3.png",
+    "case:kitchen-k2",
+    "case:kitchen-k4",
+    "case:kitchen-k1"
+   ],
+   "params": {},
+   "note": "the back-door wall (south), opposite the counter wall",
+   "seconds": 22.4,
+   "cost_usd": 0.050139,
+   "usage": {
+    "prompt_tokens": 6330,
+    "completion_tokens": 120,
+    "total_tokens": 6450,
+    "cost": 0.050139,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.050139,
+     "upstream_inference_prompt_cost": 0.046539,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "kitchen-k3.png",
+     "bytes": 1672090,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}
