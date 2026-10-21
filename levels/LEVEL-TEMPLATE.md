@@ -53,8 +53,27 @@ Result:
 Paper playtest: solved from the chart alone by
 Result:
 
+## 3b. Motion sheet
+
+Every thing in the level that moves, decided before any art is made (playbook 4aa). A thing not listed here is painted into its wall and stays still.
+
+| View | Thing | When (idle / tap / solve) | Movement (engine name, or "new: …") | Art it needs (cut-out / parts + pivots / poses / code-drawn / none) | Sound | Settled state after |
+|---|---|---|---|---|---|---|
+| | | | | | | |
+
+Reward moments (one per lock that opens), step by step:
+
+| Lock | Step 1 | Step 2 | Step 3 | Settled state |
+|---|---|---|---|---|
+| | | | | |
+
+- Living things per view (cap: two):
+- New movements this level asks for (go to the backlog, built between levels, not in this one):
+
+Checked: every thing that moves is listed · every lock has a reward moment · no view has more than two living things · every part, pose and pivot named
+
 ### Gate B — level outline
-Checked: map walk-through passed · paper playtest passed · no puzzle type more than twice · every answer has a visible clue · difficulty matches the brief
+Checked: map walk-through passed · paper playtest passed · motion sheet done · no puzzle type more than twice · every answer has a visible clue · difficulty matches the brief
 Signed off:
 
 ---
@@ -64,7 +83,7 @@ Signed off:
 - Stage key and plugin file:
 - Play link (pinned to commit):
 - What is placeholder: every wall, cut-out and close-up as labelled boxes; the moth's lines as text
-- What is real: puzzle logic, inventory, hints, saves, doors, the ending
+- What is real: puzzle logic, inventory, hints, saves, doors, the ending; the reward moments from the motion sheet, played with the grey boxes moving in the right order, so the timing is judged before the art exists (playbook 4aa)
 
 Tests: scripted playthrough passes · audit clean · no soft-lock (checklist 42) · owner played it on the tablet at 2000×700 · played once on a real Android phone (checklist 44) · reduced motion checked
 Target-age tester (if available): who, what they got stuck on, what they said
@@ -79,9 +98,11 @@ Signed off:
 
 Reuse first: list what the asset register already holds for this level (shared rooms, icons, portraits, tracks).
 
-| # | Asset | Type (wall / cut-out / close-up / icon / comic / voice / track) | Reused from | Prompt or line | Est. credit |
-|---|---|---|---|---|---|
-| | | | | | |
+| # | Asset | Type (wall / cut-out / close-up / icon / comic / voice / track) | Moves? (no / single / parts / poses, from the motion sheet) | Reused from | Prompt or line | Est. credit |
+|---|---|---|---|---|---|---|
+| | | | | | | |
+
+A wall's prompt names everything the motion sheet says moves as absent from it ("the shelf's end is empty"), per playbook 2 and 4aa.
 
 - Script locked on: (every voice line above is final; a change after this date is a re-record)
 - Total estimate:

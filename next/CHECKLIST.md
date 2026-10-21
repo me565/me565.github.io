@@ -55,6 +55,11 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 26. **Living background** only where a real thing would move, slow and small, one or two per view, at rest under reduced motion, never the sole carrier of a clue (log 31).
 27. **Openables open and close**, before and after their contents are taken, and stay as left (log 30). Doorways between rooms are exempt.
 28. **Never leave a blank.** A movement that fails part-way leaves the thing at rest; a picture is never read outside its edges; a pixel read is wrapped, because some hosts forbid it (the globe, logs 36–37).
+50. **Movement was planned.** Every thing that moves was on the level's motion sheet before its art was made; no wall was regenerated to cut a moving thing out of it (playbook 4aa).
+51. **Every solve has a reward moment.** A lock that opens shows the lock reacting, the thing opening by its own movement and what was inside, with sound, in about three seconds, then a settled state that stays (playbook 4aa).
+52. **Joints never gap.** A thing in hinged parts shows no seam, gap or doubled edge at its joints, checked in a screenshot at the furthest point of every movement (playbook 4aa).
+53. **Poses match.** A pose swap jumps only in the part that changes: same size, place, line and colour in every pose (playbook 4aa).
+
 
 ## E. Every close-up and gesture
 
