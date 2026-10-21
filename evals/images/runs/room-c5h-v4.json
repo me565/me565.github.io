@@ -1,0 +1,75 @@
+{
+ "name": "room-c5h-v4: the pots as four cut-outs, the doors tall, the lid thin: proportions stated (gotcha 29)",
+ "defaults": {
+  "n": 1
+ },
+ "cases": [
+  {
+   "id": "c5h4-cut-pot1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "The attached picture is a finished wall of a children's game, drawn by you a moment ago. Draw ONE thing alone in exactly its style, hand, ink outline, shading and palette: a terracotta pot with a small plain white label and a bare bean shoot just showing above the soil, about as tall as wide, as it would stand on the attached wall's window sill, seen straight on from a child's eye height. The thing is centred and fills most of the picture, on a pure flat white background: no surface under it, no shadow, no floor, no wall, no frame, no border, no other text. Checks: one object only; pure white everywhere around it.",
+   "aspect_ratio": "2:3",
+   "references": [
+    "next/art/eval/c5h/c2.jpg"
+   ],
+   "est_usd": 0.02,
+   "note": "cut-out: pot1"
+  },
+  {
+   "id": "c5h4-cut-pot2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "The attached picture is a finished wall of a children's game, drawn by you a moment ago. Draw ONE thing alone in exactly its style, hand, ink outline, shading and palette: a terracotta pot with a small plain white label and a small bean plant with two leaves, about one and a half times as tall as wide, as it would stand on the attached wall's window sill, seen straight on from a child's eye height. The thing is centred and fills most of the picture, on a pure flat white background: no surface under it, no shadow, no floor, no wall, no frame, no border, no other text. Checks: one object only; pure white everywhere around it.",
+   "aspect_ratio": "2:3",
+   "references": [
+    "next/art/eval/c5h/c2.jpg"
+   ],
+   "est_usd": 0.02,
+   "note": "cut-out: pot2"
+  },
+  {
+   "id": "c5h4-cut-pot3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "The attached picture is a finished wall of a children's game, drawn by you a moment ago. Draw ONE thing alone in exactly its style, hand, ink outline, shading and palette: a terracotta pot with a small plain white label and a middling bean plant with several leaves, about twice as tall as wide, as it would stand on the attached wall's window sill, seen straight on from a child's eye height. The thing is centred and fills most of the picture, on a pure flat white background: no surface under it, no shadow, no floor, no wall, no frame, no border, no other text. Checks: one object only; pure white everywhere around it.",
+   "aspect_ratio": "2:3",
+   "references": [
+    "next/art/eval/c5h/c2.jpg"
+   ],
+   "est_usd": 0.02,
+   "note": "cut-out: pot3"
+  },
+  {
+   "id": "c5h4-cut-pot4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "The attached picture is a finished wall of a children's game, drawn by you a moment ago. Draw ONE thing alone in exactly its style, hand, ink outline, shading and palette: a terracotta pot with a small plain white label and a tall leafy bean plant climbing a short cane, about three times as tall as wide, as it would stand on the attached wall's window sill, seen straight on from a child's eye height. The thing is centred and fills most of the picture, on a pure flat white background: no surface under it, no shadow, no floor, no wall, no frame, no border, no other text. Checks: one object only; pure white everywhere around it.",
+   "aspect_ratio": "2:3",
+   "references": [
+    "next/art/eval/c5h/c2.jpg"
+   ],
+   "est_usd": 0.02,
+   "note": "cut-out: pot4"
+  },
+  {
+   "id": "c5h4-cut-doors",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "The attached picture is a finished wall of a children's game, drawn by you a moment ago. Draw ONE thing alone in exactly its style, hand, ink outline, shading and palette: the pair of tall teal cupboard doors, closed together, with two small handles in the middle and a small white label reading SUPPLIES on the left door, seen straight on from a child's eye height, about two and a half times as tall as wide, filling the picture's full height, as they would hang on the attached wall's doorless cupboard. The thing is centred and fills most of the picture, on a pure flat white background: no surface under it, no shadow, no floor, no wall, no frame, no border, no other text. Checks: one object only; pure white everywhere around it.",
+   "aspect_ratio": "2:3",
+   "references": [
+    "next/art/eval/c5h/c1.jpg"
+   ],
+   "est_usd": 0.02,
+   "note": "cut-out: doors, tall"
+  },
+  {
+   "id": "c5h4-cut-lid",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "The attached picture is a finished wall of a children's game, drawn by you a moment ago. Draw ONE thing alone in exactly its style, hand, ink outline, shading and palette: the flat green lid of a recycling bin seen straight on from a child's eye height, so it is a thin wide shape about five times as wide as tall, with a slight lip, as it would sit on the open bin of the attached wall. The thing is centred and fills most of the picture, on a pure flat white background: no surface under it, no shadow, no floor, no wall, no frame, no border, no other text. Checks: one object only; pure white everywhere around it.",
+   "aspect_ratio": "16:9",
+   "references": [
+    "next/art/eval/c5h/c3.jpg"
+   ],
+   "est_usd": 0.02,
+   "note": "cut-out: lid, thin, from the front"
+  }
+ ],
+ "est_total_usd": 0.12
+}

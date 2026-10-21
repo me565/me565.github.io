@@ -48,5 +48,7 @@ cuts = [(k, o) for k in order for o in walls[k]["objects"] if o.get("moves")]
 if cuts:
     lines = ["Cut-outs for the things the motion sheet says move. Each is generated alone, on a pure flat white background, same style as the finished wall it belongs to (attach that wall as the reference), no surface, no shadow, no frame, no text; 1:1 or 3:4, 1K; then flood-fill the white away from the edges (playbook 2). The wall itself was prompted with the thing absent.", ""]
     for k, o in cuts:
-        lines.append(f"[{k}] {o['label']} ({o['moves']}): {o['text']}{(' ' + o['size']) if o.get('size') else ''}. Drawn alone, centred, on a pure flat white background, in exactly the style of the attached wall, at the size it has on that wall.")
+        ratio = (o["w"]*0.76*16/9)/(o["h"]*0.72)  # the box's real width over its height (the back wall is 76% of the picture's width and 72% of its height)
+        shape = f"about {ratio:.1f} times as wide as tall" if ratio >= 1.2 else (f"about {1/ratio:.1f} times as tall as wide" if ratio <= 0.83 else "about as tall as wide")
+        lines.append(f"[{k}] {o['label']} ({o['moves']}): {o.get('cut') or o['text']}{(' ' + o['size']) if o.get('size') else ''}. Drawn alone, centred, on a pure flat white background, in exactly the style of the attached wall, at the size and in the proportions it has on that wall: {shape}, seen straight on from the same height as the wall.")
     open(os.path.join(out, "cutouts.txt"), "w").write("\n".join(lines) + "\n"); print("cutouts:", len(cuts))
