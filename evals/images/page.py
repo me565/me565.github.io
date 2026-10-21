@@ -27,17 +27,18 @@ for r in rows:
     meta = [f"<b>{esc(r['model'])}</b>", esc(json.dumps(r.get("settings", {}))), f"<b>${r['cost_usd']:.3f}</b> billed" if r.get("cost_usd") is not None else "cost unknown", f"<b>{r.get('seconds','?')} s</b>", f"{r['px'][0]} × {r['px'][1]} px" if r.get("px") else ""]
     if r.get("references"): meta.append("refs: " + esc(", ".join(r["references"])))
     if r.get("note"): meta.append(esc(r["note"]))
-    sc = SC.get(r["id"]); verdict = f'<p class="verdict"><b>{esc(sc["hard"])}.</b> {esc(sc["verdict"])}</p>' if sc else ""
+    sc = SC.get(r["id"]); verdict = (f'<p class="verdict"><b>{esc(sc["hard"])}.</b> {esc(sc["verdict"])}</p>' + (f'<p class="verdict"><b>Owner: {sc["owner"]}/10.</b> {esc(sc.get("owner_note",""))} <b>{esc(sc.get("call",""))}.</b></p>' if sc.get("owner") is not None else f'<p class="verdict"><b>{esc(sc.get("call",""))}.</b></p>')) if sc else ""
     body = f'<img src="{r["shown"]}" alt="{esc(r["id"])}" loading="lazy">' if r.get("shown") else f'<p class="err">Failed: {esc(r.get("error",""))}</p>'
     if r.get("upscaled"): body += f'<details><summary>Scaled up to 1920 wide, as the game would show it</summary><img src="{r["upscaled"]}" alt="" loading="lazy"></details>'
     cards.append(f'<figure id="{esc(r["id"])}"><h2>{esc(r["id"])}</h2>{body}<div class="meta">{" · ".join(m for m in meta if m)}</div>{verdict}</figure>')
 def rank(r):
     sc = SC.get(r["id"], {}); h = sc.get("hard", "")
-    return (0 if h == "all pass" else 1 if "borderline" in h else 2 if r.get("ok") else 3, -(sc.get("soft", 0)), r.get("cost_usd") or 9)
+    o = sc.get("owner"); o = -1 if o is None else o
+    return (-o, 0 if h == "all pass" else 1 if "borderline" in h else 2 if r.get("ok") else 3, -(sc.get("soft", 0)), r.get("cost_usd") or 9)
 summary = ""
 if SC:
-    trs = "".join(f'<tr><td><a href="#{esc(r["id"])}">{esc(r["id"])}</a></td><td>{esc(SC.get(r["id"],{}).get("hard","?"))}</td><td class="n">{SC.get(r["id"],{}).get("soft","")}</td><td class="n">{"$%.3f" % r["cost_usd"] if r.get("cost_usd") is not None else ""}</td><td class="n">{r.get("seconds","")}</td></tr>' for r in sorted(rows, key=rank))
-    summary = f'<section><h2>Summary</h2><div class="wrap"><table><thead><tr><th>Picture</th><th>Hard rules</th><th class="n">Soft /14</th><th class="n">Billed</th><th class="n">s</th></tr></thead><tbody>{trs}</tbody></table></div></section>'
+    trs = "".join(f'<tr><td><a href="#{esc(r["id"])}">{esc(r["id"])}</a></td><td>{esc(SC.get(r["id"],{}).get("hard","?"))}</td><td class="n">{SC.get(r["id"],{}).get("soft","")}</td><td class="n">{SC.get(r["id"],{}).get("owner") if SC.get(r["id"],{}).get("owner") is not None else ""}</td><td>{esc(SC.get(r["id"],{}).get("call",""))}</td><td class="n">{"$%.3f" % r["cost_usd"] if r.get("cost_usd") is not None else ""}</td><td class="n">{r.get("seconds","")}</td></tr>' for r in sorted(rows, key=rank))
+    summary = f'<section><h2>Summary</h2><div class="wrap"><table><thead><tr><th>Picture</th><th>Hard rules</th><th class="n">Soft /14</th><th class="n">Owner /10</th><th>Call</th><th class="n">Billed</th><th class="n">s</th></tr></thead><tbody>{trs}</tbody></table></div></section>'
 page = f"""<title>{esc(R.get('name') or 'Image evals')}</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>

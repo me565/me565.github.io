@@ -1,26 +1,21 @@
 {
  "name": "wall-c4-resolution: does a wall need 2K? The same prompt at every tier the model offers",
- "prompt_file": "../prompts/wall-c4.txt",
+ "prompt_file": "../prompts/wall-c4-v2.txt",
  "defaults": {
   "aspect_ratio": "16:9",
   "n": 1
  },
  "notes": [
-  "Judge at the owner's screen shape (checklist 36). The viewer page also shows each 1K picture scaled up to 1920 wide, which is what the game would do.",
-  "Google bills 1K and 2K the same; FLUX and Seedream charge less for the lower tiers."
+  "The 2K pictures of these models come from round two's A cases (same prompt, same seed where one is taken), so only the other tiers are made here.",
+  "MAI-Image 2.6 and GPT Image 2.5 Sunburst take no resolution field; the page shows their native pictures scaled up to 1920 wide.",
+  "Judge at the owner's screen shape (checklist 36): is 1K soft on the tablet, and does 4K add anything the shipped 1920\u00d71080 can show?"
  ],
  "cases": [
   {
    "id": "nbpro-1K",
    "model": "google/gemini-3-pro-image",
    "resolution": "1K",
-   "est_usd": 0.14
-  },
-  {
-   "id": "nbpro-2K",
-   "model": "google/gemini-3-pro-image",
-   "resolution": "2K",
-   "est_usd": 0.14
+   "est_usd": 0.135
   },
   {
    "id": "nbpro-4K",
@@ -41,42 +36,25 @@
    "est_usd": 0.07
   },
   {
-   "id": "nb2-2K",
+   "id": "nb2-4K",
    "model": "google/gemini-3.1-flash-image",
-   "resolution": "2K",
-   "est_usd": 0.07
+   "resolution": "4K",
+   "est_usd": 0.15
   },
   {
    "id": "seedream-pro-1K",
    "model": "bytedance-seed/seedream-5-0-pro",
    "resolution": "1K",
-   "seed": 7,
+   "seed": 11,
    "est_usd": 0.045
   },
   {
-   "id": "seedream-pro-2K",
-   "model": "bytedance-seed/seedream-5-0-pro",
-   "resolution": "2K",
-   "seed": 7,
-   "est_usd": 0.045
-  },
-  {
-   "id": "flux3-768",
-   "model": "black-forest-labs/flux-3-image",
-   "resolution": "768",
-   "est_usd": 0.041
-  },
-  {
-   "id": "flux3-1K",
-   "model": "black-forest-labs/flux-3-image",
+   "id": "qwen-2.1-pro-1K",
+   "model": "qwen/qwen-image-2.1-pro",
    "resolution": "1K",
-   "est_usd": 0.048
-  },
-  {
-   "id": "flux3-2K",
-   "model": "black-forest-labs/flux-3-image",
-   "resolution": "2K",
-   "est_usd": 0.1
+   "seed": 11,
+   "est_usd": 0.046
   }
- ]
+ ],
+ "est_total_usd": 0.72
 }

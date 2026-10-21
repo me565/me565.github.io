@@ -1,35 +1,266 @@
 {
- "gpt-image-2.5-sunburst": {"hard": "all pass", "soft": 13, "verdict": "Clock right, days and icons right, rules poster without words, no arrows, clean box. Best of the sweep on the rules, at $0.017. Native size 1536×864 only."},
- "gpt-5.4-image-2": {"hard": "all pass", "soft": 13, "verdict": "Clock right (about 2:43), days and icons right, rules poster without words, no arrows. Same picture family as Sunburst. 1536×864 only."},
- "riverflow-v2.5-pro": {"hard": "all pass", "soft": 13, "verdict": "Clock right, days and icons right, rules without words, box right, warm paper texture. Dearest and slowest of the passes: $0.26, 92 s."},
- "grok-imagine-image-2.0": {"hard": "all pass", "soft": 11, "verdict": "Clock right, icons right, rules poster blank, no arrows. No day labels (not asked for). Softer palette, pale. 94 s."},
- "qwen-image-3-pro": {"hard": "H3 borderline (grid half-filled)", "soft": 11, "verdict": "Clock right, rules blank, box clean and sparse. Grid has one row of icons and the days split oddly. 82 s."},
- "seedream-5-0-lite": {"hard": "H3 borderline (books on top of the shelf, grid random)", "soft": 8, "verdict": "Clock right, rules blank, no arrows. Pale and under-drawn; the shelf is empty with the books on top."},
- "seedream-5-0-pro": {"hard": "H2 fail: rules poster has four invented lines, a name plate reading Liam on the desk", "soft": 13, "verdict": "The best drawing of the day otherwise: clock right, every day name right, six icons in every row, clean box, warm paper texture. Two lettering edits from usable."},
- "gpt-image-2": {"hard": "H2 fail: five invented rules lines", "soft": 13, "verdict": "Clock right, days and icons right, no arrows. One edit from usable."},
- "gpt-image-2.5-flare": {"hard": "H2 fail: four numbered rules lines", "soft": 12, "verdict": "Clock right, days right, icons shuffled per row. One edit from usable."},
- "gemini-3.1-flash-image": {"hard": "H4 fail: clock reads about 2:17", "soft": 13, "verdict": "Nano Banana 2. Days and icons right, rules poster without words, no arrows, cleanest flat style of all and the closest to the live walls. One edit (the clock) from usable, and the game could draw the clock. 18 s."},
- "gemini-3-pro-image": {"hard": "H5 fail (framed box on a dark ground), H2 fail (garbled rules text), H4 fail (clock about 2:20)", "soft": 11, "verdict": "Nano Banana Pro, the benchmark model. Bookshelf became a display rack. Three edits from usable; the frame is the one that repeats."},
- "qwen-image-3": {"hard": "H3 fail: grid is three columns with six icons scattered", "soft": 11, "verdict": "Clock right, rules blank, very sparse and clean. 80 s."},
- "qwen-image-2.1-pro": {"hard": "H6 fail (flat wall, no box), H3 (bins on the shelf, no envelope)", "soft": 9, "verdict": "Clock right, days right. Painterly, not flat."},
- "qwen-image-2.1-turbo": {"hard": "H6 fail (no box), H3 (extra plant), H4 (clock about 2:30)", "soft": 9, "verdict": "Clean ink style; wrong room shape."},
- "gemini-3.1-flash-lite-image": {"hard": "H4 fail (12:00), H3 (no day labels, grid half empty)", "soft": 9, "verdict": "Nano Banana 2 Lite, 1K only. Fast (3.5 s) and cheap; rough."},
- "flux-3-image": {"hard": "H2 fail (day labels garbled: Tuee, Tuey), H4 fail (12:02)", "soft": 9, "verdict": "Objects present, flat style fair. Lettering is its weakness."},
- "flux-3-image-klein": {"hard": "H2 fail (garbled words everywhere), H4 fail (2:00)", "soft": 7, "verdict": "Cheapest FLUX; lettering nonsense."},
- "flux.2-max": {"hard": "H3 fail: no furniture at all", "soft": 6, "verdict": "Posters and clock on an empty wall."},
- "flux.2-pro": {"hard": "H3 fail (rows of desks, none of the listed furniture), H2 (Soday, Firday), H4", "soft": 5, "verdict": "Drew a different classroom."},
- "seedream-5-0-flash": {"hard": "H1 fail (turn arrows drawn), H2 fail (rows numbered 1, 3, 4, 5)", "soft": 9, "verdict": "Clock right. Arrows again, as in the first run."},
- "seedream-4.5": {"hard": "H4 fail (2:00), H2 fail (Day, Day, Day labels)", "soft": 8, "verdict": "Watercolour feel; superseded by 5.0."},
- "recraft-v4.1": {"hard": "H4 fail (12:00), H2 (grid random)", "soft": 5, "verdict": "Pencil-hatched sketch, not the game's style."},
- "recraft-v4.1-pro": {"hard": "H1 fail (arrows), H2, H4 (9:00)", "soft": 4, "verdict": "From the first run: handsome, wrong style, dearest."},
- "krea-2-large": {"hard": "H1 fail (arrows), H4 fail (6:00)", "soft": 7, "verdict": "Soft children's-book look; 1K only."},
- "krea-2-medium": {"hard": "H4 fail (2:00), H2 (tiny garbled grid labels)", "soft": 7, "verdict": "1K only."},
- "krea-2-medium-turbo": {"hard": "H4 fail (12:00), H3 (grid half empty)", "soft": 7, "verdict": "1K only, 9 s."},
- "mai-image-2.5": {"hard": "H4 fail (12:00), H3 (grid 3×4 random)", "soft": 6, "verdict": "Washed out."},
- "mai-image-2.5-pro": {"hard": "H4 fail (12:00), H3 (extra plant, grid random)", "soft": 7, "verdict": "Pleasant palette; ignores the grid."},
- "mai-image-2.6": {"hard": "H3 fail (window and plant added), H2 (rules text, FOR 5H note)", "soft": 8, "verdict": "Clock about 2:10. Adds what was not asked."},
- "mai-image-2.6-flash": {"hard": "H3 fail (window, plant), H2 (rules text, titles on the books)", "soft": 8, "verdict": "Clock about 2:05."},
- "riverflow-v2.5-fast": {"hard": "H4 fail (12:00), H2 (garbled rules text), H6 (no box)", "soft": 6, "verdict": "Cut off at the edges."},
- "gemini-nano-banana-2.1": {"hard": "did not run: the provider returned a quota error (429)", "soft": 0, "verdict": "Retry later; Google-side limit, not ours."},
- "gpt-image-1-mini": {"hard": "did not run: this model takes no aspect ratio or count field", "soft": 0, "verdict": "Older model; drop from the manifest."}
+ "gpt-image-2.5-sunburst": {
+  "hard": "all pass",
+  "soft": 13,
+  "verdict": "Clock right, days and icons right, rules poster without words, no arrows, clean box. Best of the sweep on the rules, at $0.017. Native size 1536\u00d7864 only.",
+  "owner": 7,
+  "owner_note": "best rendering of the OpenAI four; identical rows; hamster good, cage feels open",
+  "call": "ROUND TWO"
+ },
+ "gpt-5.4-image-2": {
+  "hard": "all pass",
+  "soft": 13,
+  "verdict": "Clock right (about 2:43), days and icons right, rules poster without words, no arrows. Same picture family as Sunburst. 1536\u00d7864 only.",
+  "owner": 5,
+  "owner_note": "dark and hazy; obeys; a headless grid row; chair looks off",
+  "call": "drop"
+ },
+ "riverflow-v2.5-pro": {
+  "hard": "all pass",
+  "soft": 13,
+  "verdict": "Clock right, days and icons right, rules without words, box right, warm paper texture. Dearest and slowest of the passes: $0.26, 92 s.",
+  "owner": 6,
+  "owner_note": "great perspective; good graphics bar the chair; grid correct but repetitive",
+  "call": "drop, first reserve"
+ },
+ "grok-imagine-image-2.0": {
+  "hard": "all pass",
+  "soft": 11,
+  "verdict": "Clock right, icons right, rules poster blank, no arrows. No day labels (not asked for). Softer palette, pale. 94 s.",
+  "owner": 5,
+  "owner_note": "ok, seen better",
+  "call": "drop"
+ },
+ "qwen-image-3-pro": {
+  "hard": "H3 borderline (grid half-filled)",
+  "soft": 11,
+  "verdict": "Clock right, rules blank, box clean and sparse. Grid has one row of icons and the days split oddly. 82 s.",
+  "owner": 5,
+  "owner_note": "better perspective; grid off; chair weird",
+  "call": "drop"
+ },
+ "seedream-5-0-lite": {
+  "hard": "H3 borderline (books on top of the shelf, grid random)",
+  "soft": 8,
+  "verdict": "Clock right, rules blank, no arrows. Pale and under-drawn; the shelf is empty with the books on top.",
+  "owner": 4,
+  "owner_note": "too childish; followed the rules; books on top of the bookcase",
+  "call": "drop: obeys but fails the eye"
+ },
+ "seedream-5-0-pro": {
+  "hard": "H2 fail: rules poster has four invented lines, a name plate reading Liam on the desk",
+  "soft": 13,
+  "verdict": "The best drawing of the day otherwise: clock right, every day name right, six icons in every row, clean box, warm paper texture. Two lettering edits from usable.",
+  "owner": 7,
+  "owner_note": "good effort; perspective correct; desk too close to the wall; best cage yet but still looks escapable",
+  "call": "ROUND TWO"
+ },
+ "gpt-image-2": {
+  "hard": "H2 fail: five invented rules lines",
+  "soft": 13,
+  "verdict": "Clock right, days and icons right, no arrows. One edit from usable.",
+  "owner": 6,
+  "owner_note": "chair off; grid icons great but every row identical; very good lettering",
+  "call": "drop; Sunburst carries the house"
+ },
+ "gpt-image-2.5-flare": {
+  "hard": "H2 fail: four numbered rules lines",
+  "soft": 12,
+  "verdict": "Clock right, days right, icons shuffled per row. One edit from usable.",
+  "owner": 6,
+  "owner_note": "better grid with an extra row; chair centred but off",
+  "call": "drop"
+ },
+ "gemini-3.1-flash-image": {
+  "hard": "H4 fail: clock reads about 2:17",
+  "soft": 13,
+  "verdict": "Nano Banana 2. Days and icons right, rules poster without words, no arrows, cleanest flat style of all and the closest to the live walls. One edit (the clock) from usable, and the game could draw the clock. 18 s.",
+  "owner": 7,
+  "owner_note": "objects and perspective good; desk moved to the right; cage reads as a fish tank; random colouring in the grid",
+  "call": "ROUND TWO"
+ },
+ "gemini-3-pro-image": {
+  "hard": "H5 fail (framed box on a dark ground), H2 fail (garbled rules text), H4 fail (clock about 2:20)",
+  "soft": 11,
+  "verdict": "Nano Banana Pro, the benchmark model. Bookshelf became a display rack. Three edits from usable; the frame is the one that repeats.",
+  "owner": 6,
+  "owner_note": "fair text with typos; elements good; the flattest of the set",
+  "call": "control only: the incumbent, no longer the lead"
+ },
+ "qwen-image-3": {
+  "hard": "H3 fail: grid is three columns with six icons scattered",
+  "soft": 11,
+  "verdict": "Clock right, rules blank, very sparse and clean. 80 s.",
+  "owner": 4,
+  "owner_note": "oddly sparse; objects too small for the room; grid wrong",
+  "call": "drop"
+ },
+ "qwen-image-2.1-pro": {
+  "hard": "H6 fail (flat wall, no box), H3 (bins on the shelf, no envelope)",
+  "soft": 9,
+  "verdict": "Clock right, days right. Painterly, not flat.",
+  "owner": 8,
+  "owner_note": "best style so far: perspective, shadows and finishing; excellent cage; grid inconsistent",
+  "call": "ROUND TWO; drew a flat wall, which backlog 19 wants"
+ },
+ "qwen-image-2.1-turbo": {
+  "hard": "H6 fail (no box), H3 (extra plant), H4 (clock about 2:30)",
+  "soft": 9,
+  "verdict": "Clean ink style; wrong room shape.",
+  "owner": 6,
+  "owner_note": "decent; chair odd; clock wrong; rules empty",
+  "call": "drop; 2.1 Pro carries the house"
+ },
+ "gemini-3.1-flash-lite-image": {
+  "hard": "H4 fail (12:00), H3 (no day labels, grid half empty)",
+  "soft": 9,
+  "verdict": "Nano Banana 2 Lite, 1K only. Fast (3.5 s) and cheap; rough.",
+  "owner": 5,
+  "owner_note": "odd border round the frame; grid missing days and blank rows",
+  "call": "drop: 1K only; maybe a drafting tool"
+ },
+ "flux-3-image": {
+  "hard": "H2 fail (day labels garbled: Tuee, Tuey), H4 fail (12:02)",
+  "soft": 9,
+  "verdict": "Objects present, flat style fair. Lettering is its weakness.",
+  "owner": 7,
+  "owner_note": "days wrong, cage looks open, clock reads four",
+  "call": "drop: lettering nonsense will cost an edit on most walls"
+ },
+ "flux-3-image-klein": {
+  "hard": "H2 fail (garbled words everywhere), H4 fail (2:00)",
+  "soft": 7,
+  "verdict": "Cheapest FLUX; lettering nonsense.",
+  "owner": 5,
+  "owner_note": "basic, almost drawn by a child; hamster too big for the cage",
+  "call": "drop"
+ },
+ "flux.2-max": {
+  "hard": "H3 fail: no furniture at all",
+  "soft": 6,
+  "verdict": "Posters and clock on an empty wall.",
+  "owner": 2,
+  "owner_note": "missing the desk and everything in the room",
+  "call": "drop"
+ },
+ "flux.2-pro": {
+  "hard": "H3 fail (rows of desks, none of the listed furniture), H2 (Soday, Firday), H4",
+  "soft": 5,
+  "verdict": "Drew a different classroom.",
+  "owner": 3,
+  "owner_note": "missing desk and hamster; chairs facing the wrong way",
+  "call": "drop"
+ },
+ "seedream-5-0-flash": {
+  "hard": "H1 fail (turn arrows drawn), H2 fail (rows numbered 1, 3, 4, 5)",
+  "soft": 9,
+  "verdict": "Clock right. Arrows again, as in the first run.",
+  "owner": 6,
+  "owner_note": "objects too spread out for a game; cage open; uneven emphasis in the grid; desk too close to the back wall",
+  "call": "drop: arrows in both runs"
+ },
+ "seedream-4.5": {
+  "hard": "H4 fail (2:00), H2 fail (Day, Day, Day labels)",
+  "soft": 8,
+  "verdict": "Watercolour feel; superseded by 5.0.",
+  "owner": 7,
+  "owner_note": "solid style, good perspective; days wrong, clock wrong, cage open",
+  "call": "drop: 5.0 Pro does the same better"
+ },
+ "recraft-v4.1": {
+  "hard": "H4 fail (12:00), H2 (grid random)",
+  "soft": 5,
+  "verdict": "Pencil-hatched sketch, not the game's style.",
+  "owner": 2,
+  "owner_note": "simple and childish, multiple faults",
+  "call": "drop"
+ },
+ "recraft-v4.1-pro": {
+  "hard": "H1 fail (arrows), H2, H4 (9:00)",
+  "soft": 4,
+  "verdict": "From the first run: handsome, wrong style, dearest.",
+  "owner": 3,
+  "owner_note": "as its sibling",
+  "call": "drop"
+ },
+ "krea-2-large": {
+  "hard": "H1 fail (arrows), H4 fail (6:00)",
+  "soft": 7,
+  "verdict": "Soft children's-book look; 1K only.",
+  "owner": 4,
+  "owner_note": "basic, no icons, not professional or natural",
+  "call": "drop"
+ },
+ "krea-2-medium": {
+  "hard": "H4 fail (2:00), H2 (tiny garbled grid labels)",
+  "soft": 7,
+  "verdict": "1K only.",
+  "owner": 5,
+  "owner_note": "childish; grid wrong; water bottle sticks out of the cage; a third clock hand",
+  "call": "drop"
+ },
+ "krea-2-medium-turbo": {
+  "hard": "H4 fail (12:00), H3 (grid half empty)",
+  "soft": 7,
+  "verdict": "1K only, 9 s.",
+  "owner": 5,
+  "owner_note": "as its sibling",
+  "call": "drop"
+ },
+ "mai-image-2.5": {
+  "hard": "H4 fail (12:00), H3 (grid 3\u00d74 random)",
+  "soft": 6,
+  "verdict": "Washed out.",
+  "owner": 6,
+  "owner_note": "likeable style and solid rendering; doubtful it follows instructions",
+  "call": "drop; a vote for the warmer look"
+ },
+ "mai-image-2.5-pro": {
+  "hard": "H4 fail (12:00), H3 (extra plant, grid random)",
+  "soft": 7,
+  "verdict": "Pleasant palette; ignores the grid.",
+  "owner": 6,
+  "owner_note": "composed square with empty margins; no days; clock wrong; solid graphics",
+  "call": "drop"
+ },
+ "mai-image-2.6": {
+  "hard": "H3 fail (window and plant added), H2 (rules text, FOR 5H note)",
+  "soft": 8,
+  "verdict": "Clock about 2:10. Adds what was not asked.",
+  "owner": 8,
+  "owner_note": "renders well; most rules followed bar the clock; decent cage; liked the window",
+  "call": "ROUND TWO: must prove it can obey (the window belongs to another wall)"
+ },
+ "mai-image-2.6-flash": {
+  "hard": "H3 fail (window, plant), H2 (rules text, titles on the books)",
+  "soft": 8,
+  "verdict": "Clock about 2:05.",
+  "owner": 7,
+  "owner_note": "nearly as good; grid empty; clock wrong",
+  "call": "drop; retry only if 2.6 proves obedient"
+ },
+ "riverflow-v2.5-fast": {
+  "hard": "H4 fail (12:00), H2 (garbled rules text), H6 (no box)",
+  "soft": 6,
+  "verdict": "Cut off at the edges.",
+  "owner": 3,
+  "owner_note": "basic, no perspective",
+  "call": "drop"
+ },
+ "gemini-nano-banana-2.1": {
+  "hard": "did not run: the provider returned a quota error (429)",
+  "soft": 0,
+  "verdict": "Retry later; Google-side limit, not ours.",
+  "owner": null,
+  "owner_note": "429, regenerate",
+  "call": "ROUND TWO: first try"
+ },
+ "gpt-image-1-mini": {
+  "hard": "did not run: this model takes no aspect ratio or count field",
+  "soft": 0,
+  "verdict": "Older model; drop from the manifest.",
+  "owner": null,
+  "owner_note": "400, refuses 16:9",
+  "call": "off the manifest"
+ }
 }

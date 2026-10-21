@@ -1,0 +1,202 @@
+{
+ "name": "wall-c4-round2: the shortlist under the sweep's prompt fixes, flat walls, the draft rendered style, and a style reference",
+ "defaults": {
+  "aspect_ratio": "16:9",
+  "n": 1
+ },
+ "notes": [
+  "Shortlist from the owner's marks on 21 Oct 2026: Qwen 2.1 Pro, MAI-Image 2.6, Seedream 5.0 Pro, Nano Banana 2, GPT Image 2.5 Sunburst; Nano Banana 2.1 first try; Nano Banana Pro as the control.",
+  "A against the sweep: did the fixes land? B: can each draw a flat wall for the engine's box? C: the owner judges the draft style sentence by its pictures. D: does a reference wall hold the style without framing the room?",
+  "Compare within a letter, and the same model across letters."
+ ],
+ "cases": [
+  {
+   "id": "A-seedream-5-pro",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "prompt_file": "../prompts/wall-c4-v2.txt",
+   "est_usd": 0.045,
+   "note": "v2 prompt: the sweep's fixes (no arrows sentence, closed cage, tucked chair, blank clock, wordless rules poster, no window or plant), the box kept",
+   "resolution": "2K",
+   "seed": 11
+  },
+  {
+   "id": "A-nb2",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt_file": "../prompts/wall-c4-v2.txt",
+   "est_usd": 0.1,
+   "note": "v2 prompt: the sweep's fixes (no arrows sentence, closed cage, tucked chair, blank clock, wordless rules poster, no window or plant), the box kept",
+   "resolution": "2K"
+  },
+  {
+   "id": "A-mai-2.6",
+   "model": "microsoft/mai-image-2.6",
+   "prompt_file": "../prompts/wall-c4-v2.txt",
+   "est_usd": 0.041,
+   "note": "v2 prompt: the sweep's fixes (no arrows sentence, closed cage, tucked chair, blank clock, wordless rules poster, no window or plant), the box kept"
+  },
+  {
+   "id": "A-sunburst",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/wall-c4-v2.txt",
+   "est_usd": 0.017,
+   "note": "v2 prompt: the sweep's fixes (no arrows sentence, closed cage, tucked chair, blank clock, wordless rules poster, no window or plant), the box kept"
+  },
+  {
+   "id": "A-qwen-2.1-pro",
+   "model": "qwen/qwen-image-2.1-pro",
+   "prompt_file": "../prompts/wall-c4-v2.txt",
+   "est_usd": 0.046,
+   "note": "v2 prompt: the sweep's fixes (no arrows sentence, closed cage, tucked chair, blank clock, wordless rules poster, no window or plant), the box kept",
+   "resolution": "2K",
+   "seed": 11
+  },
+  {
+   "id": "A-nb2.1",
+   "model": "google/gemini-nano-banana-2.1",
+   "prompt_file": "../prompts/wall-c4-v2.txt",
+   "est_usd": 0.04,
+   "note": "v2 prompt: the sweep's fixes (no arrows sentence, closed cage, tucked chair, blank clock, wordless rules poster, no window or plant), the box kept",
+   "resolution": "2K"
+  },
+  {
+   "id": "A-nbpro",
+   "model": "google/gemini-3-pro-image",
+   "prompt_file": "../prompts/wall-c4-v2.txt",
+   "est_usd": 0.135,
+   "note": "v2 prompt: the sweep's fixes (no arrows sentence, closed cage, tucked chair, blank clock, wordless rules poster, no window or plant), the box kept",
+   "resolution": "2K"
+  },
+  {
+   "id": "B-seedream-5-pro",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "prompt_file": "../prompts/wall-c4-v2-flat.txt",
+   "est_usd": 0.045,
+   "note": "v2 prompt, flat wall with no box (backlog 19)",
+   "resolution": "2K",
+   "seed": 11
+  },
+  {
+   "id": "B-nb2",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt_file": "../prompts/wall-c4-v2-flat.txt",
+   "est_usd": 0.1,
+   "note": "v2 prompt, flat wall with no box (backlog 19)",
+   "resolution": "2K"
+  },
+  {
+   "id": "B-mai-2.6",
+   "model": "microsoft/mai-image-2.6",
+   "prompt_file": "../prompts/wall-c4-v2-flat.txt",
+   "est_usd": 0.041,
+   "note": "v2 prompt, flat wall with no box (backlog 19)"
+  },
+  {
+   "id": "B-sunburst",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/wall-c4-v2-flat.txt",
+   "est_usd": 0.017,
+   "note": "v2 prompt, flat wall with no box (backlog 19)"
+  },
+  {
+   "id": "B-qwen-2.1-pro",
+   "model": "qwen/qwen-image-2.1-pro",
+   "prompt_file": "../prompts/wall-c4-v2-flat.txt",
+   "est_usd": 0.046,
+   "note": "v2 prompt, flat wall with no box (backlog 19)",
+   "resolution": "2K",
+   "seed": 11
+  },
+  {
+   "id": "B-nb2.1",
+   "model": "google/gemini-nano-banana-2.1",
+   "prompt_file": "../prompts/wall-c4-v2-flat.txt",
+   "est_usd": 0.04,
+   "note": "v2 prompt, flat wall with no box (backlog 19)",
+   "resolution": "2K"
+  },
+  {
+   "id": "B-nbpro",
+   "model": "google/gemini-3-pro-image",
+   "prompt_file": "../prompts/wall-c4-v2-flat.txt",
+   "est_usd": 0.135,
+   "note": "v2 prompt, flat wall with no box (backlog 19)",
+   "resolution": "2K"
+  },
+  {
+   "id": "C-seedream-5-pro",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "prompt_file": "../prompts/wall-c4-v2-rendered.txt",
+   "est_usd": 0.045,
+   "note": "v2 prompt with the DRAFT rendered style sentence (shadows and finishing) in place of the flat one",
+   "resolution": "2K",
+   "seed": 11
+  },
+  {
+   "id": "C-nb2",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt_file": "../prompts/wall-c4-v2-rendered.txt",
+   "est_usd": 0.1,
+   "note": "v2 prompt with the DRAFT rendered style sentence (shadows and finishing) in place of the flat one",
+   "resolution": "2K"
+  },
+  {
+   "id": "C-mai-2.6",
+   "model": "microsoft/mai-image-2.6",
+   "prompt_file": "../prompts/wall-c4-v2-rendered.txt",
+   "est_usd": 0.041,
+   "note": "v2 prompt with the DRAFT rendered style sentence (shadows and finishing) in place of the flat one"
+  },
+  {
+   "id": "C-sunburst",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/wall-c4-v2-rendered.txt",
+   "est_usd": 0.017,
+   "note": "v2 prompt with the DRAFT rendered style sentence (shadows and finishing) in place of the flat one"
+  },
+  {
+   "id": "C-qwen-2.1-pro",
+   "model": "qwen/qwen-image-2.1-pro",
+   "prompt_file": "../prompts/wall-c4-v2-rendered.txt",
+   "est_usd": 0.046,
+   "note": "v2 prompt with the DRAFT rendered style sentence (shadows and finishing) in place of the flat one",
+   "resolution": "2K",
+   "seed": 11
+  },
+  {
+   "id": "D-seedream-5-pro-ref",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "prompt_file": "../prompts/wall-c4-v2.txt",
+   "references": [
+    "next/art/school/h1.jpg"
+   ],
+   "est_usd": 0.045,
+   "note": "v2 prompt with the corridor wall h1 as a style reference, as the later walls were made",
+   "resolution": "2K",
+   "seed": 11
+  },
+  {
+   "id": "D-nb2-ref",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt_file": "../prompts/wall-c4-v2.txt",
+   "references": [
+    "next/art/school/h1.jpg"
+   ],
+   "est_usd": 0.1,
+   "note": "v2 prompt with the corridor wall h1 as a style reference, as the later walls were made",
+   "resolution": "2K"
+  },
+  {
+   "id": "D-qwen-2.1-pro-ref",
+   "model": "qwen/qwen-image-2.1-pro",
+   "prompt_file": "../prompts/wall-c4-v2.txt",
+   "references": [
+    "next/art/school/h1.jpg"
+   ],
+   "est_usd": 0.046,
+   "note": "v2 prompt with the corridor wall h1 as a style reference, as the later walls were made",
+   "resolution": "2K",
+   "seed": 11
+  }
+ ],
+ "est_total_usd": 1.29
+}
