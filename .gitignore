@@ -3,3 +3,4 @@ tools/audit-out/
 /pe-*.png
 /pp-*.png
 /pz-*.png
+node_modules/
