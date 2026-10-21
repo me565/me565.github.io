@@ -1,0 +1,171 @@
+{
+ "name": "Nana and Jedi's kitchen (Enfield), evaluation room 3",
+ "setting": "Cosy, warm and a little old-fashioned: a grandmother's kitchen in a semi-detached house in Enfield, north London, on a long golden summer evening, empty of people.",
+ "palette": "the walls are warm cream above soft sage-green tongue-and-groove panelling; the panelling's top edge is at a grown-up's waist height, 36% of the way up the back wall from the floor; the floor is terracotta tiles; dark wood, brass and china",
+ "box": "a shallow box in one-point perspective: a wide back wall running the full width, narrow side walls, a thin strip of ceiling, a low floor band",
+ "light": "the only daylight comes from the window over the counter and the open back door, low golden evening sun",
+ "words": [],
+ "order": [
+  "k1",
+  "k2",
+  "k3",
+  "k4"
+ ],
+ "walls": {
+  "k1": {
+   "name": "the counter wall (north)",
+   "light": "golden evening light comes through the window above the counter and lies across the counter top and the tiles in front of it; the open back door is to the right, out of view, adding a warm glow from the right",
+   "objects": [
+    {
+     "id": "counter",
+     "label": "wooden counter with kettle and teapot",
+     "text": "a long wooden counter with cupboard doors beneath, and on it a cream enamel kettle and a brown teapot with a knitted cosy",
+     "on": "floor",
+     "l": 10,
+     "t": 48,
+     "w": 54,
+     "h": 34,
+     "size": "the counter top at a grown-up's waist, level with the top of the panelling"
+    },
+    {
+     "id": "window",
+     "label": "window over the counter",
+     "text": "a window with a white frame above the counter, showing a green garden hedge and a strip of evening sky",
+     "on": "wall",
+     "l": 22,
+     "t": 8,
+     "w": 30,
+     "h": 34,
+     "size": "its sill a hand's width above the counter"
+    },
+    {
+     "id": "cooker",
+     "label": "cream cooker",
+     "text": "a cream cooker with four rings and an oven door, standing against the wall",
+     "on": "floor",
+     "l": 70,
+     "t": 48,
+     "w": 18,
+     "h": 34,
+     "size": "the same height as the counter"
+    }
+   ]
+  },
+  "k2": {
+   "name": "the dresser wall (east), to the right of the counter wall",
+   "light": "the window is to the left of this wall and the open back door to the right, so the wall is evenly lit with warm light from both sides and faint shadows straight behind each object",
+   "objects": [
+    {
+     "id": "dresser",
+     "label": "tall pine dresser with a red tin on top",
+     "text": "a tall pine dresser, plates standing on its upper shelves, and on its very top shelf one round red biscuit tin with nothing written on it",
+     "on": "floor",
+     "l": 8,
+     "t": 6,
+     "w": 26,
+     "h": 76,
+     "size": "reaching almost to the ceiling strip"
+    },
+    {
+     "id": "table",
+     "label": "kitchen table and two chairs",
+     "text": "a small square kitchen table with a checked cloth and two wooden chairs, nothing on the table",
+     "on": "floor",
+     "l": 44,
+     "t": 46,
+     "w": 26,
+     "h": 36,
+     "size": "the table top at a grown-up's waist"
+    },
+    {
+     "id": "calendar",
+     "label": "lighthouse calendar",
+     "text": "a calendar on the wall with a picture of a lighthouse above and a plain empty grid below, with no numbers or words",
+     "on": "wall",
+     "l": 80,
+     "t": 14,
+     "w": 10,
+     "h": 20
+    }
+   ]
+  },
+  "k3": {
+   "name": "the back-door wall (south), opposite the counter wall",
+   "light": "golden evening light pours through the open back door in the middle of this wall and lies in a long bright patch on the tiles; the rest of the wall is warm and soft",
+   "objects": [
+    {
+     "id": "boots",
+     "label": "pair of wellington boots",
+     "text": "a pair of green wellington boots standing on the tiles",
+     "on": "floor",
+     "l": 16,
+     "t": 70,
+     "w": 8,
+     "h": 12,
+     "size": "knee height"
+    },
+    {
+     "id": "backdoor",
+     "label": "open back door to the garden",
+     "text": "a dark wooden back door standing wide open, and through it a glimpse of a sunny garden: a lawn, a flower bed, a wooden fence",
+     "on": "floor",
+     "l": 40,
+     "t": 6,
+     "w": 22,
+     "h": 76,
+     "size": "the door reaches almost to the ceiling strip"
+    },
+    {
+     "id": "coat",
+     "label": "coat on a hook",
+     "text": "a single brass hook on the wall with a navy jacket hanging from it",
+     "on": "wall",
+     "l": 72,
+     "t": 22,
+     "w": 8,
+     "h": 30,
+     "size": "the hook at a grown-up's eye height"
+    }
+   ]
+  },
+  "k4": {
+   "name": "the fridge wall (west), to the left of the counter wall",
+   "light": "the window is to the right of this wall, so warm light comes from the right and shadows lean left",
+   "objects": [
+    {
+     "id": "fridge",
+     "label": "cream fridge",
+     "text": "a cream fridge with a rounded top and nothing on its door",
+     "on": "floor",
+     "l": 12,
+     "t": 14,
+     "w": 16,
+     "h": 68,
+     "size": "a little taller than a grown-up"
+    },
+    {
+     "id": "larder",
+     "label": "larder cupboard, closed",
+     "text": "a tall painted larder cupboard, its door closed, with a small brass knob",
+     "on": "floor",
+     "l": 44,
+     "t": 6,
+     "w": 22,
+     "h": 76,
+     "size": "reaching almost to the ceiling strip"
+    },
+    {
+     "id": "broom",
+     "label": "broom",
+     "text": "a wooden broom leaning against the wall",
+     "on": "floor",
+     "l": 80,
+     "t": 30,
+     "w": 5,
+     "h": 52,
+     "size": "as tall as a grown-up's shoulder"
+    }
+   ]
+  }
+ }
+}

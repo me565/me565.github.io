@@ -1,0 +1,98 @@
+{
+ "name": "wall-pair: two walls that meet at a corner, the timetable wall and the window wall to its left, for the four finalists",
+ "defaults": {
+  "aspect_ratio": "16:9",
+  "n": 1
+ },
+ "notes": [
+  "Owner, 21 Oct 2026: the box dynamic. Turning left from the timetable wall shows the window wall; turning right from the window wall shows the timetable wall. The corner, the light and the wall and floor style must agree both ways.",
+  "Each model first draws the timetable wall with the window's end on its left side wall and daylight from the left; then the window wall with that picture as the reference and the bookshelf's end on its right side wall.",
+  "In the game as built the window wall is opposite the timetable wall and the door wall is to its left; this pairing is the owner's test set-up, not the room's layout.",
+  "Judge: do the two side walls show the right things, foreshortened; does the light agree (window on the left of the timetable wall, shadows to the right); are the wall colours, band height, floor and hand the same in both."
+ ],
+ "cases": [
+  {
+   "id": "sunburst-timetable",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/wall-c4-v4-corner.txt",
+   "est_usd": 0.036,
+   "note": "the timetable wall, lit from the left, the window's end on its left side wall"
+  },
+  {
+   "id": "sunburst-window",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/wall-c2-v4-corner.txt",
+   "references": [
+    "case:sunburst-timetable"
+   ],
+   "prompt_prefix": "The attached picture is the wall immediately to the RIGHT of the wall you are drawing now, in the same room, drawn by you a moment ago: a player turning right from this wall sees that one. Draw this wall in exactly the same style, hand, palette and box as the attached picture: the same cream wall and mint band at the same height, the same floor, the same ink and shading, the same light. The right corner of this picture is the left corner of that one, so what stands at the left end of that wall (its bookshelf and the poster above) appears here, foreshortened, on the narrow right side wall. Do not copy any other furniture from it.\n\n",
+   "est_usd": 0.036,
+   "note": "the window wall drawn from the timetable wall just made: the bookshelf's end on its right side wall, the same room"
+  },
+  {
+   "id": "seedream-5-pro-timetable",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "prompt_file": "../prompts/wall-c4-v4-corner.txt",
+   "est_usd": 0.045,
+   "note": "the timetable wall, lit from the left, the window's end on its left side wall",
+   "resolution": "2K",
+   "seed": 11
+  },
+  {
+   "id": "seedream-5-pro-window",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "prompt_file": "../prompts/wall-c2-v4-corner.txt",
+   "references": [
+    "case:seedream-5-pro-timetable"
+   ],
+   "prompt_prefix": "The attached picture is the wall immediately to the RIGHT of the wall you are drawing now, in the same room, drawn by you a moment ago: a player turning right from this wall sees that one. Draw this wall in exactly the same style, hand, palette and box as the attached picture: the same cream wall and mint band at the same height, the same floor, the same ink and shading, the same light. The right corner of this picture is the left corner of that one, so what stands at the left end of that wall (its bookshelf and the poster above) appears here, foreshortened, on the narrow right side wall. Do not copy any other furniture from it.\n\n",
+   "est_usd": 0.045,
+   "note": "the window wall drawn from the timetable wall just made: the bookshelf's end on its right side wall, the same room",
+   "resolution": "2K",
+   "seed": 11
+  },
+  {
+   "id": "nb2-timetable",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt_file": "../prompts/wall-c4-v4-corner.txt",
+   "est_usd": 0.1,
+   "note": "the timetable wall, lit from the left, the window's end on its left side wall",
+   "resolution": "2K"
+  },
+  {
+   "id": "nb2-window",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt_file": "../prompts/wall-c2-v4-corner.txt",
+   "references": [
+    "case:nb2-timetable"
+   ],
+   "prompt_prefix": "The attached picture is the wall immediately to the RIGHT of the wall you are drawing now, in the same room, drawn by you a moment ago: a player turning right from this wall sees that one. Draw this wall in exactly the same style, hand, palette and box as the attached picture: the same cream wall and mint band at the same height, the same floor, the same ink and shading, the same light. The right corner of this picture is the left corner of that one, so what stands at the left end of that wall (its bookshelf and the poster above) appears here, foreshortened, on the narrow right side wall. Do not copy any other furniture from it.\n\n",
+   "est_usd": 0.1,
+   "note": "the window wall drawn from the timetable wall just made: the bookshelf's end on its right side wall, the same room",
+   "resolution": "2K"
+  },
+  {
+   "id": "qwen-2.1-pro-timetable",
+   "model": "qwen/qwen-image-2.1-pro",
+   "prompt_file": "../prompts/wall-c4-v4-corner.txt",
+   "est_usd": 0.046,
+   "note": "the timetable wall, lit from the left, the window's end on its left side wall",
+   "resolution": "2K",
+   "seed": 11
+  },
+  {
+   "id": "qwen-2.1-pro-window",
+   "model": "qwen/qwen-image-2.1-pro",
+   "prompt_file": "../prompts/wall-c2-v4-corner.txt",
+   "references": [
+    "case:qwen-2.1-pro-timetable"
+   ],
+   "prompt_prefix": "The attached picture is the wall immediately to the RIGHT of the wall you are drawing now, in the same room, drawn by you a moment ago: a player turning right from this wall sees that one. Draw this wall in exactly the same style, hand, palette and box as the attached picture: the same cream wall and mint band at the same height, the same floor, the same ink and shading, the same light. The right corner of this picture is the left corner of that one, so what stands at the left end of that wall (its bookshelf and the poster above) appears here, foreshortened, on the narrow right side wall. Do not copy any other furniture from it.\n\n",
+   "est_usd": 0.046,
+   "note": "the window wall drawn from the timetable wall just made: the bookshelf's end on its right side wall, the same room",
+   "resolution": "2K",
+   "seed": 11
+  }
+ ],
+ "est_total_usd": 0.45
+}

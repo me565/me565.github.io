@@ -1,0 +1,58 @@
+{
+ "name": "wall-c4-round2: the shortlist draws the same wall from the updated prompt",
+ "prompt_file": "../prompts/wall-c4-v2.txt",
+ "defaults": {
+  "aspect_ratio": "16:9",
+  "n": 1
+ },
+ "notes": [
+  "The prompt carries every fix the sweep taught and the owner's preferences (21 Oct 2026): rendered style with shadows and finishing, closed cage with a lid, chair tucked under the desk, a little bare wall instead of generous, wordless rules poster, blank clock face, no window or plant, no mention of the turn arrows.",
+  "Shortlist from the owner's marks: Qwen 2.1 Pro, MAI-Image 2.6, Seedream 5.0 Pro, Nano Banana 2, GPT Image 2.5 Sunburst; Nano Banana 2.1 first try; Nano Banana Pro as the control.",
+  "Compare each against the same model's sweep picture."
+ ],
+ "cases": [
+  {
+   "id": "seedream-5-pro",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "est_usd": 0.045,
+   "resolution": "2K",
+   "seed": 11
+  },
+  {
+   "id": "nb2",
+   "model": "google/gemini-3.1-flash-image",
+   "est_usd": 0.1,
+   "resolution": "2K"
+  },
+  {
+   "id": "mai-2.6",
+   "model": "microsoft/mai-image-2.6",
+   "est_usd": 0.041
+  },
+  {
+   "id": "sunburst",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "est_usd": 0.017
+  },
+  {
+   "id": "qwen-2.1-pro",
+   "model": "qwen/qwen-image-2.1-pro",
+   "est_usd": 0.046,
+   "resolution": "2K",
+   "seed": 11
+  },
+  {
+   "id": "nb2.1",
+   "model": "google/gemini-nano-banana-2.1",
+   "est_usd": 0.04,
+   "resolution": "2K"
+  },
+  {
+   "id": "nbpro",
+   "model": "google/gemini-3-pro-image",
+   "est_usd": 0.135,
+   "resolution": "2K"
+  }
+ ],
+ "est_total_usd": 0.42
+}

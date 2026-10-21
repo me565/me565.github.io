@@ -55,7 +55,7 @@ Result:
 
 ## 3b. Motion sheet
 
-Every thing in the level that moves, decided before any art is made (playbook 4aa). A thing not listed here is painted into its wall and stays still.
+Every thing in the level that moves, decided before any art is made (playbook 4ab). A thing not listed here is painted into its wall and stays still.
 
 | View | Thing | When (idle / tap / solve) | Movement (engine name, or "new: …") | Art it needs (cut-out / parts + pivots / poses / code-drawn / none) | Sound | Settled state after |
 |---|---|---|---|---|---|---|
@@ -83,7 +83,7 @@ Signed off:
 - Stage key and plugin file:
 - Play link (pinned to commit):
 - What is placeholder: every wall, cut-out and close-up as labelled boxes; the moth's lines as text
-- What is real: puzzle logic, inventory, hints, saves, doors, the ending; the reward moments from the motion sheet, played with the grey boxes moving in the right order, so the timing is judged before the art exists (playbook 4aa)
+- What is real: puzzle logic, inventory, hints, saves, doors, the ending; the reward moments from the motion sheet, played with the grey boxes moving in the right order, so the timing is judged before the art exists (playbook 4ab)
 
 Tests: scripted playthrough passes · audit clean · no soft-lock (checklist 42) · owner played it on the tablet at 2000×700 · played once on a real Android phone (checklist 44) · reduced motion checked
 Target-age tester (if available): who, what they got stuck on, what they said

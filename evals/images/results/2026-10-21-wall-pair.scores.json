@@ -1,0 +1,22 @@
+{
+ "sunburst": {
+  "corner": "Both corners right. The timetable wall's left side wall shows the window's end with sky in it and the radiator's end below; the window wall's right side wall shows the bookshelf's end with its books and the poster's edge above. Daylight from the left on the timetable wall, a sunlit band on both floors, shadows to the right. Cream over mint at the same height on both, the same floor, the same hand.",
+  "rules": "All pass on both walls.",
+  "verdict": "The pair that meets. A player turning the corner would believe it."
+ },
+ "seedream-5-pro": {
+  "corner": "Both corners right: window end and radiator end on the timetable wall's left side, bookshelf end on the window wall's right side. The light agrees, with a band of sun across both floors. Same cream and mint, same floor. The mint band sits a little lower on the window wall than on the timetable wall, so the join would show a step.",
+  "rules": "Timetable wall: the bookshelf grew cupboard doors under its shelves (H3, minor). Window wall: all pass.",
+  "verdict": "Meets, with a small step in the band height. Softer and paler than its round-three hand."
+ },
+ "nb2": {
+  "corner": "Both corners right, drawn plainly: window end and radiator end on the left side of the timetable wall, bookshelf end on the right side of the window wall, plus a pale panel above it standing in for the poster. Light from the left on both, sun rays through the window. Same cream, same mint, same band height, same floor.",
+  "rules": "All pass on both walls.",
+  "verdict": "Meets, and the most exactly consistent pair, in the flattest hand."
+ },
+ "qwen-2.1-pro": {
+  "corner": "The corners are right in principle: window and radiator end on the left side of the timetable wall, bookshelf end on the right side of the window wall, light from the left, sun pooling on both floors, cream over mint on both. But the timetable wall put its bookshelf against the left side wall instead of the back wall, so the two bookshelf ends do not describe the same piece of furniture.",
+  "rules": "Timetable wall: clock drawn with hands at twelve (H4, asked for a blank face), books stacked on top of the bookshelf (gotcha 13), bookshelf on the wrong wall (H3). Window wall: all pass.",
+  "verdict": "Understands the corner, and still cannot leave the furniture where it was told. The most atmospheric pair and the least usable."
+ }
+}

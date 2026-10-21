@@ -1,0 +1,65 @@
+{
+ "name": "room-c5h-qwen-sketch: Qwen 2.1 Pro draws the whole room from the specification and the wordless layout sketches, with no finished wall as a reference",
+ "defaults": {
+  "aspect_ratio": "16:9",
+  "n": 1
+ },
+ "notes": [
+  "In the room run, Qwen's anchor wall (sketch only) was its first fully compliant wall, and its three walls drawn with finished walls attached came back speckled with noise and with the referenced walls' furniture copied in. So: words and the sketch, nothing else, same seed on every wall for a steady hand."
+ ],
+ "cases": [
+  {
+   "id": "qwen-c4",
+   "model": "qwen/qwen-image-2.1-pro",
+   "prompt_file": "../prompts/room-c5h/c4.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c4.png"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\n",
+   "resolution": "2K",
+   "seed": 11,
+   "est_usd": 0.046,
+   "note": "layout sketch only, no finished wall attached"
+  },
+  {
+   "id": "qwen-c1",
+   "model": "qwen/qwen-image-2.1-pro",
+   "prompt_file": "../prompts/room-c5h/c1.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c1.png"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\n",
+   "resolution": "2K",
+   "seed": 11,
+   "est_usd": 0.046,
+   "note": "layout sketch only, no finished wall attached"
+  },
+  {
+   "id": "qwen-c2",
+   "model": "qwen/qwen-image-2.1-pro",
+   "prompt_file": "../prompts/room-c5h/c2.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c2.png"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\n",
+   "resolution": "2K",
+   "seed": 11,
+   "est_usd": 0.046,
+   "note": "layout sketch only, no finished wall attached"
+  },
+  {
+   "id": "qwen-c3",
+   "model": "qwen/qwen-image-2.1-pro",
+   "prompt_file": "../prompts/room-c5h/c3.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c3.png"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\n",
+   "resolution": "2K",
+   "seed": 11,
+   "est_usd": 0.046,
+   "note": "layout sketch only, no finished wall attached"
+  }
+ ],
+ "est_total_usd": 0.18
+}

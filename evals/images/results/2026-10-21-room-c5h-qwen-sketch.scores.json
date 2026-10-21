@@ -1,0 +1,7 @@
+{
+ "qwen-sketch": {
+  "room": "The compliant Qwen room. Drawn from the specification and the wordless sketches alone, same seed on every wall: cream over mint at one height on all four, one floor, light from the window on every wall, no noise, no copied furniture. Every object where its box is, the clock blank, the rules poster wordless, SUPPLIES, 5H and LOST PROPERTY as the only words, four pots, a closed cage. Three corners meet: the coat pegs and the bookshelf on the window wall, the window and the cupboard on the timetable wall, the teacher's desk and the window on the door wall.",
+  "faults": "One corner wrong: the whiteboard wall's left side shows the window wall (with pots and a radiator) where the timetable wall's filing cabinet should be; the window wall is opposite, not adjacent. The teacher's desk reads as a chest of drawers. The bookshelf's end on the window wall is an empty shelf.",
+  "verdict": "Tamed. Words and a sketch, never a picture of another wall: three rounds of refusal, then a room in one pass, with one corner to fix. Its hand survives the taming."
+ }
+}

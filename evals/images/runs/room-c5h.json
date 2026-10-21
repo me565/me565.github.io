@@ -1,0 +1,230 @@
+{
+ "name": "room-c5h: the whole classroom, four walls per model, from a room specification, a layout sketch per wall, anchor first, the finished neighbours as references",
+ "defaults": {
+  "aspect_ratio": "16:9",
+  "n": 1
+ },
+ "notes": [
+  "Owner, 21 Oct 2026: make the flow more compliant, for Qwen and the rest. Changes: one room specification shared by all four prompts (rooms/classroom5h.json, built into prompts by room_prompts.py); a wordless layout sketch per wall (layout.py) attached as the first reference; the timetable wall first as the anchor, then the two walls that meet it with the anchor attached, then the opposite wall with all three attached; references sent in the field the API actually reads (input_references), which the earlier reference runs did not use.",
+  "Judge as the player would, turning all the way round: do the four corners meet, is the light consistent with one window, is the band at one height, do the walls and floor match, is every object where its box is."
+ ],
+ "cases": [
+  {
+   "id": "sunburst-c4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-c5h/c4.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c4.png"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: numbered grey boxes mark exactly where each numbered item in the list below stands, the grey blocks on the two side walls mark where the neighbouring walls' ends show, and the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\n",
+   "est_usd": 0.04,
+   "note": "the timetable wall (north); references: layout sketch"
+  },
+  {
+   "id": "sunburst-c1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-c5h/c1.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c1.png",
+    "case:sunburst-c4"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: numbered grey boxes mark exactly where each numbered item in the list below stands, the grey blocks on the two side walls mark where the neighbouring walls' ends show, and the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the timetable wall (north) of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the whiteboard wall (east), to the right of the timetable wall; references: layout sketch, then the timetable wall (north)"
+  },
+  {
+   "id": "sunburst-c2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-c5h/c2.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c2.png",
+    "case:sunburst-c4"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: numbered grey boxes mark exactly where each numbered item in the list below stands, the grey blocks on the two side walls mark where the neighbouring walls' ends show, and the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the timetable wall (north) of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the window wall (west), to the left of the timetable wall; references: layout sketch, then the timetable wall (north)"
+  },
+  {
+   "id": "sunburst-c3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-c5h/c3.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c3.png",
+    "case:sunburst-c1",
+    "case:sunburst-c2",
+    "case:sunburst-c4"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: numbered grey boxes mark exactly where each numbered item in the list below stands, the grey blocks on the two side walls mark where the neighbouring walls' ends show, and the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the whiteboard wall (east), to the right of the timetable wall of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 3 is the window wall (west), to the left of the timetable wall of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 4 is the timetable wall (north) of this same room, finished, drawn by you a moment ago; it is OPPOSITE this wall, behind the viewer. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the door wall (south), opposite the timetable wall; references: layout sketch, then the whiteboard wall (east), to the right of the timetable wall, the window wall (west), to the left of the timetable wall, the timetable wall (north)"
+  },
+  {
+   "id": "seedream-5-pro-c4",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "prompt_file": "../prompts/room-c5h/c4.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c4.png"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: numbered grey boxes mark exactly where each numbered item in the list below stands, the grey blocks on the two side walls mark where the neighbouring walls' ends show, and the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\n",
+   "est_usd": 0.045,
+   "note": "the timetable wall (north); references: layout sketch",
+   "resolution": "2K",
+   "seed": 11
+  },
+  {
+   "id": "seedream-5-pro-c1",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "prompt_file": "../prompts/room-c5h/c1.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c1.png",
+    "case:seedream-5-pro-c4"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: numbered grey boxes mark exactly where each numbered item in the list below stands, the grey blocks on the two side walls mark where the neighbouring walls' ends show, and the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the timetable wall (north) of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.045,
+   "note": "the whiteboard wall (east), to the right of the timetable wall; references: layout sketch, then the timetable wall (north)",
+   "resolution": "2K",
+   "seed": 11
+  },
+  {
+   "id": "seedream-5-pro-c2",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "prompt_file": "../prompts/room-c5h/c2.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c2.png",
+    "case:seedream-5-pro-c4"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: numbered grey boxes mark exactly where each numbered item in the list below stands, the grey blocks on the two side walls mark where the neighbouring walls' ends show, and the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the timetable wall (north) of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.045,
+   "note": "the window wall (west), to the left of the timetable wall; references: layout sketch, then the timetable wall (north)",
+   "resolution": "2K",
+   "seed": 11
+  },
+  {
+   "id": "seedream-5-pro-c3",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "prompt_file": "../prompts/room-c5h/c3.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c3.png",
+    "case:seedream-5-pro-c1",
+    "case:seedream-5-pro-c2",
+    "case:seedream-5-pro-c4"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: numbered grey boxes mark exactly where each numbered item in the list below stands, the grey blocks on the two side walls mark where the neighbouring walls' ends show, and the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the whiteboard wall (east), to the right of the timetable wall of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 3 is the window wall (west), to the left of the timetable wall of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 4 is the timetable wall (north) of this same room, finished, drawn by you a moment ago; it is OPPOSITE this wall, behind the viewer. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.045,
+   "note": "the door wall (south), opposite the timetable wall; references: layout sketch, then the whiteboard wall (east), to the right of the timetable wall, the window wall (west), to the left of the timetable wall, the timetable wall (north)",
+   "resolution": "2K",
+   "seed": 11
+  },
+  {
+   "id": "nb2-c4",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt_file": "../prompts/room-c5h/c4.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c4.png"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: numbered grey boxes mark exactly where each numbered item in the list below stands, the grey blocks on the two side walls mark where the neighbouring walls' ends show, and the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\n",
+   "est_usd": 0.1,
+   "note": "the timetable wall (north); references: layout sketch",
+   "resolution": "2K"
+  },
+  {
+   "id": "nb2-c1",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt_file": "../prompts/room-c5h/c1.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c1.png",
+    "case:nb2-c4"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: numbered grey boxes mark exactly where each numbered item in the list below stands, the grey blocks on the two side walls mark where the neighbouring walls' ends show, and the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the timetable wall (north) of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.1,
+   "note": "the whiteboard wall (east), to the right of the timetable wall; references: layout sketch, then the timetable wall (north)",
+   "resolution": "2K"
+  },
+  {
+   "id": "nb2-c2",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt_file": "../prompts/room-c5h/c2.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c2.png",
+    "case:nb2-c4"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: numbered grey boxes mark exactly where each numbered item in the list below stands, the grey blocks on the two side walls mark where the neighbouring walls' ends show, and the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the timetable wall (north) of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.1,
+   "note": "the window wall (west), to the left of the timetable wall; references: layout sketch, then the timetable wall (north)",
+   "resolution": "2K"
+  },
+  {
+   "id": "nb2-c3",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt_file": "../prompts/room-c5h/c3.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c3.png",
+    "case:nb2-c1",
+    "case:nb2-c2",
+    "case:nb2-c4"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: numbered grey boxes mark exactly where each numbered item in the list below stands, the grey blocks on the two side walls mark where the neighbouring walls' ends show, and the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the whiteboard wall (east), to the right of the timetable wall of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 3 is the window wall (west), to the left of the timetable wall of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 4 is the timetable wall (north) of this same room, finished, drawn by you a moment ago; it is OPPOSITE this wall, behind the viewer. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.1,
+   "note": "the door wall (south), opposite the timetable wall; references: layout sketch, then the whiteboard wall (east), to the right of the timetable wall, the window wall (west), to the left of the timetable wall, the timetable wall (north)",
+   "resolution": "2K"
+  },
+  {
+   "id": "qwen-2.1-pro-c4",
+   "model": "qwen/qwen-image-2.1-pro",
+   "prompt_file": "../prompts/room-c5h/c4.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c4.png"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: numbered grey boxes mark exactly where each numbered item in the list below stands, the grey blocks on the two side walls mark where the neighbouring walls' ends show, and the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\n",
+   "est_usd": 0.046,
+   "note": "the timetable wall (north); references: layout sketch",
+   "resolution": "2K",
+   "seed": 11
+  },
+  {
+   "id": "qwen-2.1-pro-c1",
+   "model": "qwen/qwen-image-2.1-pro",
+   "prompt_file": "../prompts/room-c5h/c1.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c1.png",
+    "case:qwen-2.1-pro-c4"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: numbered grey boxes mark exactly where each numbered item in the list below stands, the grey blocks on the two side walls mark where the neighbouring walls' ends show, and the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the timetable wall (north) of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.046,
+   "note": "the whiteboard wall (east), to the right of the timetable wall; references: layout sketch, then the timetable wall (north)",
+   "resolution": "2K",
+   "seed": 11
+  },
+  {
+   "id": "qwen-2.1-pro-c2",
+   "model": "qwen/qwen-image-2.1-pro",
+   "prompt_file": "../prompts/room-c5h/c2.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c2.png",
+    "case:qwen-2.1-pro-c4"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: numbered grey boxes mark exactly where each numbered item in the list below stands, the grey blocks on the two side walls mark where the neighbouring walls' ends show, and the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the timetable wall (north) of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.046,
+   "note": "the window wall (west), to the left of the timetable wall; references: layout sketch, then the timetable wall (north)",
+   "resolution": "2K",
+   "seed": 11
+  },
+  {
+   "id": "qwen-2.1-pro-c3",
+   "model": "qwen/qwen-image-2.1-pro",
+   "prompt_file": "../prompts/room-c5h/c3.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c3.png",
+    "case:qwen-2.1-pro-c1",
+    "case:qwen-2.1-pro-c2",
+    "case:qwen-2.1-pro-c4"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: numbered grey boxes mark exactly where each numbered item in the list below stands, the grey blocks on the two side walls mark where the neighbouring walls' ends show, and the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the whiteboard wall (east), to the right of the timetable wall of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 3 is the window wall (west), to the left of the timetable wall of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 4 is the timetable wall (north) of this same room, finished, drawn by you a moment ago; it is OPPOSITE this wall, behind the viewer. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.046,
+   "note": "the door wall (south), opposite the timetable wall; references: layout sketch, then the whiteboard wall (east), to the right of the timetable wall, the window wall (west), to the left of the timetable wall, the timetable wall (north)",
+   "resolution": "2K",
+   "seed": 11
+  }
+ ],
+ "est_total_usd": 0.92
+}

@@ -55,10 +55,10 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 26. **Living background** only where a real thing would move, slow and small, one or two per view, at rest under reduced motion, never the sole carrier of a clue (log 31).
 27. **Openables open and close**, before and after their contents are taken, and stay as left (log 30). Doorways between rooms are exempt.
 28. **Never leave a blank.** A movement that fails part-way leaves the thing at rest; a picture is never read outside its edges; a pixel read is wrapped, because some hosts forbid it (the globe, logs 36–37).
-50. **Movement was planned.** Every thing that moves was on the level's motion sheet before its art was made; no wall was regenerated to cut a moving thing out of it (playbook 4aa).
-51. **Every solve has a reward moment.** A lock that opens shows the lock reacting, the thing opening by its own movement and what was inside, with sound, in about three seconds, then a settled state that stays (playbook 4aa).
-52. **Joints never gap.** A thing in hinged parts shows no seam, gap or doubled edge at its joints, checked in a screenshot at the furthest point of every movement (playbook 4aa).
-53. **Poses match.** A pose swap jumps only in the part that changes: same size, place, line and colour in every pose (playbook 4aa).
+53. **Movement was planned.** Every thing that moves was on the level's motion sheet before its art was made; no wall was regenerated to cut a moving thing out of it (playbook 4ab).
+54. **Every solve has a reward moment.** A lock that opens shows the lock reacting, the thing opening by its own movement and what was inside, with sound, in about three seconds, then a settled state that stays (playbook 4ab).
+55. **Joints never gap.** A thing in hinged parts shows no seam, gap or doubled edge at its joints, checked in a screenshot at the furthest point of every movement (playbook 4ab).
+56. **Poses match.** A pose swap jumps only in the part that changes: same size, place, line and colour in every pose (playbook 4ab).
 
 
 ## E. Every close-up and gesture
@@ -105,3 +105,10 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 ## H. People and things move
 
 49. **Someone or something moves with the story.** Each stage lists in STORY.md who moves, after which beat, to where, and why it makes sense (Priya from the galley to the aisle with breakfast once the screen is awake); the hints follow them (log 52).
+
+## I. Walls from a room specification (owner, 21 Oct 2026)
+
+50. **One room, one specification.** Every wall of a room is prompted from the same room file: palette, band height, the one light source, every object with its position and size; the sketch has nothing written on it; the anchor wall goes first. A wall prompted on its own is not a wall of the room (playbook 4ab).
+51. **Corners name their neighbour.** Each side wall's sentence names the exact object at the neighbour's near end and what is out of view, and ties sizes to the band, so the window is the same window from both walls and the cupboard is nearest the corner on both (owner's room marks: Seedream's window, Nano Banana 2's cupboard).
+52. **The game draws what a puzzle reads.** Clock faces blank, grids empty, labels two or three short words at most; everything else is lettering the model will get wrong (fourteen wrong clocks in thirty-one).
+

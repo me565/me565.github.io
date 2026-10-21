@@ -14,7 +14,7 @@ How The Moth House gets the small, constant movement that Rusty Lake and Dark Do
 
 Nothing here spends API credit by itself. The gate rules in `CLAUDE.md` still hold.
 
-*Applied on 21 Oct 2026: steps 1 to 6 are done (playbook 4aa and backlog 20 to 23, the template's motion sheet and "Moves?" column, checklist 50 to 53, this file listed in `CLAUDE.md`). This file stays as the record of why.*
+*Applied on 21 Oct 2026: steps 1 to 6 are done, with two numbers shifted because the image-evaluation work landed on `main` the same day and took them first: the playbook section is **4ab** (4aa is "Walls from a room specification") and the checklist lines are **53 to 56** (50 to 52 are the room-specification lines). Backlog 20 to 23 kept their numbers. The text below is the plan as the owner wrote it, so it still says 4aa and 50 to 53. This file stays as the record of why.*
 
 ---
 
@@ -89,7 +89,7 @@ Paste this block between "3. Puzzle chart" and "Gate B":
 ```markdown
 ## 3b. Motion sheet
 
-Every thing in the level that moves, decided before any art is made (playbook 4aa). A thing not listed here is painted into its wall and stays still.
+Every thing in the level that moves, decided before any art is made (playbook 4ab). A thing not listed here is painted into its wall and stays still.
 
 | View | Thing | When (idle / tap / solve) | Movement (engine name, or "new: …") | Art it needs (cut-out / parts + pivots / poses / code-drawn / none) | Sound | Settled state after |
 |---|---|---|---|---|---|---|
@@ -131,10 +131,10 @@ A wall's prompt names everything the sheet says moves as absent from it ("the sh
 
 ## Checklist lines — for `next/CHECKLIST.md`, section D
 
-50. **Movement was planned.** Every thing that moves was on the level's motion sheet before its art was made; no wall was regenerated to cut a moving thing out of it (playbook 4aa).
-51. **Every solve has a reward moment.** A lock that opens shows the lock reacting, the thing opening by its own movement and what was inside, with sound, in about three seconds, then a settled state that stays (playbook 4aa).
-52. **Joints never gap.** A thing in hinged parts shows no seam, gap or doubled edge at its joints, checked in a screenshot at the furthest point of every movement (playbook 4aa).
-53. **Poses match.** A pose swap jumps only in the part that changes: same size, place, line and colour in every pose (playbook 4aa).
+50. **Movement was planned.** Every thing that moves was on the level's motion sheet before its art was made; no wall was regenerated to cut a moving thing out of it (playbook 4ab).
+51. **Every solve has a reward moment.** A lock that opens shows the lock reacting, the thing opening by its own movement and what was inside, with sound, in about three seconds, then a settled state that stays (playbook 4ab).
+52. **Joints never gap.** A thing in hinged parts shows no seam, gap or doubled edge at its joints, checked in a screenshot at the furthest point of every movement (playbook 4ab).
+53. **Poses match.** A pose swap jumps only in the part that changes: same size, place, line and colour in every pose (playbook 4ab).
 
 ---
 

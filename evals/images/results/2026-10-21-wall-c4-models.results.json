@@ -1,0 +1,1462 @@
+{
+ "name": "wall-c4-models: every reachable image model draws the Classroom 5H back wall",
+ "manifest": "evals/images/runs/wall-c4-models.json",
+ "ran_at": "2026-10-21T01:49:04Z",
+ "total_cost_usd": 1.9141,
+ "results": [
+  {
+   "id": "flux-3-image",
+   "model": "black-forest-labs/flux-3-image",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 47.8,
+   "cost_usd": 0.1,
+   "usage": {
+    "prompt_tokens": 550,
+    "completion_tokens": 4175,
+    "total_tokens": 4725,
+    "cost": 0.1,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.1,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.1
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "flux-3-image.png",
+     "bytes": 6035066,
+     "size": [
+      2736,
+      1536
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "flux-3-image-klein",
+   "model": "black-forest-labs/flux-3-image-klein",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 14.2,
+   "cost_usd": 0.014,
+   "usage": {
+    "prompt_tokens": 550,
+    "completion_tokens": 4175,
+    "total_tokens": 4725,
+    "cost": 0.014,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.014,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.014
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "flux-3-image-klein.jpg",
+     "bytes": 1589951,
+     "size": [
+      2736,
+      1536
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "flux.2-max",
+   "model": "black-forest-labs/flux.2-max",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 40.1,
+   "cost_usd": 0.1,
+   "usage": {
+    "prompt_tokens": 550,
+    "completion_tokens": 7291,
+    "total_tokens": 7841,
+    "cost": 0.1,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.1,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.1
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 7291
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "flux.2-max.jpg",
+     "bytes": 671954,
+     "size": [
+      1824,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "flux.2-pro",
+   "model": "black-forest-labs/flux.2-pro",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 19.7,
+   "cost_usd": 0.045,
+   "usage": {
+    "prompt_tokens": 550,
+    "completion_tokens": 7291,
+    "total_tokens": 7841,
+    "cost": 0.045,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.045,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.045
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 7291
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "flux.2-pro.jpg",
+     "bytes": 769055,
+     "size": [
+      1824,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "seedream-4.5",
+   "model": "bytedance-seed/seedream-4.5",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 15.8,
+   "cost_usd": 0.04,
+   "usage": {
+    "prompt_tokens": 550,
+    "completion_tokens": 14400,
+    "total_tokens": 14950,
+    "cost": 0.04,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.04,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.04
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 14400
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "seedream-4.5.jpg",
+     "bytes": 816312,
+     "size": [
+      2560,
+      1440
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "seedream-5-0-flash",
+   "model": "bytedance-seed/seedream-5-0-flash",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 19.7,
+   "cost_usd": 0.018,
+   "usage": {
+    "prompt_tokens": 550,
+    "completion_tokens": 9216,
+    "total_tokens": 9766,
+    "cost": 0.018,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.018,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.018
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 9216
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "seedream-5-0-flash.jpg",
+     "bytes": 329559,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "seedream-5-0-lite",
+   "model": "bytedance-seed/seedream-5-0-lite",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 61.2,
+   "cost_usd": 0.035,
+   "usage": {
+    "prompt_tokens": 550,
+    "completion_tokens": 14400,
+    "total_tokens": 14950,
+    "cost": 0.035,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.035,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.035
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 14400
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "seedream-5-0-lite.jpg",
+     "bytes": 386853,
+     "size": [
+      2560,
+      1440
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "seedream-5-0-pro",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 69.8,
+   "cost_usd": 0.045,
+   "usage": {
+    "prompt_tokens": 550,
+    "completion_tokens": 9216,
+    "total_tokens": 9766,
+    "cost": 0.045,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.045,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.045
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 9216
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "seedream-5-0-pro.jpg",
+     "bytes": 276653,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "gemini-3-pro-image",
+   "model": "google/gemini-3-pro-image",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 36.6,
+   "cost_usd": 0.135384,
+   "usage": {
+    "prompt_tokens": 492,
+    "completion_tokens": 1120,
+    "total_tokens": 1612,
+    "cost": 0.135384,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.135384,
+     "upstream_inference_prompt_cost": 0.000984,
+     "upstream_inference_completions_cost": 0.1344
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "gemini-3-pro-image.png",
+     "bytes": 5122044,
+     "size": [
+      2752,
+      1536
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "gemini-3.1-flash-image",
+   "model": "google/gemini-3.1-flash-image",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 17.6,
+   "cost_usd": 0.101046,
+   "usage": {
+    "prompt_tokens": 492,
+    "completion_tokens": 1680,
+    "total_tokens": 2172,
+    "cost": 0.101046,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.101046,
+     "upstream_inference_prompt_cost": 0.000246,
+     "upstream_inference_completions_cost": 0.1008
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1680
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "gemini-3.1-flash-image.png",
+     "bytes": 5107565,
+     "size": [
+      2752,
+      1536
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "gemini-3.1-flash-lite-image",
+   "model": "google/gemini-3.1-flash-lite-image",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 3.5,
+   "cost_usd": 0.033723,
+   "usage": {
+    "prompt_tokens": 492,
+    "completion_tokens": 1120,
+    "total_tokens": 1612,
+    "cost": 0.033723,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.033723,
+     "upstream_inference_prompt_cost": 0.000123,
+     "upstream_inference_completions_cost": 0.0336
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "gemini-3.1-flash-lite-image.jpg",
+     "bytes": 121040,
+     "size": [
+      1376,
+      768
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "gemini-nano-banana-2.1",
+   "model": "google/gemini-nano-banana-2.1",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "ok": false,
+   "error": "HTTP 429: {\"error\":{\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current us\u2026\",\"code\":429,\"metadata\":{\"provider_name\":\"Google AI Studio\"}}}",
+   "seconds": 16.2
+  },
+  {
+   "id": "krea-2-large",
+   "model": "krea/krea-2-large",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 27.1,
+   "cost_usd": 0.06,
+   "usage": {
+    "prompt_tokens": 550,
+    "completion_tokens": 4175,
+    "total_tokens": 4725,
+    "cost": 0.06,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.06,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.06
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "krea-2-large.png",
+     "bytes": 1098488,
+     "size": [
+      1376,
+      768
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "krea-2-medium",
+   "model": "krea/krea-2-medium",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 10.6,
+   "cost_usd": 0.03,
+   "usage": {
+    "prompt_tokens": 550,
+    "completion_tokens": 4175,
+    "total_tokens": 4725,
+    "cost": 0.03,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.03,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.03
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "krea-2-medium.png",
+     "bytes": 1134973,
+     "size": [
+      1376,
+      768
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "krea-2-medium-turbo",
+   "model": "krea/krea-2-medium-turbo",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 8.7,
+   "cost_usd": 0.015,
+   "usage": {
+    "prompt_tokens": 550,
+    "completion_tokens": 4175,
+    "total_tokens": 4725,
+    "cost": 0.015,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.015,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.015
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "krea-2-medium-turbo.png",
+     "bytes": 933602,
+     "size": [
+      1376,
+      768
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "mai-image-2.5",
+   "model": "microsoft/mai-image-2.5",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 28.9,
+   "cost_usd": 0.050375,
+   "usage": {
+    "prompt_tokens": 487,
+    "completion_tokens": 1020,
+    "total_tokens": 1507,
+    "cost": 0.050375,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.050375,
+     "upstream_inference_prompt_cost": 0.002435,
+     "upstream_inference_completions_cost": 0.04794
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1020
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "mai-image-2.5.png",
+     "bytes": 1443446,
+     "size": [
+      1360,
+      768
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "mai-image-2.5-pro",
+   "model": "microsoft/mai-image-2.5-pro",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 34.5,
+   "cost_usd": 0.112595,
+   "usage": {
+    "prompt_tokens": 487,
+    "completion_tokens": 1020,
+    "total_tokens": 1507,
+    "cost": 0.112595,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.112595,
+     "upstream_inference_prompt_cost": 0.002435,
+     "upstream_inference_completions_cost": 0.11016
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1020
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "mai-image-2.5-pro.png",
+     "bytes": 1382964,
+     "size": [
+      1360,
+      768
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "mai-image-2.6",
+   "model": "microsoft/mai-image-2.6",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 24.7,
+   "cost_usd": 0.04119,
+   "usage": {
+    "prompt_tokens": 486,
+    "completion_tokens": 1020,
+    "total_tokens": 1506,
+    "cost": 0.04119,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.04119,
+     "upstream_inference_prompt_cost": 0.00243,
+     "upstream_inference_completions_cost": 0.03876
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1020
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "mai-image-2.6.png",
+     "bytes": 1472770,
+     "size": [
+      1360,
+      768
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "mai-image-2.6-flash",
+   "model": "microsoft/mai-image-2.6-flash",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 10.3,
+   "cost_usd": 0.0202305,
+   "usage": {
+    "prompt_tokens": 486,
+    "completion_tokens": 1020,
+    "total_tokens": 1506,
+    "cost": 0.0202305,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.0202305,
+     "upstream_inference_prompt_cost": 0.0008505,
+     "upstream_inference_completions_cost": 0.01938
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1020
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "mai-image-2.6-flash.png",
+     "bytes": 1466873,
+     "size": [
+      1360,
+      768
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "gpt-5.4-image-2",
+   "model": "openai/gpt-5.4-image-2",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 20.9,
+   "cost_usd": 0.018344,
+   "usage": {
+    "prompt_tokens": 493,
+    "completion_tokens": 480,
+    "total_tokens": 973,
+    "cost": 0.018344,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.018344,
+     "upstream_inference_prompt_cost": 0.003944,
+     "upstream_inference_completions_cost": 0.0144
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 480
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "gpt-5.4-image-2.png",
+     "bytes": 2081782,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "gpt-image-1-mini",
+   "model": "openai/gpt-image-1-mini",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "ok": false,
+   "error": "HTTP 400: {\"error\":{\"message\":\"No provider for openai/gpt-image-1-mini supports the requested parameter(s): aspect_ratio \\\"16:9\\\", n \\\"1\\\". Provider rejections: OpenAI: aspect_ratio: not supported. Accepted: 1:1, 3:2, 2:3, auto\",\"code\":400,\"metadata\":{\"routing_funnel\":[{\"step\":\"Initial Endpoints\",\"endpoint_count\":1}],\"failed_routing_step\":\"Filter by Image Capabilities\"}}}",
+   "seconds": 0.1
+  },
+  {
+   "id": "gpt-image-2",
+   "model": "openai/gpt-image-2",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 27.9,
+   "cost_usd": 0.034805,
+   "usage": {
+    "prompt_tokens": 493,
+    "completion_tokens": 1078,
+    "total_tokens": 1571,
+    "cost": 0.034805,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.034805,
+     "upstream_inference_prompt_cost": 0.002465,
+     "upstream_inference_completions_cost": 0.03234
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1078
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "gpt-image-2.png",
+     "bytes": 2166879,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "gpt-image-2.5-flare",
+   "model": "openai/gpt-image-2.5-flare",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 16.4,
+   "cost_usd": 0.016865,
+   "usage": {
+    "prompt_tokens": 493,
+    "completion_tokens": 480,
+    "total_tokens": 973,
+    "cost": 0.016865,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.016865,
+     "upstream_inference_prompt_cost": 0.002465,
+     "upstream_inference_completions_cost": 0.0144
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 480
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "gpt-image-2.5-flare.png",
+     "bytes": 1915437,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "gpt-image-2.5-sunburst",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 21.8,
+   "cost_usd": 0.016865,
+   "usage": {
+    "prompt_tokens": 493,
+    "completion_tokens": 480,
+    "total_tokens": 973,
+    "cost": 0.016865,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.016865,
+     "upstream_inference_prompt_cost": 0.002465,
+     "upstream_inference_completions_cost": 0.0144
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 480
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "gpt-image-2.5-sunburst.png",
+     "bytes": 1992756,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "qwen-image-2.1-pro",
+   "model": "qwen/qwen-image-2.1-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 33.3,
+   "cost_usd": 0.046,
+   "usage": {
+    "prompt_tokens": 550,
+    "completion_tokens": 4175,
+    "total_tokens": 4725,
+    "cost": 0.046,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.046,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.046
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "qwen-image-2.1-pro.png",
+     "bytes": 3590502,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "qwen-image-2.1-turbo",
+   "model": "qwen/qwen-image-2.1-turbo",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 25.4,
+   "cost_usd": 0.0184,
+   "usage": {
+    "prompt_tokens": 550,
+    "completion_tokens": 4175,
+    "total_tokens": 4725,
+    "cost": 0.0184,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.0184,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.0184
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "qwen-image-2.1-turbo.png",
+     "bytes": 3158233,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "qwen-image-3",
+   "model": "qwen/qwen-image-3",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 79.5,
+   "cost_usd": 0.03,
+   "usage": {
+    "prompt_tokens": 550,
+    "completion_tokens": 4175,
+    "total_tokens": 4725,
+    "cost": 0.03,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.03,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.03
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "qwen-image-3.png",
+     "bytes": 1942363,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "qwen-image-3-pro",
+   "model": "qwen/qwen-image-3-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 81.8,
+   "cost_usd": 0.075,
+   "usage": {
+    "prompt_tokens": 550,
+    "completion_tokens": 4175,
+    "total_tokens": 4725,
+    "cost": 0.075,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.075,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.075
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "qwen-image-3-pro.png",
+     "bytes": 2236569,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "recraft-v4.1",
+   "model": "recraft/recraft-v4.1",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 7.3,
+   "cost_usd": 0.035,
+   "usage": {
+    "prompt_tokens": 550,
+    "completion_tokens": 4175,
+    "total_tokens": 4725,
+    "cost": 0.035,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.035,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.035
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "recraft-v4.1.webp",
+     "bytes": 610776,
+     "size": [
+      1344,
+      768
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "recraft-v4.1-pro",
+   "model": "recraft/recraft-v4.1-pro",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 9.4,
+   "cost_usd": 0.21,
+   "usage": {
+    "prompt_tokens": 550,
+    "completion_tokens": 4175,
+    "total_tokens": 4725,
+    "cost": 0.21,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.21,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.21
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "recraft-v4.1-pro.webp",
+     "bytes": 2743614,
+     "size": [
+      2688,
+      1536
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "riverflow-v2.5-fast",
+   "model": "sourceful/riverflow-v2.5-fast",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 111.3,
+   "cost_usd": 0.072616,
+   "usage": {
+    "prompt_tokens": 550,
+    "completion_tokens": 4175,
+    "total_tokens": 4725,
+    "cost": 0.072616,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.072616,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.072616
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "riverflow-v2.5-fast.webp",
+     "bytes": 101790,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "riverflow-v2.5-pro",
+   "model": "sourceful/riverflow-v2.5-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 91.6,
+   "cost_usd": 0.263649,
+   "usage": {
+    "prompt_tokens": 550,
+    "completion_tokens": 4175,
+    "total_tokens": 4725,
+    "cost": 0.263649,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.263649,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.263649
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "riverflow-v2.5-pro.webp",
+     "bytes": 256310,
+     "size": [
+      2560,
+      1440
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "grok-imagine-image-2.0",
+   "model": "x-ai/grok-imagine-image-2.0",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "",
+   "seconds": 94.5,
+   "cost_usd": 0.08,
+   "usage": {
+    "prompt_tokens": 550,
+    "completion_tokens": 4175,
+    "total_tokens": 4725,
+    "cost": 0.08,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.08,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.08
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "grok-imagine-image-2.0.png",
+     "bytes": 5190787,
+     "size": [
+      2816,
+      1584
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}

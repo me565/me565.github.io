@@ -210,7 +210,7 @@ Every fault found in this level, where it was found, and what happened to it.
 
 ## Notes for this level only
 
-- 21 Oct 2026: the micro-animation plan (`next/MOTION.md`, playbook 4aa) came in while version 3 was between Gate B and Gate C. The engine is frozen for it, so it gets no new movements (backlog 20 to 23) until it is released; the motion sheet is filled at its next gate, not retrofitted to Gate B.
+- 21 Oct 2026: the micro-animation plan (`next/MOTION.md`, playbook 4ab) came in while version 3 was between Gate B and Gate C. The engine is frozen for it, so it gets no new movements (backlog 20 to 23) until it is released; the motion sheet is filled at its next gate, not retrofitted to Gate B.
 
 - 17 Oct 2026, builds 2026-10-17b/c: the classroom was the prototype for engine-painted side walls (playbook 4z). The owner judged it odd and the prototype is switched off; the measured boxes are kept here for when the walls are redone: c1 back [5.8, 94.2, 14.1, 88.1], sides inner yT 14.1/yB 88.1, outer yT0 19.1/yB0 92.8 (left) and 19.1/92.6 (right); c2 back [7.6, 92.3, 8.6, 88.9], outer 0.5/95.2 and 0.6/95.1; c3 back [7.6, 92.4, 9.7, 91.9], outer 1.7/94.8 and 1.5/94.7; c4 back [19.5, 80.4, 9.4, 83.9], side panels flat, outer 8.0/84.5 both sides.
 - **Room specification needed before any wall of this level is regenerated** (checklist 43 finding, 17 Oct 2026): the four classroom walls disagree on the mint band's height (mid-wall on c4, low on c1), the ceiling height, the floor line and the cream. The same check is owed for the corridor, library, art room and hall. A regeneration is a Gate D item with an estimate (four walls for the classroom; up to twenty for the stage).

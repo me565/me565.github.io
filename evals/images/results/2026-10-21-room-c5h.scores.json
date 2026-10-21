@@ -1,0 +1,34 @@
+{
+ "sunburst": {
+  "room": "One room. Cream over mint at one height on all four walls, one floor, sun from the window on every wall, and all four corners meet: the bookshelf's end on the window wall, the window and radiator ends on the timetable wall, the cabinet and the bin on the whiteboard wall, the teacher's desk and the window on the door wall. Every object stands where its box is.",
+  "faults": "A roller blind on the window and a purple chair at the teacher's desk, neither listed. Otherwise every rule passes on every wall.",
+  "verdict": "The room that works. Four walls, four corners, one light, from a specification and a sketch.",
+  "owner": 9,
+  "owner_note": "very good wall-to-wall consistency; proportionate, items line up, light and floor shadows consistent; best so far; not my favourite style",
+  "call": "LEAD for walls"
+ },
+ "nb2": {
+  "room": "One room, consistent to the colour, all four corners right, every object where its box is, the blank clock, the labels. The flattest hand of the four, which is also the closest to the 52 walls already in the game.",
+  "faults": "The sketch's list numbers were drawn into the walls: a 1, 2, 3 on the window wall and the whiteboard wall. The sketches now carry no digits at all. A chair at the teacher's desk, not listed.",
+  "verdict": "Works, once the sketch is wordless. The cheapest reliable room.",
+  "owner": null,
+  "owner_note": "graphics a little basic, comic style, better seen today; numbers visible on some items (the sketch leak); whiteboard and supplies cupboard swapped between walls; generally very consistent",
+  "call": "fallback"
+ },
+ "seedream-5-pro": {
+  "room": "One room in palette and light, soft and pale, with a greyish wash on the walls. Three corners right; on the window wall the right side wall is bare where the bookshelf's end should be. The band is one height throughout.",
+  "faults": "The window wall's right corner is empty. The walls look grubby on the door wall. Objects are where their boxes are.",
+  "verdict": "Nearly works; the softest hand, and one corner missed.",
+  "owner": null,
+  "owner_note": "shadows and lighting really good; the window a different size from wall to wall; the band meets the window differently on the window wall and the timetable wall",
+  "call": "out: scale drift at the corner"
+ },
+ "qwen-2.1-pro": {
+  "room": "Its anchor wall, drawn from the specification and the sketch alone, is the first fully compliant Qwen wall of the day: every object in its place, a blank clock, the right ends on both side walls, nothing extra. The three walls drawn with finished walls attached went wrong: the walls came back covered in speckled noise, the whiteboard wall gained the timetable wall's clock, and the door wall is the whiteboard wall's furniture again with a 5H sign, the door itself missing.",
+  "faults": "Noise and copied furniture on every wall that had a finished wall attached. A dirty, mottled wash on the window wall.",
+  "verdict": "References break it; words and the sketch fix it. Its sketch-only room is running now.",
+  "owner": null,
+  "owner_note": "(both Qwen rooms) weakest of the round: floating objects, misaligned wall lines; the graphics lost their magic",
+  "call": "out for walls; maybe postcards, comic pages, close-ups later"
+ }
+}

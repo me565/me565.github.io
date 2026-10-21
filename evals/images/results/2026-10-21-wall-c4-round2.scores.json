@@ -1,0 +1,30 @@
+{
+ "seedream-5-pro": {
+  "hard": "all pass",
+  "verdict": "Every fix landed: wordless rules poster, blank clock, a closed cage with a lid, chair tucked under the desk, the desk a believable distance from the wall. Grid drawn as empty cells with the icons down the side, which suits the game drawing it. Soft shading, warm light. The cleanest obedience of the round."
+ },
+ "nb2": {
+  "hard": "all pass",
+  "verdict": "All fixes landed. Grid full, cage closed, chair tucked. Still the flattest look of the six despite the new style sentence; shading is a thin shadow side only."
+ },
+ "mai-2.6": {
+  "hard": "H2 fail: FOR 5H written on the envelope, titles on the book spines (one reads as a real children's book, which is also a legal flag); H3: no music column in the grid",
+  "verdict": "The window and plant are gone, so it can be steered, but it still invents lettering wherever there is a surface. Pleasant look. Needs an edit per wall."
+ },
+ "sunburst": {
+  "hard": "all pass",
+  "verdict": "All fixes landed, and the haze lifted: brighter paper, stronger colour. Cage closed with a lid, chair tucked and better drawn than in round one, bookshelf full. The grid is coloured empty cells under an icon header, fine for the game."
+ },
+ "qwen-2.1-pro": {
+  "hard": "H1 fail (the bookshelf runs off the left edge, so that edge is not bare), H6 fail (flat wall, no box, again)",
+  "verdict": "The most rendered and lifelike picture of the round, with a real wire cage, real shadows, a chair at the right height. But it ignores the room shape twice running and crowds the left edge, so the turn arrow would sit on the bookshelf. Six icon rows, no day labels."
+ },
+ "nbpro": {
+  "hard": "H3/S7 fail: striped wallpaper nobody asked for",
+  "verdict": "The control. No framed box this time, cage closed, grid full, chair tucked; then it painted stripes on the wall."
+ },
+ "nb2.1": {
+  "hard": "did not run: Google quota (429) again",
+  "verdict": "Second refusal on OpenRouter's route to it. Retry another day or through the Gemini key."
+ }
+}
