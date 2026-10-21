@@ -1,0 +1,113 @@
+{
+ "name": "rooms-2: the school corridor and Nana's kitchen, four walls each, Sunburst, under everything learned on 21 Oct 2026",
+ "defaults": {
+  "aspect_ratio": "16:9",
+  "n": 1
+ },
+ "notes": [
+  "Owner: 'generate another couple of rooms with Sunburst taking into consideration the additional things you've learned'. Gotchas 18 to 26 are in: objects in thirds, colours and band named on every wall, sizes tied to the band, corners that name the neighbour's end and what is out of view, wordless sketches, no finished-wall chains, the checks line naming the extras models add (chairs, blinds, plants).",
+  "Two settings the classroom did not cover: open doorways with a glimpse through (the corridor, three of them) and a different house altogether (Nana's kitchen: sage panelling, terracotta tiles, evening light from a window and an open door, no lettering at all).",
+  "Benchmarks in the game: next/art/school/h1-h4 and next/art/nana/k1-k4, made by Nano Banana Pro."
+ ],
+ "cases": [
+  {
+   "id": "corridor-h1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-corridor/h1.txt",
+   "references": [
+    "evals/images/rooms/corridor/layout-h1.png"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\n",
+   "est_usd": 0.04,
+   "note": "the lockers wall (north)"
+  },
+  {
+   "id": "corridor-h2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-corridor/h2.txt",
+   "references": [
+    "evals/images/rooms/corridor/layout-h2.png",
+    "case:corridor-h1"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the lockers wall (north) of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the library doors wall (east), to the right of the lockers wall"
+  },
+  {
+   "id": "corridor-h4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-corridor/h4.txt",
+   "references": [
+    "evals/images/rooms/corridor/layout-h4.png",
+    "case:corridor-h1"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the lockers wall (north) of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the classroom doorways wall (west), to the left of the lockers wall"
+  },
+  {
+   "id": "corridor-h3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-corridor/h3.txt",
+   "references": [
+    "evals/images/rooms/corridor/layout-h3.png",
+    "case:corridor-h2",
+    "case:corridor-h4",
+    "case:corridor-h1"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the library doors wall (east), to the right of the lockers wall of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 3 is the classroom doorways wall (west), to the left of the lockers wall of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 4 is the lockers wall (north) of this same room, finished, drawn by you a moment ago; it is OPPOSITE this wall, behind the viewer. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the notice-board wall (south), opposite the lockers wall"
+  },
+  {
+   "id": "kitchen-k1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-nana-kitchen/k1.txt",
+   "references": [
+    "evals/images/rooms/nana-kitchen/layout-k1.png"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\n",
+   "est_usd": 0.04,
+   "note": "the counter wall (north)"
+  },
+  {
+   "id": "kitchen-k2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-nana-kitchen/k2.txt",
+   "references": [
+    "evals/images/rooms/nana-kitchen/layout-k2.png",
+    "case:kitchen-k1"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the counter wall (north) of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the dresser wall (east), to the right of the counter wall"
+  },
+  {
+   "id": "kitchen-k4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-nana-kitchen/k4.txt",
+   "references": [
+    "evals/images/rooms/nana-kitchen/layout-k4.png",
+    "case:kitchen-k1"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the counter wall (north) of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the fridge wall (west), to the left of the counter wall"
+  },
+  {
+   "id": "kitchen-k3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-nana-kitchen/k3.txt",
+   "references": [
+    "evals/images/rooms/nana-kitchen/layout-k3.png",
+    "case:kitchen-k2",
+    "case:kitchen-k4",
+    "case:kitchen-k1"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the dresser wall (east), to the right of the counter wall of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 3 is the fridge wall (west), to the left of the counter wall of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 4 is the counter wall (north) of this same room, finished, drawn by you a moment ago; it is OPPOSITE this wall, behind the viewer. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the back-door wall (south), opposite the counter wall"
+  }
+ ],
+ "est_total_usd": 0.32
+}

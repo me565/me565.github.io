@@ -100,3 +100,10 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 ## H. People and things move
 
 49. **Someone or something moves with the story.** Each stage lists in STORY.md who moves, after which beat, to where, and why it makes sense (Priya from the galley to the aisle with breakfast once the screen is awake); the hints follow them (log 52).
+
+## I. Walls from a room specification (owner, 21 Oct 2026)
+
+50. **One room, one specification.** Every wall of a room is prompted from the same room file: palette, band height, the one light source, every object with its position and size; the sketch has nothing written on it; the anchor wall goes first. A wall prompted on its own is not a wall of the room (playbook 4aa).
+51. **Corners name their neighbour.** Each side wall's sentence names the exact object at the neighbour's near end and what is out of view, and ties sizes to the band, so the window is the same window from both walls and the cupboard is nearest the corner on both (owner's room marks: Seedream's window, Nano Banana 2's cupboard).
+52. **The game draws what a puzzle reads.** Clock faces blank, grids empty, labels two or three short words at most; everything else is lettering the model will get wrong (fourteen wrong clocks in thirty-one).
+
