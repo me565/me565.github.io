@@ -64,7 +64,27 @@
    "note": "with the model's own round-three back wall as a style reference: draw this wall in exactly the style of the attached picture, the same room, the same hand",
    "resolution": "2K",
    "prompt_prefix": "Draw this wall in exactly the style of the attached picture: the same room, the same hand, the same ink outlines, shading, palette and paper texture, the same box with its side walls, ceiling strip and floor band. It is the next wall round in the same classroom. Do not copy the attached picture's furniture; draw only what is listed below.\n\n"
+  },
+  {
+   "id": "qwen-2.1-pro",
+   "model": "qwen/qwen-image-2.1-pro",
+   "resolution": "2K",
+   "seed": 11,
+   "est_usd": 0.046,
+   "note": "prompt alone (added at the owner's request)"
+  },
+  {
+   "id": "qwen-2.1-pro-ref",
+   "model": "qwen/qwen-image-2.1-pro",
+   "resolution": "2K",
+   "seed": 11,
+   "est_usd": 0.046,
+   "references": [
+    "evals/images/refs/c4-qwen-2.1-pro.jpg"
+   ],
+   "prompt_prefix": "Draw this wall in exactly the style of the attached picture: the same room, the same hand, the same ink outlines, shading, palette and paper texture, the same box with its side walls, ceiling strip and floor band. It is the next wall round in the same classroom. Do not copy the attached picture's furniture; draw only what is listed below.\n\n",
+   "note": "with its own round-three back wall as a style reference"
   }
  ],
- "est_total_usd": 0.36
+ "est_total_usd": 0.45
 }
