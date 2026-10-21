@@ -28,12 +28,18 @@ Compiled 21 Oct 2026 from the sweep (31 models) and round two (6 models), the ow
 | 22 | Digits from the layout sketch drawn into the wall (room run: Nano Banana 2 wrote 1, 2, 3 on two walls) | Claude | The sketch carries nothing written at all, boxes only, in list order. |
 | 23 | Finished walls attached as references break Qwen 2.1 Pro: speckled noise over the walls and the reference's furniture copied in (room run, three of four walls) | Claude | For Qwen: the words and the layout sketch only, never a finished wall; the same seed on every wall of a room. Sunburst, Nano Banana 2 and Seedream take finished walls as references without harm. Confirmed: Qwen's sketch-only room (same seed on every wall) came back clean, three corners of four right, every object in place. |
 | 24 | A side wall shows the OPPOSITE wall instead of the adjacent one (Qwen sketch-only room: the whiteboard wall's left side showed the window wall) | Claude | The side-wall sentence names the neighbouring wall and its end; add "not the window wall" or the like when the room's most memorable wall is the opposite one, and keep the opposite wall out of the room block's turning-order line for that prompt. |
+| 25 | An object changes size from wall to wall (owner, room run: Seedream's window small and high on its own wall, down to the band in the timetable wall's side view) | owner | Tie sizes to the band in words on every wall that mentions the object: "the window's sill a hand's width above the mint band, the window spanning the middle three fifths of the wall", and say the same in the corner sentence. |
+| 26 | The side wall shows the wrong end of the neighbour (owner, room run: Nano Banana 2 put the whiteboard nearest the corner on the timetable wall's side view, but on the whiteboard wall the cupboard is nearest) | owner | Name the exact object at the corner and what is NOT visible: "the end of the teal cupboard; the whiteboard is further along and out of view". |
 
 Round three (v3 prompt) result: four of six pictures showed no gotcha at all (Sunburst, Seedream Pro, Nano Banana Pro, Nano Banana 2), MAI 2.6 kept one sliver of window, Qwen 2.1 Pro ignored the room shape and object order for the third time. The prompt is no longer the reason a picture fails; what fails now is the model.
 
 A correction (21 Oct 2026, evening): the runner sent reference pictures in a field named `image`, which the images endpoint ignores without error; the right field is `input_references`. So the window wall's "with reference" pictures and the second wall of every corner pair were drawn from words alone. The corners still met, which says the words carry most of it; the reference tests are redone properly in the room run.
 
 Not the prompt's to fix, and recorded so nobody tries: the model's native size (OpenAI 1536×864, Microsoft 1360×768); a model that ignores the box twice running (Qwen 2.1 Pro); a model that writes on every surface however it is told (MAI 2.6, so far).
+
+## The room run, the owner's marks (21 Oct 2026, evening)
+
+Sunburst 9/10 for consistency ("best so far", not his favourite style); Nano Banana 2 "very consistent" but "a little basic"; Seedream "lighting really good" but the window changes size across the corner; Qwen "weakest", floating objects and misaligned wall lines, "lost their magic". Call: Sunburst leads for walls, Nano Banana 2 is the fallback, Seedream and Qwen are out for walls. Qwen may yet suit art that need not line up with anything (postcards, comic pages, close-ups).
 
 ## Prompt-ready block
 
