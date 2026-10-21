@@ -4,7 +4,7 @@ Tests of image models and their settings before one is chosen for a level's art.
 
 **Why a GitHub Action.** The Claude cloud environment's proxy drops any reply that stays silent for thirty seconds, and most image models (Seedream, FLUX, Qwen, Recraft Pro) answer in one piece after longer than that. A GitHub runner has no such limit. So the generations run there, on a runner, and the pictures come back as a workflow artifact that Claude downloads to build a comparison page.
 
-**The key.** The runner reads the repository secret `OPENROUTER_API_KEY` (GitHub: Settings → Secrets and variables → Actions → New repository secret). The key never appears in the repo, in logs (GitHub masks it) or in chat. Give it a weekly credit limit on OpenRouter.
+**The key.** The runner reads the repository secret `OPENROUTER_MOTH_HOUSE` (passed to the runner as `OPENROUTER_API_KEY`) (GitHub: Settings → Secrets and variables → Actions → New repository secret). The key never appears in the repo, in logs (GitHub masks it) or in chat. Give it a weekly credit limit on OpenRouter.
 
 **To run one.** Actions → image-evals → Run workflow → branch, then the manifest path, for example `evals/images/runs/wall-c4-models.json`. Optionally a comma-separated list of case ids to run only those. Claude can start it with the GitHub tools and fetch the artifact when it finishes.
 
