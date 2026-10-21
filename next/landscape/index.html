@@ -38,6 +38,15 @@ button{font:inherit;color:inherit;cursor:pointer}
 #app{position:relative;height:100%;display:grid;place-items:center;padding:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0)}
 .stage{width:calc(var(--u) * 100);display:flex;flex-direction:column;gap:calc(var(--u) * 1.2)}
 .stage .inv{margin-top:calc(var(--u)*-.4)}
+/* a wide screen (the owner's phone; backlog 24, 21 Oct 2026): the scene takes the full height, the ten slots stand beside it in two
+   columns of five, and the spoken line floats over the foot of the picture only while it is showing (never over a close-up or card).
+   fit() chooses this layout only when it gives a clearly bigger scene; a tablet keeps the strip under the scene. */
+.stage.side{position:relative;display:grid;grid-template-columns:calc(var(--u)*100) calc(var(--u)*21.6);grid-template-rows:calc(var(--u)*56.25);gap:0 calc(var(--u)*1.2);align-items:stretch}
+.stage.side .scene{grid-column:1;grid-row:1}
+.stage.side .inv{grid-column:2;grid-row:1;margin:0;padding:0;height:100%;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(5,minmax(0,1fr));gap:calc(var(--u)*1.2)}
+.stage.side .slot{aspect-ratio:auto;height:100%}
+.stage.side .caption{position:absolute;left:0;bottom:calc(var(--u)*1.2);width:calc(var(--u)*100);min-height:0;z-index:4;pointer-events:none;transition:opacity .25s}
+.stage.side .scene:has(.closeup:not([hidden]),.menu:not([hidden]),.comic:not([hidden]),.stagecard:not([hidden]),.loading:not([hidden])) ~ .caption{opacity:0}
 
 /* the scene */
 .scene{position:relative;width:100%;aspect-ratio:16/9;border-radius:calc(var(--u) * .8);overflow:hidden;background:#e9e2d2;box-shadow:0 0 0 var(--rule) var(--line), 0 calc(var(--u)*1) calc(var(--u)*3) rgba(0,0,0,.55)}
@@ -635,14 +644,18 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-10-21d';
+const BUILD = '2026-10-21e';
 const $ = id => document.getElementById(id);
 
-/* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
+/* ---------- sizing: the scene fills the screen in landscape, the inventory strip under it, or beside it on a wide screen (backlog 24) ---------- */
 function fit(){
   const vw = innerWidth - 16, vh = innerHeight - 12;
-  const w = Math.min(vw, vh / 0.746, 1400);   /* scene 9/16 tall, the caption band, the strip and the gaps */
+  const stacked = Math.min(vw, vh / 0.746, 1400);   /* scene 9/16 tall, the caption band, the strip and the gaps */
+  const side = Math.min(vw / 1.228, vh / 0.5625, 1400);   /* the scene full height, the slots in two columns beside it (backlog 24) */
+  const wide = side > stacked * 1.08;   /* only when it buys a clearly bigger scene; a tablet keeps the strip under the scene */
+  const w = wide ? side : stacked;
   document.documentElement.style.setProperty('--u', (w / 100) + 'px');
+  document.getElementById('stage').classList.toggle('side', wide);
 }
 addEventListener('resize', () => { fit(); if (typeof inGame !== 'undefined' && inGame && typeof STAGE !== 'undefined' && STAGE) drawSides(curView()); }); fit();
 
@@ -1743,15 +1756,15 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-10-21d"></script>
-<script src="stages/packing.js?v=2026-10-21d"></script>
-<script src="stages/school3.js?v=2026-10-21d"></script>
-<script src="stages/evalroom.js?v=2026-10-21d"></script>
-<script src="stages/eschool.js?v=2026-10-21d"></script>
-<script src="stages/zschool.js?v=2026-10-21d"></script>
-<script src="stages/flight.js?v=2026-10-21d"></script>
-<script src="stages/nana.js?v=2026-10-21d"></script>
-<script src="stages/park.js?v=2026-10-21d"></script>
+<script src="stages/school.js?v=2026-10-21e"></script>
+<script src="stages/packing.js?v=2026-10-21e"></script>
+<script src="stages/school3.js?v=2026-10-21e"></script>
+<script src="stages/evalroom.js?v=2026-10-21e"></script>
+<script src="stages/eschool.js?v=2026-10-21e"></script>
+<script src="stages/zschool.js?v=2026-10-21e"></script>
+<script src="stages/flight.js?v=2026-10-21e"></script>
+<script src="stages/nana.js?v=2026-10-21e"></script>
+<script src="stages/park.js?v=2026-10-21e"></script>
 <script>boot();</script>
 <script>if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('../../sw.js').catch(() => {});</script>
 </body>

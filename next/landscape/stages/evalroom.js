@@ -6,7 +6,7 @@
 registerStage('evalroom', (function(){
 const GEO2 = {"pots": {"l": 31.0, "t": 13.15, "w": 38.0, "h": 39.65}, "coat": {"l": 66.71, "t": 27.5, "w": 13.57, "h": 34.0}, "lid": {"l": 18.95, "t": 49.82, "w": 14.5, "h": 4.98}, "doors": {"l": 12.39, "t": 12.5, "w": 16.62, "h": 69.5}, "pot1": {"l": 32.9, "t": 41.47, "w": 6.2, "h": 11.33}, "pot2": {"l": 41.9, "t": 35.45, "w": 6.2, "h": 17.35}, "pot3": {"l": 50.9, "t": 27.43, "w": 6.2, "h": 25.37}, "pot4": {"l": 59.9, "t": 14.27, "w": 6.2, "h": 38.53}};
 const GEO = {"hamster": {"l": 75.68, "t": 38.0, "w": 3.03, "h": 7.5}, "envelope": {"l": 47.96, "t": 52.0, "w": 2.47, "h": 2.8}, "backpack": {"l": 56.25, "t": 70.0, "w": 7.49, "h": 16.0}};
-const ROOMS = { classroom:{name:'Classroom 5H (evaluation)', into:'the evaluation classroom', views:['c1','c2','c3','c4']} };
+const ROOMS = { classroom:{name:'Classroom 5H (evaluation)', into:'the evaluation classroom', views:['c4','c1','c3','c2'] /* turning right: timetable (north), whiteboard (east), door (south), window (west); the room file's compass, not its file order */} };
 const WALLS = { c1:'../art/eval/c5h/c1.jpg', c2:'../art/eval/c5h/c2.jpg', c3:'../art/eval/c5h/c3.jpg', c4:'../art/eval/c5h/c4.jpg' };
 const DOORS = {};
 const HOTS = {
@@ -90,7 +90,7 @@ return {
   title:'Evaluation classroom', blurb:'Classroom 5H by the new image model: four walls, three cut-outs, the engine’s movements.',
   track:'../art/music/classroom.mp3', ambient:'school',
   intro:'<b>The evaluation classroom.</b> Four walls from one room specification, with the hamster, the envelope and the schoolbag made as cut-outs. Tap them.',
-  start:{room:'classroom', view:3},
+  start:{room:'classroom', view:0},
   fresh:() => ({seen:{}}),
   rooms:ROOMS, walls:WALLS, doors:DOORS, hots:HOTS, layers:LAYERS, notes:NOTES, items:ITEMS, hints:HINTS, uses:USES,
   act, sparkle, rows, noticed, speaker, helper:() => 'the moth', child:'mary'
