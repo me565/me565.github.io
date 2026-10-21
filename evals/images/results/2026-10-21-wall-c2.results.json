@@ -2,7 +2,7 @@
  "name": "wall-c2: the three finalists draw the Classroom 5H window wall, alone and with their own back wall as a style reference",
  "manifest": "evals/images/runs/wall-c2.json",
  "ran_at": "2026-10-21T03:08:40Z",
- "total_cost_usd": 0.311,
+ "total_cost_usd": 0.403,
  "results": [
   {
    "id": "sunburst",
@@ -287,6 +287,102 @@
      "size": [
       2752,
       1536
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "qwen-2.1-pro",
+   "model": "qwen/qwen-image-2.1-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "seed": 11,
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "prompt alone (added at the owner's request)",
+   "seconds": 34.4,
+   "cost_usd": 0.046,
+   "usage": {
+    "prompt_tokens": 696,
+    "completion_tokens": 4175,
+    "total_tokens": 4871,
+    "cost": 0.046,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.046,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.046
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "qwen-2.1-pro.png",
+     "bytes": 3723424,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "qwen-2.1-pro-ref",
+   "model": "qwen/qwen-image-2.1-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "seed": 11,
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/c4-qwen-2.1-pro.jpg"
+   ],
+   "params": {},
+   "note": "with its own round-three back wall as a style reference",
+   "seconds": 37.0,
+   "cost_usd": 0.046,
+   "usage": {
+    "prompt_tokens": 782,
+    "completion_tokens": 4175,
+    "total_tokens": 4957,
+    "cost": 0.046,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.046,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.046
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "qwen-2.1-pro-ref.png",
+     "bytes": 4515538,
+     "size": [
+      2048,
+      1152
      ]
     }
    ],

@@ -13,5 +13,10 @@
   "alone": "All seven rules pass. Cream wall with the mint band, exactly as its back wall, four pots, blank labels, sun, cloud, aeroplane, treetops, radiator. A roller blind at the top of the window nobody asked for.",
   "ref": "The blind is gone, the window gained a third pane, and the room is the same room as its back wall to the colour. The most consistent pair of the three.",
   "hold": "Holds palette, box and hand across walls, with or without a reference. Still the flattest drawing."
+ },
+ "qwen-2.1-pro": {
+  "alone": "All seven rules pass, and for the first time Qwen drew the box: side walls, ceiling strip, floor band. Four pots at four heights, blank labels, sun, cloud, aeroplane, green hills, radiator, nothing extra. The look is painterly, with a textured wash on the walls, which is the thing you like and also the furthest from the ink-outline style text.",
+  "ref": "H3 borderline: the fourth plant is a spiky palm, not a bean, and the window became a wooden sash. With its back wall attached it drifted into an old house: aged plaster, skirting boards, a tall ceiling, palms outside. Beautiful, and not a Singapore classroom. The reference pulled it further from the room, not closer.",
+  "hold": "Holds its hand, not the room. Alone it stayed in the classroom; with a reference it wandered into a different building. The painterly wash is its signature and would need the style text rewritten around it."
  }
 }
