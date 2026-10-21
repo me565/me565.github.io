@@ -20,7 +20,10 @@ def ends(key):
 roomblock = "The room: " + room["palette"] + ". " + room["light"][0].upper() + room["light"][1:] + ". Its four walls, in turning order: " + "; ".join(f"{walls[k]['name']}: " + ", ".join(o["label"] for o in walls[k]["objects"]) for k in order) + "."
 for key in order:
     w = walls[key]; (ln, lo), (rn, ro) = ends(key)
-    items = "\n".join(f"{i+1}. {third(o).capitalize()}, {'on the wall' if o['on']=='wall' else 'against the wall, standing on the floor'}: {o['text']}{(' ' + o['size']) if o.get('size') else ''}." for i, o in enumerate(w["objects"]))
+    def itemtext(o):
+        # a thing the motion sheet says moves is not painted on the wall: its place is described as empty (playbook 2, 4ab)
+        return o["absent"] if o.get("moves") and o.get("absent") else o["text"]
+    items = "\n".join(f"{i+1}. {third(o).capitalize()}, {'on the wall' if o['on']=='wall' else 'against the wall, standing on the floor'}: {itemtext(o)}{(' ' + o['size']) if o.get('size') else ''}." for i, o in enumerate(w["objects"]))
     def endname(o): return o['label'].split(':')[0].split('+')[0].strip()
     sides = f"The narrow left side wall shows, foreshortened, only the near end of {ln}: the end of the {endname(lo)}{(', ' + lo['size']) if lo.get('size') else ''}; the rest of that wall is out of view, and nothing else stands on this side wall. The narrow right side wall shows, foreshortened, only the near end of {rn}: the end of the {endname(ro)}{(', ' + ro['size']) if ro.get('size') else ''}; the rest of that wall is out of view, and nothing else stands on this side wall."
     alltext = " ".join(o["text"] for o in w["objects"])
@@ -40,3 +43,10 @@ Light on this wall: {w['light']}.
 Checks: the picture fills the whole frame edge to edge, no border, no margin, no frame, no dark surround. No arrows, boxes, panels or buttons anywhere. {wordline} Every object stands against the back wall in the position listed; the side walls show only the two named ends. Nothing is drawn that is not in the numbered list: no extra chair, blind, rug, plant, poster, box or bin.
 """
     open(os.path.join(out, f"{key}.txt"), "w").write(prompt); print(key, len(prompt.split()), "words")
+# the cut-outs: one prompt per moving thing, on white, in the room's style (playbook 2: alone, no surface, no shadow, no frame, no text)
+cuts = [(k, o) for k in order for o in walls[k]["objects"] if o.get("moves")]
+if cuts:
+    lines = ["Cut-outs for the things the motion sheet says move. Each is generated alone, on a pure flat white background, same style as the finished wall it belongs to (attach that wall as the reference), no surface, no shadow, no frame, no text; 1:1 or 3:4, 1K; then flood-fill the white away from the edges (playbook 2). The wall itself was prompted with the thing absent.", ""]
+    for k, o in cuts:
+        lines.append(f"[{k}] {o['label']} ({o['moves']}): {o['text']}{(' ' + o['size']) if o.get('size') else ''}. Drawn alone, centred, on a pure flat white background, in exactly the style of the attached wall, at the size it has on that wall.")
+    open(os.path.join(out, "cutouts.txt"), "w").write("\n".join(lines) + "\n"); print("cutouts:", len(cuts))

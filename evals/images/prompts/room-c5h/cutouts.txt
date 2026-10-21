@@ -1,0 +1,5 @@
+Cut-outs for the things the motion sheet says move. Each is generated alone, on a pure flat white background, same style as the finished wall it belongs to (attach that wall as the reference), no surface, no shadow, no frame, no text; 1:1 or 3:4, 1K; then flood-fill the white away from the edges (playbook 2). The wall itself was prompted with the thing absent.
+
+[c4] desk + chair (single (the envelope: lift)): a plain white envelope with nothing written on it, lying flat. Drawn alone, centred, on a pure flat white background, in exactly the style of the attached wall, at the size it has on that wall.
+[c4] backpack (single (pick up)): a purple school backpack on the floor beside the desk. Drawn alone, centred, on a pure flat white background, in exactly the style of the attached wall, at the size it has on that wall.
+[c4] filing cabinet + cage (single (the hamster: sniff, breathe)): a small golden hamster the size of a fist, sitting up, seen from the front. Drawn alone, centred, on a pure flat white background, in exactly the style of the attached wall, at the size it has on that wall.

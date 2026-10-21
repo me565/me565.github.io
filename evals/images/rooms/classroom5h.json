@@ -1,38 +1,214 @@
 {
- "name": "Classroom 5H (evaluation layout, owner 21 Oct 2026: the window wall is to the left of the timetable wall)",
+ "name": "Classroom 5H (evaluation layout, owner 21 Oct 2026: the window wall is to the left of the timetable wall) \u2014 moving things marked per the motion sheet (playbook 4ab), 21 Oct 2026",
  "palette": "the walls are cream above a pale mint band; the band's top edge is at a child's shoulder height, 42% of the way up the back wall from the floor; the floor is pale wood; accents teal and purple",
  "box": "a shallow box in one-point perspective: a wide back wall running the full width, narrow side walls, a thin strip of ceiling, a low floor band",
  "light": "the only daylight comes from the big window on the window wall; afternoon sun",
- "order": ["c4", "c1", "c3", "c2"],
+ "order": [
+  "c4",
+  "c1",
+  "c3",
+  "c2"
+ ],
  "walls": {
-  "c4": {"name": "the timetable wall (north)", "light": "daylight comes from the LEFT, from the window wall; every object casts a soft shadow to its right, and a band of sun lies across the floor from the left",
+  "c4": {
+   "name": "the timetable wall (north)",
+   "light": "daylight comes from the LEFT, from the window wall; every object casts a soft shadow to its right, and a band of sun lies across the floor from the left",
    "objects": [
-    {"id": "rules", "label": "RULES poster", "text": "a small poster headed RULES with no words on it, only a few blank lines", "on": "wall", "l": 18, "t": 22, "w": 9, "h": 16},
-    {"id": "timetable", "label": "5H TIMETABLE poster", "text": "a large timetable poster with a teal header bar reading 5H TIMETABLE, a row of six small coloured subject icons under it (pencil, atlas, flask, paintbrush, football, music note), and below them an empty grid of pale lines, five rows by six columns, with nothing written in it", "on": "wall", "l": 36, "t": 14, "w": 28, "h": 30},
-    {"id": "clock", "label": "clock, blank face", "text": "a round white wall clock with a plain empty white face: no hands, no numbers", "on": "wall", "l": 74, "t": 16, "w": 8, "h": 14},
-    {"id": "bookshelf", "label": "low bookshelf", "text": "a low wooden bookshelf, two shelves, a few colourful books standing on the shelves inside it with plain blank spines, nothing on top", "on": "floor", "l": 14, "t": 54, "w": 18, "h": 28},
-    {"id": "desk", "label": "desk + chair", "text": "a child's school desk with a pale wooden top and grey legs, standing a step out from the wall with floor showing behind its legs; a teal plastic chair pushed in under it with its back to the viewer; on the desk a purple pencil case and a plain white envelope with nothing written on it", "on": "floor", "l": 41, "t": 52, "w": 20, "h": 30},
-    {"id": "backpack", "label": "backpack", "text": "a purple school backpack on the floor beside the desk", "on": "floor", "l": 62, "t": 66, "w": 7, "h": 16},
-    {"id": "cabinet", "label": "filing cabinet + cage", "text": "a blue two-drawer filing cabinet with a wire hamster cage on top, the cage a closed box with a solid lid, a small golden hamster the size of a fist inside with a wheel and a water bottle hanging inside the cage", "on": "floor", "l": 74, "t": 40, "w": 14, "h": 42}
-   ]},
-  "c1": {"name": "the whiteboard wall (east), to the right of the timetable wall", "light": "daylight comes from behind the viewer, from the window wall; shadows fall behind the objects, away from the viewer",
+    {
+     "id": "rules",
+     "label": "RULES poster",
+     "text": "a small poster headed RULES with no words on it, only a few blank lines",
+     "on": "wall",
+     "l": 18,
+     "t": 22,
+     "w": 9,
+     "h": 16
+    },
+    {
+     "id": "timetable",
+     "label": "5H TIMETABLE poster",
+     "text": "a large timetable poster with a teal header bar reading 5H TIMETABLE, a row of six small coloured subject icons under it (pencil, atlas, flask, paintbrush, football, music note), and below them an empty grid of pale lines, five rows by six columns, with nothing written in it",
+     "on": "wall",
+     "l": 36,
+     "t": 14,
+     "w": 28,
+     "h": 30
+    },
+    {
+     "id": "clock",
+     "label": "clock, blank face",
+     "text": "a round white wall clock with a plain empty white face: no hands, no numbers",
+     "on": "wall",
+     "l": 74,
+     "t": 16,
+     "w": 8,
+     "h": 14
+    },
+    {
+     "id": "bookshelf",
+     "label": "low bookshelf",
+     "text": "a low wooden bookshelf, two shelves, a few colourful books standing on the shelves inside it with plain blank spines, nothing on top",
+     "on": "floor",
+     "l": 14,
+     "t": 54,
+     "w": 18,
+     "h": 28
+    },
+    {
+     "id": "desk",
+     "label": "desk + chair",
+     "text": "a plain white envelope with nothing written on it, lying flat",
+     "on": "floor",
+     "l": 41,
+     "t": 52,
+     "w": 20,
+     "h": 30,
+     "moves": "single (the envelope: lift)",
+     "absent": "a child's school desk with a pale wooden top and grey legs, standing a step out from the wall with floor showing behind its legs; a teal plastic chair pushed in under it with its back to the viewer; on the desk a purple pencil case and nothing else: the rest of the desk top is bare"
+    },
+    {
+     "id": "backpack",
+     "label": "backpack",
+     "text": "a purple school backpack on the floor beside the desk",
+     "on": "floor",
+     "l": 62,
+     "t": 66,
+     "w": 7,
+     "h": 16,
+     "moves": "single (pick up)",
+     "absent": "bare floor beside the desk, where a backpack will stand: nothing there"
+    },
+    {
+     "id": "cabinet",
+     "label": "filing cabinet + cage",
+     "text": "a small golden hamster the size of a fist, sitting up, seen from the front",
+     "on": "floor",
+     "l": 74,
+     "t": 40,
+     "w": 14,
+     "h": 42,
+     "moves": "single (the hamster: sniff, breathe)",
+     "absent": "a blue two-drawer filing cabinet with a wire hamster cage on top, the cage a closed box with a solid lid, a wheel and a water bottle hanging inside, and no hamster in it: the cage is empty"
+    }
+   ]
+  },
+  "c1": {
+   "name": "the whiteboard wall (east), to the right of the timetable wall",
+   "light": "daylight comes from behind the viewer, from the window wall; shadows fall behind the objects, away from the viewer",
    "objects": [
-    {"id": "cupboard", "label": "tall teal cupboard", "text": "a tall teal double-door supplies cupboard with a small white label reading SUPPLIES on one door", "on": "floor", "l": 12, "t": 18, "w": 16, "h": 64},
-    {"id": "whiteboard", "label": "whiteboard, blank", "text": "a wide whiteboard, completely blank, with a marker tray along its bottom edge holding one red and one blue marker", "on": "wall", "l": 34, "t": 16, "w": 34, "h": 28},
-    {"id": "teacherdesk", "label": "teacher's desk", "text": "the teacher's desk, pale wood with two drawers, standing a step out from the wall; on it a red mug, a small stack of three books with blank spines, and an apple", "on": "floor", "l": 70, "t": 50, "w": 20, "h": 32}
-   ]},
-  "c3": {"name": "the door wall (south), opposite the timetable wall", "light": "daylight comes from the RIGHT, from the window wall; every object casts a soft shadow to its left",
+    {
+     "id": "cupboard",
+     "label": "tall teal cupboard",
+     "text": "a tall teal double-door supplies cupboard with a small white label reading SUPPLIES on one door",
+     "on": "floor",
+     "l": 12,
+     "t": 18,
+     "w": 16,
+     "h": 64
+    },
+    {
+     "id": "whiteboard",
+     "label": "whiteboard, blank",
+     "text": "a wide whiteboard, completely blank, with a marker tray along its bottom edge holding one red and one blue marker",
+     "on": "wall",
+     "l": 34,
+     "t": 16,
+     "w": 34,
+     "h": 28
+    },
+    {
+     "id": "teacherdesk",
+     "label": "teacher's desk",
+     "text": "the teacher's desk, pale wood with two drawers, standing a step out from the wall; on it a red mug, a small stack of three books with blank spines, and an apple",
+     "on": "floor",
+     "l": 70,
+     "t": 50,
+     "w": 20,
+     "h": 32
+    }
+   ]
+  },
+  "c3": {
+   "name": "the door wall (south), opposite the timetable wall",
+   "light": "daylight comes from the RIGHT, from the window wall; every object casts a soft shadow to its left",
    "objects": [
-    {"id": "bin", "label": "green bin", "text": "a green recycling bin on the floor", "on": "floor", "l": 14, "t": 60, "w": 8, "h": 22},
-    {"id": "door", "label": "teal door, closed", "text": "a teal classroom door, closed, with a square window in its upper half, a small white sign reading 5H at eye height and a round brass handle", "on": "floor", "l": 40, "t": 12, "w": 18, "h": 70},
-    {"id": "pegs", "label": "coat pegs + raincoat", "text": "a wooden rail of coat pegs with one pale blue raincoat hanging from it", "on": "wall", "l": 66, "t": 26, "w": 18, "h": 24},
-    {"id": "lostbox", "label": "LOST PROPERTY box", "text": "a cardboard box on the floor labelled LOST PROPERTY with a red shoe and a blue hat poking out of the top", "on": "floor", "l": 68, "t": 64, "w": 14, "h": 18}
-   ]},
-  "c2": {"name": "the window wall (west), to the left of the timetable wall", "light": "light comes through the window from outside; the sill and the floor below it are bright, and the radiator and pots cast soft shadows towards the viewer",
+    {
+     "id": "bin",
+     "label": "green bin",
+     "text": "a green recycling bin on the floor",
+     "on": "floor",
+     "l": 14,
+     "t": 60,
+     "w": 8,
+     "h": 22
+    },
+    {
+     "id": "door",
+     "label": "teal door, closed",
+     "text": "a teal classroom door, closed, with a square window in its upper half, a small white sign reading 5H at eye height and a round brass handle",
+     "on": "floor",
+     "l": 40,
+     "t": 12,
+     "w": 18,
+     "h": 70
+    },
+    {
+     "id": "pegs",
+     "label": "coat pegs + raincoat",
+     "text": "a wooden rail of coat pegs with one pale blue raincoat hanging from it",
+     "on": "wall",
+     "l": 66,
+     "t": 26,
+     "w": 18,
+     "h": 24
+    },
+    {
+     "id": "lostbox",
+     "label": "LOST PROPERTY box",
+     "text": "a cardboard box on the floor labelled LOST PROPERTY with a red shoe and a blue hat poking out of the top",
+     "on": "floor",
+     "l": 68,
+     "t": 64,
+     "w": 14,
+     "h": 18
+    }
+   ]
+  },
+  "c2": {
+   "name": "the window wall (west), to the left of the timetable wall",
+   "light": "light comes through the window from outside; the sill and the floor below it are bright, and the radiator and pots cast soft shadows towards the viewer",
    "objects": [
-    {"id": "window", "label": "window: sky, sun, cloud, aeroplane, treetops", "text": "a wide window with white frames and clear glass, showing a bright blue afternoon sky with a sun, one small cloud, a tiny distant aeroplane, and round green tropical treetops along the bottom of the view; treetops only, no buildings, no skyline", "on": "wall", "l": 28, "t": 10, "w": 44, "h": 40},
-    {"id": "pots", "label": "4 pots, 4 heights, blank labels", "text": "on the white window sill, four terracotta pots in a row with bean plants at four different heights, from left to right a bare shoot, a small plant, a middling plant and a tall leafy one, each pot with a small plain white label with nothing written on it", "on": "wall", "l": 32, "t": 42, "w": 36, "h": 10},
-    {"id": "radiator", "label": "cream radiator", "text": "a cream radiator with vertical ribs standing against the wall under the window", "on": "floor", "l": 34, "t": 58, "w": 32, "h": 20}
-   ]}
+    {
+     "id": "window",
+     "label": "window: sky, sun, cloud, aeroplane, treetops",
+     "text": "a wide window with white frames and clear glass, showing a bright blue afternoon sky with a sun, one small cloud, a tiny distant aeroplane, and round green tropical treetops along the bottom of the view; treetops only, no buildings, no skyline",
+     "on": "wall",
+     "l": 28,
+     "t": 10,
+     "w": 44,
+     "h": 40
+    },
+    {
+     "id": "pots",
+     "label": "4 pots, 4 heights, blank labels",
+     "text": "on the white window sill, four terracotta pots in a row with bean plants at four different heights, from left to right a bare shoot, a small plant, a middling plant and a tall leafy one, each pot with a small plain white label with nothing written on it",
+     "on": "wall",
+     "l": 32,
+     "t": 42,
+     "w": 36,
+     "h": 10
+    },
+    {
+     "id": "radiator",
+     "label": "cream radiator",
+     "text": "a cream radiator with vertical ribs standing against the wall under the window",
+     "on": "floor",
+     "l": 34,
+     "t": 58,
+     "w": 32,
+     "h": 20
+    }
+   ]
+  }
  }
 }
