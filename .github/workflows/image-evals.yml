@@ -1,0 +1,40 @@
+# Image-model evaluations for The Moth House.
+# Runs a manifest from evals/images/runs/ against OpenRouter on a GitHub runner, which has
+# no thirty-second reply limit (the Claude cloud environment's proxy does), and uploads the
+# pictures and results.json as a workflow artifact. Nothing is committed.
+# Needs the repository secret OPENROUTER_API_KEY (Settings → Secrets and variables → Actions).
+name: image-evals
+on:
+  workflow_dispatch:
+    inputs:
+      manifest:
+        description: "Manifest to run, e.g. evals/images/runs/wall-c4-models.json"
+        required: true
+        type: string
+      only:
+        description: "Optional: run only these case ids (comma-separated)"
+        required: false
+        type: string
+        default: ""
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install --quiet pillow
+      - name: Generate
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          if [ -z "$OPENROUTER_API_KEY" ]; then echo "OPENROUTER_API_KEY secret is not set"; exit 1; fi
+          python3 evals/images/run.py "${{ inputs.manifest }}" --out evals-out --only "${{ inputs.only }}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ${{ github.run_id }}-${{ github.run_attempt }}
+          path: evals-out
+          retention-days: 30

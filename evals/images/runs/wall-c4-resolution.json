@@ -1,0 +1,82 @@
+{
+ "name": "wall-c4-resolution: does a wall need 2K? The same prompt at every tier the model offers",
+ "prompt_file": "../prompts/wall-c4.txt",
+ "defaults": {
+  "aspect_ratio": "16:9",
+  "n": 1
+ },
+ "notes": [
+  "Judge at the owner's screen shape (checklist 36). The viewer page also shows each 1K picture scaled up to 1920 wide, which is what the game would do.",
+  "Google bills 1K and 2K the same; FLUX and Seedream charge less for the lower tiers."
+ ],
+ "cases": [
+  {
+   "id": "nbpro-1K",
+   "model": "google/gemini-3-pro-image",
+   "resolution": "1K",
+   "est_usd": 0.14
+  },
+  {
+   "id": "nbpro-2K",
+   "model": "google/gemini-3-pro-image",
+   "resolution": "2K",
+   "est_usd": 0.14
+  },
+  {
+   "id": "nbpro-4K",
+   "model": "google/gemini-3-pro-image",
+   "resolution": "4K",
+   "est_usd": 0.24
+  },
+  {
+   "id": "nb2-512",
+   "model": "google/gemini-3.1-flash-image",
+   "resolution": "512",
+   "est_usd": 0.03
+  },
+  {
+   "id": "nb2-1K",
+   "model": "google/gemini-3.1-flash-image",
+   "resolution": "1K",
+   "est_usd": 0.07
+  },
+  {
+   "id": "nb2-2K",
+   "model": "google/gemini-3.1-flash-image",
+   "resolution": "2K",
+   "est_usd": 0.07
+  },
+  {
+   "id": "seedream-pro-1K",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "resolution": "1K",
+   "seed": 7,
+   "est_usd": 0.045
+  },
+  {
+   "id": "seedream-pro-2K",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "resolution": "2K",
+   "seed": 7,
+   "est_usd": 0.045
+  },
+  {
+   "id": "flux3-768",
+   "model": "black-forest-labs/flux-3-image",
+   "resolution": "768",
+   "est_usd": 0.041
+  },
+  {
+   "id": "flux3-1K",
+   "model": "black-forest-labs/flux-3-image",
+   "resolution": "1K",
+   "est_usd": 0.048
+  },
+  {
+   "id": "flux3-2K",
+   "model": "black-forest-labs/flux-3-image",
+   "resolution": "2K",
+   "est_usd": 0.1
+  }
+ ]
+}
