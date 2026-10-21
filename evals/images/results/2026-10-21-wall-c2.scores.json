@@ -1,0 +1,17 @@
+{
+ "sunburst": {
+  "alone": "All seven rules pass. Four pots at four heights, blank labels, sun, cloud, aeroplane, treetops, radiator, no lettering. One thing not asked for: city towers behind the trees, and a palm. Strong afternoon light across the floor.",
+  "ref": "Same again with the reference, towers included, and the aeroplane gained a vapour trail. The hand matches its back wall: same paper texture, same radiator weight, same sunlight. The reference neither helped nor hurt; this model is consistent with itself anyway.",
+  "hold": "Holds its own style with or without a reference. Invents a skyline."
+ },
+ "seedream-5-pro": {
+  "alone": "All seven rules pass. Four pots, blank labels, sun, cloud, aeroplane (drawn pink), treetops, radiator. Softer and paler than its back wall, and the wall is mint all over where its back wall was cream with a mint band.",
+  "ref": "Cleaner lines and a closer hand with the reference, but the walls are still all mint, so the room would change colour as the player turns. The aeroplane shrank to a speck.",
+  "hold": "Keeps its hand but not its palette: the two-tone wall from the back wall did not carry across, reference or not. That is a room-consistency fault the engine's side walls would make obvious."
+ },
+ "nb2": {
+  "alone": "All seven rules pass. Cream wall with the mint band, exactly as its back wall, four pots, blank labels, sun, cloud, aeroplane, treetops, radiator. A roller blind at the top of the window nobody asked for.",
+  "ref": "The blind is gone, the window gained a third pane, and the room is the same room as its back wall to the colour. The most consistent pair of the three.",
+  "hold": "Holds palette, box and hand across walls, with or without a reference. Still the flattest drawing."
+ }
+}

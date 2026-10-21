@@ -22,6 +22,8 @@ Compiled 21 Oct 2026 from the sweep (31 models) and round two (6 models), the ow
 | 16 | Too flat, childish, basic; or dark and hazy | owner, many | The rendered style sentence (shadow side, cast shadows, finishing) plus "bright and clear, not hazy or dark; drawn for a game, not a picture book for toddlers". |
 | 17 | Lettering garbled (Tuee, Soday, Firday) | both (FLUX, Krea) | Only two words are asked for: RULES and 5H TIMETABLE. Everything else is game-drawn or blank. |
 | 18 | Furniture crowded into the right half, the left half of the wall empty (round three: Seedream Pro, Nano Banana Pro) | Claude | Caused by "bare wall to its left" and "left to right". Say instead: "the bookshelf in the left third of the wall, the desk in the middle third, the cabinet in the right third, so the wall is evenly filled". Goes into v4. |
+| 19 | The room changes colour from one wall to the next (window wall: Seedream Pro drew all-mint walls where its back wall was cream over a mint band), reference or not | Claude | Name the wall colours in every wall prompt of a room: "cream walls above a pale mint band at child height". A style reference does not carry the palette on its own. |
+| 20 | A skyline or buildings behind the trees when only treetops were asked (window wall: Sunburst, twice) | Claude | "Treetops only, no buildings, no skyline." |
 
 Round three (v3 prompt) result: four of six pictures showed no gotcha at all (Sunburst, Seedream Pro, Nano Banana Pro, Nano Banana 2), MAI 2.6 kept one sliver of window, Qwen 2.1 Pro ignored the room shape and object order for the third time. The prompt is no longer the reason a picture fails; what fails now is the model.
 
