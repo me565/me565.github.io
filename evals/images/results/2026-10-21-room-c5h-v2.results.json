@@ -1,0 +1,342 @@
+{
+ "name": "room-c5h-v2: the classroom again with the moving things absent (motion sheet), and the three cut-outs on white",
+ "manifest": "evals/images/runs/room-c5h-v2.json",
+ "ran_at": "2026-10-21T05:10:37Z",
+ "total_cost_usd": 0.2017,
+ "results": [
+  {
+   "id": "c5h-c4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c4.png"
+   ],
+   "params": {},
+   "note": "the timetable wall (north) (moving things absent)",
+   "seconds": 17.4,
+   "cost_usd": 0.02343,
+   "usage": {
+    "prompt_tokens": 2361,
+    "completion_tokens": 280,
+    "total_tokens": 2641,
+    "cost": 0.02343,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.02343,
+     "upstream_inference_prompt_cost": 0.01503,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "c5h-c4.png",
+     "bytes": 1466827,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "c5h-c1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c1.png",
+    "case:c5h-c4"
+   ],
+   "params": {},
+   "note": "the whiteboard wall (east), to the right of the timetable wall (moving things absent)",
+   "seconds": 17.7,
+   "cost_usd": 0.033098,
+   "usage": {
+    "prompt_tokens": 3517,
+    "completion_tokens": 280,
+    "total_tokens": 3797,
+    "cost": 0.033098,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.033098,
+     "upstream_inference_prompt_cost": 0.024698,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "c5h-c1.png",
+     "bytes": 1366398,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "c5h-c2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c2.png",
+    "case:c5h-c4"
+   ],
+   "params": {},
+   "note": "the window wall (west), to the left of the timetable wall (moving things absent)",
+   "seconds": 19.1,
+   "cost_usd": 0.033258,
+   "usage": {
+    "prompt_tokens": 3549,
+    "completion_tokens": 280,
+    "total_tokens": 3829,
+    "cost": 0.033258,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.033258,
+     "upstream_inference_prompt_cost": 0.024858,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "c5h-c2.png",
+     "bytes": 1451458,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "c5h-cut-hamster",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "case:c5h-c4"
+   ],
+   "params": {},
+   "note": "cut-out: hamster, on white, the anchor wall as reference",
+   "seconds": 13.2,
+   "cost_usd": 0.016993,
+   "usage": {
+    "prompt_tokens": 1445,
+    "completion_tokens": 196,
+    "total_tokens": 1641,
+    "cost": 0.016993,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.016993,
+     "upstream_inference_prompt_cost": 0.011113,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "c5h-cut-hamster.png",
+     "bytes": 994881,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "c5h-cut-envelope",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "case:c5h-c4"
+   ],
+   "params": {},
+   "note": "cut-out: envelope, on white, the anchor wall as reference",
+   "seconds": 12.8,
+   "cost_usd": 0.016973,
+   "usage": {
+    "prompt_tokens": 1441,
+    "completion_tokens": 196,
+    "total_tokens": 1637,
+    "cost": 0.016973,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.016973,
+     "upstream_inference_prompt_cost": 0.011093,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "c5h-cut-envelope.png",
+     "bytes": 900179,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "c5h-cut-backpack",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "case:c5h-c4"
+   ],
+   "params": {},
+   "note": "cut-out: backpack, on white, the anchor wall as reference",
+   "seconds": 14.6,
+   "cost_usd": 0.016923,
+   "usage": {
+    "prompt_tokens": 1431,
+    "completion_tokens": 196,
+    "total_tokens": 1627,
+    "cost": 0.016923,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.016923,
+     "upstream_inference_prompt_cost": 0.011043,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "c5h-cut-backpack.png",
+     "bytes": 1034890,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "c5h-c3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c3.png",
+    "case:c5h-c1",
+    "case:c5h-c2",
+    "case:c5h-c4"
+   ],
+   "params": {},
+   "note": "the door wall (south), opposite the timetable wall (moving things absent)",
+   "seconds": 23.7,
+   "cost_usd": 0.061044,
+   "usage": {
+    "prompt_tokens": 6351,
+    "completion_tokens": 480,
+    "total_tokens": 6831,
+    "cost": 0.061044,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.061044,
+     "upstream_inference_prompt_cost": 0.046644,
+     "upstream_inference_completions_cost": 0.0144
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 480
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "c5h-c3.png",
+     "bytes": 1384768,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}
