@@ -38,7 +38,7 @@ def rank(r):
 summary = ""
 if SC:
     trs = "".join(f'<tr><td><a href="#{esc(r["id"])}">{esc(r["id"])}</a></td><td>{esc(SC.get(r["id"],{}).get("hard","?"))}</td><td class="n">{SC.get(r["id"],{}).get("soft","")}</td><td class="n">{SC.get(r["id"],{}).get("owner") if SC.get(r["id"],{}).get("owner") is not None else ""}</td><td>{esc(SC.get(r["id"],{}).get("call",""))}</td><td class="n">{"$%.3f" % r["cost_usd"] if r.get("cost_usd") is not None else ""}</td><td class="n">{r.get("seconds","")}</td></tr>' for r in sorted(rows, key=rank))
-    summary = f'<section><h2>Summary</h2><div class="wrap"><table><thead><tr><th>Picture</th><th>Hard rules</th><th class="n">Soft /14</th><th class="n">Owner /10</th><th>Call</th><th class="n">Billed</th><th class="n">s</th></tr></thead><tbody>{trs}</tbody></table></div></section>'
+    summary = f'<section><h2>Summary</h2><div class="wrap"><table><thead><tr><th>Picture</th><th>Hard rules</th><th class="n">Soft /14</th><th class="n">Owner /10</th><th>Call</th><th class="n">Billed</th><th class="n">Seconds</th></tr></thead><tbody>{trs}</tbody></table></div></section>'
 page = f"""<title>{esc(R.get('name') or 'Image evals')}</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
