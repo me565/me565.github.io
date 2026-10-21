@@ -1,0 +1,58 @@
+{
+ "name": "wall-c4-round3: the shortlist on the v3 prompt (the gotcha list folded in)",
+ "prompt_file": "../prompts/wall-c4-v3.txt",
+ "defaults": {
+  "aspect_ratio": "16:9",
+  "n": 1
+ },
+ "notes": [
+  "v3 = v2 plus every fault from prompts/GOTCHAS.md that a prompt can prevent: fills the frame, numbered object list with real sizes, desk a step from the wall, chair pushed in with its back to the viewer, blank spines and envelope, empty timetable grid, plain walls, a closing checks line.",
+  "Same seven models as round two (Nano Banana 2.1 retried), so each picture compares to the same model's round two.",
+  "If a fault from the gotcha list still appears here, it is the model's, not the prompt's."
+ ],
+ "cases": [
+  {
+   "id": "seedream-5-pro",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "est_usd": 0.045,
+   "resolution": "2K",
+   "seed": 11
+  },
+  {
+   "id": "nb2",
+   "model": "google/gemini-3.1-flash-image",
+   "est_usd": 0.1,
+   "resolution": "2K"
+  },
+  {
+   "id": "mai-2.6",
+   "model": "microsoft/mai-image-2.6",
+   "est_usd": 0.041
+  },
+  {
+   "id": "sunburst",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "est_usd": 0.017
+  },
+  {
+   "id": "qwen-2.1-pro",
+   "model": "qwen/qwen-image-2.1-pro",
+   "est_usd": 0.046,
+   "resolution": "2K",
+   "seed": 11
+  },
+  {
+   "id": "nb2.1",
+   "model": "google/gemini-nano-banana-2.1",
+   "est_usd": 0.04,
+   "resolution": "2K"
+  },
+  {
+   "id": "nbpro",
+   "model": "google/gemini-3-pro-image",
+   "est_usd": 0.135,
+   "resolution": "2K"
+  }
+ ],
+ "est_total_usd": 0.42
+}
