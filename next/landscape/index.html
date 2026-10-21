@@ -635,7 +635,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-10-21a';
+const BUILD = '2026-10-21b';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
@@ -759,6 +759,11 @@ function drawLayer(c, t){
     if (L.kind === 'drawer' && S.drawerOpen){ drawDrawer(1); return; }
     if (L.draw === 'rain'){ drawRain(ctx, idleT, ox, oy, W, H, L); return; }
     if (L.draw === 'steam'){ drawSteam(ctx, idleT, ox, oy, W, H); return; }
+    /* light that lives (backlog 23, owner 21 Oct 2026): no art, drawn by code; still under reduced motion */
+    if (L.draw === 'glow'){ drawGlow(ctx, reduceMotion ? 0 : idleT, ox, oy, W, H, L); return; }
+    if (L.draw === 'motes'){ drawMotes(ctx, reduceMotion ? 0 : idleT, ox, oy, W, H, L); return; }
+    if (L.draw === 'beam'){ drawBeam(ctx, reduceMotion ? 0 : idleT, ox, oy, W, H, L); return; }
+    if (L.draw === 'clock'){ drawClock(ctx, reduceMotion ? null : idleT, ox, oy, W, H, L); return; }
     if (L.idle && !reduceMotion){ /* living background: a slow movement that never stops (4, backlog 16) */
       const ph = L.phase || 0;
       if (L.idle === 'swim'){ /* a slow wander across the box, turning at each end, with a little bob; the box is the water, the picture a fraction of it */
@@ -944,6 +949,43 @@ function drawRain(ctx, t, ox, oy, W, H, L){
   ctx.restore();
 }
 /* steam: three wisps rising from the bottom of the box and fading as they go */
+/* which layers the living-background loop keeps redrawing */
+const LIVE_DRAWS = ['rain', 'steam', 'glow', 'motes', 'beam', 'clock'];
+const isLive = L => !!(L.idle || LIVE_DRAWS.includes(L.draw));
+/* a lamp or fairy lights breathing softly: a warm radial glow filling the box, its strength rising and falling (L.period, L.colour as 'r,g,b', L.strength) */
+function drawGlow(ctx, t, ox, oy, W, H, L){
+  const k = 0.72 + 0.28*Math.sin(2*Math.PI*t/(L.period || 3.6) + (L.phase || 0)), a = (L.strength || 0.5)*k, col = L.colour || '255,214,140';
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.translate(ox + W/2, oy + H/2); ctx.scale(1, H/W);
+  const g = ctx.createRadialGradient(0, 0, 0, 0, 0, W/2); g.addColorStop(0, `rgba(${col},${a})`); g.addColorStop(0.55, `rgba(${col},${a*0.35})`); g.addColorStop(1, `rgba(${col},0)`);
+  ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, W/2, 0, 2*Math.PI); ctx.fill(); ctx.restore();
+}
+/* dust drifting in a sunbeam: a few specks wandering slowly inside the box, each on its own path, fading in and out (L.count) */
+function drawMotes(ctx, t, ox, oy, W, H, L){
+  const n = L.count || 14, s = Math.max(1, W/260); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = 'rgba(255,246,220,1)';
+  for (let i = 0; i < n; i++){ const h1 = Math.sin(i*12.9898)*43758.5453, h2 = Math.sin(i*78.233)*12345.678, r1 = h1 - Math.floor(h1), r2 = h2 - Math.floor(h2);
+    const p = 9 + 7*r2, u = ((t/p) + r1) % 1, x = ox + W*((r1 + 0.06*Math.sin(2*Math.PI*t/(5 + 4*r2) + i)) % 1), y = oy + H*((r2 + 0.5*u) % 1);
+    ctx.globalAlpha = 0.5*Math.sin(Math.PI*u)*(0.5 + 0.5*r1); ctx.beginPath(); ctx.arc(x, y, s*(0.8 + 1.4*r2), 0, 2*Math.PI); ctx.fill(); }
+  ctx.restore();
+}
+/* a slow shift of window light: a slanted band of warm light across the box, soft-edged, drifting a little with the afternoon (L.period, L.slant, L.strength) */
+function drawBeam(ctx, t, ox, oy, W, H, L){
+  const d = W*0.05*Math.sin(2*Math.PI*t/(L.period || 16) + (L.phase || 0)), sl = (L.slant ?? 0.35)*W, a = L.strength || 0.16, col = L.colour || '255,228,160';
+  ctx.save(); ctx.globalCompositeOperation = 'lighter';
+  const x0 = ox + W*0.12 + d, x1 = ox + W*0.62 + d; const g = ctx.createLinearGradient(x0, 0, x1, 0);
+  g.addColorStop(0, `rgba(${col},0)`); g.addColorStop(0.25, `rgba(${col},${a})`); g.addColorStop(0.75, `rgba(${col},${a})`); g.addColorStop(1, `rgba(${col},0)`);
+  ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(x0 - sl, oy); ctx.lineTo(x1 - sl, oy); ctx.lineTo(x1 + sl, oy + H); ctx.lineTo(x0 + sl, oy + H); ctx.closePath(); ctx.fill(); ctx.restore();
+}
+/* a clock's hands on a blank face: the time the stage says (L.time 'HH:MM', else the real time), the long hand creeping, a thin second hand ticking once a second (t null: no second hand, for reduced motion) */
+function drawClock(ctx, t, ox, oy, W, H, L){
+  const cx = ox + W/2, cy = oy + H/2, r = Math.min(W, H)/2*(L.radius || 0.86), ink = L.ink || '#2b2836';
+  let hh, mm; if (L.time){ [hh, mm] = L.time.split(':').map(Number); } else { const d = new Date(); hh = d.getHours(); mm = d.getMinutes(); }
+  const sec = t == null ? null : Math.floor(t) % 60, kick = t == null ? 0 : Math.max(0, 1 - (t % 1)/0.18)*0.06;
+  const hand = (ang, len, w, col) => { ctx.save(); ctx.translate(cx, cy); ctx.rotate(ang); ctx.lineCap = 'round'; ctx.lineWidth = w; ctx.strokeStyle = col; ctx.beginPath(); ctx.moveTo(0, r*0.12); ctx.lineTo(0, -r*len); ctx.stroke(); ctx.restore(); };
+  hand(2*Math.PI*((hh % 12) + mm/60)/12, 0.52, Math.max(1.5, r*0.09), ink);
+  hand(2*Math.PI*(mm + (sec || 0)/60)/60, 0.78, Math.max(1.2, r*0.065), ink);
+  if (sec != null) hand(2*Math.PI*sec/60 - kick, 0.84, Math.max(1, r*0.03), L.second || '#c0392b');
+  ctx.save(); ctx.fillStyle = ink; ctx.beginPath(); ctx.arc(cx, cy, Math.max(1.5, r*0.06), 0, 2*Math.PI); ctx.fill(); ctx.restore();
+}
 function drawSteam(ctx, t, ox, oy, W, H){
   ctx.save(); ctx.lineCap = 'round'; ctx.strokeStyle = 'rgba(255,255,255,1)';
   for (let i = 0; i < 3; i++){ const u = ((t/3.2 + i/3) % 1), x0 = ox + W*(0.25 + i*0.25), y = oy + H*(1 - u), sw = W*0.08*Math.sin(2*Math.PI*u*1.5 + i);
@@ -957,9 +999,9 @@ let idleFrame = null, idleLast = 0;
 function idleTick(now){
   idleFrame = null; let any = false;
   if (!reduceMotion && !document.hidden && $('closeup').hidden && $('menu').hidden){
-    if (now - idleLast > 45){ idleLast = now; layerState.forEach((st, c) => { const L = st.L; if (!c.isConnected || st.anim) return; if (L.idle || L.draw === 'rain' || L.draw === 'steam'){ any = true; drawLayer(c, 0); } }); }
+    if (now - idleLast > 45){ idleLast = now; layerState.forEach((st, c) => { const L = st.L; if (!c.isConnected || st.anim) return; if (isLive(L)){ any = true; drawLayer(c, 0); } }); }
     else any = true;
-  } else { layerState.forEach(st => { if (st.L.idle || st.L.draw === 'rain' || st.L.draw === 'steam') any = true; }); }
+  } else { layerState.forEach(st => { if (isLive(st.L)) any = true; }); }
   if (any) idleFrame = requestAnimationFrame(idleTick);
 }
 function startIdle(){ if (!idleFrame && !reduceMotion) idleFrame = requestAnimationFrame(idleTick); }
@@ -1701,15 +1743,15 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-10-21a"></script>
-<script src="stages/packing.js?v=2026-10-21a"></script>
-<script src="stages/school3.js?v=2026-10-21a"></script>
-<script src="stages/evalroom.js?v=2026-10-21a"></script>
-<script src="stages/eschool.js?v=2026-10-21a"></script>
-<script src="stages/zschool.js?v=2026-10-21a"></script>
-<script src="stages/flight.js?v=2026-10-21a"></script>
-<script src="stages/nana.js?v=2026-10-21a"></script>
-<script src="stages/park.js?v=2026-10-21a"></script>
+<script src="stages/school.js?v=2026-10-21b"></script>
+<script src="stages/packing.js?v=2026-10-21b"></script>
+<script src="stages/school3.js?v=2026-10-21b"></script>
+<script src="stages/evalroom.js?v=2026-10-21b"></script>
+<script src="stages/eschool.js?v=2026-10-21b"></script>
+<script src="stages/zschool.js?v=2026-10-21b"></script>
+<script src="stages/flight.js?v=2026-10-21b"></script>
+<script src="stages/nana.js?v=2026-10-21b"></script>
+<script src="stages/park.js?v=2026-10-21b"></script>
 <script>boot();</script>
 <script>if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('../../sw.js').catch(() => {});</script>
 </body>

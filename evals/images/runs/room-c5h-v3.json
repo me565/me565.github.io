@@ -1,0 +1,96 @@
+{
+ "name": "room-c5h-v3: three classroom walls redrawn with four more things absent (the sill, the peg rail, the bin's lid, the cupboard's doors) and those four as cut-outs",
+ "defaults": {
+  "aspect_ratio": "16:9",
+  "n": 1
+ },
+ "notes": [
+  "Owner, 21 Oct 2026: 'do both' (more pieces on the motion sheet, and code-drawn light in the engine). The anchor wall c4 from room-c5h-v2 is kept and attached as the reference; c1, c2 and c3 are redrawn; the cut-outs take their own wall as reference.",
+  "Movements the engine already has: bend (the plants), swing (the coat), flip (the lid), peek (the doors)."
+ ],
+ "cases": [
+  {
+   "id": "c5h3-c1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-c5h/c1.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c1.png",
+    "next/art/eval/c5h/c4.jpg"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list (a box may mark an empty place where something will later stand); the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the timetable wall (north) of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the whiteboard wall (east), to the right of the timetable wall (more things absent: sill, pegs, bin lid, cupboard doors)"
+  },
+  {
+   "id": "c5h3-c2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-c5h/c2.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c2.png",
+    "next/art/eval/c5h/c4.jpg"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list (a box may mark an empty place where something will later stand); the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the timetable wall (north) of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the window wall (west), to the left of the timetable wall (more things absent: sill, pegs, bin lid, cupboard doors)"
+  },
+  {
+   "id": "c5h3-c3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-c5h/c3.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c3.png",
+    "case:c5h3-c1",
+    "case:c5h3-c2",
+    "next/art/eval/c5h/c4.jpg"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list (a box may mark an empty place where something will later stand); the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the whiteboard wall (east), to the right of the timetable wall of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 3 is the window wall (west), to the left of the timetable wall of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 4 is the timetable wall (north) of this same room, finished, drawn by you a moment ago; it is OPPOSITE this wall, behind the viewer. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the door wall (south), opposite the timetable wall (more things absent: sill, pegs, bin lid, cupboard doors)"
+  },
+  {
+   "id": "c5h3-cut-pots",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "The attached picture is a finished wall of a children's game, drawn by you a moment ago. Draw ONE thing alone in exactly its style, hand, ink outline, shading and palette: four terracotta pots in a row with bean plants at four different heights, from left to right a bare shoot, a small plant, a middling plant and a tall leafy one, each pot with a small plain white label with nothing written on it, as they would stand on the attached wall's window sill. The thing is centred and fills most of the picture, on a pure flat white background: no surface under it, no shadow, no floor, no wall, no frame, no border, no other text. Checks: one object only; pure white everywhere around it.",
+   "aspect_ratio": "16:9",
+   "references": [
+    "case:c5h3-c2"
+   ],
+   "est_usd": 0.02,
+   "note": "cut-out: pots, on white, its wall as reference"
+  },
+  {
+   "id": "c5h3-cut-coat",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "The attached picture is a finished wall of a children's game, drawn by you a moment ago. Draw ONE thing alone in exactly its style, hand, ink outline, shading and palette: one pale blue child's raincoat with a hood, hanging straight down from a peg, seen from the front, as it would hang on the attached wall's peg rail. The thing is centred and fills most of the picture, on a pure flat white background: no surface under it, no shadow, no floor, no wall, no frame, no border, no other text. Checks: one object only; pure white everywhere around it.",
+   "aspect_ratio": "1:1",
+   "references": [
+    "case:c5h3-c3"
+   ],
+   "est_usd": 0.02,
+   "note": "cut-out: coat, on white, its wall as reference"
+  },
+  {
+   "id": "c5h3-cut-lid",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "The attached picture is a finished wall of a children's game, drawn by you a moment ago. Draw ONE thing alone in exactly its style, hand, ink outline, shading and palette: the flat green lid of a recycling bin, seen from slightly above, as it would sit on the bin of the attached wall. The thing is centred and fills most of the picture, on a pure flat white background: no surface under it, no shadow, no floor, no wall, no frame, no border, no other text. Checks: one object only; pure white everywhere around it.",
+   "aspect_ratio": "1:1",
+   "references": [
+    "case:c5h3-c3"
+   ],
+   "est_usd": 0.02,
+   "note": "cut-out: lid, on white, its wall as reference"
+  },
+  {
+   "id": "c5h3-cut-doors",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "The attached picture is a finished wall of a children's game, drawn by you a moment ago. Draw ONE thing alone in exactly its style, hand, ink outline, shading and palette: the pair of tall teal cupboard doors, closed together, with two small handles in the middle and a small white label reading SUPPLIES on the left door, seen straight on, as they would hang on the attached wall's cupboard. The thing is centred and fills most of the picture, on a pure flat white background: no surface under it, no shadow, no floor, no wall, no frame, no border, no other text. Checks: one object only; pure white everywhere around it.",
+   "aspect_ratio": "1:1",
+   "references": [
+    "case:c5h3-c1"
+   ],
+   "est_usd": 0.02,
+   "note": "cut-out: doors, on white, its wall as reference"
+  }
+ ],
+ "est_total_usd": 0.2
+}

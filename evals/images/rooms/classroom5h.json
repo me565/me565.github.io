@@ -104,7 +104,10 @@
      "l": 12,
      "t": 18,
      "w": 16,
-     "h": 64
+     "h": 64,
+     "moves": "single (peek, the doors)",
+     "absent": "a tall teal supplies cupboard with both its doors missing, so its shelves inside are seen, bare and in shadow; no label",
+     "cut": "the pair of tall teal cupboard doors, closed together, with two small handles in the middle and a small white label reading SUPPLIES on the left door, seen straight on, as they would hang on the attached wall's cupboard"
     },
     {
      "id": "whiteboard",
@@ -140,7 +143,10 @@
      "l": 14,
      "t": 60,
      "w": 8,
-     "h": 22
+     "h": 22,
+     "moves": "single (flip, the lid)",
+     "absent": "a green recycling bin on the floor with no lid, open at the top",
+     "cut": "the flat green lid of a recycling bin, seen from slightly above, as it would sit on the bin of the attached wall"
     },
     {
      "id": "door",
@@ -160,7 +166,11 @@
      "l": 66,
      "t": 26,
      "w": 18,
-     "h": 24
+     "h": 24,
+     "moves": "single (swing)",
+     "absent": "a wooden rail of coat pegs on the wall with nothing hanging from it",
+     "cut": "one pale blue child's raincoat with a hood, hanging straight down from a peg, seen from the front, as it would hang on the attached wall's peg rail",
+     "cut_aspect": "1:1"
     },
     {
      "id": "lostbox",
@@ -196,7 +206,11 @@
      "l": 32,
      "t": 42,
      "w": 36,
-     "h": 10
+     "h": 10,
+     "moves": "single (bend)",
+     "absent": "the white window sill, with nothing standing on it",
+     "cut": "four terracotta pots in a row with bean plants at four different heights, from left to right a bare shoot, a small plant, a middling plant and a tall leafy one, each pot with a small plain white label with nothing written on it, as they would stand on the attached wall's window sill",
+     "cut_aspect": "16:9"
     },
     {
      "id": "radiator",
