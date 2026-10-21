@@ -1,0 +1,290 @@
+{
+ "name": "room-c5h-v4: the pots as four cut-outs, the doors tall, the lid thin: proportions stated (gotcha 29)",
+ "manifest": "evals/images/runs/room-c5h-v4.json",
+ "ran_at": "2026-10-21T05:35:30Z",
+ "total_cost_usd": 0.1045,
+ "results": [
+  {
+   "id": "c5h4-cut-pot1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "2:3",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval/c5h/c2.jpg"
+   ],
+   "params": {},
+   "note": "cut-out: pot1",
+   "seconds": 11.9,
+   "cost_usd": 0.017579,
+   "usage": {
+    "prompt_tokens": 1663,
+    "completion_tokens": 158,
+    "total_tokens": 1821,
+    "cost": 0.017579,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.017579,
+     "upstream_inference_prompt_cost": 0.012839,
+     "upstream_inference_completions_cost": 0.00474
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 158
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "c5h4-cut-pot1.png",
+     "bytes": 1349745,
+     "size": [
+      1024,
+      1536
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "c5h4-cut-pot2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "2:3",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval/c5h/c2.jpg"
+   ],
+   "params": {},
+   "note": "cut-out: pot2",
+   "seconds": 13.4,
+   "cost_usd": 0.017594,
+   "usage": {
+    "prompt_tokens": 1666,
+    "completion_tokens": 158,
+    "total_tokens": 1824,
+    "cost": 0.017594,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.017594,
+     "upstream_inference_prompt_cost": 0.012854,
+     "upstream_inference_completions_cost": 0.00474
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 158
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "c5h4-cut-pot2.png",
+     "bytes": 1265884,
+     "size": [
+      1024,
+      1536
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "c5h4-cut-pot3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "2:3",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval/c5h/c2.jpg"
+   ],
+   "params": {},
+   "note": "cut-out: pot3",
+   "seconds": 13.8,
+   "cost_usd": 0.017579,
+   "usage": {
+    "prompt_tokens": 1663,
+    "completion_tokens": 158,
+    "total_tokens": 1821,
+    "cost": 0.017579,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.017579,
+     "upstream_inference_prompt_cost": 0.012839,
+     "upstream_inference_completions_cost": 0.00474
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 158
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "c5h4-cut-pot3.png",
+     "bytes": 1301600,
+     "size": [
+      1024,
+      1536
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "c5h4-cut-pot4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "2:3",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval/c5h/c2.jpg"
+   ],
+   "params": {},
+   "note": "cut-out: pot4",
+   "seconds": 13.1,
+   "cost_usd": 0.017589,
+   "usage": {
+    "prompt_tokens": 1665,
+    "completion_tokens": 158,
+    "total_tokens": 1823,
+    "cost": 0.017589,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.017589,
+     "upstream_inference_prompt_cost": 0.012849,
+     "upstream_inference_completions_cost": 0.00474
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 158
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "c5h4-cut-pot4.png",
+     "bytes": 1351157,
+     "size": [
+      1024,
+      1536
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "c5h4-cut-doors",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "2:3",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval/c5h/c1.jpg"
+   ],
+   "params": {},
+   "note": "cut-out: doors, tall",
+   "seconds": 12.5,
+   "cost_usd": 0.017699,
+   "usage": {
+    "prompt_tokens": 1687,
+    "completion_tokens": 158,
+    "total_tokens": 1845,
+    "cost": 0.017699,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.017699,
+     "upstream_inference_prompt_cost": 0.012959,
+     "upstream_inference_completions_cost": 0.00474
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 158
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "c5h4-cut-doors.png",
+     "bytes": 1263083,
+     "size": [
+      1024,
+      1536
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "c5h4-cut-lid",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval/c5h/c3.jpg"
+   ],
+   "params": {},
+   "note": "cut-out: lid, thin, from the front",
+   "seconds": 11.5,
+   "cost_usd": 0.016449,
+   "usage": {
+    "prompt_tokens": 1665,
+    "completion_tokens": 120,
+    "total_tokens": 1785,
+    "cost": 0.016449,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.016449,
+     "upstream_inference_prompt_cost": 0.012849,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "c5h4-cut-lid.png",
+     "bytes": 915700,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}

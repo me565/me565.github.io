@@ -4,7 +4,7 @@
    Open with ?stage=evalroom. Nothing here is part of a child's story. */
 'use strict';
 registerStage('evalroom', (function(){
-const GEO2 = {"pots": {"l": 31.0, "t": 13.15, "w": 38.0, "h": 39.65}, "coat": {"l": 66.71, "t": 27.5, "w": 13.57, "h": 34.0}, "lid": {"l": 19.25, "t": 38.63, "w": 14.5, "h": 16.17}, "doors": {"l": 10.2, "t": 12.5, "w": 21.0, "h": 51.22}};
+const GEO2 = {"pots": {"l": 31.0, "t": 13.15, "w": 38.0, "h": 39.65}, "coat": {"l": 66.71, "t": 27.5, "w": 13.57, "h": 34.0}, "lid": {"l": 18.95, "t": 49.82, "w": 14.5, "h": 4.98}, "doors": {"l": 12.39, "t": 12.5, "w": 16.62, "h": 69.5}, "pot1": {"l": 32.9, "t": 41.47, "w": 6.2, "h": 11.33}, "pot2": {"l": 41.9, "t": 35.45, "w": 6.2, "h": 17.35}, "pot3": {"l": 50.9, "t": 27.43, "w": 6.2, "h": 25.37}, "pot4": {"l": 59.9, "t": 14.27, "w": 6.2, "h": 38.53}};
 const GEO = {"hamster": {"l": 75.68, "t": 38.0, "w": 3.03, "h": 7.5}, "envelope": {"l": 47.96, "t": 52.0, "w": 2.47, "h": 2.8}, "backpack": {"l": 56.25, "t": 70.0, "w": 7.49, "h": 16.0}};
 const ROOMS = { classroom:{name:'Classroom 5H (evaluation)', into:'the evaluation classroom', views:['c1','c2','c3','c4']} };
 const WALLS = { c1:'../art/eval/c5h/c1.jpg', c2:'../art/eval/c5h/c2.jpg', c3:'../art/eval/c5h/c3.jpg', c4:'../art/eval/c5h/c4.jpg' };
@@ -41,7 +41,10 @@ const LAYERS = {
     {src:'../art/eval/c5h/layer-lid.png', group:'lid', l:GEO2.lid.l, t:GEO2.lid.t, w:GEO2.lid.w, h:GEO2.lid.h, shadow:.4}],
   /* light that lives, drawn by code (backlog 23): a drifting beam of window light with dust in it on the window wall, a softer beam on the timetable wall, and the clock's hands ticking on its blank face */
   c2:[
-    {src:'../art/eval/c5h/layer-pots.png', group:'plant', l:GEO2.pots.l, t:GEO2.pots.t, w:GEO2.pots.w, h:GEO2.pots.h, shadow:.5},
+    {src:'../art/eval/c5h/layer-pot1.png', group:'plant', l:GEO2.pot1.l, t:GEO2.pot1.t, w:GEO2.pot1.w, h:GEO2.pot1.h, shadow:.5, phase:0.7},
+    {src:'../art/eval/c5h/layer-pot2.png', group:'plant', l:GEO2.pot2.l, t:GEO2.pot2.t, w:GEO2.pot2.w, h:GEO2.pot2.h, shadow:.5, phase:1.4},
+    {src:'../art/eval/c5h/layer-pot3.png', group:'plant', l:GEO2.pot3.l, t:GEO2.pot3.t, w:GEO2.pot3.w, h:GEO2.pot3.h, shadow:.5, phase:2.0999999999999996},
+    {src:'../art/eval/c5h/layer-pot4.png', group:'plant', l:GEO2.pot4.l, t:GEO2.pot4.t, w:GEO2.pot4.w, h:GEO2.pot4.h, shadow:.5, phase:2.8},
     {draw:'beam', l:8, t:55, w:60, h:45, period:18, slant:0.3, strength:0.14},
     {draw:'motes', l:22, t:12, w:50, h:60, count:16}],
   c1:[
