@@ -1,0 +1,37 @@
+{
+ "sunburst": {
+  "hard": "all pass",
+  "gotchas": "none",
+  "verdict": "Every gotcha obeyed: fills the frame, empty grid under the icon row, blank clock, wordless poster, blank spines, closed cage with lid, chair pushed in with its back to the viewer, desk a step from the wall, nothing extra. Balanced across the wall, real sizes, bright. The cleanest picture of three rounds."
+ },
+ "seedream-5-pro": {
+  "hard": "all pass",
+  "gotchas": "none, but one new one: the furniture is crowded into the right half, with the left half of the wall empty",
+  "verdict": "Every gotcha obeyed, including the chair with its back to the viewer and the desk a step from the wall. The 'bare wall to its left' line was taken too far: the bookshelf, desk and cabinet huddle right. That is a prompt fault, number 18 on the list."
+ },
+ "nbpro": {
+  "hard": "all pass",
+  "gotchas": "none; the same right-leaning layout as Seedream, milder",
+  "verdict": "The control, clean at last: no stripes, no frame, blank clock, empty grid, closed cage, chair pushed in. Still the flattest hand of the six."
+ },
+ "nb2": {
+  "hard": "H3 borderline: the rules poster is on the left side wall, not the back wall",
+  "gotchas": "none",
+  "verdict": "Every gotcha obeyed; the poster slid round the corner onto the side wall. Shading a little stronger than round two. The cheapest clean picture."
+ },
+ "mai-2.6": {
+  "hard": "H3 borderline: a sliver of window frame at the far left edge",
+  "gotchas": "the lettering is gone at last: blank spines, blank envelope, wordless poster",
+  "verdict": "The numbered list and the checks line did what two rounds of asking could not: no invented words anywhere. One sliver of a window on the side wall remains, and the chair faces the viewer rather than tucking in. Native size 1360\u00d7768."
+ },
+ "qwen-2.1-pro": {
+  "hard": "H6 fail (flat wall, no box, third time), H3 fail (objects out of order, bookcase on the right, baskets on the shelves, bookcase running off the edge)",
+  "gotchas": "ignores the room shape and the object order however it is asked",
+  "verdict": "The most lifelike drawing again, and the least obedient. Three rounds, three flat walls, now with the furniture in a different order and storage baskets it was told not to draw. The prompt is not the reason; the model is."
+ },
+ "nb2.1": {
+  "hard": "did not run: Google quota (429), third time",
+  "gotchas": "",
+  "verdict": "OpenRouter's route to Nano Banana 2.1 is out of quota today. Retry another day or through the Gemini key."
+ }
+}

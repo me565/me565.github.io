@@ -1,0 +1,204 @@
+{
+ "name": "room-c5h-qwen-sketch: Qwen 2.1 Pro draws the whole room from the specification and the wordless layout sketches, with no finished wall as a reference",
+ "manifest": "evals/images/runs/room-c5h-qwen-sketch.json",
+ "ran_at": "2026-10-21T03:58:51Z",
+ "total_cost_usd": 0.184,
+ "results": [
+  {
+   "id": "qwen-c4",
+   "model": "qwen/qwen-image-2.1-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "seed": 11,
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c4.png"
+   ],
+   "params": {},
+   "note": "layout sketch only, no finished wall attached",
+   "seconds": 57.2,
+   "cost_usd": 0.046,
+   "usage": {
+    "prompt_tokens": 1315,
+    "completion_tokens": 4175,
+    "total_tokens": 5490,
+    "cost": 0.046,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.046,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.046
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "qwen-c4.png",
+     "bytes": 2944007,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "qwen-c1",
+   "model": "qwen/qwen-image-2.1-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "seed": 11,
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c1.png"
+   ],
+   "params": {},
+   "note": "layout sketch only, no finished wall attached",
+   "seconds": 52.6,
+   "cost_usd": 0.046,
+   "usage": {
+    "prompt_tokens": 1055,
+    "completion_tokens": 4175,
+    "total_tokens": 5230,
+    "cost": 0.046,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.046,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.046
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "qwen-c1.png",
+     "bytes": 3021905,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "qwen-c2",
+   "model": "qwen/qwen-image-2.1-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "seed": 11,
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c2.png"
+   ],
+   "params": {},
+   "note": "layout sketch only, no finished wall attached",
+   "seconds": 50.4,
+   "cost_usd": 0.046,
+   "usage": {
+    "prompt_tokens": 1094,
+    "completion_tokens": 4175,
+    "total_tokens": 5269,
+    "cost": 0.046,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.046,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.046
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "qwen-c2.png",
+     "bytes": 2957783,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "qwen-c3",
+   "model": "qwen/qwen-image-2.1-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "seed": 11,
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c3.png"
+   ],
+   "params": {},
+   "note": "layout sketch only, no finished wall attached",
+   "seconds": 28.8,
+   "cost_usd": 0.046,
+   "usage": {
+    "prompt_tokens": 1074,
+    "completion_tokens": 4175,
+    "total_tokens": 5249,
+    "cost": 0.046,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.046,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.046
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "qwen-c3.png",
+     "bytes": 3196979,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}

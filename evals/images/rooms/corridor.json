@@ -1,0 +1,174 @@
+{
+ "name": "The school corridor (Knightsbrook International School), evaluation room 2",
+ "setting": "Cosy, warm and tidy: the main corridor of a Singapore international primary school in the afternoon, empty of people.",
+ "palette": "the walls are cream above a pale mint band; the band's top edge is at a child's shoulder height, 42% of the way up the back wall from the floor; the floor is pale grey vinyl with a faint sheen; accents teal and purple",
+ "box": "a shallow box in one-point perspective: a wide back wall running the full width, narrow side walls, a thin strip of ceiling, a low floor band",
+ "light": "the only daylight comes through the open doorway to the hall on the notice-board wall, with soft even light from the ceiling elsewhere",
+ "words": [
+  "LIBRARY",
+  "HALL"
+ ],
+ "order": [
+  "h1",
+  "h2",
+  "h3",
+  "h4"
+ ],
+ "walls": {
+  "h1": {
+   "name": "the lockers wall (north)",
+   "light": "soft even light; the doorway to the hall is behind the viewer to the right, so a faint warm glow falls on the right-hand end of this wall and shadows lean gently left",
+   "objects": [
+    {
+     "id": "lockers",
+     "label": "row of lockers",
+     "text": "a row of eight tall pale-blue metal lockers side by side, each with a small vent and a round handle; the third locker from the left is purple and has no door at all, its inside bare and empty",
+     "on": "floor",
+     "l": 8,
+     "t": 12,
+     "w": 56,
+     "h": 70,
+     "size": "the lockers reach well above a child's head, their tops a little above the mint band"
+    },
+    {
+     "id": "bench",
+     "label": "wooden bench",
+     "text": "a low wooden bench with nothing on it",
+     "on": "floor",
+     "l": 68,
+     "t": 62,
+     "w": 18,
+     "h": 20,
+     "size": "knee height"
+    },
+    {
+     "id": "fountain",
+     "label": "drinking fountain",
+     "text": "a small cream drinking fountain on the wall with a steel basin",
+     "on": "wall",
+     "l": 88,
+     "t": 44,
+     "w": 6,
+     "h": 16,
+     "size": "its basin at a child's chest height"
+    }
+   ]
+  },
+  "h2": {
+   "name": "the library doors wall (east), to the right of the lockers wall",
+   "light": "soft even light; the doorway to the hall is to the right of this wall, so a warm glow comes from the right and shadows lean left",
+   "objects": [
+    {
+     "id": "poster",
+     "label": "framed blank poster",
+     "text": "a framed poster on the wall with a plain pale picture of a moth and no words",
+     "on": "wall",
+     "l": 12,
+     "t": 18,
+     "w": 12,
+     "h": 18
+    },
+    {
+     "id": "doors",
+     "label": "LIBRARY double doors",
+     "text": "a pair of pale wooden double doors, closed, each with a round porthole window, and above them a small sign reading LIBRARY",
+     "on": "floor",
+     "l": 38,
+     "t": 8,
+     "w": 26,
+     "h": 74,
+     "size": "the doors reach almost to the ceiling strip"
+    },
+    {
+     "id": "plant",
+     "label": "tall plant",
+     "text": "a tall leafy plant in a plain terracotta pot standing on the floor",
+     "on": "floor",
+     "l": 76,
+     "t": 30,
+     "w": 10,
+     "h": 52,
+     "size": "as tall as a child"
+    }
+   ]
+  },
+  "h3": {
+   "name": "the notice-board wall (south), opposite the lockers wall",
+   "light": "daylight pours through the open doorway to the hall in the middle of this wall and lies in a bright patch on the floor in front of it; the rest of the wall is in soft even light",
+   "objects": [
+    {
+     "id": "board",
+     "label": "cork notice board",
+     "text": "a large cork notice board with a wooden frame, a few blank white papers pinned to it, nothing written on any of them",
+     "on": "wall",
+     "l": 8,
+     "t": 16,
+     "w": 26,
+     "h": 28,
+     "size": "as wide as the doorway"
+    },
+    {
+     "id": "halldoor",
+     "label": "open doorway to the HALL",
+     "text": "a wide open doorway with no door in it, a small sign reading HALL above, and through it a glimpse of a bright sunlit hall with a polished wooden floor and a far wall of tall windows",
+     "on": "floor",
+     "l": 40,
+     "t": 6,
+     "w": 24,
+     "h": 76,
+     "size": "the doorway reaches almost to the ceiling strip"
+    },
+    {
+     "id": "bench2",
+     "label": "wooden bench",
+     "text": "a low wooden bench with nothing on it",
+     "on": "floor",
+     "l": 70,
+     "t": 62,
+     "w": 18,
+     "h": 20,
+     "size": "knee height"
+    }
+   ]
+  },
+  "h4": {
+   "name": "the classroom doorways wall (west), to the left of the lockers wall",
+   "light": "soft even light; the doorway to the hall is to the left of this wall, so a warm glow comes from the left and shadows lean right",
+   "objects": [
+    {
+     "id": "door5h",
+     "label": "open doorway to Classroom 5H",
+     "text": "an open doorway with no door in it, and through it a glimpse of a classroom: a cream wall with a mint band, the corner of a whiteboard",
+     "on": "floor",
+     "l": 10,
+     "t": 8,
+     "w": 20,
+     "h": 74,
+     "size": "the doorway reaches almost to the ceiling strip"
+    },
+    {
+     "id": "pegs",
+     "label": "coat pegs with two bags",
+     "text": "a wooden rail of coat pegs on the wall with two small school bags hanging from it, one purple and one teal",
+     "on": "wall",
+     "l": 38,
+     "t": 32,
+     "w": 24,
+     "h": 22,
+     "size": "the rail at a child's eye height"
+    },
+    {
+     "id": "doorart",
+     "label": "open doorway to the art room",
+     "text": "an open doorway with no door in it, and through it a glimpse of an art room: a paint-splashed sink and a shelf of paint pots",
+     "on": "floor",
+     "l": 70,
+     "t": 8,
+     "w": 20,
+     "h": 74,
+     "size": "the doorway reaches almost to the ceiling strip"
+    }
+   ]
+  }
+ }
+}

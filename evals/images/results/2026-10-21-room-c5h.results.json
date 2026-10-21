@@ -1,0 +1,812 @@
+{
+ "name": "room-c5h: the whole classroom, four walls per model, from a room specification, a layout sketch per wall, anchor first, the finished neighbours as references",
+ "manifest": "evals/images/runs/room-c5h.json",
+ "ran_at": "2026-10-21T03:54:53Z",
+ "total_cost_usd": 0.9519,
+ "results": [
+  {
+   "id": "sunburst-c4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c4.png"
+   ],
+   "params": {},
+   "note": "the timetable wall (north); references: layout sketch",
+   "seconds": 28.5,
+   "cost_usd": 0.046945,
+   "usage": {
+    "prompt_tokens": 2276,
+    "completion_tokens": 1078,
+    "total_tokens": 3354,
+    "cost": 0.046945,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.046945,
+     "upstream_inference_prompt_cost": 0.014605,
+     "upstream_inference_completions_cost": 0.03234
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1078
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "sunburst-c4.png",
+     "bytes": 1527826,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "seedream-5-pro-c4",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "seed": 11,
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c4.png"
+   ],
+   "params": {},
+   "note": "the timetable wall (north); references: layout sketch",
+   "seconds": 54.5,
+   "cost_usd": 0.045,
+   "usage": {
+    "prompt_tokens": 1298,
+    "completion_tokens": 9216,
+    "total_tokens": 10514,
+    "cost": 0.045,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.045,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.045
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 9216
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "seedream-5-pro-c4.jpg",
+     "bytes": 338773,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "nb2-c4",
+   "model": "google/gemini-3.1-flash-image",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c4.png"
+   ],
+   "params": {},
+   "note": "the timetable wall (north); references: layout sketch",
+   "seconds": 21.0,
+   "cost_usd": 0.1019565,
+   "usage": {
+    "prompt_tokens": 2313,
+    "completion_tokens": 1680,
+    "total_tokens": 3993,
+    "cost": 0.1019565,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.1019565,
+     "upstream_inference_prompt_cost": 0.0011565,
+     "upstream_inference_completions_cost": 0.1008
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1680
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "nb2-c4.png",
+     "bytes": 4921382,
+     "size": [
+      2752,
+      1536
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "qwen-2.1-pro-c4",
+   "model": "qwen/qwen-image-2.1-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "seed": 11,
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c4.png"
+   ],
+   "params": {},
+   "note": "the timetable wall (north); references: layout sketch",
+   "seconds": 35.5,
+   "cost_usd": 0.046,
+   "usage": {
+    "prompt_tokens": 1298,
+    "completion_tokens": 4175,
+    "total_tokens": 5473,
+    "cost": 0.046,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.046,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.046
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "qwen-2.1-pro-c4.png",
+     "bytes": 3275854,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "sunburst-c1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c1.png",
+    "case:sunburst-c4"
+   ],
+   "params": {},
+   "note": "the whiteboard wall (east), to the right of the timetable wall; references: layout sketch, then the timetable wall (north)",
+   "seconds": 21.0,
+   "cost_usd": 0.032693,
+   "usage": {
+    "prompt_tokens": 3436,
+    "completion_tokens": 280,
+    "total_tokens": 3716,
+    "cost": 0.032693,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.032693,
+     "upstream_inference_prompt_cost": 0.024293,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "sunburst-c1.png",
+     "bytes": 1391051,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "sunburst-c2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c2.png",
+    "case:sunburst-c4"
+   ],
+   "params": {},
+   "note": "the window wall (west), to the left of the timetable wall; references: layout sketch, then the timetable wall (north)",
+   "seconds": 17.2,
+   "cost_usd": 0.032853,
+   "usage": {
+    "prompt_tokens": 3468,
+    "completion_tokens": 280,
+    "total_tokens": 3748,
+    "cost": 0.032853,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.032853,
+     "upstream_inference_prompt_cost": 0.024453,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "sunburst-c2.png",
+     "bytes": 1507932,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "seedream-5-pro-c1",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "seed": 11,
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c1.png",
+    "case:seedream-5-pro-c4"
+   ],
+   "params": {},
+   "note": "the whiteboard wall (east), to the right of the timetable wall; references: layout sketch, then the timetable wall (north)",
+   "seconds": 116.9,
+   "cost_usd": 0.048,
+   "usage": {
+    "prompt_tokens": 1148,
+    "completion_tokens": 9216,
+    "total_tokens": 10364,
+    "cost": 0.048,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.048,
+     "upstream_inference_prompt_cost": 0.003,
+     "upstream_inference_completions_cost": 0.045
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 9216
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "seedream-5-pro-c1.jpg",
+     "bytes": 295522,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "seedream-5-pro-c2",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "seed": 11,
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c2.png",
+    "case:seedream-5-pro-c4"
+   ],
+   "params": {},
+   "note": "the window wall (west), to the left of the timetable wall; references: layout sketch, then the timetable wall (north)",
+   "seconds": 53.2,
+   "cost_usd": 0.048,
+   "usage": {
+    "prompt_tokens": 1188,
+    "completion_tokens": 9216,
+    "total_tokens": 10404,
+    "cost": 0.048,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.048,
+     "upstream_inference_prompt_cost": 0.003,
+     "upstream_inference_completions_cost": 0.045
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 9216
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "seedream-5-pro-c2.jpg",
+     "bytes": 334286,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "nb2-c1",
+   "model": "google/gemini-3.1-flash-image",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c1.png",
+    "case:nb2-c4"
+   ],
+   "params": {},
+   "note": "the whiteboard wall (east), to the right of the timetable wall; references: layout sketch, then the timetable wall (north)",
+   "seconds": 36.2,
+   "cost_usd": 0.1024425,
+   "usage": {
+    "prompt_tokens": 3285,
+    "completion_tokens": 1680,
+    "total_tokens": 4965,
+    "cost": 0.1024425,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.1024425,
+     "upstream_inference_prompt_cost": 0.0016425,
+     "upstream_inference_completions_cost": 0.1008
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1680
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "nb2-c1.png",
+     "bytes": 4792377,
+     "size": [
+      2752,
+      1536
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "nb2-c2",
+   "model": "google/gemini-3.1-flash-image",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c2.png",
+    "case:nb2-c4"
+   ],
+   "params": {},
+   "note": "the window wall (west), to the left of the timetable wall; references: layout sketch, then the timetable wall (north)",
+   "seconds": 23.4,
+   "cost_usd": 0.102456,
+   "usage": {
+    "prompt_tokens": 3312,
+    "completion_tokens": 1680,
+    "total_tokens": 4992,
+    "cost": 0.102456,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.102456,
+     "upstream_inference_prompt_cost": 0.001656,
+     "upstream_inference_completions_cost": 0.1008
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1680
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "nb2-c2.png",
+     "bytes": 5178015,
+     "size": [
+      2752,
+      1536
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "qwen-2.1-pro-c1",
+   "model": "qwen/qwen-image-2.1-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "seed": 11,
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c1.png",
+    "case:qwen-2.1-pro-c4"
+   ],
+   "params": {},
+   "note": "the whiteboard wall (east), to the right of the timetable wall; references: layout sketch, then the timetable wall (north)",
+   "seconds": 56.7,
+   "cost_usd": 0.046,
+   "usage": {
+    "prompt_tokens": 1148,
+    "completion_tokens": 4175,
+    "total_tokens": 5323,
+    "cost": 0.046,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.046,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.046
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "qwen-2.1-pro-c1.png",
+     "bytes": 3643439,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "qwen-2.1-pro-c2",
+   "model": "qwen/qwen-image-2.1-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "seed": 11,
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c2.png",
+    "case:qwen-2.1-pro-c4"
+   ],
+   "params": {},
+   "note": "the window wall (west), to the left of the timetable wall; references: layout sketch, then the timetable wall (north)",
+   "seconds": 49.9,
+   "cost_usd": 0.046,
+   "usage": {
+    "prompt_tokens": 1188,
+    "completion_tokens": 4175,
+    "total_tokens": 5363,
+    "cost": 0.046,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.046,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.046
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "qwen-2.1-pro-c2.png",
+     "bytes": 3514528,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "sunburst-c3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c3.png",
+    "case:sunburst-c1",
+    "case:sunburst-c2",
+    "case:sunburst-c4"
+   ],
+   "params": {},
+   "note": "the door wall (south), opposite the timetable wall; references: layout sketch, then the whiteboard wall (east), to the right of the timetable wall, the window wall (west), to the left of the timetable wall, the timetable wall (north)",
+   "seconds": 21.3,
+   "cost_usd": 0.049839,
+   "usage": {
+    "prompt_tokens": 6270,
+    "completion_tokens": 120,
+    "total_tokens": 6390,
+    "cost": 0.049839,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.049839,
+     "upstream_inference_prompt_cost": 0.046239,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "sunburst-c3.png",
+     "bytes": 1435877,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "seedream-5-pro-c3",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "seed": 11,
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c3.png",
+    "case:seedream-5-pro-c1",
+    "case:seedream-5-pro-c2",
+    "case:seedream-5-pro-c4"
+   ],
+   "params": {},
+   "note": "the door wall (south), opposite the timetable wall; references: layout sketch, then the whiteboard wall (east), to the right of the timetable wall, the window wall (west), to the left of the timetable wall, the timetable wall (north)",
+   "seconds": 104.0,
+   "cost_usd": 0.054,
+   "usage": {
+    "prompt_tokens": 1378,
+    "completion_tokens": 9216,
+    "total_tokens": 10594,
+    "cost": 0.054,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.054,
+     "upstream_inference_prompt_cost": 0.009,
+     "upstream_inference_completions_cost": 0.045
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 9216
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "seedream-5-pro-c3.jpg",
+     "bytes": 339992,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "nb2-c3",
+   "model": "google/gemini-3.1-flash-image",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c3.png",
+    "case:nb2-c1",
+    "case:nb2-c2",
+    "case:nb2-c4"
+   ],
+   "params": {},
+   "note": "the door wall (south), opposite the timetable wall; references: layout sketch, then the whiteboard wall (east), to the right of the timetable wall, the window wall (west), to the left of the timetable wall, the timetable wall (north)",
+   "seconds": 30.0,
+   "cost_usd": 0.103674,
+   "usage": {
+    "prompt_tokens": 5748,
+    "completion_tokens": 1680,
+    "total_tokens": 7428,
+    "cost": 0.103674,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.103674,
+     "upstream_inference_prompt_cost": 0.002874,
+     "upstream_inference_completions_cost": 0.1008
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1680
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "nb2-c3.png",
+     "bytes": 4945551,
+     "size": [
+      2752,
+      1536
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "qwen-2.1-pro-c3",
+   "model": "qwen/qwen-image-2.1-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "seed": 11,
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c3.png",
+    "case:qwen-2.1-pro-c1",
+    "case:qwen-2.1-pro-c2",
+    "case:qwen-2.1-pro-c4"
+   ],
+   "params": {},
+   "note": "the door wall (south), opposite the timetable wall; references: layout sketch, then the whiteboard wall (east), to the right of the timetable wall, the window wall (west), to the left of the timetable wall, the timetable wall (north)",
+   "seconds": 61.1,
+   "cost_usd": 0.046,
+   "usage": {
+    "prompt_tokens": 1378,
+    "completion_tokens": 4175,
+    "total_tokens": 5553,
+    "cost": 0.046,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.046,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.046
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "qwen-2.1-pro-c3.png",
+     "bytes": 4677836,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}

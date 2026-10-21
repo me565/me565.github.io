@@ -1,0 +1,392 @@
+{
+ "name": "wall-c2: the three finalists draw the Classroom 5H window wall, alone and with their own back wall as a style reference",
+ "manifest": "evals/images/runs/wall-c2.json",
+ "ran_at": "2026-10-21T03:08:40Z",
+ "total_cost_usd": 0.403,
+ "results": [
+  {
+   "id": "sunburst",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "prompt alone",
+   "seconds": 14.1,
+   "cost_usd": 0.006675,
+   "usage": {
+    "prompt_tokens": 615,
+    "completion_tokens": 120,
+    "total_tokens": 735,
+    "cost": 0.006675,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.006675,
+     "upstream_inference_prompt_cost": 0.003075,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "sunburst.png",
+     "bytes": 1801326,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "sunburst-ref",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/c4-sunburst.jpg"
+   ],
+   "params": {},
+   "note": "with the model's own round-three back wall as a style reference: draw this wall in exactly the style of the attached picture, the same room, the same hand",
+   "seconds": 17.6,
+   "cost_usd": 0.01184,
+   "usage": {
+    "prompt_tokens": 688,
+    "completion_tokens": 280,
+    "total_tokens": 968,
+    "cost": 0.01184,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.01184,
+     "upstream_inference_prompt_cost": 0.00344,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "sunburst-ref.png",
+     "bytes": 1988405,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "seedream-5-pro",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "seed": 11,
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "prompt alone",
+   "seconds": 83.0,
+   "cost_usd": 0.045,
+   "usage": {
+    "prompt_tokens": 696,
+    "completion_tokens": 9216,
+    "total_tokens": 9912,
+    "cost": 0.045,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.045,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.045
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 9216
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "seedream-5-pro.jpg",
+     "bytes": 310592,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "seedream-5-pro-ref",
+   "model": "bytedance-seed/seedream-5-0-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "seed": 11,
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/c4-seedream-5-pro.jpg"
+   ],
+   "params": {},
+   "note": "with the model's own round-three back wall as a style reference: draw this wall in exactly the style of the attached picture, the same room, the same hand",
+   "seconds": 75.4,
+   "cost_usd": 0.045,
+   "usage": {
+    "prompt_tokens": 782,
+    "completion_tokens": 9216,
+    "total_tokens": 9998,
+    "cost": 0.045,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.045,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.045
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 9216
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "seedream-5-pro-ref.jpg",
+     "bytes": 280541,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "nb2",
+   "model": "google/gemini-3.1-flash-image",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "prompt alone",
+   "seconds": 19.8,
+   "cost_usd": 0.101109,
+   "usage": {
+    "prompt_tokens": 618,
+    "completion_tokens": 1680,
+    "total_tokens": 2298,
+    "cost": 0.101109,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.101109,
+     "upstream_inference_prompt_cost": 0.000309,
+     "upstream_inference_completions_cost": 0.1008
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1680
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "nb2.png",
+     "bytes": 4787115,
+     "size": [
+      2752,
+      1536
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "nb2-ref",
+   "model": "google/gemini-3.1-flash-image",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/c4-nb2.jpg"
+   ],
+   "params": {},
+   "note": "with the model's own round-three back wall as a style reference: draw this wall in exactly the style of the attached picture, the same room, the same hand",
+   "seconds": 16.8,
+   "cost_usd": 0.1013325,
+   "usage": {
+    "prompt_tokens": 693,
+    "completion_tokens": 1742,
+    "total_tokens": 2435,
+    "cost": 0.1013325,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.1013325,
+     "upstream_inference_prompt_cost": 0.0003465,
+     "upstream_inference_completions_cost": 0.100986
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1680
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "nb2-ref.png",
+     "bytes": 4842830,
+     "size": [
+      2752,
+      1536
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "qwen-2.1-pro",
+   "model": "qwen/qwen-image-2.1-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "seed": 11,
+    "n": 1
+   },
+   "references": [],
+   "params": {},
+   "note": "prompt alone (added at the owner's request)",
+   "seconds": 34.4,
+   "cost_usd": 0.046,
+   "usage": {
+    "prompt_tokens": 696,
+    "completion_tokens": 4175,
+    "total_tokens": 4871,
+    "cost": 0.046,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.046,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.046
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "qwen-2.1-pro.png",
+     "bytes": 3723424,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "qwen-2.1-pro-ref",
+   "model": "qwen/qwen-image-2.1-pro",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "seed": 11,
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/c4-qwen-2.1-pro.jpg"
+   ],
+   "params": {},
+   "note": "with its own round-three back wall as a style reference",
+   "seconds": 37.0,
+   "cost_usd": 0.046,
+   "usage": {
+    "prompt_tokens": 782,
+    "completion_tokens": 4175,
+    "total_tokens": 4957,
+    "cost": 0.046,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.046,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0.046
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 4175
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "qwen-2.1-pro-ref.png",
+     "bytes": 4515538,
+     "size": [
+      2048,
+      1152
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}

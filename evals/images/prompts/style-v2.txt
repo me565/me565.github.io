@@ -1,0 +1,7 @@
+Adopted into the v2 evaluation prompt at the owner's instruction, 21 Oct 2026 ("update the prompt based on my comments which show some preferences which stray from original prompt"). The playbook's shared style text is still the old sentence until he signs the change off there after seeing round two. Replaces the style sentence in the shared style text. From his marks: the two 8s went to rendered pictures with shadows and finishing (Qwen 2.1 Pro, MAI-Image 2.6); the flattest (Nano Banana Pro) got a 6; the hazy OpenAI family 5 to 7.
+
+OLD:
+Style: clean, calm flat illustration with thin, even dark-ink outlines, flat colour fills, very little shading, a faint hand-drawn hatch or paper texture, and a soft dark vignette at the edges.
+
+NEW:
+Style: a polished, finished illustration with clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark.
