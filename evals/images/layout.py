@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Draw a greybox layout sketch (no words on it, only the list numbers, so no model can copy a label) for each wall of a room specification (evals/images/rooms/<room>.json):
+"""Draw a greybox layout sketch (nothing written on it at all: boxes only, left to right in list order, because even list numbers get drawn into the picture) for each wall of a room specification (evals/images/rooms/<room>.json):
 plain labelled boxes where each thing stands, the shallow box, the mint band line, and on each side wall the
 name of the neighbouring wall's near end. The sketch is given to the image model as a reference for positions.
     python3 evals/images/layout.py evals/images/rooms/classroom5h.json evals/images/rooms/classroom5h
@@ -33,7 +33,6 @@ for key in order:
         y0 = CEIL + (FLOOR - CEIL) * o["t"] / 100; y1 = y0 + (FLOOR - CEIL) * o["h"] / 100
         if o["on"] == "floor": y1 = FLOOR + (H - FLOOR) * .25
         d.rectangle([x0, y0, x1, y1], outline="black", width=3, fill="#cfcfcf")
-        d.text((x0 + 12, y0 + 8), str(w["objects"].index(o) + 1), fill="black", font=font(44))
     (ln, lo), (rn, ro) = ends(key)
     # a small grey block on each side wall where the neighbour's end shows, no words
     d.rectangle([8, int(H*.38), SIDE - 14, FLOOR - 20], outline="black", width=2, fill="#d8d8d8")

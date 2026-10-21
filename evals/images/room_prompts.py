@@ -29,7 +29,7 @@ for key in order:
 
 {roomblock}
 
-This wall is {w['name']}. Only the objects in the numbered list below, each exactly where the list says and where the numbered grey box of the attached layout sketch puts it, at real size, against the back wall; nothing on the side walls but what the side-wall sentence names. Plain walls: no pattern, no stripes, no extra posters, shelves, plants, boxes, bins or decoration beyond the list.
+This wall is {w['name']}. Only the objects in the numbered list below, each exactly where the list says and where the attached layout sketch's grey boxes put it (the boxes are in the same left-to-right order as the list), at real size, against the back wall; nothing on the side walls but what the side-wall sentence names. Plain walls: no pattern, no stripes, no extra posters, shelves, plants, boxes, bins or decoration beyond the list.
 {items}
 
 {sides}
