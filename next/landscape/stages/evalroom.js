@@ -5,7 +5,7 @@
 'use strict';
 registerStage('evalroom', (function(){
 const GEO2 = {"pots": {"l": 31.0, "t": 13.15, "w": 38.0, "h": 39.65}, "coat": {"l": 66.71, "t": 27.5, "w": 13.57, "h": 34.0}, "lid": {"l": 18.95, "t": 49.82, "w": 14.5, "h": 4.98}, "doors": {"l": 12.39, "t": 12.5, "w": 16.62, "h": 69.5}, "pot1": {"l": 32.9, "t": 41.47, "w": 6.2, "h": 11.33}, "pot2": {"l": 41.9, "t": 35.45, "w": 6.2, "h": 17.35}, "pot3": {"l": 50.9, "t": 27.43, "w": 6.2, "h": 25.37}, "pot4": {"l": 59.9, "t": 14.27, "w": 6.2, "h": 38.53}};
-const GEO = {"hamster": {"l": 75.68, "t": 38.0, "w": 3.03, "h": 7.5}, "envelope": {"l": 47.96, "t": 52.0, "w": 2.47, "h": 2.8}, "backpack": {"l": 56.25, "t": 70.0, "w": 7.49, "h": 16.0}};
+const GEO = {"hamster": {"l": 76.1, "t": 43.0, "w": 3.03, "h": 7.5}, "envelope": {"l": 47.96, "t": 52.0, "w": 2.47, "h": 2.8}, "backpack": {"l": 56.25, "t": 70.0, "w": 7.49, "h": 16.0}};
 const ROOMS = { classroom:{name:'Classroom 5H (evaluation)', into:'the evaluation classroom', views:['c4','c1','c3','c2'] /* turning right: timetable (north), whiteboard (east), door (south), window (west); the room file's compass, not its file order */} };
 const WALLS = { c1:'../art/eval/c5h/c1.jpg', c2:'../art/eval/c5h/c2.jpg', c3:'../art/eval/c5h/c3.jpg', c4:'../art/eval/c5h/c4.jpg' };
 const DOORS = {};
@@ -30,7 +30,7 @@ const HOTS = {
     {id:'ev_bookshelf', l:14, t:48, w:20, h:34, label:'Bookshelf', sound:'knock'},
     {id:'ev_desk', l:39, t:54, w:21, h:34, label:"Mary's desk", sound:'tap'},
     {id:'ev_envelope', l:GEO.envelope.l-1.5, t:GEO.envelope.t-2, w:GEO.envelope.w+3, h:GEO.envelope.h+4, label:'Envelope on the desk', key:true, anim:'lift', layer:'envelope', sound:'paper', hideWhen:() => S.got.includes('ev_env')},
-    {id:'ev_bag', l:GEO.backpack.l-1, t:GEO.backpack.t-1, w:GEO.backpack.w+2, h:GEO.backpack.h+2, label:'Schoolbag', anim:'wobble', layer:'backpack', sound:'tap'},
+    {id:'ev_bag', l:GEO.backpack.l-1, t:GEO.backpack.t-1, w:GEO.backpack.w+2, h:GEO.backpack.h+2, label:'Schoolbag', anim:'slump', layer:'backpack', sound:'tap'},
     {id:'ev_hamster', l:70, t:36.5, w:13.4, h:15.7, label:'Nutmeg the hamster', anim:'sniff', layer:'hamster', sound:'squeak'},
     {id:'ev_cabinet', l:69, t:52, w:16, h:33, label:'Filing cabinet', sound:'knock'}]
 };
@@ -41,10 +41,10 @@ const LAYERS = {
     {src:'../art/eval/c5h/layer-lid.png', group:'lid', l:GEO2.lid.l, t:GEO2.lid.t, w:GEO2.lid.w, h:GEO2.lid.h, shadow:.4}],
   /* light that lives, drawn by code (backlog 23): a drifting beam of window light with dust in it on the window wall, a softer beam on the timetable wall, and the clock's hands ticking on its blank face */
   c2:[
-    {src:'../art/eval/c5h/layer-pot1.png', group:'plant', l:GEO2.pot1.l, t:GEO2.pot1.t, w:GEO2.pot1.w, h:GEO2.pot1.h, shadow:.5, phase:0.7},
-    {src:'../art/eval/c5h/layer-pot2.png', group:'plant', l:GEO2.pot2.l, t:GEO2.pot2.t, w:GEO2.pot2.w, h:GEO2.pot2.h, shadow:.5, phase:1.4},
-    {src:'../art/eval/c5h/layer-pot3.png', group:'plant', l:GEO2.pot3.l, t:GEO2.pot3.t, w:GEO2.pot3.w, h:GEO2.pot3.h, shadow:.5, phase:2.0999999999999996},
-    {src:'../art/eval/c5h/layer-pot4.png', group:'plant', l:GEO2.pot4.l, t:GEO2.pot4.t, w:GEO2.pot4.w, h:GEO2.pot4.h, shadow:.5, phase:2.8},
+    {src:'../art/eval/c5h/layer-pot1.png', group:'plant', l:GEO2.pot1.l, t:GEO2.pot1.t, w:GEO2.pot1.w, h:GEO2.pot1.h, shadow:.5, pin:.90, phase:0.7}, /* pin: the share of each cut-out, from the bottom, that is pot and soil and never moves (MOTH-48) */
+    {src:'../art/eval/c5h/layer-pot2.png', group:'plant', l:GEO2.pot2.l, t:GEO2.pot2.t, w:GEO2.pot2.w, h:GEO2.pot2.h, shadow:.5, pin:.59, phase:1.4},
+    {src:'../art/eval/c5h/layer-pot3.png', group:'plant', l:GEO2.pot3.l, t:GEO2.pot3.t, w:GEO2.pot3.w, h:GEO2.pot3.h, shadow:.5, pin:.34, phase:2.0999999999999996},
+    {src:'../art/eval/c5h/layer-pot4.png', group:'plant', l:GEO2.pot4.l, t:GEO2.pot4.t, w:GEO2.pot4.w, h:GEO2.pot4.h, shadow:.5, pin:.28, phase:2.8},
     {draw:'beam', l:8, t:55, w:60, h:45, period:18, slant:0.3, strength:0.14},
     {draw:'motes', l:22, t:12, w:50, h:60, count:16}],
   c1:[
@@ -54,7 +54,7 @@ const LAYERS = {
     {draw:'clock', l:70.6, t:15.6, w:7.8, h:13.9, time:'14:40'},
     {draw:'beam', l:0, t:52, w:48, h:48, period:20, slant:0.3, strength:0.12},
     {src:'../art/eval/c5h/layer-envelope.png', group:'envelope', l:GEO.envelope.l, t:GEO.envelope.t, w:GEO.envelope.w, h:GEO.envelope.h, hideWhen:() => S.got.includes('ev_env')},
-    {src:'../art/eval/c5h/layer-hamster.png', group:'hamster', l:GEO.hamster.l, t:GEO.hamster.t, w:GEO.hamster.w, h:GEO.hamster.h, glass:[70, 36.5, 13.4, 15.7], shadow:.5, tone:'saturate(.72) brightness(.94) contrast(.92)', idle:'breathe', amount:.02, period:2.4},
+    {src:'../art/eval/c5h/layer-hamster.png', group:'hamster', l:GEO.hamster.l, t:GEO.hamster.t, w:GEO.hamster.w, h:GEO.hamster.h, glass:[70, 36.5, 13.4, 15.7], shadow:.5, tone:'saturate(.88)', idle:'breathe', amount:.02, period:2.4},
     {src:'../art/eval/c5h/layer-backpack.png', group:'backpack', l:GEO.backpack.l, t:GEO.backpack.t, w:GEO.backpack.w, h:GEO.backpack.h, shadow:.8}]
 };
 const NOTES = { ev_env:{hand:true, html:'<span class="head">For Mary</span><span class="big">This is the evaluation classroom.</span><span>Walk round it, tap things, watch what moves. Nothing here is a puzzle.</span>'} };
@@ -65,7 +65,7 @@ function act(id){
   switch(id){
     case 'ev_envelope': S.got.push('ev_env'); sfx('pickup'); setTimeout(() => { render(); openNote('ev_env'); }, 700); say('An envelope. It lifts off the desk and into the strip.'); return;
     case 'ev_hamster': say('Nutmeg sniffs at the bars. He breathes all the time; a tap makes him sniff.'); return;
-    case 'ev_bag': say('The schoolbag wobbles. In the game a tap would pick it up.'); return;
+    case 'ev_bag': say('The schoolbag slumps a little. In the game a tap would pick it up.'); return;
     case 'ev_desk': say(S.got.includes('ev_env') ? 'The desk, bare but for the pencil case.' : 'The desk. An envelope on it.'); return;
     case 'ev_clock': say('Twenty to three, drawn by the game on the blank face; the second hand ticks.'); return;
     case 'ev_timetable': say('The grid is empty: the game draws the days and the cells.'); return;

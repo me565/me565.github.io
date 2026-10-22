@@ -59,6 +59,7 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 54. **Every solve has a reward moment.** A lock that opens shows the lock reacting, the thing opening by its own movement and what was inside, with sound, in about three seconds, then a settled state that stays (playbook 4ab).
 55. **Joints never gap.** A thing in hinged parts shows no seam, gap or doubled edge at its joints, checked in a screenshot at the furthest point of every movement (playbook 4ab).
 56. **Poses match.** A pose swap jumps only in the part that changes: same size, place, line and colour in every pose (playbook 4ab).
+58. **Only the part that can move moves.** A cut-out standing in or on something is pinned at its base (`pin`, measured from its own rim or soil line), so a pot, a stand or a base never sways with what grows or hangs from it; a soft thing slumps, a hard thing rocks, and nothing swivels; a thing behind glass stays solid, the bars in front of it, and sits on the floor of what holds it, feet on the bedding (owner's recording, 22 Oct 2026; MOTH-46 to 48). Checked by tapping each moving thing and watching its base.
 
 
 ## E. Every close-up and gesture
