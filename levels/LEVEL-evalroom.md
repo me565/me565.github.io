@@ -3,8 +3,8 @@
 *Outline only, written in claude.ai on 22 Oct 2026 from a discussion with the owner, recorded here the same day from `EVALROOM-HANDOVER.md` with the owner's two changes made in chat after the review (the lock-up duty premise and the falling key) and the review's findings listed under "Review against the repo". Nothing here is built yet. Do not build, generate art or change the engine until the owner signs Gate B, and then follow the gates as for any level. The stage stays `?stage=evalroom` (`next/landscape/stages/evalroom.js`); its current "one room, no puzzle" content is replaced by this design once it reaches the greybox.*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: first playable (build 2026-10-22c after the owner's first tablet play; Gate C waits on his next play)
-Build id of the latest play link: 2026-10-22c (the first playable, with the owner's first round of tablet feedback built in: MOTH-49, 50, 51)
+Current status: first playable (build 2026-10-22d, after the owner's two rounds of tablet feedback; Gate C waits on his next play)
+Build id of the latest play link: 2026-10-22d (the first playable, with both rounds of the owner's tablet feedback built in: MOTH-49 to 54)
 Latest play link: `?stage=evalroom`
 
 ---
@@ -56,7 +56,7 @@ Result (walked on paper, 22 Oct 2026): passes. One room, so everything is reacha
 | Opening | Envelope on Mary's desk (c4) | — | — | The note (below), the goal |
 | A. The ruler | Tap the raincoat (c3): it swings and a small key falls out of the pocket onto the floor under the pegs; tap the key on the floor to pick it up (owner, 22 Oct 2026: "the key falls on the floor before I pick it up") | — | Filing cabinet top drawer (c4): use the small key | The ruler |
 | A. The heights | Use the ruler on the bean pots (c2) | The pot close-up | — | Four heights, into Noticed |
-| B. The order | Bin (c3): lid flips, half a torn note inside. Lost property box (c3): tap, the red shoe and blue hat pop up, the other half is under the hat | — | Combine the two halves | The watering note (below) |
+| B. The order | Bin (c3): lid flips, then the bin seen from the top; push the rubbish aside piece by piece, half a torn note is under the last two (owner, 22 Oct 2026). Lost property box (c3): tap, the red shoe and blue hat pop up, then the box close up; tap the hat to look inside it, the other half is tucked in its band (owner, 22 Oct 2026) | — | Combine the two halves | The watering note (below) |
 | The code | — | Envelope note + watering note + whiteboard date + timetable Thursday row + pot labels + heights | Mr Hollis's desk drawer (c1), four dials | The classroom key |
 | The way out | Classroom key | — | Classroom door (c3): use the key, then drag to turn it | The ending |
 
@@ -75,7 +75,7 @@ Result (walked on paper, 22 Oct 2026): passes. One room, so everything is reacha
 
 ### Puzzle types (cap: two of any type)
 
-Key in a lock ×2 (cabinet, door) · combine two halves ×1 · measuring ×1 · multi-clue lookup onto number dials ×1 · drag gesture ×1. Searching (coat, bin, box) is not counted as a puzzle. **Five types, none more than twice.**
+Key in a lock ×2 (cabinet, door) · combine two halves ×1 · measuring ×1 · multi-clue lookup onto number dials ×1 · drag gesture ×1 · search by moving things aside ×1 (the bin, added 22 Oct 2026). Plain searching (coat, box, hat) is not counted as a puzzle. **Six types, none more than twice.**
 
 ### Every lock and its visible clue
 
@@ -125,12 +125,14 @@ Result: passes. The code has exactly one reading that fits all four clues. Care 
 |---|---|---|---|---|---|---|
 | c3 | Raincoat | tap | `swing` (exists) | existing cut-out | leaf | hangs still; pocket empty once the key has fallen |
 | c3 | Small key | the first coat tap | new: falls from the pocket and lands on the floor under the pegs (`drop` exists but fades the thing away; the key must land and stay); in the greybox it can simply appear on the floor after the swing | **new:** key cut-out (the same picture as the icon) | a small clink | lies on the floor until picked up, then gone |
-| c3 | Bin lid | tap | `flip` (exists) | existing cut-out | knock | lid back on; half note gone once taken |
+| c3 | Bin lid | tap | `flip` (exists) | existing cut-out | knock | lid back on; then the bin close up from the top |
+| bin close-up | Five bits of rubbish | tap (drag: backlog 27) | new: shoved aside with a short slide; stand-in by code | **new:** the empty bin from above (close-up) and five rubbish cut-outs | paper | where they were pushed; the half note shows under the last two |
+| hat close-up | The corner in the band | tap | none | **new:** the inside of the hat (close-up) | paper | gone once taken |
 | c3 | Lost property: shoe and hat | tap | `pop` (exists in school v3) | shoe and hat cut-out, plus the box's front, both lifted from the wall (playbook 4r; they are painted into c3 already) | paper | sit back in the box |
-| c4 | Filing cabinet top drawer | solve | `slideOpen` (exists: the stage drawer); the three-step reward moment is backlog 20 | drawer-front cut-out lifted from the wall; the dark gap behind it is drawn by the engine | drawer | open, ruler gone once taken |
+| c4 | Filing cabinet top drawer | solve, then every tap | `slideOpen` (exists) for the unlocking; then open and shut on each tap, in the room and close up, by the stage's overlay until backlog 26 | drawer-front cut-out lifted from the wall; the dark gap behind it is drawn by the game | open, close | out or shut as the player left it; the ruler inside while it is out |
 | c4 | Nutmeg | idle, tap, ending | `breathe`, `sniff` (exist); **new:** pose swap, sitting ↔ standing on his back legs | **new:** a second hamster pose | squeak | sitting |
 | c2 | Bean pots | tap | `bend` with `pin` (exists) | existing cut-outs | leaf | still |
-| c1 | Mr Hollis's drawer | solve | `slideOpen` (exists); the reward moment is backlog 20 | drawer-front cut-out lifted from the wall | drawer | open, key gone once taken |
+| c1 | Mr Hollis's drawer | solve, then every tap | the dials open it; then open and shut on each tap, in the room and close up (stage overlay until backlog 26) | drawer-front cut-out lifted from the wall | open, close | out or shut as the player left it; the key inside while it is out |
 | c3 | Door | ending | `openDoor` (exists: the locker door folds to its hinge and darkens), with the spill of corridor light drawn in code; the three-step reward moment is backlog 20 | door cut-out lifted from the wall (no wall re-do: checklist 53) | door | open, corridor light |
 | c2, c4, c1 | Light | idle | `beam`, `motes`, `clock` (exist) | code-drawn | — | — |
 
@@ -178,7 +180,7 @@ Conflicts and suggested fixes:
 - Stage key and plugin file: `evalroom`, `next/landscape/stages/evalroom.js` (the "walk round and tap" content replaced); `tools/play-ev.js` plays it.
 - Play link (pinned to commit): given in chat with each build; `?stage=evalroom` on the landscape address.
 - What is real: the four walls and nine cut-outs; the puzzle logic, inventory, hints (three tiers, tier two pulses the thing), saves, the ending; the drawer fronts, the door leaf, the box front and the shoe-and-hat lifted from the walls by crop (`layer-tdrawer/cabdrawer/door/boxfront/lost.png`); the timetable, the whiteboard date, the pot labels, the keyhole, the open drawer, the torn corner and the open doorway drawn by the game.
-- What stands in (for Gate D): the small key (a grey drawn key, `next/art/greybox/tab-key.png`, also the drag's tab), the ruler, the two note halves and the classroom key as labelled strip icons; the pot close-up as a drawn diagram; "inside the drawer" as a plain card. The moth's lines as text.
+- What stands in (for Gate D): the small key (a grey drawn key, `next/art/greybox/tab-key.png`, also the drag's tab), the ruler, the two note halves and the classroom key as labelled strip icons; the pot close-up, the bin from the top with its rubbish, and the inside of the hat as code drawings; the cabinet, the box and the desk drawer as zooms of their walls. The moth's lines as text.
 - Faked until the engine is unfrozen (owner's decision, greybox first): the reward moments are single movements (drawer slides, Nutmeg sniffs; the door folds to its hinge and the doorway is painted behind it); the small key appears on the floor after the coat swings rather than falling; Nutmeg never stands.
 - Walls generated before this gate: none.
 
@@ -208,8 +210,12 @@ Reuse first: the four walls and the nine existing cut-outs in `next/art/eval/c5h
 | 9 | Cabinet close-up with a code-drawn keyhole | close-up | no | a crop of c4 | 0 |
 | 10 | Nutmeg standing pose | cut-out | poses | — | 1 |
 | 11 | Bean pot close-up (labels and ruler drawn by the game over it) | close-up | no | — | 1 |
+| 12 | The bin from above, empty (owner, 22 Oct 2026; MOTH-52) | close-up | no | — | 1 |
+| 13 | Five bits of rubbish (crumpled page, juice carton, crust, paper ball, apple core) | cut-out ×5 | single (shoved) | — | 5 |
+| 14 | The inside of the hat (owner, 22 Oct 2026; MOTH-53) | close-up | no | — | 1 |
+| 15 | Mr Hollis's drawer, open, from the front (the key inside drawn by the game) | close-up | no | a crop of c1 may do | 0 or 1 |
 
-- About 7 pictures: roughly 30¢ on Sunburst, about 70¢ on the fallback. Every word, number and icon on the labels, timetable, whiteboard and notes is drawn by the game, so none of it costs credit. (The handover estimated 12 pictures before the lifted cut-outs were counted as reuse.)
+- About 14 pictures after the owner's second round (the bin, its rubbish and the hat): roughly 60¢ on Sunburst, about $1.40 on the fallback. Every word, number and icon on the labels, timetable, whiteboard and notes is drawn by the game, so none of it costs credit. (The handover estimated 12 pictures before the lifted cut-outs were counted as reuse.)
 - No wall re-do: the drawers' dark gaps and the open doorway are drawn by the engine behind the lifted cut-outs.
 - Script locked on:
 - Total estimate: about 30¢ on Sunburst.
@@ -287,6 +293,9 @@ Every fault found in this level, where it was found, and what happened to it.
 | Owner's tablet play, 22 Oct 2026 (MOTH-51) | The small key opened the cabinet from the room but not inside the cabinet close-up | A target over the drawer in the close-up routes a held item through the same USES table (`cuTarget`, `wireCu`) | Yes: what takes an item in the room takes it in its close-up | Playbook 4ad; checklist 59; backlog 25 for the engine |
 | Owner's tablet play, 22 Oct 2026 (MOTH-50) | Measuring with the ruler took "a lot of clicking around": the ruler did nothing inside the pot close-up | The pot close-up takes the ruler, and its line says to hold the ruler first | Same rule as above | Checklist 59 |
 | Owner's tablet play, 22 Oct 2026 (MOTH-49) | The half note came out of the bin from the room view, and the corner under the hat was a small wall target | The bin, the box and the desk drawer open close up, made from the wall, and the thing is taken there | Yes: finding is a close-up | Playbook 4ad; checklist 60 |
+| Owner's second look, 22 Oct 2026 (MOTH-52, MOTH-53) | A zoom of the wall shows the outside of the bin and the box, not where the note is; "it needs new visuals" | The bin looked into from the top with the rubbish to push aside; the hat opened from the box with the corner in its band; code-drawn stand-ins, pictures at Gate D | Yes: the close-up looks inside, from where a child would look, and is its own picture | Playbook 4ad; checklist 60 reworded; backlog 27 |
+| Owner's second look, 22 Oct 2026 (MOTH-54) | Both drawers stayed open for ever once unlocked | Open and shut on each tap, in the room and close up, by a stage overlay; the ruler and the key inside only while out | Yes: what opens, shuts | Playbook 4ad; checklist 61; backlog 26 |
+| Play script, 22 Oct 2026 | The close-up's tap target lay over the ruler inside the open drawer, so the ruler could not be taken | The target goes under the drawer, and the drawer's own parts let taps through to the things inside | Only this stage's wiring until backlog 25 | this file |
 
 ## Notes for this level only
 

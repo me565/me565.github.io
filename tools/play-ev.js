@@ -3,7 +3,7 @@ const { chromium } = require('playwright');
 (async () => {
   const b = await chromium.launch({executablePath:'/opt/pw-browsers/chromium'}); const p = await b.newPage({viewport:{width:2000, height:700}}); const errs = []; p.on('pageerror', e => errs.push(e.message));
   const OUT = (process.env.SHOTS || '/tmp') + '/ev-'; const shot = async n => p.screenshot({path:OUT + n + '.png', clip:await p.locator('#scene').boundingBox()});
-  const st = () => p.evaluate(() => ({view:ROOMS[S.room].views[S.view], got:S.got.join(','), keyDown:S.keyDown, cab:S.drawerOpen, measured:!!S.measured, popped:S.popped, desk:S.deskOpen, done:S.done, clues:(S.clues || []).join(',')}));
+  const st = () => p.evaluate(() => ({view:ROOMS[S.room].views[S.view], got:S.got.join(','), keyDown:S.keyDown, cab:S.cabUnlocked, out:S.cabOut, measured:!!S.measured, popped:S.popped, desk:S.deskOpen, done:S.done, clues:(S.clues || []).join(',')}));
   const msg = () => p.evaluate(() => document.getElementById('msg').textContent);
   const tap = async (id, wait = 500) => { const n = await p.locator(`.hs[data-id="${id}"]`).count(); if (!n){ console.log('NO HOTSPOT', id, JSON.stringify(await st())); return; } await p.evaluate(id => document.querySelector(`.hs[data-id="${id}"]`).click(), id); await p.waitForTimeout(wait); };
   const turnTo = async v => { for (let i = 0; i < 5; i++){ if ((await p.evaluate(() => ROOMS[S.room].views[S.view])) === v) return; await p.evaluate(() => document.getElementById('right').click()); await p.waitForTimeout(320); } console.log('could not turn to', v); };
@@ -30,14 +30,23 @@ const { chromium } = require('playwright');
   await turnTo('c4'); await tap('ev_cabinet', 800); await noOverflow('cabinet locked'); await shot('04-cabinet-locked'); await back();
   await hold('small key'); await tap('ev_hamster', 400); console.log('small key on Nutmeg:', await msg());
   await tap('ev_cabinet', 800); await hold('small key'); await p.evaluate(() => document.querySelector('#closeup .cuhot[data-cu="ev_cabinet"]').click()); await p.waitForTimeout(1800); console.log('key used INSIDE the close-up (MOTH-51):', JSON.stringify(await st()), '| close-up shut?', await p.evaluate(() => document.getElementById('closeup').hidden), '|', await msg()); await shot('05-cabinet-open');
-  await tap('ev_cabinet', 700); await noOverflow('cabinet inside'); await p.click('#takeRuler'); await p.waitForTimeout(400); console.log('ruler:', JSON.stringify(await st()));
+  // drawers open and shut (MOTH-54): in the room, then in the close-up; the ruler shows only while the drawer is out
+  await tap('ev_cabdrawer', 600); console.log('room: drawer shut?', await p.evaluate(() => !S.cabOut), '|', await msg()); await shot('05b-cabinet-shut'); await tap('ev_cabdrawer', 600); console.log('room: drawer open again?', await p.evaluate(() => S.cabOut));
+  await tap('ev_cabinet', 700); await noOverflow('cabinet inside'); console.log('close-up: ruler visible?', await p.evaluate(() => getComputedStyle(document.getElementById('takeRuler')).display !== 'none'));
+  await p.evaluate(() => document.querySelector('#closeup .cuhot[data-cu="ev_cabdrawer"]').click()); await p.waitForTimeout(600); console.log('close-up: shut, ruler hidden?', await p.evaluate(() => getComputedStyle(document.getElementById('takeRuler')).display === 'none'), '|', await p.textContent('#cabFb')); await shot('05c-closeup-shut');
+  await p.evaluate(() => document.querySelector('#closeup .cuhot[data-cu="ev_cabdrawer"]').click()); await p.waitForTimeout(600); await p.click('#takeRuler'); await p.waitForTimeout(400); console.log('ruler:', JSON.stringify(await st()));
   await turnTo('c2'); await tap('ev_beans', 800); await noOverflow('pots'); await shot('06-pots'); await back();
   await tap('ev_beans', 800); console.log('pots line with the ruler owned:', await p.textContent('#closeup .ofb')); await hold('ruler'); await p.evaluate(() => document.querySelector('#closeup .cuhot[data-cu="ev_beans"]').click()); await p.waitForTimeout(900); await noOverflow('pots measured'); await shot('07-measured'); console.log('ruler used INSIDE the close-up (MOTH-50):', JSON.stringify(await st()), '|', await msg()); await back();
   // trail B: the bin, the box, the halves
-  await turnTo('c3'); await tap('ev_bin', 1200); console.log('bin close-up open?', !(await p.evaluate(() => document.getElementById('closeup').hidden)), '| half note there?', await p.locator('#takeHalf1').count()); await shot('08a-bin'); await p.click('#takeHalf1'); await p.waitForTimeout(500); console.log('bin:', await msg(), JSON.stringify(await st()));
-  await tap('ev_bin', 1200); console.log('bin again:', await p.textContent('#closeup .ofb'), '| half note gone?', (await p.locator('#takeHalf1').count()) === 0); await back();
+  // the bin from the top (MOTH-52): push the rubbish aside until the half note shows
+  await turnTo('c3'); await tap('ev_bin', 1200); console.log('bin close-up open?', !(await p.evaluate(() => document.getElementById('closeup').hidden)), '| note hidden at first?', (await p.locator('#takeHalf1').count()) === 0, '| pieces:', await p.locator('#closeup .rub').count()); await shot('08a-bin');
+  const shove = async id => { await p.evaluate(id => document.querySelector(`#closeup .rub[data-r="${id}"]`).click(), id); await p.waitForTimeout(650); };
+  await shove('r1'); await shove('r4'); console.log('after two shoves, note shows?', (await p.locator('#takeHalf1').count()) > 0, '(should be false) |', await p.textContent('#binFb')); await shove('r5'); await p.waitForTimeout(400); console.log('after the last shove, note shows?', (await p.locator('#takeHalf1').count()) > 0); await shot('08b-bin-note'); await p.click('#takeHalf1'); await p.waitForTimeout(500); console.log('bin:', await msg(), JSON.stringify(await st()));
+  await tap('ev_bin', 1200); console.log('bin again:', await p.textContent('#binFb'), '| half note gone?', (await p.locator('#takeHalf1').count()) === 0); await back();
   await hold('left half of a note'); await tap('ev_door', 400); console.log('half on the door:', await msg());
-  await tap('ev_lost', 1500); console.log('box close-up open?', !(await p.evaluate(() => document.getElementById('closeup').hidden)), '| corner there?', await p.locator('#takeHalf2').count()); await shot('08-box-popped'); await p.click('#takeHalf2'); await p.waitForTimeout(500); console.log('halves:', JSON.stringify(await st()));
+  // the box, then into the hat (MOTH-53)
+  await tap('ev_lost', 1500); console.log('box close-up open?', !(await p.evaluate(() => document.getElementById('closeup').hidden)), '| hat target?', await p.locator('#closeup .cuhot[data-cu="ev_hat"]').count()); await shot('08-box-popped');
+  await p.evaluate(() => document.querySelector('#closeup .cuhot[data-cu="ev_hat"]').click()); await p.waitForTimeout(600); console.log('hat close-up, corner there?', await p.locator('#takeHalf2').count()); await shot('08c-hat'); await p.click('#takeHalf2'); await p.waitForTimeout(500); console.log('halves:', JSON.stringify(await st()));
   await hold('left half of a note'); await p.evaluate(() => document.querySelector('.slot[aria-label="right half of a note"]').click()); await p.waitForTimeout(900); await noOverflow('watering note'); await shot('09-watering-note'); console.log('joined:', JSON.stringify(await st())); await back();
   // the clues: board, timetable
   await turnTo('c1'); await tap('ev_board', 800); await noOverflow('board'); await shot('10-board'); await back();
@@ -49,7 +58,8 @@ const { chromium } = require('playwright');
   // the code: the two traps, a wrong day, nonsense, then the answer
   await turnTo('c1'); await tryCode([9,6,4,2], 'tallest first'); await tryCode([2,4,6,9], 'left to right'); await tryCode([6,2,9,4], 'Monday'); await tryCode([1,1,1,1], 'nonsense');
   await tap('ev_tdrawer', 500); await setDials([4,9,6,2]); await shot('13-dials'); await p.click('#openDesk'); await p.waitForTimeout(2600); console.log('code right:', JSON.stringify(await st())); await noOverflow('inside desk'); await shot('14-drawer-open');
-  await shot('14b-inside-drawer'); await p.click('#takeKey'); await p.waitForTimeout(500); console.log('classroom key:', JSON.stringify(await st())); await shot('15-desk-after');
+  await shot('14b-inside-drawer'); await p.evaluate(() => document.querySelector('#closeup .cuhot[data-cu="ev_tdrawer"]').click()); await p.waitForTimeout(600); console.log('desk drawer shut in close-up, key hidden?', await p.evaluate(() => getComputedStyle(document.getElementById('takeKey')).display === 'none')); await p.evaluate(() => document.querySelector('#closeup .cuhot[data-cu="ev_tdrawer"]').click()); await p.waitForTimeout(600);
+  await p.click('#takeKey'); await p.waitForTimeout(500); console.log('classroom key:', JSON.stringify(await st())); await back(); await tap('ev_tdrawer', 600); console.log('room: desk drawer shut?', await p.evaluate(() => !S.deskOut)); await shot('15-desk-after'); await tap('ev_tdrawer', 600);
   await hold('classroom key'); await tap('ev_cupboard', 400); console.log('door key on the cupboard:', await msg());
   // lock up
   await turnTo('c3'); await hold('classroom key'); await tap('ev_door', 900); console.log('drag open?', !(await p.evaluate(() => document.getElementById('closeup').hidden))); await shot('16-turn-key');
