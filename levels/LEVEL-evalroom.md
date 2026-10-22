@@ -3,8 +3,8 @@
 *Outline only, written in claude.ai on 22 Oct 2026 from a discussion with the owner, recorded here the same day from `EVALROOM-HANDOVER.md` with the owner's two changes made in chat after the review (the lock-up duty premise and the falling key) and the review's findings listed under "Review against the repo". Nothing here is built yet. Do not build, generate art or change the engine until the owner signs Gate B, and then follow the gates as for any level. The stage stays `?stage=evalroom` (`next/landscape/stages/evalroom.js`); its current "one room, no puzzle" content is replaced by this design once it reaches the greybox.*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: first playable (build 2026-10-22d, after the owner's two rounds of tablet feedback; Gate C waits on his next play)
-Build id of the latest play link: 2026-10-22d (the first playable, with both rounds of the owner's tablet feedback built in: MOTH-49 to 54)
+Current status: first playable (build 2026-10-22e, after the owner's two rounds of tablet feedback and his playthrough video; Gate C waits on his word)
+Build id of the latest play link: 2026-10-22e (the first playable, with the owner's tablet feedback and the fault from his video built in: MOTH-49 to 55)
 Latest play link: `?stage=evalroom`
 
 ---
@@ -184,7 +184,7 @@ Conflicts and suggested fixes:
 - Faked until the engine is unfrozen (owner's decision, greybox first): the reward moments are single movements (drawer slides, Nutmeg sniffs; the door folds to its hinge and the doorway is painted behind it); the small key appears on the floor after the coat swings rather than falling; Nutmeg never stands.
 - Walls generated before this gate: none.
 
-Tests: scripted playthrough passes (`tools/play-ev.js`: every trail, the two trap codes, a wrong day, nonsense, every wrong-use line, the notebook and clue chips at 844×390 and 2000×700, no page scroll, no errors) · audit clean (0 failures; 8 "for a look", all hanging, flat or inside) · no soft-lock (checklist 42: walked on paper, nothing is consumed by a wrong use, both drawers and the note stay) · owner played it on the tablet at 2000×700: once, 22 Oct 2026 (three findings, fixed in build 2026-10-22c; the next play decides the gate) · played once on a real Android phone (checklist 44): not yet · reduced motion checked (the audit's owner-shape run)
+Tests: scripted playthrough passes (`tools/play-ev.js`: every trail, the two trap codes, a wrong day, nonsense, every wrong-use line, the notebook and clue chips at 844×390 and 2000×700, no page scroll, no errors) · audit clean (0 failures; 8 "for a look", all hanging, flat or inside) · no soft-lock (checklist 42: walked on paper, nothing is consumed by a wrong use, both drawers and the note stay) · owner played it on the tablet at 2000×700: twice, 22 Oct 2026 (the first play gave MOTH-49 to 51, the second MOTH-52 to 54; his recording of build 2026-10-22d, 4 min 6 s, solved without hints, gave MOTH-55; playbook log 65) · played once on a real Android phone (checklist 44): not yet · reduced motion checked (the audit's owner-shape run)
 Target-age tester (if available): none (a test room)
 Result: waiting on the owner.
 
@@ -296,6 +296,7 @@ Every fault found in this level, where it was found, and what happened to it.
 | Owner's second look, 22 Oct 2026 (MOTH-52, MOTH-53) | A zoom of the wall shows the outside of the bin and the box, not where the note is; "it needs new visuals" | The bin looked into from the top with the rubbish to push aside; the hat opened from the box with the corner in its band; code-drawn stand-ins, pictures at Gate D | Yes: the close-up looks inside, from where a child would look, and is its own picture | Playbook 4ad; checklist 60 reworded; backlog 27 |
 | Owner's second look, 22 Oct 2026 (MOTH-54) | Both drawers stayed open for ever once unlocked | Open and shut on each tap, in the room and close up, by a stage overlay; the ruler and the key inside only while out | Yes: what opens, shuts | Playbook 4ad; checklist 61; backlog 26 |
 | Play script, 22 Oct 2026 | The close-up's tap target lay over the ruler inside the open drawer, so the ruler could not be taken | The target goes under the drawer, and the drawer's own parts let taps through to the things inside | Only this stage's wiring until backlog 25 | this file |
+| Owner's video, 22 Oct 2026 (MOTH-55) | The small key lay on the floor again after it had opened the cabinet, and was picked up a second time during the ending | A taken flag for both keys; the floor and the drawer test the flag, never the strip | Yes: taken things stay taken | Checklist 41b; the play script checks the floor after the key is used |
 
 ## Notes for this level only
 

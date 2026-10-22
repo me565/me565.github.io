@@ -36,6 +36,7 @@ const { chromium } = require('playwright');
   await p.evaluate(() => document.querySelector('#closeup .cuhot[data-cu="ev_cabdrawer"]').click()); await p.waitForTimeout(600); console.log('close-up: shut, ruler hidden?', await p.evaluate(() => getComputedStyle(document.getElementById('takeRuler')).display === 'none'), '|', await p.textContent('#cabFb')); await shot('05c-closeup-shut');
   await p.evaluate(() => document.querySelector('#closeup .cuhot[data-cu="ev_cabdrawer"]').click()); await p.waitForTimeout(600); await p.click('#takeRuler'); await p.waitForTimeout(400); console.log('ruler:', JSON.stringify(await st()));
   await turnTo('c2'); await tap('ev_beans', 800); await noOverflow('pots'); await shot('06-pots'); await back();
+  await turnTo('c3'); console.log('key gone from the floor after use (MOTH-55)?', (await p.locator('.hs[data-id="ev_fkey"]').count()) === 0, '(must be true)'); await turnTo('c2');
   await tap('ev_beans', 800); console.log('pots line with the ruler owned:', await p.textContent('#closeup .ofb')); await hold('ruler'); await p.evaluate(() => document.querySelector('#closeup .cuhot[data-cu="ev_beans"]').click()); await p.waitForTimeout(900); await noOverflow('pots measured'); await shot('07-measured'); console.log('ruler used INSIDE the close-up (MOTH-50):', JSON.stringify(await st()), '|', await msg()); await back();
   // trail B: the bin, the box, the halves
   // the bin from the top (MOTH-52): push the rubbish aside until the half note shows
