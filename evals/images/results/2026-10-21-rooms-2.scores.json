@@ -1,0 +1,12 @@
+{
+ "corridor": {
+  "room": "Four walls, four corners, one corridor. Mary's purple locker with no door, the bench, the fountain; the moth poster, the LIBRARY doors with their portholes, the plant; the cork board with blank papers, the HALL doorway with sunlight and a glimpse of the hall's windows, the second bench; the two classroom doorways with a classroom and a paint-splashed art room seen through them, the pegs with two bags. Every side wall shows the right end of the right neighbour: the bench, the locker, the doorway, the poster, the fountain, the board, the plant, the doorway.",
+  "faults": "None against the list. The only words are LIBRARY and HALL. The glimpses through the doorways are the first the method has tried and all three read as rooms beyond.",
+  "verdict": "Clean. The corridor's benchmark walls in the game were made with a crop as reference and edits afterwards; this took one pass."
+ },
+ "kitchen": {
+  "room": "A different house, held together. Sage panelling at one height on all four walls, terracotta tiles, golden light from the window and the open door on every wall. The fridge, larder and broom; the counter with kettle and tea cosy, the window onto the hedge, the cooker; the dresser with its plates and the one red tin on top, the checked table and two chairs, the lighthouse calendar with an empty grid; the boots, the back door open onto the garden, the jacket on its hook. No lettering anywhere, as asked.",
+  "faults": "The broom appears a second time on the fridge wall's right side wall (the counter wall's end carries a broom it does not have), and the calendar repeats on the dresser wall's right side. Small doubles at the corners; the corners themselves are the right ones.",
+  "verdict": "Clean bar two corner doubles. The first room drawn in a palette and light the method had never seen."
+ }
+}

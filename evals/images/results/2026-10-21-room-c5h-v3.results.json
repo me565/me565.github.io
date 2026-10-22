@@ -1,0 +1,342 @@
+{
+ "name": "room-c5h-v3: three classroom walls redrawn with four more things absent (the sill, the peg rail, the bin's lid, the cupboard's doors) and those four as cut-outs",
+ "manifest": "evals/images/runs/room-c5h-v3.json",
+ "ran_at": "2026-10-21T05:28:21Z",
+ "total_cost_usd": 0.198,
+ "results": [
+  {
+   "id": "c5h3-c1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c1.png",
+    "next/art/eval/c5h/c4.jpg"
+   ],
+   "params": {},
+   "note": "the whiteboard wall (east), to the right of the timetable wall (more things absent: sill, pegs, bin lid, cupboard doors)",
+   "seconds": 18.0,
+   "cost_usd": 0.034824,
+   "usage": {
+    "prompt_tokens": 3735,
+    "completion_tokens": 280,
+    "total_tokens": 4015,
+    "cost": 0.034824,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.034824,
+     "upstream_inference_prompt_cost": 0.026424,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "c5h3-c1.png",
+     "bytes": 1408445,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "c5h3-c2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c2.png",
+    "next/art/eval/c5h/c4.jpg"
+   ],
+   "params": {},
+   "note": "the window wall (west), to the left of the timetable wall (more things absent: sill, pegs, bin lid, cupboard doors)",
+   "seconds": 16.1,
+   "cost_usd": 0.034724,
+   "usage": {
+    "prompt_tokens": 3715,
+    "completion_tokens": 280,
+    "total_tokens": 3995,
+    "cost": 0.034724,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.034724,
+     "upstream_inference_prompt_cost": 0.026324,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "c5h3-c2.png",
+     "bytes": 1460371,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "c5h3-c3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c3.png",
+    "case:c5h3-c1",
+    "case:c5h3-c2",
+    "next/art/eval/c5h/c4.jpg"
+   ],
+   "params": {},
+   "note": "the door wall (south), opposite the timetable wall (more things absent: sill, pegs, bin lid, cupboard doors)",
+   "seconds": 21.8,
+   "cost_usd": 0.062775,
+   "usage": {
+    "prompt_tokens": 6570,
+    "completion_tokens": 480,
+    "total_tokens": 7050,
+    "cost": 0.062775,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.062775,
+     "upstream_inference_prompt_cost": 0.048375,
+     "upstream_inference_completions_cost": 0.0144
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 480
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "c5h3-c3.png",
+     "bytes": 1383113,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "c5h3-cut-pots",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "case:c5h3-c2"
+   ],
+   "params": {},
+   "note": "cut-out: pots, on white, its wall as reference",
+   "seconds": 21.6,
+   "cost_usd": 0.014818,
+   "usage": {
+    "prompt_tokens": 1466,
+    "completion_tokens": 120,
+    "total_tokens": 1586,
+    "cost": 0.014818,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.014818,
+     "upstream_inference_prompt_cost": 0.011218,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "c5h3-cut-pots.png",
+     "bytes": 1256908,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "c5h3-cut-doors",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "case:c5h3-c1"
+   ],
+   "params": {},
+   "note": "cut-out: doors, on white, its wall as reference",
+   "seconds": 12.8,
+   "cost_usd": 0.017018,
+   "usage": {
+    "prompt_tokens": 1450,
+    "completion_tokens": 196,
+    "total_tokens": 1646,
+    "cost": 0.017018,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.017018,
+     "upstream_inference_prompt_cost": 0.011138,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "c5h3-cut-doors.png",
+     "bytes": 952159,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "c5h3-cut-coat",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "case:c5h3-c3"
+   ],
+   "params": {},
+   "note": "cut-out: coat, on white, its wall as reference",
+   "seconds": 12.9,
+   "cost_usd": 0.016953,
+   "usage": {
+    "prompt_tokens": 1437,
+    "completion_tokens": 196,
+    "total_tokens": 1633,
+    "cost": 0.016953,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.016953,
+     "upstream_inference_prompt_cost": 0.011073,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "c5h3-cut-coat.png",
+     "bytes": 924610,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "c5h3-cut-lid",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "case:c5h3-c3"
+   ],
+   "params": {},
+   "note": "cut-out: lid, on white, its wall as reference",
+   "seconds": 12.2,
+   "cost_usd": 0.016913,
+   "usage": {
+    "prompt_tokens": 1429,
+    "completion_tokens": 196,
+    "total_tokens": 1625,
+    "cost": 0.016913,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.016913,
+     "upstream_inference_prompt_cost": 0.011033,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "c5h3-cut-lid.png",
+     "bytes": 807844,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}

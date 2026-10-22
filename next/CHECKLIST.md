@@ -59,6 +59,7 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 54. **Every solve has a reward moment.** A lock that opens shows the lock reacting, the thing opening by its own movement and what was inside, with sound, in about three seconds, then a settled state that stays (playbook 4ab).
 55. **Joints never gap.** A thing in hinged parts shows no seam, gap or doubled edge at its joints, checked in a screenshot at the furthest point of every movement (playbook 4ab).
 56. **Poses match.** A pose swap jumps only in the part that changes: same size, place, line and colour in every pose (playbook 4ab).
+58. **Only the part that can move moves.** A cut-out standing in or on something is pinned at its base (`pin`, measured from its own rim or soil line), so a pot, a stand or a base never sways with what grows or hangs from it; a soft thing slumps, a hard thing rocks, and nothing swivels; a thing behind glass stays solid, the bars in front of it, and sits on the floor of what holds it, feet on the bedding (owner's recording, 22 Oct 2026; MOTH-46 to 48). Checked by tapping each moving thing and watching its base.
 
 
 ## E. Every close-up and gesture
@@ -101,6 +102,7 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 46. **Corners agree.** Whatever stands at the end of a wall shows, foreshortened, in the corner of the view beside it, and nothing shows in a corner that is not on the wall next door (owner, 17 Oct 2026; playbook backlog 19). Until backlog 19 is built this is a known fault on every room; after it, a wall whose side walls are still baked in fails this line.
 47. **Clues travel.** Anything read in one place and needed in another (a page, a map, a banner, a board, a table) is copied into the child's notebook the first time it is seen and reopens from there anywhere; nothing is memorised or walked back to (owner, 18 Oct 2026; playbook 7).
 48. **A room's mood stays in its room.** A state that darkens, lights or changes a room (a blind, a lamp) applies only while the player is in that room; leaving it restores the ordinary look (owner, 18 Oct 2026).
+57. **Views in turning order, and the wide-screen layout.** A stage's `views` list is the order the right arrow turns through, read from the room file's compass (north, east, south, west), never the pictures' file order; the first turn of every new room is checked against its corners before a link goes out (owner's video, 21 Oct 2026). On a screen wider than about 16:9 the slots stand beside the scene and the spoken line floats over the foot of the picture (backlog 24): check both layouts at the shapes in 36, that no line hides a close-up or card, and that the slots stay square.
 
 ## H. People and things move
 

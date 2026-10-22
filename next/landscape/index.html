@@ -38,6 +38,15 @@ button{font:inherit;color:inherit;cursor:pointer}
 #app{position:relative;height:100%;display:grid;place-items:center;padding:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0)}
 .stage{width:calc(var(--u) * 100);display:flex;flex-direction:column;gap:calc(var(--u) * 1.2)}
 .stage .inv{margin-top:calc(var(--u)*-.4)}
+/* a wide screen (the owner's phone; backlog 24, 21 Oct 2026): the scene takes the full height, the ten slots stand beside it in two
+   columns of five, and the spoken line floats over the foot of the picture only while it is showing (never over a close-up or card).
+   fit() chooses this layout only when it gives a clearly bigger scene; a tablet keeps the strip under the scene. */
+.stage.side{position:relative;display:grid;grid-template-columns:calc(var(--u)*100) calc(var(--u)*21.6);grid-template-rows:calc(var(--u)*56.25);gap:0 calc(var(--u)*1.2);align-items:stretch}
+.stage.side .scene{grid-column:1;grid-row:1}
+.stage.side .inv{grid-column:2;grid-row:1;margin:0;padding:0;height:100%;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(5,minmax(0,1fr));gap:calc(var(--u)*1.2)}
+.stage.side .slot{aspect-ratio:auto;height:100%}
+.stage.side .caption{position:absolute;left:0;bottom:calc(var(--u)*1.2);width:calc(var(--u)*100);min-height:0;z-index:4;pointer-events:none;transition:opacity .25s}
+.stage.side .scene:has(.closeup:not([hidden]),.menu:not([hidden]),.comic:not([hidden]),.stagecard:not([hidden]),.loading:not([hidden])) ~ .caption{opacity:0}
 
 /* the scene */
 .scene{position:relative;width:100%;aspect-ratio:16/9;border-radius:calc(var(--u) * .8);overflow:hidden;background:#e9e2d2;box-shadow:0 0 0 var(--rule) var(--line), 0 calc(var(--u)*1) calc(var(--u)*3) rgba(0,0,0,.55)}
@@ -635,14 +644,18 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-10-18b';
+const BUILD = '2026-10-22a';
 const $ = id => document.getElementById(id);
 
-/* ---------- sizing: the scene fills the screen in landscape, inventory strip under it ---------- */
+/* ---------- sizing: the scene fills the screen in landscape, the inventory strip under it, or beside it on a wide screen (backlog 24) ---------- */
 function fit(){
   const vw = innerWidth - 16, vh = innerHeight - 12;
-  const w = Math.min(vw, vh / 0.746, 1400);   /* scene 9/16 tall, the caption band, the strip and the gaps */
+  const stacked = Math.min(vw, vh / 0.746, 1400);   /* scene 9/16 tall, the caption band, the strip and the gaps */
+  const side = Math.min(vw / 1.228, vh / 0.5625, 1400);   /* the scene full height, the slots in two columns beside it (backlog 24) */
+  const wide = side > stacked * 1.08;   /* only when it buys a clearly bigger scene; a tablet keeps the strip under the scene */
+  const w = wide ? side : stacked;
   document.documentElement.style.setProperty('--u', (w / 100) + 'px');
+  document.getElementById('stage').classList.toggle('side', wide);
 }
 addEventListener('resize', () => { fit(); if (typeof inGame !== 'undefined' && inGame && typeof STAGE !== 'undefined' && STAGE) drawSides(curView()); }); fit();
 
@@ -729,7 +742,9 @@ function drawLayer(c, t){
     }
     /* the glass front of a cage, drawn faintly over whatever is inside */
     if (!glassRect) return;
-    ctx.filter = 'none'; ctx.globalAlpha = 0.5; ctx.drawImage(wall, L.glass[0]/100*wall.naturalWidth, L.glass[1]/100*wall.naturalHeight, L.glass[2]/100*wall.naturalWidth, L.glass[3]/100*wall.naturalHeight, ...glassRect); ctx.globalAlpha = 1; };
+    /* multiplied, not laid over at half strength: the dark bars darken what is behind them and the light wall leaves it alone, so the
+       thing inside stays solid and the bars still read as in front (MOTH-46, owner 22 Oct 2026: the hamster looked see-through) */
+    ctx.filter = 'none'; ctx.globalCompositeOperation = 'multiply'; ctx.globalAlpha = 0.9; ctx.drawImage(wall, L.glass[0]/100*wall.naturalWidth, L.glass[1]/100*wall.naturalHeight, L.glass[2]/100*wall.naturalWidth, L.glass[3]/100*wall.naturalHeight, ...glassRect); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; };
   const damp = (f, tau) => Math.sin(2*Math.PI*f*t) * Math.exp(-t/tau);
   /* the three soft blocks: each band of the picture is one block; they tumble apart to the right and lie where they land */
   const blockShadow = (cx, cy, w, a) => { ctx.save(); ctx.filter = `blur(${Math.max(2, W*0.035)}px)`; ctx.fillStyle = `rgba(30,25,40,${0.42*a})`; ctx.beginPath(); ctx.ellipse(cx, cy, w*0.5, Math.max(3, w*0.085), 0, 0, Math.PI*2); ctx.fill(); ctx.restore(); };
@@ -759,6 +774,11 @@ function drawLayer(c, t){
     if (L.kind === 'drawer' && S.drawerOpen){ drawDrawer(1); return; }
     if (L.draw === 'rain'){ drawRain(ctx, idleT, ox, oy, W, H, L); return; }
     if (L.draw === 'steam'){ drawSteam(ctx, idleT, ox, oy, W, H); return; }
+    /* light that lives (backlog 23, owner 21 Oct 2026): no art, drawn by code; still under reduced motion */
+    if (L.draw === 'glow'){ drawGlow(ctx, reduceMotion ? 0 : idleT, ox, oy, W, H, L); return; }
+    if (L.draw === 'motes'){ drawMotes(ctx, reduceMotion ? 0 : idleT, ox, oy, W, H, L); return; }
+    if (L.draw === 'beam'){ drawBeam(ctx, reduceMotion ? 0 : idleT, ox, oy, W, H, L); return; }
+    if (L.draw === 'clock'){ drawClock(ctx, reduceMotion ? null : idleT, ox, oy, W, H, L); return; }
     if (L.idle && !reduceMotion){ /* living background: a slow movement that never stops (4, backlog 16) */
       const ph = L.phase || 0;
       if (L.idle === 'swim'){ /* a slow wander across the box, turning at each end, with a little bob; the box is the water, the picture a fraction of it */
@@ -778,9 +798,11 @@ function drawLayer(c, t){
   const N = 40;
   ctx.save(); /* every movement below shifts the drawing origin; undo that before the glass is painted */
   switch(anim){
-    case 'bend': { /* a plant: displacement grows with the square of the distance from the base, so the tip whips and the stem barely moves */
-      const A = W*0.32*damp(1.1, 0.75), lag = W*0.10*Math.sin(2*Math.PI*1.1*t - 1.2)*Math.exp(-t/0.75);
-      for (let i = 0; i < N; i++){ const y0 = i*H/N, u = 1 - (y0 + H/N/2)/H; const dx = A*u*u + lag*u*u*u; ctx.drawImage(img, 0, y0, W, H/N+1, ox+dx, oy+y0, W, H/N+1); }
+    case 'bend': { /* a plant: displacement grows with the square of the distance from the base, so the tip whips and the stem barely moves.
+         L.pin is the share of the height, from the bottom, that never moves (the pot a plant stands in; MOTH-48): the movement starts above it,
+         and a smaller free part moves less, so a seedling in a big pot stirs rather than whips */
+      const pin = L.pin || 0, free = Math.max(0.05, 1 - pin), A = W*0.32*Math.sqrt(free)*damp(1.1, 0.75), lag = W*0.10*Math.sqrt(free)*Math.sin(2*Math.PI*1.1*t - 1.2)*Math.exp(-t/0.75);
+      for (let i = 0; i < N; i++){ const y0 = i*H/N, u = Math.max(0, (1 - (y0 + H/N/2)/H) - pin)/free; const dx = A*u*u + lag*u*u*u; ctx.drawImage(img, 0, y0, W, H/N+1, ox+dx, oy+y0, W, H/N+1); }
       break; }
     case 'swing': { /* a coat on a peg: the whole thing pivots at the hook, and the hem trails a little behind */
       const ang = 0.16*damp(0.75, 1.1), trail = 0.05*Math.sin(2*Math.PI*0.75*t - 1.0)*Math.exp(-t/1.1);
@@ -919,6 +941,10 @@ function drawLayer(c, t){
       [[ 'rgba(70,130,180,.9)', 0.16 ], [ 'rgba(190,225,240,.95)', 0.08 ], [ 'rgba(255,255,255,.8)', 0.03 ]].forEach(([col, lw]) => { ctx.strokeStyle = col; ctx.lineWidth = W*lw; ctx.beginPath(); ctx.moveTo(x0, y0); ctx.quadraticCurveTo(x0 + wob, (y0 + yEnd)/2, x0, yEnd); ctx.stroke(); });
       if (grow === 1){ const s = Math.sin(t*26); [[-0.28, -0.02], [0.3, -0.05], [-0.12, -0.1], [0.16, -0.12]].forEach(([dx, dy], i) => { ctx.fillStyle = 'rgba(190,225,240,.9)'; ctx.beginPath(); ctx.arc(x0 + W*dx + W*0.02*s*(i%2 ? 1 : -1), y1 + H*dy - H*0.02*Math.abs(s), W*0.035, 0, Math.PI*2); ctx.fill(); }); }
       break; }
+    case 'slump': { /* a soft thing nudged (a bag, a cushion): it squashes a little on its base and leans from the base, then settles; the bottom never leaves the floor (MOTH-47) */
+      const k = damp(1.3, 0.55), sy = 1 - 0.06*Math.max(0, k) - 0.015*Math.abs(k), lean = W*0.07*Math.sin(2*Math.PI*1.3*t - 0.6)*Math.exp(-t/0.55);
+      for (let i = 0; i < N; i++){ const y0 = i*H/N, v = 1 - (y0 + H/N/2)/H; ctx.drawImage(img, 0, y0, W, H/N+1, ox + lean*v*v, oy + H*(1-sy) + y0*sy, W, (H/N+1)*sy + 0.5); }
+      break; }
     case 'wobble': { /* rocks on its base and settles */
       const ang = 0.14*damp(1.6, 0.6);
       ctx.translate(ox + W/2, oy + H); ctx.rotate(ang); ctx.drawImage(img, -W/2, -H);
@@ -944,6 +970,43 @@ function drawRain(ctx, t, ox, oy, W, H, L){
   ctx.restore();
 }
 /* steam: three wisps rising from the bottom of the box and fading as they go */
+/* which layers the living-background loop keeps redrawing */
+const LIVE_DRAWS = ['rain', 'steam', 'glow', 'motes', 'beam', 'clock'];
+const isLive = L => !!(L.idle || LIVE_DRAWS.includes(L.draw));
+/* a lamp or fairy lights breathing softly: a warm radial glow filling the box, its strength rising and falling (L.period, L.colour as 'r,g,b', L.strength) */
+function drawGlow(ctx, t, ox, oy, W, H, L){
+  const k = 0.72 + 0.28*Math.sin(2*Math.PI*t/(L.period || 3.6) + (L.phase || 0)), a = (L.strength || 0.5)*k, col = L.colour || '255,214,140';
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.translate(ox + W/2, oy + H/2); ctx.scale(1, H/W);
+  const g = ctx.createRadialGradient(0, 0, 0, 0, 0, W/2); g.addColorStop(0, `rgba(${col},${a})`); g.addColorStop(0.55, `rgba(${col},${a*0.35})`); g.addColorStop(1, `rgba(${col},0)`);
+  ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, W/2, 0, 2*Math.PI); ctx.fill(); ctx.restore();
+}
+/* dust drifting in a sunbeam: a few specks wandering slowly inside the box, each on its own path, fading in and out (L.count) */
+function drawMotes(ctx, t, ox, oy, W, H, L){
+  const n = L.count || 14, s = Math.max(1, W/260); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = 'rgba(255,246,220,1)';
+  for (let i = 0; i < n; i++){ const h1 = Math.sin(i*12.9898)*43758.5453, h2 = Math.sin(i*78.233)*12345.678, r1 = h1 - Math.floor(h1), r2 = h2 - Math.floor(h2);
+    const p = 9 + 7*r2, u = ((t/p) + r1) % 1, x = ox + W*((r1 + 0.06*Math.sin(2*Math.PI*t/(5 + 4*r2) + i)) % 1), y = oy + H*((r2 + 0.5*u) % 1);
+    ctx.globalAlpha = 0.5*Math.sin(Math.PI*u)*(0.5 + 0.5*r1); ctx.beginPath(); ctx.arc(x, y, s*(0.8 + 1.4*r2), 0, 2*Math.PI); ctx.fill(); }
+  ctx.restore();
+}
+/* a slow shift of window light: a slanted band of warm light across the box, soft-edged, drifting a little with the afternoon (L.period, L.slant, L.strength) */
+function drawBeam(ctx, t, ox, oy, W, H, L){
+  const d = W*0.05*Math.sin(2*Math.PI*t/(L.period || 16) + (L.phase || 0)), sl = (L.slant ?? 0.35)*W, a = L.strength || 0.16, col = L.colour || '255,228,160';
+  ctx.save(); ctx.globalCompositeOperation = 'lighter';
+  const x0 = ox + W*0.12 + d, x1 = ox + W*0.62 + d; const g = ctx.createLinearGradient(x0, 0, x1, 0);
+  g.addColorStop(0, `rgba(${col},0)`); g.addColorStop(0.25, `rgba(${col},${a})`); g.addColorStop(0.75, `rgba(${col},${a})`); g.addColorStop(1, `rgba(${col},0)`);
+  ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(x0 - sl, oy); ctx.lineTo(x1 - sl, oy); ctx.lineTo(x1 + sl, oy + H); ctx.lineTo(x0 + sl, oy + H); ctx.closePath(); ctx.fill(); ctx.restore();
+}
+/* a clock's hands on a blank face: the time the stage says (L.time 'HH:MM', else the real time), the long hand creeping, a thin second hand ticking once a second (t null: no second hand, for reduced motion) */
+function drawClock(ctx, t, ox, oy, W, H, L){
+  const cx = ox + W/2, cy = oy + H/2, r = Math.min(W, H)/2*(L.radius || 0.86), ink = L.ink || '#2b2836';
+  let hh, mm; if (L.time){ [hh, mm] = L.time.split(':').map(Number); } else { const d = new Date(); hh = d.getHours(); mm = d.getMinutes(); }
+  const sec = t == null ? null : Math.floor(t) % 60, kick = t == null ? 0 : Math.max(0, 1 - (t % 1)/0.18)*0.06;
+  const hand = (ang, len, w, col) => { ctx.save(); ctx.translate(cx, cy); ctx.rotate(ang); ctx.lineCap = 'round'; ctx.lineWidth = w; ctx.strokeStyle = col; ctx.beginPath(); ctx.moveTo(0, r*0.12); ctx.lineTo(0, -r*len); ctx.stroke(); ctx.restore(); };
+  hand(2*Math.PI*((hh % 12) + mm/60)/12, 0.52, Math.max(1.5, r*0.09), ink);
+  hand(2*Math.PI*(mm + (sec || 0)/60)/60, 0.78, Math.max(1.2, r*0.065), ink);
+  if (sec != null) hand(2*Math.PI*sec/60 - kick, 0.84, Math.max(1, r*0.03), L.second || '#c0392b');
+  ctx.save(); ctx.fillStyle = ink; ctx.beginPath(); ctx.arc(cx, cy, Math.max(1.5, r*0.06), 0, 2*Math.PI); ctx.fill(); ctx.restore();
+}
 function drawSteam(ctx, t, ox, oy, W, H){
   ctx.save(); ctx.lineCap = 'round'; ctx.strokeStyle = 'rgba(255,255,255,1)';
   for (let i = 0; i < 3; i++){ const u = ((t/3.2 + i/3) % 1), x0 = ox + W*(0.25 + i*0.25), y = oy + H*(1 - u), sw = W*0.08*Math.sin(2*Math.PI*u*1.5 + i);
@@ -957,9 +1020,9 @@ let idleFrame = null, idleLast = 0;
 function idleTick(now){
   idleFrame = null; let any = false;
   if (!reduceMotion && !document.hidden && $('closeup').hidden && $('menu').hidden){
-    if (now - idleLast > 45){ idleLast = now; layerState.forEach((st, c) => { const L = st.L; if (!c.isConnected || st.anim) return; if (L.idle || L.draw === 'rain' || L.draw === 'steam'){ any = true; drawLayer(c, 0); } }); }
+    if (now - idleLast > 45){ idleLast = now; layerState.forEach((st, c) => { const L = st.L; if (!c.isConnected || st.anim) return; if (isLive(L)){ any = true; drawLayer(c, 0); } }); }
     else any = true;
-  } else { layerState.forEach(st => { if (st.L.idle || st.L.draw === 'rain' || st.L.draw === 'steam') any = true; }); }
+  } else { layerState.forEach(st => { if (isLive(st.L)) any = true; }); }
   if (any) idleFrame = requestAnimationFrame(idleTick);
 }
 function startIdle(){ if (!idleFrame && !reduceMotion) idleFrame = requestAnimationFrame(idleTick); }
@@ -1701,14 +1764,15 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-10-18b"></script>
-<script src="stages/packing.js?v=2026-10-18b"></script>
-<script src="stages/school3.js?v=2026-10-18b"></script>
-<script src="stages/eschool.js?v=2026-10-18b"></script>
-<script src="stages/zschool.js?v=2026-10-18b"></script>
-<script src="stages/flight.js?v=2026-10-18b"></script>
-<script src="stages/nana.js?v=2026-10-18b"></script>
-<script src="stages/park.js?v=2026-10-18b"></script>
+<script src="stages/school.js?v=2026-10-22a"></script>
+<script src="stages/packing.js?v=2026-10-22a"></script>
+<script src="stages/school3.js?v=2026-10-22a"></script>
+<script src="stages/evalroom.js?v=2026-10-22a"></script>
+<script src="stages/eschool.js?v=2026-10-22a"></script>
+<script src="stages/zschool.js?v=2026-10-22a"></script>
+<script src="stages/flight.js?v=2026-10-22a"></script>
+<script src="stages/nana.js?v=2026-10-22a"></script>
+<script src="stages/park.js?v=2026-10-22a"></script>
 <script>boot();</script>
 <script>if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('../../sw.js').catch(() => {});</script>
 </body>

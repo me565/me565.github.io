@@ -1,0 +1,96 @@
+{
+ "name": "room-c5h-v2: the classroom again with the moving things absent (motion sheet), and the three cut-outs on white",
+ "defaults": {
+  "aspect_ratio": "16:9",
+  "n": 1
+ },
+ "notes": [
+  "Owner, 21 Oct 2026: 'regenerate the classroom with the moving things absent'. The specification marks the hamster, the envelope and the backpack as moving (playbook 4ab); the walls ask for an empty cage, a bare desk top and bare floor; the three things are drawn alone on white with the anchor wall attached, per playbook 2.",
+  "Judge: the empty places read as empty and natural; the cut-outs match the wall's hand and size; the room still meets at its corners."
+ ],
+ "cases": [
+  {
+   "id": "c5h-c4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-c5h/c4.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c4.png"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list (a box may mark an empty place where something will later stand); the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\n",
+   "est_usd": 0.04,
+   "note": "the timetable wall (north) (moving things absent)"
+  },
+  {
+   "id": "c5h-c1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-c5h/c1.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c1.png",
+    "case:c5h-c4"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list (a box may mark an empty place where something will later stand); the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the timetable wall (north) of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the whiteboard wall (east), to the right of the timetable wall (moving things absent)"
+  },
+  {
+   "id": "c5h-c2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-c5h/c2.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c2.png",
+    "case:c5h-c4"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list (a box may mark an empty place where something will later stand); the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the timetable wall (north) of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the window wall (west), to the left of the timetable wall (moving things absent)"
+  },
+  {
+   "id": "c5h-c3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-c5h/c3.txt",
+   "references": [
+    "evals/images/rooms/classroom5h/layout-c3.png",
+    "case:c5h-c1",
+    "case:c5h-c2",
+    "case:c5h-c4"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list (a box may mark an empty place where something will later stand); the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the mint band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the whiteboard wall (east), to the right of the timetable wall of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 3 is the window wall (west), to the left of the timetable wall of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 4 is the timetable wall (north) of this same room, finished, drawn by you a moment ago; it is OPPOSITE this wall, behind the viewer. Match its style, hand, palette, the height of its mint band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the door wall (south), opposite the timetable wall (moving things absent)"
+  },
+  {
+   "id": "c5h-cut-hamster",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "The attached picture is a finished wall of a children's game, drawn by you a moment ago. Draw ONE thing alone in exactly its style, hand, ink outline, shading and palette: a small golden hamster the size of a fist, sitting up, seen from the front, as it would sit inside the wire cage on the filing cabinet of the attached wall. The thing is centred and fills most of the picture, on a pure flat white background: no surface under it, no shadow, no floor, no wall, no frame, no border, no text, nothing else at all. Checks: one object only; pure white everywhere around it; no words.",
+   "aspect_ratio": "1:1",
+   "references": [
+    "case:c5h-c4"
+   ],
+   "est_usd": 0.02,
+   "note": "cut-out: hamster, on white, the anchor wall as reference"
+  },
+  {
+   "id": "c5h-cut-envelope",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "The attached picture is a finished wall of a children's game, drawn by you a moment ago. Draw ONE thing alone in exactly its style, hand, ink outline, shading and palette: a plain white envelope with nothing written on it, lying flat, as it would lie on the desk of the attached wall, seen from the same height. The thing is centred and fills most of the picture, on a pure flat white background: no surface under it, no shadow, no floor, no wall, no frame, no border, no text, nothing else at all. Checks: one object only; pure white everywhere around it; no words.",
+   "aspect_ratio": "1:1",
+   "references": [
+    "case:c5h-c4"
+   ],
+   "est_usd": 0.02,
+   "note": "cut-out: envelope, on white, the anchor wall as reference"
+  },
+  {
+   "id": "c5h-cut-backpack",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "The attached picture is a finished wall of a children's game, drawn by you a moment ago. Draw ONE thing alone in exactly its style, hand, ink outline, shading and palette: a purple school backpack standing on the floor, as it would stand beside the desk of the attached wall. The thing is centred and fills most of the picture, on a pure flat white background: no surface under it, no shadow, no floor, no wall, no frame, no border, no text, nothing else at all. Checks: one object only; pure white everywhere around it; no words.",
+   "aspect_ratio": "1:1",
+   "references": [
+    "case:c5h-c4"
+   ],
+   "est_usd": 0.02,
+   "note": "cut-out: backpack, on white, the anchor wall as reference"
+  }
+ ],
+ "est_total_usd": 0.22
+}
