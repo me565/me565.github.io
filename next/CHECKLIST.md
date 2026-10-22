@@ -75,7 +75,7 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 
 32b. A long press anywhere on the room glows the tappables and never opens the browser's own menu (tester round 1, T1): the scene prevents `contextmenu` and its pictures have no touch callout.
 
-32d. The moth's line lives in the caption band under the room and never over it; nothing tappable is ever covered by a message (log 50). A note leaves the strip when its job is done.
+32d. The moth's line lives in the caption band under the room and never over it; nothing tappable is ever covered by a message (log 50). At the owner's shape a two-line message reaches about 16% up the scene, so nothing small is placed in the bottom sixth of a wall (the fallen key, test room, 22 Oct 2026; the audit lists such targets for a look). A note leaves the strip when its job is done.
 
 32c. Every piece of chrome is paper with the ink rule on the one dusk sky (playbook 4p): no dark translucent pills, no tracked capitals, one gold primary button per screen, disabled buttons as muted paper. A new element that is not paper with the rule is a stranger.
 

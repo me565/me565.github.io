@@ -2,7 +2,7 @@
    usage: node tools/audit.js [stage ...]   (needs the local server: cd <repo> && python3 -m http.server 8765)
    Checks: cut-out proportions (B9), a shadow on things that stand (B10, listed for a look), pictures that fail to load (G38),
    hotspot bounds, size and the turn-arrow strips (E32), unique hotspot ids, close-up overflow and page scroll at three sizes (G36, G37),
-   unrecorded voice keys (F34), and an error-free run with reduced motion at the owner's screen shape (G36).
+   unrecorded voice keys (F34), targets low enough to sit under the caption band (32d), and an error-free run with reduced motion at the owner's screen shape (G36).
    Writes screenshots of every view to tools/audit-out/<stage>-<view>.png for the visual lines. */
 const { chromium } = require('playwright');
 const fs = require('fs'), path = require('path');
@@ -51,6 +51,8 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
           for (const h of hs){
             if (h.l < 0 || h.t < 0 || h.l + h.w > 100 || h.t + h.h > 100) say(stage, 'E32', `${v}: ${h.id} leaves the picture`);
             if (!h.secret && (h.w < 4 || h.h < 6)) say(stage, 'E32', `${v}: ${h.id} is small for a finger (${h.w}×${h.h})`);
+            /* the caption band reaches up to about 16% of the scene when the moth says two lines (owner's shape, 2000×700): a target that low is covered while she speaks (checklist 32d; the fallen key in the test room, 22 Oct 2026) */
+            if (!h.secret && h.t + h.h > 84 && h.h < 30) say(stage, 'E32?', `${v}: ${h.id} reaches ${(h.t + h.h).toFixed(0)}% down, under the caption band while a two-line message shows (32d; fine only if a big target that is still tappable above it)`);
             /* the turn arrows sit halfway up each side: a strip 7% wide (6.5u + .4u), 11u tall, so 40–60% of the height */
             if (!h.secret){ const ox = Math.max(0, Math.min(h.l + h.w, 7) - h.l) + Math.max(0, h.l + h.w - Math.max(h.l, 93)), oy = Math.max(0, Math.min(h.t + h.h, 60) - Math.max(h.t, 40));
               const part = ox*oy/(h.w*h.h), cx = h.l + h.w/2; /* a big target losing a sliver to the arrow is fine; one mostly hidden, or small with its middle under the arrow, is not */

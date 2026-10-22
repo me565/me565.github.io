@@ -78,12 +78,13 @@ Signed off:
 
 ---
 
-## 4. Greybox
+## 4. First playable
 
 - Stage key and plugin file:
 - Play link (pinned to commit):
-- What is placeholder: every wall, cut-out and close-up as labelled boxes; the moth's lines as text
-- What is real: puzzle logic, inventory, hints, saves, doors, the ending; the reward moments from the motion sheet, played with the grey boxes moving in the right order, so the timing is judged before the art exists (playbook 4ab)
+- What is real: puzzle logic, inventory, hints, saves, doors, the ending; every wall, cut-out and close-up that already exists; the reward moments from the motion sheet, played in the right order with whatever stands in, so the timing is judged before the voice and the batch exist (playbook 4ab, 4ac)
+- What stands in: a labelled box or a crop lifted from a wall for each picture that does not exist yet (listed here, so Gate D knows what to make); the moth's lines as text
+- Walls generated before this gate (only with the owner's agreed cost, playbook 4ac):
 
 Tests: scripted playthrough passes · audit clean · no soft-lock (checklist 42) · owner played it on the tablet at 2000×700 · played once on a real Android phone (checklist 44) · reduced motion checked
 Target-age tester (if available): who, what they got stuck on, what they said

@@ -1,0 +1,59 @@
+/* Plays the test room "Lock-up Duty" (stage evalroom), start to ending, with the wrong tries, by script. node tools/play-ev.js (server on 8765). */
+const { chromium } = require('playwright');
+(async () => {
+  const b = await chromium.launch({executablePath:'/opt/pw-browsers/chromium'}); const p = await b.newPage({viewport:{width:2000, height:700}}); const errs = []; p.on('pageerror', e => errs.push(e.message));
+  const OUT = (process.env.SHOTS || '/tmp') + '/ev-'; const shot = async n => p.screenshot({path:OUT + n + '.png', clip:await p.locator('#scene').boundingBox()});
+  const st = () => p.evaluate(() => ({view:ROOMS[S.room].views[S.view], got:S.got.join(','), keyDown:S.keyDown, cab:S.drawerOpen, measured:!!S.measured, popped:S.popped, desk:S.deskOpen, done:S.done, clues:(S.clues || []).join(',')}));
+  const msg = () => p.evaluate(() => document.getElementById('msg').textContent);
+  const tap = async (id, wait = 500) => { const n = await p.locator(`.hs[data-id="${id}"]`).count(); if (!n){ console.log('NO HOTSPOT', id, JSON.stringify(await st())); return; } await p.evaluate(id => document.querySelector(`.hs[data-id="${id}"]`).click(), id); await p.waitForTimeout(wait); };
+  const turnTo = async v => { for (let i = 0; i < 5; i++){ if ((await p.evaluate(() => ROOMS[S.room].views[S.view])) === v) return; await p.evaluate(() => document.getElementById('right').click()); await p.waitForTimeout(320); } console.log('could not turn to', v); };
+  const back = async () => { await p.keyboard.press('Escape'); await p.waitForTimeout(250); };
+  const hold = async name => { await p.evaluate(n => document.querySelector(`.slot[aria-label="${n}"]`).click(), name); await p.waitForTimeout(200); };
+  const noOverflow = async label => { const r = await p.evaluate(() => { const c = document.querySelector('#closeup .card'); if (!c || document.getElementById('closeup').hidden) return null; return {inner:c.scrollHeight > c.clientHeight + 1 || c.scrollWidth > c.clientWidth + 1}; }); if (r && r.inner) console.log('OVERFLOW', label); };
+  const nbCheck = async label => { for (const [w, h] of [[844, 390], [2000, 700]]){ await p.setViewportSize({width:w, height:h}); await p.waitForTimeout(250); await p.evaluate(() => openNotebook()); await p.waitForTimeout(250); await noOverflow(`notebook ${label} at ${w}`); await back(); } };
+  const P = async (px, py) => { const r = await p.evaluate(() => { const b = document.getElementById('dragpic').getBoundingClientRect(); return [b.left, b.top, b.width, b.height]; }); return [r[0] + px/100*r[2], r[1] + py/100*r[3]]; };
+  const drag = async path => { let [mx, my] = await P(path[0][0], path[0][1]); await p.mouse.move(mx, my); await p.mouse.down(); for (let seg = 1; seg < path.length; seg++){ for (let i = 1; i <= 25; i++){ const u = i/25; [mx, my] = await P(path[seg-1][0] + (path[seg][0]-path[seg-1][0])*u, path[seg-1][1] + (path[seg][1]-path[seg-1][1])*u); await p.mouse.move(mx, my); await p.waitForTimeout(12); } } await p.mouse.up(); await p.waitForTimeout(1000); };
+  const setDials = async vals => { for (let i = 0; i < 4; i++){ const cur = await p.evaluate(i => S.dials[i], i); for (let k = 0; k < (vals[i] - cur + 10) % 10; k++){ await p.evaluate(i => document.querySelector(`#ddials .dial[data-i="${i}"]`).click(), i); await p.waitForTimeout(30); } } };
+  const tryCode = async (vals, label) => { await tap('ev_tdrawer', 500); await setDials(vals); await p.click('#openDesk'); await p.waitForTimeout(300); console.log(label, vals.join(''), '→', await p.textContent('#deskFb')); await back(); };
+
+  await p.goto('http://localhost:8765/next/landscape/?stage=evalroom&fresh', {waitUntil:'networkidle'}); await p.waitForTimeout(900);
+  await p.evaluate(() => { const f = document.getElementById('fsask'); if (f && !f.hidden){ const bt = f.querySelector('button:last-of-type'); if (bt) bt.click(); else f.hidden = true; } });
+  if (!(await p.evaluate(() => document.getElementById('stagecard').hidden))) await p.evaluate(() => document.getElementById('cardGo').click()); await p.waitForTimeout(800);
+  console.log('start:', JSON.stringify(await st())); await shot('01-start');
+  // the door before anything: the friendly line
+  await turnTo('c3'); await tap('ev_door'); console.log('door first:', await msg());
+  // the envelope
+  await turnTo('c4'); await tap('ev_envelope', 1200); await noOverflow('envelope note'); await shot('02-note'); await back();
+  // trail A: the coat, the key on the floor, the cabinet, the ruler, the beans
+  await turnTo('c3'); await tap('ev_pegs', 1000); console.log('coat:', await msg(), '| key hotspot:', await p.locator('.hs[data-id="ev_fkey"]').count()); await shot('03-key-on-floor');
+  await tap('ev_fkey', 700); console.log('key:', JSON.stringify(await st()));
+  await turnTo('c4'); await tap('ev_cabinet', 800); await noOverflow('cabinet locked'); await shot('04-cabinet-locked'); await back();
+  await hold('small key'); await tap('ev_hamster', 400); console.log('small key on Nutmeg:', await msg());
+  await hold('small key'); await tap('ev_cabinet', 1800); console.log('cabinet:', JSON.stringify(await st()), '|', await msg()); await shot('05-cabinet-open');
+  await tap('ev_cabinet', 700); await noOverflow('cabinet inside'); await p.click('#takeRuler'); await p.waitForTimeout(400); console.log('ruler:', JSON.stringify(await st()));
+  await turnTo('c2'); await tap('ev_beans', 800); await noOverflow('pots'); await shot('06-pots'); await back();
+  await hold('ruler'); await tap('ev_beans', 900); await noOverflow('pots measured'); await shot('07-measured'); console.log('measured:', JSON.stringify(await st()), '|', await msg()); await back();
+  // trail B: the bin, the box, the halves
+  await turnTo('c3'); await tap('ev_bin', 900); console.log('bin:', await msg(), JSON.stringify(await st()));
+  await hold('left half of a note'); await tap('ev_door', 400); console.log('half on the door:', await msg());
+  await tap('ev_lost', 1100); console.log('box:', await msg(), '| half2 hotspot:', await p.locator('.hs[data-id="ev_half2"]').count()); await shot('08-box-popped');
+  await tap('ev_half2', 600); console.log('halves:', JSON.stringify(await st()));
+  await hold('left half of a note'); await p.evaluate(() => document.querySelector('.slot[aria-label="right half of a note"]').click()); await p.waitForTimeout(900); await noOverflow('watering note'); await shot('09-watering-note'); console.log('joined:', JSON.stringify(await st())); await back();
+  // the clues: board, timetable
+  await turnTo('c1'); await tap('ev_board', 800); await noOverflow('board'); await shot('10-board'); await back();
+  await turnTo('c4'); await tap('ev_timetable', 800); await noOverflow('timetable'); await shot('11-timetable'); await back(); console.log('clues:', JSON.stringify(await st()));
+  await nbCheck('with clues'); await p.evaluate(() => openNotebook()); await p.waitForTimeout(300); await shot('12-notebook');
+  console.log('notebook rows:', JSON.stringify(await p.evaluate(() => [...document.querySelectorAll('.nbrow')].map(r => r.textContent))));
+  await p.evaluate(() => { const r = [...document.querySelectorAll('.nbrow')].find(r => r.textContent.includes('code')); r.click(); r.click(); }); await p.waitForTimeout(200); console.log('code hint tier 2:', await p.textContent('#nbFb')); await back(); await p.waitForTimeout(500); console.log('pulse (ev_tdesk is on c1, so none here):', await p.evaluate(() => { const el = document.querySelector('.hs.point'); return el ? el.dataset.id : 'none'; }));
+  await p.evaluate(() => [...document.querySelectorAll('.nb .clue')].length); await p.evaluate(() => openNotebook()); await p.waitForTimeout(300); await p.evaluate(() => [...document.querySelectorAll('.nb .clue')].find(c => c.textContent === 'Timetable').click()); await p.waitForTimeout(500); console.log('timetable reopened from the notebook:', !(await p.evaluate(() => document.getElementById('closeup').hidden))); await back();
+  // the code: the two traps, a wrong day, nonsense, then the answer
+  await turnTo('c1'); await tryCode([9,6,4,2], 'tallest first'); await tryCode([2,4,6,9], 'left to right'); await tryCode([6,2,9,4], 'Monday'); await tryCode([1,1,1,1], 'nonsense');
+  await tap('ev_tdrawer', 500); await setDials([4,9,6,2]); await shot('13-dials'); await p.click('#openDesk'); await p.waitForTimeout(2600); console.log('code right:', JSON.stringify(await st())); await noOverflow('inside desk'); await shot('14-drawer-open');
+  await p.click('#takeKey'); await p.waitForTimeout(500); console.log('classroom key:', JSON.stringify(await st())); await shot('15-desk-after');
+  await hold('classroom key'); await tap('ev_cupboard', 400); console.log('door key on the cupboard:', await msg());
+  // lock up
+  await turnTo('c3'); await hold('classroom key'); await tap('ev_door', 900); console.log('drag open?', !(await p.evaluate(() => document.getElementById('closeup').hidden))); await shot('16-turn-key');
+  await drag([[53.5, 44], [56.5, 45.5], [58, 48.5], [56.5, 51.5], [53.5, 53]]); await p.waitForTimeout(5200); console.log('ending shown:', await p.evaluate(() => !document.getElementById('endUI').hidden), JSON.stringify(await st())); await shot('17-ending');
+  for (const w of [844, 2000]){ await p.setViewportSize({width:w, height:w === 844 ? 390 : 700}); await p.waitForTimeout(300); console.log('page overflow', w, await p.evaluate(() => document.documentElement.scrollHeight > innerHeight + 1 || document.documentElement.scrollWidth > innerWidth + 1)); }
+  console.log('errors:', errs.length ? errs : 'none'); await b.close();
+})();

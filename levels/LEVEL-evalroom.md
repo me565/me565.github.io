@@ -3,8 +3,8 @@
 *Outline only, written in claude.ai on 22 Oct 2026 from a discussion with the owner, recorded here the same day from `EVALROOM-HANDOVER.md` with the owner's two changes made in chat after the review (the lock-up duty premise and the falling key) and the review's findings listed under "Review against the repo". Nothing here is built yet. Do not build, generate art or change the engine until the owner signs Gate B, and then follow the gates as for any level. The stage stays `?stage=evalroom` (`next/landscape/stages/evalroom.js`); its current "one room, no puzzle" content is replaced by this design once it reaches the greybox.*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: outline, Gate B signed 22 Oct 2026; next stage the greybox (engine frozen, reward moments faked as plain steps)
-Build id of the latest play link: 2026-10-22a (the evaluation room as it is, with no puzzle)
+Current status: first playable (build 2026-10-22b; Gate C waits on the owner's play on the tablet)
+Build id of the latest play link: 2026-10-22b (the first playable of Lock-up Duty)
 Latest play link: `?stage=evalroom`
 
 ---
@@ -173,16 +173,18 @@ Conflicts and suggested fixes:
 
 ---
 
-## 4. Greybox
+## 4. First playable (built 22 Oct 2026, the first use of playbook 4ac)
 
-- Stage key and plugin file: `evalroom`, `next/landscape/stages/evalroom.js` (its present content replaced)
-- Play link (pinned to commit):
-- What is placeholder: every wall, cut-out and close-up as labelled boxes; the moth's lines as text
-- What is real: puzzle logic, inventory, hints, saves, doors, the ending; the reward moments from the motion sheet, played with the grey boxes moving in the right order, so the timing is judged before the art exists (playbook 4ab)
+- Stage key and plugin file: `evalroom`, `next/landscape/stages/evalroom.js` (the "walk round and tap" content replaced); `tools/play-ev.js` plays it.
+- Play link (pinned to commit): given in chat with each build; `?stage=evalroom` on the landscape address.
+- What is real: the four walls and nine cut-outs; the puzzle logic, inventory, hints (three tiers, tier two pulses the thing), saves, the ending; the drawer fronts, the door leaf, the box front and the shoe-and-hat lifted from the walls by crop (`layer-tdrawer/cabdrawer/door/boxfront/lost.png`); the timetable, the whiteboard date, the pot labels, the keyhole, the open drawer, the torn corner and the open doorway drawn by the game.
+- What stands in (for Gate D): the small key (a grey drawn key, `next/art/greybox/tab-key.png`, also the drag's tab), the ruler, the two note halves and the classroom key as labelled strip icons; the pot close-up as a drawn diagram; "inside the drawer" as a plain card. The moth's lines as text.
+- Faked until the engine is unfrozen (owner's decision, greybox first): the reward moments are single movements (drawer slides, Nutmeg sniffs; the door folds to its hinge and the doorway is painted behind it); the small key appears on the floor after the coat swings rather than falling; Nutmeg never stands.
+- Walls generated before this gate: none.
 
-Tests: scripted playthrough passes · audit clean · no soft-lock (checklist 42) · owner played it on the tablet at 2000×700 · played once on a real Android phone (checklist 44) · reduced motion checked
-Target-age tester (if available): who, what they got stuck on, what they said
-Result:
+Tests: scripted playthrough passes (`tools/play-ev.js`: every trail, the two trap codes, a wrong day, nonsense, every wrong-use line, the notebook and clue chips at 844×390 and 2000×700, no page scroll, no errors) · audit clean (0 failures; 8 "for a look", all hanging, flat or inside) · no soft-lock (checklist 42: walked on paper, nothing is consumed by a wrong use, both drawers and the note stay) · owner played it on the tablet at 2000×700: **not yet** · played once on a real Android phone (checklist 44): not yet · reduced motion checked (the audit's owner-shape run)
+Target-age tester (if available): none (a test room)
+Result: waiting on the owner.
 
 ### Gate C — it plays right
 Signed off:
@@ -191,7 +193,7 @@ Signed off:
 
 ## 5. Asset and script list (draft, for Gate D)
 
-Reuse first: the four walls and the nine existing cut-outs in `next/art/eval/c5h/`; the envelope icon from `next/art/classroom/`.
+Reuse first: the four walls and the nine existing cut-outs in `next/art/eval/c5h/`; the envelope icon from `next/art/classroom/`. Lifted by crop on 22 Oct 2026 (no credit): assets 5 to 8 below.
 
 | # | Asset | Type | Moves? | Reused from | Est. credit (Sunburst ~4¢, Nano Banana 2 ~10¢) |
 |---|---|---|---|---|---|
@@ -278,6 +280,10 @@ Every fault found in this level, where it was found, and what happened to it.
 |---|---|---|---|---|
 | Outline review, 22 Oct 2026 | The first premise locked a child in a classroom from the inside, with the key in the same room | Lock-up duty: the door is open, the key locks it from outside | A level's premise is checked for sense and for the child-safe rule before Gate B | this file, for now |
 | Outline review, 22 Oct 2026 | A moving thing was planned as a wall re-do when it was already painted into the wall | Lifted from the wall (4r) | Already a rule: checklist 53 | — |
+| First playable, 22 Oct 2026 | The fallen key landed at 86% down the wall, under the caption band while the moth spoke two lines, so it could not be tapped | Moved up to 79%, by the door | Yes: nothing small in the bottom sixth of a wall | Checklist 32d (reworded); audit E32? look line |
+| First playable, 22 Oct 2026 | "9 cm" ran off the right edge of the pot close-up | The number sits above its ruler, centred | No, this card's | — |
+| First playable, 22 Oct 2026 | The torn corner under the hat had a tap target but nothing to see | A drawn corner of paper while it is there | Already a rule: checklist 7 (every clue in a picture) | — |
+| First playable, 22 Oct 2026 | The door folded open onto the same door painted in the wall | The doorway and the light on the floor drawn by the game while the door is open | Only this room's (a lifted door needs the opening behind it) | this file |
 
 ## Notes for this level only
 
