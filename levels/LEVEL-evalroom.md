@@ -3,8 +3,8 @@
 *Outline only, written in claude.ai on 22 Oct 2026 from a discussion with the owner, recorded here the same day from `EVALROOM-HANDOVER.md` with the owner's two changes made in chat after the review (the lock-up duty premise and the falling key) and the review's findings listed under "Review against the repo". Nothing here is built yet. Do not build, generate art or change the engine until the owner signs Gate B, and then follow the gates as for any level. The stage stays `?stage=evalroom` (`next/landscape/stages/evalroom.js`); its current "one room, no puzzle" content is replaced by this design once it reaches the greybox.*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: first playable (build 2026-10-22b; Gate C waits on the owner's play on the tablet)
-Build id of the latest play link: 2026-10-22b (the first playable of Lock-up Duty)
+Current status: first playable (build 2026-10-22c after the owner's first tablet play; Gate C waits on his next play)
+Build id of the latest play link: 2026-10-22c (the first playable, with the owner's first round of tablet feedback built in: MOTH-49, 50, 51)
 Latest play link: `?stage=evalroom`
 
 ---
@@ -182,7 +182,7 @@ Conflicts and suggested fixes:
 - Faked until the engine is unfrozen (owner's decision, greybox first): the reward moments are single movements (drawer slides, Nutmeg sniffs; the door folds to its hinge and the doorway is painted behind it); the small key appears on the floor after the coat swings rather than falling; Nutmeg never stands.
 - Walls generated before this gate: none.
 
-Tests: scripted playthrough passes (`tools/play-ev.js`: every trail, the two trap codes, a wrong day, nonsense, every wrong-use line, the notebook and clue chips at 844×390 and 2000×700, no page scroll, no errors) · audit clean (0 failures; 8 "for a look", all hanging, flat or inside) · no soft-lock (checklist 42: walked on paper, nothing is consumed by a wrong use, both drawers and the note stay) · owner played it on the tablet at 2000×700: **not yet** · played once on a real Android phone (checklist 44): not yet · reduced motion checked (the audit's owner-shape run)
+Tests: scripted playthrough passes (`tools/play-ev.js`: every trail, the two trap codes, a wrong day, nonsense, every wrong-use line, the notebook and clue chips at 844×390 and 2000×700, no page scroll, no errors) · audit clean (0 failures; 8 "for a look", all hanging, flat or inside) · no soft-lock (checklist 42: walked on paper, nothing is consumed by a wrong use, both drawers and the note stay) · owner played it on the tablet at 2000×700: once, 22 Oct 2026 (three findings, fixed in build 2026-10-22c; the next play decides the gate) · played once on a real Android phone (checklist 44): not yet · reduced motion checked (the audit's owner-shape run)
 Target-age tester (if available): none (a test room)
 Result: waiting on the owner.
 
@@ -284,6 +284,9 @@ Every fault found in this level, where it was found, and what happened to it.
 | First playable, 22 Oct 2026 | "9 cm" ran off the right edge of the pot close-up | The number sits above its ruler, centred | No, this card's | — |
 | First playable, 22 Oct 2026 | The torn corner under the hat had a tap target but nothing to see | A drawn corner of paper while it is there | Already a rule: checklist 7 (every clue in a picture) | — |
 | First playable, 22 Oct 2026 | The door folded open onto the same door painted in the wall | The doorway and the light on the floor drawn by the game while the door is open | Only this room's (a lifted door needs the opening behind it) | this file |
+| Owner's tablet play, 22 Oct 2026 (MOTH-51) | The small key opened the cabinet from the room but not inside the cabinet close-up | A target over the drawer in the close-up routes a held item through the same USES table (`cuTarget`, `wireCu`) | Yes: what takes an item in the room takes it in its close-up | Playbook 4ad; checklist 59; backlog 25 for the engine |
+| Owner's tablet play, 22 Oct 2026 (MOTH-50) | Measuring with the ruler took "a lot of clicking around": the ruler did nothing inside the pot close-up | The pot close-up takes the ruler, and its line says to hold the ruler first | Same rule as above | Checklist 59 |
+| Owner's tablet play, 22 Oct 2026 (MOTH-49) | The half note came out of the bin from the room view, and the corner under the hat was a small wall target | The bin, the box and the desk drawer open close up, made from the wall, and the thing is taken there | Yes: finding is a close-up | Playbook 4ad; checklist 60 |
 
 ## Notes for this level only
 
