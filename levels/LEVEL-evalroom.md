@@ -3,7 +3,7 @@
 *Outline only, written in claude.ai on 22 Oct 2026 from a discussion with the owner, recorded here the same day from `EVALROOM-HANDOVER.md` with the owner's two changes made in chat after the review (the lock-up duty premise and the falling key) and the review's findings listed under "Review against the repo". Nothing here is built yet. Do not build, generate art or change the engine until the owner signs Gate B, and then follow the gates as for any level. The stage stays `?stage=evalroom` (`next/landscape/stages/evalroom.js`); its current "one room, no puzzle" content is replaced by this design once it reaches the greybox.*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: outline
+Current status: outline, Gate B signed 22 Oct 2026; next stage the greybox (engine frozen, reward moments faked as plain steps)
 Build id of the latest play link: 2026-10-22a (the evaluation room as it is, with no puzzle)
 Latest play link: `?stage=evalroom`
 
@@ -143,14 +143,14 @@ Reward moments:
 | Door | the key turns (the drag) | the door swings open, light spills across the floor | Nutmeg stands up and stays up; end card | door open |
 
 - Living things per view (cap: two): c4 Nutmeg and the clock's second hand; c2 the beam and motes; c1 the beam; c3 none until the ending. (See the review: c4 as built also carries a beam; whether code-drawn light counts is for the owner.)
-- New movements this level asks for: reward moments (backlog 20), pose swaps (backlog 22) and the key's fall-and-land. **All are engine changes.** The rule is that engine changes are built between levels, never inside one. This is a test room rather than a level, but no level should be mid-gates when they land. As of 22 Oct 2026, `school3` is at the greybox (Gate C waiting), so the engine is frozen. Either the greybox of this room is built first with the reward moments faked as plain steps (and the key appearing on the floor after the swing), or the owner lifts the freeze for these items. The owner decides.
+- New movements this level asks for: reward moments (backlog 20), pose swaps (backlog 22) and the key's fall-and-land. **All are engine changes.** The rule is that engine changes are built between levels, never inside one. This is a test room rather than a level, but no level should be mid-gates when they land. As of 22 Oct 2026, `school3` is at the greybox (Gate C waiting), so the engine is frozen. Either the greybox of this room is built first with the reward moments faked as plain steps (and the key appearing on the floor after the swing), or the owner lifts the freeze for these items. **Decided: greybox first** (owner, 22 Oct 2026). The engine stays frozen; the greybox fakes the reward moments as plain steps and the key appears on the floor after the swing; backlog 20, 22 and the key's fall-and-land are built between levels.
 
 Checked: every thing that moves is listed · every lock has a reward moment · no view has more than two living things · every part, pose and pivot named
 
 ### Gate B — level outline
 Checked: map walk-through passed · paper playtest passed · motion sheet done · no puzzle type more than twice · every answer has a visible clue · difficulty matches the brief
 Walked 22 Oct 2026: all six pass as recorded above.
-Signed off:
+Signed off: "Sign off gate B for evalroom, greybox first" (owner, 22 Oct 2026, in chat).
 
 ---
 
