@@ -20,6 +20,9 @@ const WEEK = {Mon:['en', 'ge', 'mu', 'sc'], Tue:['mu', 'sc', 'ge', 'en'], Wed:['
 const TODAY = 'Thu', DATE = 'Thursday 22 October';
 const POTS = [['ge', 2], ['sc', 4], ['en', 6], ['mu', 9]]; /* left to right on the sill: label, height in cm */
 const heightOf = k => POTS.find(p => p[0] === k)[1];
+/* Taken things stay taken (MOTH-55): whether a thing still lies where it was found is a flag set when it is picked up, never "is it in the strip", because a used-up item leaves the strip and the test would turn true again. */
+const taken = k => !!(S.taken && S.taken[k]);
+const take = k => { if (!S.taken) S.taken = {}; S.taken[k] = true; if (!S.got.includes(k)) S.got.push(k); save(); };
 const codeFor = day => WEEK[day].map(heightOf);
 const CODE = codeFor(TODAY); /* 4 9 6 2 */
 const TRAP_TALL = [...POTS].sort((a, b) => b[1] - a[1]).map(p => p[1]); /* 9 6 4 2 */
@@ -40,7 +43,7 @@ const HOTS = {
     {id:'ev_bin', l:18, t:48, w:15, h:36, label:'Recycling bin', anim:'flip', layer:'lid', sound:'knock'},
     {id:'ev_door', l:38, t:8, w:22, h:76, label:'Classroom door', sound:'knock'},
     {id:'ev_pegs', l:64, t:24, w:26, h:40, label:'Coat on the pegs', anim:'swing', layer:'coat', sound:'leaf'},
-    {id:'ev_fkey', l:60, t:76, w:7, h:8, label:'A small key on the floor', key:true, sound:'tick', anim:'lift', layer:'fkey', showWhen:() => S.keyDown && !S.got.includes('skey')},
+    {id:'ev_fkey', l:60, t:76, w:7, h:8, label:'A small key on the floor', key:true, sound:'tick', anim:'lift', layer:'fkey', showWhen:() => S.keyDown && !taken('skey')},
     {id:'ev_lost', l:68, t:62, w:17, h:20, label:'Lost property box', anim:'pop', layer:'lost', sound:'paper'}],
   c4:[
     {id:'ev_rules', l:21, t:18, w:10, h:22, label:'Class rules', sound:'paper'},
@@ -61,7 +64,7 @@ const LAYERS = {
     {src:'../art/eval/c5h/layer-lid.png', group:'lid', l:GEO2.lid.l, t:GEO2.lid.t, w:GEO2.lid.w, h:GEO2.lid.h, shadow:.4},
     {src:'../art/eval/c5h/layer-lost.png', group:'lost', l:CUT.lost.l, t:CUT.lost.t, w:CUT.lost.w, h:CUT.lost.h}, /* the shoe and hat, behind the box's front */
     {src:'../art/eval/c5h/layer-boxfront.png', l:CUT.boxfront.l, t:CUT.boxfront.t, w:CUT.boxfront.w, h:CUT.boxfront.h},
-    {src:'../art/greybox/tab-key.png', group:'fkey', l:61.3, t:78.6, w:4.4, h:3.58, shadow:.5, showWhen:() => S.keyDown && !S.got.includes('skey')}], /* stand-in: the small key where it landed */
+    {src:'../art/greybox/tab-key.png', group:'fkey', l:61.3, t:78.6, w:4.4, h:3.58, shadow:.5, showWhen:() => S.keyDown && !taken('skey')}], /* stand-in: the small key where it landed */
   c2:[
     {src:'../art/eval/c5h/layer-pot1.png', group:'plant', l:GEO2.pot1.l, t:GEO2.pot1.t, w:GEO2.pot1.w, h:GEO2.pot1.h, shadow:.5, pin:.90, phase:0.7}, /* pin: the share of each cut-out, from the bottom, that is pot and soil and never moves (MOTH-48) */
     {src:'../art/eval/c5h/layer-pot2.png', group:'plant', l:GEO2.pot2.l, t:GEO2.pot2.t, w:GEO2.pot2.w, h:GEO2.pot2.h, shadow:.5, pin:.59, phase:1.4},
@@ -249,10 +252,10 @@ function openDeskLock(){
     else $('deskFb').textContent = 'It doesn’t budge.'; };
 }
 function openInsideDesk(){ /* Mr Hollis's drawer, close up: it opens and shuts on a tap; the key is inside while it is out */
-  const key = !S.got.includes('dkey') ? `<button class="inside-desk" id="takeKey" aria-label="The classroom key" style="position:absolute;left:28%;top:22%;width:44%;height:50%;background:transparent;border:0;cursor:pointer;pointer-events:auto;display:${S.deskOut ? '' : 'none'}"><img src="../art/greybox/tab-key.png?v=${BUILD}" alt="" style="width:60%;display:block;margin:auto;transform:rotate(-20deg);filter:drop-shadow(0 0 6px #ffe08a)"></button>` : '';
-  openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c1, 1400, 590)}"><p class="otitle">Mr Hollis’s drawer</p>${cuTarget('ev_tdrawer', 'The drawer', [28, 24, 44, 34])}<div style="position:absolute;left:31%;top:27%;width:38.2%;height:27.4%;pointer-events:none">${drawerHTML('desk', 'cu-desk', key)}</div></div><p class="ofb" id="deskFb2">${S.deskOut ? (S.got.includes('dkey') ? 'Paper clips, a whistle, and the space where the key was.' : 'Paper clips, a whistle, and the classroom key on its 5H tag.') : 'The drawer, shut. Tap it to open it.'}</p></div>`);
-  const b = $('takeKey'); if (b) b.onclick = e => { e.stopPropagation(); S.got.push('dkey'); save(); sfx('pickup'); closeCloseup(); render(); say('The classroom key, on its 5H tag. It goes in the strip below. Now: lock up.'); };
-  wireCu({ev_tdrawer:() => { const out = toggleDrawer('desk'); $('deskFb2').textContent = out ? (S.got.includes('dkey') ? 'Open. Paper clips and a whistle.' : 'Open. The classroom key, on its 5H tag.') : 'Shut.'; }});
+  const key = !taken('dkey') ? `<button class="inside-desk" id="takeKey" aria-label="The classroom key" style="position:absolute;left:28%;top:22%;width:44%;height:50%;background:transparent;border:0;cursor:pointer;pointer-events:auto;display:${S.deskOut ? '' : 'none'}"><img src="../art/greybox/tab-key.png?v=${BUILD}" alt="" style="width:60%;display:block;margin:auto;transform:rotate(-20deg);filter:drop-shadow(0 0 6px #ffe08a)"></button>` : '';
+  openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c1, 1400, 590)}"><p class="otitle">Mr Hollis’s drawer</p>${cuTarget('ev_tdrawer', 'The drawer', [28, 24, 44, 34])}<div style="position:absolute;left:31%;top:27%;width:38.2%;height:27.4%;pointer-events:none">${drawerHTML('desk', 'cu-desk', key)}</div></div><p class="ofb" id="deskFb2">${S.deskOut ? (taken('dkey') ? 'Paper clips, a whistle, and the space where the key was.' : 'Paper clips, a whistle, and the classroom key on its 5H tag.') : 'The drawer, shut. Tap it to open it.'}</p></div>`);
+  const b = $('takeKey'); if (b) b.onclick = e => { e.stopPropagation(); take('dkey'); sfx('pickup'); closeCloseup(); render(); say('The classroom key, on its 5H tag. It goes in the strip below. Now: lock up.'); };
+  wireCu({ev_tdrawer:() => { const out = toggleDrawer('desk'); $('deskFb2').textContent = out ? (taken('dkey') ? 'Open. Paper clips and a whistle.' : 'Open. The classroom key, on its 5H tag.') : 'Shut.'; }});
 }
 function lockUp(){ /* the drag: turn the key in the door; then the door swings, Mary steps out, and the end card */
   openDrag({pic:WALLS.c3, title:'Turn the key', tab:'../art/greybox/tab-key.png', tabW:4, tabRatio:'240/110', path:[[53.5, 44], [56.5, 45.5], [58, 48.5], [56.5, 51.5], [53.5, 53]], label:'Put the key in the lock and turn it, all the way round.', missLabel:'Take hold of the key, by the knob.', moreLabel:'Keep turning, all the way.', doneLabel:'Click, clunk.', lineColour:'#a8844a', lineWidth:8,
@@ -280,8 +283,8 @@ function act(id){
     case 'ev_envelope': S.got.push('ev_env'); sfx('pickup'); setTimeout(() => { render(); openNote('ev_env'); }, 700); say('An envelope with your name on it, in Mr Hollis’s writing.'); return;
     case 'ev_pegs':
       if (!S.keyDown){ S.keyDown = true; save(); setTimeout(() => { sfx('tick'); render(); }, 650); say('The raincoat swings on its peg… and something small drops out of the pocket and skitters across the floor, over by the door.'); return; }
-      say(S.got.includes('skey') ? 'One forgotten raincoat, its pocket empty now.' : 'The raincoat swings. Whatever fell out is on the floor under the pegs.'); return;
-    case 'ev_fkey': S.got.push('skey'); save(); sfx('pickup'); setTimeout(render, 500); say('A small silver key. Far too small for a door. It goes in the strip below.'); return;
+      say(taken('skey') ? 'One forgotten raincoat, its pocket empty now.' : 'The raincoat swings. Whatever fell out is on the floor, over by the door.'); return;
+    case 'ev_fkey': take('skey'); sfx('pickup'); setTimeout(render, 500); say('A small silver key. Far too small for a door. It goes in the strip below.'); return;
     case 'ev_bin': say('The lid flips up. Have a look inside.'); setTimeout(openBin, 750); return; /* the movement first, then the place close up from the top (MOTH-49, MOTH-52) */
     case 'ev_lost':
       if (!S.popped){ S.popped = true; save(); say('The shoe and the hat jump as the box is bumped. Something rustled in the hat.'); setTimeout(() => { render(); openBox(); }, 950); return; }
@@ -293,7 +296,7 @@ function act(id){
       if (!S.cabUnlocked){ act('ev_cabinet'); return; }
       toggleDrawer('cab', S.cabOut ? 'Shut.' : (S.got.includes('ruler') ? 'The top drawer slides open. Empty now.' : 'The top drawer slides open. The ruler is inside: tap the cabinet to look.')); return;
     case 'ev_tdesk': say(S.deskOpen ? (S.deskOut ? 'Mr Hollis’s desk, its drawer open.' : 'Mr Hollis’s desk. The drawer is shut; tap it to open it.') : 'Mr Hollis’s desk: his mug, his books, an apple. The drawer has a little lock with four number dials.'); if (!S.deskOpen) setTimeout(openDeskLock, 500); else if (S.deskOut) openInsideDesk(); return;
-    case 'ev_tdrawer': if (!S.deskOpen){ openDeskLock(); return; } toggleDrawer('desk', S.deskOut ? 'Shut.' : (S.got.includes('dkey') ? 'The drawer slides open. Paper clips and a whistle.' : 'The drawer slides open. Something glints inside: tap the desk to look.')); return;
+    case 'ev_tdrawer': if (!S.deskOpen){ openDeskLock(); return; } toggleDrawer('desk', S.deskOut ? 'Shut.' : (taken('dkey') ? 'The drawer slides open. Paper clips and a whistle.' : 'The drawer slides open. Something glints inside: tap the desk to look.')); return;
     case 'ev_board': openBoard(); return;
     case 'ev_timetable': openTimetable(); return;
     case 'ev_beans': openPots(); return;
@@ -315,7 +318,7 @@ function act(id){
 /* ---------- hints, the notebook, clues ---------- */
 const HINTS = [
   {goal:() => S.got.includes('ev_env'), target:'ev_envelope', tips:['Something’s waiting on your desk.', 'Turn to the timetable wall. Your desk.', 'Pick up the envelope and read it.']},
-  {trail:'a', goal:() => S.got.includes('skey'), target:'ev_pegs', tips:['Coats keep all sorts in their pockets.', 'The raincoat on the pegs, by the door.', 'Tap the raincoat: a key falls out of its pocket. Pick it up off the floor.']},
+  {trail:'a', goal:() => taken('skey'), target:'ev_pegs', tips:['Coats keep all sorts in their pockets.', 'The raincoat on the pegs, by the door.', 'Tap the raincoat: a key falls out of its pocket. Pick it up off the floor.']},
   {trail:'a', goal:() => S.got.includes('ruler'), target:'ev_cabinet', tips:['That little key fits something small and locked.', 'The filing cabinet under Nutmeg has a tiny lock.', 'Hold the small key and tap the filing cabinet. Open the top drawer and take the ruler.']},
   {trail:'a', goal:() => !!S.measured, target:'ev_beans', tips:['Mr H wants heights. What could you measure with?', 'The ruler, against the bean plants on the sill.', 'Hold the ruler and tap the bean pots: 2, 4, 6 and 9 cm.']},
   {trail:'b', goal:() => S.got.includes('half1') || S.got.includes('wnote'), target:'ev_bin', tips:['Somebody threw something away.', 'The recycling bin by the door. Look right down into it.', 'Tap the bin, then push the rubbish aside: half a note is at the bottom.']},
@@ -324,7 +327,7 @@ const HINTS = [
   {trail:'c', goal:() => !!S.seen.day, target:'ev_board', tips:['The note says today. What day is it?', 'Something in the room has the date on it.', 'Tap the whiteboard: Thursday.']},
   {trail:'c', goal:() => !!S.seen.thu, target:'ev_timetable', tips:['What happens on a Thursday in 5H?', 'The timetable, by Mary’s desk.', 'Tap the timetable. Thursday: flask, music, pencil, atlas.']},
   {trail:'c', goal:() => S.deskOpen, target:'ev_tdesk', tips:['Each pot has a lesson on its label.', 'Thursday’s lessons, in order, each turned into its pot’s height.', 'Flask 4, music 9, pencil 6, atlas 2: set the drawer’s dials to 4 9 6 2.']},
-  {goal:() => S.got.includes('dkey'), target:'ev_tdesk', tips:['The drawer is unlocked.', 'Look inside Mr Hollis’s drawer.', 'Tap the drawer to open it, then the desk, and take the classroom key.']},
+  {goal:() => taken('dkey'), target:'ev_tdesk', tips:['The drawer is unlocked.', 'Look inside Mr Hollis’s drawer.', 'Tap the drawer to open it, then the desk, and take the classroom key.']},
   {goal:() => S.done, target:'ev_door', tips:['You have the key. Mr H asked you to lock up.', 'Hold the classroom key and tap the door.', 'Hold the key, tap the door, then turn the key all the way round.']}
 ];
 function rows(){
@@ -332,7 +335,7 @@ function rows(){
   const out = [];
   if (!S.got.includes('ev_env')){ out.push([0, 'Something on my desk?', 'not yet', false]); return out; }
   const a = !!S.measured, b = S.got.includes('wnote'), c = S.deskOpen;
-  out.push([a ? -1 : first('a'), 'The beans’ heights', a ? '✓ measured' : S.got.includes('ruler') ? 'I have a ruler' : S.got.includes('skey') ? 'a small key' : 'not started', a]);
+  out.push([a ? -1 : first('a'), 'The beans’ heights', a ? '✓ measured' : S.got.includes('ruler') ? 'I have a ruler' : taken('skey') ? 'a small key' : 'not started', a]);
   out.push([b ? -1 : first('b'), 'The order he watered them', b ? '✓ the note' : (S.got.includes('half1') || S.got.includes('half2')) ? 'half a note' : 'not started', b]);
   out.push([c ? -1 : first('c'), 'The code on his drawer', c ? '✓ open' : (S.seen.thu ? 'Thursday’s lessons' : S.seen.day ? 'it’s Thursday' : 'four numbers'), c]);
   if (c) out.push([S.done ? -1 : S.got.includes('dkey') ? 11 : 10, 'Lock up 5H', S.done ? '✓ locked' : S.got.includes('dkey') ? 'I have the key' : 'the key is in the drawer', S.done]);
@@ -360,7 +363,7 @@ return {
   postcard:{pic:'../art/postcards/school.jpg'},
   intro:'<b>Lock-up duty.</b> Mr Hollis has left Mary to lock up 5H, and the key is in his desk behind a code. There is a note on her desk.',
   start:{room:'classroom', view:0},
-  fresh:() => ({seen:{}, clues:[], keyDown:false, binMoved:[], binDone:false, popped:false, measured:0, cabUnlocked:false, cabOut:false, dials:[0,0,0,0], deskOpen:false, deskOut:false, locked:false}),
+  fresh:() => ({seen:{}, clues:[], taken:{}, keyDown:false, binMoved:[], binDone:false, popped:false, measured:0, cabUnlocked:false, cabOut:false, dials:[0,0,0,0], deskOpen:false, deskOut:false, locked:false}),
   rooms:ROOMS, walls:WALLS, doors:DOORS, hots:HOTS, layers:LAYERS, notes:NOTES, items:ITEMS, hints:HINTS, uses:USES,
   overlays:{c4:() => S.cabUnlocked ? wrap(wallTimetable(), wallDrawer('cab')) : wallTimetable(), c1:() => S.deskOpen ? wrap(wallBoard(), wallDrawer('desk')) : wrap(wallBoard()), c2:wallLabels, c3:() => wrap(...[S.done ? wallDoorway() : null].filter(Boolean))},
   act, miss, sparkle, rows, noticed, clues, speaker, helper:() => 'the moth', child:'mary'
