@@ -3,8 +3,8 @@
 *Outline only, written in claude.ai on 22 Oct 2026 from a discussion with the owner, recorded here the same day from `EVALROOM-HANDOVER.md` with the owner's two changes made in chat after the review (the lock-up duty premise and the falling key) and the review's findings listed under "Review against the repo". Nothing here is built yet. Do not build, generate art or change the engine until the owner signs Gate B, and then follow the gates as for any level. The stage stays `?stage=evalroom` (`next/landscape/stages/evalroom.js`); its current "one room, no puzzle" content is replaced by this design once it reaches the greybox.*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: first playable (build 2026-10-22e, after the owner's two rounds of tablet feedback and his playthrough video; Gate C waits on his word)
-Build id of the latest play link: 2026-10-22e (the first playable, with the owner's tablet feedback and the fault from his video built in: MOTH-49 to 55)
+Current status: first playable (build 2026-10-22f, after the owner's two rounds of tablet feedback, his silent playthrough video and his recorded commentary; Gate C waits on his word)
+Build id of the latest play link: 2026-10-22f (the first playable, with everything from the owner's three plays built in: MOTH-49 to 68)
 Latest play link: `?stage=evalroom`
 
 ---
@@ -67,7 +67,7 @@ Result (walked on paper, 22 Oct 2026): passes. One room, so everything is reacha
 - **Envelope note** (Mr Hollis): *"Last day! I've gone to the hall. Will you lock up 5H for me, Mary? The classroom key is in my desk drawer. Its code is the beans' heights, read in the order I asked you to water them. — Mr H."*
 - **Watering note** (torn, combined): *"Beans: water one pot per lesson, in today's lesson order. — H."*
 - **Whiteboard (c1):** the date in the top corner, *"Thursday 22 October"*. Nothing else written, so the date stands out without being circled.
-- **Timetable (c4):** the game fills the empty grid. Rows are Monday to Friday; each row shows four lesson icons from the six in the header and two blank cells. **Thursday: flask, music, pencil, atlas.** Every other day uses the same four icons in a different order, so reading the wrong day gives a wrong code rather than nonsense. (See the review below: the wall's grid has the six subjects as column headers, so the day-by-day grid belongs in a game-drawn close-up, and all five rows are to be listed before Gate C.)
+- **Timetable (c4):** the game paints the grid over the poster (the poster's own grid has four rows for five days: MOTH-56). Rows are Monday to Friday; each row shows four lessons from the six in the header and two blank cells, and every one of the six lessons happens on some day (MOTH-57): Mon pencil, brush, music, flask · Tue music, flask, atlas, pencil · Wed atlas, pencil, ball, music · **Thu flask, music, pencil, atlas** · Fri pencil, music, brush, flask. Only Tuesday's four all have pots, so Tuesday (9 4 2 6) is the one "right heights, wrong day" answer; the other days contain a lesson with no pot. (See the review below: the wall's grid has the six subjects as column headers, so the day-by-day grid belongs in a game-drawn close-up, and all five rows are to be listed before Gate C.)
 - **Pot labels (c2):** the game draws one icon on each blank label. Left to right: **atlas, flask, pencil, music.**
 - **Heights (ruler close-up, c2):** left to right **2, 4, 6, 9 cm**, matching the art (bare shoot, small, middling, tall).
 - **Answer:** Thursday's order flask, music, pencil, atlas → pots 2, 4, 3, 1 → **4 9 6 2**.
@@ -213,7 +213,9 @@ Reuse first: the four walls and the nine existing cut-outs in `next/art/eval/c5h
 | 12 | The bin from above, empty (owner, 22 Oct 2026; MOTH-52) | close-up | no | — | 1 |
 | 13 | Five bits of rubbish (crumpled page, juice carton, crust, paper ball, apple core) | cut-out ×5 | single (shoved) | — | 5 |
 | 14 | The inside of the hat (owner, 22 Oct 2026; MOTH-53) | close-up | no | — | 1 |
-| 15 | Mr Hollis's drawer, open, from the front (the key inside drawn by the game) | close-up | no | a crop of c1 may do | 0 or 1 |
+| 15 | Mr Hollis's drawer, looked down into, the key among paper clips and a whistle (MOTH-65) | close-up | no | — | 1 |
+| 16 | The joined note, two torn halves taped (MOTH-64) | close-up | no | — | 1 |
+| 17 | The supplies cupboard's doors, re-cut to the cupboard's full width (MOTH-67) | cut-out | single (`peek`) | lifted from c1 | 0 |
 
 - About 14 pictures after the owner's second round (the bin, its rubbish and the hat): roughly 60¢ on Sunburst, about $1.40 on the fallback. Every word, number and icon on the labels, timetable, whiteboard and notes is drawn by the game, so none of it costs credit. (The handover estimated 12 pictures before the lifted cut-outs were counted as reuse.)
 - No wall re-do: the drawers' dark gaps and the open doorway are drawn by the engine behind the lifted cut-outs.
@@ -290,6 +292,19 @@ Every fault found in this level, where it was found, and what happened to it.
 | First playable, 22 Oct 2026 | "9 cm" ran off the right edge of the pot close-up | The number sits above its ruler, centred | No, this card's | — |
 | First playable, 22 Oct 2026 | The torn corner under the hat had a tap target but nothing to see | A drawn corner of paper while it is there | Already a rule: checklist 7 (every clue in a picture) | — |
 | First playable, 22 Oct 2026 | The door folded open onto the same door painted in the wall | The doorway and the light on the floor drawn by the game while the door is open | Only this room's (a lifted door needs the opening behind it) | this file |
+| Owner's recording with voice, 22 Oct 2026 (MOTH-56) | The timetable's icons straddled the poster's grid: four rows drawn for five days | The game paints the grid itself over the poster's cell area | Yes: when the art's grid cannot hold the puzzle, the game draws the grid | Checklist 52 (already); playbook 4ad |
+| Same recording (MOTH-57) | Two header lessons never on the week | Every lesson on some day; Tuesday the one potted decoy | This room's chart | this file |
+| Same recording (MOTH-58) | A movement before a zoom, and a bag that moves for nothing | No movement on a tap that zooms; the bag plain | Yes | Checklist 60 |
+| Same recording (MOTH-59) | Keyhole in the close-up, none on the wall | Drawn on the wall too | Already a rule: checklist 52 | — |
+| Same recording (MOTH-60) | The keyhole drawing swallowed the tap meant for the target under it | Decorations never take pointer events; the play script taps the drawing | Yes | Checklist 59 |
+| Same recording (MOTH-61) | The whole desk opened the dials; an open drawer did not zoom to itself | The drawer alone opens the dials; shut → slides open, open → zooms, shut again in the close-up | Yes | Checklist 61 |
+| Same recording (MOTH-62) | The bin close-up redrew and flashed when the note appeared | The note is inserted in place | Only this stage's wiring | this file |
+| Same recording (MOTH-63) | The key appeared on the floor instead of falling | A stage overlay tumbles it from the pocket with two bounces | Engine: the fall-and-land movement stays on the list | this file |
+| Same recording (MOTH-64) | The joined note was a plain card | Two torn halves and tape drawn in the card; the finished picture at Gate D | This room's | this file |
+| Same recording (MOTH-65) | The key hard to see in the drawer | Tighter zoom and a bigger key now; the look-down-into-it picture at Gate D | Already a rule: checklist 60 | — |
+| Same recording (MOTH-66) | The door folded flat; the key turn left a trail line | The leaf swings on its hinge in perspective; the trail invisible | Engine: the door swing goes with backlog 26 | this file |
+| Same recording (MOTH-68) | The same line on the card and in the caption | One line per screen in this room | Yes, whole game when revisited | Checklist 62 |
+| Same recording (MOTH-67) | The cupboard's doors narrower than the cupboard; its line promised glue sticks over bare shelves | The line now matches; the doors re-cut at Gate D | This room's art | the asset list |
 | Owner's tablet play, 22 Oct 2026 (MOTH-51) | The small key opened the cabinet from the room but not inside the cabinet close-up | A target over the drawer in the close-up routes a held item through the same USES table (`cuTarget`, `wireCu`) | Yes: what takes an item in the room takes it in its close-up | Playbook 4ad; checklist 59; backlog 25 for the engine |
 | Owner's tablet play, 22 Oct 2026 (MOTH-50) | Measuring with the ruler took "a lot of clicking around": the ruler did nothing inside the pot close-up | The pot close-up takes the ruler, and its line says to hold the ruler first | Same rule as above | Checklist 59 |
 | Owner's tablet play, 22 Oct 2026 (MOTH-49) | The half note came out of the bin from the room view, and the corner under the hat was a small wall target | The bin, the box and the desk drawer open close up, made from the wall, and the thing is taken there | Yes: finding is a close-up | Playbook 4ad; checklist 60 |

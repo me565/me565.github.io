@@ -16,14 +16,14 @@ const DOORS = {};
 /* ---------- the puzzle's facts, all drawn by the game ---------- */
 const LESSON = {sc:['i-sc', '#3b78b8', 'flask'], mu:['i-mu', '#7a5cc2', 'music'], en:['i-en', '#d9a622', 'pencil'], ge:['i-ge', '#a8744a', 'atlas'], ar:['i-ar', '#d0602f', 'brush'], pe:['i-pe', '#27794c', 'ball']};
 const HEADER = ['en', 'ge', 'sc', 'ar', 'pe', 'mu']; /* the six icons the wall's timetable already carries, left to right: the key */
-const WEEK = {Mon:['en', 'ge', 'mu', 'sc'], Tue:['mu', 'sc', 'ge', 'en'], Wed:['ge', 'en', 'sc', 'mu'], Thu:['sc', 'mu', 'en', 'ge'], Fri:['en', 'mu', 'ge', 'sc']};
+const WEEK = {Mon:['en', 'ar', 'mu', 'sc'], Tue:['mu', 'sc', 'ge', 'en'], Wed:['ge', 'en', 'pe', 'mu'], Thu:['sc', 'mu', 'en', 'ge'], Fri:['en', 'mu', 'ar', 'sc']}; /* all six lessons happen somewhere (MOTH-57); Thursday's four are the potted ones */
 const TODAY = 'Thu', DATE = 'Thursday 22 October';
 const POTS = [['ge', 2], ['sc', 4], ['en', 6], ['mu', 9]]; /* left to right on the sill: label, height in cm */
-const heightOf = k => POTS.find(p => p[0] === k)[1];
+const heightOf = k => { const p = POTS.find(p => p[0] === k); return p ? p[1] : null; };
 /* Taken things stay taken (MOTH-55): whether a thing still lies where it was found is a flag set when it is picked up, never "is it in the strip", because a used-up item leaves the strip and the test would turn true again. */
 const taken = k => !!(S.taken && S.taken[k]);
 const take = k => { if (!S.taken) S.taken = {}; S.taken[k] = true; if (!S.got.includes(k)) S.got.push(k); save(); };
-const codeFor = day => WEEK[day].map(heightOf);
+const codeFor = day => { const c = WEEK[day].map(heightOf); return c.includes(null) ? null : c; }; /* a day with an unpotted lesson has no code */
 const CODE = codeFor(TODAY); /* 4 9 6 2 */
 const TRAP_TALL = [...POTS].sort((a, b) => b[1] - a[1]).map(p => p[1]); /* 9 6 4 2 */
 const TRAP_LEFT = POTS.map(p => p[1]); /* 2 4 6 9 */
@@ -34,17 +34,17 @@ const HOTS = {
     {id:'ev_cupboard', l:6, t:12, w:20, h:72, label:'Supplies cupboard', anim:'peek', layer:'doors', sound:'knock'},
     {id:'ev_board', l:33, t:14, w:34, h:27, label:'Whiteboard', sound:'tap'},
     {id:'ev_tdesk', l:60, t:46, w:34, h:40, label:"Mr Hollis's desk", sound:'tap'},
-    {id:'ev_tdrawer', l:79.5, t:60, w:12, h:10, label:"Mr Hollis's drawer", sound:'tick', anim:'rattle', layer:'tdrawer'}],
+    {id:'ev_tdrawer', l:79, t:59, w:13, h:12, label:"Mr Hollis's drawer", sound:'tick', anim:'rattle', layer:'tdrawer'}],
   c2:[
     {id:'ev_window', l:27, t:5, w:46, h:30, label:'Classroom window', sound:'tap'},
     {id:'ev_beans', l:28, t:36, w:44, h:17, label:'Bean plants on the window sill', anim:'bend', layer:'plant', sound:'leaf'},
     {id:'ev_radiator', l:33, t:57, w:33, h:22, label:'Radiator', sound:'knock'}],
   c3:[
-    {id:'ev_bin', l:18, t:48, w:15, h:36, label:'Recycling bin', anim:'flip', layer:'lid', sound:'knock'},
+    {id:'ev_bin', l:18, t:48, w:15, h:36, label:'Recycling bin', sound:'open'},
     {id:'ev_door', l:38, t:8, w:22, h:76, label:'Classroom door', sound:'knock'},
     {id:'ev_pegs', l:64, t:24, w:26, h:40, label:'Coat on the pegs', anim:'swing', layer:'coat', sound:'leaf'},
     {id:'ev_fkey', l:60, t:76, w:7, h:8, label:'A small key on the floor', key:true, sound:'tick', anim:'lift', layer:'fkey', showWhen:() => S.keyDown && !taken('skey')},
-    {id:'ev_lost', l:68, t:62, w:17, h:20, label:'Lost property box', anim:'pop', layer:'lost', sound:'paper'}],
+    {id:'ev_lost', l:68, t:62, w:17, h:20, label:'Lost property box', sound:'open'}],
   c4:[
     {id:'ev_rules', l:21, t:18, w:10, h:22, label:'Class rules', sound:'paper'},
     {id:'ev_timetable', l:37, t:10, w:27, h:32, label:'Class timetable', sound:'paper'},
@@ -52,14 +52,14 @@ const HOTS = {
     {id:'ev_bookshelf', l:14, t:48, w:20, h:34, label:'Bookshelf', sound:'knock'},
     {id:'ev_desk', l:39, t:54, w:21, h:34, label:"Mary's desk", sound:'tap'},
     {id:'ev_envelope', l:GEO.envelope.l-1.5, t:GEO.envelope.t-2, w:GEO.envelope.w+3, h:GEO.envelope.h+4, label:'Envelope on the desk', key:true, anim:'lift', layer:'envelope', sound:'paper', hideWhen:() => S.got.includes('ev_env')},
-    {id:'ev_bag', l:GEO.backpack.l-1, t:GEO.backpack.t-1, w:GEO.backpack.w+2, h:GEO.backpack.h+2, label:'Schoolbag', anim:'slump', layer:'backpack', sound:'tap'},
+    {id:'ev_bag', l:GEO.backpack.l-1, t:GEO.backpack.t-1, w:GEO.backpack.w+2, h:GEO.backpack.h+2, label:'Schoolbag', sound:'tap'},
     {id:'ev_hamster', l:70, t:36.5, w:13.4, h:15.7, label:'Nutmeg the hamster', anim:'sniff', layer:'hamster', sound:'squeak'},
     {id:'ev_cabinet', l:69, t:52, w:16, h:33, label:'Filing cabinet', sound:'knock'},
     {id:'ev_cabdrawer', l:71, t:55.5, w:13.5, h:13, label:"The cabinet's top drawer", sound:'tick', anim:'rattle', layer:'cabdrawer'}]
 };
 const LAYERS = {
   c3:[
-    {src:'../art/eval/c5h/layer-door.png', group:'door', l:CUT.door.l, t:CUT.door.t, w:CUT.door.w, h:CUT.door.h, openWhen:() => S.done}, /* the leaf, lifted from the wall; `openDoor` folds it to its hinge at the ending */
+    {src:'../art/eval/c5h/layer-door.png', group:'door', l:CUT.door.l, t:CUT.door.t, w:CUT.door.w, h:CUT.door.h, gone:() => S.locked}, /* the leaf, lifted from the wall; at the ending the stage swings it open on its hinge (MOTH-66) */
     {src:'../art/eval/c5h/layer-coat.png', group:'coat', l:GEO2.coat.l, t:GEO2.coat.t, w:GEO2.coat.w, h:GEO2.coat.h},
     {src:'../art/eval/c5h/layer-lid.png', group:'lid', l:GEO2.lid.l, t:GEO2.lid.t, w:GEO2.lid.w, h:GEO2.lid.h, shadow:.4},
     {src:'../art/eval/c5h/layer-lost.png', group:'lost', l:CUT.lost.l, t:CUT.lost.t, w:CUT.lost.w, h:CUT.lost.h}, /* the shoe and hat, behind the box's front */
@@ -88,7 +88,7 @@ const LAYERS = {
 const gicon = (t, bg) => `<span style="display:grid;place-items:center;width:80%;height:80%;margin:10%;background:${bg || '#8a8a94'};border:2px solid #2a2a33;border-radius:12%;color:#fff;font-weight:700;font-size:calc(var(--u)*1.7);text-align:center;line-height:1.05">${t}</span>`;
 const NOTES = {
   ev_env:{hand:true, html:'<span class="head">For Mary</span><span class="big">Last day! I’ve gone to the hall.</span><span>Will you lock up 5H for me, Mary? The classroom key is in my desk drawer. Its code is the beans’ heights, read in the order I asked you to water them.</span><span class="sign">— Mr H.</span>'},
-  wnote:{hand:true, html:'<span class="head">A torn note, taped together</span><span class="big">Beans: water one pot per lesson,</span><span>in today’s lesson order.</span><span class="sign">— H.</span>'}
+  wnote:{hand:true, html:`<div style="position:relative;padding:calc(var(--u)*1.5) calc(var(--u)*2)"><svg viewBox="0 0 320 120" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true"><path d="M0 0H154l-6 14 8 12-7 13 9 11-8 14 7 12-6 14 8 12-5 18H0z" fill="#f6ecd3"/><path d="M160 0H320v120H152l5-18-8-12 6-14-7-12 8-14-9-11 7-13-8-12z" fill="#fbf4e2"/><path d="M154 0l-6 14 8 12-7 13 9 11-8 14 7 12-6 14 8 12-5 18" fill="none" stroke="#c9b98f" stroke-width="1.2" stroke-dasharray="3 2"/><rect x="128" y="34" width="58" height="22" rx="2" transform="rotate(-8 157 45)" fill="rgba(255,236,160,.55)" stroke="rgba(190,170,90,.6)"/><rect x="132" y="78" width="54" height="20" rx="2" transform="rotate(6 159 88)" fill="rgba(255,236,160,.55)" stroke="rgba(190,170,90,.6)"/></svg><span class="head" style="position:relative;display:block">A torn note, taped together</span><span class="big" style="position:relative;display:block">Beans: water one pot per lesson,</span><span style="position:relative;display:block">in today’s lesson order.</span><span class="sign" style="position:relative;display:block">— H.</span></div>`}
 };
 const ITEMS = {
   ev_env:{name:'note from Mr Hollis', note:'ev_env', icon:'<img src="../art/classroom/item-envelope.png" alt="">', spent:() => S.deskOpen},
@@ -110,9 +110,11 @@ function ttRows(x0, y0, cw, rh, fs, isz){ /* the five day rows: the day in the f
   });
   return out;
 }
-function wallTimetable(){ /* the wall's grid: six columns under the six icons, five rows; drawn over the empty cells the picture left */
-  const d = document.createElement('div'); d.className = 'layer'; d.style.cssText = 'left:38.02%;top:24.26%;width:25.63%;height:17.41%';
-  d.innerHTML = `<svg viewBox="0 0 492 188" width="100%" height="100%" preserveAspectRatio="none" aria-hidden="true">${ttRows(0, 0, 82, 37.6, 15, 24)}</svg>`;
+function wallTimetable(){ /* the poster's grid has four rows and the week has five days, so the game paints the whole grid over the poster's cell area: six columns under the six icons (the poster's own column rules), five day rows */
+  const d = document.createElement('div'); d.className = 'layer'; d.style.cssText = 'left:38.18%;top:24.17%;width:25.1%;height:17.5%';
+  const cols = [733, 814, 894, 974, 1054, 1135, 1215].map(x => (x - 733)/482*482); /* the poster's rules, in the grid's own pixels */
+  const rh = 189/5;
+  d.innerHTML = `<svg viewBox="0 0 482 189" width="100%" height="100%" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="482" height="189" fill="#f4f1ea"/>${[1,2,3,4].map(r => `<line x1="0" x2="482" y1="${r*rh}" y2="${r*rh}" stroke="#b9cfd0" stroke-width="2"/>`).join('')}${cols.slice(1, -1).map(x => `<line x1="${x}" x2="${x}" y1="0" y2="189" stroke="#b9cfd0" stroke-width="2"/>`).join('')}<rect x="1" y="1" width="480" height="187" fill="none" stroke="#2f7c83" stroke-width="2"/>${ttRows(0, 0, 482/6, rh, 15, 24)}</svg>`;
   return d;
 }
 function wallBoard(){ /* the whiteboard: only the date, in marker pen, top left */
@@ -126,10 +128,17 @@ function wallLabels(){ /* one lesson icon on each pot's label; the pots are pinn
     d.innerHTML = `<svg viewBox="0 0 12 12" style="height:85%;aspect-ratio:1" aria-hidden="true">${ic(k, 0, 0, 12)}</svg>`; return d; });
   return wrap(...kids);
 }
-function wallDoorway(){ /* the ending: the door leaf folds to its hinge, and the doorway behind it is drawn as the corridor, with its light on the floor */
+const LEAF_OPEN = 'perspective(900px) rotateY(-78deg)';
+function leafImg(open){ const c = CUT.door; return `<img id="leaf" src="../art/eval/c5h/layer-door.png?v=${BUILD}" alt="" style="position:absolute;left:${c.l}%;top:${c.t}%;width:${c.w}%;transform-origin:0 50%;transform:${open ? LEAF_OPEN : 'none'};pointer-events:none;filter:drop-shadow(6px 0 8px rgba(0,0,0,.35))">`; }
+function wallDoorway(){ /* the ending: the doorway behind the leaf is drawn as the corridor with its light on the floor, and the leaf stands open on its hinge */
   const c = CUT.door, d = document.createElement('div'); d.style.cssText = 'position:absolute;inset:0;pointer-events:none';
-  d.innerHTML = `<div style="position:absolute;left:${c.l + c.w*0.12}%;top:${c.t}%;width:${c.w*0.88}%;height:${c.h}%;background:linear-gradient(#f6f1e3 0%,#f1ebdb 62%,#d9c9a4 62.5%,#e9dcb8 100%);box-shadow:inset 0 0 calc(var(--u)*2) rgba(0,0,0,.25)"></div><div style="position:absolute;left:${c.l + c.w*0.1}%;top:${c.t + c.h}%;width:${c.w*0.95}%;height:14%;background:linear-gradient(rgba(255,248,220,.55),rgba(255,248,220,0));clip-path:polygon(8% 0,92% 0,100% 100%,0 100%)"></div>`;
+  d.innerHTML = `<div style="position:absolute;left:${c.l}%;top:${c.t}%;width:${c.w}%;height:${c.h}%;background:linear-gradient(#f6f1e3 0%,#f1ebdb 62%,#d9c9a4 62.5%,#e9dcb8 100%);box-shadow:inset 0 0 calc(var(--u)*2) rgba(0,0,0,.25)"></div><div style="position:absolute;left:${c.l + c.w*0.1}%;top:${c.t + c.h}%;width:${c.w*0.95}%;height:14%;background:linear-gradient(rgba(255,248,220,.55),rgba(255,248,220,0));clip-path:polygon(8% 0,92% 0,100% 100%,0 100%)"></div>${leafImg(true)}`;
   return d;
+}
+function doorSwing(){ /* the leaf swings open on its left hinge, in perspective, then stays open (MOTH-66) */
+  const leaf = $('leaf'); if (!leaf) return;
+  const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  leaf.animate([{transform:'perspective(900px) rotateY(0deg)'}, {transform:LEAF_OPEN}], {duration:reduce ? 10 : 1100, easing:'cubic-bezier(.3,.7,.3,1)', fill:'forwards'});
 }
 /* Drawers open and shut (owner, 22 Oct 2026; MOTH-54). Once unlocked, a drawer is drawn by the stage: a dark gap and the front,
    which slides out and back with a short transition on each tap, in the room and in its close-up alike; what is inside shows only
@@ -139,6 +148,28 @@ const OUT_T = 'translateY(50%) scale(1.1)', OUT_F = 'drop-shadow(0 4px 4px rgba(
 function drawerHTML(k, id, inside){ const D = DRAWERS[k], out = D.out();
   return `<div style="position:absolute;left:3%;top:8%;width:94%;height:90%;background:rgba(30,22,18,.82);box-shadow:inset 0 0 calc(var(--u)*1.2) #000;pointer-events:none"></div>${inside || ''}<img id="${id}" src="../art/eval/c5h/${D.src}?v=${BUILD}" alt="" style="position:absolute;left:0;top:0;width:100%;pointer-events:none;transform-origin:50% 50%;transform:${out ? OUT_T : 'none'};filter:${out ? OUT_F : 'none'};transition:transform .45s cubic-bezier(.3,.9,.4,1),filter .45s">`; }
 function wallDrawer(k){ const c = DRAWERS[k].cut, d = document.createElement('div'); d.style.cssText = `position:absolute;left:${c.l}%;top:${c.t}%;width:${c.w}%;height:${c.h}%;pointer-events:none`; d.innerHTML = drawerHTML(k, 'ov-' + k); return d; }
+/* The key tumbles out of the coat pocket (MOTH-63): a stage overlay animates the fall from the pocket to the floor with two bounces,
+   then the floor cut-out takes over at rest. The engine's fall-and-land movement is still on the backlog. */
+const KEYHOLE = '<svg viewBox="0 0 10 14" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%"><circle cx="5" cy="5" r="4" fill="#1d1d22"/><path d="M3.6 7h2.8l1 6H2.6z" fill="#1d1d22"/></svg>';
+function wallKeyhole(){ /* the lock on the top drawer, drawn on the wall as well as in the close-up (MOTH-59) */
+  const c = CUT.cabdrawer, d = document.createElement('div'); d.style.cssText = `position:absolute;left:${c.l + c.w*0.07}%;top:${c.t + c.h*0.38}%;width:${c.w*0.05}%;height:${c.h*0.11}%;pointer-events:none`; d.innerHTML = KEYHOLE; return d;
+}
+function keyTumble(){
+  const im = document.createElement('img'); im.src = '../art/greybox/tab-key.png?v=' + BUILD; im.alt = '';
+  const L = LAYERS.c3.find(x => x.group === 'fkey'); im.style.cssText = `position:absolute;left:${L.l}%;top:${L.t}%;width:${L.w}%;pointer-events:none;transform-origin:50% 50%;filter:drop-shadow(1px 2px 2px rgba(0,0,0,.35))`;
+  $('hots').appendChild(im);
+  const dx = (72.5 - L.l), dy = (49 - L.t); /* from the pocket, in scene percentages */
+  const toPx = (px, py) => { const r = $('hots').getBoundingClientRect(); return [px/100*r.width, py/100*r.height]; };
+  const [sx, sy] = toPx(dx, dy), [bx] = toPx(dx*0.45, 0), [cx] = toPx(dx*0.18, 0), [, b1] = toPx(0, 6), [, b2] = toPx(0, 2.5);
+  const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const anim = im.animate([
+    {transform:`translate(${sx}px,${sy}px) rotate(-60deg)`, opacity:0}, {transform:`translate(${sx}px,${sy}px) rotate(-60deg)`, opacity:1, offset:0.08},
+    {transform:`translate(${bx}px,0px) rotate(40deg)`, offset:0.5}, {transform:`translate(${cx}px,${-b1}px) rotate(80deg)`, offset:0.68},
+    {transform:`translate(${cx*0.4}px,0px) rotate(110deg)`, offset:0.82}, {transform:`translate(0px,${-b2}px) rotate(120deg)`, offset:0.91}, {transform:'translate(0,0) rotate(0deg)'}
+  ], {duration:reduce ? 10 : 1100, easing:'linear', fill:'forwards'});
+  setTimeout(() => sfx('tick'), reduce ? 0 : 560);
+  anim.onfinish = () => { S.keyDown = true; save(); render(); };
+}
 function toggleDrawer(k, line){ const D = DRAWERS[k], out = !D.out(); if (k === 'cab') S.cabOut = out; else S.deskOut = out; save(); sfx(out ? 'open' : 'close');
   ['ov-' + k, 'cu-' + k].forEach(id => { const im = $(id); if (im){ im.style.transform = out ? OUT_T : 'none'; im.style.filter = out ? OUT_F : 'none'; } });
   document.querySelectorAll('.inside-' + k).forEach(el => { el.style.display = out ? '' : 'none'; });
@@ -180,9 +211,11 @@ function openBin(){
     const m = S.binMoved.includes(id); S.binMoved = m ? S.binMoved.filter(x => x !== id) : [...S.binMoved, id]; save(); sfx('paper');
     const [l, t, w, rot] = m ? r.at : r.to; b.style.left = l + '%'; b.style.top = t + '%'; b.style.transform = `rotate(${rot}deg)`;
     const shows = !gone && UNDER.every(x => S.binMoved.includes(x)); const n = $('binNote'); if (n) n.style.opacity = UNDER.some(x => S.binMoved.includes(x)) ? .9 : .35;
-    if (shows) setTimeout(openBin, 450); else $('binFb').textContent = m ? 'Back it goes.' : UNDER.some(x => S.binMoved.includes(x)) ? 'Pushed aside. Something pale underneath…' : 'Pushed aside.'; });
-  const b = $('takeHalf1'); if (b) b.onclick = e => { e.stopPropagation(); S.binDone = true; S.got.push('half1'); save(); sfx('pickup'); closeCloseup(); render(); say('Half a note, torn down the middle, in Mr Hollis’s writing. It goes in the strip below.'); };
+    if (shows && !$('takeHalf1')){ const n = $('binNote'); if (n) n.remove(); const pic = document.querySelector('#closeup .shelfpic'); pic.insertAdjacentHTML('beforeend', paper('takeHalf1', '½ note', [40, 38, 16], -14)); wireHalf1(); $('binFb').textContent = 'There! Half a note, torn down the middle, in Mr Hollis’s writing.'; }
+    else $('binFb').textContent = m ? 'Back it goes.' : UNDER.some(x => S.binMoved.includes(x)) ? 'Pushed aside. Something pale underneath…' : 'Pushed aside.'; });
+  wireHalf1();
 }
+function wireHalf1(){ const b = $('takeHalf1'); if (b) b.onclick = e => { e.stopPropagation(); S.binDone = true; S.got.push('half1'); save(); sfx('pickup'); closeCloseup(); render(); say('Half a note, torn down the middle, in Mr Hollis’s writing. It goes in the strip below.'); }; }
 function openBox(){ /* the lost property box, close up, from the wall; the hat is a target that opens its own close-up */
   const gone = S.got.includes('half2') || S.got.includes('wnote');
   openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c3, 1230, 600)}"><p class="otitle">Lost property</p>${cuTarget('ev_hat', 'The blue hat', [50, 14, 24, 28])}${cuTarget('ev_shoe', 'The red shoe', [24, 8, 26, 30])}</div><p class="ofb">${gone ? 'A shoe, a hat, and a lunchbox that has been here since March.' : S.popped ? 'A red shoe and a blue hat. Have a look in the hat.' : 'A red shoe and a blue hat.'}</p></div>`);
@@ -200,13 +233,13 @@ function openHat(){
 function openBoard(again){
   if (!again){ S.seen.day = Date.now(); save(); }
   openCloseup(`<div class="card shelf"><div class="shelfpic" style="background:#f7f7f4;border-radius:calc(var(--u)*.6)"><p class="otitle">Whiteboard</p><p style="position:absolute;left:6%;top:24%;margin:0;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*4.2);color:#2f5f8a;transform:rotate(-1.5deg)">${DATE}</p></div><p class="ofb">Wiped clean for the holidays. Only today’s date is left, in Mr Hollis’s pen.</p></div>`);
-  if (!again) say('The whiteboard, wiped clean. Just the date in the corner: ' + DATE + '.' + copyClue('board'));
+  if (!again) say(copyClue('board').trim());
 }
 function openTimetable(again){
   if (!again){ S.seen.thu = Date.now(); save(); }
   const key = HEADER.map((k, i) => `<rect x="${8 + i*52}" y="24" width="50" height="26" rx="2" fill="${['#f6c445', '#5aa7d8', '#b48be0', '#f0a0a8', '#8ad0a8', '#f4a040'][i]}"/>` + ic(k, 8 + i*52 + 15, 27, 20)).join('');
   openCloseup(`<div class="card tt"><svg viewBox="0 0 322 190" aria-label="The class timetable: six lessons across the top, the days down the side, each day’s lessons in order"><rect width="322" height="190" rx="4" fill="#fffdf6"/><rect width="322" height="20" fill="#2f7c83"/><text x="161" y="14.5" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fffdf6" letter-spacing="1" font-family="${FONT}">5H TIMETABLE</text>${key}<g>${Object.keys(WEEK).map((d, r) => `<rect x="8" y="${54 + r*26}" width="312" height="26" fill="${r%2 ? '#eef3ee' : '#f7f9f3'}" stroke="#cfc8b4" stroke-width=".6"/>`).join('')}${ttRows(8, 54, 52, 26, 10, 18)}</g></svg></div>`);
-  if (!again) say('The class timetable: the six lessons along the top, and under them each day’s lessons in order. ' + DATE.split(' ')[0] + ' reads ' + WEEK[TODAY].map(k => LESSON[k][2]).join(', ') + '.' + copyClue('timetable'));
+  if (!again) say(copyClue('timetable').trim());
 }
 function potsSVG(measured){ /* stand-in for the pot close-up (Gate D asset 11): four pots on the sill, their labels, and the ruler against each once measured */
   const base = 150, scale = 11;
@@ -216,21 +249,23 @@ function potsSVG(measured){ /* stand-in for the pot close-up (Gate D asset 11): 
 }
 function openPots(again){
   openCloseup(`<div class="card shelf"><div class="shelfpic" style="background:#d9ecf7;border-radius:calc(var(--u)*.6)"><p class="otitle">The bean pots (stand-in)</p>${potsSVG(S.measured)}${cuTarget('ev_beans', 'The four bean plants', [0, 0, 100, 100])}</div><p class="ofb">${S.measured ? 'Measured: ' + POTS.map(p => `${LESSON[p[0]][2]} ${p[1]} cm`).join(', ') + '.' : S.got.includes('ruler') ? 'You have a ruler. Tap it in the strip, then tap the plants.' : 'Four pots, each with a lesson picture on its label. Mr H wants their heights.'}</p></div>`);
-  wireCu({ev_beans:() => say(S.measured ? 'Measured already: ' + POTS.map(p => `${p[1]} cm`).join(', ') + '.' : S.got.includes('ruler') ? 'Hold the ruler first: tap it in the strip below, then tap the plants.' : 'Four bean plants, four heights. Nothing to measure them with yet.')});
-  if (!again) say(S.measured ? 'The beans, measured. ' + POTS.map(p => `${LESSON[p[0]][2]} ${p[1]}`).join(', ') + '.' : 'The class bean plants, one pot each: ' + POTS.map(p => LESSON[p[0]][2]).join(', ') + ' on the labels. Four heights, if you had something to measure with.');
+  wireCu({ev_beans:() => { document.querySelector('#closeup .ofb').textContent = S.measured ? 'Measured already: ' + POTS.map(p => `${p[1]} cm`).join(', ') + '.' : S.got.includes('ruler') ? 'Hold the ruler first: tap it in the strip below, then tap the plants.' : 'Four bean plants, four heights. Nothing to measure them with yet.'; }});
+  if (!again) say('');
 }
 function measure(){
   if (!S.measured){ S.measured = Date.now(); S.seen.heights = S.measured; save(); }
-  openPots(true); say('Ruler against each stem: ' + POTS.map(p => `${p[1]} cm`).join(', ') + ', left to right.' + copyClue('pots'));
+  openPots(true); say(copyClue('pots').trim());
 }
-function openCabinet(){ /* the cabinet close-up: the wall itself, zoomed, with the keyhole the game draws; unlocked, the drawer opens and shuts and the ruler waits inside */
-  const ruler = !S.got.includes('ruler') ? `<button class="inside-cab" id="takeRuler" aria-label="A ruler" style="position:absolute;left:12%;top:18%;width:60%;height:26%;background:transparent;border:0;cursor:pointer;pointer-events:auto;display:${S.cabOut ? '' : 'none'}"><span style="display:block;width:100%;height:38%;background:#f3d26a;border:1.5px solid #6a5a2a;border-radius:2px;transform:rotate(-4deg);background-image:repeating-linear-gradient(90deg,#6a5a2a 0 1px,transparent 1px 9%)"></span></button>` : '';
-  const hole = S.cabUnlocked ? '' : `<svg viewBox="0 0 10 14" style="position:absolute;left:37%;top:28%;width:3%;aspect-ratio:10/14" aria-hidden="true"><circle cx="5" cy="5" r="4" fill="#1d1d22"/><path d="M3.6 7h2.8l1 6H2.6z" fill="#1d1d22"/></svg>`;
-  const drawer = S.cabUnlocked ? `<div style="position:absolute;left:34.4%;top:13%;width:36.4%;height:35.6%;pointer-events:none">${drawerHTML('cab', 'cu-cab', ruler)}</div>` : '';
-  openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c4, 1160, 560, 640)}"><p class="otitle">Filing cabinet</p>${cuTarget(S.cabUnlocked ? 'ev_cabdrawer' : 'ev_cabinet', 'The top drawer' + (S.cabUnlocked ? '' : ' and its lock'), [30, 10, 45, 42])}${drawer}${hole}</div><p class="ofb" id="cabFb">${S.cabUnlocked ? (S.got.includes('ruler') ? 'The top drawer. Tap it to open and shut it.' : S.cabOut ? 'The top drawer is open. A ruler inside.' : 'The top drawer, unlocked. Tap it to open it.') : 'The top drawer has a tiny lock. A small key would fit it.'}</p></div>`);
+function openCabinet(){ /* locked: the cabinet close up, with the keyhole the game draws; unlocked: the top drawer close up (MOTH-61), opening and shutting on a tap, the ruler inside while it is out */
+  if (!S.cabUnlocked){
+    openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c4, 1160, 560, 640)}"><p class="otitle">Filing cabinet</p>${cuTarget('ev_cabinet', 'The top drawer and its lock', [30, 10, 45, 42])}<div style="position:absolute;left:37%;top:28%;width:3%;aspect-ratio:10/14;pointer-events:none">${KEYHOLE}</div></div><p class="ofb" id="cabFb">The top drawer has a tiny lock. A small key would fit it.</p></div>`);
+    wireCu({ev_cabinet:() => { $('cabFb').textContent = S.got.includes('skey') ? 'A tiny lock. Hold the small key: tap it in the strip below, then tap the lock.' : 'A tiny lock on the top drawer. It wants a small key.'; }});
+    return;
+  }
+  const ruler = !S.got.includes('ruler') ? `<button class="inside-cab" id="takeRuler" aria-label="A ruler" style="position:absolute;left:10%;top:16%;width:64%;height:30%;background:transparent;border:0;cursor:pointer;pointer-events:auto;display:${S.cabOut ? '' : 'none'}"><span style="display:block;width:100%;height:40%;background:#f3d26a;border:1.5px solid #6a5a2a;border-radius:2px;transform:rotate(-4deg);background-image:repeating-linear-gradient(90deg,#6a5a2a 0 1px,transparent 1px 9%)"></span></button>` : '';
+  openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c4, 1290, 580, 400)}"><p class="otitle">The top drawer</p>${cuTarget('ev_cabdrawer', 'The top drawer', [18, 8, 68, 70])}<div style="position:absolute;left:22.5%;top:12%;width:58.25%;height:56.9%;pointer-events:none">${drawerHTML('cab', 'cu-cab', ruler)}</div></div><p class="ofb" id="cabFb">${S.got.includes('ruler') ? (S.cabOut ? 'Open. Empty now.' : 'Shut. Tap it to open it.') : S.cabOut ? 'Open. A ruler inside.' : 'Shut. Tap it to open it.'}</p></div>`);
   const b = $('takeRuler'); if (b) b.onclick = e => { e.stopPropagation(); if (!S.got.includes('ruler')){ S.got.push('ruler'); save(); } sfx('pickup'); closeCloseup(); render(); say('A ruler, thirty centimetres, with a bite out of one corner. It goes in the strip below.'); };
-  wireCu({ev_cabinet:() => say(S.got.includes('skey') ? 'A tiny lock. Hold the small key: tap it in the strip below, then tap the lock.' : 'A tiny lock on the top drawer. It wants a small key.'),
-    ev_cabdrawer:() => { const out = toggleDrawer('cab'); $('cabFb').textContent = out ? (S.got.includes('ruler') ? 'Open. Empty now.' : 'Open. A ruler inside.') : 'Shut.'; }});
+  wireCu({ev_cabdrawer:() => { const out = toggleDrawer('cab'); $('cabFb').textContent = out ? (S.got.includes('ruler') ? 'Open. Empty now.' : 'Open. A ruler inside.') : 'Shut. Tap it to open it.'; }});
 }
 function unlockCabinet(){
   drop('skey'); S.cabOut = true; save(); render(); sfx('pickup');
@@ -248,18 +283,18 @@ function openDeskLock(){
     sfx('knock');
     if (got === TRAP_TALL.join()) $('deskFb').textContent = 'Tallest first? The beans don’t mind how tall they are. Read the notes again.';
     else if (got === TRAP_LEFT.join()) $('deskFb').textContent = 'That’s just left to right along the sill.';
-    else if (Object.keys(WEEK).some(d => d !== TODAY && codeFor(d).join() === got)) $('deskFb').textContent = 'The right heights, but not today’s order.';
+    else if (Object.keys(WEEK).some(d => d !== TODAY && codeFor(d) && codeFor(d).join() === got)) $('deskFb').textContent = 'The right heights, but not today’s order.';
     else $('deskFb').textContent = 'It doesn’t budge.'; };
 }
-function openInsideDesk(){ /* Mr Hollis's drawer, close up: it opens and shuts on a tap; the key is inside while it is out */
-  const key = !taken('dkey') ? `<button class="inside-desk" id="takeKey" aria-label="The classroom key" style="position:absolute;left:28%;top:22%;width:44%;height:50%;background:transparent;border:0;cursor:pointer;pointer-events:auto;display:${S.deskOut ? '' : 'none'}"><img src="../art/greybox/tab-key.png?v=${BUILD}" alt="" style="width:60%;display:block;margin:auto;transform:rotate(-20deg);filter:drop-shadow(0 0 6px #ffe08a)"></button>` : '';
-  openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c1, 1400, 590)}"><p class="otitle">Mr Hollis’s drawer</p>${cuTarget('ev_tdrawer', 'The drawer', [28, 24, 44, 34])}<div style="position:absolute;left:31%;top:27%;width:38.2%;height:27.4%;pointer-events:none">${drawerHTML('desk', 'cu-desk', key)}</div></div><p class="ofb" id="deskFb2">${S.deskOut ? (taken('dkey') ? 'Paper clips, a whistle, and the space where the key was.' : 'Paper clips, a whistle, and the classroom key on its 5H tag.') : 'The drawer, shut. Tap it to open it.'}</p></div>`);
+function openInsideDesk(){ /* Mr Hollis's drawer, close up (MOTH-61): a tap shuts or opens it; the key is inside while it is out. The look-down-into-it picture is a Gate D asset (MOTH-65); until then the front, zoomed tight, with the key large */
+  const key = !taken('dkey') ? `<button class="inside-desk" id="takeKey" aria-label="The classroom key" style="position:absolute;left:14%;top:14%;width:72%;height:62%;background:transparent;border:0;cursor:pointer;pointer-events:auto;display:${S.deskOut ? '' : 'none'}"><img src="../art/greybox/tab-key.png?v=${BUILD}" alt="" style="width:80%;display:block;margin:auto;transform:rotate(-16deg);filter:drop-shadow(0 0 8px #ffe08a) drop-shadow(0 0 3px #fff)"></button>` : '';
+  openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c1, 1480, 600, 320)}"><p class="otitle">Mr Hollis’s drawer</p>${cuTarget('ev_tdrawer', 'The drawer', [16, 28, 68, 56])}<div style="position:absolute;left:21.6%;top:35%;width:57.2%;height:41.1%;pointer-events:none">${drawerHTML('desk', 'cu-desk', key)}</div></div><p class="ofb" id="deskFb2">${S.deskOut ? (taken('dkey') ? 'Paper clips, a whistle, and the space where the key was.' : 'Paper clips, a whistle, and the classroom key on its 5H tag.') : 'Shut. Tap it to open it.'}</p></div>`);
   const b = $('takeKey'); if (b) b.onclick = e => { e.stopPropagation(); take('dkey'); sfx('pickup'); closeCloseup(); render(); say('The classroom key, on its 5H tag. It goes in the strip below. Now: lock up.'); };
-  wireCu({ev_tdrawer:() => { const out = toggleDrawer('desk'); $('deskFb2').textContent = out ? (taken('dkey') ? 'Open. Paper clips and a whistle.' : 'Open. The classroom key, on its 5H tag.') : 'Shut.'; }});
+  wireCu({ev_tdrawer:() => { const out = toggleDrawer('desk'); $('deskFb2').textContent = out ? (taken('dkey') ? 'Open. Paper clips and a whistle.' : 'Open. The classroom key, on its 5H tag.') : 'Shut. Tap it to open it.'; }});
 }
 function lockUp(){ /* the drag: turn the key in the door; then the door swings, Mary steps out, and the end card */
-  openDrag({pic:WALLS.c3, title:'Turn the key', tab:'../art/greybox/tab-key.png', tabW:4, tabRatio:'240/110', path:[[53.5, 44], [56.5, 45.5], [58, 48.5], [56.5, 51.5], [53.5, 53]], label:'Put the key in the lock and turn it, all the way round.', missLabel:'Take hold of the key, by the knob.', moreLabel:'Keep turning, all the way.', doneLabel:'Click, clunk.', lineColour:'#a8844a', lineWidth:8,
-    done:() => { drop('dkey'); S.locked = true; save(); render(); sfx('tick'); animate({anim:'openDoor', layer:'door'}); say('The key turns. Mary slips out into the corridor, pulls the door to, and locks 5H behind her for the summer.'); setTimeout(ending, 2200); }});
+  openDrag({pic:WALLS.c3, title:'Turn the key', tab:'../art/greybox/tab-key.png', tabW:4, tabRatio:'240/110', path:[[53.5, 44], [56.5, 45.5], [58, 48.5], [56.5, 51.5], [53.5, 53]], label:'Put the key in the lock and turn it, all the way round.', missLabel:'Take hold of the key, by the knob.', moreLabel:'Keep turning, all the way.', doneLabel:'Click, clunk.', lineColour:'rgba(0,0,0,0)', lineLight:'rgba(0,0,0,0)', lineWidth:1,
+    done:() => { drop('dkey'); S.locked = true; save(); render(); sfx('tick'); doorSwing(); say('The key turns. Mary slips out into the corridor, pulls the door to, and locks 5H behind her for the summer.'); setTimeout(ending, 2200); }});
 }
 function ending(){
   S.done = true; save();
@@ -282,21 +317,23 @@ function act(id){
   switch(id){
     case 'ev_envelope': S.got.push('ev_env'); sfx('pickup'); setTimeout(() => { render(); openNote('ev_env'); }, 700); say('An envelope with your name on it, in Mr Hollis’s writing.'); return;
     case 'ev_pegs':
-      if (!S.keyDown){ S.keyDown = true; save(); setTimeout(() => { sfx('tick'); render(); }, 650); say('The raincoat swings on its peg… and something small drops out of the pocket and skitters across the floor, over by the door.'); return; }
+      if (!S.keyDown){ keyTumble(); say('The raincoat swings on its peg… and something small drops out of the pocket and skitters across the floor, over by the door.'); return; }
       say(taken('skey') ? 'One forgotten raincoat, its pocket empty now.' : 'The raincoat swings. Whatever fell out is on the floor, over by the door.'); return;
     case 'ev_fkey': take('skey'); sfx('pickup'); setTimeout(render, 500); say('A small silver key. Far too small for a door. It goes in the strip below.'); return;
-    case 'ev_bin': say('The lid flips up. Have a look inside.'); setTimeout(openBin, 750); return; /* the movement first, then the place close up from the top (MOTH-49, MOTH-52) */
+    case 'ev_bin': openBin(); return; /* the zoom is the whole answer to the tap (MOTH-58): the bin from the top (MOTH-49, MOTH-52) */
     case 'ev_lost':
-      if (!S.popped){ S.popped = true; save(); say('The shoe and the hat jump as the box is bumped. Something rustled in the hat.'); setTimeout(() => { render(); openBox(); }, 950); return; }
+      if (!S.popped){ S.popped = true; save(); }
       openBox(); return;
-    case 'ev_cabinet':
-      if (S.cabUnlocked){ openCabinet(); return; }
-      say('Mr Hollis’s filing cabinet. The top drawer has a tiny lock on it; it wants a small key.'); openCabinet(); return;
-    case 'ev_cabdrawer': /* in the room: an unlocked drawer opens and shuts on a tap (MOTH-54); locked, it is the cabinet */
-      if (!S.cabUnlocked){ act('ev_cabinet'); return; }
-      toggleDrawer('cab', S.cabOut ? 'Shut.' : (S.got.includes('ruler') ? 'The top drawer slides open. Empty now.' : 'The top drawer slides open. The ruler is inside: tap the cabinet to look.')); return;
-    case 'ev_tdesk': say(S.deskOpen ? (S.deskOut ? 'Mr Hollis’s desk, its drawer open.' : 'Mr Hollis’s desk. The drawer is shut; tap it to open it.') : 'Mr Hollis’s desk: his mug, his books, an apple. The drawer has a little lock with four number dials.'); if (!S.deskOpen) setTimeout(openDeskLock, 500); else if (S.deskOut) openInsideDesk(); return;
-    case 'ev_tdrawer': if (!S.deskOpen){ openDeskLock(); return; } toggleDrawer('desk', S.deskOut ? 'Shut.' : (taken('dkey') ? 'The drawer slides open. Paper clips and a whistle.' : 'The drawer slides open. Something glints inside: tap the desk to look.')); return;
+    case 'ev_cabinet': openCabinet(); return;
+    case 'ev_cabdrawer': /* in the room (MOTH-54, MOTH-61): locked, the cabinet close up; shut, a tap slides it open; open, a tap zooms into the drawer, where it can be shut again */
+      if (!S.cabUnlocked){ openCabinet(); return; }
+      if (!S.cabOut){ toggleDrawer('cab', S.got.includes('ruler') ? 'The top drawer slides open. Empty now.' : 'The top drawer slides open.'); return; }
+      openCabinet(); return;
+    case 'ev_tdesk': say(S.deskOpen ? (S.deskOut ? 'Mr Hollis’s desk, its drawer open.' : 'Mr Hollis’s desk. The drawer is unlocked now.') : 'Mr Hollis’s desk: his mug, his books, an apple. The drawer has a little lock with four number dials.'); return;
+    case 'ev_tdrawer': /* the drawer is the only way to the dials (MOTH-61); unlocked, it opens on a tap and zooms on the next */
+      if (!S.deskOpen){ openDeskLock(); return; }
+      if (!S.deskOut){ toggleDrawer('desk', taken('dkey') ? 'The drawer slides open. Paper clips and a whistle.' : 'The drawer slides open. Something glints inside.'); return; }
+      openInsideDesk(); return;
     case 'ev_board': openBoard(); return;
     case 'ev_timetable': openTimetable(); return;
     case 'ev_beans': openPots(); return;
@@ -311,7 +348,7 @@ function act(id){
     case 'ev_bookshelf': say('Reading books, dictionaries, and the comics everyone pretends not to read.'); return;
     case 'ev_window': say('Sunshine, a plane climbing into the sky, and dust turning in the light.'); return;
     case 'ev_radiator': say('Off, obviously. It is Singapore.'); return;
-    case 'ev_cupboard': say('Glue sticks, glitter, and a smell of poster paint.'); return;
+    case 'ev_cupboard': say('The supplies cupboard, swept bare for the holidays. A faint smell of poster paint.'); return;
     default: say('Painted into the wall: it does not move.'); return;
   }
 }
@@ -319,15 +356,15 @@ function act(id){
 const HINTS = [
   {goal:() => S.got.includes('ev_env'), target:'ev_envelope', tips:['Something’s waiting on your desk.', 'Turn to the timetable wall. Your desk.', 'Pick up the envelope and read it.']},
   {trail:'a', goal:() => taken('skey'), target:'ev_pegs', tips:['Coats keep all sorts in their pockets.', 'The raincoat on the pegs, by the door.', 'Tap the raincoat: a key falls out of its pocket. Pick it up off the floor.']},
-  {trail:'a', goal:() => S.got.includes('ruler'), target:'ev_cabinet', tips:['That little key fits something small and locked.', 'The filing cabinet under Nutmeg has a tiny lock.', 'Hold the small key and tap the filing cabinet. Open the top drawer and take the ruler.']},
+  {trail:'a', goal:() => S.got.includes('ruler'), target:'ev_cabinet', tips:['That little key fits something small and locked.', 'The filing cabinet under Nutmeg has a tiny lock.', 'Hold the small key and tap the filing cabinet. Tap the open drawer to look inside, and take the ruler.']},
   {trail:'a', goal:() => !!S.measured, target:'ev_beans', tips:['Mr H wants heights. What could you measure with?', 'The ruler, against the bean plants on the sill.', 'Hold the ruler and tap the bean pots: 2, 4, 6 and 9 cm.']},
   {trail:'b', goal:() => S.got.includes('half1') || S.got.includes('wnote'), target:'ev_bin', tips:['Somebody threw something away.', 'The recycling bin by the door. Look right down into it.', 'Tap the bin, then push the rubbish aside: half a note is at the bottom.']},
   {trail:'b', goal:() => S.got.includes('half2') || S.got.includes('wnote'), target:'ev_lost', tips:['Half a note is only half a clue. Where does the rest of a thing end up?', 'The lost property box, under the pegs. Try the hat.', 'Tap the box, then the blue hat: the corner is tucked in its band.']},
   {trail:'b', goal:() => S.got.includes('wnote'), tips:['Two halves make a whole.', 'Both halves are in the strip below.', 'Hold one half and tap the other.']},
   {trail:'c', goal:() => !!S.seen.day, target:'ev_board', tips:['The note says today. What day is it?', 'Something in the room has the date on it.', 'Tap the whiteboard: Thursday.']},
   {trail:'c', goal:() => !!S.seen.thu, target:'ev_timetable', tips:['What happens on a Thursday in 5H?', 'The timetable, by Mary’s desk.', 'Tap the timetable. Thursday: flask, music, pencil, atlas.']},
-  {trail:'c', goal:() => S.deskOpen, target:'ev_tdesk', tips:['Each pot has a lesson on its label.', 'Thursday’s lessons, in order, each turned into its pot’s height.', 'Flask 4, music 9, pencil 6, atlas 2: set the drawer’s dials to 4 9 6 2.']},
-  {goal:() => taken('dkey'), target:'ev_tdesk', tips:['The drawer is unlocked.', 'Look inside Mr Hollis’s drawer.', 'Tap the drawer to open it, then the desk, and take the classroom key.']},
+  {trail:'c', goal:() => S.deskOpen, target:'ev_tdrawer', tips:['Each pot has a lesson on its label.', 'Thursday’s lessons, in order, each turned into its pot’s height.', 'Flask 4, music 9, pencil 6, atlas 2: set the drawer’s dials to 4 9 6 2.']},
+  {goal:() => taken('dkey'), target:'ev_tdrawer', tips:['The drawer is unlocked.', 'Look inside Mr Hollis’s drawer.', 'Tap the drawer to open it, tap it again to look inside, and take the classroom key.']},
   {goal:() => S.done, target:'ev_door', tips:['You have the key. Mr H asked you to lock up.', 'Hold the classroom key and tap the door.', 'Hold the key, tap the door, then turn the key all the way round.']}
 ];
 function rows(){
@@ -365,7 +402,7 @@ return {
   start:{room:'classroom', view:0},
   fresh:() => ({seen:{}, clues:[], taken:{}, keyDown:false, binMoved:[], binDone:false, popped:false, measured:0, cabUnlocked:false, cabOut:false, dials:[0,0,0,0], deskOpen:false, deskOut:false, locked:false}),
   rooms:ROOMS, walls:WALLS, doors:DOORS, hots:HOTS, layers:LAYERS, notes:NOTES, items:ITEMS, hints:HINTS, uses:USES,
-  overlays:{c4:() => S.cabUnlocked ? wrap(wallTimetable(), wallDrawer('cab')) : wallTimetable(), c1:() => S.deskOpen ? wrap(wallBoard(), wallDrawer('desk')) : wrap(wallBoard()), c2:wallLabels, c3:() => wrap(...[S.done ? wallDoorway() : null].filter(Boolean))},
+  overlays:{c4:() => S.cabUnlocked ? wrap(wallTimetable(), wallDrawer('cab')) : wrap(wallTimetable(), wallKeyhole()), c1:() => S.deskOpen ? wrap(wallBoard(), wallDrawer('desk')) : wrap(wallBoard()), c2:wallLabels, c3:() => wrap(...[S.locked ? wallDoorway() : null].filter(Boolean))},
   act, miss, sparkle, rows, noticed, clues, speaker, helper:() => 'the moth', child:'mary'
 };
 })());
