@@ -28,7 +28,7 @@ Latest play link: `?stage=evalroom`
 ### Gate A — story
 Checked: fits the arc and the age · nothing borrowed · fiction and legal rules · nothing shared with another child's story
 Walked 22 Oct 2026: not a story level, so only the last three apply. Nothing borrowed: the puzzles are built from this room's own things. Fiction and legal: passes. Shared things: the room reuses school v3's classroom layout and names, which is expected for a test room and is never released as a level.
-Signed off:
+Signed off: "Happy to sign off Gate A" (owner, 22 Oct 2026, in chat).
 
 ---
 
