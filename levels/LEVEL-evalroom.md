@@ -257,7 +257,7 @@ Judged in the live room, on the tablet, with the inventory strip and arrows in p
 Prompt changes made before sign-off: the hat's prompt now says what the cap lies in (the cardboard box, its walls running off the frame, "no wood anywhere") with a crop of the box as a second reference; the rule that a sample's surround is part of the sample is in playbook 4ad.
 
 ### Gate E — samples
-Signed off:
+Signed off: 24 Oct 2026, the owner, in chat: "Sign off" (on build 2026-10-24c: the bin from above with its five pieces and the small key passed in his fourth recording; the hat remade in the cardboard box with the corner tucked under the band). No voice lines were sampled: this test room's moth lines are text, so the batch is pictures only unless the owner asks for voice.
 
 ---
 
