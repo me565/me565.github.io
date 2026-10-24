@@ -3,7 +3,7 @@
 *Outline only, written in claude.ai on 22 Oct 2026 from a discussion with the owner, recorded here the same day from `EVALROOM-HANDOVER.md` with the owner's two changes made in chat after the review (the lock-up duty premise and the falling key) and the review's findings listed under "Review against the repo". Nothing here is built yet. Do not build, generate art or change the engine until the owner signs Gate B, and then follow the gates as for any level. The stage stays `?stage=evalroom` (`next/landscape/stages/evalroom.js`); its current "one room, no puzzle" content is replaced by this design once it reaches the greybox.*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: first playable (build 2026-10-22f, after the owner's two rounds of tablet feedback, his silent playthrough video and his recorded commentary; Gate C waits on his word)
+Current status: Gate C signed 24 Oct 2026 (live as build 2026-10-23r, release #16); next stage the asset and script list for Gate D
 Build id of the latest play link: 2026-10-22f (the first playable, with everything from the owner's three plays built in: MOTH-49 to 68)
 Latest play link: `?stage=evalroom`
 
@@ -186,10 +186,10 @@ Conflicts and suggested fixes:
 
 Tests: scripted playthrough passes (`tools/play-ev.js`: every trail, the two trap codes, a wrong day, nonsense, every wrong-use line, the notebook and clue chips at 844×390 and 2000×700, no page scroll, no errors) · audit clean (0 failures; 8 "for a look", all hanging, flat or inside) · no soft-lock (checklist 42: walked on paper, nothing is consumed by a wrong use, both drawers and the note stay) · owner played it on the tablet at 2000×700: twice, 22 Oct 2026 (the first play gave MOTH-49 to 51, the second MOTH-52 to 54; his recording of build 2026-10-22d, 4 min 6 s, solved without hints, gave MOTH-55; playbook log 65) · played once on a real Android phone (checklist 44): not yet · reduced motion checked (the audit's owner-shape run)
 Target-age tester (if available): none (a test room)
-Result: waiting on the owner.
+Result: passed. The owner played the live build on the tablet: "it's fine, just needs improvements to the images".
 
 ### Gate C — it plays right
-Signed off:
+Signed off: "Yeah it's fine, just needs improvements to the images" and "sign off gate C" (owner, 24 Oct 2026, in chat, after playing the live build 2026-10-23r on the tablet).
 
 ---
 
