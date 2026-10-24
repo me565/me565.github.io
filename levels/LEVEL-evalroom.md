@@ -298,7 +298,7 @@ Done 24 Oct 2026 on build 2026-10-24i, after the batch and five rounds of the ow
 - Open items carried, none blocking: MOTH-81 (the timetable's header as periods: the owner's call), MOTH-82 (watch for the "Holding" line), MOTH-75 (one inventory column, engine, between levels), Nutmeg's second pose (engine, backlog 22).
 
 ### Final sign-off
-Signed off:
+Signed off: 24 Oct 2026, the owner, in chat: "Final sign off" (on build 2026-10-24i, after the polish walk; the room's finding on the art style is his to decide between levels).
 
 ## 8. Release
 
