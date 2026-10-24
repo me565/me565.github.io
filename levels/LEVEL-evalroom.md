@@ -263,10 +263,26 @@ Signed off: 24 Oct 2026, the owner, in chat: "Sign off" (on build 2026-10-24c: t
 
 ## 6b. Batch
 
-- Made on:
-- Originals copied to Drive folder: (link)
-- Checked against the checklist: proportions · no lettering · matches the samples · stands on its surface with a shadow
-- Re-dos and why:
+Made 24 Oct 2026 on the GitHub runner (`evals/images/runs/evalroom-batch.json`, run 40061901731), GPT Image 2.5 Sunburst, nine pictures in 1 min 26 s, **$0.124 billed** against 14¢ estimated. Results in `evals/images/results/2026-10-24-evalroom-batch.results.json`. Every picture passed the hard rules on the sheet first time: nothing written (the tag, the labels, the ruler's ticks, the taped sheet all blank), the torn edges of the two halves matching, each close-up filling its frame. Placed in build 2026-10-24d.
+
+| # | Picture | File | Placed as |
+|---|---|---|---|
+| 2 | Ruler | `item-ruler.png` (1009×161, keyed) | the strip icon, lying along the front of the cabinet drawer, and standing in each pot in turn (rotated by the game) |
+| 3a, 3b | The torn halves | `item-half1.png`, `item-half2.png` (keyed; 3b made from 3a as its reference) | the strip icons, the half in the bin, the corner under the hat's band |
+| 4 | Classroom key | `item-dkey.png` (keyed, the bow's and tag's holes cleared) | the strip icon, the key in the desk drawer, the key on the lock plate |
+| 11 | The bean pots | `closeup-pots.jpg` | the pots close-up; the game draws the labels' icons, the one ruler, and a dashed mark with the reading at each measured plant's top |
+| 15 | The desk drawer, looked into | `closeup-desk.jpg` | the drawer's close-up while it is out, the key drawn in the empty middle |
+| 15b | The cabinet drawer, looked into | `closeup-cab.jpg` | the drawer's close-up while it is out, the ruler lying along the front |
+| 16 | The taped note | `closeup-note.jpg`, and `item-wnote.jpg` cropped from it | the watering note's card, the words over the sheet; the strip icon |
+| 18 | The door's lock plate | `closeup-lock.jpg` | the key turn: the drag goes round the keyhole on the plate, the key as the tab |
+| 10 | Nutmeg standing | not made | waits for the engine to take poses (backlog 22); nothing spent |
+
+- Originals copied to Drive folder: **not done**: the Drive connector in the session cannot carry files of 1–2 MB. The folder "The Moth House — evalroom originals (Lock-up Duty)" was made in the owner's Drive with a note saying where the originals are: the runner's artifacts for runs 40047407369, 40054380570 and 40061901731 (kept 30 days), to be downloaded from the Actions page and dropped into the folder before they expire.
+- Re-dos and why: none in the batch. One in the samples (the hat's surround).
+- One fault while placing: the stage's own `torn` helper was deleted along with the SVG stand-ins it replaced, so the bin's and the hat's halves vanished until the play script caught it. The play script is the net.
+
+- Made on: 24 Oct 2026, the GitHub runner, GPT Image 2.5 Sunburst (run 40061901731).
+- Checked against the checklist: proportions (every cut-out box keeps its picture's ratio: the ruler 1009×161, the key 987×937, the halves 675×927 and 683×931) · no lettering (the tag, the labels, the ruler, the sheet all blank; the game writes 5H, the icons and the readings) · matches the samples (same style sentence, same model, the room's crops as references) · stands on its surface with a shadow (the ruler and the key carry a drop shadow in the drawers; the halves in the bin and the hat) · nothing off the screen (play script at 844×390 and 2000×700; audit G37).
 
 ## 7. Integrate and polish
 
@@ -292,9 +308,9 @@ Signed off:
 | Stage | Estimate | Actual | Re-dos (count) | Why |
 |---|---|---|---|---|
 | 6a samples | 32¢ | 7.6¢ + 1.8¢ | 1 | Sunburst bills about 1¢ a picture, a quarter of the playbook's estimate. Re-do: the hat (asset 14), whose prompt put the cap on "a plain pale wooden surface" when it lies in a cardboard box; the surround, not the cap, failed |
-| 6b batch | ~30¢ | | | |
+| 6b batch | 14¢ (16¢ for ten; Nutmeg's pose not made) | 12.4¢ | 0 | nine pictures, all passed first time |
 | 7 polish | | | | |
-| Total | ~30¢ | | | |
+| Total | ~46¢ | 21.8¢ | 1 | samples 9.4¢ (with the hat redone), batch 12.4¢ |
 
 ## Learning loop
 
