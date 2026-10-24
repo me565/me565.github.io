@@ -1,0 +1,123 @@
+{
+ "title": "Packing Day, from scratch (test level eval2): Mary's room, the corridor and Elliot and Zaina's room — floor plan",
+ "rooms": [
+  {
+   "key": "kids",
+   "name": "Elliot and Zaina's room",
+   "x": 120,
+   "y": 100,
+   "w": 360,
+   "h": 300,
+   "fill": "#ffe6cc",
+   "walls": {
+    "N": {
+     "view": "k1",
+     "text": "window wall · armchair, the rain · arrive facing this"
+    },
+    "E": {
+     "view": "k2",
+     "text": "bunk wall · ZAINA + toy piano (the carol sheet) · the trundle (wrapping paper)"
+    },
+    "S": {
+     "view": "k3",
+     "text": "door wall · toy kitchen, pockets · the door to the corridor"
+    },
+    "W": {
+     "view": "k4",
+     "text": "cube wall · DOLL'S HOUSE: Elliot's four-colour lock + note · passport inside",
+     "mark": "lock"
+    }
+   }
+  },
+  {
+   "key": "corridor",
+   "name": "The corridor",
+   "x": 240,
+   "y": 480,
+   "w": 120,
+   "h": 420,
+   "fill": "#f5f5f5",
+   "walls": {
+    "N": {
+     "view": "c1",
+     "text": "the children's door"
+    },
+    "E": {
+     "view": "c2",
+     "text": "Mary's door, first on the left; the framed picture"
+    },
+    "S": {
+     "view": "c3",
+     "text": "the double doors at the end; the turn to the dining end, Mum's voice"
+    },
+    "W": {
+     "view": "c4",
+     "text": "the wall opposite Mary's door (to confirm from a picture)"
+    }
+   }
+  },
+  {
+   "key": "mary",
+   "name": "Mary's room",
+   "x": 440,
+   "y": 480,
+   "w": 360,
+   "h": 300,
+   "fill": "#dae8fc",
+   "walls": {
+    "N": {
+     "view": "m3",
+     "text": "sofa wall · the open case, the WHITEBOARD list · START",
+     "mark": "start"
+    },
+    "E": {
+     "view": "m2",
+     "text": "window wall · music stand (empty folder), the ledge, the rain"
+    },
+    "S": {
+     "view": "m1",
+     "text": "loft wall · tubs + stool, cube unit, pocket organiser (Shelly), drawing for Nana, desk (pen pot: tape; drawer: empty)"
+    },
+    "W": {
+     "view": "m4",
+     "text": "door wall · wardrobe (winter box, top shelf, out of reach) · the door to the corridor",
+     "mark": "lock"
+    }
+   }
+  }
+ ],
+ "doors": [
+  {
+   "from": "kids",
+   "side": "S",
+   "to": "corridor",
+   "at": 0.4,
+   "out": "walk south → c3",
+   "back": "walk north → k1",
+   "label": "door"
+  },
+  {
+   "from": "mary",
+   "side": "W",
+   "to": "corridor",
+   "at": 0.3,
+   "out": "walk west → c4",
+   "back": "walk east → m2",
+   "label": "door"
+  }
+ ],
+ "legend": [
+  "<b>Locked or out of reach at the start</b>",
+  "The winter box (Mary's room, W): top shelf of the wardrobe; the stool from under the tubs, then the ribbon",
+  "The doll's house (children's room, W): Elliot's buttons blue, red, red, green (the carol's chorus in the piano's colours)",
+  "Zaina (children's room, E): the carol sheet for Shelly, from Mary's pocket organiser",
+  "The case (Mary's room, N): the four things; the whiteboard ticks; then the wipe",
+  "Every door is open from the start; the corridor has four views."
+ ],
+ "legend_box": {
+  "x": 440,
+  "y": 800,
+  "w": 360,
+  "h": 120
+ }
+}

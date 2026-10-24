@@ -1,9 +1,9 @@
 # Level: eval2 — the second test level, "Packing Day, from scratch" (two rooms, new art, the owner's photographs)
 
-*Opened on 24 Oct 2026 at the owner's word: "Do the packing day but built from scratch. Just as a two-room puzzle. Mary needs to find her things before she can take her flight to London for Christmas. Make it interesting." It is the second test level after "Lock-up Duty" (`levels/LEVEL-evalroom.md`), built the same way through the same gates: the room-specification method on Sunburst in the signed-off style, the test room's way of playing, and the owner's materials first (playbook 4x, checklist 8c and 8d). The owner is giving the rooms one at a time as photographs, which are never kept in the repo: each room is written down here in words as it arrives, with what is still missing, and the design is drawn on paper and approved before any picture is made. Room 1 arrived on 24 Oct 2026 (eight pictures); room 2 is to come. Nothing is signed, nothing is built, no credit is spent. The stage key `eval2` and the hotspot prefix `e2_` are reserved. (An earlier outline for this key, a front-office test room, is parked in commit `731e844` and is not this level.)*
+*Opened on 24 Oct 2026 at the owner's word: "Do the packing day but built from scratch. Just as a two-room puzzle. Mary needs to find her things before she can take her flight to London for Christmas. Make it interesting." It is the second test level after "Lock-up Duty" (`levels/LEVEL-evalroom.md`), built the same way through the same gates: the room-specification method on Sunburst in the signed-off style, the test room's way of playing, and the owner's materials first (playbook 4x, checklist 8c and 8d). The owner is giving the rooms one at a time as photographs, which are never kept in the repo: each room is written down here in words as it arrives, with what is still missing, and the design is drawn on paper and approved before any picture is made. Room 1 arrived on 24 Oct 2026 (eight pictures) and room 2 the same day (eight pictures, Mary's room); the design below is drawn from both and waits on the owner's Gates A and B. Nothing is signed, nothing is built, no credit is spent. The stage key `eval2` and the hotspot prefix `e2_` are reserved. (An earlier outline for this key, a front-office test room, is parked in commit `731e844` and is not this level.)*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: brief (materials arriving: room 1 received, room 2 to come; the design waits for room 2)
+Current status: outline (both rooms received; Gates A and B wait on the owner)
 Build id of the latest play link: none
 Latest play link: none
 
@@ -17,9 +17,9 @@ Latest play link: none
 - Where and when in the journey: the family flat in Singapore, the day of the flight to London. The owner's brief says Christmas; the story plan says summer (`STORY.md`, "The journey"). Decision 2 below.
 - The objective, in the child's words (one sentence): "My things are all over the flat, and I can't go to London until they're in my case."
 - Difficulty (1–5): 4 by default (the test room's standard); the owner's number if he wants another.
-- Length: about 12 to 15 minutes for a player who reads carefully (two rooms).
-- The signature moment: to be drawn with the design once room 2 is in; the owner asked for interesting, so the design will put one thing in each room the player will tell someone about.
-- The opening gesture: to be drawn with the design.
+- Length: about 15 minutes for a player who reads carefully (two rooms, four things to find).
+- The signature moment: the doll's house. Elliot has stuck a cardboard lock with four coloured buttons on Zaina's doll's house and hidden Mary's passport inside "for safety"; the password is the carol's chorus, read as the colours of Zaina's toy piano. When the right four are pressed, the little windows light up one by one, the front swings open, and there on the tiny bed is a passport.
+- The opening gesture: reading her own whiteboard, propped on the sofa by the open case: her list in her own hand, four boxes to tick. (The closing gesture answers it: wiping the board clean.)
 - Carries forward and hands on: nothing comes in. It hands on learning: how a room is made from the owner's photographs under the new method, and the first two-room play in the new style.
 - Legal and fiction check: fictional names only, no brands, no Merlion, nothing borrowed: the characters are the family (Mary, Elliot, Zaina, Mum, Dad, as `STORY.md` decides them); nothing of any branded toy, sticker or furniture in the photographs is drawn (the list of what must not be copied is under each room below). Walked again at Gate B.
 
@@ -27,9 +27,9 @@ Latest play link: none
 
 1. **Test level or Mary's packing day?** Default: a test level like "Lock-up Duty", played at `?stage=eval2`, not in any child's save and not replacing the live packing day. If the owner wants it to become Mary's stage 2 later, it goes through this file's gates as that level, with its story brief, when he says so.
 2. **Christmas or summer.** The owner's brief says Christmas; the game's journey is one summer and the live stages say so (the last day of term, Trent Park in long evenings). Default for a test level: **Christmas, as asked**, since a test level is outside the story; the light becomes a Singapore December afternoon (rainy season) and Mary packs for a cold London. If this is to become her real stage 2, the season is the story's and the brief changes to summer.
-3. **Which two rooms.** Room 1 is Elliot and Zaina's room (received). Room 2 is the owner's next set of pictures; the design is drawn once it is in. If room 2 is Mary's own room, the natural shape is: her case in her room, her things scattered into her siblings' room; if it is another room, the shape changes.
-4. **Who is in the rooms.** Default: nobody drawn into the walls (checklist 8d: a wall from a photograph keeps the room and loses the people). Zaina or Elliot may appear as a cut-out with one pose each if the design needs a person who wants something; the engine is frozen, so no hinged parts or pose swaps.
-5. **The ending.** Default: the case zipped is version 2's; this level ends differently, drawn with the design (a gesture of its own).
+3. **Which two rooms.** Mary's room and Elliot and Zaina's room (both received), linked by the short corridor they open onto, which is a place with its own views (owner, 24 Oct 2026, with a picture of it). Three places on the map, two of them rooms with things in.
+4. **Who is in the rooms.** Nobody drawn into the walls (checklist 8d). Zaina is in her room as one cut-out in one pose (sitting on her bunk with the toy piano, from her decided portrait, never from the photograph), because the design needs one person who wants something; the engine is frozen, so no hinged parts or pose swaps. Elliot is out with Dad and speaks only through his note. Mum calls from the hall at the end.
+5. **The ending.** Not the zip (version 2's). Mary wipes her whiteboard clean with one drag once the fourth box is ticked, the rain stops, and Mum calls that the taxi is downstairs.
 
 ### Materials received (listed back as they arrive, checklist 8c)
 
@@ -52,32 +52,221 @@ The pictures are: a daytime shot of Zaina on the lower bunk with her toys; a wid
 
 **Still missing for room 1 (not blocking; the current stage's walls fill the gaps if needed):** the door wall seen straight on (the door itself, and whether a wardrobe stands beside it), and the cube wall straight on in daylight (the screenshot is tilted and shot from the bunk).
 
-#### Room 2: to come
+#### Room 2: Mary's room (eight pictures from the owner, 24 Oct 2026; not kept)
+
+The pictures are: a shot from above of a child reading on the grey sofa with the whiteboard propped behind him; a shot of the whole room from the door end (the fan, the window and the sofa); a shot of the loft bed, the cube unit, the desk and the music stand from the door; two shots from the sofa end towards the wardrobe and the open door; a shot from under the loft of the hanging pocket organiser; the loft bed's catalogue drawing with its measurements; and a straight-on shot of the desk under the loft.
+
+**The room, in words.** A narrow room, longer than it is wide, white walls, the same pale wooden floor, a striped rug (pale blue, green and cream stripes) down the middle, the same white three-blade ceiling fan, an air-conditioning unit above the door. The far wall is glass: a tall window of two panes above a deep white ledge, and below the ledge a second, lower window that opens, cream curtains on a rail either side; beyond it the same tree and the same pale towers. A loft bed runs along one long wall: dark stained wood (cherry), about a child's height and a half tall, a ladder at its door end, a rail round the top, stickers along its posts, and a cream ribbed padded panel on the wall beneath it. Under the loft: at the door end a white cube unit, two cubes wide and four high, full of books, craft boxes, a wicker basket, plastic tubs, a pink sequinned handbag; then a black desk with three dark green drawers down its right side and a patterned fabric box in the cubby under them, a white swivel chair with a purple cushion on wheels, a metal pot of pens and pencils and a yellow mug of brushes on the desk, a sheet of paper and a pen; above the desk on the panel two family canvases; a grey hanging pocket organiser with clear round windows hangs from the loft's rail at the door end, with a framed child's drawing and a pinned postcard on the panel below it; a cream sheepskin rug on the floor by the desk. At the window end, a black music stand with a blue folder on it and a string of little pompom lights wound round it, and on the deep ledge a row of books between photo frames and a blue-and-white patterned box. The other long wall has a low grey sofa (a sofa bed) with a world-map cushion and a green knitted cushion, a small framed print above it, and a long educational poster (planets and rocks; drawn as the game's own poster) high on the wall near the door. The door wall: a tall white wardrobe with two doors and small handles, the dark wooden door standing open onto the corridor (the living room's sofa and windows beyond), light switches and a few small notes and a red picture beside the door; under the loft at this end a white baby bath and clear storage tubs stacked on the floor, and a small wooden stool.
+
+**The four walls, in turning order (the current packing stage's m1 to m4 are the same order):**
+
+- **Wall 1, the loft wall:** the loft bed's dark frame along the whole wall, the ladder at the left (door) end, things hung from its rail (a rainbow, a white costume, a teal floral duvet thrown over: all loose); under it, left to right, the storage tubs and baby bath, the cube unit, the pocket organiser hanging over the panel with the framed drawing and the postcard, the desk with its chair, pen pot and mug, the two canvases above the desk; the sheepskin on the floor at the right.
+- **Wall 2, the window wall:** the glass with its deep ledge of books and frames and the patterned box, the curtains either side, the view; the music stand with the blue folder and the pompom lights at the left; the end of the sofa at the right.
+- **Wall 3, the sofa wall:** the grey sofa along the wall with its two cushions, the small framed print above, the poster high up at the right (door) end; the rug.
+- **Wall 4, the door wall:** the white wardrobe at the left, the open door at the right with the corridor beyond, the switches and little notes beside it; the baby bath and tubs under the loft's end at the far left.
+
+**Loose things seen (Mary's, and the design's material):** the whiteboard with a marker, the blue music folder, the pompom lights, the pen pot (pens, pencils, a ruler), the yellow mug of brushes, scissors on the desk (not used: child-safe), the pink handbag, craft boxes and beads, the wicker basket, the sheepskin, the stool, the baby bath and tubs, a world-map cushion, picture books and a big storybook, a mermaid-tailed soft toy on the sofa, the pocket organiser's contents seen through its windows (a wand, something sparkly, a small toy).
+
+**What must not be copied:** the catalogue drawing is a shop's (the bed is drawn from the words above, not the drawing); the poster's real text and pictures; the faces in the canvases (drawn faceless or as the game's portraits); the sofa and furniture as plain furniture, no brand; the branded storage tubs as plain tubs. No photograph enters the repo.
+
+**Still missing for room 2 (not blocking):** the sofa wall straight on in daylight; the ledge's frames close up if the design uses them (it does not).
+
+#### The corridor (one picture from the owner, 24 Oct 2026; not kept)
+
+Taken from inside Elliot and Zaina's doorway, their door standing open on the right, looking along the corridor. A short, narrow corridor with pale stone-tiled floor, white walls, a white ceiling with a small round light. On the left, first, Mary's door (dark wood, standing open) with a framed picture on the wall just before it; further along on the left another dark wooden door frame; at the far end a pair of dark wooden double doors (a cupboard), and the corridor turns right beside them into the dining end, where a wooden table and chair show in daylight. The right-hand wall near the camera carries the children's door and its frame; what stands on the right wall beyond it is not in the picture. **Still missing (not blocking):** the corridor looking back towards the children's door, and the wall opposite Mary's door.
 
 ### Gate A — story
 Checked: fits the arc and the age · nothing borrowed · fiction and legal rules · nothing shared with another child's story
+Walked 24 Oct 2026: a test level in Mary's own home, so all four apply lightly. Fits the age: reading a list, a trade, a reach, wrapping, a colour code from a two-line clue; nothing a ten-year-old cannot do, enough to make a grown-up smile. Nothing borrowed: every puzzle is built from the two rooms' own things; the shapes (an in-world checklist, a character who wants something, a performance that carries a code, the hero's reach) are the design library's ideas only. Fiction and legal: the family only; no brands. Shared things: nothing of version 2's trails is reused, and nothing here appears in Elliot's or Zaina's own packing-day plans (`STORY.md`: his bedroom and the batteries, her bedroom); Zaina's doll's house and toy piano are seen in her room but belong to no puzzle of hers. Child-safe: the stool is a low step, feet shown on the floor; the chair on wheels is refused with a line.
 Signed off:
 
 ---
 
 ## 2. Game map
 
-(drawn once room 2 is in: two rooms, one door, the floor plan as `levels/LEVEL-eval2-map.json` → `tools/levelmap.py`)
+- Floor plan: `levels/LEVEL-eval2-map.json` → `levels/LEVEL-eval2-map.drawio` (`python3 tools/levelmap.py levels/LEVEL-eval2-map.json`). The corridor runs south from the children's door; Mary's door is the first on its left (east); the double doors and the turn to the dining end are at its far end (owner's picture, 24 Oct 2026).
+- Rooms and their views (turning order, from the compass, checklist 57):
+  - **Elliot and Zaina's room:** **k1 the window wall (north)** → **k2 the bunk wall (east)** → **k3 the door wall (south)** → **k4 the cube wall (west)**.
+  - **The corridor** (a narrow place, four views, nothing to take): **c1 the children's door (north)** → **c2 Mary's door and the framed picture (east)** → **c3 the double doors and the turn to the dining end (south)** → **c4 the wall opposite Mary's door (west; to confirm from a picture)**.
+  - **Mary's room:** **m3 the sofa wall (north)** → **m2 the window wall (east)** → **m1 the loft wall (south)** → **m4 the door wall (west)**. (The same four walls as the current packing stage, read from a different compass: her window faces east, the children's north, as a corner flat's can.)
+- Doors: Mary's door (m4) → the corridor, arriving facing **c4** (away from her door); the corridor's east door (c2) → Mary's room, arriving facing **m2**. The children's door (k3) → the corridor, arriving facing **c3**; the corridor's north door (c1) → the children's room, arriving facing **k1**. Every door is open from the start.
+- Locked at the start, and what opens it:
+  - **The winter box (m4):** on the wardrobe's top shelf, out of Mary's reach. The stool, from under the tubs (m1), stood at the wardrobe. The box is tied with a ribbon: a drag pulls the bow.
+  - **The doll's house (k4):** Elliot's cardboard lock, four coloured buttons (red, yellow, green, blue), and his note. The carol's chorus as colours: **blue, red, red, green**. Inside: the passport.
+  - **Zaina (k2):** will not give up the carol sheet in her piano until she has Shelly, her mermaid, back from Mary's pocket organiser (m1).
+  - **The trundle (k2):** slides open on a tap (the wrapping paper inside); not locked.
+  - **The case (m3):** takes each of the four things; the whiteboard ticks as they go in.
+- The linear opening: Mary's room. The whiteboard (read the list), the case, the empty folder on the music stand, the empty passport drawer: four things gone, and the door.
+- The hub: both rooms, once the corridor is crossed. Three trails open at once (the carol, the winter box, the present); the passport waits on the carol. The corridor itself holds no puzzle: Mum's voice carries up it from the dining end ("Six o'clock, Mary!"), and at the end the taxi call comes from there.
+
+Walk-through test: every room reachable · little backtracking · once opened, stays open
+Result (walked on paper, 24 Oct 2026): passes. Two rooms with a short corridor between, two taps apart. The player crosses at most four times (carol out, mermaid in, present's paper, passport); the clue cards carry the carol and Elliot's note so nothing is held in the head (AVOID-005). The trundle, the winter box, the doll's house and the stool stay as left.
 
 ## 3. Puzzle chart
 
-(drawn once room 2 is in)
+### The premise, in the room
+
+It is 22 December, four in the afternoon, rain on the glass. The taxi to the airport is at six. Mary's case is open on her sofa and her whiteboard is propped beside it with her list. Everything on the list has walked. Zaina has been "helping"; Elliot has been "making things safe". Mum is in the kitchen, Dad and Elliot have gone down to the shops. Zaina is on her bunk with her toy piano.
+
+### The trails
+
+| Trail | Item or search | Clue | Lock | Reward |
+|---|---|---|---|---|
+| Opening | The whiteboard on the sofa (m3): tap to read | — | — | The list (below); the four boxes to tick |
+| A. The carol | The blue folder on the music stand (m2) is empty. In the children's room, Zaina (k2) has the carol sheet in her toy piano's card slot, and wants Shelly. Shelly's tail shows through the window of Mary's pocket organiser (m1): close-up, take her | Zaina's line; the organiser's clear window | Give Shelly to Zaina | The carol sheet (a clue card too): ✓ the carol |
+| B. Hat and gloves | The winter box on the wardrobe's top shelf (m4): "Mary's arms are not that long." The stool is under the loft's end (m1), under the baby bath and a tub: tap each to lift it aside, then take the stool | The box seen on the shelf; the stool's legs showing under the tubs | Use the stool on the wardrobe; stand; close-up of the shelf: drag the ribbon's end, the bow pulls open | Hat and gloves: ✓ |
+| C. Nana's present | Mary's framed drawing for Nana, on the panel under the loft (m1): take it, "it needs wrapping". The wrapping paper is in the trundle under the bunk (k2): the trundle slides open, close-up looks down into it, the roll among the spare bedding. The tape is in the desk's pen pot (m1): close-up, among the pens | The drawing's label "For Nana", the paper's snowmen | Combine: paper on the frame (a parcel with its flaps open), then tape on the parcel | The wrapped present: ✓ |
+| D. The passport | The desk's top drawer (m1) is empty: "It was here. Zaina." The doll's house (k4) has Elliot's lock and note | Elliot's note (which line), the carol sheet (the colours), Zaina's piano (the key colours; and a decoy, she plays the verse) | The four buttons, then the little door knob | The passport on the tiny bed: ✓ |
+| The way out | All four in the case (m3) | The whiteboard: four ticks | Drag across the whiteboard: it wipes clean | The ending |
+
+- Trails that run in parallel: A, B and C in any order; D after A (the carol sheet is the clue). Everything is open as soon as the children's door is walked through.
+
+### The words and numbers (all drawn by the game, none by the image model)
+
+- **The whiteboard** (Mary's hand): *"BEFORE THE TAXI — 6 o'clock!! ☐ passport ☐ hat + gloves ☐ Nana's present ☐ the carol"*. The game ticks each box as the thing goes into the case.
+- **The music folder's label (m2):** *"Nana's carol — Christmas Eve"*. Empty.
+- **The desk drawer (m1), looked into:** empty but for a hair clip. Noticed: *"My passport was in here. Zaina."*
+- **Zaina (k2), tapped:** *"I'm practising Mary's song. It's MY song now."* With the piano tapped: she plays four notes, the keys lighting in turn: **yellow, yellow, green, blue** (the verse, the first line of the sheet: a decoy). Asked again: *"I only know the first bit."* Holding Shelly: *"SHELLY!"* The sheet comes out of the slot; Zaina keeps the piano.
+- **The carol sheet** (clue card): two lines of four coloured notes on a stave, in Mary's hand: line 1 *"verse"*: yellow, yellow, green, blue; line 2 *"everyone sings:"*: **blue, red, red, green**. (The colours are the toy piano's: its eight keys run red, orange, yellow, green, blue, indigo, violet, pink, left to right, and the sheet uses the piano's colours so Zaina can play it.)
+- **Elliot's note** (k4, taped above the doll's house door, clue card): *"ZAINA'S HOUSE. KEEP OUT MARY. Password: the bit everyone sings. (I made the lock.) E."*
+- **The lock:** four round buttons in a row, red · yellow · green · blue, and a tiny door knob under them. Press four, then the knob. Answer: **blue, red, red, green.**
+- **The traps:** the verse that Zaina plays and that sits first on the sheet, **yellow, yellow, green, blue**; and the buttons' own order left to right, **red, yellow, green, blue**. Both wrong.
+- **The winter box's label:** *"WINTER (London)"*. The wardrobe's close-up before the stool: *"The winter box, top shelf. Mary's arms are not that long."*
+- **Mum, from the hall, at the end:** *"Mary! The taxi's downstairs!"*
+
+### Puzzle types (cap: two of any type)
+
+Trade with a character ×1 · see-through search (the organiser's window) ×1 · reach with a step (the stool) ×1 · search by moving things aside (the tubs) ×1 · a drawer or trundle opened and looked into ×1 · combine two things ×2 (paper on the frame, tape on the parcel) · colour-button lock from a two-line clue ×1 · drag gesture ×2 (the ribbon, the wipe). **Eight types, none more than twice.**
+
+### Every lock and its visible clue
+
+- Zaina: she says what she wants; Shelly's pink tail is visible through the organiser's clear window in Mary's room.
+- The winter box: seen on the shelf in the wardrobe's close-up; the stool's legs show under the tubs; the ribbon's bow is drawn on the box.
+- The doll's house: Elliot's note says whose, what and where the password comes from; the sheet says which line is "everyone sings"; the buttons are the piano's colours.
+- The present: the drawing's label says who it is for; the paper is in plain sight once the trundle is open; the tape in the pot.
+- The case: the list says what goes in; the board ticks.
+
+### Tiered hints (nudge · what to try · the answer; tier 2 pulses the hotspot)
+
+| Step | Nudge | What to try | The answer |
+|---|---|---|---|
+| List | "Mary wrote herself a list." | Pulse the whiteboard. | "Read the whiteboard by the case." |
+| Carol | "The folder on the stand is empty. Who likes Mary's things?" | Pulse the door. | "Zaina has it, in her room." |
+| Shelly | "Zaina wants her mermaid. Where would Mary have put her?" | Pulse the pocket organiser. | "Shelly is in the pocket organiser under the loft. Take her to Zaina." |
+| Stool | "The winter box is too high. Mary needs something safe to stand on." | Pulse the tubs under the loft. | "Lift the bath and the tub aside: the stool is under them." |
+| Box | "Stand on the stool at the wardrobe." | Pulse the wardrobe. | "Use the stool on the wardrobe, then pull the ribbon." |
+| Drawing | "Nana's present is something Mary made." | Pulse the framed drawing. | "Take the framed drawing from the panel under the loft." |
+| Paper | "Wrapping paper lives where spare things live." | Pulse the trundle. | "Open the trundle under the bunk: the paper is inside." |
+| Tape | "Paper on its own won't stay." | Pulse the pen pot. | "The tape is in the pen pot on the desk. Paper on the frame, then tape." |
+| Lock | "Elliot's note says where the password comes from." | Pulse Elliot's note. | "The bit everyone sings: the second line of the carol sheet." |
+| Colours | "Zaina played the first bit. You need the other." | Pulse the carol sheet chip in the notebook. | "Blue, red, red, green." |
+| Case | "Everything on the list goes in the case." | Pulse the case. | "Tap each thing in the strip, then the case." |
+| Wipe | "Four ticks. Mary's done." | Pulse the whiteboard. | "Wipe the board." |
+
+### The notebook's "Noticed" lines and clue cards
+
+Clue cards (checklist 47): the whiteboard list · the carol sheet · Elliot's note. Noticed: "My passport was in the drawer", once the drawer is looked into · "Zaina plays the verse: yellow, yellow, green, blue", once her piano has played · "The winter box is on the top shelf", once the wardrobe is tapped · "The folder is empty", once the stand is tapped.
+
+### Wrong-try lines (friendly, never a punishment)
+
+- Yellow, yellow, green, blue: "That's the bit Zaina plays. Elliot wants the bit everyone sings."
+- Red, yellow, green, blue: "That's just the buttons in a row. Elliot's cleverer than that."
+- Any other four: "The little door stays shut. Elliot made it well."
+- Shelly on anyone or anything but Zaina: "Shelly is Zaina's. Zaina is in her room."
+- The stool on anything but the wardrobe: "Mary doesn't need to be taller here."
+- The swivel chair tapped with the box in mind: "The chair has wheels. Mary knows better than to stand on that."
+- Tape on the frame before the paper: "Tape first? Paper first."
+- The paper on anything but the frame: "That's for wrapping Nana's present."
+- A thing on the case that is not on the list (Shelly, the stool, the roll): "Not on the list."
+- The whiteboard wiped before four ticks: "Not yet. There's still something to find."
+- The door before the list is read: Mary can go; the opening is not forced.
+
+- The Night Moth bonus: none by default. If the owner wants one: a tiny paper moth hidden in each room's sticker bands (two `secret` hotspots, the long-press leaves them out), opening a star on the end card. His call at Gate B.
+- Every clue given by sound is also shown: yes. Zaina's playing lights the keys in order and the Noticed line keeps the colours; the sheet is a picture; Mum's call is text.
+
+Paper playtest: solved from the chart alone by Claude, 24 Oct 2026, with nothing built.
+Result: passes. The code has exactly one reading that fits Elliot's note and the sheet. Care points: the piano's key colours in the room, in its close-up and on the sheet must be the same eight colours; "everyone sings:" must be legible on the sheet's clue card at tablet size; the organiser's window must plainly show a pink tail; the stool must look like a step, not a chair.
 
 ## 3b. Motion sheet
 
-(drawn with the chart)
+| View | Thing | When | Movement | Art it needs | Sound | Settled state after |
+|---|---|---|---|---|---|---|
+| m3 | Whiteboard | tap (read); ending (wipe) | none on tap; `openDrag` across the board for the wipe, the writing erased behind the finger (code-drawn) | cut-out of the board (blank; the game writes on it) | marker squeak; a soft wipe | ticked boxes; then clean |
+| m3 | The case | each thing placed | `pop` (exists) on the lid | cut-out of the open case (left off the sofa in the wall) | a soft thump | the things drawn inside as they go in |
+| m2 | Rain on the glass | idle until the ending | `draw:'rain'` (exists) | none | rain ambient | stops at the ending; gold light |
+| m2 | Pompom lights on the music stand | idle | code-drawn twinkle | none | — | — |
+| m2 | Music folder | tap | `flip` (exists; the cover lifts) | folder lifted from the wall (4r) | paper | shut |
+| m1 | Pocket organiser | tap | `swing` (exists), then the close-up | cut-out (left off the wall) | cloth | still; Shelly gone from its window once taken |
+| m1 | Baby bath, tub | tap each | `lift` (exists), then it rests beside | two cut-outs (left off the wall); the stool painted in the wall, revealed | knock | moved aside; the stool showing, then gone |
+| m1 | Desk top drawer | tap | `slideOpen` (exists), then the look-down close-up; shuts from its button | drawer front lifted from the wall (4r); the cavity painted solid | open, close | as left |
+| m1 | Framed drawing | first tap | `lift` (exists) | cut-out (left off the wall) | paper | gone from the panel |
+| m1 | Pen pot | tap | none (a close-up) | close-up (new picture) | tick | the tape gone once taken |
+| m4 | Wardrobe doors | tap | `peek` (exists, the doors) | doors lifted from the wall (4r) | knock | open; the top shelf seen in the close-up |
+| m4 | The stool at the wardrobe | solve | the stool appears at the wardrobe's foot (stage-drawn); the close-up rises to the shelf | the stool cut-out (also the icon) | a wooden knock | the stool stays there |
+| shelf close-up | The ribbon | drag | `openDrag` along the bow's loop | close-up of the box on the shelf (new picture); the ribbon code-drawn | a slither | the box open, hat and gloves seen, then taken |
+| k1 | Rain on the glass | idle | `draw:'rain'` (exists) | none | rain ambient | stops at the ending |
+| k2 | Zaina | idle, tap | `breathe` (exists); on a tap the piano's keys light in turn (code-drawn over the cut-out) | **one cut-out:** Zaina sitting cross-legged on the lower bunk with the toy piano on her knees, from her portrait (`next/art/portraits/zaina.png`), never from the photograph | her line; four piano notes | sitting; the sheet gone from the slot once traded |
+| k2 | Trundle | tap | `slideOpen` (exists), then the look-down close-up; shuts from its button | trundle front lifted from the wall (4r); the inside a new picture (bedding and the roll) | a slide | as left |
+| k4 | Doll's house | solve | the windows light one by one (code-drawn), then the front `openDoor` (exists: swings to its hinge) | the house front lifted from the wall (4r); the inside (a tiny bed with the passport) a new picture; Elliot's lock drawn by the game on the front | four clicks, a creak | open, the passport until taken |
+| k4 | Teal clock in the cube | idle | `clock` (exists) | code-drawn face | — | — |
+| k3 | Toy kitchen | tap | `rattle` (exists) | lifted door front (4r), optional | knock | still ("Zaina's kitchen. Nothing of Mary's. For once.") |
+| strip | The present | combine | the paper folds round the frame (code-drawn in the card), then the tape | icons: the framed drawing, the roll, the tape, the open parcel, the wrapped parcel | paper, tape | wrapped |
+
+Reward moments:
+
+| Lock | Step 1 | Step 2 | Step 3 | Settled state |
+|---|---|---|---|---|
+| Zaina's trade | Shelly leaves the strip | Zaina hugs her (the breathe quickens for a beat) | the sheet slides out of the slot into the strip | Zaina sitting with Shelly and the piano |
+| The winter box | the stool knocks down at the wardrobe | the view rises to the shelf | the bow pulls, the lid lifts, the hat and gloves show | box open on the shelf |
+| The doll's house | the four buttons flash in turn | the little windows light one by one | the front swings open on the tiny bed and the passport | house open, lit |
+| The case | the thing drops in with a thump | the whiteboard's box ticks itself | on the fourth: the rain stops and the gold comes in | four ticks; Mum's call; the wipe |
+
+- Living things per view (cap: two): m2 the rain and the pompom lights; m1 none; m3 none; m4 none; k1 the rain; k2 Zaina; k4 the clock; k3 none; the corridor none (the dining end's daylight on c3 brightens at the ending, code-drawn).
+- New movements this level asks for: none the engine lacks. The windows lighting and the wipe are code-drawn in the stage; the three-step moments are single movements until backlog 20.
+
+Checked: every thing that moves is listed · every lock has a reward moment · no view has more than two living things · every part, pose and pivot named
 
 ### Gate B — level outline
+Checked: map walk-through passed · paper playtest passed · motion sheet done · no puzzle type more than twice · every answer has a visible clue · difficulty matches the brief
+Walked 24 Oct 2026 on paper: all six pass as recorded above.
 Signed off:
 
 ---
 
+## Review against the repo and the design library (Claude Code, 24 Oct 2026)
+
+What checks out: every engine movement named exists (`pop`, `flip`, `swing`, `lift`, `slideOpen`, `peek`, `openDoor`, `breathe`, `rattle`, `clock`, `draw:'rain'`, `openDrag`); holding one thing and tapping another is the engine's combine; clue cards and Noticed lines are the engine's; the hints are in its three-tip shape; the whiteboard's ticks and the wipe are code-drawn; no soft-lock (nothing is consumed by a wrong use; Shelly goes to Zaina and stays there; the stool, the paper and the tape are used where they belong and nowhere else); eight puzzle types, none more than twice.
+
+Against the design library (`me565/core-skills/game-design/`): P-01 (curiosity: four things gone, one little sister grinning), P-02 (every answer clued in the two rooms), P-03 (hints optional, vaguest first), P-05 (an adult Rusty Lake fan is the tester). AVOID-001 to 004 pass. AVOID-005 (round trips holding a clue): the carol sheet and Elliot's note are clue cards, and the rooms are one step apart. AVOID-006 (a step found only at random): every pairing is signposted (Zaina names Shelly; the box is seen on the shelf and the stool's legs under the tubs; the drawing says it is for Nana; Elliot's note names the password's source). AVOID-007: no sums. AVOID-008 (a clue over time): Zaina's playing lights the keys and leaves its colours in Noticed, and it is the decoy, not the answer. Built on MECH-136 (the whiteboard: an in-world checklist sets the goals), MECH-123 (Zaina wants Shelly), MECH-114 (the carol carries the code on two levels: which line, which colours; the owner's love), MECH-112 (Elliot's buttons are the piano's colours: the clue looks like the lock), MECH-150 (Mary's reach and the stool), MECH-119 (paper and tape on the frame), MECH-107 (the organiser's window), MECH-137 (the ribbon, the wipe: gestures that mimic the real action; love), MECH-120 (the chair's "Mary knows better"). Ideas only; nothing of any reviewed game's puzzles, names, art or text.
+
+Points for the owner:
+
+1. **The corridor.** Settled by the owner (24 Oct 2026, with a picture): a short corridor with its own views links the two rooms. Its four walls cost about 10¢ more (review point 5 updated) and give the level its only quiet place, which is where Mum's voice comes from. Its west wall (opposite Mary's door) is not in any picture yet; it is drawn plain until one arrives.
+2. **Checklist 8b (the opening view carries no clue and no item).** Mary starts facing her sofa (m3): the case and the whiteboard, which is the list. The test room started on its envelope too. Alternative: start facing the window (m2), with the empty folder in sight and the list one turn away.
+3. **Zaina.** One cut-out in one pose (sitting with the piano), from her decided portrait; her hug and her playing are code and sound, not poses. A second pose (standing, holding Shelly up) is backlog 22, between levels.
+4. **Christmas.** Decision 2: the brief's Christmas stands for this test level; the rain is the December monsoon, the winter box is the point of the hat and gloves. If this becomes Mary's real stage 2, the season is summer and the winter box becomes something else.
+5. **The cost before Gate C.** Twelve walls on Sunburst at about 2.5¢ each, 30¢, with the owner's agreed cost and his acceptance that a puzzle change can send a wall back (playbook 4ac); the sketches free. About twenty cut-outs, close-ups and icons at Gate D (about 20¢). Total about 50¢.
+6. **Faces.** The family canvases on the panels are drawn as small framed pictures with no readable faces (checklist 8d); Zaina from her portrait; nobody else drawn.
+7. **The desk's scissors** in the photograph are left out of the room (child-safe rule); the tape does the job.
+
+---
+
 ## 4. First playable
+
+- Stage key and plugin file: `eval2`, `next/landscape/stages/eval2.js` (hotspot ids `e2_…`); `tools/play-e2.js` plays it
+- Play link (pinned to commit):
+- What is real: puzzle logic, inventory, hints, saves, doors, the ending; every wall, cut-out and close-up that already exists; the reward moments from the motion sheet, played in the right order with whatever stands in (playbook 4ab, 4ac)
+- What stands in: a labelled box or a crop lifted from a wall for each picture that does not exist yet; the moth's and Zaina's lines as text
+- Walls generated before this gate (only with the owner's agreed cost, playbook 4ac):
+
+Tests: scripted playthrough passes · audit clean · no soft-lock (checklist 42) · owner played it on the tablet at 2000×700 · played once on a real Android phone (checklist 44) · reduced motion checked
+Result:
+
+### Gate C — it plays right
+Signed off:
+
+---
+
 ## 5. Asset and script list
 ## 6a. Sample pack
 ## 6b. Batch
@@ -90,8 +279,9 @@ Signed off:
 
 | Stage | Estimate | Actual | Re-dos (count) | Why |
 |---|---|---|---|---|
-| walls before Gate C | ~20¢ (two rooms, eight walls on Sunburst) | | | only with the owner's agreed cost (playbook 4ac) |
-| Total | | | | |
+| walls before Gate C | ~30¢ (two rooms and the corridor, twelve walls on Sunburst) | | | only with the owner's agreed cost (playbook 4ac) |
+| 6b batch | ~20¢ (about twenty cut-outs, close-ups and icons) | | | |
+| Total | ~50¢ | | | |
 
 ## Learning loop
 
@@ -102,4 +292,4 @@ Signed off:
 ## Notes for this level only
 
 - Opened in a Claude Code session started from `me565/core-skills`, with read access to this repo only: committed on the local branch `claude/level-eval2`; pushing waits on the owner's permission.
-- The room specifications (`evals/images/rooms/kids-room.json` and room 2's) are written at Gate B from the words above, with the moving things left off the walls per the motion sheet.
+- The room specifications (`evals/images/rooms/kids-room.json` and `mary-room.json`) are written once Gate B is signed, from the words above, with the moving things left off the walls per the motion sheet, and their run manifest after that.
