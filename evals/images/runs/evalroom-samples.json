@@ -1,0 +1,100 @@
+{
+ "name": "evalroom sample pack (Gate E): the bin from above with its five pieces of rubbish, the inside of the hat, the small key. Level file levels/LEVEL-evalroom.md, Gates A to D signed 22 to 24 Oct 2026.",
+ "defaults": {
+  "n": 1
+ },
+ "notes": [
+  "Judged in the live room on the tablet, never as loose files (CLAUDE.md gate E). A failed sample goes back to its prompt, not to the batch.",
+  "Cut-outs are keyed on white, cropped and quantised with tools/lift.py's method; close-ups saved at 1920x1080 JPEG 88."
+ ],
+ "cases": [
+  {
+   "id": "bin-above",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "references": [
+    "evals/images/refs/c5h-bin.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Palette of the room: cream walls over a pale mint band, pale wood floor, teal and purple accents, warm afternoon sun. A single picture that fills the whole 16:9 frame edge to edge: no border, no margin, no frame, no dark surround. No words, letters, numbers or symbols anywhere in the picture.\n\nThe picture: looking straight down into a green plastic recycling bin from directly above, its square rim with rounded corners filling the frame almost to the edges, the inside walls a darker green sloping down to the flat bottom, which is empty but for a little paper dust and one faint scuff. The white recycling symbol on the inside wall is just visible, foreshortened. Soft light from the upper left, the far inside walls in shadow. Nothing in the bin, nothing written anywhere.",
+   "est_usd": 0.04,
+   "note": "asset 12, the bin from above; the five rubbish pieces are laid on it by the game"
+  },
+  {
+   "id": "rub-page",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "references": [
+    "evals/images/refs/c5h-style.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame.\n\nThe object: a single sheet of lined white notepaper, crumpled and half flattened, seen from directly above, the blue lines faintly showing, no writing on it",
+   "est_usd": 0.04,
+   "note": "asset 13a"
+  },
+  {
+   "id": "rub-carton",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "references": [
+    "evals/images/refs/c5h-style.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame.\n\nThe object: a small orange juice carton with a bent straw, squashed flat at one corner, seen from directly above, plain orange with a white top, no writing or logo on it",
+   "est_usd": 0.04,
+   "note": "asset 13b"
+  },
+  {
+   "id": "rub-crust",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "references": [
+    "evals/images/refs/c5h-style.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame.\n\nThe object: the crust of a slice of brown bread, a curved strip with a few crumbs beside it, seen from directly above",
+   "est_usd": 0.04,
+   "note": "asset 13c"
+  },
+  {
+   "id": "rub-ball",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "references": [
+    "evals/images/refs/c5h-style.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame.\n\nThe object: a tight ball of crumpled white paper, seen from directly above, its folds catching the light",
+   "est_usd": 0.04,
+   "note": "asset 13d"
+  },
+  {
+   "id": "rub-core",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "references": [
+    "evals/images/refs/c5h-style.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame.\n\nThe object: an eaten apple core, pale cream flesh browning at the edges, red skin at the top and bottom, a short stalk, lying on its side, seen from directly above",
+   "est_usd": 0.04,
+   "note": "asset 13e"
+  },
+  {
+   "id": "hat-inside",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "references": [
+    "evals/images/refs/c5h-cap.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Palette of the room: cream walls over a pale mint band, pale wood floor, teal and purple accents, warm afternoon sun. A single picture that fills the whole 16:9 frame edge to edge: no border, no margin, no frame, no dark surround. No words, letters, numbers or symbols anywhere in the picture.\n\nThe picture: a child's blue baseball cap turned upside down and seen from directly above, so the whole inside of the cap shows and fills the frame: the dark blue lining, the six seams meeting at the small button in the middle, and the pale cream sweatband running all the way round the rim, slightly puckered. The cap's peak points towards the bottom of the picture. It rests on a plain pale wooden surface. Nothing tucked in it, nothing written on it.",
+   "est_usd": 0.04,
+   "note": "asset 14, the inside of the hat; the torn corner is drawn by the game under the band"
+  },
+  {
+   "id": "key-small",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "references": [
+    "evals/images/refs/c5h-style.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame.\n\nThe object: a small plain silver filing-cabinet key about three centimetres long, with a round flat bow with a hole in it and a short flat blade with two notches, lying flat, seen from directly above",
+   "est_usd": 0.04,
+   "note": "asset 1, the small key: the icon, the cut-out on the floor and the drag's tab"
+  }
+ ]
+}
