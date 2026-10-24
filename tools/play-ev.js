@@ -1,7 +1,7 @@
 /* Plays the test room "Lock-up Duty" (stage evalroom), start to ending, with the wrong tries, by script. node tools/play-ev.js (server on 8765). */
 const { chromium } = require('playwright');
 (async () => {
-  const b = await chromium.launch({executablePath:'/opt/pw-browsers/chromium'}); const p = await b.newPage({viewport:{width:2000, height:700}}); const errs = []; p.on('pageerror', e => errs.push(e.message));
+  const b = await chromium.launch({executablePath:'/opt/pw-browsers/chromium'}); const p = await b.newPage({viewport:{width:2000, height:700}}); if (process.env.REDUCE){ await p.emulateMedia({reducedMotion:'reduce'}); console.log('reduced motion on'); } /* REDUCE=1 plays the stage with prefers-reduced-motion, as checklist 36 asks */ const errs = []; p.on('pageerror', e => errs.push(e.message));
   const OUT = (process.env.SHOTS || '/tmp') + '/ev-'; const shot = async n => p.screenshot({path:OUT + n + '.png', clip:await p.locator('#scene').boundingBox()});
   const st = () => p.evaluate(() => ({view:ROOMS[S.room].views[S.view], got:S.got.join(','), keyDown:S.keyDown, cab:S.cabUnlocked, out:S.cabOut, measured:!!S.measured, popped:S.popped, desk:S.deskOpen, done:S.done, clues:(S.clues || []).join(',')}));
   const msg = () => p.evaluate(() => document.getElementById('msg').textContent);

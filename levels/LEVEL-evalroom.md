@@ -288,11 +288,14 @@ Made 24 Oct 2026 on the GitHub runner (`evals/images/runs/evalroom-batch.json`, 
 
 ## 7. Integrate and polish
 
-- Play link:
-- Checklist walk at 2000×700, 740×360, 2200×1300, reduced motion:
-- Audit:
-- Art looked at side by side with the finished levels' (checklist 43):
-- Voice lines recorded (`tools/voice.py`), none missing:
+Done 24 Oct 2026 on build 2026-10-24i, after the batch and five rounds of the owner's recorded feedback (logs 66 to 74).
+
+- Play link: the branch's last commit (in chat and on MOTH-93); once released, https://me565.github.io/next/landscape/?stage=evalroom.
+- Checklist walk at 2000×700, 740×360, 2200×1300, reduced motion: `tools/polish-ev.js` opens every view and every close-up (the note, the timetable, the cabinet locked, the pots, the bin, the box, the hat, the dials, the notebook, the menu, both drawers looked into, the lock) at the three shapes and checks the card, the scene, the caption and the strip for overflow and for edges off the window: **all clear at all three**, no page errors. Reduced motion: `REDUCE=1 node tools/play-ev.js` plays the room to its ending with `prefers-reduced-motion` on: the key tumble, the drawer slides, the key turn and the door swing all complete at once and the ending shows. The sheets were looked at by eye: every card fits its shape, the strip sits beside the scene on the wide shapes and under it on the tall one, nothing is covered.
+- Audit: clean (0 failures) on the final build.
+- Art looked at side by side with the finished levels' (checklist 43): the four walls beside Elliot's classroom, four close-ups beside four finished ones, eight icons beside eight. **Finding: the test room reads as a different hand.** Its walls and close-ups are rendered and lit (soft shading, highlights, a camera's depth) where the finished levels are flat ink-outline drawings with simple fills; its icons are near-photographic (the metal key, the apple core) where the finished levels' are bold-outlined and flat. Nothing is wrong in it, and nothing in it borrows; it is simply the Sunburst room-specification look, which this room was built to evaluate. That is the room's result, and the decision is the owner's, for between levels: adopt this look as the art style guide for the levels still to build (and re-make the finished ones over time), or keep the ink-outline style and prompt the next real level in it with the room-specification method. Not a polish fix for this room.
+- Voice lines recorded (`tools/voice.py`), none missing: none in this room; the moth's lines are text (a test room, not a child's story).
+- Open items carried, none blocking: MOTH-81 (the timetable's header as periods: the owner's call), MOTH-82 (watch for the "Holding" line), MOTH-75 (one inventory column, engine, between levels), Nutmeg's second pose (engine, backlog 22).
 
 ### Final sign-off
 Signed off:
