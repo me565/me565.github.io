@@ -326,23 +326,20 @@ function openInsideDesk(){ /* Mr Hollis's drawer (MOTH-61, MOTH-65, MOTH-80): ou
   openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c1, 1480, 600, 320)}">${cuTarget('ev_tdrawer', 'The drawer', [16, 28, 68, 56])}<div style="position:absolute;left:21.6%;top:35%;width:57.2%;height:41.1%;pointer-events:none">${drawerHTML('desk', 'cu-desk')}</div><p class="otitle">Mr Hollis’s drawer</p></div><p class="ofb" id="deskFb2">Shut. Tap it to open it.</p></div>`);
   wireCu({ev_tdrawer:() => { toggleDrawer('desk'); setTimeout(openInsideDesk, 420); }});
 }
-/* The key turn (MOTH-90, MOTH-93). The engine's drag follows a path with the finger, which a key turning on the spot has none of:
-   the owner's finger on the bow mapped to one point of a tiny circle and the turn stuck halfway. So the stage turns the key itself:
-   the bow sits in the keyhole at (40, 57) on the lock plate, and a finger anywhere on the plate sweeps round it; the bow turns by
-   the angle swept, clockwise, and once it has gone all the way round the lock clicks. Turning back unwinds it. Nothing to aim at. */
-const KH = {x:40, y:57};
+/* The key turn (MOTH-90, MOTH-93; owner, 24 Oct 2026: "make it an animation… the main thing is that the key looks like it's inside
+   the lock"). The key is drawn from the side, its shank going into the keyhole at (40, 57) on the lock plate and its bow and tag
+   sticking out to the left, like a key in a door. One tap, anywhere on the picture, and the key turns itself: the bow swings down
+   a quarter turn about the keyhole, clicks, and the door opens. No gesture to get right. */
+const KH = {x:40, y:57}, SIDE = {w:30, ratio:827/625}; /* the side view's width on the card and the picture's own proportions */
 function lockUp(){
-  openCloseup(`<div class="card shelf"><div class="shelfpic" id="turnpic" style="background-image:url(../art/eval/c5h/closeup-lock.jpg?v=${BUILD});touch-action:none;cursor:grab"><img id="bow" src="../art/eval/c5h/item-dkey-bow.png?v=${BUILD}" alt="" style="position:absolute;left:${KH.x}%;top:${KH.y}%;width:13%;transform:translate(-50%,-50%) rotate(0deg);pointer-events:none;filter:drop-shadow(0 calc(var(--u)*.3) calc(var(--u)*.4) rgba(0,0,0,.45))"><p class="otitle">Turn the key</p></div><p class="ofb" id="turnFb">Put the key in the lock and turn it, all the way round.</p></div>`);
-  const pic = $('turnpic'), bow = $('bow'), fb = $('turnFb'); let turning = false, last = 0, total = 0, done = false, lastTick = 0;
-  const ang = e => { const r = pic.getBoundingClientRect(); const x = (e.clientX - r.left)/r.width*100 - KH.x, y = ((e.clientY - r.top)/r.height*100 - KH.y)*9/16; return Math.atan2(y, x)*180/Math.PI; };
-  const draw = () => { bow.style.transform = `translate(-50%,-50%) rotate(${total}deg)`; };
-  const finish = () => { if (done) return; done = true; turning = false; total = 360; draw(); sfx('pickup'); fb.textContent = 'Click, clunk.';
-    setTimeout(() => { closeCloseup(); drop('dkey'); S.locked = true; save(); render(); sfx('tick'); doorSwing(); say('The key turns. Mary slips out into the corridor, pulls the door to, and locks 5H behind her for the summer.'); setTimeout(ending, 2200); }, 700); };
-  pic.onpointerdown = e => { if (done) return; turning = true; last = ang(e); pic.setPointerCapture(e.pointerId); e.preventDefault(); e.stopPropagation(); };
-  pic.onpointermove = e => { if (!turning || done) return; const a = ang(e); let d = a - last; if (d > 180) d -= 360; if (d < -180) d += 360; last = a;
-    total = Math.max(0, Math.min(360, total + d)); draw(); if (total - lastTick >= 45){ sfx('tick'); lastTick = total; } if (total >= 350) finish(); };
-  pic.onpointerup = pic.onpointercancel = e => { if (!turning) return; turning = false; if (total >= 320) finish(); else if (total > 15) fb.textContent = 'Keep turning, all the way.'; };
-  pic.onclick = e => e.stopPropagation();
+  const h = SIDE.w/SIDE.ratio*16/9, left = KH.x - SIDE.w, top = KH.y - h*0.255; /* the shank runs at a quarter of the picture's height; its cut end sits in the keyhole */
+  openCloseup(`<div class="card shelf"><div class="shelfpic" id="turnpic" style="background-image:url(../art/eval/c5h/closeup-lock.jpg?v=${BUILD});cursor:pointer"><img id="keyin" src="../art/eval/c5h/item-dkey-side.png?v=${BUILD}" alt="The classroom key in the lock" style="position:absolute;left:${left}%;top:${top}%;width:${SIDE.w}%;transform-origin:100% 25.5%;filter:drop-shadow(calc(var(--u)*.3) calc(var(--u)*.5) calc(var(--u)*.5) rgba(0,0,0,.45));pointer-events:none"><p class="otitle">Turn the key</p></div><p class="ofb" id="turnFb">The key is in the lock. Tap it to turn it.</p></div>`);
+  const pic = $('turnpic'), key = $('keyin'); let done = false;
+  pic.onclick = e => { e.stopPropagation(); if (done) return; done = true;
+    const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches, T = reduce ? 10 : 1100;
+    key.animate([{transform:'rotate(0deg)'}, {transform:'rotate(5deg)', offset:0.12}, {transform:'rotate(-96deg)', offset:0.82}, {transform:'rotate(-90deg)'}] /* the bow swings down, clockwise as the player sees a key turn */, {duration:T, easing:'cubic-bezier(.4,0,.3,1)', fill:'forwards'});
+    setTimeout(() => sfx('tick'), reduce ? 0 : T*0.45); setTimeout(() => { sfx('pickup'); $('turnFb').textContent = 'Click, clunk.'; }, T);
+    setTimeout(() => { closeCloseup(); drop('dkey'); S.locked = true; save(); render(); sfx('tick'); doorSwing(); say('The key turns. Mary slips out into the corridor, pulls the door to, and locks 5H behind her for the summer.'); setTimeout(ending, 2200); }, T + 700); };
 }
 function ending(){
   S.done = true; save();
@@ -449,7 +446,7 @@ return {
   intro:'<b>Lock-up duty.</b> Mr Hollis has left Mary to lock up 5H, and the key is in his desk behind a code. There is a note on her desk.',
   start:{room:'classroom', view:0},
   fresh:() => ({seen:{}, clues:[], taken:{}, keyDown:false, binMoved:[], binDone:false, popped:false, measured:0, heights:[], rulerAt:null, cabUnlocked:false, cabOut:false, dials:[0,0,0,0], deskOpen:false, deskOut:false, locked:false}),
-  extra:{classroom:['closeup-bin.jpg', 'closeup-hat.jpg', 'closeup-pots.jpg', 'closeup-desk.jpg', 'closeup-cab.jpg', 'closeup-note.jpg', 'closeup-lock.jpg', 'item-skey.png', 'item-ruler.png', 'item-half1.png', 'item-half2.png', 'item-wnote.jpg', 'item-dkey.png', 'item-dkey-bow.png', ...RUBBISH.map(r => r.src)].map(f => '../art/eval/c5h/' + f).concat(['../art/school/h1.jpg'])}, /* the close-ups' pictures load with the room, so no card opens half drawn (MOTH-76) */
+  extra:{classroom:['closeup-bin.jpg', 'closeup-hat.jpg', 'closeup-pots.jpg', 'closeup-desk.jpg', 'closeup-cab.jpg', 'closeup-note.jpg', 'closeup-lock.jpg', 'item-skey.png', 'item-ruler.png', 'item-half1.png', 'item-half2.png', 'item-wnote.jpg', 'item-dkey.png', 'item-dkey-side.png', ...RUBBISH.map(r => r.src)].map(f => '../art/eval/c5h/' + f).concat(['../art/school/h1.jpg'])}, /* the close-ups' pictures load with the room, so no card opens half drawn (MOTH-76) */
   rooms:ROOMS, walls:WALLS, doors:DOORS, hots:HOTS, layers:LAYERS, notes:NOTES, items:ITEMS, hints:HINTS, uses:USES,
   overlays:{c4:() => S.cabUnlocked ? wrap(wallTimetable(), wallDrawer('cab')) : wrap(wallTimetable(), wallKeyhole()), c1:() => S.deskOpen ? wrap(wallBoard(), wallDrawer('desk')) : wrap(wallBoard()), c2:wallLabels, c3:() => wrap(...[S.locked ? wallDoorway() : null].filter(Boolean))},
   act, miss, sparkle, rows, noticed, clues, speaker, helper:() => 'the moth', child:'mary'
