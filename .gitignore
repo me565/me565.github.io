@@ -4,3 +4,7 @@ tools/audit-out/
 /pp-*.png
 /pz-*.png
 node_modules/
+/pf/
+/ph/
+/pn/
+/pt/
