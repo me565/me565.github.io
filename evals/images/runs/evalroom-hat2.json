@@ -1,0 +1,24 @@
+{
+ "name": "evalroom sample pack, the hat redone (Gate E, MOTH-79): the cap lying in the cardboard lost-property box, not on wood. Level file levels/LEVEL-evalroom.md.",
+ "defaults": {
+  "n": 1
+ },
+ "notes": [
+  "Judged in the live room on the tablet, never as loose files (CLAUDE.md gate E). A failed sample goes back to its prompt, not to the batch.",
+  "Cut-outs are keyed on white, cropped and quantised with tools/lift.py's method; close-ups saved at 1920x1080 JPEG 88."
+ ],
+ "cases": [
+  {
+   "id": "hat-inside-2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "references": [
+    "evals/images/refs/c5h-cap.jpg",
+    "evals/images/refs/c5h-box.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Palette of the room: cream walls over a pale mint band, pale wood floor, teal and purple accents, warm afternoon sun. A single picture that fills the whole 16:9 frame edge to edge: no border, no margin, no frame, no dark surround. No words, letters, numbers or symbols anywhere in the picture.\n\nThe picture: looking straight down into a brown cardboard lost-property box. The box's four cardboard walls run off the edges of the frame, so the whole picture is the inside of the box: the corrugated brown cardboard floor, a little scuffed, and the lower part of the cardboard walls in shadow at the sides. Lying on the cardboard floor is a child's blue baseball cap turned upside down, filling most of the frame, so the whole inside of the cap shows: the dark blue lining, the six seams meeting at the small button in the middle, and the pale cream sweatband running all the way round the rim, slightly puckered. The cap's peak points towards the bottom of the picture. No wood anywhere. Nothing tucked in the cap, nothing written on it or on the box.",
+   "est_usd": 0.01,
+   "note": "asset 14 redone (MOTH-79): the first sample put the cap on a wooden surface; it lies in the cardboard box"
+  }
+ ]
+}
