@@ -193,34 +193,45 @@ Signed off: "Yeah it's fine, just needs improvements to the images" and "sign of
 
 ---
 
-## 5. Asset and script list (draft, for Gate D)
+## 5. Asset and script list (written 24 Oct 2026 for Gate D, after Gate C)
 
-Reuse first: the four walls and the nine existing cut-outs in `next/art/eval/c5h/`; the envelope icon from `next/art/classroom/`. Lifted by crop on 22 Oct 2026 (no credit): assets 5 to 8 below.
+**Reuse first.** The four walls (`c1`–`c4`) and the nine cut-outs made on 21 Oct 2026, plus the five lifted from the walls by crop on 22 Oct 2026 (the two drawer fronts, the door leaf, the box front, the shoe and hat), the envelope icon from `next/art/classroom/`, the classroom track and the school ambient. None of those cost anything here. The owner's verdict at Gate C was "it's fine, just needs improvements to the images": the images below are the stand-ins the first playable drew by code, replaced by pictures.
 
-| # | Asset | Type | Moves? | Reused from | Est. credit (Sunburst ~4¢, Nano Banana 2 ~10¢) |
-|---|---|---|---|---|---|
-| 1 | Small silver key | icon + cut-out (the same picture, on the floor) | single (falls) | — | 1 |
-| 2 | Ruler | icon + close-up use | no | — | 1 |
-| 3 | Torn note, left half and right half | icon ×2 | no | — | 2 |
-| 4 | Classroom key | icon | no | — | 1 |
-| 5 | Lost property shoe and hat, and the box front | cut-out | single (`pop`) | lifted from c3 (4r) | 0 |
-| 6 | Filing cabinet drawer front | cut-out | single | lifted from c4 (4r) | 0 |
-| 7 | Teacher's desk drawer front | cut-out | single | lifted from c1 (4r) | 0 |
-| 8 | Classroom door | cut-out | single | lifted from c3 (4r) | 0 |
-| 9 | Cabinet close-up with a code-drawn keyhole | close-up | no | a crop of c4 | 0 |
-| 10 | Nutmeg standing pose | cut-out | poses | — | 1 |
-| 11 | Bean pot close-up (labels and ruler drawn by the game over it) | close-up | no | — | 1 |
-| 12 | The bin from above, empty (owner, 22 Oct 2026; MOTH-52) | close-up | no | — | 1 |
-| 13 | Five bits of rubbish (crumpled page, juice carton, crust, paper ball, apple core) | cut-out ×5 | single (shoved) | — | 5 |
-| 14 | The inside of the hat (owner, 22 Oct 2026; MOTH-53) | close-up | no | — | 1 |
-| 15 | Mr Hollis's drawer, looked down into, the key among paper clips and a whistle (MOTH-65) | close-up | no | — | 1 |
-| 16 | The joined note, two torn halves taped (MOTH-64) | close-up | no | — | 1 |
-| 17 | The supplies cupboard's doors, re-cut to the cupboard's full width (MOTH-67) | cut-out | single (`peek`) | lifted from c1 | 0 |
+**How every picture is made** (playbook 2, 4aa, 4r). Model: GPT Image 2.5 Sunburst through OpenRouter on the GitHub runner (`evals/images/`), Nano Banana 2 as the fallback. Every prompt carries the signed-off style sentence: *a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges; bright and clear, not hazy or dark*, and a crop of the wall the thing belongs to as the style reference ("copy only its style, not its objects"). A **cut-out or icon** is asked for "alone on a pure flat white background, no surface, no shadow, no frame, no text", 1K, then the white is keyed away, cropped and quantised. A **close-up** is 16:9 at 1920×1080, "the picture fills the whole frame, no border", with nothing written on it: every word, number and icon is drawn by the game over it (checklist 52). The room's palette is named in each prompt: cream walls over a pale mint band, pale wood floor, teal and purple accents, afternoon sun from the window.
 
-- About 14 pictures after the owner's second round (the bin, its rubbish and the hat): roughly 60¢ on Sunburst, about $1.40 on the fallback. Every word, number and icon on the labels, timetable, whiteboard and notes is drawn by the game, so none of it costs credit. (The handover estimated 12 pictures before the lifted cut-outs were counted as reuse.)
-- No wall re-do: the drawers' dark gaps and the open doorway are drawn by the engine behind the lifted cut-outs.
-- Script locked on:
-- Total estimate: about 30¢ on Sunburst.
+| # | Asset | Type | Moves? | Reused from | Prompt (after the style sentence and the palette line) | Est. ¢ |
+|---|---|---|---|---|---|---|
+| 1 | Small silver key | icon, also the cut-out on the floor and the drag's tab | single (the tumble is the stage's) | — | "A small plain silver key for a filing cabinet, about three centimetres, with a round bow and a short flat blade, lying flat, seen from directly above." | 4 |
+| 2 | Ruler | icon | no | — | "A thirty-centimetre wooden school ruler with centimetre marks, a small bite missing from one corner, lying flat, seen from directly above. The marks are plain ticks with no numbers." | 4 |
+| 3a | Torn note, left half | icon | no | — | "The left half of a small sheet of cream notepaper, torn down the middle with a ragged edge on its right side, a little creased, blank, seen from directly above." | 4 |
+| 3b | Torn note, right half | icon | no | 3a as reference ("the other half of the attached note") | "The right half of the same torn notepaper, the ragged edge on its left side, blank, seen from directly above." | 4 |
+| 4 | Classroom key | icon | no | — | "A large old brass door key with a loop bow and three teeth on the blade, a small round cardboard tag on a string tied to the bow, the tag blank, lying flat, seen from directly above." The game draws 5H on the tag. | 4 |
+| 10 | Nutmeg standing | cut-out, pose B | poses (engine backlog 22) | the existing hamster cut-out as reference | "The same small golden hamster as the attached picture, same size, same colours, same drawing, but standing up on its back legs with its front paws held together at its chest, looking up." **Made only when the engine takes poses**; the stage cannot show it before then. | 4 |
+| 11 | The bean pots, close up | close-up | no | a crop of the sill from `c2` as reference | "Four terracotta pots in a row on a white window sill, seen straight on and close, each with a bean plant on a thin green cane: the first a bare shoot, the second small, the third middling, the fourth tall, their tops at four clearly different heights. Each pot has a plain blank white label stuck on its front. The window glass and soft afternoon sun behind. Nothing written anywhere." The game draws the labels' icons and, once measured, the ruler and the heights. | 4 |
+| 12 | The bin from above, empty | close-up | no | a crop of the bin from `c3` as reference | "Looking straight down into a green plastic recycling bin, its square rim filling the frame, the inside dark green and empty, a little paper dust at the bottom, the recycling symbol on the inside wall just visible. Nothing else in it." | 4 |
+| 13a–e | Five bits of rubbish | cut-out ×5 | single (shoved by a tap; the drag is backlog 27) | — | Each alone on white, seen from directly above: "a crumpled sheet of lined paper" · "a small orange juice carton, squashed, no writing on it" · "a crust of brown bread" · "a tight ball of white paper" · "an apple core, pale, with its stalk". | 20 |
+| 14 | The inside of the hat | close-up | no | a crop of the blue cap from `c3` as reference | "A child's blue baseball cap turned upside down and seen from directly above, so the whole inside shows: the dark blue lining, the pale sweatband running round the rim, the seams meeting at the button in the middle. Nothing tucked in it, nothing written on it." The game draws the torn corner under the band. | 4 |
+| 15 | Mr Hollis's drawer, looked into | close-up | no | a crop of the desk from `c1` as reference | "Looking down into an open wooden desk drawer from above, the drawer filling the frame: a shallow tray with a few silver paper clips scattered at one end and a small silver whistle on a string at the other, bare wood between them with a clear empty space in the middle. Nothing else, nothing written." The game draws the classroom key in the empty space while it is there. | 4 |
+| 16 | The joined note | close-up | no | 3a and 3b as references | "A small sheet of cream notepaper torn down the middle and stuck back together with two short strips of yellowing sticky tape across the tear, lying flat on a pale wooden desk, seen from directly above, blank." The game writes the words. | 4 |
+| 17 | The supplies cupboard's doors | cut-out | single (`peek`) | lifted from `c1` by crop (the doors are painted on the wall at full width) | No prompt: a re-cut of the existing wall to the cupboard's full width, replacing `layer-doors.png`. | 0 |
+| W | The four walls again | wall ×4 | — | the room specification `evals/images/rooms/classroom5h.json` | **Only if the owner says the walls themselves need improving.** Same specification, same model, with the lessons of 22 Oct 2026 added: the timetable asked for as a header bar over a blank rectangle (the game draws the whole grid), the cupboard with no doors (the doors become a cut-out), a keyhole on the cabinet's top drawer. A re-do of all four, because one wall redone no longer matches its neighbours. | 16 |
+
+- **Total, without the walls:** 14 pictures made (1, 2, 3a, 3b, 4, 10, 11, 12, 13a–e, 14, 15, 16) at about 4¢ each on Sunburst, **about 56¢**; about $1.40 on the fallback. Asset 17 costs nothing. With the walls: about 72¢.
+- **Sample pack for Gate E** (the hardest first): the bin from above (12) with its five pieces (13) dropped into the room, the inside of the hat (14), and the small key (1) in the strip and on the floor. Judged on the tablet in the live room, never as loose files.
+- **Order of making:** 12 and 13 together (they must sit in one picture), 14, 1, then 11, 15, 16, then 2, 3, 4; 10 last and only when the engine takes poses.
+- **Originals** go to the owner's Drive folder for the level before the session ends; the repo keeps the 1920×1080 JPEGs and the keyed PNGs.
+
+### The script (42 lines, 562 words), locked at this gate
+
+Every story-led line the moth speaks, by key, extracted from the stage on 24 Oct 2026 (`evalroom.hint.<i>.<n>`, `evalroom.note.<key>`, `evalroom.card`, `evalroom.meanwhile`, `evalroom.intro`, `evalroom.postcard`). Tap lines are not voiced (playbook 4h). Recorded with the speech model on the Gemini key (`gemini-2.5-flash-preview-tts`, voice Vindemiatrix, the moth's fixed style), 100 lines a day on the key: **no OpenRouter credit, no cost in the ledger**. A line changed after this gate is a re-record and is noted as one.
+
+- Hints, 12 steps × 3 tiers (36 lines): envelope · small key · ruler · heights · bin · hat · combine · which day · the order · the code · the classroom key · the door. The words are in the stage file and in `tools/lines.json` once `extract-lines.js` lists `evalroom`.
+- Notes (2): Mr Hollis's envelope ("Last day! I've gone to the hall. Will you lock up 5H for me, Mary? The classroom key is in my desk drawer. Its code is the beans' heights, read in the order I asked you to water them. — Mr H.") and the taped note ("Beans: water one pot per lesson, in today's lesson order. — H.").
+- The card, the intro, the meanwhile line, and the postcard home (1 each).
+- Music: none new; the classroom track and the school ambient. Comic: none (a test room has no intro pages).
+
+- Script locked on: 24 Oct 2026 (at Gate D sign-off).
+- Total estimate: about 56¢ on Sunburst for the pictures (72¢ with the walls); the voice on the Gemini key's daily allowance.
 
 ### Gate D — list and budget
 Signed off:
