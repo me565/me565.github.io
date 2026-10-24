@@ -3,7 +3,7 @@
 *Outline only, written in claude.ai on 22 Oct 2026 from a discussion with the owner, recorded here the same day from `EVALROOM-HANDOVER.md` with the owner's two changes made in chat after the review (the lock-up duty premise and the falling key) and the review's findings listed under "Review against the repo". Nothing here is built yet. Do not build, generate art or change the engine until the owner signs Gate B, and then follow the gates as for any level. The stage stays `?stage=evalroom` (`next/landscape/stages/evalroom.js`); its current "one room, no puzzle" content is replaced by this design once it reaches the greybox.*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: Gate C signed 24 Oct 2026 (live as build 2026-10-23r, release #16); next stage the asset and script list for Gate D
+Current status: Gate D signed 24 Oct 2026; next the sample pack for Gate E (the bin from above with its rubbish, the inside of the hat, the small key), about 32¢
 Build id of the latest play link: 2026-10-22f (the first playable, with everything from the owner's three plays built in: MOTH-49 to 68)
 Latest play link: `?stage=evalroom`
 
@@ -234,7 +234,7 @@ Every story-led line the moth speaks, by key, extracted from the stage on 24 Oct
 - Total estimate: about 56¢ on Sunburst for the pictures (72¢ with the walls); the voice on the Gemini key's daily allowance.
 
 ### Gate D — list and budget
-Signed off:
+Signed off: "sign off gate D" (owner, 24 Oct 2026, in chat; the four walls stay, not redone: he did not add "walls too").
 
 ---
 
