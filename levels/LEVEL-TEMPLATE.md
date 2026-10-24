@@ -11,6 +11,7 @@ Latest play link:
 
 ## 1. Brief
 
+- Design and art: the test room's (owner, 24 Oct 2026): the room-specification method on Sunburst in the signed-off style (playbook 2, 4aa) and the test room's way of playing (4ac, 4ad; checklist 59 to 67); `levels/LEVEL-evalroom.md` is the reference. The puzzle map and logic are the owner's own, drawn fresh for this level, never carried over from an older stage.
 - Child and age:
 - Where and when in the journey (see `STORY.md`):
 - The objective, in the child's words (one sentence):

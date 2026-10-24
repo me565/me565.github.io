@@ -52,6 +52,10 @@ The owner's rule for every room in the game:
 
 ## Visual style
 
+### Decision, 24 Oct 2026: the test room's design and art style for every future level
+
+The owner, after the test room "Lock-up Duty" reached its final sign-off: "All future levels of Moth House should use the new design and art style. But I will rebuild the level logic and puzzle map." So every level still to build is drawn by the room-specification method on GPT Image 2.5 Sunburst in the style signed off on 21 Oct 2026 (`next/PLAYBOOK.md` 2 and 4aa; the test room is the reference), and plays the test room's way (playbook 4ac, 4ad; checklist 59 to 67). The finished levels stay as they are until each is rebuilt; their puzzle maps are not reused: the owner draws every level's map and logic afresh, and it goes through the gates from the brief. Point 5 below ("flat-ink style") is superseded by the rendered style; the other points of the brief stand.
+
 ### Brief, version 3 (owner, 28 Sept 2026, being written up point by point)
 
 1. **Landscape.** The game is played in landscape, so every scene picture is drawn for a wide screen (16:9), with the inventory in a strip of slots along the bottom edge, outside the picture.
