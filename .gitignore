@@ -8,3 +8,4 @@ node_modules/
 /ph/
 /pn/
 /pt/
+__pycache__/
