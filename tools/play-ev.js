@@ -49,7 +49,7 @@ const { chromium } = require('playwright');
   await p.evaluate(() => document.querySelector('#closeup .cuhot[data-cu="ev_hat"]').click()); await p.waitForTimeout(600); console.log('hat close-up, corner there?', await p.locator('#takeHalf2').count()); await shot('08c-hat'); await p.click('#takeHalf2'); await p.waitForTimeout(500); console.log('halves:', JSON.stringify(await st()));
   await hold('left half of a note'); await p.evaluate(() => document.querySelector('.slot[aria-label="right half of a note"]').click()); await p.waitForTimeout(900); await noOverflow('watering note'); await shot('09-watering-note'); console.log('joined:', JSON.stringify(await st())); await back();
   // the clues: board, timetable
-  await turnTo('c1'); await tap('ev_board', 800); await noOverflow('board'); await shot('10-board'); await back();
+  await turnTo('c1'); await tap('ev_board', 800); console.log('board: no close-up?', await p.evaluate(() => document.getElementById('closeup').hidden), '| day seen?', await p.evaluate(() => !!S.seen.day)); await shot('10-board');
   await turnTo('c4'); await tap('ev_timetable', 800); await noOverflow('timetable'); await shot('11-timetable'); await back(); console.log('clues:', JSON.stringify(await st()));
   await nbCheck('with clues'); await p.evaluate(() => openNotebook()); await p.waitForTimeout(300); await shot('12-notebook');
   console.log('notebook rows:', JSON.stringify(await p.evaluate(() => [...document.querySelectorAll('.nbrow')].map(r => r.textContent))));

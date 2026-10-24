@@ -94,6 +94,7 @@ Every fault the owner has had to point out, turned into a check. It is used twic
 ## G. Devices and delivery
 
 36. **Check at the owner's screen shape**: 2000×700 (a phone-shaped tablet with the browser's bar), plus 740×360 and 2200×1300, and once with reduced motion on. A fix is not done until it is seen close up at that shape (log 38).
+36b. **Nothing off the screen, strip included.** The scene, the caption and both inventory columns end inside the window at every shape, including a screen more than twice as wide as tall, where the strip sits beside the scene; the body hides overflow, so this is checked by the elements' edges, not by scrolling (the owner's recording, 24 Oct 2026: the second column off his tablet, MOTH-69; the audit checks it).
 37. No page scroll at any size; the whole game fits; portrait asks to turn.
 38. Every picture preloads; nothing pops in late. A test link that must start clean carries `?fresh`; a player's game is never wiped by a new build (log 9; reworded 17 Oct 2026 for backlog 18). A screen's own pictures and the lines spoken on the way into it are ready before the screen shows (the portraits, a comic's pages and captions, the stage card; log 49); a caption never appears before its picture.
 39. Sound starts on a real tap and works after the first; music never "random noise" (logs 3, 4, 10).

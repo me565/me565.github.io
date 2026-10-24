@@ -61,7 +61,6 @@ const LAYERS = {
   c3:[
     {src:'../art/eval/c5h/layer-door.png', group:'door', l:CUT.door.l, t:CUT.door.t, w:CUT.door.w, h:CUT.door.h, gone:() => S.locked}, /* the leaf, lifted from the wall; at the ending the stage swings it open on its hinge (MOTH-66) */
     {src:'../art/eval/c5h/layer-coat.png', group:'coat', l:GEO2.coat.l, t:GEO2.coat.t, w:GEO2.coat.w, h:GEO2.coat.h},
-    {src:'../art/eval/c5h/layer-lid.png', group:'lid', l:GEO2.lid.l, t:GEO2.lid.t, w:GEO2.lid.w, h:GEO2.lid.h, shadow:.4},
     {src:'../art/eval/c5h/layer-lost.png', group:'lost', l:CUT.lost.l, t:CUT.lost.t, w:CUT.lost.w, h:CUT.lost.h}, /* the shoe and hat, behind the box's front */
     {src:'../art/eval/c5h/layer-boxfront.png', l:CUT.boxfront.l, t:CUT.boxfront.t, w:CUT.boxfront.w, h:CUT.boxfront.h},
     {src:'../art/eval/c5h/item-skey.png', group:'fkey', l:61.3, t:78.6, w:4.4, h:4.45, shadow:.5, showWhen:() => S.keyDown && !taken('skey')}], /* stand-in: the small key where it landed */
@@ -85,17 +84,20 @@ const LAYERS = {
     {src:'../art/eval/c5h/layer-backpack.png', group:'backpack', l:GEO.backpack.l, t:GEO.backpack.t, w:GEO.backpack.w, h:GEO.backpack.h, shadow:.8}]
 };
 /* ---------- stand-in icons (the first playable: pictures come at Gate D) ---------- */
+const TORN_L = '<svg viewBox="0 0 60 44" style="width:100%;display:block;filter:drop-shadow(1px 2px 2px rgba(0,0,0,.35))"><path d="M3 4h44l-4 6 5 7-4 6 5 7-3 6 4 5-3 3H3z" fill="#fbf4e2" stroke="#8a7a5a" stroke-width="1.2"/><path d="M8 12h28M8 19h30M8 26h26M8 33h20" stroke="#8a93b8" stroke-width="1" opacity=".6"/></svg>';
+const TORN_R = '<svg viewBox="0 0 60 44" style="width:100%;display:block;filter:drop-shadow(1px 2px 2px rgba(0,0,0,.35))"><path d="M57 4H13l4 6-5 7 4 6-5 7 3 6-4 5 3 3h44z" fill="#fbf4e2" stroke="#8a7a5a" stroke-width="1.2"/><path d="M22 12h28M20 19h30M24 26h26M28 33h20" stroke="#8a93b8" stroke-width="1" opacity=".6"/></svg>';
+const torn = (id, side, [l, t, w], rot = -8, label) => `<button id="${id}" aria-label="${label}" style="position:absolute;left:${l}%;top:${t}%;width:${w}%;transform:rotate(${rot}deg);background:transparent;border:0;padding:0;cursor:pointer">${side === 'L' ? TORN_L : TORN_R}</button>`;
 const gicon = (t, bg) => `<span style="display:grid;place-items:center;width:80%;height:80%;margin:10%;background:${bg || '#8a8a94'};border:2px solid #2a2a33;border-radius:12%;color:#fff;font-weight:700;font-size:calc(var(--u)*1.7);text-align:center;line-height:1.05">${t}</span>`;
 const NOTES = {
-  ev_env:{hand:true, html:'<span class="head">For Mary</span><span class="big">Last day! I’ve gone to the hall.</span><span>Will you lock up 5H for me, Mary? The classroom key is in my desk drawer. Its code is the beans’ heights, read in the order I asked you to water them.</span><span class="sign">— Mr H.</span>'},
+  ev_env:{hand:true, html:'<span class="head" style="font-size:1.25em">For Mary</span><span class="big">Last day! I’ve gone to the hall.</span><span style="font-size:1.18em;line-height:1.35">Will you lock up 5H for me, Mary? The classroom key is in my desk drawer. Its code is the beans’ heights, read in the order I asked you to water them.</span><span class="sign" style="font-size:1.15em">— Mr H.</span>'},
   wnote:{hand:true, html:`<div style="position:relative;padding:calc(var(--u)*1.5) calc(var(--u)*2)"><svg viewBox="0 0 320 120" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true"><path d="M0 0H154l-6 14 8 12-7 13 9 11-8 14 7 12-6 14 8 12-5 18H0z" fill="#f6ecd3"/><path d="M160 0H320v120H152l5-18-8-12 6-14-7-12 8-14-9-11 7-13-8-12z" fill="#fbf4e2"/><path d="M154 0l-6 14 8 12-7 13 9 11-8 14 7 12-6 14 8 12-5 18" fill="none" stroke="#c9b98f" stroke-width="1.2" stroke-dasharray="3 2"/><rect x="128" y="34" width="58" height="22" rx="2" transform="rotate(-8 157 45)" fill="rgba(255,236,160,.55)" stroke="rgba(190,170,90,.6)"/><rect x="132" y="78" width="54" height="20" rx="2" transform="rotate(6 159 88)" fill="rgba(255,236,160,.55)" stroke="rgba(190,170,90,.6)"/></svg><span class="head" style="position:relative;display:block">A torn note, taped together</span><span class="big" style="position:relative;display:block">Beans: water one pot per lesson,</span><span style="position:relative;display:block">in today’s lesson order.</span><span class="sign" style="position:relative;display:block">— H.</span></div>`}
 };
 const ITEMS = {
   ev_env:{name:'note from Mr Hollis', note:'ev_env', icon:'<img src="../art/classroom/item-envelope.png" alt="">', spent:() => S.deskOpen},
   skey:{name:'small key', icon:'<img src="../art/eval/c5h/item-skey.png" alt="">'},
   ruler:{name:'ruler', icon:gicon('RULER', '#d9a622')},
-  half1:{name:'left half of a note', icon:gicon('½ note', '#c8bfa8')},
-  half2:{name:'right half of a note', icon:gicon('note ½', '#c8bfa8')},
+  half1:{name:'left half of a note', icon:'<span style="display:block;width:78%;margin:11%">' + TORN_L + '</span>'},
+  half2:{name:'right half of a note', icon:'<span style="display:block;width:78%;margin:11%">' + TORN_R + '</span>'},
   wnote:{name:'watering note', note:'wnote', icon:gicon('NOTE', '#c8bfa8'), spent:() => S.deskOpen},
   dkey:{name:'classroom key', icon:gicon('5H KEY', '#a8844a')}
 };
@@ -191,11 +193,11 @@ const paper = (id, text, [l, t, w], rot = -8) => `<button id="${id}" style="posi
    on top of each other; a tap shoves one aside (it slides to the rim and stays there), and the half note is under the last two.
    Moving the rubbish by dragging is backlog 27; a tap-to-shove stands in. */
 const RUBBISH = [ /* id, label, resting spot (l, t, w, rotation) on the bin's floor, where it goes when shoved (up the inside wall), and the picture (Gate E samples, 24 Oct 2026) */
-  {id:'r1', label:'a crumpled page', at:[33, 30, 23, -12], to:[7, 12, 20, 28], src:'layer-rub-page.png'},
-  {id:'r2', label:'a juice carton', at:[52, 24, 14, 18], to:[78, 10, 13, 40], src:'layer-rub-carton.png'},
-  {id:'r3', label:'a crust', at:[28, 50, 19, 6], to:[5, 60, 17, -24], src:'layer-rub-crust.png'},
-  {id:'r4', label:'a ball of paper', at:[48, 44, 17, 0], to:[78, 56, 16, -30], src:'layer-rub-ball.png'},
-  {id:'r5', label:'an apple core', at:[40, 36, 16, -20], to:[8, 36, 14, 26], src:'layer-rub-core.png'}
+  {id:'r1', label:'a crumpled page', at:[33, 30, 23, -12], to:[27, 26, 20, 28], src:'layer-rub-page.png'},
+  {id:'r2', label:'a juice carton', at:[52, 24, 14, 18], to:[62, 22, 13, 40], src:'layer-rub-carton.png'},
+  {id:'r3', label:'a crust', at:[28, 50, 19, 6], to:[26, 56, 17, -24], src:'layer-rub-crust.png'},
+  {id:'r4', label:'a ball of paper', at:[48, 44, 17, 0], to:[61, 52, 16, -30], src:'layer-rub-ball.png'},
+  {id:'r5', label:'an apple core', at:[40, 36, 16, -20], to:[30, 40, 14, 26], src:'layer-rub-core.png'}
 ];
 const UNDER = ['r4', 'r5']; /* the half note is under these two */
 function openBin(){
@@ -204,13 +206,13 @@ function openBin(){
   const pieces = RUBBISH.map(r => { const m = moved.includes(r.id), [l, t, w, rot] = m ? r.to : r.at;
     return `<button class="rub" data-r="${r.id}" aria-label="${r.label}${m ? ', pushed aside' : ''}" style="position:absolute;left:${l}%;top:${t}%;width:${w}%;aspect-ratio:1;transform:rotate(${rot}deg);background:transparent;border:0;padding:0;cursor:pointer;transition:left .5s cubic-bezier(.3,.9,.4,1),top .5s cubic-bezier(.3,.9,.4,1),transform .5s;filter:drop-shadow(2px 4px 3px rgba(0,0,0,.45))"><img src="../art/eval/c5h/${r.src}?v=${BUILD}" alt="" style="width:100%;display:block;pointer-events:none"></button>`; }).join('');
   openCloseup(`<div class="card shelf"><div class="shelfpic" style="background-image:url(../art/eval/c5h/closeup-bin.jpg?v=${BUILD})"><p class="otitle">Into the bin</p>
-    ${noteShows ? paper('takeHalf1', '½ note', [42, 44, 14], -14) : (!gone ? `<div id="binNote" style="position:absolute;left:42%;top:44%;width:14%;aspect-ratio:1.6;transform:rotate(-14deg);background:#fbf4e2;border:1px solid #6a5a44;opacity:${UNDER.some(id => moved.includes(id)) ? .9 : .35}"></div>` : '')}
+    ${noteShows ? torn('takeHalf1', 'L', [42, 44, 14], -14, 'Half a torn note') : (!gone ? `<div id="binNote" style="position:absolute;left:42%;top:44%;width:14%;aspect-ratio:1.6;transform:rotate(-14deg);background:#fbf4e2;border:1px solid #6a5a44;opacity:${UNDER.some(id => moved.includes(id)) ? .9 : .35}"></div>` : '')}
     ${pieces}</div><p class="ofb" id="binFb">${gone ? 'Paper, a crust, a carton and an apple core. Nothing else now.' : noteShows ? 'There! Half a note, torn down the middle, in Mr Hollis’s writing.' : 'Looking down into the bin. Paper, a crust, a carton… Push things aside to see what is underneath.'}</p></div>`);
   document.querySelectorAll('#closeup .rub').forEach(b => b.onclick = e => { e.stopPropagation(); const id = b.dataset.r, r = RUBBISH.find(x => x.id === id); if (!S.binMoved) S.binMoved = [];
     const m = S.binMoved.includes(id); S.binMoved = m ? S.binMoved.filter(x => x !== id) : [...S.binMoved, id]; save(); sfx('paper');
     const [l, t, w, rot] = m ? r.at : r.to; b.style.left = l + '%'; b.style.top = t + '%'; b.style.transform = `rotate(${rot}deg)`;
     const shows = !gone && UNDER.every(x => S.binMoved.includes(x)); const n = $('binNote'); if (n) n.style.opacity = UNDER.some(x => S.binMoved.includes(x)) ? .9 : .35;
-    if (shows && !$('takeHalf1')){ const n = $('binNote'); if (n) n.remove(); const pic = document.querySelector('#closeup .shelfpic'); pic.insertAdjacentHTML('beforeend', paper('takeHalf1', '½ note', [42, 44, 14], -14)); wireHalf1(); $('binFb').textContent = 'There! Half a note, torn down the middle, in Mr Hollis’s writing.'; }
+    if (shows && !$('takeHalf1')){ const n = $('binNote'); if (n) n.remove(); const pic = document.querySelector('#closeup .shelfpic'); pic.insertAdjacentHTML('beforeend', torn('takeHalf1', 'L', [42, 44, 14], -14, 'Half a torn note')); wireHalf1(); $('binFb').textContent = 'There! Half a note, torn down the middle, in Mr Hollis’s writing.'; }
     else $('binFb').textContent = m ? 'Back it goes.' : UNDER.some(x => S.binMoved.includes(x)) ? 'Pushed aside. Something pale underneath…' : 'Pushed aside.'; });
   wireHalf1();
 }
@@ -225,7 +227,7 @@ function openBox(){ /* the lost property box, close up, from the wall; the hat i
 function openHat(){
   const gone = S.got.includes('half2') || S.got.includes('wnote');
   openCloseup(`<div class="card shelf"><div class="shelfpic" style="background-image:url(../art/eval/c5h/closeup-hat.jpg?v=${BUILD})"><p class="otitle">Inside the hat</p>
-    ${S.popped && !gone ? paper('takeHalf2', 'note ½', [58, 50, 11], 28) : ''}</div><p class="ofb">${gone ? 'The inside of the cap: a sweatband and a name tape, worn blank.' : S.popped ? 'Tucked under the band: a torn corner of paper.' : 'The inside of the cap. The band is tight all the way round.'}</p></div>`);
+    ${S.popped && !gone ? torn('takeHalf2', 'R', [57, 49, 11], 28, 'A torn corner of paper') : ''}</div><p class="ofb">${gone ? 'The inside of the cap: a sweatband and a name tape, worn blank.' : S.popped ? 'Tucked under the band: a torn corner of paper.' : 'The inside of the cap. The band is tight all the way round.'}</p></div>`);
   const b = $('takeHalf2'); if (b) b.onclick = e => { e.stopPropagation(); S.got.push('half2'); save(); sfx('pickup'); closeCloseup(); render(); say('The other half of the note, tucked in the hat’s band. Torn, taped once already, and torn again. It goes in the strip below.'); };
 }
 function openBoard(again){
@@ -332,7 +334,7 @@ function act(id){
       if (!S.deskOpen){ openDeskLock(); return; }
       if (!S.deskOut){ toggleDrawer('desk', taken('dkey') ? 'The drawer slides open. Paper clips and a whistle.' : 'The drawer slides open. Something glints inside.'); return; }
       openInsideDesk(); return;
-    case 'ev_board': openBoard(); return;
+    case 'ev_board': { const first = !S.seen.day; if (first){ S.seen.day = Date.now(); save(); } say('The whiteboard, wiped clean for the holidays. Only today’s date is left: ' + DATE + '.' + (first ? copyClue('board') : '')); return; } /* no zoom: the date is big enough on the wall (owner, 24 Oct 2026) */
     case 'ev_timetable': openTimetable(); return;
     case 'ev_beans': openPots(); return;
     case 'ev_door':

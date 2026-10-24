@@ -3,7 +3,7 @@
 *Outline only, written in claude.ai on 22 Oct 2026 from a discussion with the owner, recorded here the same day from `EVALROOM-HANDOVER.md` with the owner's two changes made in chat after the review (the lock-up duty premise and the falling key) and the review's findings listed under "Review against the repo". Nothing here is built yet. Do not build, generate art or change the engine until the owner signs Gate B, and then follow the gates as for any level. The stage stays `?stage=evalroom` (`next/landscape/stages/evalroom.js`); its current "one room, no puzzle" content is replaced by this design once it reaches the greybox.*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: sample pack made and placed (build 2026-10-24a); Gate E waits on the owner's play
+Current status: sample pack placed and played by the owner (build 2026-10-24b carries his notes); Gate E waits on his word
 Build id of the latest play link: 2026-10-22f (the first playable, with everything from the owner's three plays built in: MOTH-49 to 68)
 Latest play link: `?stage=evalroom`
 
@@ -245,9 +245,9 @@ Made 24 Oct 2026 on the GitHub runner (`evals/images/runs/evalroom-samples.json`
 | Sample | What it is | Why this one | Result |
 |---|---|---|---|
 | Wall | none new | the owner kept the walls at Gate D | — |
-| Close-up | the bin from above (`closeup-bin.jpg`) with its five rubbish cut-outs (`layer-rub-*.png`) | the hardest: a new angle, a picture other pictures must sit on, and the room's one search puzzle | Claude's sheet: every hard rule passes (nothing written, nothing extra, the bin empty as asked); the carton stands rather than lying squashed, fine in a bin. Owner: |
-| Close-up | the inside of the hat (`closeup-hat.jpg`) | the second new angle | passes; peak downwards as asked, band clear. Owner: |
-| Cut-out | the small key (`item-skey.png`): the strip icon, the floor, the tumble and the drag's tab | the one picture seen four ways | passes; two notches as asked. Owner: |
+| Close-up | the bin from above (`closeup-bin.jpg`) with its five rubbish cut-outs (`layer-rub-*.png`) | the hardest: a new angle, a picture other pictures must sit on, and the room's one search puzzle | Claude's sheet: every hard rule passes (nothing written, nothing extra, the bin empty as asked); the carton stands rather than lying squashed, fine in a bin. Owner: "I like how this thing works"; the pushed pieces to stay on the floor (done). |
+| Close-up | the inside of the hat (`closeup-hat.jpg`) | the second new angle | passes; peak downwards as asked, band clear. Owner: no remark on the picture; the corner's stand-in to look like paper (done). |
+| Cut-out | the small key (`item-skey.png`): the strip icon, the floor, the tumble and the drag's tab | the one picture seen four ways | passes; two notches as asked. Owner: "it works well", the hole wanted clearing (done). |
 | Voice ×2–3 | one hint, one story line, one wrong-try | — | not yet recorded: the voice is made at the batch, on the Gemini key |
 | Track | none new (the classroom track) | | — |
 
@@ -319,6 +319,12 @@ Every fault found in this level, where it was found, and what happened to it.
 | Same recording (MOTH-66) | The door folded flat; the key turn left a trail line | The leaf swings on its hinge in perspective; the trail invisible | Engine: the door swing goes with backlog 26 | this file |
 | Same recording (MOTH-68) | The same line on the card and in the caption | One line per screen in this room | Yes, whole game when revisited | Checklist 62 |
 | Same recording (MOTH-67) | The cupboard's doors narrower than the cupboard; its line promised glue sticks over bare shelves | The line now matches; the doors re-cut at Gate D | This room's art | the asset list |
+| Owner's third recording, 24 Oct 2026 (MOTH-69) | The inventory's second column off his tablet's screen, so the key and a half note vanished | The side layout's stage is as wide as scene plus strip (engine CSS); the audit checks every element's edges | Yes, whole game | Checklist 36b; audit G37 |
+| Same recording (MOTH-70) | White inside the bag's handle, between the tallest plant's leaves, in the key's hole | Enclosed near-white regions cleared by component, above the label line | Yes: a keying checks enclosed gaps, not only the edges | Playbook 2 to carry it; this file |
+| Same recording (MOTH-71) | Pushed rubbish climbed the bin's walls | Pushed spots are the floor's corners | This room's | this file |
+| Same recording (MOTH-72) | The stand-in halves said "½ note" | Drawn torn scraps without words, in the bin, the hat and the strip | Yes: a stand-in never names itself; it looks like the thing | Playbook 4ac |
+| Same recording (MOTH-73) | The whiteboard zoomed to show what the wall already shows; the letter's type small | No close-up: the date is said and copied; the letter 18% larger | This room's | this file |
+| Same recording (MOTH-74) | The bin's lid hovered; the keyhole's shape does not match the key | Lid removed; keyhole to be redrawn as a slot at the batch | This room's | this file |
 | Owner's tablet play, 22 Oct 2026 (MOTH-51) | The small key opened the cabinet from the room but not inside the cabinet close-up | A target over the drawer in the close-up routes a held item through the same USES table (`cuTarget`, `wireCu`) | Yes: what takes an item in the room takes it in its close-up | Playbook 4ad; checklist 59; backlog 25 for the engine |
 | Owner's tablet play, 22 Oct 2026 (MOTH-50) | Measuring with the ruler took "a lot of clicking around": the ruler did nothing inside the pot close-up | The pot close-up takes the ruler, and its line says to hold the ruler first | Same rule as above | Checklist 59 |
 | Owner's tablet play, 22 Oct 2026 (MOTH-49) | The half note came out of the bin from the room view, and the corner under the hat was a small wall target | The bin, the box and the desk drawer open close up, made from the wall, and the thing is taken there | Yes: finding is a close-up | Playbook 4ad; checklist 60 |
