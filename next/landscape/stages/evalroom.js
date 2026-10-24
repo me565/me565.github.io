@@ -91,13 +91,15 @@ const NOTES = {
   ev_env:{hand:true, html:'<span class="head" style="font-size:1.25em">For Mary</span><span class="big">Last day! I’ve gone to the hall.</span><span style="font-size:1.18em;line-height:1.35">Will you lock up 5H for me, Mary? The classroom key is in my desk drawer. Its code is the beans’ heights, read in the order I asked you to water them.</span><span class="sign" style="font-size:1.15em">— Mr H.</span>'},
   wnote:{hand:true, html:`<div style="position:relative;width:100%;height:calc(var(--u)*34);flex:none;background:url(../art/eval/c5h/closeup-note.jpg?v=${BUILD}) center/cover;border-radius:calc(var(--u)*.6);overflow:hidden"><div style="position:absolute;left:20%;top:10%;width:60%;height:80%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:calc(var(--u)*.6)"><span class="head" style="display:block">A torn note, taped together</span><span class="big" style="display:block">Beans: water one pot per lesson,</span><span style="display:block">in today’s lesson order.</span><span class="sign" style="display:block">— H.</span></div></div>`}
 };
+/* an icon centred in its slot whatever its shape or turn (MOTH-86): the engine places a bare img at the slot's 12% inset; a turned or long one goes in a centred box inside that inset */
+const slotIcon = (file, turn, more = '') => `<span style="position:absolute;inset:12%;display:grid;place-items:center"><img src="../art/eval/c5h/${file}" alt="" style="position:static;width:100%;height:100%;object-fit:contain;transform:${turn};${more}"></span>`;
 const ITEMS = { /* every icon a picture now (the batch, 24 Oct 2026) */
   ev_env:{name:'note from Mr Hollis', note:'ev_env', icon:'<img src="../art/classroom/item-envelope.png" alt="">', spent:() => S.deskOpen},
   skey:{name:'small key', icon:'<img src="../art/eval/c5h/item-skey.png" alt="">'},
-  ruler:{name:'ruler', icon:'<img src="../art/eval/c5h/item-ruler.png" alt="" style="width:92%;height:auto;margin:auto;transform:rotate(-35deg);filter:drop-shadow(1px 1px 1px rgba(0,0,0,.3))">'},
-  half1:{name:'left half of a note', icon:'<img src="../art/eval/c5h/item-half1.png" alt="" style="height:78%;width:auto;margin:auto;transform:rotate(-8deg)">'},
-  half2:{name:'right half of a note', icon:'<img src="../art/eval/c5h/item-half2.png" alt="" style="height:78%;width:auto;margin:auto;transform:rotate(6deg)">'},
-  wnote:{name:'watering note', note:'wnote', icon:'<img src="../art/eval/c5h/item-wnote.jpg" alt="" style="height:78%;width:auto;margin:auto;transform:rotate(-6deg);box-shadow:1px 1px 2px rgba(0,0,0,.35)">', spent:() => S.deskOpen},
+  ruler:{name:'ruler', icon:slotIcon('item-ruler.png', 'rotate(-40deg) scale(1.28)')},
+  half1:{name:'left half of a note', icon:slotIcon('item-half1.png', 'rotate(-8deg)')},
+  half2:{name:'right half of a note', icon:slotIcon('item-half2.png', 'rotate(6deg)')},
+  wnote:{name:'watering note', note:'wnote', icon:slotIcon('item-wnote.jpg', 'rotate(-6deg)', 'box-shadow:1px 1px 2px rgba(0,0,0,.35)'), spent:() => S.deskOpen},
   dkey:{name:'classroom key', icon:'<img src="../art/eval/c5h/item-dkey.png" alt="">'}
 };
 
@@ -134,7 +136,7 @@ const LEAF_OPEN = 'perspective(900px) rotateY(-78deg)';
 function leafImg(open){ const c = CUT.door; return `<img id="leaf" src="../art/eval/c5h/layer-door.png?v=${BUILD}" alt="" style="position:absolute;left:${c.l}%;top:${c.t}%;width:${c.w}%;transform-origin:0 50%;transform:${open ? LEAF_OPEN : 'none'};pointer-events:none;filter:drop-shadow(6px 0 8px rgba(0,0,0,.35))">`; }
 function wallDoorway(){ /* the ending: the doorway behind the leaf is drawn as the corridor with its light on the floor, and the leaf stands open on its hinge */
   const c = CUT.door, d = document.createElement('div'); d.style.cssText = 'position:absolute;inset:0;pointer-events:none';
-  d.innerHTML = `<div style="position:absolute;left:${c.l}%;top:${c.t}%;width:${c.w}%;height:${c.h}%;background:linear-gradient(#f6f1e3 0%,#f1ebdb 62%,#d9c9a4 62.5%,#e9dcb8 100%);box-shadow:inset 0 0 calc(var(--u)*2) rgba(0,0,0,.25)"></div><div style="position:absolute;left:${c.l + c.w*0.1}%;top:${c.t + c.h}%;width:${c.w*0.95}%;height:14%;background:linear-gradient(rgba(255,248,220,.55),rgba(255,248,220,0));clip-path:polygon(8% 0,92% 0,100% 100%,0 100%)"></div>${leafImg(true)}`;
+  d.innerHTML = `<div style="position:absolute;left:${c.l}%;top:${c.t}%;width:${c.w}%;height:${c.h}%;background:url(../art/school/h1.jpg?v=${BUILD}) 42% 55%/360% auto no-repeat;filter:brightness(.9) saturate(.95);box-shadow:inset 0 0 calc(var(--u)*2.5) rgba(0,0,0,.45)"></div><div style="position:absolute;left:${c.l + c.w*0.1}%;top:${c.t + c.h}%;width:${c.w*0.95}%;height:14%;background:linear-gradient(rgba(255,248,220,.55),rgba(255,248,220,0));clip-path:polygon(8% 0,92% 0,100% 100%,0 100%)"></div>${leafImg(true)}`;
   return d;
 }
 function doorSwing(){ /* the leaf swings open on its left hinge, in perspective, then stays open (MOTH-66) */
@@ -148,13 +150,14 @@ function doorSwing(){ /* the leaf swings open on its left hinge, in perspective,
 const DRAWERS = {cab:{cut:CUT.cabdrawer, src:'layer-cabdrawer.png', out:() => S.cabOut, unlocked:() => S.cabUnlocked}, desk:{cut:CUT.tdrawer, src:'layer-tdrawer.png', out:() => S.deskOut, unlocked:() => S.deskOpen}};
 const OUT_T = 'translateY(50%) scale(1.1)', OUT_F = 'drop-shadow(0 4px 4px rgba(0,0,0,.35))';
 function drawerHTML(k, id, inside){ const D = DRAWERS[k], out = D.out();
-  return `<div style="position:absolute;left:3%;top:8%;width:94%;height:90%;background:#140e0b;box-shadow:inset 0 0 calc(var(--u)*1.6) #000;pointer-events:none"></div>${inside || ''}<img id="${id}" src="../art/eval/c5h/${D.src}?v=${BUILD}" alt="" style="position:absolute;left:0;top:0;width:100%;pointer-events:none;transform-origin:50% 50%;transform:${out ? OUT_T : 'none'};filter:${out ? OUT_F : 'none'};transition:transform .45s cubic-bezier(.3,.9,.4,1),filter .45s">`; }
+  const lock = k === 'cab' ? `<div class="khole" style="position:absolute;left:6.5%;top:36%;width:6.5%;aspect-ratio:1">${KEYHOLE}</div>` : '';
+  return `<div style="position:absolute;left:3%;top:8%;width:94%;height:90%;background:#140e0b;box-shadow:inset 0 0 calc(var(--u)*1.6) #000;pointer-events:none"></div>${inside || ''}<div id="${id}" style="position:absolute;inset:0;pointer-events:none;transform-origin:50% 50%;transform:${out ? OUT_T : 'none'};filter:${out ? OUT_F : 'none'};transition:transform .45s cubic-bezier(.3,.9,.4,1),filter .45s"><img src="../art/eval/c5h/${D.src}?v=${BUILD}" alt="" style="position:absolute;left:0;top:0;width:100%">${lock}</div>`; }
 function wallDrawer(k){ const c = DRAWERS[k].cut, d = document.createElement('div'); d.style.cssText = `position:absolute;left:${c.l}%;top:${c.t}%;width:${c.w}%;height:${c.h}%;pointer-events:none`; d.innerHTML = drawerHTML(k, 'ov-' + k); return d; }
 /* The key tumbles out of the coat pocket (MOTH-63): a stage overlay animates the fall from the pocket to the floor with two bounces,
    then the floor cut-out takes over at rest. The engine's fall-and-land movement is still on the backlog. */
-const KEYHOLE = '<svg viewBox="0 0 10 14" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%"><circle cx="5" cy="5" r="4" fill="#1d1d22"/><path d="M3.6 7h2.8l1 6H2.6z" fill="#1d1d22"/></svg>';
+const KEYHOLE = '<svg viewBox="0 0 10 10" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%"><circle cx="5" cy="5" r="4.6" fill="#c3c7ce" stroke="#2b2836" stroke-width=".6"/><circle cx="5" cy="5" r="3.3" fill="#aeb3bb"/><rect x="4.25" y="2.2" width="1.5" height="5.6" rx=".6" fill="#1d1d22"/></svg>'; /* a round cam-lock face with a thin slot: the small key is flat (MOTH-74) */
 function wallKeyhole(){ /* the lock on the top drawer, drawn on the wall as well as in the close-up (MOTH-59) */
-  const c = CUT.cabdrawer, d = document.createElement('div'); d.style.cssText = `position:absolute;left:${c.l + c.w*0.07}%;top:${c.t + c.h*0.38}%;width:${c.w*0.05}%;height:${c.h*0.11}%;pointer-events:none`; d.innerHTML = KEYHOLE; return d;
+  const c = CUT.cabdrawer, d = document.createElement('div'); d.style.cssText = `position:absolute;left:${c.l + c.w*0.065}%;top:${c.t + c.h*0.36}%;width:${c.w*0.065}%;aspect-ratio:1;pointer-events:none`; d.innerHTML = KEYHOLE; return d;
 }
 function keyTumble(){
   const im = document.createElement('img'); im.src = '../art/eval/c5h/item-skey.png?v=' + BUILD; im.alt = '';
@@ -246,19 +249,19 @@ function openTimetable(again){
    height; a tap on another plant slides the same ruler there. The readings found so far stay at their plants, and once all four are
    known the clue is copied to the notebook. The close-up is asset 11 (24 Oct 2026); the game draws the labels, the ruler and the marks. */
 const PLANTS = [{cx:17, top:56}, {cx:38, top:44}, {cx:57, top:28}, {cx:80, top:6}]; /* each stem and its top, in picture percentages; the soil at 68 */
-const PLABEL = [[13, 79, 7, 8], [33, 79, 8, 8], [53, 79, 8, 8], [76, 79, 9, 8]]; /* each pot's blank label */
+const PLABEL = [[13.3, 75.5, 7.9, 7], [33.7, 75.5, 7.8, 7], [54.3, 75.5, 7.7, 7], [77, 75.5, 8.2, 7]]; /* each pot's blank label, measured from the picture's pixels (MOTH-83) */
 const RULER = {h:66, bottom:69, w:66*9/16*161/1009}; /* the ruler stands in the soil, as tall as the picture allows: one ruler, one length */
 const known = () => S.heights || [];
 const rulerStyle = i => `left:${PLANTS[i].cx + 3}%;top:${RULER.bottom - RULER.h}%;width:${RULER.w.toFixed(2)}%;height:${RULER.h}%`;
 function rulerHTML(){ const at = S.rulerAt; if (at == null) return '';
   const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
   return `<div id="rulerEl" aria-hidden="true" style="position:absolute;${rulerStyle(at)};pointer-events:none;filter:drop-shadow(2px 2px 3px rgba(0,0,0,.35));transition:${reduce ? 'none' : 'left .55s cubic-bezier(.3,.8,.3,1)'}"><img src="../art/eval/c5h/item-ruler.png?v=${BUILD}" alt="" style="position:absolute;left:50%;top:50%;width:${RULER.h}cqh;height:auto;transform:translate(-50%,-50%) rotate(-90deg);transform-origin:50% 50%"></div>`; }
-function marksHTML(){ /* a line from each measured plant's top to the ruler's edge, and the reading beside it */
-  return known().map(i => { const P = PLANTS[i], h = POTS[i][1];
+function marksHTML(){ /* one reading at a time (MOTH-87): a line from the top of the plant the ruler stands by to the ruler's edge, and its reading */
+  return (S.rulerAt == null ? [] : [S.rulerAt]).map(i => { const P = PLANTS[i], h = POTS[i][1];
     return `<div class="mark" style="position:absolute;left:${P.cx - 3}%;top:${P.top}%;width:${6 + RULER.w + 0.6}%;border-top:2px dashed #2b2836;pointer-events:none"></div><div class="mark" style="position:absolute;right:${100 - (P.cx - 3.6)}%;top:${P.top - 2.6}%;padding:.1em .4em;background:var(--paper);border-radius:.3em;font-family:${FONT};font-weight:700;font-size:calc(var(--u)*1.9);color:#2b2836;box-shadow:0 0 0 1px rgba(0,0,0,.25);pointer-events:none">${h} cm</div>`; }).join(''); }
-function labelsHTML(){ return PLABEL.map(([l, t, w, h], i) => `<div style="position:absolute;left:${l}%;top:${t}%;width:${w}%;height:${h}%;display:grid;place-items:center;pointer-events:none"><svg viewBox="0 0 12 12" style="height:78%;aspect-ratio:1" aria-hidden="true">${ic(POTS[i][0], 0, 0, 12)}</svg></div>`).join(''); }
-const potLine = () => known().length === 4 ? 'Measured: ' + POTS.map(p => `${LESSON[p[0]][2]} ${p[1]} cm`).join(', ') + '.' : S.rulerAt != null ? `${LESSON[POTS[S.rulerAt][0]][2]}: ${POTS[S.rulerAt][1]} cm. Tap the next plant to move the ruler.` : S.got.includes('ruler') ? 'You have a ruler. Tap it in the strip, then tap a plant.' : 'Four pots, each with a lesson picture on its label. Mr H wants their heights.';
-const potsAria = () => known().length === 4 ? 'The four bean plants measured: ' + POTS.map(p => p[1]).join(', ') + ' centimetres, left to right' : 'The four bean plants on the sill, each pot with a lesson picture on its label';
+function labelsHTML(){ return PLABEL.map(([l, t, w, h], i) => `<div style="position:absolute;left:${l}%;top:${t}%;width:${w}%;height:${h}%;display:grid;place-items:center;pointer-events:none"><svg viewBox="0 0 12 12" style="height:92%;aspect-ratio:1" aria-hidden="true">${ic(POTS[i][0], 0, 0, 12)}</svg></div>`).join(''); }
+const potLine = () => S.rulerAt != null ? `${LESSON[POTS[S.rulerAt][0]][2]}: ${POTS[S.rulerAt][1]} cm. Tap another plant to move the ruler.` : S.got.includes('ruler') ? 'You have a ruler. Tap it in the strip, then tap a plant.' : 'Four pots, each with a lesson picture on its label. Mr H wants their heights.'; /* never a summary of all four: that is the player's job (MOTH-87) */
+const potsAria = () => S.rulerAt != null ? `The four bean plants on the sill; the ruler stands by the ${LESSON[POTS[S.rulerAt][0]][2]} plant, which is ${POTS[S.rulerAt][1]} centimetres` : 'The four bean plants on the sill, each pot with a lesson picture on its label';
 function openPots(again){
   const targets = [[6, 0, 22, 100], [28, 0, 21, 100], [48, 0, 21, 100], [70, 0, 22, 100]].map((b, i) => cuTarget('ev_pot' + (i+1), `The ${LESSON[POTS[i][0]][2]} plant`, b)).join('');
   openCloseup(`<div class="card shelf"><div class="shelfpic" id="potspic" role="img" aria-label="${potsAria()}" style="background-image:url(../art/eval/c5h/closeup-pots.jpg?v=${BUILD});container-type:size">${labelsHTML()}<div id="marks">${marksHTML()}</div>${rulerHTML()}${targets}<p class="otitle">The bean pots</p></div><p class="ofb" id="potFb">${potLine()}</p></div>`);
@@ -268,6 +271,7 @@ function openPots(again){
 }
 function placeRuler(i){ /* the one ruler stands in pot i; the first time it is put there, the height is written down */
   const first = !known().includes(i); if (!S.heights) S.heights = []; if (first) S.heights.push(i);
+  if (S.rulerAt == null){ drop('ruler'); render(); } /* the ruler lives by the plants from now on, not in the strip (MOTH-88) */
   S.rulerAt = i; sfx('tick');
   if (first && S.heights.length === 4 && !S.measured){ S.measured = Date.now(); S.seen.heights = S.measured; }
   save();
@@ -277,24 +281,24 @@ function placeRuler(i){ /* the one ruler stands in pot i; the first time it is p
 }
 function openCabinet(){ /* locked: the cabinet close up, with the keyhole the game draws; unlocked: the top drawer close up (MOTH-61), opening and shutting on a tap, the ruler inside while it is out */
   if (!S.cabUnlocked){
-    openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c4, 1160, 560, 640)}">${cuTarget('ev_cabinet', 'The top drawer and its lock', [30, 10, 45, 42])}<div style="position:absolute;left:37%;top:28%;width:3%;aspect-ratio:10/14;pointer-events:none">${KEYHOLE}</div><p class="otitle">Filing cabinet</p></div><p class="ofb" id="cabFb">The top drawer has a tiny lock. A small key would fit it.</p></div>`);
+    openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c4, 1160, 560, 640)}">${cuTarget('ev_cabinet', 'The top drawer and its lock', [30, 10, 45, 42])}<div style="position:absolute;left:36.5%;top:27%;width:3.6%;aspect-ratio:1;pointer-events:none">${KEYHOLE}</div><p class="otitle">Filing cabinet</p></div><p class="ofb" id="cabFb">The top drawer has a tiny lock. A small key would fit it.</p></div>`);
     wireCu({ev_cabinet:() => { $('cabFb').textContent = S.got.includes('skey') ? 'A tiny lock. Hold the small key: tap it in the strip below, then tap the lock.' : 'A tiny lock on the top drawer. It wants a small key.'; }});
     return;
   }
   if (S.cabOut){ /* looked into (asset 15b, MOTH-80): the ruler lies along the front until it is taken; a tap on the rim shuts it */
     const ruler = !S.got.includes('ruler') ? `<button id="takeRuler" aria-label="A ruler" style="position:absolute;left:21%;top:58%;width:54%;height:20%;background:transparent;border:0;padding:0;cursor:pointer;pointer-events:auto;filter:drop-shadow(3px 4px 4px rgba(0,0,0,.4))"><img src="../art/eval/c5h/item-ruler.png?v=${BUILD}" alt="" style="width:100%;display:block;transform:rotate(-2.5deg);pointer-events:none"></button>` : '';
-    openCloseup(`<div class="card shelf"><div class="shelfpic" style="background-image:url(../art/eval/c5h/closeup-cab.jpg?v=${BUILD})">${cuTarget('ev_cabdrawer', 'The open drawer', [0, 0, 100, 100])}${ruler}<p class="otitle">The top drawer</p></div><p class="ofb" id="cabFb">${S.got.includes('ruler') ? 'Open. Empty now. Tap the drawer to shut it.' : 'Open. A ruler inside.'}</p></div>`);
-    const b = $('takeRuler'); if (b) b.onclick = e => { e.stopPropagation(); if (!S.got.includes('ruler')){ S.got.push('ruler'); save(); } sfx('pickup'); closeCloseup(); render(); say('A ruler, thirty centimetres, with a bite out of one corner. It goes in the strip below.'); };
-    wireCu({ev_cabdrawer:() => { toggleDrawer('cab'); openCabinet(); }});
+    openCloseup(`<div class="card shelf"><div class="shelfpic" style="background-image:url(../art/eval/c5h/closeup-cab.jpg?v=${BUILD})">${cuTarget('ev_tray', 'The drawer’s tray', [0, 0, 100, 100])}${ruler}<p class="otitle">The top drawer</p></div><p class="ofb" id="cabFb">${taken('ruler') ? 'Open. Empty now.' : 'Open. A ruler inside.'}</p><div class="row" style="padding:0 calc(var(--u)*1.5) calc(var(--u)*1)"><button class="ob" id="shutCab" style="min-height:40px;padding:calc(var(--u)*.6) calc(var(--u)*2.2);font-size:calc(var(--u)*1.9)">Shut the drawer</button></div></div>`);
+    const b = $('takeRuler'); if (b) b.onclick = e => { e.stopPropagation(); take('ruler'); sfx('pickup'); closeCloseup(); render(); say('A ruler, thirty centimetres, with a bite out of one corner. It goes in the strip below.'); };
+    $('shutCab').onclick = e => { e.stopPropagation(); toggleDrawer('cab'); openCabinet(); };
+    wireCu({ev_tray:() => { $('cabFb').textContent = taken('ruler') ? 'A metal tray with nothing in it now.' : 'A metal tray, and a ruler lying along the front.'; }});
     return;
   }
   openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c4, 1290, 580, 400)}">${cuTarget('ev_cabdrawer', 'The top drawer', [18, 8, 68, 70])}<div style="position:absolute;left:22.5%;top:12%;width:58.25%;height:56.9%;pointer-events:none">${drawerHTML('cab', 'cu-cab')}</div><p class="otitle">The top drawer</p></div><p class="ofb" id="cabFb">Shut. Tap it to open it.</p></div>`);
   wireCu({ev_cabdrawer:() => { toggleDrawer('cab'); setTimeout(openCabinet, 420); }});
 }
-function unlockCabinet(){
-  drop('skey'); S.cabOut = true; save(); render(); sfx('pickup');
-  animate({anim:'slideOpen', layer:'cabdrawer'}); setTimeout(() => animate({anim:'sniff', layer:'hamster'}), 900); /* the reward moment, as two single movements until backlog 20 */
-  setTimeout(() => { S.cabUnlocked = true; save(); render(); }, 1300); /* then the stage's own drawer takes over, which can shut as well as open */
+function unlockCabinet(){ /* the stage's drawer (front and keyhole as one) takes over the moment the key turns, then slides out; the engine's layer is never shown again (MOTH-84) */
+  drop('skey'); S.cabUnlocked = true; S.cabOut = false; save(); render(); sfx('pickup');
+  setTimeout(() => toggleDrawer('cab'), 220); setTimeout(() => animate({anim:'sniff', layer:'hamster'}), 1000); /* the reward moment, as two single movements until backlog 20 */
   say('The small key turns. Click, and the top drawer slides out. Nutmeg sits up to watch.');
 }
 function openDeskLock(){
@@ -313,17 +317,28 @@ function openDeskLock(){
 function openInsideDesk(){ /* Mr Hollis's drawer (MOTH-61, MOTH-65, MOTH-80): out, it is looked into from above (asset 15) with the key in the empty middle; shut, the front zoomed from the wall; a tap on it shuts or opens it */
   if (S.deskOut){
     const key = !taken('dkey') ? `<button id="takeKey" aria-label="The classroom key" style="position:absolute;left:30%;top:20%;width:30%;height:54%;background:transparent;border:0;padding:0;cursor:pointer;pointer-events:auto;filter:drop-shadow(3px 4px 4px rgba(0,0,0,.4))"><img src="../art/eval/c5h/item-dkey.png?v=${BUILD}" alt="" style="width:100%;display:block;transform:rotate(-22deg);pointer-events:none"></button>` : '';
-    openCloseup(`<div class="card shelf"><div class="shelfpic" style="background-image:url(../art/eval/c5h/closeup-desk.jpg?v=${BUILD})">${cuTarget('ev_tdrawer', 'The open drawer', [0, 0, 100, 100])}${key}<p class="otitle">Mr Hollis’s drawer</p></div><p class="ofb" id="deskFb2">${taken('dkey') ? 'Paper clips, a whistle, and the space where the key was. Tap the drawer to shut it.' : 'Paper clips, a whistle, and the classroom key on its 5H tag.'}</p></div>`);
+    openCloseup(`<div class="card shelf"><div class="shelfpic" style="background-image:url(../art/eval/c5h/closeup-desk.jpg?v=${BUILD})">${cuTarget('ev_dtray', 'The drawer’s tray', [0, 0, 100, 100])}${cuTarget('ev_clips', 'Paper clips', [6, 20, 20, 60])}${cuTarget('ev_whistle', 'A whistle', [72, 18, 24, 64])}${key}<p class="otitle">Mr Hollis’s drawer</p></div><p class="ofb" id="deskFb2">${taken('dkey') ? 'Paper clips, a whistle, and the space where the key was.' : 'Paper clips, a whistle, and the classroom key on its 5H tag.'}</p><div class="row" style="padding:0 calc(var(--u)*1.5) calc(var(--u)*1)"><button class="ob" id="shutDesk" style="min-height:40px;padding:calc(var(--u)*.6) calc(var(--u)*2.2);font-size:calc(var(--u)*1.9)">Shut the drawer</button></div></div>`);
     const b = $('takeKey'); if (b) b.onclick = e => { e.stopPropagation(); take('dkey'); sfx('pickup'); closeCloseup(); render(); say('The classroom key, on its 5H tag. It goes in the strip below. Now: lock up.'); };
-    wireCu({ev_tdrawer:() => { toggleDrawer('desk'); openInsideDesk(); }});
+    $('shutDesk').onclick = e => { e.stopPropagation(); toggleDrawer('desk'); openInsideDesk(); };
+    wireCu({ev_clips:() => { $('deskFb2').textContent = 'Paper clips. Not what Mary is after.'; }, ev_whistle:() => { $('deskFb2').textContent = 'Mr Hollis’s whistle, for the playground. Leave it.'; }, ev_dtray:() => { $('deskFb2').textContent = taken('dkey') ? 'Bare wood where the key was.' : 'The key is right there.'; }});
     return;
   }
   openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c1, 1480, 600, 320)}">${cuTarget('ev_tdrawer', 'The drawer', [16, 28, 68, 56])}<div style="position:absolute;left:21.6%;top:35%;width:57.2%;height:41.1%;pointer-events:none">${drawerHTML('desk', 'cu-desk')}</div><p class="otitle">Mr Hollis’s drawer</p></div><p class="ofb" id="deskFb2">Shut. Tap it to open it.</p></div>`);
   wireCu({ev_tdrawer:() => { toggleDrawer('desk'); setTimeout(openInsideDesk, 420); }});
 }
+/* The key turn (MOTH-90): the keyhole on the lock plate is at (40, 57). The drag's tab is the key's bow, anchored by the engine at
+   translate(-50%,-18%), so the path's centre sits 32% of the tab's height above the keyhole; the path is a circle round it, and
+   while the card is open the stage turns the bow's picture to face the way it has gone, so the bow turns in the lock. */
+const TURN = (() => { const w = 13, h = w*16/9, cx = 40, cy = 57 - 0.32*h, rx = 2.2, ry = rx*16/9, path = [];
+  for (let k = 0; k <= 16; k++){ const a = -Math.PI/2 + k/16*2*Math.PI; path.push([+(cx + rx*Math.cos(a)).toFixed(2), +(cy + ry*Math.sin(a)).toFixed(2)]); }
+  return {w, cx, cy, path}; })();
+function spinBow(){ const t = $('dtab'); if (!t || $('closeup').hidden) return; const x = parseFloat(t.style.left), y = parseFloat(t.style.top);
+  if (!isNaN(x)){ const a = Math.atan2((y - TURN.cy)*16/9, x - TURN.cx)*180/Math.PI + 90; const im = t.querySelector('img'); if (im) im.style.transform = `rotate(${a}deg)`; }
+  requestAnimationFrame(spinBow); }
 function lockUp(){ /* the drag: turn the key in the door; then the door swings, Mary steps out, and the end card */
-  openDrag({pic:'../art/eval/c5h/closeup-lock.jpg', title:'Turn the key', tab:'../art/eval/c5h/item-dkey.png', tabW:20, tabRatio:'987/937', path:[[35, 52], [41, 55], [44, 62], [41, 69], [35, 72]], /* round the keyhole at (40, 57) on the lock plate (asset 18, MOTH-80) */ label:'Put the key in the lock and turn it, all the way round.', missLabel:'Take hold of the key, by the knob.', moreLabel:'Keep turning, all the way.', doneLabel:'Click, clunk.', lineColour:'rgba(0,0,0,0)', lineLight:'rgba(0,0,0,0)', lineWidth:1,
+  openDrag({pic:'../art/eval/c5h/closeup-lock.jpg', title:'Turn the key', tab:'../art/eval/c5h/item-dkey-bow.png', tabW:TURN.w, tabRatio:'1/1', path:TURN.path, /* the key's bow sits in the keyhole and is dragged round it; the stage turns the picture to match (MOTH-90) */ label:'Put the key in the lock and turn it, all the way round.', missLabel:'Take hold of the key, by the knob.', moreLabel:'Keep turning, all the way.', doneLabel:'Click, clunk.', lineColour:'rgba(0,0,0,0)', lineLight:'rgba(0,0,0,0)', lineWidth:1,
     done:() => { drop('dkey'); S.locked = true; save(); render(); sfx('tick'); doorSwing(); say('The key turns. Mary slips out into the corridor, pulls the door to, and locks 5H behind her for the summer.'); setTimeout(ending, 2200); }});
+  requestAnimationFrame(spinBow);
 }
 function ending(){
   S.done = true; save();
@@ -331,7 +346,7 @@ function ending(){
 }
 /* ---------- using things ---------- */
 const USES = {
-  'skey>ev_cabinet': unlockCabinet,
+  'skey>ev_cabinet': unlockCabinet, 'skey>ev_cabdrawer': unlockCabinet, /* the drawer is the lock's (MOTH-92) */
   'ruler>ev_beans': () => placeRuler(0), 'ruler>ev_pot1': () => placeRuler(0), 'ruler>ev_pot2': () => placeRuler(1), 'ruler>ev_pot3': () => placeRuler(2), 'ruler>ev_pot4': () => placeRuler(3),
   'half1>item:half2': () => joinNote(), 'half2>item:half1': () => joinNote(),
   'dkey>ev_door': () => { if (S.done){ say('Locked already. Holidays!'); return; } lockUp(); }
@@ -356,7 +371,7 @@ function act(id){
     case 'ev_cabinet': openCabinet(); return;
     case 'ev_cabdrawer': /* in the room (MOTH-54, MOTH-61): locked, the cabinet close up; shut, a tap slides it open; open, a tap zooms into the drawer, where it can be shut again */
       if (!S.cabUnlocked){ openCabinet(); return; }
-      if (!S.cabOut){ toggleDrawer('cab', S.got.includes('ruler') ? 'The top drawer slides open. Empty now.' : 'The top drawer slides open.'); return; }
+      if (!S.cabOut){ toggleDrawer('cab', taken('ruler') ? 'The top drawer slides open. Empty now.' : 'The top drawer slides open.'); return; }
       openCabinet(); return;
     case 'ev_tdesk': say(S.deskOpen ? (S.deskOut ? 'Mr Hollis’s desk, its drawer open.' : 'Mr Hollis’s desk. The drawer is unlocked now.') : 'Mr Hollis’s desk: his mug, his books, an apple. The drawer has a little lock with four number dials.'); return;
     case 'ev_tdrawer': /* the drawer is the only way to the dials (MOTH-61); unlocked, it opens on a tap and zooms on the next */
@@ -385,7 +400,7 @@ function act(id){
 const HINTS = [
   {goal:() => S.got.includes('ev_env'), target:'ev_envelope', tips:['Something’s waiting on your desk.', 'Turn to the timetable wall. Your desk.', 'Pick up the envelope and read it.']},
   {trail:'a', goal:() => taken('skey'), target:'ev_pegs', tips:['Coats keep all sorts in their pockets.', 'The raincoat on the pegs, by the door.', 'Tap the raincoat: a key falls out of its pocket. Pick it up off the floor.']},
-  {trail:'a', goal:() => S.got.includes('ruler'), target:'ev_cabinet', tips:['That little key fits something small and locked.', 'The filing cabinet under Nutmeg has a tiny lock.', 'Hold the small key and tap the filing cabinet. Tap the open drawer to look inside, and take the ruler.']},
+  {trail:'a', goal:() => taken('ruler'), target:'ev_cabinet', tips:['That little key fits something small and locked.', 'The filing cabinet under Nutmeg has a tiny lock.', 'Hold the small key and tap the filing cabinet. Tap the open drawer to look inside, and take the ruler.']},
   {trail:'a', goal:() => !!S.measured, target:'ev_beans', tips:['Mr H wants heights. What could you measure with?', 'The ruler, against the bean plants on the sill.', 'Hold the ruler and tap the bean pots: 2, 4, 6 and 9 cm.']},
   {trail:'b', goal:() => S.got.includes('half1') || S.got.includes('wnote'), target:'ev_bin', tips:['Somebody threw something away.', 'The recycling bin by the door. Look right down into it.', 'Tap the bin, then push the rubbish aside: half a note is at the bottom.']},
   {trail:'b', goal:() => S.got.includes('half2') || S.got.includes('wnote'), target:'ev_lost', tips:['Half a note is only half a clue. Where does the rest of a thing end up?', 'The lost property box, under the pegs. Try the hat.', 'Tap the box, then the blue hat: the corner is tucked in its band.']},
@@ -401,7 +416,7 @@ function rows(){
   const out = [];
   if (!S.got.includes('ev_env')){ out.push([0, 'Something on my desk?', 'not yet', false]); return out; }
   const a = !!S.measured, b = S.got.includes('wnote'), c = S.deskOpen;
-  out.push([a ? -1 : first('a'), 'The beans’ heights', a ? '✓ measured' : known().length ? `${known().length} of 4 measured` : S.got.includes('ruler') ? 'I have a ruler' : taken('skey') ? 'a small key' : 'not started', a]);
+  out.push([a ? -1 : first('a'), 'The beans’ heights', a ? '✓ measured' : known().length ? `${known().length} of 4 measured` : taken('ruler') ? 'I have a ruler' : taken('skey') ? 'a small key' : 'not started', a]);
   out.push([b ? -1 : first('b'), 'The order he watered them', b ? '✓ the note' : (S.got.includes('half1') || S.got.includes('half2')) ? 'half a note' : 'not started', b]);
   out.push([c ? -1 : first('c'), 'The code on his drawer', c ? '✓ open' : (S.seen.thu ? 'Thursday’s lessons' : S.seen.day ? 'it’s Thursday' : 'four numbers'), c]);
   if (c) out.push([S.done ? -1 : S.got.includes('dkey') ? 11 : 10, 'Lock up 5H', S.done ? '✓ locked' : S.got.includes('dkey') ? 'I have the key' : 'the key is in the drawer', S.done]);
@@ -409,7 +424,7 @@ function rows(){
 }
 function noticed(){
   const n = [];
-  if (S.measured && !S.deskOpen) n.push('The beans: ' + POTS.map(p => `${LESSON[p[0]][2]} ${p[1]} cm`).join(', ') + '.');
+  if (S.rulerAt != null && !S.deskOpen) n.push('The ruler is by the beans: tap The beans above to measure them again.'); /* no heights written down for the player (MOTH-87) */
   if (S.seen.wnote && !S.deskOpen) n.push('Water one pot per lesson, in today’s lesson order.');
   if (S.seen.day && !S.deskOpen) n.push('Today is Thursday.');
   if (S.seen.thu && !S.deskOpen) n.push('Thursday: ' + WEEK[TODAY].map(k => LESSON[k][2]).join(', ') + '.');
@@ -430,7 +445,7 @@ return {
   intro:'<b>Lock-up duty.</b> Mr Hollis has left Mary to lock up 5H, and the key is in his desk behind a code. There is a note on her desk.',
   start:{room:'classroom', view:0},
   fresh:() => ({seen:{}, clues:[], taken:{}, keyDown:false, binMoved:[], binDone:false, popped:false, measured:0, heights:[], rulerAt:null, cabUnlocked:false, cabOut:false, dials:[0,0,0,0], deskOpen:false, deskOut:false, locked:false}),
-  extra:{classroom:['closeup-bin.jpg', 'closeup-hat.jpg', 'closeup-pots.jpg', 'closeup-desk.jpg', 'closeup-cab.jpg', 'closeup-note.jpg', 'closeup-lock.jpg', 'item-skey.png', 'item-ruler.png', 'item-half1.png', 'item-half2.png', 'item-wnote.jpg', 'item-dkey.png', ...RUBBISH.map(r => r.src)].map(f => '../art/eval/c5h/' + f)}, /* the close-ups' pictures load with the room, so no card opens half drawn (MOTH-76) */
+  extra:{classroom:['closeup-bin.jpg', 'closeup-hat.jpg', 'closeup-pots.jpg', 'closeup-desk.jpg', 'closeup-cab.jpg', 'closeup-note.jpg', 'closeup-lock.jpg', 'item-skey.png', 'item-ruler.png', 'item-half1.png', 'item-half2.png', 'item-wnote.jpg', 'item-dkey.png', 'item-dkey-bow.png', ...RUBBISH.map(r => r.src)].map(f => '../art/eval/c5h/' + f).concat(['../art/school/h1.jpg'])}, /* the close-ups' pictures load with the room, so no card opens half drawn (MOTH-76) */
   rooms:ROOMS, walls:WALLS, doors:DOORS, hots:HOTS, layers:LAYERS, notes:NOTES, items:ITEMS, hints:HINTS, uses:USES,
   overlays:{c4:() => S.cabUnlocked ? wrap(wallTimetable(), wallDrawer('cab')) : wrap(wallTimetable(), wallKeyhole()), c1:() => S.deskOpen ? wrap(wallBoard(), wallDrawer('desk')) : wrap(wallBoard()), c2:wallLabels, c3:() => wrap(...[S.locked ? wallDoorway() : null].filter(Boolean))},
   act, miss, sparkle, rows, noticed, clues, speaker, helper:() => 'the moth', child:'mary'
