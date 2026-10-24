@@ -1,0 +1,384 @@
+{
+ "name": "evalroom sample pack (Gate E): the bin from above with its five pieces of rubbish, the inside of the hat, the small key. Level file levels/LEVEL-evalroom.md, Gates A to D signed 22 to 24 Oct 2026.",
+ "manifest": "evals/images/runs/evalroom-samples.json",
+ "ran_at": "2026-10-24T00:56:52Z",
+ "total_cost_usd": 0.0764,
+ "results": [
+  {
+   "id": "bin-above",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/c5h-bin.jpg"
+   ],
+   "params": {},
+   "note": "asset 12, the bin from above; the five rubbish pieces are laid on it by the game",
+   "seconds": 13.5,
+   "cost_usd": 0.009375,
+   "usage": {
+    "prompt_tokens": 831,
+    "completion_tokens": 120,
+    "total_tokens": 951,
+    "cost": 0.009375,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.009375,
+     "upstream_inference_prompt_cost": 0.005775,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "bin-above.png",
+     "bytes": 1869900,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "rub-page",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/c5h-style.jpg"
+   ],
+   "params": {},
+   "note": "asset 13a",
+   "seconds": 12.7,
+   "cost_usd": 0.009706,
+   "usage": {
+    "prompt_tokens": 554,
+    "completion_tokens": 196,
+    "total_tokens": 750,
+    "cost": 0.009706,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.009706,
+     "upstream_inference_prompt_cost": 0.003826,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "rub-page.png",
+     "bytes": 1121233,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "rub-carton",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/c5h-style.jpg"
+   ],
+   "params": {},
+   "note": "asset 13b",
+   "seconds": 16.0,
+   "cost_usd": 0.009716,
+   "usage": {
+    "prompt_tokens": 556,
+    "completion_tokens": 196,
+    "total_tokens": 752,
+    "cost": 0.009716,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.009716,
+     "upstream_inference_prompt_cost": 0.003836,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "rub-carton.png",
+     "bytes": 1070450,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "rub-crust",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/c5h-style.jpg"
+   ],
+   "params": {},
+   "note": "asset 13c",
+   "seconds": 11.7,
+   "cost_usd": 0.009656,
+   "usage": {
+    "prompt_tokens": 544,
+    "completion_tokens": 196,
+    "total_tokens": 740,
+    "cost": 0.009656,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.009656,
+     "upstream_inference_prompt_cost": 0.003776,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "rub-crust.png",
+     "bytes": 1122252,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "rub-ball",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/c5h-style.jpg"
+   ],
+   "params": {},
+   "note": "asset 13d",
+   "seconds": 13.5,
+   "cost_usd": 0.009641,
+   "usage": {
+    "prompt_tokens": 541,
+    "completion_tokens": 196,
+    "total_tokens": 737,
+    "cost": 0.009641,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.009641,
+     "upstream_inference_prompt_cost": 0.003761,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "rub-ball.png",
+     "bytes": 1177295,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "rub-core",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/c5h-style.jpg"
+   ],
+   "params": {},
+   "note": "asset 13e",
+   "seconds": 11.8,
+   "cost_usd": 0.009716,
+   "usage": {
+    "prompt_tokens": 556,
+    "completion_tokens": 196,
+    "total_tokens": 752,
+    "cost": 0.009716,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.009716,
+     "upstream_inference_prompt_cost": 0.003836,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "rub-core.png",
+     "bytes": 1070575,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "hat-inside",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/c5h-cap.jpg"
+   ],
+   "params": {},
+   "note": "asset 14, the inside of the hat; the torn corner is drawn by the game under the band",
+   "seconds": 13.5,
+   "cost_usd": 0.00888,
+   "usage": {
+    "prompt_tokens": 768,
+    "completion_tokens": 120,
+    "total_tokens": 888,
+    "cost": 0.00888,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.00888,
+     "upstream_inference_prompt_cost": 0.00528,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "hat-inside.png",
+     "bytes": 2083465,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "key-small",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/c5h-style.jpg"
+   ],
+   "params": {},
+   "note": "asset 1, the small key: the icon, the cut-out on the floor and the drag's tab",
+   "seconds": 11.8,
+   "cost_usd": 0.009751,
+   "usage": {
+    "prompt_tokens": 563,
+    "completion_tokens": 196,
+    "total_tokens": 759,
+    "cost": 0.009751,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.009751,
+     "upstream_inference_prompt_cost": 0.003871,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "key-small.png",
+     "bytes": 1047007,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}

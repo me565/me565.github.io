@@ -3,7 +3,7 @@
 *Outline only, written in claude.ai on 22 Oct 2026 from a discussion with the owner, recorded here the same day from `EVALROOM-HANDOVER.md` with the owner's two changes made in chat after the review (the lock-up duty premise and the falling key) and the review's findings listed under "Review against the repo". Nothing here is built yet. Do not build, generate art or change the engine until the owner signs Gate B, and then follow the gates as for any level. The stage stays `?stage=evalroom` (`next/landscape/stages/evalroom.js`); its current "one room, no puzzle" content is replaced by this design once it reaches the greybox.*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: Gate D signed 24 Oct 2026; next the sample pack for Gate E (the bin from above with its rubbish, the inside of the hat, the small key), about 32¢
+Current status: sample pack made and placed (build 2026-10-24a); Gate E waits on the owner's play
 Build id of the latest play link: 2026-10-22f (the first playable, with everything from the owner's three plays built in: MOTH-49 to 68)
 Latest play link: `?stage=evalroom`
 
@@ -240,15 +240,18 @@ Signed off: "sign off gate D" (owner, 24 Oct 2026, in chat; the four walls stay,
 
 ## 6a. Sample pack
 
+Made 24 Oct 2026 on the GitHub runner (`evals/images/runs/evalroom-samples.json`, run 40047407369), GPT Image 2.5 Sunburst, eight pictures, **$0.076 billed** against 32¢ estimated (Sunburst bills about 1¢ a picture at these sizes, not 4¢). Results in `evals/images/results/2026-10-24-evalroom-samples.results.json`. Keyed and placed in build 2026-10-24a.
+
 | Sample | What it is | Why this one | Result |
 |---|---|---|---|
-| Wall | none new | | |
-| Cut-out | | | |
-| Close-up | | | |
-| Voice ×2–3 | one hint, one story line, one wrong-try | | |
-| Track | none new (the classroom track) | | |
+| Wall | none new | the owner kept the walls at Gate D | — |
+| Close-up | the bin from above (`closeup-bin.jpg`) with its five rubbish cut-outs (`layer-rub-*.png`) | the hardest: a new angle, a picture other pictures must sit on, and the room's one search puzzle | Claude's sheet: every hard rule passes (nothing written, nothing extra, the bin empty as asked); the carton stands rather than lying squashed, fine in a bin. Owner: |
+| Close-up | the inside of the hat (`closeup-hat.jpg`) | the second new angle | passes; peak downwards as asked, band clear. Owner: |
+| Cut-out | the small key (`item-skey.png`): the strip icon, the floor, the tumble and the drag's tab | the one picture seen four ways | passes; two notches as asked. Owner: |
+| Voice ×2–3 | one hint, one story line, one wrong-try | — | not yet recorded: the voice is made at the batch, on the Gemini key |
+| Track | none new (the classroom track) | | — |
 
-Judged in the greybox, on the tablet, with the inventory strip and arrows in place.
+Judged in the live room, on the tablet, with the inventory strip and arrows in place.
 Prompt changes made before sign-off:
 
 ### Gate E — samples
@@ -286,7 +289,7 @@ Signed off:
 
 | Stage | Estimate | Actual | Re-dos (count) | Why |
 |---|---|---|---|---|
-| 6a samples | | | | |
+| 6a samples | 32¢ | 7.6¢ | 0 | Sunburst bills about 1¢ a picture, a quarter of the playbook's estimate |
 | 6b batch | ~30¢ | | | |
 | 7 polish | | | | |
 | Total | ~30¢ | | | |

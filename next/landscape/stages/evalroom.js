@@ -64,7 +64,7 @@ const LAYERS = {
     {src:'../art/eval/c5h/layer-lid.png', group:'lid', l:GEO2.lid.l, t:GEO2.lid.t, w:GEO2.lid.w, h:GEO2.lid.h, shadow:.4},
     {src:'../art/eval/c5h/layer-lost.png', group:'lost', l:CUT.lost.l, t:CUT.lost.t, w:CUT.lost.w, h:CUT.lost.h}, /* the shoe and hat, behind the box's front */
     {src:'../art/eval/c5h/layer-boxfront.png', l:CUT.boxfront.l, t:CUT.boxfront.t, w:CUT.boxfront.w, h:CUT.boxfront.h},
-    {src:'../art/greybox/tab-key.png', group:'fkey', l:61.3, t:78.6, w:4.4, h:3.58, shadow:.5, showWhen:() => S.keyDown && !taken('skey')}], /* stand-in: the small key where it landed */
+    {src:'../art/eval/c5h/item-skey.png', group:'fkey', l:61.3, t:78.6, w:4.4, h:4.45, shadow:.5, showWhen:() => S.keyDown && !taken('skey')}], /* stand-in: the small key where it landed */
   c2:[
     {src:'../art/eval/c5h/layer-pot1.png', group:'plant', l:GEO2.pot1.l, t:GEO2.pot1.t, w:GEO2.pot1.w, h:GEO2.pot1.h, shadow:.5, pin:.90, phase:0.7}, /* pin: the share of each cut-out, from the bottom, that is pot and soil and never moves (MOTH-48) */
     {src:'../art/eval/c5h/layer-pot2.png', group:'plant', l:GEO2.pot2.l, t:GEO2.pot2.t, w:GEO2.pot2.w, h:GEO2.pot2.h, shadow:.5, pin:.59, phase:1.4},
@@ -92,7 +92,7 @@ const NOTES = {
 };
 const ITEMS = {
   ev_env:{name:'note from Mr Hollis', note:'ev_env', icon:'<img src="../art/classroom/item-envelope.png" alt="">', spent:() => S.deskOpen},
-  skey:{name:'small key', icon:gicon('small KEY', '#9aa0a8')},
+  skey:{name:'small key', icon:'<img src="../art/eval/c5h/item-skey.png" alt="">'},
   ruler:{name:'ruler', icon:gicon('RULER', '#d9a622')},
   half1:{name:'left half of a note', icon:gicon('½ note', '#c8bfa8')},
   half2:{name:'right half of a note', icon:gicon('note ½', '#c8bfa8')},
@@ -155,7 +155,7 @@ function wallKeyhole(){ /* the lock on the top drawer, drawn on the wall as well
   const c = CUT.cabdrawer, d = document.createElement('div'); d.style.cssText = `position:absolute;left:${c.l + c.w*0.07}%;top:${c.t + c.h*0.38}%;width:${c.w*0.05}%;height:${c.h*0.11}%;pointer-events:none`; d.innerHTML = KEYHOLE; return d;
 }
 function keyTumble(){
-  const im = document.createElement('img'); im.src = '../art/greybox/tab-key.png?v=' + BUILD; im.alt = '';
+  const im = document.createElement('img'); im.src = '../art/eval/c5h/item-skey.png?v=' + BUILD; im.alt = '';
   const L = LAYERS.c3.find(x => x.group === 'fkey'); im.style.cssText = `position:absolute;left:${L.l}%;top:${L.t}%;width:${L.w}%;pointer-events:none;transform-origin:50% 50%;filter:drop-shadow(1px 2px 2px rgba(0,0,0,.35))`;
   $('hots').appendChild(im);
   const dx = (72.5 - L.l), dy = (49 - L.t); /* from the pocket, in scene percentages */
@@ -190,28 +190,27 @@ const paper = (id, text, [l, t, w], rot = -8) => `<button id="${id}" style="posi
 /* The bin, looked into from the top (owner, 22 Oct 2026; MOTH-52): a stand-in drawn by code until Gate D. Five bits of rubbish lie
    on top of each other; a tap shoves one aside (it slides to the rim and stays there), and the half note is under the last two.
    Moving the rubbish by dragging is backlog 27; a tap-to-shove stands in. */
-const RUBBISH = [ /* id, label, resting spot (l, t, w, rotation), where it goes when shoved, and the drawing */
-  {id:'r1', label:'a crumpled page', at:[36, 30, 22, -12], to:[8, 14, 22, 40], svg:'<svg viewBox="0 0 40 40"><path d="M8 20c-2-8 6-15 14-13s13 9 10 17-10 12-17 8-7-5-7-12z" fill="#f1ede2" stroke="#6a6355" stroke-width="1.5"/><path d="M14 16l8 4-5 7 9 2M12 26l10-3" fill="none" stroke="#9a9283" stroke-width="1"/></svg>'},
-  {id:'r2', label:'a juice carton', at:[52, 22, 16, 25], to:[74, 10, 16, 70], svg:'<svg viewBox="0 0 30 40"><rect x="4" y="6" width="22" height="30" rx="2" fill="#e67e3c" stroke="#5a3a22" stroke-width="1.5"/><path d="M4 12h22" stroke="#5a3a22" stroke-width="1.2"/><circle cx="15" cy="24" r="5" fill="#ffd97a" stroke="#5a3a22" stroke-width="1"/></svg>'},
-  {id:'r3', label:'a crust', at:[30, 52, 20, 8], to:[6, 58, 20, -30], svg:'<svg viewBox="0 0 40 24"><path d="M3 18c4-14 30-16 34-2 1 4-33 6-34 2z" fill="#c99a5b" stroke="#6a4a22" stroke-width="1.5"/><path d="M6 16c6-8 24-10 28-3" fill="none" stroke="#e8c48a" stroke-width="2"/></svg>'},
-  {id:'r4', label:'a ball of paper', at:[48, 44, 20, 0], to:[76, 56, 20, -50], svg:'<svg viewBox="0 0 40 40"><path d="M20 3c9-1 17 8 16 17s-8 17-17 16S3 28 4 19 11 4 20 3z" fill="#eae6da" stroke="#6a6355" stroke-width="1.5"/><path d="M10 14l9 6-4 8 10-2 3 7M22 9l-3 9" fill="none" stroke="#a39b8a" stroke-width="1"/></svg>'},
-  {id:'r5', label:'an apple core', at:[40, 36, 14, -30], to:[8, 36, 14, 20], svg:'<svg viewBox="0 0 24 36"><path d="M5 4c4 4 10 4 14 0-3 8-3 20 0 28-4-4-10-4-14 0 3-8 3-20 0-28z" fill="#f4e7c4" stroke="#6a4a22" stroke-width="1.5"/><path d="M12 2v6" stroke="#4a3a22" stroke-width="2"/></svg>'}
+const RUBBISH = [ /* id, label, resting spot (l, t, w, rotation) on the bin's floor, where it goes when shoved (up the inside wall), and the picture (Gate E samples, 24 Oct 2026) */
+  {id:'r1', label:'a crumpled page', at:[33, 30, 23, -12], to:[7, 12, 20, 28], src:'layer-rub-page.png'},
+  {id:'r2', label:'a juice carton', at:[52, 24, 14, 18], to:[78, 10, 13, 40], src:'layer-rub-carton.png'},
+  {id:'r3', label:'a crust', at:[28, 50, 19, 6], to:[5, 60, 17, -24], src:'layer-rub-crust.png'},
+  {id:'r4', label:'a ball of paper', at:[48, 44, 17, 0], to:[78, 56, 16, -30], src:'layer-rub-ball.png'},
+  {id:'r5', label:'an apple core', at:[40, 36, 16, -20], to:[8, 36, 14, 26], src:'layer-rub-core.png'}
 ];
 const UNDER = ['r4', 'r5']; /* the half note is under these two */
 function openBin(){
   const gone = S.binDone || S.got.includes('half1') || S.got.includes('wnote'), moved = S.binMoved || [];
   const noteShows = !gone && UNDER.every(id => moved.includes(id));
   const pieces = RUBBISH.map(r => { const m = moved.includes(r.id), [l, t, w, rot] = m ? r.to : r.at;
-    return `<button class="rub" data-r="${r.id}" aria-label="${r.label}${m ? ', pushed aside' : ''}" style="position:absolute;left:${l}%;top:${t}%;width:${w}%;aspect-ratio:1;transform:rotate(${rot}deg);background:transparent;border:0;padding:0;cursor:pointer;transition:left .5s cubic-bezier(.3,.9,.4,1),top .5s cubic-bezier(.3,.9,.4,1),transform .5s;filter:drop-shadow(1px 2px 2px rgba(0,0,0,.4))">${r.svg}</button>`; }).join('');
-  openCloseup(`<div class="card shelf"><div class="shelfpic" style="background:radial-gradient(ellipse at 50% 50%, #3b4a3e 0%, #2a3630 70%, #1d2622 100%);border-radius:calc(var(--u)*.6)"><p class="otitle">Into the bin (stand-in)</p>
-    <svg viewBox="0 0 320 180" style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true"><rect x="2" y="2" width="316" height="176" rx="26" fill="none" stroke="#2f9a4a" stroke-width="14"/><rect x="2" y="2" width="316" height="176" rx="26" fill="none" stroke="#1f6d33" stroke-width="3"/></svg>
-    ${noteShows ? paper('takeHalf1', '½ note', [40, 38, 16], -14) : (!gone ? `<div id="binNote" style="position:absolute;left:40%;top:38%;width:16%;aspect-ratio:1.6;transform:rotate(-14deg);background:#fbf4e2;border:1px solid #6a5a44;opacity:${UNDER.some(id => moved.includes(id)) ? .9 : .35}"></div>` : '')}
+    return `<button class="rub" data-r="${r.id}" aria-label="${r.label}${m ? ', pushed aside' : ''}" style="position:absolute;left:${l}%;top:${t}%;width:${w}%;aspect-ratio:1;transform:rotate(${rot}deg);background:transparent;border:0;padding:0;cursor:pointer;transition:left .5s cubic-bezier(.3,.9,.4,1),top .5s cubic-bezier(.3,.9,.4,1),transform .5s;filter:drop-shadow(2px 4px 3px rgba(0,0,0,.45))"><img src="../art/eval/c5h/${r.src}?v=${BUILD}" alt="" style="width:100%;display:block;pointer-events:none"></button>`; }).join('');
+  openCloseup(`<div class="card shelf"><div class="shelfpic" style="background-image:url(../art/eval/c5h/closeup-bin.jpg?v=${BUILD})"><p class="otitle">Into the bin</p>
+    ${noteShows ? paper('takeHalf1', '½ note', [42, 44, 14], -14) : (!gone ? `<div id="binNote" style="position:absolute;left:42%;top:44%;width:14%;aspect-ratio:1.6;transform:rotate(-14deg);background:#fbf4e2;border:1px solid #6a5a44;opacity:${UNDER.some(id => moved.includes(id)) ? .9 : .35}"></div>` : '')}
     ${pieces}</div><p class="ofb" id="binFb">${gone ? 'Paper, a crust, a carton and an apple core. Nothing else now.' : noteShows ? 'There! Half a note, torn down the middle, in Mr Hollis’s writing.' : 'Looking down into the bin. Paper, a crust, a carton… Push things aside to see what is underneath.'}</p></div>`);
   document.querySelectorAll('#closeup .rub').forEach(b => b.onclick = e => { e.stopPropagation(); const id = b.dataset.r, r = RUBBISH.find(x => x.id === id); if (!S.binMoved) S.binMoved = [];
     const m = S.binMoved.includes(id); S.binMoved = m ? S.binMoved.filter(x => x !== id) : [...S.binMoved, id]; save(); sfx('paper');
     const [l, t, w, rot] = m ? r.at : r.to; b.style.left = l + '%'; b.style.top = t + '%'; b.style.transform = `rotate(${rot}deg)`;
     const shows = !gone && UNDER.every(x => S.binMoved.includes(x)); const n = $('binNote'); if (n) n.style.opacity = UNDER.some(x => S.binMoved.includes(x)) ? .9 : .35;
-    if (shows && !$('takeHalf1')){ const n = $('binNote'); if (n) n.remove(); const pic = document.querySelector('#closeup .shelfpic'); pic.insertAdjacentHTML('beforeend', paper('takeHalf1', '½ note', [40, 38, 16], -14)); wireHalf1(); $('binFb').textContent = 'There! Half a note, torn down the middle, in Mr Hollis’s writing.'; }
+    if (shows && !$('takeHalf1')){ const n = $('binNote'); if (n) n.remove(); const pic = document.querySelector('#closeup .shelfpic'); pic.insertAdjacentHTML('beforeend', paper('takeHalf1', '½ note', [42, 44, 14], -14)); wireHalf1(); $('binFb').textContent = 'There! Half a note, torn down the middle, in Mr Hollis’s writing.'; }
     else $('binFb').textContent = m ? 'Back it goes.' : UNDER.some(x => S.binMoved.includes(x)) ? 'Pushed aside. Something pale underneath…' : 'Pushed aside.'; });
   wireHalf1();
 }
@@ -225,9 +224,8 @@ function openBox(){ /* the lost property box, close up, from the wall; the hat i
    tucked under the band once the box has been bumped. */
 function openHat(){
   const gone = S.got.includes('half2') || S.got.includes('wnote');
-  openCloseup(`<div class="card shelf"><div class="shelfpic" style="background:#cdbf9e;border-radius:calc(var(--u)*.6)"><p class="otitle">Inside the hat (stand-in)</p>
-    <svg viewBox="0 0 320 180" style="position:absolute;inset:0;width:100%;height:100%" aria-label="The blue cap seen from inside: its band runs round the edge"><ellipse cx="160" cy="92" rx="118" ry="78" fill="#2a63b8" stroke="#1b3f78" stroke-width="3"/><ellipse cx="160" cy="92" rx="98" ry="62" fill="#3a78d0"/><path d="M160 30v124M62 92h196M90 46l140 92M230 46L90 138" stroke="#2a63b8" stroke-width="2"/><ellipse cx="160" cy="92" rx="98" ry="62" fill="none" stroke="#e8e3d2" stroke-width="12"/><ellipse cx="160" cy="92" rx="98" ry="62" fill="none" stroke="#bdb6a3" stroke-width="1.5"/><ellipse cx="160" cy="92" rx="86" ry="51" fill="none" stroke="#bdb6a3" stroke-width="1.5"/><circle cx="160" cy="92" r="6" fill="#1b3f78"/></svg>
-    ${S.popped && !gone ? paper('takeHalf2', 'note ½', [60, 58, 13], 24) : ''}</div><p class="ofb">${gone ? 'The inside of the cap: a sweatband and a name tape, worn blank.' : S.popped ? 'Tucked under the band: a torn corner of paper.' : 'The inside of the cap. The band is tight all the way round.'}</p></div>`);
+  openCloseup(`<div class="card shelf"><div class="shelfpic" style="background-image:url(../art/eval/c5h/closeup-hat.jpg?v=${BUILD})"><p class="otitle">Inside the hat</p>
+    ${S.popped && !gone ? paper('takeHalf2', 'note ½', [58, 50, 11], 28) : ''}</div><p class="ofb">${gone ? 'The inside of the cap: a sweatband and a name tape, worn blank.' : S.popped ? 'Tucked under the band: a torn corner of paper.' : 'The inside of the cap. The band is tight all the way round.'}</p></div>`);
   const b = $('takeHalf2'); if (b) b.onclick = e => { e.stopPropagation(); S.got.push('half2'); save(); sfx('pickup'); closeCloseup(); render(); say('The other half of the note, tucked in the hat’s band. Torn, taped once already, and torn again. It goes in the strip below.'); };
 }
 function openBoard(again){
