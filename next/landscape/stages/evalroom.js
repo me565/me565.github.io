@@ -6,8 +6,9 @@
    after the coat swings. Open with ?stage=evalroom. Nothing here is part of a child's story. */
 'use strict';
 registerStage('evalroom', (function(){
-const GEO2 = {"pots": {"l": 31.0, "t": 13.15, "w": 38.0, "h": 39.65}, "coat": {"l": 66.71, "t": 27.5, "w": 13.57, "h": 34.0}, "lid": {"l": 18.95, "t": 49.82, "w": 14.5, "h": 4.98}, "doors": {"l": 12.39, "t": 12.5, "w": 16.62, "h": 69.5}, "pot1": {"l": 32.9, "t": 41.47, "w": 6.2, "h": 11.33}, "pot2": {"l": 41.9, "t": 35.45, "w": 6.2, "h": 17.35}, "pot3": {"l": 50.9, "t": 27.43, "w": 6.2, "h": 25.37}, "pot4": {"l": 59.9, "t": 14.27, "w": 6.2, "h": 38.53}};
-const GEO = {"hamster": {"l": 76.1, "t": 43.0, "w": 3.03, "h": 7.5}, "envelope": {"l": 47.96, "t": 52.0, "w": 2.47, "h": 2.8}, "backpack": {"l": 56.25, "t": 70.0, "w": 7.49, "h": 16.0}};
+const GEO2 = {"pots": {"l": 31.0, "t": 13.15, "w": 38.0, "h": 39.65}, "coat": {"l": 66.71, "t": 27.5, "w": 13.57, "h": 34.0}, "lid": {"l": 18.95, "t": 49.82, "w": 14.5, "h": 4.98}, "doors": {"l": 11.2, "t": 12.6, "w": 19.6, "h": 69.97}, "pot1": {"l": 32.9, "t": 41.47, "w": 6.2, "h": 11.33}, "pot2": {"l": 41.9, "t": 35.45, "w": 6.2, "h": 17.35}, "pot3": {"l": 50.9, "t": 27.43, "w": 6.2, "h": 25.37}, "pot4": {"l": 59.9, "t": 14.27, "w": 6.2, "h": 38.53}};
+/* the doors cut-out was resampled to 751×1508 on 24 Oct 2026 so it spans the whole carcass, 11.2% to 30.8% of the wall, with no gap at either side (MOTH-67) */
+const GEO = {"hamster": {"l": 76.1, "t": 43.0, "w": 3.03, "h": 7.5}, "envelope": {"l": 47.1, "t": 51.4, "w": 4.2, "h": 4.76}, "backpack": {"l": 56.25, "t": 70.0, "w": 7.49, "h": 16.0}};
 /* lifted from the walls (crops, 22 Oct 2026): the desk drawer's front, the cabinet's top drawer front, the door leaf, the box front and the shoe and hat */
 const CUT = {tdrawer:{l:80.68, t:61.39, w:9.53, h:6.85}, cabdrawer:{l:71.88, t:56.2, w:12.14, h:11.85}, door:{l:41.15, t:12.59, w:18.12, h:63.89}, boxfront:{l:69.17, t:64.35, w:14.95, h:14.35}, lost:{l:70.42, t:58.89, w:11.98, h:8.15}};
 const ROOMS = { classroom:{name:'Classroom 5H', into:'the classroom', views:['c4','c1','c3','c2'] /* turning right: timetable (north), whiteboard (east), door (south), window (west); the room file's compass, not its file order */} };
@@ -86,7 +87,7 @@ const LAYERS = {
 /* ---------- stand-in icons (the first playable: pictures come at Gate D) ---------- */
 const TORN_L = '<svg viewBox="0 0 60 44" style="width:100%;display:block;filter:drop-shadow(1px 2px 2px rgba(0,0,0,.35))"><path d="M3 4h44l-4 6 5 7-4 6 5 7-3 6 4 5-3 3H3z" fill="#fbf4e2" stroke="#8a7a5a" stroke-width="1.2"/><path d="M8 12h28M8 19h30M8 26h26M8 33h20" stroke="#8a93b8" stroke-width="1" opacity=".6"/></svg>';
 const TORN_R = '<svg viewBox="0 0 60 44" style="width:100%;display:block;filter:drop-shadow(1px 2px 2px rgba(0,0,0,.35))"><path d="M57 4H13l4 6-5 7 4 6-5 7 3 6-4 5 3 3h44z" fill="#fbf4e2" stroke="#8a7a5a" stroke-width="1.2"/><path d="M22 12h28M20 19h30M24 26h26M28 33h20" stroke="#8a93b8" stroke-width="1" opacity=".6"/></svg>';
-const torn = (id, side, [l, t, w], rot = -8, label) => `<button id="${id}" aria-label="${label}" style="position:absolute;left:${l}%;top:${t}%;width:${w}%;transform:rotate(${rot}deg);background:transparent;border:0;padding:0;cursor:pointer">${side === 'L' ? TORN_L : TORN_R}</button>`;
+const torn = (id, side, [l, t, w], rot = -8, label) => `<button id="${id}" aria-label="${label}" style="pointer-events:auto;position:absolute;left:${l}%;top:${t}%;width:${w}%;transform:rotate(${rot}deg);background:transparent;border:0;padding:0;cursor:pointer">${side === 'L' ? TORN_L : TORN_R}</button>`;
 const gicon = (t, bg) => `<span style="display:grid;place-items:center;width:80%;height:80%;margin:10%;background:${bg || '#8a8a94'};border:2px solid #2a2a33;border-radius:12%;color:#fff;font-weight:700;font-size:calc(var(--u)*1.7);text-align:center;line-height:1.05">${t}</span>`;
 const NOTES = {
   ev_env:{hand:true, html:'<span class="head" style="font-size:1.25em">For Mary</span><span class="big">Last day! I’ve gone to the hall.</span><span style="font-size:1.18em;line-height:1.35">Will you lock up 5H for me, Mary? The classroom key is in my desk drawer. Its code is the beans’ heights, read in the order I asked you to water them.</span><span class="sign" style="font-size:1.15em">— Mr H.</span>'},
@@ -142,13 +143,13 @@ function doorSwing(){ /* the leaf swings open on its left hinge, in perspective,
   const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
   leaf.animate([{transform:'perspective(900px) rotateY(0deg)'}, {transform:LEAF_OPEN}], {duration:reduce ? 10 : 1100, easing:'cubic-bezier(.3,.7,.3,1)', fill:'forwards'});
 }
-/* Drawers open and shut (owner, 22 Oct 2026; MOTH-54). Once unlocked, a drawer is drawn by the stage: a dark gap and the front,
+/* Drawers open and shut (owner, 22 Oct 2026; MOTH-54). Once unlocked, a drawer is drawn by the stage: a dark gap (solid: the wall must never show through it, MOTH-78) and the front,
    which slides out and back with a short transition on each tap, in the room and in its close-up alike; what is inside shows only
    while it is out. The engine has slide-open only, so this stays in the stage until backlog 26. */
 const DRAWERS = {cab:{cut:CUT.cabdrawer, src:'layer-cabdrawer.png', out:() => S.cabOut, unlocked:() => S.cabUnlocked}, desk:{cut:CUT.tdrawer, src:'layer-tdrawer.png', out:() => S.deskOut, unlocked:() => S.deskOpen}};
 const OUT_T = 'translateY(50%) scale(1.1)', OUT_F = 'drop-shadow(0 4px 4px rgba(0,0,0,.35))';
 function drawerHTML(k, id, inside){ const D = DRAWERS[k], out = D.out();
-  return `<div style="position:absolute;left:3%;top:8%;width:94%;height:90%;background:rgba(30,22,18,.82);box-shadow:inset 0 0 calc(var(--u)*1.2) #000;pointer-events:none"></div>${inside || ''}<img id="${id}" src="../art/eval/c5h/${D.src}?v=${BUILD}" alt="" style="position:absolute;left:0;top:0;width:100%;pointer-events:none;transform-origin:50% 50%;transform:${out ? OUT_T : 'none'};filter:${out ? OUT_F : 'none'};transition:transform .45s cubic-bezier(.3,.9,.4,1),filter .45s">`; }
+  return `<div style="position:absolute;left:3%;top:8%;width:94%;height:90%;background:#140e0b;box-shadow:inset 0 0 calc(var(--u)*1.6) #000;pointer-events:none"></div>${inside || ''}<img id="${id}" src="../art/eval/c5h/${D.src}?v=${BUILD}" alt="" style="position:absolute;left:0;top:0;width:100%;pointer-events:none;transform-origin:50% 50%;transform:${out ? OUT_T : 'none'};filter:${out ? OUT_F : 'none'};transition:transform .45s cubic-bezier(.3,.9,.4,1),filter .45s">`; }
 function wallDrawer(k){ const c = DRAWERS[k].cut, d = document.createElement('div'); d.style.cssText = `position:absolute;left:${c.l}%;top:${c.t}%;width:${c.w}%;height:${c.h}%;pointer-events:none`; d.innerHTML = drawerHTML(k, 'ov-' + k); return d; }
 /* The key tumbles out of the coat pocket (MOTH-63): a stage overlay animates the fall from the pocket to the floor with two bounces,
    then the floor cut-out takes over at rest. The engine's fall-and-land movement is still on the backlog. */
@@ -185,7 +186,7 @@ const cuTarget = (id, label, [l, t, w, h]) => `<button class="cuhot" data-cu="${
 function wireCu(plain){ document.querySelectorAll('#closeup .cuhot').forEach(b => b.onclick = e => { e.stopPropagation(); const id = b.dataset.cu;
   if (S.held){ const item = S.held; S.held = null; if (USES[item + '>' + id] && !NO_CLOSE[id]) closeCloseup(); useItem(item, id, null); return; }
   if (plain && plain[id]) plain[id](); }); }
-const NO_CLOSE = {ev_beans:true}; /* measuring shows its result in the same close-up */
+const NO_CLOSE = {ev_beans:true, ev_pot1:true, ev_pot2:true, ev_pot3:true, ev_pot4:true}; /* measuring shows its result in the same close-up */
 /* USES keys for close-up-only targets: a held item on the shoe or the hat gets the friendly miss line */
 /* a found thing, as a stand-in until Gate D: a scrap of paper or a tag the player taps to take (finding is a close-up, MOTH-49) */
 const paper = (id, text, [l, t, w], rot = -8) => `<button id="${id}" style="position:absolute;left:${l}%;top:${t}%;width:${w}%;aspect-ratio:1.6;transform:rotate(${rot}deg);background:#fbf4e2;border:1px solid #6a5a44;border-radius:2px;box-shadow:1px 2px 3px rgba(0,0,0,.3);font-size:calc(var(--u)*1.6);color:#4a3b2a;font-family:Caprasimo,Georgia,serif;cursor:pointer">${text}</button>`;
@@ -219,20 +220,21 @@ function openBin(){
 function wireHalf1(){ const b = $('takeHalf1'); if (b) b.onclick = e => { e.stopPropagation(); S.binDone = true; S.got.push('half1'); save(); sfx('pickup'); closeCloseup(); render(); say('Half a note, torn down the middle, in Mr Hollis’s writing. It goes in the strip below.'); }; }
 function openBox(){ /* the lost property box, close up, from the wall; the hat is a target that opens its own close-up */
   const gone = S.got.includes('half2') || S.got.includes('wnote');
-  openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c3, 1230, 600)}"><p class="otitle">Lost property</p>${cuTarget('ev_hat', 'The blue hat', [50, 14, 24, 28])}${cuTarget('ev_shoe', 'The red shoe', [24, 8, 26, 30])}</div><p class="ofb">${gone ? 'A shoe, a hat, and a lunchbox that has been here since March.' : S.popped ? 'A red shoe and a blue hat. Have a look in the hat.' : 'A red shoe and a blue hat.'}</p></div>`);
+  openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c3, 1230, 600)}">${cuTarget('ev_hat', 'The blue hat', [50, 14, 24, 28])}${cuTarget('ev_shoe', 'The red shoe', [24, 8, 26, 30])}<p class="otitle">Lost property</p></div><p class="ofb">${gone ? 'A shoe, a hat, and a lunchbox that has been here since March.' : S.popped ? 'A red shoe and a blue hat. Have a look in the hat.' : 'A red shoe and a blue hat.'}</p></div>`);
   wireCu({ev_hat:openHat, ev_shoe:() => say('One red shoe, size small. Nobody has missed it.')});
 }
 /* Into the hat (owner, 22 Oct 2026; MOTH-53): a stand-in drawn by code until Gate D. The cap upturned, its band, and the torn corner
-   tucked under the band once the box has been bumped. */
+   tucked under the band once the box has been bumped. The scrap is clipped to the band's inner ellipse (BAND), so the band lies over it. */
+const BAND = {cx:49.5, cy:40, rx:20.3, ry:32.3}; /* the sweatband's inner edge on closeup-hat.jpg, as an ellipse: the scrap is clipped to it, so it reads as tucked under the band (MOTH-79); re-measure when the picture is remade */
 function openHat(){
   const gone = S.got.includes('half2') || S.got.includes('wnote');
   openCloseup(`<div class="card shelf"><div class="shelfpic" style="background-image:url(../art/eval/c5h/closeup-hat.jpg?v=${BUILD})"><p class="otitle">Inside the hat</p>
-    ${S.popped && !gone ? torn('takeHalf2', 'R', [57, 49, 11], 28, 'A torn corner of paper') : ''}</div><p class="ofb">${gone ? 'The inside of the cap: a sweatband and a name tape, worn blank.' : S.popped ? 'Tucked under the band: a torn corner of paper.' : 'The inside of the cap. The band is tight all the way round.'}</p></div>`);
+    ${S.popped && !gone ? `<div style="position:absolute;inset:0;clip-path:ellipse(${BAND.rx}% ${BAND.ry}% at ${BAND.cx}% ${BAND.cy}%);pointer-events:none">${torn('takeHalf2', 'R', [58.5, 50.5, 11], 30, 'A torn corner of paper')}</div>` : ''}</div><p class="ofb">${gone ? 'The inside of the cap: a sweatband and a name tape, worn blank.' : S.popped ? 'Tucked under the band: a torn corner of paper.' : 'The inside of the cap. The band is tight all the way round.'}</p></div>`);
   const b = $('takeHalf2'); if (b) b.onclick = e => { e.stopPropagation(); S.got.push('half2'); save(); sfx('pickup'); closeCloseup(); render(); say('The other half of the note, tucked in the hat’s band. Torn, taped once already, and torn again. It goes in the strip below.'); };
 }
 function openBoard(again){
   if (!again){ S.seen.day = Date.now(); save(); }
-  openCloseup(`<div class="card shelf"><div class="shelfpic" style="background:#f7f7f4;border-radius:calc(var(--u)*.6)"><p class="otitle">Whiteboard</p><p style="position:absolute;left:6%;top:24%;margin:0;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*4.2);color:#2f5f8a;transform:rotate(-1.5deg)">${DATE}</p></div><p class="ofb">Wiped clean for the holidays. Only today’s date is left, in Mr Hollis’s pen.</p></div>`);
+  openCloseup(`<div class="card shelf"><div class="shelfpic" style="background:#f7f7f4;border-radius:calc(var(--u)*.6)"><p style="position:absolute;left:6%;top:24%;margin:0;font-family:Caprasimo,Georgia,serif;font-size:calc(var(--u)*4.2);color:#2f5f8a;transform:rotate(-1.5deg)">${DATE}</p><p class="otitle">Whiteboard</p></div><p class="ofb">Wiped clean for the holidays. Only today’s date is left, in Mr Hollis’s pen.</p></div>`);
   if (!again) say(copyClue('board').trim());
 }
 function openTimetable(again){
@@ -241,29 +243,46 @@ function openTimetable(again){
   openCloseup(`<div class="card tt"><svg viewBox="0 0 322 190" aria-label="The class timetable: six lessons across the top, the days down the side, each day’s lessons in order"><rect width="322" height="190" rx="4" fill="#fffdf6"/><rect width="322" height="20" fill="#2f7c83"/><text x="161" y="14.5" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fffdf6" letter-spacing="1" font-family="${FONT}">5H TIMETABLE</text>${key}<g>${Object.keys(WEEK).map((d, r) => `<rect x="8" y="${54 + r*26}" width="312" height="26" fill="${r%2 ? '#eef3ee' : '#f7f9f3'}" stroke="#cfc8b4" stroke-width=".6"/>`).join('')}${ttRows(8, 54, 52, 26, 10, 18)}</g></svg></div>`);
   if (!again) say(copyClue('timetable').trim());
 }
-function potsSVG(measured){ /* stand-in for the pot close-up (Gate D asset 11): four pots on the sill, their labels, and the ruler against each once measured */
-  const base = 150, scale = 11;
-  const pots = POTS.map(([k, h], i) => { const x = 40 + i*70, top = base - h*scale;
-    return `<rect x="${x}" y="${base}" width="40" height="22" rx="3" fill="#c9733e" stroke="#2b2836"/><rect x="${x+8}" y="${base+6}" width="24" height="11" rx="2" fill="#f3e9d2" stroke="#2b2836" stroke-width=".6"/>${ic(k, x+15, base+7, 9)}<path d="M${x+20} ${base} V${top}" stroke="#4c9a3a" stroke-width="3" stroke-linecap="round"/><ellipse cx="${x+14}" cy="${top+4}" rx="6" ry="3.5" fill="#6cc04a" stroke="#2b2836" stroke-width=".6"/><ellipse cx="${x+26}" cy="${top+2}" rx="6" ry="3.5" fill="#6cc04a" stroke="#2b2836" stroke-width=".6"/>${measured ? `<rect x="${x+44}" y="${top}" width="7" height="${h*scale}" fill="#f3d26a" stroke="#2b2836" stroke-width=".6"/><text x="${x+47.5}" y="${top-4}" text-anchor="middle" font-size="9" font-weight="700" fill="#2b2836" font-family="${FONT}">${h} cm</text>` : ''}`; }).join('');
-  return `<svg viewBox="0 0 320 180" style="position:absolute;inset:0;width:100%;height:100%" aria-label="${measured ? 'The four bean plants measured: ' + POTS.map(p => p[1]).join(', ') + ' centimetres, left to right' : 'The four bean plants on the sill, each pot with a lesson picture on its label'}"><rect x="0" y="150" width="320" height="30" fill="#e6dcc3"/><rect x="0" y="150" width="320" height="4" fill="#cdbf9e"/>${pots}</svg>`;
+/* Measuring (MOTH-77): one ruler. Held and put against a plant, it stands beside that plant and reads its height; a tap on
+   another plant slides the same ruler there. The heights found so far stay written above their plants, and once all four are
+   known the clue is copied to the notebook. The ruler is an HTML strip over the SVG, so it can slide. Stand-in until Gate D asset 11. */
+const PX = i => 40 + i*70, BASE = 150, SCALE = 11; /* the pots in the 320×180 stand-in */
+const known = () => S.heights || [];
+function potsSVG(){ /* four pots on the sill, their labels, and the height written above each plant already measured */
+  const pots = POTS.map(([k, h], i) => { const x = PX(i), top = BASE - h*SCALE;
+    return `<rect x="${x}" y="${BASE}" width="40" height="22" rx="3" fill="#c9733e" stroke="#2b2836"/><rect x="${x+8}" y="${BASE+6}" width="24" height="11" rx="2" fill="#f3e9d2" stroke="#2b2836" stroke-width=".6"/>${ic(k, x+15, BASE+7, 9)}<path d="M${x+20} ${BASE} V${top}" stroke="#4c9a3a" stroke-width="3" stroke-linecap="round"/><ellipse cx="${x+14}" cy="${top+4}" rx="6" ry="3.5" fill="#6cc04a" stroke="#2b2836" stroke-width=".6"/><ellipse cx="${x+26}" cy="${top+2}" rx="6" ry="3.5" fill="#6cc04a" stroke="#2b2836" stroke-width=".6"/>${known().includes(i) ? `<text id="cm${i}" x="${x+47.5}" y="${top-4}" text-anchor="middle" font-size="9" font-weight="700" fill="#2b2836" font-family="${FONT}">${h} cm</text>` : ''}`; }).join('');
+  const m = known().length === 4;
+  return `<svg id="potsvg" viewBox="0 0 320 180" style="position:absolute;inset:0;width:100%;height:100%" aria-label="${m ? 'The four bean plants measured: ' + POTS.map(p => p[1]).join(', ') + ' centimetres, left to right' : 'The four bean plants on the sill, each pot with a lesson picture on its label'}"><rect x="0" y="150" width="320" height="30" fill="#e6dcc3"/><rect x="0" y="150" width="320" height="4" fill="#cdbf9e"/>${pots}</svg>`;
 }
+function rulerStyle(i){ const h = POTS[i][1]*SCALE, top = BASE - h; return `left:${(PX(i)+44)/320*100}%;top:${top/180*100}%;width:${7/320*100}%;height:${h/180*100}%`; }
+function rulerHTML(){ const at = S.rulerAt; if (at == null) return '';
+  const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  return `<div id="rulerEl" aria-hidden="true" style="position:absolute;${rulerStyle(at)};background:#f3d26a;border:1px solid #2b2836;border-radius:1px;background-image:repeating-linear-gradient(180deg,#2b2836 0 1px,transparent 1px 10%);pointer-events:none;box-shadow:1px 1px 2px rgba(0,0,0,.3);transition:${reduce ? 'none' : 'left .55s cubic-bezier(.3,.8,.3,1),top .55s cubic-bezier(.3,.8,.3,1),height .55s cubic-bezier(.3,.8,.3,1)'}"></div>`; }
+const potLine = () => known().length === 4 ? 'Measured: ' + POTS.map(p => `${LESSON[p[0]][2]} ${p[1]} cm`).join(', ') + '.' : S.rulerAt != null ? `${LESSON[POTS[S.rulerAt][0]][2]}: ${POTS[S.rulerAt][1]} cm. Tap the next plant to move the ruler.` : S.got.includes('ruler') ? 'You have a ruler. Tap it in the strip, then tap a plant.' : 'Four pots, each with a lesson picture on its label. Mr H wants their heights.';
 function openPots(again){
-  openCloseup(`<div class="card shelf"><div class="shelfpic" style="background:#d9ecf7;border-radius:calc(var(--u)*.6)"><p class="otitle">The bean pots (stand-in)</p>${potsSVG(S.measured)}${cuTarget('ev_beans', 'The four bean plants', [0, 0, 100, 100])}</div><p class="ofb">${S.measured ? 'Measured: ' + POTS.map(p => `${LESSON[p[0]][2]} ${p[1]} cm`).join(', ') + '.' : S.got.includes('ruler') ? 'You have a ruler. Tap it in the strip, then tap the plants.' : 'Four pots, each with a lesson picture on its label. Mr H wants their heights.'}</p></div>`);
-  wireCu({ev_beans:() => { document.querySelector('#closeup .ofb').textContent = S.measured ? 'Measured already: ' + POTS.map(p => `${p[1]} cm`).join(', ') + '.' : S.got.includes('ruler') ? 'Hold the ruler first: tap it in the strip below, then tap the plants.' : 'Four bean plants, four heights. Nothing to measure them with yet.'; }});
+  const targets = POTS.map((p, i) => cuTarget('ev_pot' + (i+1), `The ${LESSON[p[0]][2]} plant`, [(PX(i)-10)/320*100, 0, 60/320*100, 100])).join('');
+  openCloseup(`<div class="card shelf"><div class="shelfpic" style="background:#d9ecf7;border-radius:calc(var(--u)*.6)">${potsSVG()}${rulerHTML()}${targets}<p class="otitle">The bean pots (stand-in)</p></div><p class="ofb" id="potFb">${potLine()}</p></div>`);
+  const plain = {}; POTS.forEach((p, i) => { plain['ev_pot' + (i+1)] = () => { if (S.rulerAt != null) placeRuler(i); else $('potFb').textContent = S.got.includes('ruler') ? 'Hold the ruler first: tap it in the strip below, then tap the plant.' : 'Four bean plants, four heights. Nothing to measure them with yet.'; }; });
+  wireCu(plain);
   if (!again) say('');
 }
-function measure(){
-  if (!S.measured){ S.measured = Date.now(); S.seen.heights = S.measured; save(); }
-  openPots(true); say(copyClue('pots').trim());
+function placeRuler(i){ /* the one ruler stands beside plant i; the first time it is put there, the height is written down */
+  const first = !known().includes(i); if (!S.heights) S.heights = []; if (first) S.heights.push(i);
+  S.rulerAt = i; sfx('tick');
+  if (first && S.heights.length === 4 && !S.measured){ S.measured = Date.now(); S.seen.heights = S.measured; }
+  save();
+  if (!$('potsvg')){ openPots(true); } /* used from the room: open the close-up with the ruler in place */
+  else { $('potsvg').outerHTML = potsSVG(); const svg = $('potsvg'); /* re-found: outerHTML detaches the old one */ const r = $('rulerEl'); if (!r){ svg.insertAdjacentHTML('afterend', rulerHTML()); } else rulerStyle(i).split(';').forEach(kv => { const [k, v] = kv.split(':'); r.style[k] = v; }); $('potFb').textContent = potLine(); }
+  if (first && S.heights.length === 4) say(copyClue('pots').trim());
 }
 function openCabinet(){ /* locked: the cabinet close up, with the keyhole the game draws; unlocked: the top drawer close up (MOTH-61), opening and shutting on a tap, the ruler inside while it is out */
   if (!S.cabUnlocked){
-    openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c4, 1160, 560, 640)}"><p class="otitle">Filing cabinet</p>${cuTarget('ev_cabinet', 'The top drawer and its lock', [30, 10, 45, 42])}<div style="position:absolute;left:37%;top:28%;width:3%;aspect-ratio:10/14;pointer-events:none">${KEYHOLE}</div></div><p class="ofb" id="cabFb">The top drawer has a tiny lock. A small key would fit it.</p></div>`);
+    openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c4, 1160, 560, 640)}">${cuTarget('ev_cabinet', 'The top drawer and its lock', [30, 10, 45, 42])}<div style="position:absolute;left:37%;top:28%;width:3%;aspect-ratio:10/14;pointer-events:none">${KEYHOLE}</div><p class="otitle">Filing cabinet</p></div><p class="ofb" id="cabFb">The top drawer has a tiny lock. A small key would fit it.</p></div>`);
     wireCu({ev_cabinet:() => { $('cabFb').textContent = S.got.includes('skey') ? 'A tiny lock. Hold the small key: tap it in the strip below, then tap the lock.' : 'A tiny lock on the top drawer. It wants a small key.'; }});
     return;
   }
   const ruler = !S.got.includes('ruler') ? `<button class="inside-cab" id="takeRuler" aria-label="A ruler" style="position:absolute;left:10%;top:16%;width:64%;height:30%;background:transparent;border:0;cursor:pointer;pointer-events:auto;display:${S.cabOut ? '' : 'none'}"><span style="display:block;width:100%;height:40%;background:#f3d26a;border:1.5px solid #6a5a2a;border-radius:2px;transform:rotate(-4deg);background-image:repeating-linear-gradient(90deg,#6a5a2a 0 1px,transparent 1px 9%)"></span></button>` : '';
-  openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c4, 1290, 580, 400)}"><p class="otitle">The top drawer</p>${cuTarget('ev_cabdrawer', 'The top drawer', [18, 8, 68, 70])}<div style="position:absolute;left:22.5%;top:12%;width:58.25%;height:56.9%;pointer-events:none">${drawerHTML('cab', 'cu-cab', ruler)}</div></div><p class="ofb" id="cabFb">${S.got.includes('ruler') ? (S.cabOut ? 'Open. Empty now.' : 'Shut. Tap it to open it.') : S.cabOut ? 'Open. A ruler inside.' : 'Shut. Tap it to open it.'}</p></div>`);
+  openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c4, 1290, 580, 400)}">${cuTarget('ev_cabdrawer', 'The top drawer', [18, 8, 68, 70])}<div style="position:absolute;left:22.5%;top:12%;width:58.25%;height:56.9%;pointer-events:none">${drawerHTML('cab', 'cu-cab', ruler)}</div><p class="otitle">The top drawer</p></div><p class="ofb" id="cabFb">${S.got.includes('ruler') ? (S.cabOut ? 'Open. Empty now.' : 'Shut. Tap it to open it.') : S.cabOut ? 'Open. A ruler inside.' : 'Shut. Tap it to open it.'}</p></div>`);
   const b = $('takeRuler'); if (b) b.onclick = e => { e.stopPropagation(); if (!S.got.includes('ruler')){ S.got.push('ruler'); save(); } sfx('pickup'); closeCloseup(); render(); say('A ruler, thirty centimetres, with a bite out of one corner. It goes in the strip below.'); };
   wireCu({ev_cabdrawer:() => { const out = toggleDrawer('cab'); $('cabFb').textContent = out ? (S.got.includes('ruler') ? 'Open. Empty now.' : 'Open. A ruler inside.') : 'Shut. Tap it to open it.'; }});
 }
@@ -288,7 +307,7 @@ function openDeskLock(){
 }
 function openInsideDesk(){ /* Mr Hollis's drawer, close up (MOTH-61): a tap shuts or opens it; the key is inside while it is out. The look-down-into-it picture is a Gate D asset (MOTH-65); until then the front, zoomed tight, with the key large */
   const key = !taken('dkey') ? `<button class="inside-desk" id="takeKey" aria-label="The classroom key" style="position:absolute;left:14%;top:14%;width:72%;height:62%;background:transparent;border:0;cursor:pointer;pointer-events:auto;display:${S.deskOut ? '' : 'none'}"><img src="../art/greybox/tab-key.png?v=${BUILD}" alt="" style="width:80%;display:block;margin:auto;transform:rotate(-16deg);filter:drop-shadow(0 0 8px #ffe08a) drop-shadow(0 0 3px #fff)"></button>` : '';
-  openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c1, 1480, 600, 320)}"><p class="otitle">Mr Hollis’s drawer</p>${cuTarget('ev_tdrawer', 'The drawer', [16, 28, 68, 56])}<div style="position:absolute;left:21.6%;top:35%;width:57.2%;height:41.1%;pointer-events:none">${drawerHTML('desk', 'cu-desk', key)}</div></div><p class="ofb" id="deskFb2">${S.deskOut ? (taken('dkey') ? 'Paper clips, a whistle, and the space where the key was.' : 'Paper clips, a whistle, and the classroom key on its 5H tag.') : 'Shut. Tap it to open it.'}</p></div>`);
+  openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c1, 1480, 600, 320)}">${cuTarget('ev_tdrawer', 'The drawer', [16, 28, 68, 56])}<div style="position:absolute;left:21.6%;top:35%;width:57.2%;height:41.1%;pointer-events:none">${drawerHTML('desk', 'cu-desk', key)}</div><p class="otitle">Mr Hollis’s drawer</p></div><p class="ofb" id="deskFb2">${S.deskOut ? (taken('dkey') ? 'Paper clips, a whistle, and the space where the key was.' : 'Paper clips, a whistle, and the classroom key on its 5H tag.') : 'Shut. Tap it to open it.'}</p></div>`);
   const b = $('takeKey'); if (b) b.onclick = e => { e.stopPropagation(); take('dkey'); sfx('pickup'); closeCloseup(); render(); say('The classroom key, on its 5H tag. It goes in the strip below. Now: lock up.'); };
   wireCu({ev_tdrawer:() => { const out = toggleDrawer('desk'); $('deskFb2').textContent = out ? (taken('dkey') ? 'Open. Paper clips and a whistle.' : 'Open. The classroom key, on its 5H tag.') : 'Shut. Tap it to open it.'; }});
 }
@@ -303,7 +322,7 @@ function ending(){
 /* ---------- using things ---------- */
 const USES = {
   'skey>ev_cabinet': unlockCabinet,
-  'ruler>ev_beans': measure,
+  'ruler>ev_beans': () => placeRuler(0), 'ruler>ev_pot1': () => placeRuler(0), 'ruler>ev_pot2': () => placeRuler(1), 'ruler>ev_pot3': () => placeRuler(2), 'ruler>ev_pot4': () => placeRuler(3),
   'half1>item:half2': () => joinNote(), 'half2>item:half1': () => joinNote(),
   'dkey>ev_door': () => { if (S.done){ say('Locked already. Holidays!'); return; } lockUp(); }
 };
@@ -372,7 +391,7 @@ function rows(){
   const out = [];
   if (!S.got.includes('ev_env')){ out.push([0, 'Something on my desk?', 'not yet', false]); return out; }
   const a = !!S.measured, b = S.got.includes('wnote'), c = S.deskOpen;
-  out.push([a ? -1 : first('a'), 'The beans’ heights', a ? '✓ measured' : S.got.includes('ruler') ? 'I have a ruler' : taken('skey') ? 'a small key' : 'not started', a]);
+  out.push([a ? -1 : first('a'), 'The beans’ heights', a ? '✓ measured' : known().length ? `${known().length} of 4 measured` : S.got.includes('ruler') ? 'I have a ruler' : taken('skey') ? 'a small key' : 'not started', a]);
   out.push([b ? -1 : first('b'), 'The order he watered them', b ? '✓ the note' : (S.got.includes('half1') || S.got.includes('half2')) ? 'half a note' : 'not started', b]);
   out.push([c ? -1 : first('c'), 'The code on his drawer', c ? '✓ open' : (S.seen.thu ? 'Thursday’s lessons' : S.seen.day ? 'it’s Thursday' : 'four numbers'), c]);
   if (c) out.push([S.done ? -1 : S.got.includes('dkey') ? 11 : 10, 'Lock up 5H', S.done ? '✓ locked' : S.got.includes('dkey') ? 'I have the key' : 'the key is in the drawer', S.done]);
@@ -400,7 +419,8 @@ return {
   postcard:{pic:'../art/postcards/school.jpg'},
   intro:'<b>Lock-up duty.</b> Mr Hollis has left Mary to lock up 5H, and the key is in his desk behind a code. There is a note on her desk.',
   start:{room:'classroom', view:0},
-  fresh:() => ({seen:{}, clues:[], taken:{}, keyDown:false, binMoved:[], binDone:false, popped:false, measured:0, cabUnlocked:false, cabOut:false, dials:[0,0,0,0], deskOpen:false, deskOut:false, locked:false}),
+  fresh:() => ({seen:{}, clues:[], taken:{}, keyDown:false, binMoved:[], binDone:false, popped:false, measured:0, heights:[], rulerAt:null, cabUnlocked:false, cabOut:false, dials:[0,0,0,0], deskOpen:false, deskOut:false, locked:false}),
+  extra:{classroom:['../art/eval/c5h/closeup-bin.jpg', '../art/eval/c5h/closeup-hat.jpg', ...RUBBISH.map(r => '../art/eval/c5h/' + r.src), '../art/eval/c5h/item-skey.png', '../art/greybox/tab-key.png']}, /* the close-ups' pictures load with the room, so no card opens half drawn (MOTH-76) */
   rooms:ROOMS, walls:WALLS, doors:DOORS, hots:HOTS, layers:LAYERS, notes:NOTES, items:ITEMS, hints:HINTS, uses:USES,
   overlays:{c4:() => S.cabUnlocked ? wrap(wallTimetable(), wallDrawer('cab')) : wrap(wallTimetable(), wallKeyhole()), c1:() => S.deskOpen ? wrap(wallBoard(), wallDrawer('desk')) : wrap(wallBoard()), c2:wallLabels, c3:() => wrap(...[S.locked ? wallDoorway() : null].filter(Boolean))},
   act, miss, sparkle, rows, noticed, clues, speaker, helper:() => 'the moth', child:'mary'
