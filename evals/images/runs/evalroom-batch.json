@@ -1,0 +1,112 @@
+{
+ "name": "evalroom batch (6b, Gate E signed 24 Oct 2026): the nine pictures left after the samples; Nutmeg's second pose waits for the engine to take poses. Level file levels/LEVEL-evalroom.md.",
+ "defaults": {
+  "n": 1
+ },
+ "notes": [
+  "Judged in the live room on the tablet, never as loose files (CLAUDE.md gate E). A failed sample goes back to its prompt, not to the batch.",
+  "Cut-outs are keyed on white, cropped and quantised with tools/lift.py's method; close-ups saved at 1920x1080 JPEG 88."
+ ],
+ "cases": [
+  {
+   "id": "ruler",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "references": [
+    "evals/images/refs/c5h-style.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame.\n\nThe object: a thirty-centimetre wooden school ruler with centimetre marks along one edge, a small bite missing from one corner, lying flat and level, seen from directly above. The marks are plain ticks with no numbers, no letters, nothing written on it.",
+   "est_usd": 0.01,
+   "note": "asset 2: the strip icon and the ruler in the drawer and by the plants"
+  },
+  {
+   "id": "half-left",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "references": [
+    "evals/images/refs/c5h-style.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame.\n\nThe object: the left half of a small sheet of cream notepaper that has been torn down the middle: its right side is a ragged torn edge, its other three edges straight, a little creased, completely blank, lying flat, seen from directly above.",
+   "est_usd": 0.01,
+   "note": "asset 3a"
+  },
+  {
+   "id": "half-right",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "references": [
+    "case:half-left"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame.\n\nThe object: the other half of the attached torn notepaper: the right half, the same cream paper, the same size, its left side the ragged torn edge that matches the attached half, its other three edges straight, a little creased, completely blank, lying flat, seen from directly above.",
+   "est_usd": 0.01,
+   "note": "asset 3b, made from 3a"
+  },
+  {
+   "id": "key-big",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "references": [
+    "evals/images/refs/c5h-style.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame.\n\nThe object: a large old brass door key about ten centimetres long, with a loop bow, a long shank and three teeth on the blade, a small round blank cardboard tag tied to the bow with a short loop of string, lying flat, seen from directly above. Nothing written on the tag.",
+   "est_usd": 0.01,
+   "note": "asset 4: the classroom key; the game writes 5H on the tag"
+  },
+  {
+   "id": "pots",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "references": [
+    "evals/images/refs/c5h-sill.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Palette of the room: cream walls over a pale mint band, pale wood floor, teal and purple accents, warm afternoon sun. A single picture that fills the whole 16:9 frame edge to edge: no border, no margin, no frame, no dark surround. No words, letters, numbers or symbols anywhere in the picture.\n\nThe picture: four terracotta pots in a row on a white-painted window sill, seen straight on and close, the sill running along the bottom of the frame, each pot with a bean plant growing up a thin green cane: the first a bare shoot just above the soil, the second small, the third middling, the fourth tall, their tops at four clearly different heights rising left to right. Each pot has a plain blank white label stuck on its front. Behind them the window glass with soft afternoon sun and a blur of sky. Nothing written anywhere.",
+   "est_usd": 0.02,
+   "note": "asset 11: the game draws the labels' icons, the ruler and the heights"
+  },
+  {
+   "id": "desk-drawer",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "references": [
+    "evals/images/refs/c5h-desk.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Palette of the room: cream walls over a pale mint band, pale wood floor, teal and purple accents, warm afternoon sun. A single picture that fills the whole 16:9 frame edge to edge: no border, no margin, no frame, no dark surround. No words, letters, numbers or symbols anywhere in the picture.\n\nThe picture: looking straight down into an open wooden desk drawer, the drawer's inside filling the frame edge to edge with its wooden sides just showing: a shallow tray of pale wood, a few silver paper clips scattered at the left end, a small silver whistle on a loop of string at the right end, and bare wood with a clear empty space in the middle. Nothing else, nothing written.",
+   "est_usd": 0.02,
+   "note": "asset 15: the game draws the classroom key in the empty space"
+  },
+  {
+   "id": "cab-drawer",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "references": [
+    "evals/images/refs/c5h-cabinet.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Palette of the room: cream walls over a pale mint band, pale wood floor, teal and purple accents, warm afternoon sun. A single picture that fills the whole 16:9 frame edge to edge: no border, no margin, no frame, no dark surround. No words, letters, numbers or symbols anywhere in the picture.\n\nThe picture: looking straight down into an open grey-blue metal filing-cabinet drawer, the drawer's inside filling the frame edge to edge: a shallow metal tray with a thin file rail running along each side, a few scuffs, bare at the bottom, with a clear empty space along the front. Nothing else, nothing written.",
+   "est_usd": 0.02,
+   "note": "asset 15b: the game draws the ruler in the empty space"
+  },
+  {
+   "id": "joined-note",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "references": [
+    "case:half-left",
+    "case:half-right"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Palette of the room: cream walls over a pale mint band, pale wood floor, teal and purple accents, warm afternoon sun. A single picture that fills the whole 16:9 frame edge to edge: no border, no margin, no frame, no dark surround. No words, letters, numbers or symbols anywhere in the picture.\n\nThe picture: the two attached halves of cream notepaper fitted back together into one small sheet and stuck with two short strips of yellowing sticky tape across the tear, one near the top and one near the bottom, lying flat on a pale wooden desk, seen from directly above, the sheet filling most of the frame, completely blank. Nothing written.",
+   "est_usd": 0.02,
+   "note": "asset 16: the game writes the words"
+  },
+  {
+   "id": "lock-plate",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "references": [
+    "evals/images/refs/c5h-door.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Palette of the room: cream walls over a pale mint band, pale wood floor, teal and purple accents, warm afternoon sun. A single picture that fills the whole 16:9 frame edge to edge: no border, no margin, no frame, no dark surround. No words, letters, numbers or symbols anywhere in the picture.\n\nThe picture: the brass lock plate and round brass handle of a pale wooden classroom door, close up and square on, filling the frame: the rectangular plate in the middle with its keyhole, a few fine scratches around the keyhole, the handle to one side, and the door's painted pale wood all around to the edges of the frame. No key in it, nothing written.",
+   "est_usd": 0.02,
+   "note": "asset 18: the key turn happens here"
+  }
+ ]
+}

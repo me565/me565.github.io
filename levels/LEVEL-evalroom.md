@@ -3,7 +3,7 @@
 *Outline only, written in claude.ai on 22 Oct 2026 from a discussion with the owner, recorded here the same day from `EVALROOM-HANDOVER.md` with the owner's two changes made in chat after the review (the lock-up duty premise and the falling key) and the review's findings listed under "Review against the repo". Nothing here is built yet. Do not build, generate art or change the engine until the owner signs Gate B, and then follow the gates as for any level. The stage stays `?stage=evalroom` (`next/landscape/stages/evalroom.js`); its current "one room, no puzzle" content is replaced by this design once it reaches the greybox.*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: first playable (build 2026-10-22f, after the owner's two rounds of tablet feedback, his silent playthrough video and his recorded commentary; Gate C waits on his word)
+Current status: sample pack placed and played by the owner (build 2026-10-24b carries his notes); Gate E waits on his word
 Build id of the latest play link: 2026-10-22f (the first playable, with everything from the owner's three plays built in: MOTH-49 to 68)
 Latest play link: `?stage=evalroom`
 
@@ -186,82 +186,119 @@ Conflicts and suggested fixes:
 
 Tests: scripted playthrough passes (`tools/play-ev.js`: every trail, the two trap codes, a wrong day, nonsense, every wrong-use line, the notebook and clue chips at 844×390 and 2000×700, no page scroll, no errors) · audit clean (0 failures; 8 "for a look", all hanging, flat or inside) · no soft-lock (checklist 42: walked on paper, nothing is consumed by a wrong use, both drawers and the note stay) · owner played it on the tablet at 2000×700: twice, 22 Oct 2026 (the first play gave MOTH-49 to 51, the second MOTH-52 to 54; his recording of build 2026-10-22d, 4 min 6 s, solved without hints, gave MOTH-55; playbook log 65) · played once on a real Android phone (checklist 44): not yet · reduced motion checked (the audit's owner-shape run)
 Target-age tester (if available): none (a test room)
-Result: waiting on the owner.
+Result: passed. The owner played the live build on the tablet: "it's fine, just needs improvements to the images".
 
 ### Gate C — it plays right
-Signed off:
+Signed off: "Yeah it's fine, just needs improvements to the images" and "sign off gate C" (owner, 24 Oct 2026, in chat, after playing the live build 2026-10-23r on the tablet).
 
 ---
 
-## 5. Asset and script list (draft, for Gate D)
+## 5. Asset and script list (written 24 Oct 2026 for Gate D, after Gate C)
 
-Reuse first: the four walls and the nine existing cut-outs in `next/art/eval/c5h/`; the envelope icon from `next/art/classroom/`. Lifted by crop on 22 Oct 2026 (no credit): assets 5 to 8 below.
+**Reuse first.** The four walls (`c1`–`c4`) and the nine cut-outs made on 21 Oct 2026, plus the five lifted from the walls by crop on 22 Oct 2026 (the two drawer fronts, the door leaf, the box front, the shoe and hat), the envelope icon from `next/art/classroom/`, the classroom track and the school ambient. None of those cost anything here. The owner's verdict at Gate C was "it's fine, just needs improvements to the images": the images below are the stand-ins the first playable drew by code, replaced by pictures.
 
-| # | Asset | Type | Moves? | Reused from | Est. credit (Sunburst ~4¢, Nano Banana 2 ~10¢) |
-|---|---|---|---|---|---|
-| 1 | Small silver key | icon + cut-out (the same picture, on the floor) | single (falls) | — | 1 |
-| 2 | Ruler | icon + close-up use | no | — | 1 |
-| 3 | Torn note, left half and right half | icon ×2 | no | — | 2 |
-| 4 | Classroom key | icon | no | — | 1 |
-| 5 | Lost property shoe and hat, and the box front | cut-out | single (`pop`) | lifted from c3 (4r) | 0 |
-| 6 | Filing cabinet drawer front | cut-out | single | lifted from c4 (4r) | 0 |
-| 7 | Teacher's desk drawer front | cut-out | single | lifted from c1 (4r) | 0 |
-| 8 | Classroom door | cut-out | single | lifted from c3 (4r) | 0 |
-| 9 | Cabinet close-up with a code-drawn keyhole | close-up | no | a crop of c4 | 0 |
-| 10 | Nutmeg standing pose | cut-out | poses | — | 1 |
-| 11 | Bean pot close-up (labels and ruler drawn by the game over it) | close-up | no | — | 1 |
-| 12 | The bin from above, empty (owner, 22 Oct 2026; MOTH-52) | close-up | no | — | 1 |
-| 13 | Five bits of rubbish (crumpled page, juice carton, crust, paper ball, apple core) | cut-out ×5 | single (shoved) | — | 5 |
-| 14 | The inside of the hat (owner, 22 Oct 2026; MOTH-53) | close-up | no | — | 1 |
-| 15 | Mr Hollis's drawer, looked down into, the key among paper clips and a whistle (MOTH-65) | close-up | no | — | 1 |
-| 16 | The joined note, two torn halves taped (MOTH-64) | close-up | no | — | 1 |
-| 17 | The supplies cupboard's doors, re-cut to the cupboard's full width (MOTH-67) | cut-out | single (`peek`) | lifted from c1 | 0 |
+**How every picture is made** (playbook 2, 4aa, 4r). Model: GPT Image 2.5 Sunburst through OpenRouter on the GitHub runner (`evals/images/`), Nano Banana 2 as the fallback. Every prompt carries the signed-off style sentence: *a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges; bright and clear, not hazy or dark*, and a crop of the wall the thing belongs to as the style reference ("copy only its style, not its objects"). A **cut-out or icon** is asked for "alone on a pure flat white background, no surface, no shadow, no frame, no text", 1K, then the white is keyed away, cropped and quantised. A **close-up** is 16:9 at 1920×1080, "the picture fills the whole frame, no border", with nothing written on it: every word, number and icon is drawn by the game over it (checklist 52). The room's palette is named in each prompt: cream walls over a pale mint band, pale wood floor, teal and purple accents, afternoon sun from the window.
 
-- About 14 pictures after the owner's second round (the bin, its rubbish and the hat): roughly 60¢ on Sunburst, about $1.40 on the fallback. Every word, number and icon on the labels, timetable, whiteboard and notes is drawn by the game, so none of it costs credit. (The handover estimated 12 pictures before the lifted cut-outs were counted as reuse.)
-- No wall re-do: the drawers' dark gaps and the open doorway are drawn by the engine behind the lifted cut-outs.
-- Script locked on:
-- Total estimate: about 30¢ on Sunburst.
+| # | Asset | Type | Moves? | Reused from | Prompt (after the style sentence and the palette line) | Est. ¢ |
+|---|---|---|---|---|---|---|
+| 1 | Small silver key | icon, also the cut-out on the floor and the drag's tab | single (the tumble is the stage's) | — | "A small plain silver key for a filing cabinet, about three centimetres, with a round bow and a short flat blade, lying flat, seen from directly above." | 4 |
+| 2 | Ruler | icon | no | — | "A thirty-centimetre wooden school ruler with centimetre marks, a small bite missing from one corner, lying flat, seen from directly above. The marks are plain ticks with no numbers." | 4 |
+| 3a | Torn note, left half | icon | no | — | "The left half of a small sheet of cream notepaper, torn down the middle with a ragged edge on its right side, a little creased, blank, seen from directly above." | 4 |
+| 3b | Torn note, right half | icon | no | 3a as reference ("the other half of the attached note") | "The right half of the same torn notepaper, the ragged edge on its left side, blank, seen from directly above." | 4 |
+| 4 | Classroom key | icon | no | — | "A large old brass door key with a loop bow and three teeth on the blade, a small round cardboard tag on a string tied to the bow, the tag blank, lying flat, seen from directly above." The game draws 5H on the tag. | 4 |
+| 10 | Nutmeg standing | cut-out, pose B | poses (engine backlog 22) | the existing hamster cut-out as reference | "The same small golden hamster as the attached picture, same size, same colours, same drawing, but standing up on its back legs with its front paws held together at its chest, looking up." **Made only when the engine takes poses**; the stage cannot show it before then. | 4 |
+| 11 | The bean pots, close up | close-up | no | a crop of the sill from `c2` as reference | "Four terracotta pots in a row on a white window sill, seen straight on and close, each with a bean plant on a thin green cane: the first a bare shoot, the second small, the third middling, the fourth tall, their tops at four clearly different heights. Each pot has a plain blank white label stuck on its front. The window glass and soft afternoon sun behind. Nothing written anywhere." The game draws the labels' icons and, once measured, the ruler and the heights. | 4 |
+| 12 | The bin from above, empty | close-up | no | a crop of the bin from `c3` as reference | "Looking straight down into a green plastic recycling bin, its square rim filling the frame, the inside dark green and empty, a little paper dust at the bottom, the recycling symbol on the inside wall just visible. Nothing else in it." | 4 |
+| 13a–e | Five bits of rubbish | cut-out ×5 | single (shoved by a tap; the drag is backlog 27) | — | Each alone on white, seen from directly above: "a crumpled sheet of lined paper" · "a small orange juice carton, squashed, no writing on it" · "a crust of brown bread" · "a tight ball of white paper" · "an apple core, pale, with its stalk". | 20 |
+| 14 | The inside of the hat | close-up | no | a crop of the blue cap from `c3` as reference | "A child's blue baseball cap turned upside down and seen from directly above, so the whole inside shows: the dark blue lining, the pale sweatband running round the rim, the seams meeting at the button in the middle. Nothing tucked in it, nothing written on it." The game draws the torn corner under the band. | 4 |
+| 15 | Mr Hollis's drawer, looked into | close-up | no | a crop of the desk from `c1` as reference | "Looking down into an open wooden desk drawer from above, the drawer filling the frame: a shallow tray with a few silver paper clips scattered at one end and a small silver whistle on a string at the other, bare wood between them with a clear empty space in the middle. Nothing else, nothing written." The game draws the classroom key in the empty space while it is there. | 4 |
+| 15b | The cabinet's top drawer, looked into | close-up | no | a crop of the cabinet from `c4` as reference | "Looking down into an open grey-blue metal filing-cabinet drawer from above, the drawer filling the frame: a shallow metal tray with a file rail along each side, bare at the bottom, with a clear empty space along the front. Nothing else, nothing written." The game draws the ruler in the empty space while it is there. Added 24 Oct 2026 after Gate D, at the owner's request in his fourth recording (MOTH-80). | 1 |
+| 16 | The joined note | close-up | no | 3a and 3b as references | "A small sheet of cream notepaper torn down the middle and stuck back together with two short strips of yellowing sticky tape across the tear, lying flat on a pale wooden desk, seen from directly above, blank." The game writes the words. | 4 |
+| 17 | The supplies cupboard's doors | cut-out | single (`peek`) | lifted from `c1` by crop (the doors are painted on the wall at full width) | No prompt: a re-cut of the existing wall to the cupboard's full width, replacing `layer-doors.png`. | 0 |
+| 18 | The door's lock plate | close-up | no | a crop of the door from `c3` as reference | "The brass lock plate and round handle of a pale wooden classroom door, close up and square on, filling the frame: the plate with its keyhole in the middle, a few fine scratches around the keyhole, the handle to one side, the door's painted wood all around. No key in it, nothing written." The key turn then happens on this close-up, the key drawn into the keyhole, instead of over the whole door wall. Added 24 Oct 2026 after Gate D (MOTH-80). | 1 |
+| W | The four walls again | wall ×4 | — | the room specification `evals/images/rooms/classroom5h.json` | **Only if the owner says the walls themselves need improving.** Same specification, same model, with the lessons of 22 Oct 2026 added: the timetable asked for as a header bar over a blank rectangle (the game draws the whole grid), the cupboard with no doors (the doors become a cut-out), a keyhole on the cabinet's top drawer. A re-do of all four, because one wall redone no longer matches its neighbours. | 16 |
+
+- **Total, without the walls:** 14 pictures made (1, 2, 3a, 3b, 4, 10, 11, 12, 13a–e, 14, 15, 16) at about 4¢ each on Sunburst, **about 56¢**; about $1.40 on the fallback. Asset 17 costs nothing. With the walls: about 72¢. With 15b and 18 added on 24 Oct 2026: 16 pictures, about 64¢ at the playbook's 4¢, and about 16¢ at the 1¢ a picture Sunburst actually billed for the samples.
+- **Sample pack for Gate E** (the hardest first): the bin from above (12) with its five pieces (13) dropped into the room, the inside of the hat (14), and the small key (1) in the strip and on the floor. Judged on the tablet in the live room, never as loose files.
+- **Order of making:** 12 and 13 together (they must sit in one picture), 14, 1, then 11, 15, 16, then 2, 3, 4; 10 last and only when the engine takes poses.
+- **Originals** go to the owner's Drive folder for the level before the session ends; the repo keeps the 1920×1080 JPEGs and the keyed PNGs.
+
+### The script (42 lines, 562 words), locked at this gate
+
+*Changed after the lock (24 Oct 2026, build 2026-10-24g): the key turn's label "Put the key in the lock and turn it, all the way round." became "The key slides into the lock. Tap it to turn it." (build 2026-10-24h), and its wrong-try lines ("Take hold of the key, by the knob.", "Keep turning, all the way.") are gone, because the turn is a tap now. Text only in this room; it would be a re-record in a level with voice.*
+
+Every story-led line the moth speaks, by key, extracted from the stage on 24 Oct 2026 (`evalroom.hint.<i>.<n>`, `evalroom.note.<key>`, `evalroom.card`, `evalroom.meanwhile`, `evalroom.intro`, `evalroom.postcard`). Tap lines are not voiced (playbook 4h). Recorded with the speech model on the Gemini key (`gemini-2.5-flash-preview-tts`, voice Vindemiatrix, the moth's fixed style), 100 lines a day on the key: **no OpenRouter credit, no cost in the ledger**. A line changed after this gate is a re-record and is noted as one.
+
+- Hints, 12 steps × 3 tiers (36 lines): envelope · small key · ruler · heights · bin · hat · combine · which day · the order · the code · the classroom key · the door. The words are in the stage file and in `tools/lines.json` once `extract-lines.js` lists `evalroom`.
+- Notes (2): Mr Hollis's envelope ("Last day! I've gone to the hall. Will you lock up 5H for me, Mary? The classroom key is in my desk drawer. Its code is the beans' heights, read in the order I asked you to water them. — Mr H.") and the taped note ("Beans: water one pot per lesson, in today's lesson order. — H.").
+- The card, the intro, the meanwhile line, and the postcard home (1 each).
+- Music: none new; the classroom track and the school ambient. Comic: none (a test room has no intro pages).
+
+- Script locked on: 24 Oct 2026 (at Gate D sign-off).
+- Total estimate: about 56¢ on Sunburst for the pictures (72¢ with the walls); the voice on the Gemini key's daily allowance.
 
 ### Gate D — list and budget
-Signed off:
+Signed off: "sign off gate D" (owner, 24 Oct 2026, in chat; the four walls stay, not redone: he did not add "walls too").
 
 ---
 
 ## 6a. Sample pack
 
+Made 24 Oct 2026 on the GitHub runner (`evals/images/runs/evalroom-samples.json`, run 40047407369), GPT Image 2.5 Sunburst, eight pictures, **$0.076 billed** against 32¢ estimated (Sunburst bills about 1¢ a picture at these sizes, not 4¢). Results in `evals/images/results/2026-10-24-evalroom-samples.results.json`. Keyed and placed in build 2026-10-24a.
+
 | Sample | What it is | Why this one | Result |
 |---|---|---|---|
-| Wall | none new | | |
-| Cut-out | | | |
-| Close-up | | | |
-| Voice ×2–3 | one hint, one story line, one wrong-try | | |
-| Track | none new (the classroom track) | | |
+| Wall | none new | the owner kept the walls at Gate D | — |
+| Close-up | the bin from above (`closeup-bin.jpg`) with its five rubbish cut-outs (`layer-rub-*.png`) | the hardest: a new angle, a picture other pictures must sit on, and the room's one search puzzle | Claude's sheet: every hard rule passes (nothing written, nothing extra, the bin empty as asked); the carton stands rather than lying squashed, fine in a bin. Owner: "I like how this thing works"; the pushed pieces to stay on the floor (done). |
+| Close-up | the inside of the hat (`closeup-hat.jpg`) | the second new angle | first try (run 40047407369): the cap right, peak downwards, band clear, but lying on wood. Owner, fourth recording: "this is the inside of a lost property box, so it seems strange that there's wood", and the corner "should really be tucked behind the inner circumference". **Redone** (`evals/images/runs/evalroom-hat2.json`, run 40054380570, 1.8¢): the cap in the cardboard box, no wood; the scrap clipped to the band's inner ellipse. In the room in build 2026-10-24c, waiting on the owner. |
+| Cut-out | the small key (`item-skey.png`): the strip icon, the floor, the tumble and the drag's tab | the one picture seen four ways | passes; two notches as asked. Owner: "it works well", the hole wanted clearing (done). |
+| Voice ×2–3 | one hint, one story line, one wrong-try | — | not yet recorded: the voice is made at the batch, on the Gemini key |
+| Track | none new (the classroom track) | | — |
 
-Judged in the greybox, on the tablet, with the inventory strip and arrows in place.
-Prompt changes made before sign-off:
+Judged in the live room, on the tablet, with the inventory strip and arrows in place.
+Prompt changes made before sign-off: the hat's prompt now says what the cap lies in (the cardboard box, its walls running off the frame, "no wood anywhere") with a crop of the box as a second reference; the rule that a sample's surround is part of the sample is in playbook 4ad.
 
 ### Gate E — samples
-Signed off:
+Signed off: 24 Oct 2026, the owner, in chat: "Sign off" (on build 2026-10-24c: the bin from above with its five pieces and the small key passed in his fourth recording; the hat remade in the cardboard box with the corner tucked under the band). No voice lines were sampled: this test room's moth lines are text, so the batch is pictures only unless the owner asks for voice.
 
 ---
 
 ## 6b. Batch
 
-- Made on:
-- Originals copied to Drive folder: (link)
-- Checked against the checklist: proportions · no lettering · matches the samples · stands on its surface with a shadow
-- Re-dos and why:
+Made 24 Oct 2026 on the GitHub runner (`evals/images/runs/evalroom-batch.json`, run 40061901731), GPT Image 2.5 Sunburst, nine pictures in 1 min 26 s, **$0.124 billed** against 14¢ estimated. Results in `evals/images/results/2026-10-24-evalroom-batch.results.json`. Every picture passed the hard rules on the sheet first time: nothing written (the tag, the labels, the ruler's ticks, the taped sheet all blank), the torn edges of the two halves matching, each close-up filling its frame. Placed in build 2026-10-24d.
+
+| # | Picture | File | Placed as |
+|---|---|---|---|
+| 2 | Ruler | `item-ruler.png` (1009×161, keyed) | the strip icon, lying along the front of the cabinet drawer, and standing in each pot in turn (rotated by the game) |
+| 3a, 3b | The torn halves | `item-half1.png`, `item-half2.png` (keyed; 3b made from 3a as its reference) | the strip icons, the half in the bin, the corner under the hat's band |
+| 4 | Classroom key | `item-dkey.png` (keyed, the bow's and tag's holes cleared) | the strip icon, the key in the desk drawer, the key on the lock plate |
+| 11 | The bean pots | `closeup-pots.jpg` | the pots close-up; the game draws the labels' icons, the one ruler, and a dashed mark with the reading at each measured plant's top |
+| 15 | The desk drawer, looked into | `closeup-desk.jpg` | the drawer's close-up while it is out, the key drawn in the empty middle |
+| 15b | The cabinet drawer, looked into | `closeup-cab.jpg` | the drawer's close-up while it is out, the ruler lying along the front |
+| 16 | The taped note | `closeup-note.jpg`, and `item-wnote.jpg` cropped from it | the watering note's card, the words over the sheet; the strip icon |
+| 18 | The door's lock plate | `closeup-lock.jpg` | the key turn: the drag goes round the keyhole on the plate, the key as the tab |
+| 10 | Nutmeg standing | not made | waits for the engine to take poses (backlog 22); nothing spent |
+
+- Originals copied to Drive folder: **not done**: the Drive connector in the session cannot carry files of 1–2 MB. The folder "The Moth House — evalroom originals (Lock-up Duty)" was made in the owner's Drive with a note saying where the originals are: the runner's artifacts for runs 40047407369, 40054380570 and 40061901731 (kept 30 days), to be downloaded from the Actions page and dropped into the folder before they expire.
+- Re-dos and why: none in the batch. One in the samples (the hat's surround).
+- One fault while placing: the stage's own `torn` helper was deleted along with the SVG stand-ins it replaced, so the bin's and the hat's halves vanished until the play script caught it. The play script is the net.
+
+- Made on: 24 Oct 2026, the GitHub runner, GPT Image 2.5 Sunburst (run 40061901731).
+- Checked against the checklist: proportions (every cut-out box keeps its picture's ratio: the ruler 1009×161, the key 987×937, the halves 675×927 and 683×931) · no lettering (the tag, the labels, the ruler, the sheet all blank; the game writes 5H, the icons and the readings) · matches the samples (same style sentence, same model, the room's crops as references) · stands on its surface with a shadow (the ruler and the key carry a drop shadow in the drawers; the halves in the bin and the hat) · nothing off the screen (play script at 844×390 and 2000×700; audit G37).
 
 ## 7. Integrate and polish
 
-- Play link:
-- Checklist walk at 2000×700, 740×360, 2200×1300, reduced motion:
-- Audit:
-- Art looked at side by side with the finished levels' (checklist 43):
-- Voice lines recorded (`tools/voice.py`), none missing:
+Done 24 Oct 2026 on build 2026-10-24i, after the batch and five rounds of the owner's recorded feedback (logs 66 to 74).
+
+- Play link: the branch's last commit (in chat and on MOTH-93); once released, https://me565.github.io/next/landscape/?stage=evalroom.
+- Checklist walk at 2000×700, 740×360, 2200×1300, reduced motion: `tools/polish-ev.js` opens every view and every close-up (the note, the timetable, the cabinet locked, the pots, the bin, the box, the hat, the dials, the notebook, the menu, both drawers looked into, the lock) at the three shapes and checks the card, the scene, the caption and the strip for overflow and for edges off the window: **all clear at all three**, no page errors. Reduced motion: `REDUCE=1 node tools/play-ev.js` plays the room to its ending with `prefers-reduced-motion` on: the key tumble, the drawer slides, the key turn and the door swing all complete at once and the ending shows. The sheets were looked at by eye: every card fits its shape, the strip sits beside the scene on the wide shapes and under it on the tall one, nothing is covered.
+- Audit: clean (0 failures) on the final build.
+- Art looked at side by side with the finished levels' (checklist 43): the four walls beside Elliot's classroom, four close-ups beside four finished ones, eight icons beside eight. **Finding: the test room reads as a different hand.** Its walls and close-ups are rendered and lit (soft shading, highlights, a camera's depth) where the finished levels are flat ink-outline drawings with simple fills; its icons are near-photographic (the metal key, the apple core) where the finished levels' are bold-outlined and flat. Nothing is wrong in it, and nothing in it borrows; it is simply the Sunburst room-specification look, which this room was built to evaluate. That is the room's result, and the decision is the owner's, for between levels: adopt this look as the art style guide for the levels still to build (and re-make the finished ones over time), or keep the ink-outline style and prompt the next real level in it with the room-specification method. Not a polish fix for this room.
+- Voice lines recorded (`tools/voice.py`), none missing: none in this room; the moth's lines are text (a test room, not a child's story).
+- Open items carried, none blocking: MOTH-81 (the timetable's header as periods: the owner's call), MOTH-82 (watch for the "Holding" line), MOTH-75 (one inventory column, engine, between levels), Nutmeg's second pose (engine, backlog 22).
 
 ### Final sign-off
-Signed off:
+Signed off: 24 Oct 2026, the owner, in chat: "Final sign off" (on build 2026-10-24i, after the polish walk; the room's finding on the art style is his to decide between levels).
 
 ## 8. Release
 
@@ -275,10 +312,10 @@ Signed off:
 
 | Stage | Estimate | Actual | Re-dos (count) | Why |
 |---|---|---|---|---|
-| 6a samples | | | | |
-| 6b batch | ~30¢ | | | |
+| 6a samples | 32¢ | 7.6¢ + 1.8¢ | 1 | Sunburst bills about 1¢ a picture, a quarter of the playbook's estimate. Re-do: the hat (asset 14), whose prompt put the cap on "a plain pale wooden surface" when it lies in a cardboard box; the surround, not the cap, failed |
+| 6b batch | 14¢ (16¢ for ten; Nutmeg's pose not made) | 12.4¢ | 0 | nine pictures, all passed first time |
 | 7 polish | | | | |
-| Total | ~30¢ | | | |
+| Total | ~46¢ | 21.8¢ | 1 | samples 9.4¢ (with the hat redone), batch 12.4¢ |
 
 ## Learning loop
 
@@ -304,7 +341,37 @@ Every fault found in this level, where it was found, and what happened to it.
 | Same recording (MOTH-65) | The key hard to see in the drawer | Tighter zoom and a bigger key now; the look-down-into-it picture at Gate D | Already a rule: checklist 60 | — |
 | Same recording (MOTH-66) | The door folded flat; the key turn left a trail line | The leaf swings on its hinge in perspective; the trail invisible | Engine: the door swing goes with backlog 26 | this file |
 | Same recording (MOTH-68) | The same line on the card and in the caption | One line per screen in this room | Yes, whole game when revisited | Checklist 62 |
-| Same recording (MOTH-67) | The cupboard's doors narrower than the cupboard; its line promised glue sticks over bare shelves | The line now matches; the doors re-cut at Gate D | This room's art | the asset list |
+| Same recording (MOTH-67) | The cupboard's doors narrower than the cupboard; its line promised glue sticks over bare shelves | The line now matches; the doors re-cut at Gate D. Fourth recording: still a sliver short on the left, so the cut-out was resampled to the carcass's full width (11.2% to 30.8%) on 24 Oct 2026 | This room's art | the asset list |
+| Owner's third recording, 24 Oct 2026 (MOTH-69) | The inventory's second column off his tablet's screen, so the key and a half note vanished | The side layout's stage is as wide as scene plus strip (engine CSS); the audit checks every element's edges | Yes, whole game | Checklist 36b; audit G37 |
+| Same recording (MOTH-70) | White inside the bag's handle, between the tallest plant's leaves, in the key's hole | Enclosed near-white regions cleared by component, above the label line | Yes: a keying checks enclosed gaps, not only the edges | Playbook 2 to carry it; this file |
+| Same recording (MOTH-71) | Pushed rubbish climbed the bin's walls | Pushed spots are the floor's corners | This room's | this file |
+| Same recording (MOTH-72) | The stand-in halves said "½ note" | Drawn torn scraps without words, in the bin, the hat and the strip | Yes: a stand-in never names itself; it looks like the thing | Playbook 4ac |
+| Same recording (MOTH-73) | The whiteboard zoomed to show what the wall already shows; the letter's type small | No close-up: the date is said and copied; the letter 18% larger | This room's | this file |
+| Same recording (MOTH-74) | The bin's lid hovered; the keyhole's shape does not match the key | Lid removed; keyhole to be redrawn as a slot at the batch | This room's | this file |
+| Owner's fourth recording, 24 Oct 2026 (MOTH-75) | Two half-empty inventory columns on a wide screen take too much room; he wants one column, paging right only when it overflows | Not built: the engine is frozen while school3 is between gates | Yes, whole game, between levels | Backlog in the playbook when the owner orders it; MOTH-75 |
+| Same recording (MOTH-76) | The bin's and the hat's pictures appeared a split second after their card | The stage lists its close-ups' pictures in `extra`, so they load with the room | Yes: a close-up opens whole | Playbook 4ad; checklist 64 |
+| Same recording (MOTH-77) | Four rulers appeared on the sill, "which feels funny… you picked up one ruler" | One ruler that stands beside the plant tapped and slides to the next; the heights found so far stay written above their plants; the clue copies when all four are known | Yes: one thing is one thing | Playbook 4ad; checklist 63 |
+| Same recording (MOTH-78) | The drawer close-up's title sat behind the drawer; the wall showed through the gap | The title is drawn last in every close-up; the gap is painted solid | Yes | Playbook 4ad; checklist 64 |
+| Same recording (MOTH-79) | The cap lay on wood inside a cardboard box; the scrap lay on top of the band | The sample redone from its prompt with the box named and a crop of it as a reference (1.8¢); the scrap clipped to the band's inner ellipse | Yes: a sample's surround is part of the sample | Playbook 4ad; the asset list's prompts name the surround |
+| Same recording (MOTH-80) | The key turn hovers over the whole door wall; both drawers want a look-down-into-it view | Two batch pictures added to the list: 15b (the cabinet drawer looked into) and 18 (the door's lock plate) | This room's art | the asset list |
+| Same recording | The letter on the desk too small to notice | The envelope cut-out 70% larger on the desk | This room's | this file |
+| Owner's fifth recording, 24 Oct 2026 (MOTH-74 again) | The keyhole's shape did not match the flat key | A round cam-lock face with a thin slot, drawn on the wall, in the close-up and on the drawer front | This room's | this file |
+| Same recording (MOTH-84) | The old keyhole lingered over the sliding drawer; the shut drawer had no lock; the open-shut-zoom sequence felt odd | The drawer front and its keyhole are one piece that the stage takes over the moment the key turns, and slides out itself | Yes: a lock belongs to its drawer | Playbook 4ad; checklist 65 |
+| Same recording (MOTH-92) | The small key on the drawer hotspot said "Too small for that" | The key works on both of the cabinet's targets | This room's | this file |
+| Same recording (MOTH-83) | The pot labels' icons sat off their labels in the close-up | The labels measured from the picture's pixels on a fine grid, not the 5% grid by eye | Yes: overlays are placed from pixels | Checklist 66 |
+| Same recording (MOTH-85) | A white fringe round the ruler | Every batch cut-out re-keyed with a soft rim (edge alpha from whiteness) | Yes: key the rim | Playbook 2; checklist 66 |
+| Same recording (MOTH-86) | The ruler and key icons off-centre in their slots | Turned or long icons sit in a centred box inside the engine's slot inset | This room's | this file |
+| Same recording (MOTH-87) | Four readings at once and a "Measured:" summary made it too easy | One reading, at the plant the ruler stands by; no summary in the footer or the notebook | Yes: one reading, no answer sheet | Playbook 4ad; checklist 66 |
+| Same recording (MOTH-88) | The ruler stayed in the strip once by the plants | It leaves the strip on its first placement | Yes, with 66 | Checklist 66 |
+| Same recording (MOTH-89) | A tap on the paper clips shut the drawer | Things inside say their lines; a button shuts the drawer | Yes: what is inside speaks | Playbook 4ad; checklist 65 |
+| Same recording (MOTH-90) | The key's wrong end met the keyhole | The bow sits in the keyhole and turns as it is dragged round | This room's | this file |
+| Same recording (MOTH-91) | The open door showed white | Knightsbrook's corridor wall (h1) behind the door, darkened | This room's; reuse before making | this file |
+| Same recording (MOTH-82) | "Holding the small key" after a wrong try | Not reproduced: the engine drops the item on every wrong try; watched for | — | MOTH-82 |
+| Same recording (MOTH-81) | The timetable's header repeats the subject icons; periods would make the order explicit | Not built: the owner's call, and the wall's poster would need painting over | Design question for the owner | MOTH-81 |
+| Owner's sixth recording, 24 Oct 2026 (MOTH-93) | The key turn could not be finished on the tablet: the engine's path drag cannot follow a finger round a circle smaller than the finger | The stage turns the key by the angle swept round the keyhole, from anywhere on the plate; the play script drives it as a finger would | Yes: a turn is a sweep, not a path | Playbook 4ad; checklist 67; backlog 29 |
+| Owner's seventh recording, 24 Oct 2026 (MOTH-93 again) | The sweep completed but still read as "not working": the bow small, the turn hard to see, the key never inside the lock | The key drawn side-on with its shank in the keyhole and its bow out; one tap turns it by itself, a quarter turn with a tick and the click | Yes: a key in a door is a tap, and the picture is the feel | Playbook 4ad; checklist 67 |
+| Owner on build 2026-10-24g (MOTH-93 again) | The side-on swing was wrong physics: "key goes inside ensuring the circular part is at the top, then the key rotates inside the lock" | Seen from in front of the plate: the key slides in with its bow upright above the keyhole, then the tap spins the bow about the keyhole | Yes: draw the mechanism as it works, from where the player stands | Playbook 4ad (log 73); checklist 67 |
+| Owner on build 2026-10-24h (MOTH-93 again) | "It shouldn't spin on a vertical axis. It should be a horizontal axis": a key turns over about its shank | Seen from the side, the key slides in along its shank and the tap turns it over about the shank's line, a full turn in perspective | Same rule, now stated in one line | Playbook 4ad (log 74); checklist 67 |
 | Owner's tablet play, 22 Oct 2026 (MOTH-51) | The small key opened the cabinet from the room but not inside the cabinet close-up | A target over the drawer in the close-up routes a held item through the same USES table (`cuTarget`, `wireCu`) | Yes: what takes an item in the room takes it in its close-up | Playbook 4ad; checklist 59; backlog 25 for the engine |
 | Owner's tablet play, 22 Oct 2026 (MOTH-50) | Measuring with the ruler took "a lot of clicking around": the ruler did nothing inside the pot close-up | The pot close-up takes the ruler, and its line says to hold the ruler first | Same rule as above | Checklist 59 |
 | Owner's tablet play, 22 Oct 2026 (MOTH-49) | The half note came out of the bin from the room view, and the corner under the hat was a small wall target | The bin, the box and the desk drawer open close up, made from the wall, and the thing is taken there | Yes: finding is a close-up | Playbook 4ad; checklist 60 |

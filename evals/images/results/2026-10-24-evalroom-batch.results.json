@@ -1,0 +1,432 @@
+{
+ "name": "evalroom batch (6b, Gate E signed 24 Oct 2026): the nine pictures left after the samples; Nutmeg's second pose waits for the engine to take poses. Level file levels/LEVEL-evalroom.md.",
+ "manifest": "evals/images/runs/evalroom-batch.json",
+ "ran_at": "2026-10-24T04:21:05Z",
+ "total_cost_usd": 0.1241,
+ "results": [
+  {
+   "id": "ruler",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/c5h-style.jpg"
+   ],
+   "params": {},
+   "note": "asset 2: the strip icon and the ruler in the drawer and by the plants",
+   "seconds": 16.4,
+   "cost_usd": 0.017086,
+   "usage": {
+    "prompt_tokens": 572,
+    "completion_tokens": 439,
+    "total_tokens": 1011,
+    "cost": 0.017086,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.017086,
+     "upstream_inference_prompt_cost": 0.003916,
+     "upstream_inference_completions_cost": 0.01317
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 439
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "ruler.png",
+     "bytes": 810881,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "half-left",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/c5h-style.jpg"
+   ],
+   "params": {},
+   "note": "asset 3a",
+   "seconds": 14.7,
+   "cost_usd": 0.009801,
+   "usage": {
+    "prompt_tokens": 573,
+    "completion_tokens": 196,
+    "total_tokens": 769,
+    "cost": 0.009801,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.009801,
+     "upstream_inference_prompt_cost": 0.003921,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "half-left.png",
+     "bytes": 1134762,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "key-big",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/c5h-style.jpg"
+   ],
+   "params": {},
+   "note": "asset 4: the classroom key; the game writes 5H on the tag",
+   "seconds": 13.5,
+   "cost_usd": 0.009836,
+   "usage": {
+    "prompt_tokens": 580,
+    "completion_tokens": 196,
+    "total_tokens": 776,
+    "cost": 0.009836,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.009836,
+     "upstream_inference_prompt_cost": 0.003956,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "key-big.png",
+     "bytes": 1066566,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "pots",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/c5h-sill.jpg"
+   ],
+   "params": {},
+   "note": "asset 11: the game draws the labels' icons, the ruler and the heights",
+   "seconds": 17.8,
+   "cost_usd": 0.014789,
+   "usage": {
+    "prompt_tokens": 913,
+    "completion_tokens": 280,
+    "total_tokens": 1193,
+    "cost": 0.014789,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.014789,
+     "upstream_inference_prompt_cost": 0.006389,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "pots.png",
+     "bytes": 1669366,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "desk-drawer",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/c5h-desk.jpg"
+   ],
+   "params": {},
+   "note": "asset 15: the game draws the classroom key in the empty space",
+   "seconds": 13.1,
+   "cost_usd": 0.010336,
+   "usage": {
+    "prompt_tokens": 944,
+    "completion_tokens": 120,
+    "total_tokens": 1064,
+    "cost": 0.010336,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.010336,
+     "upstream_inference_prompt_cost": 0.006736,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "desk-drawer.png",
+     "bytes": 1791693,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "cab-drawer",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/c5h-cabinet.jpg"
+   ],
+   "params": {},
+   "note": "asset 15b: the game draws the ruler in the empty space",
+   "seconds": 17.0,
+   "cost_usd": 0.015316,
+   "usage": {
+    "prompt_tokens": 962,
+    "completion_tokens": 280,
+    "total_tokens": 1242,
+    "cost": 0.015316,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.015316,
+     "upstream_inference_prompt_cost": 0.006916,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "cab-drawer.png",
+     "bytes": 2004080,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "lock-plate",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/c5h-door.jpg"
+   ],
+   "params": {},
+   "note": "asset 18: the key turn happens here",
+   "seconds": 13.4,
+   "cost_usd": 0.010326,
+   "usage": {
+    "prompt_tokens": 942,
+    "completion_tokens": 120,
+    "total_tokens": 1062,
+    "cost": 0.010326,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.010326,
+     "upstream_inference_prompt_cost": 0.006726,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "lock-plate.png",
+     "bytes": 1738231,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "half-right",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "case:half-left"
+   ],
+   "params": {},
+   "note": "asset 3b, made from 3a",
+   "seconds": 11.5,
+   "cost_usd": 0.015217,
+   "usage": {
+    "prompt_tokens": 1253,
+    "completion_tokens": 196,
+    "total_tokens": 1449,
+    "cost": 0.015217,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.015217,
+     "upstream_inference_prompt_cost": 0.009337,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "half-right.png",
+     "bytes": 1120525,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "joined-note",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "case:half-left",
+    "case:half-right"
+   ],
+   "params": {},
+   "note": "asset 16: the game writes the words",
+   "seconds": 18.7,
+   "cost_usd": 0.021349,
+   "usage": {
+    "prompt_tokens": 2321,
+    "completion_tokens": 120,
+    "total_tokens": 2441,
+    "cost": 0.021349,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.021349,
+     "upstream_inference_prompt_cost": 0.017749,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "joined-note.png",
+     "bytes": 1799125,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}

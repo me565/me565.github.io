@@ -1,0 +1,56 @@
+{
+ "name": "evalroom sample pack, the hat redone (Gate E, MOTH-79): the cap lying in the cardboard lost-property box, not on wood. Level file levels/LEVEL-evalroom.md.",
+ "manifest": "evals/images/runs/evalroom-hat2.json",
+ "ran_at": "2026-10-24T02:30:01Z",
+ "total_cost_usd": 0.0179,
+ "results": [
+  {
+   "id": "hat-inside-2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/c5h-cap.jpg",
+    "evals/images/refs/c5h-box.jpg"
+   ],
+   "params": {},
+   "note": "asset 14 redone (MOTH-79): the first sample put the cap on a wooden surface; it lies in the cardboard box",
+   "seconds": 18.0,
+   "cost_usd": 0.017948,
+   "usage": {
+    "prompt_tokens": 1330,
+    "completion_tokens": 280,
+    "total_tokens": 1610,
+    "cost": 0.017948,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.017948,
+     "upstream_inference_prompt_cost": 0.009548,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "hat-inside-2.png",
+     "bytes": 2175682,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}

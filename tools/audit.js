@@ -36,6 +36,8 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
       if (!(await p.evaluate(() => document.getElementById('comic').hidden))) await p.click('#cskip'); await p.waitForTimeout(300);
       if (!(await p.evaluate(() => document.getElementById('stagecard').hidden))) await p.click('#cardGo'); await p.waitForTimeout(300);
       const scroll = await p.evaluate(() => document.documentElement.scrollHeight > innerHeight + 1 || document.documentElement.scrollWidth > innerWidth + 1); if (scroll) say(stage, 'G37', `page scrolls at ${name}`);
+      /* the strip, the scene and the caption all inside the window (the body hides overflow, so a scroll test misses it): the inventory's second column was off the owner's tablet, 24 Oct 2026 */
+      const off = await p.evaluate(() => ['inv', 'scene', 'msg'].map(id => { const r = document.getElementById(id).getBoundingClientRect(); return [id, Math.round(r.left), Math.round(r.right), Math.round(r.bottom)]; }).filter(([id, l, r, b]) => l < -1 || r > innerWidth + 1 || b > innerHeight + 1)); if (off.length) say(stage, 'G37', `off the screen at ${name}: ${off.map(o => o.join(' ')).join('; ')}`);
       const views = await p.evaluate(() => Object.entries(ROOMS).flatMap(([r, R]) => R.views.map((v, i) => [r, i, v])));
       for (const [room, i, v] of views){
         await p.evaluate(([r, i]) => { S.room = r; S.view = i; save(); render(); say(''); }, [room, i]); await p.waitForTimeout(name === 'tablet' ? 900 : 250);
