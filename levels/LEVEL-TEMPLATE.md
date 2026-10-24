@@ -134,14 +134,15 @@ Signed off:
 ## 6b. Batch
 
 - Made on:
-- Originals copied to Drive folder: (link)
+- Originals copied to Drive folder: (link; if the session cannot carry the files, the note in the folder naming the runner's artifacts, and the owner copies them within 30 days)
 - Checked against the checklist: proportions · no lettering · matches the samples · stands on its surface with a shadow
 - Re-dos and why:
 
 ## 7. Integrate and polish
 
 - Play link:
-- Checklist walk at 2000×700, 740×360, 2200×1300, reduced motion:
+- Checklist walk at 2000×700, 740×360, 2200×1300, reduced motion (`tools/polish-<key>.js` from `tools/polish-ev.js`; `REDUCE=1 node tools/play-<key>.js`):
+- Feedback rounds on the tablet (playbook 4ae): each recording's date, build, the cards logged, the build that answered them:
 - Audit:
 - Art looked at side by side with the finished levels' (checklist 43):
 - Voice lines recorded (`tools/voice.py`), none missing:
