@@ -326,19 +326,23 @@ function openInsideDesk(){ /* Mr Hollis's drawer (MOTH-61, MOTH-65, MOTH-80): ou
   openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c1, 1480, 600, 320)}">${cuTarget('ev_tdrawer', 'The drawer', [16, 28, 68, 56])}<div style="position:absolute;left:21.6%;top:35%;width:57.2%;height:41.1%;pointer-events:none">${drawerHTML('desk', 'cu-desk')}</div><p class="otitle">Mr Hollis’s drawer</p></div><p class="ofb" id="deskFb2">Shut. Tap it to open it.</p></div>`);
   wireCu({ev_tdrawer:() => { toggleDrawer('desk'); setTimeout(openInsideDesk, 420); }});
 }
-/* The key turn (MOTH-90): the keyhole on the lock plate is at (40, 57). The drag's tab is the key's bow, anchored by the engine at
-   translate(-50%,-18%), so the path's centre sits 32% of the tab's height above the keyhole; the path is a circle round it, and
-   while the card is open the stage turns the bow's picture to face the way it has gone, so the bow turns in the lock. */
-const TURN = (() => { const w = 13, h = w*16/9, cx = 40, cy = 57 - 0.32*h, rx = 2.2, ry = rx*16/9, path = [];
-  for (let k = 0; k <= 16; k++){ const a = -Math.PI/2 + k/16*2*Math.PI; path.push([+(cx + rx*Math.cos(a)).toFixed(2), +(cy + ry*Math.sin(a)).toFixed(2)]); }
-  return {w, cx, cy, path}; })();
-function spinBow(){ const t = $('dtab'); if (!t || $('closeup').hidden) return; const x = parseFloat(t.style.left), y = parseFloat(t.style.top);
-  if (!isNaN(x)){ const a = Math.atan2((y - TURN.cy)*16/9, x - TURN.cx)*180/Math.PI + 90; const im = t.querySelector('img'); if (im) im.style.transform = `rotate(${a}deg)`; }
-  requestAnimationFrame(spinBow); }
-function lockUp(){ /* the drag: turn the key in the door; then the door swings, Mary steps out, and the end card */
-  openDrag({pic:'../art/eval/c5h/closeup-lock.jpg', title:'Turn the key', tab:'../art/eval/c5h/item-dkey-bow.png', tabW:TURN.w, tabRatio:'1/1', path:TURN.path, /* the key's bow sits in the keyhole and is dragged round it; the stage turns the picture to match (MOTH-90) */ label:'Put the key in the lock and turn it, all the way round.', missLabel:'Take hold of the key, by the knob.', moreLabel:'Keep turning, all the way.', doneLabel:'Click, clunk.', lineColour:'rgba(0,0,0,0)', lineLight:'rgba(0,0,0,0)', lineWidth:1,
-    done:() => { drop('dkey'); S.locked = true; save(); render(); sfx('tick'); doorSwing(); say('The key turns. Mary slips out into the corridor, pulls the door to, and locks 5H behind her for the summer.'); setTimeout(ending, 2200); }});
-  requestAnimationFrame(spinBow);
+/* The key turn (MOTH-90, MOTH-93). The engine's drag follows a path with the finger, which a key turning on the spot has none of:
+   the owner's finger on the bow mapped to one point of a tiny circle and the turn stuck halfway. So the stage turns the key itself:
+   the bow sits in the keyhole at (40, 57) on the lock plate, and a finger anywhere on the plate sweeps round it; the bow turns by
+   the angle swept, clockwise, and once it has gone all the way round the lock clicks. Turning back unwinds it. Nothing to aim at. */
+const KH = {x:40, y:57};
+function lockUp(){
+  openCloseup(`<div class="card shelf"><div class="shelfpic" id="turnpic" style="background-image:url(../art/eval/c5h/closeup-lock.jpg?v=${BUILD});touch-action:none;cursor:grab"><img id="bow" src="../art/eval/c5h/item-dkey-bow.png?v=${BUILD}" alt="" style="position:absolute;left:${KH.x}%;top:${KH.y}%;width:13%;transform:translate(-50%,-50%) rotate(0deg);pointer-events:none;filter:drop-shadow(0 calc(var(--u)*.3) calc(var(--u)*.4) rgba(0,0,0,.45))"><p class="otitle">Turn the key</p></div><p class="ofb" id="turnFb">Put the key in the lock and turn it, all the way round.</p></div>`);
+  const pic = $('turnpic'), bow = $('bow'), fb = $('turnFb'); let turning = false, last = 0, total = 0, done = false, lastTick = 0;
+  const ang = e => { const r = pic.getBoundingClientRect(); const x = (e.clientX - r.left)/r.width*100 - KH.x, y = ((e.clientY - r.top)/r.height*100 - KH.y)*9/16; return Math.atan2(y, x)*180/Math.PI; };
+  const draw = () => { bow.style.transform = `translate(-50%,-50%) rotate(${total}deg)`; };
+  const finish = () => { if (done) return; done = true; turning = false; total = 360; draw(); sfx('pickup'); fb.textContent = 'Click, clunk.';
+    setTimeout(() => { closeCloseup(); drop('dkey'); S.locked = true; save(); render(); sfx('tick'); doorSwing(); say('The key turns. Mary slips out into the corridor, pulls the door to, and locks 5H behind her for the summer.'); setTimeout(ending, 2200); }, 700); };
+  pic.onpointerdown = e => { if (done) return; turning = true; last = ang(e); pic.setPointerCapture(e.pointerId); e.preventDefault(); e.stopPropagation(); };
+  pic.onpointermove = e => { if (!turning || done) return; const a = ang(e); let d = a - last; if (d > 180) d -= 360; if (d < -180) d += 360; last = a;
+    total = Math.max(0, Math.min(360, total + d)); draw(); if (total - lastTick >= 45){ sfx('tick'); lastTick = total; } if (total >= 350) finish(); };
+  pic.onpointerup = pic.onpointercancel = e => { if (!turning) return; turning = false; if (total >= 320) finish(); else if (total > 15) fb.textContent = 'Keep turning, all the way.'; };
+  pic.onclick = e => e.stopPropagation();
 }
 function ending(){
   S.done = true; save();
