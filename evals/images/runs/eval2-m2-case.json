@@ -89,6 +89,20 @@
    ],
    "prompt": "Attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: inside the open navy suitcase on the end of the sofa at the left, the navy passport (attached picture 3) now lies on top of the clothes, in the same place in the case as in attached picture 2 (which shows this case packed, looked down into; here it is seen from the case's short end, at the room's eye level). Only this one thing is added. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
    "note": "Polish walk: each packed thing its own edit of the window wall's case (checklist 90)"
+  },
+  {
+   "id": "m2-case-passport2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "est_usd": 0.04,
+   "references": [
+    "evals/images/refs/eval2-m2-case-open.jpg",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-passport.png"
+   ],
+   "prompt": "Attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: inside the open navy suitcase on the end of the sofa at the left, the navy passport (attached picture 3), exactly as drawn there: a plain dark navy cover with no emblem, crest, pattern or gold marks of any kind, small, about the size of a hand now lies on top of the clothes, in the same place in the case as in attached picture 2 (which shows this case packed, looked down into; here it is seen from the case's short end, at the room's eye level). Only this one thing is added. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "note": "Polish walk: redrawn, the first had a gold emblem the icon does not have (checklist 82)"
   }
  ]
 }

@@ -145,7 +145,7 @@ It is 22 December, four in the afternoon, rain on the glass. The taxi to the air
 
 ### Puzzle types (cap: two of any type)
 
-Trade with a character ×1 · see-through search (the organiser's window) ×1 · reach with a step (the stool) ×1 · search by moving things aside (the tubs) ×1 · a drawer or trundle opened and looked into ×1 · combine two things ×2 (paper on the frame, tape on the parcel) · colour-button lock from a two-line clue ×1 · drag gesture ×2 (the ribbon, the wipe). **Eight types, none more than twice.**
+Trade with a character ×1 · see-through search (the organiser's window) ×1 · reach with a step (the stool) ×1 · search by moving things aside (the tubs) ×1 · a drawer or trundle opened and looked into ×1 · combine two things ×2 (paper on the frame, tape on the parcel) · colour-button lock from a two-line clue ×1 · drag gesture ×2 (the ribbon, the wipe). **Eight types, none more than twice.** *As built after the reviews (polish walk, 25 Oct 2026): the two drags became taps (MOTH-122, MOTH-134); moving things aside is now used twice (the bath and tub; the socks drawer out to free the middle one, MOTH-120); the lock is a wheel lock with a button (MOTH-127). Seven types, none more than twice.*
 
 ### Every lock and its visible clue
 

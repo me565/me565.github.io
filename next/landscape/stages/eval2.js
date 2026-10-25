@@ -252,8 +252,8 @@ function animateDoor(id, open){ delete swingFrom[id]; requestAnimationFrame(() =
 const WDL = {l:32.0, t:4.4, w:12.1, h:76.8}, WDR = {l:44.1, t:4.4, w:12.2, h:76.8}, WIN = {l:31.8, t:4.2, w:24.8, h:79.6};
 function wardrobeRoom(){
   return `<img src="${A}layer-wardrobe-inside.png?v=${BUILD}" alt="" style="position:absolute;left:${WIN.l}%;top:${WIN.t}%;width:${WIN.w}%;height:${WIN.h}%">`
-    + (S.stoolAt ? `<img src="${A}item-stool.png?v=${BUILD}" alt="" style="position:absolute;left:39.6%;top:72.4%;width:9.2%;filter:drop-shadow(calc(var(--u)*.4) calc(var(--u)*.5) calc(var(--u)*.4) rgba(30,25,20,.45))">` : '') /* about 40 cm against the 200 cm wardrobe, standing on the floor in front of it, not on its shelf (MOTH-136) */
-    + door3d('wdl', WDL, A + 'layer-wdoor-l.png', 'left', 122, !!S.wardOpen, '#d8d0c0', '#f2ede3') + door3d('wdr', WDR, A + 'layer-wdoor-r.png', 'right', 122, !!S.wardOpen, '#d8d0c0', '#f2ede3');
+    + door3d('wdl', WDL, A + 'layer-wdoor-l.png', 'left', 122, !!S.wardOpen, '#d8d0c0', '#f2ede3') + door3d('wdr', WDR, A + 'layer-wdoor-r.png', 'right', 122, !!S.wardOpen, '#d8d0c0', '#f2ede3')
+    + (S.stoolAt ? `<img src="${A}item-stool.png?v=${BUILD}" alt="" style="position:absolute;left:39.6%;top:72.4%;width:9.2%;transform:translateZ(1px);filter:drop-shadow(calc(var(--u)*.4) calc(var(--u)*.5) calc(var(--u)*.4) rgba(30,25,20,.45))">` : ''); /* about 40 cm against the 200 cm wardrobe, standing on the floor in front of it (MOTH-136), so drawn after the doors and in front of them: shut, they covered its top (the polish walk) */
 }
 function setWardrobe(open){ swingFrom.wdl = swingFrom.wdr = !!S.wardOpen; S.wardOpen = open; save(); sfx(open ? 'open' : 'close'); render(); animateDoor('wdl', open); animateDoor('wdr', open); }
 /* The case in the room (MOTH-113, MOTH-123, MOTH-133): drawn from the close-up so the clothes agree; each packed thing is lifted from an
@@ -434,7 +434,7 @@ function ending(){
 const PACK = {sheet:['carol', 'Nana’s carol goes in the case.'], hat:['hat', 'Hat and gloves, in. London will be cold.'], present:['present', 'Nana’s present, wrapped, goes in on top.'], passport:['passport', 'The passport goes in the case, on top at the front.']};
 const USES = {
   'shelly>e2_zaina':trade, 'shelly>e2_piano':trade,
-  'stool>e2_wardrobe':() => { drop('stool'); S.stoolAt = true; save(); sfx('knock'); if (!S.wardOpen) setWardrobe(true); else render(); say('Mary stands the stool in the wardrobe and climbs up. Now she can reach the top shelf.'); setTimeout(openBox, 900); },
+  'stool>e2_wardrobe':() => { drop('stool'); S.stoolAt = true; save(); sfx('knock'); if (!S.wardOpen) setWardrobe(true); else render(); say('Mary stands the stool in front of the wardrobe and climbs up. Now she can reach the top shelf.'); setTimeout(openBox, 900); },
   'paper>item:drawing':wrapUp, 'drawing>item:paper':wrapUp,
   'tape>item:parcel':tapeUp, 'parcel>item:tape':tapeUp,
   ...Object.fromEntries(Object.entries(PACK).map(([item, [k, line]]) => [item + '>e2_case', () => pack(item, k, line)]))
@@ -523,7 +523,7 @@ const HINTS = [
   /* 1 */ {trail:'a', goal:() => !!S.seen.zaina || S.traded, target:'e2_mdoor', tips:['The folder on the stand is empty. Who likes Mary’s things?', 'Through the door and down the corridor.', 'Zaina has it, in her room.']},
   /* 2 */ {trail:'a', goal:() => S.traded, target:'e2_organiser', tips:['Zaina wants her mermaid. Where would Mary have put her?', 'The pocket organiser under the loft.', 'Shelly is in the pocket organiser under the loft. Take her to Zaina: hold Shelly and tap Zaina.']},
   /* 3 */ {trail:'b', goal:() => taken('stool'), target:'e2_bath', tips:['The winter box is too high. Mary needs something safe to stand on.', 'Under the loft, by the ladder: the bath on the tub.', 'Lift the bath off, then slide the tub aside: the stool is behind them.']},
-  /* 4 */ {trail:'b', goal:() => taken('hat'), target:'e2_wardrobe', tips:['Stand on the stool at the wardrobe.', 'Hold the stool and tap the wardrobe.', 'Open the wardrobe, use the stool on it, then open the box and take the hat and gloves.']},
+  /* 4 */ {trail:'b', goal:() => taken('hat'), target:'e2_wardrobe', tips:['Stand on the stool at the wardrobe.', 'Hold the stool and tap the wardrobe.', 'Open the wardrobe, stand the stool in front of it, then open the box and take the hat and gloves.']},
   /* 5 */ {trail:'c', goal:() => taken('drawing'), target:'e2_drawing', tips:['Nana’s present is something Mary made.', 'The panel under the loft, above the desk.', 'Take the framed drawing from the panel under the loft.']},
   /* 6 */ {trail:'c', goal:() => taken('paper'), target:'e2_trundle', tips:['Wrapping paper lives where spare things live.', 'Under the children’s bunk.', 'Open the trundle under the bunk: the paper is inside.']},
   /* 7 */ {trail:'c', goal:() => S.wrapped, target:'e2_dmid', tips:['Paper on its own won’t stay.', 'Mary’s desk drawers.', 'The middle drawer sticks: take the socks drawer out from under it first. The tape is inside. Paper on the frame, then tape.']},
