@@ -3,8 +3,8 @@
 *Opened on 24 Oct 2026 at the owner's word: "Do the packing day but built from scratch. Just as a two-room puzzle. Mary needs to find her things before she can take her flight to London for Christmas. Make it interesting." It is the second test level after "Lock-up Duty" (`levels/LEVEL-evalroom.md`), built the same way through the same gates: the room-specification method on Sunburst in the signed-off style, the test room's way of playing, and the owner's materials first (playbook 4x, checklist 8c and 8d). The owner is giving the rooms one at a time as photographs, which are never kept in the repo: each room is written down here in words as it arrives, with what is still missing, and the design is drawn on paper and approved before any picture is made. Room 1 arrived on 24 Oct 2026 (eight pictures) and room 2 the same day (eight pictures, Mary's room); the design below is drawn from both and waits on the owner's Gates A and B. Nothing is signed, nothing is built, no credit is spent. The stage key `eval2` and the hotspot prefix `e2_` are reserved. (An earlier outline for this key, a front-office test room, is parked in commit `731e844` and is not this level.)*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: integrating (Gates A to E signed 25 Oct 2026; the owner's fifth review fixed in build 2026-10-25g; the drawers, his option 1, in 2026-10-25h; his screenshots in 2026-10-25i, j and k; the polish walk in 2026-10-25l)
-Build id of the latest play link: 2026-10-25l
+Current status: integrating (Gates A to E signed 25 Oct 2026; the owner's fifth review fixed in build 2026-10-25g; the drawers, his option 1, in 2026-10-25h; his screenshots in 2026-10-25i, j and k; the polish walk in 2026-10-25l; the comic intro in 2026-10-25m)
+Build id of the latest play link: 2026-10-25m
 Latest play link: https://rawcdn.githack.com/me565/me565.github.io/bad8fe7a173ead7c6bce34a0445540538559f2c7/next/landscape/index.html?stage=eval2
 
 ---
@@ -511,6 +511,10 @@ Pictures (`evals/images/runs/eval2-case-sofa.json`, run 40200819195): **3.6¢ fo
 
 Also for the owner, not built: the test levels have no comic intro (the test room has none either); the eval2 brief's opening gesture is reading the whiteboard, which it has. Pictures: `evals/images/runs/eval2-m2-case.json`, runs 40204404291, 40204805117, 40204996893, **30.9¢ for 7** (one re-do, the passport). New tools: `polish-e2.js`, `liftcolour.py` (lift a thing by change and colour where the edit redrew what is under it); `patch.py` leaves a side on the picture's own edge unfaded. Checks on build 2026-10-25l: playthrough passes (normal and reduced motion); audit of eval2: no failures; the polish walk again: 195 screenshots, all clear, no errors.
 
+### The owner's decisions after the walk (25 Oct 2026): keep the style; a comic intro (MOTH-152, MOTH-153)
+
+"Keep the art style. Generate the comic intro." The walls stay (MOTH-152 closed as a decision). The comic (playbook 4n) is three single panels drawn from the level's own walls with the children's portraits as references (`evals/images/runs/eval2-comic.json`, run 40241965342, **9.2¢ for 3**, all first time, no lettering): Mary at her rainy window with the case open and empty on the sofa ("Rain on the window all afternoon. The taxi to the airport came at six." / "Christmas in London, at Nana and Jedi's."); Mary kneeling on the sofa writing her list beside the case, the board turned so its writing is hidden ("Mary wrote her list on the whiteboard, in her best capitals." / "Four things to find. Then lights off, and wipe it clean."); Elliot and Zaina tiptoeing round the corridor's corner with a little blue book and a sheet of music while Mary, from behind in her doorway, has not noticed ("But in a flat with a brother of seven and a sister of four…" / "…things have a way of walking."). Text only, like the level (Gate D): the lines are not voiced. Saved in `next/art/comic/eval2-1..3.jpg`; `comic` in the stage; the play script now taps through it (six taps, remembered in the save) and the polish walk shoots each page at the three shapes. Build 2026-10-25m.
+
 ## 8. Release
 
 (the template's sections, filled in order as the gates open; see `levels/LEVEL-TEMPLATE.md`)
@@ -531,7 +535,8 @@ Also for the owner, not built: the test levels have no comic intro (the test roo
 | 7 polish: the case at the room's eye level (MOTH-145, MOTH-146) | ~25¢ (six pictures) | 29.4¢ | 6 (re-dos of the room's case) | drawn alone on white from the close-up's view; the shut edit moved the handle |
 | 7 polish: the case's close-ups on the sofa (MOTH-148) | ~8¢ | 3.6¢ | 2 (re-dos) | drawn on a wooden floor before the case's place was set |
 | 7 polish walk: the window wall's case (MOTH-151) | ~25¢ | 30.9¢ | 7 (6 for the wall predating the case; 1 the passport's emblem) | the window wall was drawn before the case was redrawn in place |
-| Total | ~$1.50 (the walls about $1.00 already spent, the pictures about 50¢) | $3.097 so far | 49 | the walls' re-dos before Gate C; 30 pictures redone in polish |
+| 7 polish: the comic intro (MOTH-153) | ~15¢ | 9.2¢ | 0 | three pages, all first time |
+| Total | ~$1.50 (the walls about $1.00 already spent, the pictures about 50¢) | $3.189 so far | 49 | the walls' re-dos before Gate C; 30 pictures redone in polish |
 
 ## Learning loop
 

@@ -20,6 +20,8 @@ const STATES = {
     const close = async () => { await p.keyboard.press('Escape'); await p.waitForTimeout(200); await p.evaluate(() => { if (!document.getElementById('closeup').hidden) closeCloseup(); }); };
     await p.goto('http://localhost:8765/next/landscape/?stage=eval2&fresh', {waitUntil:'networkidle'}); await p.waitForTimeout(900);
     await p.evaluate(() => { const f = document.getElementById('fsask'); if (f && !f.hidden){ const bt = f.querySelector('button:last-of-type'); if (bt) bt.click(); else f.hidden = true; } });
+    for (let k = 0; k < 6; k++){ if (await p.evaluate(() => document.getElementById('comic').hidden)) break; if (k % 2 === 1){ await p.waitForTimeout(400); await shot(`comic-${(k + 1)/2}`); await check(`comic page ${(k + 1)/2}`); } await p.evaluate(() => document.getElementById('comic').click()); await p.waitForTimeout(400); }
+    await p.evaluate(() => { if (!document.getElementById('comic').hidden) document.getElementById('cskip').click(); }); await p.waitForTimeout(500);
     await shot('card'); await check('title card');
     if (!(await p.evaluate(() => document.getElementById('stagecard').hidden))) await p.evaluate(() => document.getElementById('cardGo').click()); await p.waitForTimeout(900);
     const fresh = await p.evaluate(() => JSON.stringify(STAGE.fresh()));

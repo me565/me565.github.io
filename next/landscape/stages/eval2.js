@@ -576,6 +576,10 @@ return {
   title:'Packing Day', blurb:'A test level: two rooms and a corridor. Four things to find before the taxi.',
   track:'../art/music/flat.mp3', ambient:'rain',
   postcard:{pic:'../art/postcards/packing.jpg'},
+  /* the comic intro (MOTH-153, playbook 4n): three single panels from the walls and the children's portraits; text only, like the level (Gate D) */
+  comic:[{pic:'../art/comic/eval2-1.jpg', lines:['Rain on the window all afternoon. The taxi to the airport came at six.', 'Christmas in London, at Nana and Jedi’s.']},
+    {pic:'../art/comic/eval2-2.jpg', lines:['Mary wrote her list on the whiteboard, in her best capitals.', 'Four things to find. Then lights off, and wipe it clean.']},
+    {pic:'../art/comic/eval2-3.jpg', lines:['But in a flat with a brother of seven and a sister of four…', ['…things have a way of walking.', 'br']]}],
   intro:'<b>Packing day.</b> The taxi comes at six, and Mary’s things are all over the flat. Her list is on the whiteboard by the case.',
   start:{room:'mary', view:0},
   fresh:() => ({seen:{}, clues:[], taken:{}, packed:{}, wheels:[0, 2, 3, 4], wardOpen:false, caseShut:false, tubMoved:false, bathMoved:false, stoolAt:false, boxOpen:false, traded:false, verses:0, versePlayed:false, chorusHeard:false, trundleOut:false, wrapped:false, houseOpen:false, lightsOff:false, wiped:false, botOut:false}),

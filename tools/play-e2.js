@@ -22,6 +22,10 @@ const { chromium } = require('playwright');
 
   await p.goto('http://localhost:8765/next/landscape/?stage=eval2&fresh', {waitUntil:'networkidle'}); await p.waitForTimeout(900);
   await p.evaluate(() => { const f = document.getElementById('fsask'); if (f && !f.hidden){ const bt = f.querySelector('button:last-of-type'); if (bt) bt.click(); else f.hidden = true; } });
+  /* the comic intro (MOTH-153): three pages, two lines each, a tap per line and one to turn; then the title card */
+  check(await p.evaluate(() => !document.getElementById('comic').hidden), 'the comic opens a fresh start'); let taps = 0;
+  while (await p.evaluate(() => !document.getElementById('comic').hidden) && taps < 20){ await p.evaluate(() => document.getElementById('comic').click()); await p.waitForTimeout(450); taps++; if (taps === 2) await shot('00-comic'); }
+  check(taps === 6 && await p.evaluate(() => S.comicSeen), `the comic plays through in ${taps} taps and is remembered`);
   if (!(await p.evaluate(() => document.getElementById('stagecard').hidden))) await p.evaluate(() => document.getElementById('cardGo').click()); await p.waitForTimeout(800);
   console.log('start:', JSON.stringify(await st())); await shot('01-start');
   check((await view()) === 'm3', 'starts facing the sofa (m3)');
