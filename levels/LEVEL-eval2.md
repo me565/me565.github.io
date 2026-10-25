@@ -3,7 +3,7 @@
 *Opened on 24 Oct 2026 at the owner's word: "Do the packing day but built from scratch. Just as a two-room puzzle. Mary needs to find her things before she can take her flight to London for Christmas. Make it interesting." It is the second test level after "Lock-up Duty" (`levels/LEVEL-evalroom.md`), built the same way through the same gates: the room-specification method on Sunburst in the signed-off style, the test room's way of playing, and the owner's materials first (playbook 4x, checklist 8c and 8d). The owner is giving the rooms one at a time as photographs, which are never kept in the repo: each room is written down here in words as it arrives, with what is still missing, and the design is drawn on paper and approved before any picture is made. Room 1 arrived on 24 Oct 2026 (eight pictures) and room 2 the same day (eight pictures, Mary's room); the design below is drawn from both and waits on the owner's Gates A and B. Nothing is signed, nothing is built, no credit is spent. The stage key `eval2` and the hotspot prefix `e2_` are reserved. (An earlier outline for this key, a front-office test room, is parked in commit `731e844` and is not this level.)*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: assets listed (Gates A, B and C signed 25 Oct 2026; the asset and script list written the same day and waiting on the owner's Gate D)
+Current status: samples (Gates A to D signed 25 Oct 2026; the sample pack is being made)
 Build id of the latest play link: 2026-10-25a
 Latest play link: https://rawcdn.githack.com/me565/me565.github.io/80b246c97579567192445072e41a68547a9e3197/next/landscape/index.html?stage=eval2
 
@@ -344,7 +344,7 @@ Signed off: "Sign off gate c" (owner, 25 Oct 2026, in chat), on build 2026-10-25
 
 Every story-led line, by key, as in the stage file at build 2026-10-25a: the hints, 14 steps × 3 tiers (42 lines: the list · Zaina has the carol · Shelly · the stool · the box · the drawing · the paper · the tape · Elliot's note · the colours · the passport · the case · the lights · the wipe); the two notes (the carol sheet's heading and Elliot's "ZAINA'S HOUSE. KEEP OUT MARY. Password: the bit everyone sings. (I made the lock.) — E."); the card, the intro, the meanwhile line and the postcard home (1 each). Tap lines and Zaina's lines are text. **Voice: none by default**, as in the test room (text only, no cost); recorded on the Gemini key's daily allowance if the owner wants it. Music: the flat's track, nothing new. Comic: none.
 
-- Script locked on: (at Gate D sign-off)
+- Script locked on: 25 Oct 2026, at Gate D sign-off (build 2026-10-25b, with the postcard's new opening).
 - Total estimate: about 50¢ for the pictures; no voice, no music.
 
 ### Points for the owner at Gate D (each with a default)
@@ -356,7 +356,8 @@ Every story-led line, by key, as in the stage file at build 2026-10-25a: the hin
 5. **The piano's keys.** Default: **the picture has plain white keys and the game colours them**, so the colours can never disagree between the room, the close-up, the sheet and the lock.
 
 ### Gate D — list and budget
-Signed off:
+Checked: every stand-in has a row · reuse checked against the register · nothing written in any picture · the script listed
+Signed off: "Sign off" (owner, 25 Oct 2026, in chat, in answer to "reply 'sign off gate d' to take all five defaults"): the case navy, text only, the stool's patch by one edit of `m1`, the postcard starting "On the plane now!", the piano's keys coloured by the game. The postcard change went in before the lock (build 2026-10-25b).
 
 ---
 

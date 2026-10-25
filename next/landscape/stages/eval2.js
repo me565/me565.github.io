@@ -340,7 +340,7 @@ function turnKnob(){
 function openNoteE(again){ if (!S.seen.enote){ S.seen.enote = Date.now(); save(); } openNote('enote'); if (!again){ const c = copyClue('enote'); if (c) say('Elliot’s note, taped above the doll’s house door.' + c); } }
 function ending(){
   S.done = true; save();
-  showEnd('Packed!', 'My things had walked all over the flat. Zaina swapped my carol for Shelly, Elliot locked my passport in the doll’s house with a password (the bit everyone sings), Nana’s drawing needed wrapping and my hat and gloves were up on the top shelf. All four in the case, the lights off, the board wiped. London for Christmas!', 'Zaina says Shelly is coming too.');
+  showEnd('Packed!', 'On the plane now! My things had walked all over the flat. Zaina swapped my carol for Shelly, Elliot locked my passport in the doll’s house with a password (the bit everyone sings), Nana’s drawing needed wrapping and my hat and gloves were up on the top shelf. All four in the case, the lights off, the board wiped. London for Christmas!', 'Zaina says Shelly is coming too.');
 }
 
 /* ---------- using things ---------- */
