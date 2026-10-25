@@ -3,7 +3,7 @@
 *Opened on 24 Oct 2026 at the owner's word: "Do the packing day but built from scratch. Just as a two-room puzzle. Mary needs to find her things before she can take her flight to London for Christmas. Make it interesting." It is the second test level after "Lock-up Duty" (`levels/LEVEL-evalroom.md`), built the same way through the same gates: the room-specification method on Sunburst in the signed-off style, the test room's way of playing, and the owner's materials first (playbook 4x, checklist 8c and 8d). The owner is giving the rooms one at a time as photographs, which are never kept in the repo: each room is written down here in words as it arrives, with what is still missing, and the design is drawn on paper and approved before any picture is made. Room 1 arrived on 24 Oct 2026 (eight pictures) and room 2 the same day (eight pictures, Mary's room); the design below is drawn from both and waits on the owner's Gates A and B. Nothing is signed, nothing is built, no credit is spent. The stage key `eval2` and the hotspot prefix `e2_` are reserved. (An earlier outline for this key, a front-office test room, is parked in commit `731e844` and is not this level.)*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: outline (both rooms received; Gates A and B wait on the owner)
+Current status: outline (Gate A signed 25 Oct 2026; Gate B waits on the owner)
 Build id of the latest play link: none
 Latest play link: none
 
@@ -78,7 +78,7 @@ Taken from inside Elliot and Zaina's doorway, their door standing open on the ri
 ### Gate A — story
 Checked: fits the arc and the age · nothing borrowed · fiction and legal rules · nothing shared with another child's story
 Walked 24 Oct 2026: a test level in Mary's own home, so all four apply lightly. Fits the age: reading a list, a trade, a reach, wrapping, a colour code from a two-line clue; nothing a ten-year-old cannot do, enough to make a grown-up smile. Nothing borrowed: every puzzle is built from the two rooms' own things; the shapes (an in-world checklist, a character who wants something, a performance that carries a code, the hero's reach) are the design library's ideas only. Fiction and legal: the family only; no brands. Shared things: nothing of version 2's trails is reused, and nothing here appears in Elliot's or Zaina's own packing-day plans (`STORY.md`: his bedroom and the batteries, her bedroom); Zaina's doll's house and toy piano are seen in her room but belong to no puzzle of hers. Child-safe: the stool is a low step, feet shown on the floor; the chair on wheels is refused with a line.
-Signed off:
+Signed off: "Sign off gate a" (owner, 25 Oct 2026, in chat).
 
 ---
 
