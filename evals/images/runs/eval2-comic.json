@@ -1,0 +1,54 @@
+{
+ "name": "eval2: the comic intro, three pages (MOTH-153).",
+ "defaults": {
+  "n": 1
+ },
+ "notes": [
+  "Playbook 4n: single panels, no lettering, the children from their portraits. Linted."
+ ],
+ "est_total_usd": 0.15,
+ "cases": [
+  {
+   "id": "comic-1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "est_usd": 0.05,
+   "references": [
+    "next/art/eval2/m2.jpg",
+    "next/art/portraits/mary.png"
+   ],
+   "prompt": "A single comic-strip panel, ONE single picture filling the whole 16:9 frame, drawn in exactly the style of the first attached picture (its ink outlines, colours, light and paper grain): no text or lettering anywhere, no speech bubbles, no frames or borders, no panel gutters; any whiteboard, poster or paper in the picture is blank or turned away. The child in the scene is the child shown in the second attached picture, drawn small in the scene, never a close-up of the face: Mary, ten, long dark wavy hair in a low ponytail, a rust-orange T-shirt with a cream collar. The scene: Mary's bedroom on a grey rainy afternoon, the same room as the first attached picture: Mary stands at her big window with her back half turned to us, one hand on the glass, watching the rain run down it over the tower blocks and the tree outside; the black music stand with its little pompom lights beside her, and on the grey sofa behind her the open navy suitcase, empty. Quiet, cosy, a little impatient.",
+   "note": "MOTH-153: page 1, the rain and the taxi at six"
+  },
+  {
+   "id": "comic-2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "est_usd": 0.05,
+   "references": [
+    "next/art/eval2/m3.jpg",
+    "next/art/portraits/mary.png",
+    "evals/images/refs/eval2-m3-case.jpg"
+   ],
+   "prompt": "A single comic-strip panel, ONE single picture filling the whole 16:9 frame, drawn in exactly the style of the first attached picture (its ink outlines, colours, light and paper grain): no text or lettering anywhere, no speech bubbles, no frames or borders, no panel gutters; any whiteboard, poster or paper in the picture is blank or turned away. The child in the scene is the child shown in the second attached picture, drawn small in the scene, never a close-up of the face: Mary, ten, long dark wavy hair in a low ponytail, a rust-orange T-shirt with a cream collar. The scene: the same room as the first attached picture: Mary kneels on the grey sofa beside the open navy hard suitcase of the third attached picture, writing on a small whiteboard propped against the sofa's back with a marker; the whiteboard is turned so we see it from the side, its writing not visible. The planet poster on the wall is a plain picture. Busy and pleased with herself.",
+   "note": "MOTH-153: page 2, the list"
+  },
+  {
+   "id": "comic-3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "est_usd": 0.05,
+   "references": [
+    "next/art/eval2/c3.jpg",
+    "next/art/portraits/mary.png",
+    "next/art/portraits/elliot.png",
+    "next/art/portraits/zaina.png"
+   ],
+   "prompt": "A single comic-strip panel, ONE single picture filling the whole 16:9 frame, drawn in exactly the style of the first attached picture (its ink outlines, colours, light and paper grain): no text or lettering anywhere, no speech bubbles, no frames or borders, no panel gutters; any whiteboard, poster or paper in the picture is blank or turned away. The scene: the flat's corridor of the first attached picture, pale stone floor and dark wooden doors, a rainy-afternoon light. Far down the corridor, two small children tiptoe away round the corner into their bedroom, giggling, looking back over their shoulders: a seven-year-old boy (the third attached picture: straight dark hair with a fringe, a cream T-shirt with a small teal cog) holding a small blue book behind his back, and a four-year-old girl (the fourth attached picture: wispy dark hair in two high bunches, a navy dress with tiny white cats) hugging a folded sheet of music to her chest. In the near foreground at the left edge, just the shoulder and ponytail of their big sister Mary (the second attached picture) seen from behind, in the doorway of her room, not yet noticing. Playful, cosy, nothing frightening.",
+   "note": "MOTH-153: page 3, things walk"
+  }
+ ]
+}
