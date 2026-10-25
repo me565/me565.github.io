@@ -3,7 +3,7 @@
 *Opened on 24 Oct 2026 at the owner's word: "Do the packing day but built from scratch. Just as a two-room puzzle. Mary needs to find her things before she can take her flight to London for Christmas. Make it interesting." It is the second test level after "Lock-up Duty" (`levels/LEVEL-evalroom.md`), built the same way through the same gates: the room-specification method on Sunburst in the signed-off style, the test room's way of playing, and the owner's materials first (playbook 4x, checklist 8c and 8d). The owner is giving the rooms one at a time as photographs, which are never kept in the repo: each room is written down here in words as it arrives, with what is still missing, and the design is drawn on paper and approved before any picture is made. Room 1 arrived on 24 Oct 2026 (eight pictures) and room 2 the same day (eight pictures, Mary's room); the design below is drawn from both and waits on the owner's Gates A and B. Nothing is signed, nothing is built, no credit is spent. The stage key `eval2` and the hotspot prefix `e2_` are reserved. (An earlier outline for this key, a front-office test room, is parked in commit `731e844` and is not this level.)*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: assets listed is next (Gates A, B and C signed 25 Oct 2026; the twelve walls passed by the owner the same day; the first playable, build 2026-10-25a, signed at Gate C; the asset and script list, Gate D, is being drawn up)
+Current status: assets listed (Gates A, B and C signed 25 Oct 2026; the asset and script list written the same day and waiting on the owner's Gate D)
 Build id of the latest play link: 2026-10-25a
 Latest play link: https://rawcdn.githack.com/me565/me565.github.io/80b246c97579567192445072e41a68547a9e3197/next/landscape/index.html?stage=eval2
 
@@ -295,7 +295,71 @@ Signed off: "Sign off gate c" (owner, 25 Oct 2026, in chat), on build 2026-10-25
 
 ---
 
-## 5. Asset and script list
+## 5. Asset and script list (written 25 Oct 2026 for Gate D, after Gate C)
+
+**Reuse first.** Free here: the twelve walls (passed by the owner, 25 Oct 2026); Zaina's portrait (`next/art/portraits/zaina.png`) as the reference for her cut-out; the flat's track (`next/art/music/flat.mp3`) and the engine's rain; the packing postcard (`next/art/postcards/packing.jpg`: the case by a taxi in the rain, which is this ending); and six things lifted from the walls by crop (playbook 4r): the stool (`m1`, also its icon and the stool standing at the wardrobe), the wardrobe's doors (`m4`), the three desk drawer fronts (`m1`), the blue folder (`m2`), the trundle's front (`k2`) and the doll's house's front (`k4`). Checked against the old packing day's icons (`next/art/flat/`: tape, present, passports, paper roll, drawing): **none reused**, because they are in the earlier flat style (checklist 43) and the moth paper belongs to version 2's trail, which the brief keeps out.
+
+**How every picture is made** (playbook 2, 4aa, 4r), as in the test room: GPT Image 2.5 Sunburst through OpenRouter on the GitHub runner, Nano Banana 2 as the fallback; every prompt opens with the signed-off style sentence (*a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges; bright and clear, not hazy or dark*) and the room's palette line. Close-ups are 16:9 with a crop of the wall they come from as the style reference ("copy only its style, not its contents"); cut-outs and icons are alone on pure white, keyed out with the soft rim, with no picture reference unless the row names one (playbook 4t). Nothing written anywhere in any picture: the game writes every word, number, colour and shape that a puzzle reads.
+
+| # | Asset | Type | Moves? | Reused from | Prompt (after the style sentence and the palette line) | Est. ¢ |
+|---|---|---|---|---|---|---|
+| 1 | Mary's whiteboard | cut-out (also the close-up and the wipe, at 1K) | single (the wipe is the stage's drag) | — | "A small white dry-wipe board in a thin silver frame, about forty centimetres wide, propped up at a slight lean, its surface completely blank and clean, a blue marker pen resting on its bottom ledge. Seen straight on." | 1.5 |
+| 2 | The open case, on the sofa | cut-out | single (`pop` on the lid as each thing goes in) | a crop of the case on `m2`'s left side wall as reference | "A child's hard suitcase in **dark navy blue**, open, its lid standing up behind it, seen from the front and a little above: folded clothes in the bottom half, the top empty. Same case as the attached crop." | 1.5 |
+| 3 | The case, close up | close-up | no | 2 as reference | "Looking down into the same open navy suitcase from above, filling the frame: neatly folded jumpers and trousers in the bottom, with a clear empty space on top for four more things. Nothing written." The game draws each packed thing in the space. | 1.5 |
+| 4 | The blue folder, opened | close-up | no | a crop of the folder from `m2` | "A blue cardboard music folder lying open on a black music stand's desk, seen close and square on: both inside faces empty, the cover's small white label blank. Rain-light from a window." The game writes "Nana's carol — Christmas Eve". | 1.5 |
+| 5a–c | The three desk drawers, looked into | close-up ×3 | no | a crop of the green drawers from `m1` | Looking down into an open dark green desk drawer from above, filling the frame: (a) "empty but for one small pink hair clip"; (b) "a jumble of craft beads, pipe cleaners and a glue stick"; (c) "rolled-up odd socks". | 4.5 |
+| 6 | The pen pot, close up | close-up | no | a crop of the desk from `m1` | "A metal pen pot on a black desk, close up: coloured pencils and felt pens standing in it, leaving a gap at the front of the pot. A yellow mug of paintbrushes just in frame behind." The game draws the tape in the gap until it is taken. | 1.5 |
+| 7 | Sticky tape | icon | no | — | "A roll of clear sticky tape on its own, no dispenser, lying flat, seen from directly above." | 1 |
+| 8 | The trundle, looked into | close-up | no | a crop of the bunk's base from `k2` | "Looking down into an open white trundle drawer under a bunk bed: spare cream sheets folded and a small pillow at one end, a clear empty space along the front. Nothing written." The game draws the roll in the space until taken. | 1.5 |
+| 9 | Roll of wrapping paper | icon | no | — | "A roll of Christmas wrapping paper, white with small friendly snowmen and blue snowflakes, lying on its side, seen from directly above." | 1 |
+| 10a | The pocket organiser, Shelly showing | cut-out | single (`swing`) | — | "A small grey fabric organiser that hangs from a hook, two columns of three pockets; one pocket has a clear plastic window, and through it a pink mermaid's tail shows plainly. Seen straight on." | 1.5 |
+| 10b | The same, Shelly gone | cut-out | no | 10a, edited | Edit: "the same picture with the window pocket empty". | 1 |
+| 11 | The organiser, close up | close-up | no | 10a as reference | "The same grey organiser close up and square on, filling the frame, the clear window pocket in the middle row." The game draws Shelly behind the window (as the hamster behind glass) until taken. | 1.5 |
+| 12 | Shelly the mermaid | icon (also on Zaina's lap) | no | — | "A small soft-toy mermaid, pink tail, yellow wool hair, a teal top, smiling, lying flat, seen from above." | 1 |
+| 13 | Mary's framed drawing for Nana | cut-out and icon | single (`lift`) | — | "A child's crayon drawing in a thin pale wooden frame: a family of five holding hands under a big sun, a little aeroplane in the sky, simple dot eyes, bright crayon colours. Seen straight on." The game writes "For Nana" on a tag. | 1.5 |
+| 14 | The half-wrapped present | icon | no | 9 and 13 as references | "The attached framed drawing wrapped in the attached snowman paper, the paper's flaps still open at the ends." | 1 |
+| 15 | Nana's present, wrapped | icon | no | 14, edited | Edit: "the same parcel with every flap folded down and taped". | 1 |
+| 16a | The winter box on the top shelf | close-up | no | a crop of the wardrobe top from `m4` | "Inside a white wardrobe at its top shelf, seen square on from a step stool: a cardboard storage box on the shelf, tied round with a red ribbon in a bow, one end of the ribbon hanging loose. A blank white label on the box." The game writes "WINTER (London)" and the drag pulls the loose end. | 1.5 |
+| 16b | The winter box open | close-up | no | 16a, edited | Edit: "the same box with the ribbon off and the lid lifted, a red woolly hat and red gloves inside". | 1 |
+| 17 | Hat and gloves | icon | no | 16b as reference | "A red woolly hat with a bobble and a pair of red knitted gloves, together, lying flat, seen from above." | 1 |
+| 18 | The ribbon's end | drag tab | no | 16a as reference | "The loose end of a red satin ribbon, cut in a V, alone." | 1 |
+| 19 | Board wiper | drag tab | no | — | "A small whiteboard eraser, blue felt on a grey handle, seen from above." | 1 |
+| 20a | Zaina's old baby bath | cut-out | single (`lift`, set aside) | a crop of the stool from `m1` for the floor's light | "A pale yellow plastic baby bath, empty, seen from the front and a little above." | 1.5 |
+| 20b | A plastic tub | cut-out | single (`lift`, set aside) | — | "A clear plastic storage tub with a white lid, empty, seen from the front and a little above." | 1.5 |
+| 21 | The stool's place, empty | patch (a wall edit used only for the patch) | no | `m1`, edited | Edit: "the same picture with the small wooden step stool under the loft removed, the floor and wall behind it continuing". Only the patch under the stool is used; the passed wall is unchanged. | 3 |
+| 22 | Zaina on her bunk with her piano | cut-out | breathe (idle) | her portrait, as the character reference | "The girl in the attached portrait, aged four, sitting cross-legged facing us with a pink toy piano on her knees, both hands on its keys, smiling down at it; same face, hair and clothes as the portrait. Alone on white." | 2 |
+| 23 | Zaina's piano, close up | close-up | no | 22 as reference | "A pink toy piano close up and square on, filling the frame: **eight keys in a row, all plain white**, a little card slot along its top, a girl's hands just in frame at the bottom." The game colours the keys and puts their shape stickers on (red heart, orange sun, yellow star, green leaf, blue moon, indigo fish, violet flower, pink cloud), so the room, the close-up, the sheet and the lock always agree (the playtest's care point). | 1.5 |
+| 24 | Elliot's lock, close up | close-up | no | a crop of the doll's house door from `k4` | "A square of brown cardboard taped onto a doll's house's little yellow front door, close up: four round buttons drawn in felt-tip in a row, filled red, yellow, green and blue, and a tiny round wooden door knob below them. The felt-tip is a child's, a bit wobbly." The game draws the shapes inside the buttons and Elliot's note. | 1.5 |
+| 25 | Inside the doll's house | cut-out (behind the front's swing) | no | a crop of the house from `k4` | "The inside of a tall blue doll's house with its front swung open: three little floors of rooms, warm light in the windows, and on the middle floor a tiny doll's bed, made and empty. Seen straight on." The game lays the passport on the bed until taken. | 1.5 |
+| 26 | Passport | icon | no | — | "A small plain dark blue passport booklet, closed, its cover completely blank with no emblem and no words, lying flat, seen from above." | 1 |
+| 27 | The carol sheet | icon | no | — | "A sheet of music paper folded once, the five lines of two staves showing, no notes and no writing, lying flat, seen from above." The note itself stays drawn by the game. | 1 |
+
+- **Not made, drawn by the game:** the whiteboard's writing and ticks, the folder's and box's labels, the carol sheet's notes, the piano's colours and shapes, the lock's shapes, Elliot's note, the pompom lights (a twinkle of dots, as the motion sheet says), the windows lighting, the gold at the ending.
+- **Total:** 33 pictures (27 rows; 5, 10, 16 and 20 make two or three each), about **50¢** at the 1 to 2¢ Sunburst has actually billed for single pictures and edits (the test room's batch: 12.4¢ for nine), about $1.30 at the playbook's 4¢. Up from the Gate B guess of about twenty pictures and 20¢, because of the second states (10b, 16b, 15), the stool's patch and the two drag tabs. No wall is redrawn.
+- **Sample pack for Gate E** (the hardest first): Zaina on her bunk (22) with the piano close-up (23); the bath and the tub over the stool with the empty patch (20a, 20b, 21), because they touch a passed wall; and the passport (26) in the strip. Judged in the level on the tablet.
+- **Order of making after the samples:** 1–3 (the sofa), 10–12 (the organiser and Shelly), 13–15 with 9 (the present), 16–19 (the box), 4–8, 24, 25, 27.
+- **Originals** go to the owner's Drive folder for the level; the repo keeps the shipped sizes.
+
+### The script (48 lines), locked at this gate
+
+Every story-led line, by key, as in the stage file at build 2026-10-25a: the hints, 14 steps × 3 tiers (42 lines: the list · Zaina has the carol · Shelly · the stool · the box · the drawing · the paper · the tape · Elliot's note · the colours · the passport · the case · the lights · the wipe); the two notes (the carol sheet's heading and Elliot's "ZAINA'S HOUSE. KEEP OUT MARY. Password: the bit everyone sings. (I made the lock.) — E."); the card, the intro, the meanwhile line and the postcard home (1 each). Tap lines and Zaina's lines are text. **Voice: none by default**, as in the test room (text only, no cost); recorded on the Gemini key's daily allowance if the owner wants it. Music: the flat's track, nothing new. Comic: none.
+
+- Script locked on: (at Gate D sign-off)
+- Total estimate: about 50¢ for the pictures; no voice, no music.
+
+### Points for the owner at Gate D (each with a default)
+
+1. **The case's colour.** The specification said purple; the passed window wall (`m2`) painted it dark navy on its side. Default: **navy**, so the case matches the wall you passed (no wall edit).
+2. **Voice.** Default: **text only**, as in the test room.
+3. **The stool's empty place.** Default: **one edit of `m1`, used only as a small patch** under the stool once it is taken (3¢); the wall itself stays as you passed it.
+4. **The postcard.** It is addressed "Dear Mum and Dad" while Mum is in the kitchen. Default: **it starts "On the plane now!"**, written on the way, changed before the script locks.
+5. **The piano's keys.** Default: **the picture has plain white keys and the game colours them**, so the colours can never disagree between the room, the close-up, the sheet and the lock.
+
+### Gate D — list and budget
+Signed off:
+
+---
+
 ## 6a. Sample pack
 ## 6b. Batch
 ## 7. Integrate and polish
@@ -311,8 +375,8 @@ Signed off: "Sign off gate c" (owner, 25 Oct 2026, in chat), on build 2026-10-25
 | walls redrawn after the owner's review | ~15¢ | 20.9¢ | 5 | MOTH-94 to MOTH-101: the specifications placed neighbouring walls' things on the wrong walls; corrected from the floor plan, with a compass check added so it does not happen again |
 | walls edited after the owner's second review | ~15¢ | 10.0¢ | 5 | MOTH-102 to MOTH-105: doors, glimpses, a ladder's face, a stray curtain; the approved pictures edited with one change each |
 | walls edited after the owner's third review and Claude's check | ~25¢ | 27.5¢ | 10 | MOTH-106 to MOTH-112 and four faults from the full check: door swings, ladder, rug direction, corridor shape and order, glimpses |
-| 6b batch | ~20¢ (about twenty cut-outs, close-ups and icons) | | | |
-| Total | ~50¢ | | | |
+| 6a + 6b pictures | ~50¢ (33 pictures, Gate D list) | | | |
+| Total | ~$1.50 (the walls about $1.00 already spent, the pictures about 50¢) | 99.9¢ so far | 20 | all re-dos on the walls, before Gate C |
 
 ## Learning loop
 
