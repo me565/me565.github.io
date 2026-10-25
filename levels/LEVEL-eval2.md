@@ -283,7 +283,7 @@ Points for the owner:
 - Play link (pinned to commit):
 - What is real: puzzle logic, inventory, hints, saves, doors, the ending; every wall, cut-out and close-up that already exists; the reward moments from the motion sheet, played in the right order with whatever stands in (playbook 4ab, 4ac)
 - What stands in: a labelled box or a crop lifted from a wall for each picture that does not exist yet; the moth's and Zaina's lines as text
-- Walls generated before this gate (only with the owner's agreed cost, playbook 4ac): the twelve walls of `evals/images/runs/room-eval2.json`, agreed by the owner on 25 Oct 2026 ("Do it", after the cost of about 30¢ and the rule that a puzzle change can send a wall back were put to him).
+- Walls generated before this gate (only with the owner's agreed cost, playbook 4ac): the twelve walls of `evals/images/runs/room-eval2.json`, agreed by the owner on 25 Oct 2026 ("Do it", after the cost of about 30¢ and the rule that a puzzle change can send a wall back were put to him). Drawn the same day in run `2026-10-25-room-eval2` (GitHub Actions run 40159988883, artifact kept until 24 Nov 2026): all twelve first time, 41.5¢ billed, placed as `next/art/eval2/k1-k4, m1-m4, c1-c4.jpg`; scored in `evals/images/results/2026-10-25-room-eval2.scores.json`: all usable, the bedrooms in the signed-off style, the corridor's four more photographic than the rest (the owner's call on the tablet). The originals are in the run's artifact; the Drive copy is noted under 6b when made.
 
 Tests: scripted playthrough passes · audit clean · no soft-lock (checklist 42) · owner played it on the tablet at 2000×700 · played once on a real Android phone (checklist 44) · reduced motion checked
 Result:
@@ -305,7 +305,7 @@ Signed off:
 
 | Stage | Estimate | Actual | Re-dos (count) | Why |
 |---|---|---|---|---|
-| walls before Gate C | ~30¢ (two rooms and the corridor, twelve walls on Sunburst) | | | only with the owner's agreed cost (playbook 4ac) |
+| walls before Gate C | ~30¢ (two rooms and the corridor, twelve walls on Sunburst) | 41.5¢ | 0 | twelve first time; the estimate used the kitchen run's per-wall price and the chained walls cost more (up to 5.6¢ with three references attached) |
 | 6b batch | ~20¢ (about twenty cut-outs, close-ups and icons) | | | |
 | Total | ~50¢ | | | |
 
