@@ -29,11 +29,11 @@ for key in order:
         for b in BIG:
             if re.search(r"\b" + b + r"\b", o["label"].lower()):
                 seen.setdefault(b, []).append((key, o["id"]))
-        if re.search(r"\bdoor\b", o["label"].lower()) and "doors" not in o["label"].lower().split()[-1:] :
+        if re.search(r"\bdoor\b", o["label"].lower()) and not re.search(r"glass|window", o["label"].lower()):
             lab = o["label"].lower() + " " + o.get("size", "").lower()
             if not re.search(r"\b(open|closed|shut)\b", lab) or not re.search(r"\b(wood|wooden|white|dark|honey|brown|cream|grey|blue|green)\b", lab):
                 print(f"   !! {o['id']}: a door's label or size line must say whether it stands open or shut and what colour it is, because the side-wall sentence carries only those (checklist 70)"); problems += 1
-        if re.search(r"through the door|through it|beyond|glimpse", words) and "skirting" not in words:
+        if re.search(r"through the door|through it|through the doorway|glimpse", words) and not re.search(r"glass|window", o["label"].lower()) and "skirting" not in words:
             print(f"   !! {o['id']}: a doorway glimpse must name the next room's floor and skirting in that room's own words (checklist 70)"); problems += 1
         if re.search(r"\bcurtain", o["label"].lower()) and not re.search(r"window|glass", o["label"].lower()):
             print(f"   !! {o['id']}: a curtain is part of its window, never a loose object (checklist 71)"); problems += 1

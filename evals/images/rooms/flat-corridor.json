@@ -19,7 +19,7 @@
     {
      "id": "kdoor",
      "label": "the children's open dark wooden door",
-     "text": "at the end of the corridor, a dark wooden door standing open and through the doorway a glimpse of the children's room: a white bunk bed's end covered in tiny stickers, a grey rug, grey daylight",
+     "text": "at the end of the corridor, a dark honey wooden door standing open and through the doorway a glimpse of the children's room as its own walls show it: white walls with low white skirting boards, a pale honey wood floor and a grey rug, a white bunk bed's end covered in tiny stickers, grey daylight",
      "on": "floor",
      "l": 28,
      "t": 4,
@@ -46,7 +46,7 @@
     {
      "id": "mdoor",
      "label": "Mary's open dark wooden door",
-     "text": "Mary's door standing open: a dark wooden door and frame, and through the doorway a glimpse of her room: the end of a grey sofa, a striped rug, grey daylight",
+     "text": "Mary's door standing open: a dark honey wooden door and frame, and through the doorway a glimpse of her room as its own walls show it: white walls with low white skirting boards, a pale honey wood floor, the end of a grey sofa, a striped rug, grey daylight",
      "on": "floor",
      "l": 26,
      "t": 4,
@@ -56,7 +56,7 @@
     },
     {
      "id": "frame2",
-     "label": "a second door frame, closed",
+     "label": "a second dark wooden door, closed",
      "text": "further along at the right, a second dark wooden door, closed, with a brass handle",
      "on": "floor",
      "l": 66,
@@ -85,7 +85,7 @@
     {
      "id": "turn",
      "label": "the turn to the dining end",
-     "text": "at the right the corridor opens into the dining end: bright grey daylight, the corner of a pine dining table and a wooden chair, a white wall beyond",
+     "text": "at the right the corridor opens into the dining end: bright grey daylight, the same pale stone tiles and dark honey wood skirting boards continuing round the corner, the corner of a pine dining table and a wooden chair, a white wall beyond",
      "on": "floor",
      "l": 64,
      "t": 4,
