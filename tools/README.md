@@ -31,4 +31,8 @@ Draws a level's puzzle chart (stage 3 of the level file) as the dependency chart
 
 ## keywhite.py
 
-Keys a cut-out or icon drawn on white (playbook 2): `python3 tools/keywhite.py in.png out.png [--holes N] [--max W]`. The white is flood-filled from the edges (white inside the thing survives); `--holes N` clears enclosed white regions of at least N pixels (a key's hole); the rim is keyed soft so no pale fringe shows; cropped, scaled to at most W wide (1024) and quantised. Prints the size and h/w for the layer's box (h = w × h/w × 16/9).
+Keys a cut-out or icon drawn on white (playbook 2): `python3 tools/keywhite.py in.png out.png [--holes N] [--max W]`. The white is flood-filled from the edges (white inside the thing survives); `--holes N` clears enclosed white regions of at least N pixels (a key's hole); the rim is keyed soft so no pale fringe shows; cropped, scaled to at most W wide (1024) and quantised. Prints the size and h/w for the layer's box (h = w × h/w × 16/9). It also grows the background three pixels into the pale, unsaturated halo the model leaves round a figure (MOTH-125).
+
+## lift.py
+
+Lifts what an edit added to a picture, by difference with the picture before it: `python3 tools/lift.py base.png edited.png name x0 x1 y0 y1 out.png [--tight]`, the window in fractions. Prints the box in picture percentages and writes a `-check.jpg` of it in place. `--tight` keeps the gaps inside the thing (no big closing of the mask) and is the one to use for states: each thing that goes into or out of a container is lifted from an edit of the empty container, so any mix of them shows in the one picture (playbook 4af). Never use a lifted thing as an icon: it brings its floor and shadow along (MOTH-116); icons are drawn on white.

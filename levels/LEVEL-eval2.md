@@ -3,7 +3,7 @@
 *Opened on 24 Oct 2026 at the owner's word: "Do the packing day but built from scratch. Just as a two-room puzzle. Mary needs to find her things before she can take her flight to London for Christmas. Make it interesting." It is the second test level after "Lock-up Duty" (`levels/LEVEL-evalroom.md`), built the same way through the same gates: the room-specification method on Sunburst in the signed-off style, the test room's way of playing, and the owner's materials first (playbook 4x, checklist 8c and 8d). The owner is giving the rooms one at a time as photographs, which are never kept in the repo: each room is written down here in words as it arrives, with what is still missing, and the design is drawn on paper and approved before any picture is made. Room 1 arrived on 24 Oct 2026 (eight pictures) and room 2 the same day (eight pictures, Mary's room); the design below is drawn from both and waits on the owner's Gates A and B. Nothing is signed, nothing is built, no credit is spent. The stage key `eval2` and the hotspot prefix `e2_` are reserved. (An earlier outline for this key, a front-office test room, is parked in commit `731e844` and is not this level.)*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: integrating (Gates A to E signed 25 Oct 2026; every picture placed in build 2026-10-25d; the polish walk, stage 7, is next)
+Current status: integrating (Gates A to E signed 25 Oct 2026; the owner's fourth review fixed in build 2026-10-25e; the drawers' design waits on him)
 Build id of the latest play link: 2026-10-25a
 Latest play link: https://rawcdn.githack.com/me565/me565.github.io/80b246c97579567192445072e41a68547a9e3197/next/landscape/index.html?stage=eval2
 
@@ -405,6 +405,46 @@ Made 25 Oct 2026 on the GitHub runner (`evals/images/runs/eval2-batch.json`, run
 - Re-dos and why: none in the samples or the batch.
 - One slip while placing: the play script still dragged along the stand-ins' ribbon and wipe paths, so it caught the new pictures' paths as a failure; the script now follows the real ribbon's end and the board's face.
 ## 7. Integrate and polish
+
+### The owner's fourth recorded review (25 Oct 2026, 11 min 31 s, build 2026-10-25d): MOTH-113 to MOTH-134
+
+Logged first (22 cards), then fixed in build 2026-10-25e. What each got:
+
+| Card | His point | Fixed how |
+|---|---|---|
+| MOTH-113 | The case's clothes differ between the room and the close-up | The room's case redrawn from the close-up as its reference (`layer-case.png`) |
+| MOTH-114 | The pompom lights are code dots | Drawn into an edit of `m2` and lifted, on and off (`layer-lights-on/off.png`); on, they twinkle |
+| MOTH-115 | The bath and tub set aside float by the curtain | Set down together on the floor in front of the cube shelves, the tub back in the bath |
+| MOTH-116 | The stool's icon carries the wall | Drawn alone on white (`item-stool.png`), used for the icon and at the wardrobe; `lift.py --tight` added |
+| MOTH-117 | The tape only exists in the close-up | Lies on the desk by the pot in the room too; lies flat in the close-up |
+| MOTH-118 | Only Shelly's tail shows | The whole of Shelly behind the window, in the close-up and in the room |
+| MOTH-119 | Shelly and the passport off-centre in the strip | The icon box fixed (a grid cell grew to a tall picture); the audit now checks every icon (E33) |
+| MOTH-120 | The drawers do nothing | Not built: a design change, proposed below for the owner |
+| MOTH-121 | The wardrobe should open; the box seen from a child's height | The doors (lifted from `m4`) open in 3D on a tap and close on another; the inside is an edit of `m4`; from the floor the box is an edge high above (`closeup-wardrobe-up.jpg`); the stool stands in the open wardrobe |
+| MOTH-122 | The ribbon drag is awful and skips the box's inside | A tap opens the box; the hat and gloves lie in it (lifted from an edit of the empty box) and are taken by hand |
+| MOTH-123 | Can't pack from the close-up; packed things look stuck on | The close-up takes items and stays open; each packed thing is lifted from an edit with all four in, so any mix shows in the real case, in the room and close up; the audit now checks close-up targets (E34) |
+| MOTH-124 | The corridor's glimpse shows the bunk | The doorway on `c4` patched from an edit: the cube shelves and the doll's house's edge |
+| MOTH-125 | White fringe round Zaina | `keywhite.py` grows into the pale halo; Zaina re-keyed |
+| MOTH-126 | The carol in the piano is a label | The carol sheet's picture stands in the slot, in the room and close up |
+| MOTH-127 | Elliot's lock should be a real lock | A cardboard lock with four wheels turned through the piano's colours and shapes (`closeup-lock2.jpg`); the room shows a crop of the same picture with the wheels as left |
+| MOTH-128 | No obvious way to try the code | A big red button on the lock |
+| MOTH-129 | The windows light up | Gone: the front just opens |
+| MOTH-130 | Doors open flat | `door3d`: the face, the edge's thickness and a deepening shade, with the room's one perspective; doll's house and wardrobe. The engine's doors: backlog 31 |
+| MOTH-131 | The ladder's leg blocks the trundle | The edit of `k2` failed (the leg stayed); taken the owner's other way: the drawer that slides out runs from the ladder's leg to the far post |
+| MOTH-132 | The paper floats diagonally | The roll lies along the drawer (`item-roll-flat.png`) |
+| MOTH-133 | "Zips shut" but the case stays open | A "Zip it shut" button with all four in; the case shown closed, in the room and close up |
+| MOTH-134 | The wipe looks broken | A tap: the wiper crosses the board once and the writing goes behind it |
+
+Pictures made (`evals/images/runs/eval2-fix4.json`, `-fix4b`, `-fix4c`; runs 40180983187, 40181067963, 40181314763; results in `evals/images/results/2026-10-25-eval2-fix4*.results.json`): **36.4¢ for 16 pictures**, of which one failed (the `k2` edit, 4.3¢) and one was refused by the model's safety filter at no cost (the room's lock alone; the crop of the close-up was better anyway). Checks on build 2026-10-25e: scripted playthrough passes (normal and reduced motion), audit below.
+
+### Proposal for the owner: what the drawers could do (MOTH-120)
+
+The three desk drawers look good and do nothing. A design change, so not built without your word. Default first:
+
+1. **The tape is in the middle drawer, and it's stuck** (default). The middle drawer jams after a finger's width; the bottom drawer, full of socks, is pushing up on it from below. Take the socks drawer out first (it slides right out onto the floor) and the middle one opens: the tape is inside. A small "which drawer first" step, real-world logic, and the pen pot stays a pen pot. It uses the "drawer looked into" type a second time (the cap is two).
+2. **Zaina's hair clip opens something.** The hair clip in the top drawer is the one Zaina used to hide the passport ("It was here. Zaina."); it becomes the key that pops the doll's house's back panel as a second way in, for players who can't get the carol. A kinder route, but two ways to one passport weakens the lock.
+3. **A Night Moth secret.** Each drawer has a tiny paper moth sticker under its lining for the grown-up bonus (none planned so far).
+
 ## 8. Release
 
 (the template's sections, filled in order as the gates open; see `levels/LEVEL-TEMPLATE.md`)
@@ -419,7 +459,8 @@ Made 25 Oct 2026 on the GitHub runner (`evals/images/runs/eval2-batch.json`, run
 | walls edited after the owner's third review and Claude's check | ~25¢ | 27.5¢ | 10 | MOTH-106 to MOTH-112 and four faults from the full check: door swings, ladder, rug direction, corridor shape and order, glimpses |
 | 6a samples | ~10¢ (six pictures) | 9.5¢ | 0 | all six first time |
 | 6b batch | ~40¢ (the other 26 pictures) | 39.9¢ | 0 | all 26 first time |
-| Total | ~$1.50 (the walls about $1.00 already spent, the pictures about 50¢) | $1.493 so far | 20 | all re-dos on the walls, before Gate C |
+| 7 polish: the fourth review's pictures | ~56¢ (14 listed) | 36.4¢ | 1 (+1 refused, free) | the `k2` edit left the ladder's leg (4.3¢); the room's lock refused by the safety filter |
+| Total | ~$1.50 (the walls about $1.00 already spent, the pictures about 50¢) | $1.857 so far | 20 | all re-dos on the walls, before Gate C |
 
 ## Learning loop
 
@@ -439,6 +480,15 @@ Made 25 Oct 2026 on the GitHub runner (`evals/images/runs/eval2-batch.json`, run
 | Same review (MOTH-109, MOTH-110) | A jutting wall in the corridor; the picture on both sides of Mary's door | The box line says flat walls; the plan lists each wall's order from the photograph | Yes: the room is the plan's shape, and order holds | Checklist 74 |
 | Samples, Claude's look in the level, 25 Oct 2026 | Zaina placed doll-sized on her bunk: her box was guessed by eye | Re-sized against the bunk's length (a four-year-old sitting is about 58 cm, the bed 180 cm), the sum written beside her box in the stage | Yes: a cut-out is sized against a real measure on its wall | Checklist 76; playbook 2 |
 | Batch, the audit's look-lines, 25 Oct 2026 | Once the doll's house opened, Elliot's note's tap target still lay over the passport and took its tap (the note is on the front, which had swung away) | The note's target hides when the house opens; it stays in the notebook | Yes: a tap target on a part that moves away hides with it, and every E32? line is checked against the states, not waved through | Checklist 77 |
+| Owner's fourth review, 25 Oct 2026 (MOTH-113, 123, 122) | One thing drawn twice disagreed (the case's clothes); packed things laid on as icons; the open box drawn apart from the empty one | One source picture per thing; states as edits of the empty state, the changes lifted | Yes | Checklist 78, 79; playbook 4af |
+| Same review (MOTH-114, 126) | Lights and a sheet in a slot left "drawn by the game" at Gate D | Drawn as pictures | Yes: only what the puzzle reads is code | Checklist 80; playbook 4af |
+| Same review (MOTH-116, 125) | The stool's icon lifted from the wall; a halo round Zaina | Icons on white; `keywhite.py` grows into the halo; `lift.py --tight` | Yes | Checklist 81; the tools |
+| Same review (MOTH-117, 118, 123) | Room and close-up out of step (the tape, Shelly's tail, packing only from the room) | Both show and take the same | Yes | Checklist 82; audit E34 |
+| Same review (MOTH-119) | Icons off-centre | The icon box | Yes | Checklist 83; audit E33 |
+| Same review (MOTH-121) | The box seen at shelf height by a child on the floor | The child's eye, containers opened in the room | Yes | Checklist 84; playbook 4af |
+| Same review (MOTH-122, 129, 134) | Drags and effects that looked wrong | Taps and the thing itself | Yes | Checklist 85 |
+| Same review (MOTH-124, 131, 133) | A glimpse along the wrong line; a leg in front of a drawer; "zips shut" not shown | Patched, the drawer gives way, a zip button | Yes | Checklist 86 |
+| Same review (MOTH-127, 128, 130) | A paper lock, no try button, flat doors | A wheel lock with a red button; `door3d` | Yes (the engine's doors: backlog 31) | Checklist 87; playbook backlog 31 |
 | Claude's full check, 25 Oct 2026 | The sofa on the loft wall's side wall; a pier in the window wall's corner; Mary's doorway showing a long corridor; the children's door shut on c4 | Edited with the neighbour attached | Yes: walk the whole set after any change | Checklist 75 |
 
 ## Notes for this level only

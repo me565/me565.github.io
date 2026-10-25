@@ -1,0 +1,660 @@
+{
+ "name": "eval2 fixes from the owner's fourth review (MOTH-113 to MOTH-134): lights, the case's states, the wardrobe's inside and the child's view, the empty box, the wheel lock, two wall edits.",
+ "manifest": "evals/images/runs/eval2-fix4.json",
+ "ran_at": "2026-10-25T09:33:14Z",
+ "total_cost_usd": 0.3302,
+ "results": [
+  {
+   "id": "lights-on",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval2/m2.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-114: lifted from m2 with tools/lift.py",
+   "seconds": 21.7,
+   "cost_usd": 0.025573,
+   "usage": {
+    "prompt_tokens": 1457,
+    "completion_tokens": 480,
+    "total_tokens": 1937,
+    "cost": 0.025573,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.025573,
+     "upstream_inference_prompt_cost": 0.011173,
+     "upstream_inference_completions_cost": 0.0144
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 480
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "lights-on.png",
+     "bytes": 1671554,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "case-room",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval2/closeup-caseup.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-113: the room's case drawn from the close-up so the clothes agree",
+   "seconds": 15.2,
+   "cost_usd": 0.017438,
+   "usage": {
+    "prompt_tokens": 1534,
+    "completion_tokens": 196,
+    "total_tokens": 1730,
+    "cost": 0.017438,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.017438,
+     "upstream_inference_prompt_cost": 0.011558,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "case-room.png",
+     "bytes": 1963730,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "caseup-packed",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval2/closeup-caseup.jpg",
+    "next/art/eval2/item-sheet.png",
+    "next/art/eval2/item-hat.png",
+    "next/art/eval2/item-present.png",
+    "next/art/eval2/item-passport.png"
+   ],
+   "params": {},
+   "note": "MOTH-123: each thing lifted against closeup-caseup",
+   "seconds": 25.0,
+   "cost_usd": 0.045098,
+   "usage": {
+    "prompt_tokens": 3922,
+    "completion_tokens": 480,
+    "total_tokens": 4402,
+    "cost": 0.045098,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.045098,
+     "upstream_inference_prompt_cost": 0.030698,
+     "upstream_inference_completions_cost": 0.0144
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 480
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "caseup-packed.png",
+     "bytes": 2256808,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "caseup-closed",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval2/closeup-caseup.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-133",
+   "seconds": 13.9,
+   "cost_usd": 0.015048,
+   "usage": {
+    "prompt_tokens": 1512,
+    "completion_tokens": 120,
+    "total_tokens": 1632,
+    "cost": 0.015048,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.015048,
+     "upstream_inference_prompt_cost": 0.011448,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "caseup-closed.png",
+     "bytes": 2150120,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "box-empty",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval2/closeup-box-open.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-122",
+   "seconds": 13.2,
+   "cost_usd": 0.014498,
+   "usage": {
+    "prompt_tokens": 1402,
+    "completion_tokens": 120,
+    "total_tokens": 1522,
+    "cost": 0.014498,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.014498,
+     "upstream_inference_prompt_cost": 0.010898,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "box-empty.png",
+     "bytes": 1656887,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "m4-open",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval2/m4.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-121: the inside, under doors lifted from m4 that swing open",
+   "seconds": 19.4,
+   "cost_usd": 0.025713,
+   "usage": {
+    "prompt_tokens": 1485,
+    "completion_tokens": 480,
+    "total_tokens": 1965,
+    "cost": 0.025713,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.025713,
+     "upstream_inference_prompt_cost": 0.011313,
+     "upstream_inference_completions_cost": 0.0144
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 480
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "m4-open.png",
+     "bytes": 1618628,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "wardrobe-up",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval2/closeup-box.jpg",
+    "evals/images/refs/eval2-m4-wardrobe.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-121: the child's view, before the stool",
+   "seconds": 13.8,
+   "cost_usd": 0.019887,
+   "usage": {
+    "prompt_tokens": 2145,
+    "completion_tokens": 120,
+    "total_tokens": 2265,
+    "cost": 0.019887,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.019887,
+     "upstream_inference_prompt_cost": 0.016287,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "wardrobe-up.png",
+     "bytes": 1536197,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "lock2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-k4-door.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-127, MOTH-128: the game draws each wheel's colour and shape in its window",
+   "seconds": 15.9,
+   "cost_usd": 0.012003,
+   "usage": {
+    "prompt_tokens": 561,
+    "completion_tokens": 280,
+    "total_tokens": 841,
+    "cost": 0.012003,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.012003,
+     "upstream_inference_prompt_cost": 0.003603,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "lock2.png",
+     "bytes": 2352557,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "c4-fix",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval2/c4.jpg",
+    "next/art/eval2/k4.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-124",
+   "seconds": 13.4,
+   "cost_usd": 0.030046,
+   "usage": {
+    "prompt_tokens": 2774,
+    "completion_tokens": 280,
+    "total_tokens": 3054,
+    "cost": 0.030046,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.030046,
+     "upstream_inference_prompt_cost": 0.021646,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "c4-fix.png",
+     "bytes": 1504574,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "k2-fix",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval2/k2.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-131",
+   "seconds": 28.1,
+   "cost_usd": 0.043433,
+   "usage": {
+    "prompt_tokens": 1441,
+    "completion_tokens": 1078,
+    "total_tokens": 2519,
+    "cost": 0.043433,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.043433,
+     "upstream_inference_prompt_cost": 0.011093,
+     "upstream_inference_completions_cost": 0.03234
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1078
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "k2-fix.png",
+     "bytes": 1725904,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "lights-off",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "case:lights-on"
+   ],
+   "params": {},
+   "note": "MOTH-114",
+   "seconds": 20.6,
+   "cost_usd": 0.025363,
+   "usage": {
+    "prompt_tokens": 1415,
+    "completion_tokens": 480,
+    "total_tokens": 1895,
+    "cost": 0.025363,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.025363,
+     "upstream_inference_prompt_cost": 0.010963,
+     "upstream_inference_completions_cost": 0.0144
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 480
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "lights-off.png",
+     "bytes": 1559856,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "case-room-packed",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "case:case-room",
+    "next/art/eval2/item-sheet.png",
+    "next/art/eval2/item-hat.png",
+    "next/art/eval2/item-present.png",
+    "next/art/eval2/item-passport.png"
+   ],
+   "params": {},
+   "note": "MOTH-123: each thing lifted against case-room, so any of them can show",
+   "seconds": 24.2,
+   "cost_usd": 0.041577,
+   "usage": {
+    "prompt_tokens": 3627,
+    "completion_tokens": 439,
+    "total_tokens": 4066,
+    "cost": 0.041577,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.041577,
+     "upstream_inference_prompt_cost": 0.028407,
+     "upstream_inference_completions_cost": 0.01317
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 439
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "case-room-packed.png",
+     "bytes": 1821396,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "case-room-closed",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "case:case-room"
+   ],
+   "params": {},
+   "note": "MOTH-133",
+   "seconds": 15.8,
+   "cost_usd": 0.014562,
+   "usage": {
+    "prompt_tokens": 1122,
+    "completion_tokens": 196,
+    "total_tokens": 1318,
+    "cost": 0.014562,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.014562,
+     "upstream_inference_prompt_cost": 0.008682,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "case-room-closed.png",
+     "bytes": 1614495,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "lock2-room",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "case:lock2"
+   ],
+   "params": {},
+   "note": "MOTH-127: the same lock on the door in the room",
+   "ok": false,
+   "error": "HTTP 400: {\"error\":{\"message\":\"Your request was rejected by the safety system. If you believe this is an error, contact us at help.openai.com and include the request ID req_f66db0b52da946ec89ef98edff9f5be6. safety_violations=[viol\u2026\",\"code\":400,\"metadata\":{\"provider_name\":\"OpenAI\"}}}",
+   "seconds": 16.0
+  }
+ ]
+}

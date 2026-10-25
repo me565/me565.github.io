@@ -1,6 +1,6 @@
 /* The Moth House: the checklist's automatic lines (next/CHECKLIST.md), run over every stage.
    usage: node tools/audit.js [stage ...]   (needs the local server: cd <repo> && python3 -m http.server 8765)
-   Checks: cut-out proportions (B9), a shadow on things that stand (B10, listed for a look), pictures that fail to load (G38),
+   Checks: cut-out proportions (B9), icons centred inside their slots (E33), close-ups that take what their hotspot takes (E34), a shadow on things that stand (B10, listed for a look), pictures that fail to load (G38),
    hotspot bounds, size and the turn-arrow strips (E32), unique hotspot ids, close-up overflow and page scroll at three sizes (G36, G37),
    unrecorded voice keys (F34), targets low enough to sit under the caption band (32d), and an error-free run with reduced motion at the owner's screen shape (G36).
    Writes screenshots of every view to tools/audit-out/<stage>-<view>.png for the visual lines. */
@@ -24,6 +24,7 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
     const sup = (a, b) => SUP[a] === b || SUP[b] === a;
     const seen = new Map(); ids.forEach(([k, id]) => { if (seen.has(id) && seen.get(id) !== k && !sup(k, seen.get(id))) say(k, 'E32', `hotspot id ${id} also in ${seen.get(id)}`); seen.set(id, k); }); await p.close(); }
   for (const stage of stages){
+    let usesCu = false; try{ usesCu = fs.readFileSync(path.join(__dirname, '../next/landscape/stages', stage + '.js'), 'utf8').includes('cuhot'); }catch(e){}
     /* voice */
     Object.keys(lines).filter(k => k.startsWith(stage + '.')).forEach(k => { if (!voiced.has(k)) say(stage, 'F34', `unrecorded: ${k}`); });
     for (const [w, h, name, reduce] of [[1600, 1000, 'tablet', false], [2000, 700, 'owner', true], [740, 360, 'phone', false], [2200, 1300, 'desk', false]]){
@@ -39,6 +40,15 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
       /* the strip, the scene and the caption all inside the window (the body hides overflow, so a scroll test misses it): the inventory's second column was off the owner's tablet, 24 Oct 2026 */
       const off = await p.evaluate(() => ['inv', 'scene', 'msg'].map(id => { const r = document.getElementById(id).getBoundingClientRect(); return [id, Math.round(r.left), Math.round(r.right), Math.round(r.bottom)]; }).filter(([id, l, r, b]) => l < -1 || r > innerWidth + 1 || b > innerHeight + 1)); if (off.length) say(stage, 'G37', `off the screen at ${name}: ${off.map(o => o.join(' ')).join('; ')}`);
       const views = await p.evaluate(() => Object.entries(ROOMS).flatMap(([r, R]) => R.views.map((v, i) => [r, i, v])));
+      /* every icon inside its slot and centred in it (MOTH-119: a tall picture overflowed its slot and sat low, eval2, 25 Oct 2026) */
+      if (name === 'tablet'){ const keys = await p.evaluate(() => Object.keys(ITEMS));
+        for (let k = 0; k < keys.length; k += 10){
+          const bad = await p.evaluate(ks => { const keep = S.got; S.got = ks; render(); const out = [];
+            document.querySelectorAll('#inv .slot').forEach(sl => { const im = sl.querySelector('img'); if (!im || !im.complete || !im.naturalWidth) return; const r = sl.getBoundingClientRect(), q = im.getBoundingClientRect();
+              const dx = (q.left + q.width/2) - (r.left + r.width/2), dy = (q.top + q.height/2) - (r.top + r.height/2), turned = getComputedStyle(im).transform !== 'none';
+              if (Math.abs(dx) > r.width*0.04 || Math.abs(dy) > r.height*0.04 || (!turned && (q.width > r.width*0.9 || q.height > r.height*0.9))) out.push(`${sl.getAttribute('aria-label')} (${Math.round(dx)}, ${Math.round(dy)} px off centre)`); });
+            S.got = keep; render(); return out; }, keys.slice(k, k + 10));
+          await p.waitForTimeout(200); bad.forEach(b => say(stage, 'E33', `icon not centred in its slot: ${b}`)); } }
       for (const [room, i, v] of views){
         await p.evaluate(([r, i]) => { S.room = r; S.view = i; save(); render(); say(''); }, [room, i]); await p.waitForTimeout(name === 'tablet' ? 900 : 250);
         if (name === 'tablet'){
@@ -79,6 +89,10 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
             const r = await p.evaluate(() => { const c = document.querySelector('#closeup .card'); if (!c || document.getElementById('closeup').hidden) return null; const cu = document.getElementById('closeup').getBoundingClientRect(), r = c.getBoundingClientRect(); const inner = c.scrollHeight > c.clientHeight + 1 || c.scrollWidth > c.clientWidth + 1; const outer = r.bottom > cu.bottom + 1 || r.right > cu.right + 1 || r.top < cu.top - 1;
               const spans = [...c.querySelectorAll('.book span, .ofb, .otitle, .cbox, .head, .big')].filter(s => s.scrollWidth > s.clientWidth + 2 || s.scrollHeight > s.clientHeight + 2).map(s => s.textContent.slice(0, 30)); return {inner, outer, spans}; });
             if (r && (r.inner || r.outer)) say(stage, 'E29', `${v}: ${id} close-up overflows at ${name} (${r.inner ? 'inside' : 'outside'})`);
+            /* what the room takes, its close-up takes (MOTH-51, MOTH-123): a hotspot that takes an item and opens a close-up must carry a close-up target that takes the same item (stages built with close-up targets) */
+            if (usesCu && name === 'owner'){ const miss = await p.evaluate(id => { if (document.getElementById('closeup').hidden) return null; const items = Object.keys(USES).filter(k => k.endsWith('>' + id)).map(k => k.split('>')[0]); if (!items.length) return null;
+                const targets = [...document.querySelectorAll('#closeup .cuhot')].map(b => b.dataset.cu); return items.filter(it => !targets.some(t => USES[it + '>' + t])); }, id);
+              if (miss && miss.length) say(stage, 'E34', `${v}: ${id} takes ${miss.join(', ')} in the room but its close-up has no target that takes ${miss.length > 1 ? 'them' : 'it'}`); }
             if (r && r.spans.length) say(stage, 'C18', `${v}: ${id} text spills at ${name}: ${r.spans.join(' | ')}`);
             await p.keyboard.press('Escape'); await p.waitForTimeout(80);
             if (!(await p.evaluate(() => document.getElementById('closeup').hidden))) await p.evaluate(() => closeCloseup());

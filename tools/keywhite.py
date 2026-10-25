@@ -1,7 +1,7 @@
 """Key a cut-out or icon drawn on white (playbook 2): keywhite.py in.png out.png [--holes N] [--max W]
 The white is flood-filled away from the picture's edges, so white inside the thing survives; with --holes N, any enclosed
 near-white region of at least N pixels is cleared too (a handle's loop, a key's hole: MOTH-70). The rim is keyed soft
-(MOTH-85): every opaque pixel within two of transparency takes its alpha from its whiteness and has the white pulled out of
+(MOTH-85; a pale halo round a figure is grown into first, MOTH-125): every opaque pixel within two of transparency takes its alpha from its whiteness and has the white pulled out of
 its colour, so no pale fringe shows on a dark surface. Then cropped to the content, scaled to at most --max pixels wide
 (default 1024) and quantised to 256 colours. Prints the size and the ratio (h/w) for the layer's box."""
 import sys
@@ -38,6 +38,12 @@ if holes:
                     if 0 <= nx < W and 0 <= ny < H and not seen[j] and not bg[j] and white(px[nx, ny]): seen[j] = 1; reg.append((nx, ny))
             if len(reg) >= holes:
                 for cx, cy in reg: bg[cy*W+cx] = 1
+# the halo (MOTH-125): a ring of pale grey, too dark to count as white, is left round a figure by the model's anti-aliasing. Grow the
+# background three pixels into any pale, unsaturated pixel that touches it, so the halo goes and white inside the figure stays.
+pale = lambda p: min(p) > 196 and max(p) - min(p) < 28
+for _ in range(3):
+    grow = [i for i in range(W*H) if not bg[i] and pale(px[i % W, i // W]) and ((i % W and bg[i-1]) or (i % W < W-1 and bg[i+1]) or (i >= W and bg[i-W]) or (i < W*(H-1) and bg[i+W]))]
+    for i in grow: bg[i] = 1
 a = Image.new('L', (W, H), 255); ap = a.load()
 for y in range(H):
     for x in range(W):
