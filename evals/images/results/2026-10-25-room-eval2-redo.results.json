@@ -1,0 +1,252 @@
+{
+ "name": "room-eval2-redo: five walls redrawn after the owner's review of 25 Oct 2026 (MOTH-94 to MOTH-101), the approved walls attached as finished neighbours",
+ "manifest": "evals/images/runs/room-eval2-redo.json",
+ "ran_at": "2026-10-25T05:04:48Z",
+ "total_cost_usd": 0.2091,
+ "results": [
+  {
+   "id": "kids-room-k1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/kids-room/layout-k1.png",
+    "evals/images/refs/eval2-k2.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-94, MOTH-97: no bunk on the back wall; its end on the right side wall only, a real bed's width",
+   "seconds": 16.6,
+   "cost_usd": 0.033598,
+   "usage": {
+    "prompt_tokens": 3617,
+    "completion_tokens": 280,
+    "total_tokens": 3897,
+    "cost": 0.033598,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.033598,
+     "upstream_inference_prompt_cost": 0.025198,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "kids-room-k1.png",
+     "bytes": 1957282,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "kids-room-k3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/kids-room/layout-k3.png",
+    "evals/images/refs/eval2-k2.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-95, MOTH-97: no bunk on the back wall; its foot end on the left side wall",
+   "seconds": 21.5,
+   "cost_usd": 0.040153,
+   "usage": {
+    "prompt_tokens": 3728,
+    "completion_tokens": 480,
+    "total_tokens": 4208,
+    "cost": 0.040153,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.040153,
+     "upstream_inference_prompt_cost": 0.025753,
+     "upstream_inference_completions_cost": 0.0144
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 480
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "kids-room-k3.png",
+     "bytes": 1797145,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "mary-room-m2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/mary-room/layout-m2.png",
+    "evals/images/refs/eval2-m3.jpg",
+    "evals/images/refs/eval2-m1.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-98 to MOTH-100: the sofa's end on the left side wall only; curtains against the frame; the stand from the side",
+   "seconds": 16.3,
+   "cost_usd": 0.040046,
+   "usage": {
+    "prompt_tokens": 5089,
+    "completion_tokens": 120,
+    "total_tokens": 5209,
+    "cost": 0.040046,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.040046,
+     "upstream_inference_prompt_cost": 0.036446,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "mary-room-m2.png",
+     "bytes": 1827987,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "mary-room-m4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/mary-room/layout-m4.png",
+    "evals/images/refs/eval2-m1.jpg",
+    "evals/images/refs/eval2-m3.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-101: the loft's end on the left side wall, without a ladder",
+   "seconds": 15.0,
+   "cost_usd": 0.039706,
+   "usage": {
+    "prompt_tokens": 5021,
+    "completion_tokens": 120,
+    "total_tokens": 5141,
+    "cost": 0.039706,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.039706,
+     "upstream_inference_prompt_cost": 0.036106,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "mary-room-m4.png",
+     "bytes": 1629041,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "kids-room-k4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/kids-room/layout-k4.png",
+    "case:kids-room-k3",
+    "case:kids-room-k1",
+    "evals/images/refs/eval2-k2.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-96: the side walls show the brick tub and the glass, no bunk",
+   "seconds": 23.6,
+   "cost_usd": 0.055549,
+   "usage": {
+    "prompt_tokens": 6452,
+    "completion_tokens": 280,
+    "total_tokens": 6732,
+    "cost": 0.055549,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.055549,
+     "upstream_inference_prompt_cost": 0.047149,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "kids-room-k4.png",
+     "bytes": 1769502,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}
