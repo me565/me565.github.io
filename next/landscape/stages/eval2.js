@@ -75,6 +75,7 @@ const keySvg = (k, cls = '', extra = '') => `<svg viewBox="0 0 10 10" class="${c
 const ov = html => { const d = document.createElement('div'); d.style.cssText = 'position:absolute;inset:0;pointer-events:none;perspective:calc(var(--u)*140);perspective-origin:50% 45%;transform-style:preserve-3d'; d.innerHTML = html; return d; };
 
 /* ---------- tap targets, in picture percentages ---------- */
+const BOTOUT = {l:0, t:0, w:0}, BOTFLOOR = {l:0, t:0, w:0, h:0}, TAPEIN = [0, 0, 0, 0]; /* filled from the drawers' pictures */
 const HOTS = {
   m3:[
     {id:'e2_board', l:42, t:49, w:15, h:17, label:'Mary’s whiteboard', key:true, sound:'paper'},
@@ -99,12 +100,13 @@ const HOTS = {
     {id:'e2_drawing', l:56, t:32, w:9.5, h:16, label:'Framed drawing', key:true, sound:'paper', anim:'lift', layer:'drawing', hideWhen:() => taken('drawing')},
     {id:'e2_postcard', l:50.5, t:36, w:5, h:8, label:'Postcard', sound:'paper'},
     {id:'e2_canvases', l:66, t:35, w:14, h:12, label:'Family pictures', sound:'tap'},
-    {id:'e2_penpot', l:70, t:46, w:8, h:9, label:'Pen pot and tape', sound:'tick'},
+    {id:'e2_penpot', l:70, t:46, w:8, h:9, label:'Pen pot', sound:'tick'},
     {id:'e2_mug', l:78, t:45, w:5, h:9, label:'Mug of paintbrushes', sound:'tick'},
     {id:'e2_chair', l:55, t:52, w:15, h:32, label:'Desk chair', sound:'tap'},
     {id:'e2_dtop', l:75.5, t:56, w:9, h:6, label:'Top drawer', sound:'open'},
     {id:'e2_dmid', l:75.5, t:62, w:9, h:6, label:'Middle drawer', sound:'open'},
-    {id:'e2_dbot', l:75.5, t:68, w:9, h:6, label:'Bottom drawer', sound:'open'},
+    {id:'e2_dbot', l:75.5, t:68, w:9, h:6, label:'Bottom drawer', sound:'open', hideWhen:() => S.botOut},
+    {id:'e2_botfloor', ...BOTFLOOR, label:'The socks drawer, on the floor', sound:'tap', showWhen:() => S.botOut},
     {id:'e2_organiser', l:83.5, t:30, w:7.5, h:21, label:'Pocket organiser', key:true, sound:'leaf', anim:'swing', layer:'org'}],
   m4:[
     {id:'e2_wardrobe', l:32, t:4, w:24.5, h:79, label:'Wardrobe', sound:'knock'},
@@ -210,7 +212,7 @@ const OVERLAYS = {
   m2:() => ov(gold() + (S.lightsOff ? '' : `<img class="e2tw" src="${A}layer-lights-on.png?v=${BUILD}" alt="" style="position:absolute;left:13.74%;top:36.23%;width:12.43%">`)),
   m1:() => ov(gold()
     + (taken('shelly') ? '' : `<div style="position:absolute;left:87.45%;top:38.9%;width:1.8%;height:2.4%;overflow:hidden"><img src="${A}item-shelly.png?v=${BUILD}" alt="" style="position:absolute;left:22%;top:4%;width:56%"><span style="position:absolute;inset:0;background:rgba(255,255,255,.18)"></span></div>`)
-    + (taken('tape') ? '' : `<img src="${A}item-tape.png?v=${BUILD}" alt="" style="position:absolute;left:70.2%;top:53.6%;width:2.4%;filter:drop-shadow(0 1px 1px rgba(0,0,0,.4))">`) /* the tape lies on the desk by the pot, where the close-up has it (MOTH-117): the roll drawn lying on its side at the child's eye level, never squashed to fake it */
+    + (S.botOut ? `<img src="${A}layer-botout.png?v=${BUILD}" alt="" style="position:absolute;left:${BOTOUT.l}%;top:${BOTOUT.t}%;width:${BOTOUT.w}%">` : '') /* the socks drawer out on the floor, its slot dark: an edit of m1 pasted as a soft patch (MOTH-120) */
     + (taken('drawing') ? '' : `<div style="position:absolute;left:58.2%;top:45.6%;padding:0 .3em;background:#fffaf0;border:1px solid #9a8a70;transform:rotate(-3deg);font:400 calc(var(--u)*.6)/1.3 ${HAND};color:#2f5f8a">For Nana</div>`)),
   m4:() => ov(gold() + wardrobeRoom()),
   k1:() => ov(gold()),
@@ -327,16 +329,22 @@ function openOrganiser(){
   openCard('Mary’s pocket organiser', `background-image:url(${A}closeup-orgup.jpg?v=${BUILD})`, tail, taken('shelly') ? 'Hair ties, a torch, and an empty window pocket.' : 'Six pockets. Behind the clear window of one: Shelly!');
   const b = $('takeShelly'); if (b) b.onclick = e => { e.stopPropagation(); take('shelly'); sfx('pickup'); closeCloseup(); render(); say('Shelly the mermaid, Zaina’s favourite. How did she get in here? She goes in the strip below.'); };
 }
+/* The desk drawers (MOTH-120, the owner's option 1): the tape is in the middle drawer, which sticks after a finger's width because the
+   socks drawer under it is stuffed so full it pushes up. Take the socks drawer right out (it stands on the floor) and the middle one
+   opens. Each state is an edit of the picture before it: the stuffed drawer, the tape among the beads, the room with the drawer out. */
 function openDrawer(which){ /* look-alike things behave alike (MECH-107): all three open and are looked into */
-  const D = {top:['The top drawer', 'one of Zaina’s pink hair clips', 'Empty, but for one of Zaina’s hair clips. Mary’s passport was in here. Zaina!'], mid:['The middle drawer', 'beads, glue, pipe cleaners', 'Beads and craft things. Not today.'], bot:['The bottom drawer', 'socks, odd ones', 'Socks. Mary already packed the good ones.']}[which];
-  if (which === 'top' && !S.seen.drawer){ S.seen.drawer = Date.now(); save(); }
-  openCard(D[0], `background-image:url(${A}closeup-drawer-${which}.jpg?v=${BUILD})`, '', D[2]);
+  if (which === 'top'){ if (!S.seen.drawer){ S.seen.drawer = Date.now(); save(); }
+    openCard('The top drawer', `background-image:url(${A}closeup-drawer-top.jpg?v=${BUILD})`, '', 'Empty, but for one of Zaina’s hair clips. Mary’s passport was in here. Zaina!'); return; }
+  if (which === 'mid'){
+    if (!S.botOut){ if (!S.seen.jam){ S.seen.jam = Date.now(); save(); } sfx('knock'); say('The middle drawer opens a finger’s width… and sticks. Something underneath is pushing up on it.'); return; }
+    const tape = !taken('tape') ? takeBtn('takeTape', 'Sticky tape', TAPEIN, '') : '';
+    openCard('The middle drawer', `background-image:url(${A}${taken('tape') ? 'closeup-drawer-mid.jpg' : 'closeup-drawer-mid-tape.jpg'}?v=${BUILD})`, tape, taken('tape') ? 'Beads and craft things.' : 'It slides open now. Beads, pipe cleaners… and the sticky tape!');
+    const b = $('takeTape'); if (b) b.onclick = e => { e.stopPropagation(); take('tape'); sfx('pickup'); closeCloseup(); render(); say('Sticky tape. It goes in the strip below.'); };
+    return; }
+  openCard('The bottom drawer', `background-image:url(${A}closeup-drawer-bot-full.jpg?v=${BUILD})`, cuTarget('e2_botcu', 'Take the socks drawer out', [8, 4, 84, 92]), 'Stuffed with socks, heaped right up over the top. It slides all the way out.');
+  wireCu({e2_botcu:() => { S.botOut = true; save(); sfx('open'); closeCloseup(); render(); say('Mary slides the socks drawer right out and sets it on the floor.'); }});
 }
-function openPenpot(){
-  const tape = !taken('tape') ? takeBtn('takeTape', 'Sticky tape', [10, 66, 17, 30], `<img src="${A}item-tape.png?v=${BUILD}" alt="" style="width:100%;height:100%;object-fit:contain;object-position:50% 100%;filter:drop-shadow(calc(var(--u)*.3) calc(var(--u)*.5) calc(var(--u)*.4) rgba(0,0,0,.45))">`) : '';
-  openCard('The pen pot', `background-image:url(${A}closeup-penpot.jpg?v=${BUILD})`, tape, taken('tape') ? 'Pens and pencils.' : 'Pens, pencils… and a roll of sticky tape lying on the desk beside the pot.');
-  const b = $('takeTape'); if (b) b.onclick = e => { e.stopPropagation(); take('tape'); sfx('pickup'); closeCloseup(); render(); say('Sticky tape. It goes in the strip below.'); };
-}
+function openPenpot(){ openCard('The pen pot', `background-image:url(${A}closeup-penpot.jpg?v=${BUILD})`, '', 'Pens and pencils, and Mary’s paintbrushes in the yellow mug.'); }
 function openTrundle(){
   const roll = !taken('paper') ? takeBtn('takePaper', 'A roll of wrapping paper', [4.7, 60.4, 91.1, 19.9], '') : ''; /* the roll is in the picture, inside the drawer (an edit of the close-up): kept inside, never creeping out (MOTH-132) */
   openCard('Inside the trundle', `background-image:url(${A}${taken('paper') ? 'closeup-trundle.jpg' : 'closeup-trundle-roll.jpg'}?v=${BUILD})`, roll, taken('paper') ? 'Spare sheets and a pillow.' : 'Spare bedding, folded… and a roll of Christmas paper with snowmen on.');
@@ -470,6 +478,7 @@ function act(id){
     case 'e2_dtop': openDrawer('top'); return;
     case 'e2_dmid': openDrawer('mid'); return;
     case 'e2_dbot': openDrawer('bot'); return;
+    case 'e2_botfloor': say('Socks, socks, socks. Mary already packed the good ones.'); return;
     case 'e2_organiser': openOrganiser(); return;
     case 'e2_wardrobe': openWardrobe(); return;
     case 'e2_wdoorl': case 'e2_wdoorr': setWardrobe(false); say('The wardrobe doors swing shut.'); return;
@@ -517,7 +526,7 @@ const HINTS = [
   /* 4 */ {trail:'b', goal:() => taken('hat'), target:'e2_wardrobe', tips:['Stand on the stool at the wardrobe.', 'Hold the stool and tap the wardrobe.', 'Open the wardrobe, use the stool on it, then open the box and take the hat and gloves.']},
   /* 5 */ {trail:'c', goal:() => taken('drawing'), target:'e2_drawing', tips:['Nana’s present is something Mary made.', 'The panel under the loft, above the desk.', 'Take the framed drawing from the panel under the loft.']},
   /* 6 */ {trail:'c', goal:() => taken('paper'), target:'e2_trundle', tips:['Wrapping paper lives where spare things live.', 'Under the children’s bunk.', 'Open the trundle under the bunk: the paper is inside.']},
-  /* 7 */ {trail:'c', goal:() => S.wrapped, target:'e2_penpot', tips:['Paper on its own won’t stay.', 'Mary’s desk, the pen pot.', 'The tape is in the pen pot on the desk. Paper on the frame, then tape.']},
+  /* 7 */ {trail:'c', goal:() => S.wrapped, target:'e2_dmid', tips:['Paper on its own won’t stay.', 'Mary’s desk drawers.', 'The middle drawer sticks: take the socks drawer out from under it first. The tape is inside. Paper on the frame, then tape.']},
   /* 8 */ {trail:'d', goal:() => !!S.chorusHeard || S.houseOpen, target:'e2_enote', tips:['Elliot’s note says where the password comes from.', 'Read the note above the doll’s house door.', 'The bit everyone sings: the second line of the carol sheet.']},
   /* 9 */ {trail:'d', goal:() => S.houseOpen, target:'e2_zaina', tips:['Zaina played the first bit before. What does she play now she has Shelly?', 'Zaina’s piano, on her bunk.', 'Tap her piano: blue, red, red, green. It is the sheet’s second line. Turn the lock’s wheels to those, then press the red button.']},
   /* 10 */ {trail:'d', goal:() => taken('passport'), target:'e2_passport', tips:['The doll’s house is open.', 'Look on the tiny bed.', 'Take the passport off the tiny bed.']},
@@ -543,6 +552,7 @@ function noticed(){
   if (S.seen.folder && !S.got.includes('sheet') && !packed('carol')) n.push('The carol folder is empty.');
   if (S.seen.drawer && !taken('passport')) n.push('My passport was in the drawer. Zaina?');
   if (S.seen.box && !taken('hat')) n.push('The winter box is on the top shelf.');
+  if (S.seen.jam && !S.botOut) n.push('The middle drawer sticks. Something under it pushes up.');
   if (!S.houseOpen){ if (S.chorusHeard) n.push('Zaina plays everyone’s bit: blue, red, red, green.'); else if (S.versePlayed) n.push('Zaina plays the verse: yellow, yellow, green, blue.'); }
   if (nPacked() === 4 && !S.lightsOff) n.push('P.S. LIGHTS OFF on the stand!!');
   return n;
@@ -560,8 +570,8 @@ return {
   postcard:{pic:'../art/postcards/packing.jpg'},
   intro:'<b>Packing day.</b> The taxi comes at six, and Mary’s things are all over the flat. Her list is on the whiteboard by the case.',
   start:{room:'mary', view:0},
-  fresh:() => ({seen:{}, clues:[], taken:{}, packed:{}, wheels:[0, 2, 3, 4], wardOpen:false, caseShut:false, tubMoved:false, bathMoved:false, stoolAt:false, boxOpen:false, traded:false, verses:0, versePlayed:false, chorusHeard:false, trundleOut:false, wrapped:false, houseOpen:false, lightsOff:false, wiped:false}),
-  extra:{mary:['caseup', 'caseclosed', 'folder', 'drawer-top', 'drawer-mid', 'drawer-bot', 'penpot', 'orgup', 'box', 'box-empty', 'wardrobe-up'].map(n => A + 'closeup-' + n + '.jpg').concat(['tab-wiper.png', 'layer-board.png', 'layer-case.png', 'layer-case-closed.png', 'layer-lights-on.png', 'layer-lights-off.png', 'layer-wardrobe-inside.png', 'layer-wdoor-l.png', 'layer-wdoor-r.png', 'box-hat.png', 'item-stool.png', 'item-sheet.png', 'item-hat.png', 'item-present.png', 'item-passport.png', 'item-shelly.png', 'item-tape.png', ...['sheet', 'present', 'hat', 'passport'].flatMap(k => ['case-' + k + '.png', 'caseup-' + k + '.png'])].map(f => A + f)),
+  fresh:() => ({seen:{}, clues:[], taken:{}, packed:{}, wheels:[0, 2, 3, 4], wardOpen:false, caseShut:false, tubMoved:false, bathMoved:false, stoolAt:false, boxOpen:false, traded:false, verses:0, versePlayed:false, chorusHeard:false, trundleOut:false, wrapped:false, houseOpen:false, lightsOff:false, wiped:false, botOut:false}),
+  extra:{mary:['caseup', 'caseclosed', 'folder', 'drawer-top', 'drawer-mid', 'drawer-mid-tape', 'drawer-bot-full', 'penpot', 'orgup', 'box', 'box-empty', 'wardrobe-up'].map(n => A + 'closeup-' + n + '.jpg').concat(['tab-wiper.png', 'layer-board.png', 'layer-case.png', 'layer-case-closed.png', 'layer-lights-on.png', 'layer-lights-off.png', 'layer-wardrobe-inside.png', 'layer-wdoor-l.png', 'layer-wdoor-r.png', 'box-hat.png', 'item-stool.png', 'item-sheet.png', 'item-hat.png', 'item-present.png', 'item-passport.png', 'item-shelly.png', 'item-tape.png', 'layer-botout.png', ...['sheet', 'present', 'hat', 'passport'].flatMap(k => ['case-' + k + '.png', 'caseup-' + k + '.png'])].map(f => A + f)),
     kids:['closeup-piano.jpg', 'closeup-trundle.jpg', 'closeup-lock2.jpg', 'layer-lock2.png', 'layer-inside.png', 'layer-housefront.png', 'layer-trundle-out.png', 'layer-trundle-outroll.png', 'closeup-trundle-roll.jpg', 'layer-enote.png', 'lock-cap.png', 'item-passport.png', 'item-shelly.png', 'item-sheet.png'].map(f => A + f)}, /* the close-ups load with the room, so no card opens half drawn (MOTH-76) */
   rooms:ROOMS, walls:WALLS, doors:DOORS, hots:HOTS, layers:LAYERS, notes:NOTES, items:ITEMS, hints:HINTS, uses:USES, overlays:OVERLAYS,
   act, miss, sparkle, rows, noticed, clues, speaker, onRender, helper:() => 'the moth', child:'mary'
