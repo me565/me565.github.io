@@ -283,7 +283,7 @@ Points for the owner:
 - Play link (pinned to commit):
 - What is real: puzzle logic, inventory, hints, saves, doors, the ending; every wall, cut-out and close-up that already exists; the reward moments from the motion sheet, played in the right order with whatever stands in (playbook 4ab, 4ac)
 - What stands in: a labelled box or a crop lifted from a wall for each picture that does not exist yet; the moth's and Zaina's lines as text
-- Walls generated before this gate (only with the owner's agreed cost, playbook 4ac):
+- Walls generated before this gate (only with the owner's agreed cost, playbook 4ac): the twelve walls of `evals/images/runs/room-eval2.json`, agreed by the owner on 25 Oct 2026 ("Do it", after the cost of about 30¢ and the rule that a puzzle change can send a wall back were put to him).
 
 Tests: scripted playthrough passes · audit clean · no soft-lock (checklist 42) · owner played it on the tablet at 2000×700 · played once on a real Android phone (checklist 44) · reduced motion checked
 Result:
