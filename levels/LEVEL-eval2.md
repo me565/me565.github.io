@@ -3,7 +3,7 @@
 *Opened on 24 Oct 2026 at the owner's word: "Do the packing day but built from scratch. Just as a two-room puzzle. Mary needs to find her things before she can take her flight to London for Christmas. Make it interesting." It is the second test level after "Lock-up Duty" (`levels/LEVEL-evalroom.md`), built the same way through the same gates: the room-specification method on Sunburst in the signed-off style, the test room's way of playing, and the owner's materials first (playbook 4x, checklist 8c and 8d). The owner is giving the rooms one at a time as photographs, which are never kept in the repo: each room is written down here in words as it arrives, with what is still missing, and the design is drawn on paper and approved before any picture is made. Room 1 arrived on 24 Oct 2026 (eight pictures) and room 2 the same day (eight pictures, Mary's room); the design below is drawn from both and waits on the owner's Gates A and B. Nothing is signed, nothing is built, no credit is spent. The stage key `eval2` and the hotspot prefix `e2_` are reserved. (An earlier outline for this key, a front-office test room, is parked in commit `731e844` and is not this level.)*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: samples (Gates A to D signed 25 Oct 2026; the sample pack placed in build 2026-10-25c and waiting on the owner's Gate E)
+Current status: batch (Gates A to E signed 25 Oct 2026; the other 26 pictures being made)
 Build id of the latest play link: 2026-10-25a
 Latest play link: https://rawcdn.githack.com/me565/me565.github.io/80b246c97579567192445072e41a68547a9e3197/next/landscape/index.html?stage=eval2
 
@@ -335,7 +335,7 @@ Signed off: "Sign off gate c" (owner, 25 Oct 2026, in chat), on build 2026-10-25
 | 27 | The carol sheet | icon | no | — | "A sheet of music paper folded once, the five lines of two staves showing, no notes and no writing, lying flat, seen from above." The note itself stays drawn by the game. | 1 |
 
 - **Not made, drawn by the game:** the whiteboard's writing and ticks, the folder's and box's labels, the carol sheet's notes, the piano's colours and shapes, the lock's shapes, Elliot's note, the pompom lights (a twinkle of dots, as the motion sheet says), the windows lighting, the gold at the ending.
-- **Total:** 33 pictures (27 rows; 5, 10, 16 and 20 make two or three each), about **50¢** at the 1 to 2¢ Sunburst has actually billed for single pictures and edits (the test room's batch: 12.4¢ for nine), about $1.30 at the playbook's 4¢. Up from the Gate B guess of about twenty pictures and 20¢, because of the second states (10b, 16b, 15), the stool's patch and the two drag tabs. No wall is redrawn.
+- **Total:** 32 pictures (27 rows; 5 makes three, 10, 16 and 20 two each; first written as 33, a counting slip corrected on 25 Oct 2026 before the batch), about **50¢** at the 1 to 2¢ Sunburst has actually billed for single pictures and edits (the test room's batch: 12.4¢ for nine), about $1.30 at the playbook's 4¢. Up from the Gate B guess of about twenty pictures and 20¢, because of the second states (10b, 16b, 15), the stool's patch and the two drag tabs. No wall is redrawn.
 - **Sample pack for Gate E** (the hardest first): Zaina on her bunk (22) with the piano close-up (23); the bath and the tub over the stool with the empty patch (20a, 20b, 21), because they touch a passed wall; and the passport (26) in the strip. Judged in the level on the tablet.
 - **Order of making after the samples:** 1–3 (the sofa), 10–12 (the organiser and Shelly), 13–15 with 9 (the present), 16–19 (the box), 4–8, 24, 25, 27.
 - **Originals** go to the owner's Drive folder for the level; the repo keeps the shipped sizes.
@@ -374,11 +374,11 @@ Made on 25 Oct 2026 after Gate D, in run `eval2-samples` (GitHub Actions run 401
 | Voice ×2–3 | none: text only (Gate D, point 2) | — | — |
 | Track | none: the flat's track | — | — |
 
-Judged in the level, not as loose files: the scripted playthrough passes on build 2026-10-25c, audit clean. Waiting on the owner's tablet.
+Judged in the level, not as loose files: the scripted playthrough passes on build 2026-10-25c, audit clean. Passed by the owner (Gate E below).
 Prompt changes made before sign-off: none.
 
 ### Gate E — samples
-Signed off:
+Signed off: "sign off gate e" (owner, 25 Oct 2026, in chat), on the six samples as placed in build 2026-10-25c.
 
 ## 6b. Batch
 ## 7. Integrate and polish
@@ -395,7 +395,7 @@ Signed off:
 | walls edited after the owner's second review | ~15¢ | 10.0¢ | 5 | MOTH-102 to MOTH-105: doors, glimpses, a ladder's face, a stray curtain; the approved pictures edited with one change each |
 | walls edited after the owner's third review and Claude's check | ~25¢ | 27.5¢ | 10 | MOTH-106 to MOTH-112 and four faults from the full check: door swings, ladder, rug direction, corridor shape and order, glimpses |
 | 6a samples | ~10¢ (six pictures) | 9.5¢ | 0 | all six first time |
-| 6b batch | ~40¢ (the other 27 pictures) | | | |
+| 6b batch | ~40¢ (the other 26 pictures) | | | |
 | Total | ~$1.50 (the walls about $1.00 already spent, the pictures about 50¢) | $1.094 so far | 20 | all re-dos on the walls, before Gate C |
 
 ## Learning loop

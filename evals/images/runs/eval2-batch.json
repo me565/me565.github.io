@@ -1,0 +1,326 @@
+{
+ "name": "eval2 batch (6b): the other 26 pictures of the Gate D list, matched to the signed-off samples. Level file levels/LEVEL-eval2.md, Gates A to E signed 25 Oct 2026.",
+ "defaults": {
+  "n": 1
+ },
+ "notes": [
+  "Cut-outs keyed with tools/keywhite.py; close-ups saved at the walls' size, JPEG 88. Edits reference their base by case id, so they run after it."
+ ],
+ "est_total_usd": 1.04,
+ "cases": [
+  {
+   "id": "board",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Palette of the room: warm cream walls, honey wood floor and furniture, dark stained wood, soft rainy-afternoon light from a window. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe object: a small white dry-wipe board in a thin silver aluminium frame, about forty centimetres wide and thirty high, propped up at a slight lean, its white surface completely blank and clean, a blue marker pen resting on its little bottom ledge. Seen straight on.",
+   "est_usd": 0.04,
+   "note": "asset 1"
+  },
+  {
+   "id": "case",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "evals/images/refs/eval2-m2-case.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room showing where this is: copy its style, hand and palette, and match the thing it shows. Palette of the room: warm cream walls, honey wood floor and furniture, dark stained wood, soft rainy-afternoon light from a window. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe object: a child's hard-shell suitcase in dark navy blue, open, its lid standing up behind it, seen from the front and a little above: neatly folded clothes in the bottom half, the top half empty. The same navy case as the one in the attached crop, which shows its side.",
+   "est_usd": 0.04,
+   "note": "asset 2, navy to match m2 (Gate D point 1)"
+  },
+  {
+   "id": "caseup",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "evals/images/refs/eval2-m2-case.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room showing where this is: copy its style, hand and palette, and match the thing it shows. Palette of the room: warm cream walls, honey wood floor and furniture, dark stained wood, soft rainy-afternoon light from a window. A single picture that fills the whole 16:9 frame edge to edge: no border, no margin, no frame, no dark surround. No words, letters, numbers or symbols anywhere in the picture.\n\nThe picture: looking straight down into an open dark navy hard-shell suitcase from above, the case filling the frame: neatly folded jumpers and trousers in the bottom half, and a clear empty space across the top half for four more things. The lid's lining is a soft grey.",
+   "est_usd": 0.04,
+   "note": "asset 3; the game draws the packed things in the space"
+  },
+  {
+   "id": "folder",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "evals/images/refs/eval2-m2-folder.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room showing where this is: copy its style, hand and palette, and match the thing it shows. Palette of the room: warm cream walls, honey wood floor and furniture, dark stained wood, soft rainy-afternoon light from a window. A single picture that fills the whole 16:9 frame edge to edge: no border, no margin, no frame, no dark surround. No words, letters, numbers or symbols anywhere in the picture.\n\nThe picture: a blue cardboard music folder lying open on the desk of a black metal music stand, seen close and square on, filling the frame: both inside faces of the folder plain and empty, a small blank white label on the cover's corner. Grey rainy light from a window to one side.",
+   "est_usd": 0.04,
+   "note": "asset 4; the game writes the label"
+  },
+  {
+   "id": "drawer-top",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "evals/images/refs/eval2-m1-drawers.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room showing where this is: copy its style, hand and palette, and match the thing it shows. Palette of the room: warm cream walls, honey wood floor and furniture, dark stained wood, soft rainy-afternoon light from a window. A single picture that fills the whole 16:9 frame edge to edge: no border, no margin, no frame, no dark surround. No words, letters, numbers or symbols anywhere in the picture.\n\nThe picture: looking straight down into an open dark green desk drawer from above, the drawer filling the frame: the bare pale wood bottom, empty but for one small pink hair clip lying near a corner.",
+   "est_usd": 0.04,
+   "note": "asset 5a"
+  },
+  {
+   "id": "drawer-mid",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "evals/images/refs/eval2-m1-drawers.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room showing where this is: copy its style, hand and palette, and match the thing it shows. Palette of the room: warm cream walls, honey wood floor and furniture, dark stained wood, soft rainy-afternoon light from a window. A single picture that fills the whole 16:9 frame edge to edge: no border, no margin, no frame, no dark surround. No words, letters, numbers or symbols anywhere in the picture.\n\nThe picture: looking straight down into an open dark green desk drawer from above, the drawer filling the frame: a jumble of colourful craft beads, bendy pipe cleaners and a glue stick.",
+   "est_usd": 0.04,
+   "note": "asset 5b"
+  },
+  {
+   "id": "drawer-bot",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "evals/images/refs/eval2-m1-drawers.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room showing where this is: copy its style, hand and palette, and match the thing it shows. Palette of the room: warm cream walls, honey wood floor and furniture, dark stained wood, soft rainy-afternoon light from a window. A single picture that fills the whole 16:9 frame edge to edge: no border, no margin, no frame, no dark surround. No words, letters, numbers or symbols anywhere in the picture.\n\nThe picture: looking straight down into an open dark green desk drawer from above, the drawer filling the frame: rolled-up odd socks in different colours, nothing else.",
+   "est_usd": 0.04,
+   "note": "asset 5c"
+  },
+  {
+   "id": "penpot",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "evals/images/refs/eval2-m1-penpot.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room showing where this is: copy its style, hand and palette, and match the thing it shows. Palette of the room: warm cream walls, honey wood floor and furniture, dark stained wood, soft rainy-afternoon light from a window. A single picture that fills the whole 16:9 frame edge to edge: no border, no margin, no frame, no dark surround. No words, letters, numbers or symbols anywhere in the picture.\n\nThe picture: a metal pen pot standing on a black desk, close up and square on, filling most of the frame: coloured pencils and felt pens standing in it, crowded at the back of the pot, leaving a clear gap at the front. A yellow mug of paintbrushes just in frame behind it, slightly out of focus. A cream ribbed padded panel behind.",
+   "est_usd": 0.04,
+   "note": "asset 6; the game draws the tape in the gap"
+  },
+  {
+   "id": "tape",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Palette of the room: warm cream walls, honey wood floor and furniture, dark stained wood, soft rainy-afternoon light from a window. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe object: a roll of clear sticky tape on its own, with no dispenser, lying flat, seen from directly above, its cardboard core pale brown.",
+   "est_usd": 0.04,
+   "note": "asset 7"
+  },
+  {
+   "id": "trundle",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "evals/images/refs/eval2-k2-trundle.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room showing where this is: copy its style, hand and palette, and match the thing it shows. Palette of the room: warm cream walls, white painted wood, honey wood floor, cheerful sticker colours, soft rainy-afternoon light. A single picture that fills the whole 16:9 frame edge to edge: no border, no margin, no frame, no dark surround. No words, letters, numbers or symbols anywhere in the picture.\n\nThe picture: looking straight down into an open white wooden trundle drawer pulled out from under a bunk bed, the drawer filling the frame: spare cream sheets folded in a neat stack and a small pillow at one end, a clear empty space along the front half.",
+   "est_usd": 0.04,
+   "note": "asset 8; the game draws the roll in the space"
+  },
+  {
+   "id": "roll",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Palette of the room: warm cream walls, honey wood floor and furniture, dark stained wood, soft rainy-afternoon light from a window. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe object: a roll of Christmas wrapping paper, white with small friendly snowmen in red scarves and pale blue snowflakes, lying on its side diagonally, seen from directly above, the end of the paper a little unrolled.",
+   "est_usd": 0.04,
+   "note": "asset 9"
+  },
+  {
+   "id": "org",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "3:4",
+   "resolution": "1K",
+   "references": [
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Palette of the room: warm cream walls, honey wood floor and furniture, dark stained wood, soft rainy-afternoon light from a window. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe object: a small grey felt fabric organiser that hangs from a hook by a loop at the top, two columns of three square pockets; the middle right pocket has a clear plastic window in its front, and through the window a pink mermaid's tail fin shows plainly, the rest of the toy hidden inside. Seen straight on.",
+   "est_usd": 0.04,
+   "note": "asset 10a"
+  },
+  {
+   "id": "org-empty",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "3:4",
+   "resolution": "1K",
+   "references": [
+    "case:org"
+   ],
+   "prompt": "The attached picture is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same drawing, colours, light and style, except for one change: the clear window pocket is empty, nothing behind its plastic. Keep it alone on the same pure flat white background. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.04,
+   "note": "asset 10b"
+  },
+  {
+   "id": "orgup",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "case:org",
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. Attached picture 1 is the organiser: draw exactly this organiser. Attached picture 2 is a crop from the room it hangs in: copy only its style and palette. Palette of the room: warm cream walls, honey wood floor and furniture, dark stained wood, soft rainy-afternoon light from a window. A single picture that fills the whole 16:9 frame edge to edge: no border, no margin, no frame, no dark surround. No words, letters, numbers or symbols anywhere in the picture.\n\nThe picture: the grey felt organiser from picture 1 close up and square on, hanging on a cream wall, filling most of the frame, its six pockets in two columns of three; the clear window pocket in the middle row is empty, nothing behind its plastic.",
+   "est_usd": 0.04,
+   "note": "asset 11; the game draws Shelly behind the window until taken"
+  },
+  {
+   "id": "shelly",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "evals/images/refs/eval2-style-kids.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Palette of the room: warm cream walls, white painted wood, honey wood floor, cheerful sticker colours, soft rainy-afternoon light. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe object: a small soft-toy mermaid, with a pink tail and tail fin, yellow wool hair in two bunches, a teal top, a sweet stitched smile, lying flat on her back, seen from directly above.",
+   "est_usd": 0.04,
+   "note": "asset 12"
+  },
+  {
+   "id": "drawing",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "3:4",
+   "resolution": "1K",
+   "references": [
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Palette of the room: warm cream walls, honey wood floor and furniture, dark stained wood, soft rainy-afternoon light from a window. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe object: a child's crayon drawing in a thin pale wooden frame with a pale mat: a family of five holding hands on green grass under a big yellow sun, a little aeroplane in a blue sky, simple dot eyes and smiles, bright crayon colours. Seen straight on.",
+   "est_usd": 0.04,
+   "note": "asset 13; also the strip icon"
+  },
+  {
+   "id": "parcel",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "case:drawing",
+    "case:roll"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. Attached picture 1 is a framed drawing; attached picture 2 is a roll of snowman wrapping paper. Draw the same style. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe object: the framed drawing from picture 1 half wrapped in the snowman paper from picture 2: the paper folded round the frame's front and back, its end flaps still open and sticking out at both sides, a corner of the frame peeking out. Lying flat, seen from directly above.",
+   "est_usd": 0.04,
+   "note": "asset 14"
+  },
+  {
+   "id": "present",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "case:parcel"
+   ],
+   "prompt": "The attached picture is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same drawing, colours, light and style, except for one change: every flap is folded down neatly and held with short strips of clear sticky tape, so it is a tidy wrapped flat present. Keep it alone on the same pure flat white background. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.04,
+   "note": "asset 15"
+  },
+  {
+   "id": "box",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "evals/images/refs/eval2-m4-wardrobe.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room showing where this is: copy its style, hand and palette, and match the thing it shows. Palette of the room: warm cream walls, honey wood floor and furniture, dark stained wood, soft rainy-afternoon light from a window. A single picture that fills the whole 16:9 frame edge to edge: no border, no margin, no frame, no dark surround. No words, letters, numbers or symbols anywhere in the picture.\n\nThe picture: inside a white wardrobe at its top shelf, seen square on from a step stool: a cardboard storage box sitting on the white shelf, tied round both ways with a red satin ribbon in a bow on top, one end of the ribbon hanging loose over the front edge. A small blank white label on the box's front. The white inside walls of the wardrobe around it.",
+   "est_usd": 0.04,
+   "note": "asset 16a; the game writes WINTER (London)"
+  },
+  {
+   "id": "box-open",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "case:box"
+   ],
+   "prompt": "The attached picture is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same drawing, colours, light and style, except for one change: the ribbon is off and the box's lid is lifted and leaning against the back, a red woolly bobble hat and a pair of red knitted gloves inside. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.04,
+   "note": "asset 16b"
+  },
+  {
+   "id": "hat",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "case:box-open"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture shows the hat and gloves in their box: draw the same hat and gloves, same colours and knit. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe object: a red woolly hat with a bobble and a pair of red knitted gloves, together, lying flat, seen from directly above.",
+   "est_usd": 0.04,
+   "note": "asset 17"
+  },
+  {
+   "id": "ribbon",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "case:box"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture shows the ribbon on its box: draw the same red satin ribbon. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe object: the loose end of the red satin ribbon, about a hand's length, its tip cut in a V, lying flat, seen from above.",
+   "est_usd": 0.04,
+   "note": "asset 18, the drag tab"
+  },
+  {
+   "id": "wiper",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Palette of the room: warm cream walls, honey wood floor and furniture, dark stained wood, soft rainy-afternoon light from a window. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe object: a small whiteboard eraser: a pad of blue felt on a grey plastic handle, seen from directly above.",
+   "est_usd": 0.04,
+   "note": "asset 19, the drag tab"
+  },
+  {
+   "id": "lock",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "evals/images/refs/eval2-k4-door.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room showing where this is: copy its style, hand and palette, and match the thing it shows. Palette of the room: warm cream walls, white painted wood, honey wood floor, cheerful sticker colours, soft rainy-afternoon light. A single picture that fills the whole 16:9 frame edge to edge: no border, no margin, no frame, no dark surround. No words, letters, numbers or symbols anywhere in the picture.\n\nThe picture: a square of brown cardboard taped with clear tape onto a doll's house's little yellow arched front door, close up and square on, filling most of the frame: four round buttons in a row drawn in felt-tip, filled red, yellow, green and blue, each circle plain inside, and a tiny round wooden door knob on the door below them. The felt-tip is a child's, a bit wobbly. The blue painted wall of the doll's house around the door.",
+   "est_usd": 0.04,
+   "note": "asset 24; the game draws the shapes in the buttons"
+  },
+  {
+   "id": "inside",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "3:4",
+   "resolution": "1K",
+   "references": [
+    "evals/images/refs/eval2-k4-house.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room showing where this is: copy its style, hand and palette, and match the thing it shows. Palette of the room: warm cream walls, white painted wood, honey wood floor, cheerful sticker colours, soft rainy-afternoon light. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe object: the inside of a tall blue wooden doll's house with its whole front swung open out of view: three little floors of rooms with warm light, tiny wallpaper and furniture, and on the middle floor a tiny doll's bed with a pink cover, made and empty. Seen straight on. The house's outline, roof and colours as in the attached crop.",
+   "est_usd": 0.04,
+   "note": "asset 25; the game lays the passport on the bed"
+  },
+  {
+   "id": "sheet",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Palette of the room: warm cream walls, honey wood floor and furniture, dark stained wood, soft rainy-afternoon light from a window. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe object: a sheet of music paper folded once, lying flat and slightly open, seen from directly above, the faint lines of two empty staves showing, with no notes and no writing.",
+   "est_usd": 0.04,
+   "note": "asset 27"
+  }
+ ]
+}
