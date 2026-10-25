@@ -104,6 +104,8 @@ Result (walked on paper, 24 Oct 2026): passes. Two rooms with a short corridor b
 
 ## 3. Puzzle chart
 
+- Chart: `levels/LEVEL-eval2-chart.json`, drawn by `python3 tools/puzzlechart.py` into `levels/LEVEL-eval2-chart.drawio` (and a `.png` for the phone): one lane per trail, item → clue → lock → reward, the arrows between lanes dashed red. The table below is the same chart in words.
+
 ### The premise, in the room
 
 It is 22 December, four in the afternoon, rain on the glass. The taxi to the airport is at six. Mary's case is open on her sofa and her whiteboard is propped beside it with her list. Everything on the list has walked. Zaina has been "helping"; Elliot has been "making things safe". Mum is in the kitchen, Dad and Elliot have gone down to the shops. Zaina is on her bunk with her toy piano.

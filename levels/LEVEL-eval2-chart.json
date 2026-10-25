@@ -1,0 +1,46 @@
+{
+ "title": "Packing Day, from scratch (test level eval2) — puzzle chart",
+ "note": "Yellow = item or gesture, blue = clue, red = lock or mechanism, green = reward, orange = a person. Three trails open at once from the whiteboard; the passport waits on the carol; the case takes all four, then the wipe. Dashed red arrows cross between lanes.",
+ "lanes": [
+  {"key": "open", "name": "Opening (Mary's room)", "fill": "#f3f3f3", "nodes": [
+    {"id": "list", "kind": "clue", "text": "the whiteboard by the case (m3): BEFORE THE TAXI: passport · hat + gloves · Nana's present · the carol"},
+    {"id": "gone", "kind": "reading", "text": "four things gone: the empty music folder (m2), the empty desk drawer (m1), the winter box seen too high (m4)"},
+    {"id": "door", "kind": "gesture", "text": "out through the door (m4), the corridor (c1 to c4), into the children's room"}]},
+  {"key": "A", "name": "A. The carol (Mary's room ↔ Zaina)", "fill": "#e8f4f8", "nodes": [
+    {"id": "zaina", "kind": "person", "text": "Zaina on her bunk with the toy piano (k2): the carol sheet is in its card slot. \"You can have it for Shelly.\" She plays the VERSE: yellow, yellow, green, blue"},
+    {"id": "window", "kind": "clue", "text": "the pocket organiser under the loft (m1): a pink mermaid tail through its clear window"},
+    {"id": "shelly", "kind": "item", "text": "Shelly the mermaid, from the organiser's close-up"},
+    {"id": "trade", "kind": "lock", "text": "give Shelly to Zaina (k2)"},
+    {"id": "carol", "kind": "reward", "text": "the carol sheet: ✓ the carol (and a clue card: two lines of coloured notes, 'verse' and 'everyone sings:')"}]},
+  {"key": "B", "name": "B. Hat and gloves (Mary's room)", "fill": "#fff0e6", "nodes": [
+    {"id": "high", "kind": "clue", "text": "the wardrobe (m4): the WINTER box on the top shelf. \"Mary's arms are not that long.\" The chair has wheels: refused"},
+    {"id": "tubs", "kind": "mechanism", "text": "under the loft's end (m1): lift the baby bath aside, then the tub; the stool's legs showed beneath"},
+    {"id": "stool", "kind": "item", "text": "the wooden step stool"},
+    {"id": "reach", "kind": "lock", "text": "stool on the wardrobe (m4): stand; the shelf close up; DRAG the ribbon's bow open"},
+    {"id": "hat", "kind": "reward", "text": "hat and gloves: ✓"}]},
+  {"key": "C", "name": "C. Nana's present (both rooms)", "fill": "#e8f5e9", "nodes": [
+    {"id": "drawing", "kind": "item", "text": "Mary's framed drawing on the panel under the loft (m1), labelled For Nana: \"it needs wrapping\""},
+    {"id": "trundle", "kind": "mechanism", "text": "the trundle under the bunk (k2) slides open; looked into: spare bedding and a roll of snowman paper"},
+    {"id": "paper", "kind": "item", "text": "the wrapping paper (k2) · the tape from the pen pot on the desk (m1)"},
+    {"id": "wrap", "kind": "lock", "text": "COMBINE paper on the frame (a parcel, flaps open), then tape on the parcel"},
+    {"id": "present", "kind": "reward", "text": "the wrapped present, To Nana: ✓"}]},
+  {"key": "D", "name": "D. The passport (the children's room)", "fill": "#fdecea", "nodes": [
+    {"id": "note", "kind": "clue", "text": "Elliot's note on the doll's house (k4): ZAINA'S HOUSE. KEEP OUT MARY. Password: the bit everyone sings. E."},
+    {"id": "chorus", "kind": "reading", "text": "the carol sheet's second line, 'everyone sings:' blue, red, red, green (the toy piano's key colours). Traps: the verse Zaina plays; the buttons' own order red, yellow, green, blue"},
+    {"id": "buttons", "kind": "lock", "text": "Elliot's cardboard lock: four coloured buttons, then the tiny knob. Blue · red · red · green"},
+    {"id": "house", "kind": "mechanism", "text": "the windows light one by one, the front swings open: the tiny bed"},
+    {"id": "passport", "kind": "reward", "text": "the passport: ✓"}]},
+  {"key": "end", "name": "The case and the way out (Mary's room)", "fill": "#f3f3f3", "nodes": [
+    {"id": "case", "kind": "lock", "text": "the open case on the sofa (m3): each of the four things in; the whiteboard ticks itself", "col": 3},
+    {"id": "wipe", "kind": "gesture", "text": "four ticks: DRAG across the whiteboard, it wipes clean; the rain stops, gold light", "col": 4},
+    {"id": "endcard", "kind": "reward", "text": "Mum from the hall: \"Mary! The taxi's downstairs!\" End card", "col": 5}]}
+ ],
+ "edges": [
+  ["list", "gone"], ["gone", "door"],
+  ["door", "zaina", ""], ["zaina", "window", "wants Shelly"], ["window", "shelly"], ["shelly", "trade"], ["trade", "carol"],
+  ["high", "tubs"], ["tubs", "stool"], ["stool", "reach"], ["reach", "hat"],
+  ["drawing", "trundle"], ["trundle", "paper"], ["paper", "wrap"], ["wrap", "present"],
+  ["carol", "chorus", "the sheet"], ["note", "chorus"], ["chorus", "buttons"], ["buttons", "house"], ["house", "passport"],
+  ["carol", "case"], ["hat", "case"], ["present", "case"], ["passport", "case"], ["case", "wipe"], ["wipe", "endcard"]
+ ]
+}

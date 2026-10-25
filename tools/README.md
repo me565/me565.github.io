@@ -24,3 +24,7 @@ Draws a level's game map as a floor plan: `python3 tools/levelmap.py levels/LEVE
 ## sides.py
 
 Proposes a wall's box for the engine-painted side walls (playbook 4z): `python3 tools/sides.py next/art/school/h1.jpg`. Prints a `sides` entry and draws the quads on a copy of the picture to check by eye; pick the right lines when a wall has several.
+
+## puzzlechart.py
+
+Draws a level's puzzle chart (stage 3 of the level file) as the dependency chart in lanes the playbook asks for: `python3 tools/puzzlechart.py levels/LEVEL-<key>-chart.json` writes `levels/LEVEL-<key>-chart.drawio` (open at app.diagrams.net) and a `.png` beside it for a phone. The JSON (lanes of typed nodes, and the arrows) is the record; the chart of a level drawn by hand before this tool (`LEVEL-school-chart.drawio`) stays as it is.
