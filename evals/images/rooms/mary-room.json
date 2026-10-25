@@ -49,16 +49,6 @@
      "moves": "single (the whiteboard: lifted and read, wiped at the end; the case: the lid pops as each thing goes in)",
      "absent": "a low grey sofa bed along the wall, with a cushion printed like an old world map and a green knitted cushion at its left end, and the rest of the seat bare and smooth; nothing propped against its back",
      "cut": "two things, each drawn alone: an open child's suitcase with a purple lid, seen from the front and a little above, empty inside; and a small white whiteboard in a thin frame with a black marker pen clipped to its edge, blank"
-    },
-    {
-     "id": "curtain",
-     "label": "the edge of the curtain",
-     "text": "at the far right, where this wall meets the window wall, the edge of a cream curtain from ceiling to floor",
-     "on": "wall",
-     "l": 90,
-     "t": 4,
-     "w": 8,
-     "h": 82
     }
    ]
   },
@@ -69,7 +59,7 @@
     {
      "id": "stand",
      "label": "black music stand with a folder",
-     "text": "a black metal music stand on a tripod at the left, holding a closed blue cardboard folder; nothing wound round the stand",
+     "text": "a black metal music stand on a tripod at the left, seen from the side, its desk turned toward the room's left (toward the sofa, out of view), holding a closed blue cardboard folder; nothing wound round the stand",
      "on": "floor",
      "l": 10,
      "t": 30,
@@ -77,30 +67,19 @@
      "h": 56,
      "size": "the folder at a child's eye height",
      "moves": "single (the pompom lights: code-drawn twinkle, switched off by a tap; the folder: flips open, lifted from the wall)",
-     "absent": "a black metal music stand on a tripod at the left, holding a closed blue cardboard folder; nothing wound round the stand, nothing hanging from it",
+     "absent": "a black metal music stand on a tripod at the left, seen from the side, its desk turned toward the room's left (toward the sofa, out of view), holding a closed blue cardboard folder; nothing wound round the stand, nothing hanging from it",
      "cut": "a short string of small round pompom fairy lights in pastel colours, drawn alone as a loose loop, for the game to wind round the stand"
     },
     {
      "id": "window",
      "label": "tall window with a deep ledge",
-     "text": "a tall window with a thin white frame in two parts: an upper pair of panes and a lower pane that opens, rain streaming down the glass; a deep white ledge between them with a row of books standing between two photo frames (their pictures unreadable) and a small blue-and-white patterned box; cream curtains drawn back to either side; beyond the glass the pale towers of neighbouring blocks and one big tree with dark glossy leaves close to the glass, soft in the rain",
+     "text": "a tall window with a thin white frame in two parts: an upper pair of panes and a lower pane that opens, rain streaming down the glass; a deep white ledge between them with a row of books standing between two photo frames (their pictures unreadable) and a small blue-and-white patterned box; a cream curtain hanging close against each side of the window's frame, from the rail to the floor, with no curtain anywhere else on the wall; beyond the glass the pale towers of neighbouring blocks and one big tree with dark glossy leaves close to the glass, soft in the rain",
      "on": "wall",
      "l": 28,
      "t": 4,
      "w": 52,
      "h": 82,
      "size": "from the floor almost to the ceiling strip"
-    },
-    {
-     "id": "sofaend",
-     "label": "the end of the sofa",
-     "text": "at the far right, the end of the grey sofa with its green knitted cushion",
-     "on": "floor",
-     "l": 84,
-     "t": 50,
-     "w": 14,
-     "h": 36,
-     "size": "its back at a grown-up's waist"
     }
    ]
   },
@@ -111,7 +90,7 @@
     {
      "id": "loft",
      "label": "dark wooden loft bed along the wall",
-     "text": "a loft bed in dark stained wood running the whole width of the wall: four thick square posts, a rail round the high bunk, a ladder at the left end, a mattress and a teal floral duvet up top, a rainbow and a white costume hung over the rail; small stickers on the posts; under it a cream ribbed padded panel on the wall at the right half",
+     "text": "a loft bed in dark stained wood running the whole width of the wall: four thick square posts, a rail round the high bunk, a ladder at the left (window) end and none at the right (door) end, a mattress and a teal floral duvet up top, a rainbow and a white costume hung over the rail; small stickers on the posts; under it a cream ribbed padded panel on the wall at the right half",
      "on": "floor",
      "l": 4,
      "t": 2,
@@ -174,17 +153,6 @@
    "name": "the door wall (west), to the left of the sofa wall",
    "light": "the window is behind the viewer, so this wall is lit evenly by the grey daylight from behind, with faint shadows straight back, and warm from the ceiling light",
    "objects": [
-    {
-     "id": "loftend",
-     "label": "the end of the loft bed",
-     "text": "at the far left, the end of the dark wooden loft bed with its ladder, and under it the stack of clear tubs",
-     "on": "floor",
-     "l": 2,
-     "t": 4,
-     "w": 12,
-     "h": 82,
-     "size": "the posts reaching almost to the ceiling strip"
-    },
     {
      "id": "wardrobe",
      "label": "tall white wardrobe",

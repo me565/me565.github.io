@@ -17,17 +17,6 @@
    "light": "grey rainy daylight fills this wall from the glass itself and lies in a long soft patch on the rug; everything in front of the glass is a little dark against it",
    "objects": [
     {
-     "id": "bunkend",
-     "label": "the foot end of the bunk bed",
-     "text": "the foot end of a white wooden bunk bed, its two end rails covered edge to edge in a dense band of tiny colourful stickers of animals, stars and dinosaurs, a ladder on its far side",
-     "on": "floor",
-     "l": 2,
-     "t": 8,
-     "w": 16,
-     "h": 78,
-     "size": "the top rail at a grown-up's shoulder"
-    },
-    {
      "id": "glass",
      "label": "floor-to-ceiling window and glass door",
      "text": "floor-to-ceiling glass in two tall panes and a glass door with a thin white frame, rain streaming down the glass, cream curtains drawn back to either side; beyond the glass, a narrow balcony rail, the pale towers of neighbouring blocks with rows of balconies, and one big tree with dark glossy leaves close to the glass, all soft in the rain",
@@ -64,7 +53,7 @@
      "t": 10,
      "w": 76,
      "h": 76,
-     "size": "the top rail at a grown-up's shoulder; the lower rail at a child's waist",
+     "size": "the top rail at a grown-up's shoulder, the lower rail at a child's waist; a single bed's width, about a child's height across, so its end reads as a real bed",
      "moves": "single (Zaina: a cut-out sitting cross-legged on the lower bunk with the toy piano on her knees; breathe)",
      "absent": "a white wooden bunk bed along the whole wall, side on: a ladder at the left end, every long rail covered edge to edge in a dense band of tiny colourful stickers of animals, stars and dinosaurs, a pull-out trundle drawer in its base with a small cut-out handle; the lower bunk made with a thin striped duvet (cream with fine red, blue and yellow stripes), its middle bare and smooth where a child could sit, a pillow at the right end, a cream ribbed padded headboard panel against the wall at the right, a small white clip-on reading light with a bendy arm on the right-hand rail; the upper bunk made with a teal duvet with a pink pattern, a row of small soft toys lined along its rail against the wall; nobody on either bunk",
      "cut": "a small girl of four sitting cross-legged on a bed with a wooden toy piano across her knees, seen from the front, made from the game's own portrait of Zaina (wispy dark hair in two little bunches, big dark-brown eyes, round cheeks, a navy dress with tiny white cats and rainbows), never from the photograph; the piano a plain pale wooden toy with eight coloured keys, red, orange, yellow, green, blue, indigo, violet, pink, and a slot at its back holding a small card"
@@ -88,16 +77,6 @@
      "t": 2,
      "w": 12,
      "h": 10
-    },
-    {
-     "id": "curtain",
-     "label": "the edge of the curtain",
-     "text": "at the far right, where this wall meets the glass, the edge of a cream curtain hanging from ceiling to floor",
-     "on": "wall",
-     "l": 90,
-     "t": 4,
-     "w": 8,
-     "h": 82
     }
    ]
   },
@@ -147,17 +126,6 @@
      "w": 14,
      "h": 18,
      "size": "at a child's knee"
-    },
-    {
-     "id": "ladder",
-     "label": "the head end of the bunk with its ladder",
-     "text": "at the far right, the head end of the white bunk bed with its ladder, the end rails covered in the dense band of tiny stickers",
-     "on": "floor",
-     "l": 88,
-     "t": 8,
-     "w": 10,
-     "h": 78,
-     "size": "the top rail at a grown-up's shoulder"
     }
    ]
   },
