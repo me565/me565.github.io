@@ -1,0 +1,106 @@
+{
+ "name": "eval2: the case's close-ups on the sofa, not a wooden floor (MOTH-148).",
+ "manifest": "evals/images/runs/eval2-case-sofa.json",
+ "ran_at": "2026-10-25T14:08:49Z",
+ "total_cost_usd": 0.0355,
+ "results": [
+  {
+   "id": "caseup-sofa",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval2/closeup-caseup.jpg",
+    "evals/images/refs/eval2-m3-sofa.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-148: the open case close up on the sofa, as in the room",
+   "seconds": 16.7,
+   "cost_usd": 0.017729,
+   "usage": {
+    "prompt_tokens": 1837,
+    "completion_tokens": 120,
+    "total_tokens": 1957,
+    "cost": 0.017729,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.017729,
+     "upstream_inference_prompt_cost": 0.014129,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "caseup-sofa.png",
+     "bytes": 2555074,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "caseclosed-sofa",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval2/closeup-caseclosed.jpg",
+    "evals/images/refs/eval2-m3-sofa.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-148: the shut case close up on the sofa",
+   "seconds": 14.1,
+   "cost_usd": 0.017729,
+   "usage": {
+    "prompt_tokens": 1837,
+    "completion_tokens": 120,
+    "total_tokens": 1957,
+    "cost": 0.017729,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.017729,
+     "upstream_inference_prompt_cost": 0.014129,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "caseclosed-sofa.png",
+     "bytes": 2182114,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}

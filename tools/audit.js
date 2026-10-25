@@ -1,6 +1,6 @@
 /* The Moth House: the checklist's automatic lines (next/CHECKLIST.md), run over every stage.
    usage: node tools/audit.js [stage ...]   (needs the local server: cd <repo> && python3 -m http.server 8765)
-   Checks: cut-out proportions (B9), icons centred inside their slots (E33), close-ups that take what their hotspot takes (E34), no picture squashed or stretched in a room or close-up (E35),
+   Checks: cut-out proportions (B9), icons centred inside their slots (E33), close-ups that take what their hotspot takes (E34), no picture squashed or stretched in a room or close-up (E35), things on a wall that partly overlap (B11, for a look),
    no stage part named after an engine style (E36), a shadow on things that stand (B10, listed for a look), pictures that fail to load (G38),
    hotspot bounds, size and the turn-arrow strips (E32), unique hotspot ids, close-up overflow and page scroll at three sizes (G36, G37),
    unrecorded voice keys (F34), targets low enough to sit under the caption band (32d), and an error-free run with reduced motion at the owner's screen shape (G36).
@@ -92,6 +92,12 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
           /* a smaller target drawn over the middle of a bigger one takes the bigger one's tap (the engine puts small things on top): fine for a mug on a desk, wrong for a window on the stairs (14 Oct 2026) */
           for (const h of hs) for (const g of hs){ if (g === h || g.w*g.h <= h.w*h.h) continue; const gx = g.l + g.w/2, gy = g.t + g.h/2;
             if (gx > h.l && gx < h.l + h.w && gy > h.t && gy < h.t + h.h) say(stage, 'E32?', `${v}: ${h.id} covers the middle of ${g.id}, so a tap on ${g.id}'s centre goes to ${h.id} (fine only if that is the intent)`); }
+          /* things placed on a wall that partly overlap each other: the whiteboard stood in front of the case once the case was redrawn wider
+             (MOTH-147). One wholly inside another (a packed thing in the case) is meant; a part-overlap is listed for a look */
+          (await p.evaluate(() => { const ims = [...document.querySelectorAll('#scene img')].filter(im => !im.closest('#inv, #closeup, .d3') && im.complete && im.naturalWidth).map(im => [im.getAttribute('src').split('/').pop().split('?')[0], im.getBoundingClientRect()]).filter(([, r]) => r.width > 4 && r.height > 4), out = [];
+            for (let i = 0; i < ims.length; i++) for (let j = i + 1; j < ims.length; j++){ const [a, r] = ims[i], [b, q] = ims[j]; const w = Math.min(r.right, q.right) - Math.max(r.left, q.left), h = Math.min(r.bottom, q.bottom) - Math.max(r.top, q.top); if (w <= 0 || h <= 0) continue;
+              const part = w*h/Math.min(r.width*r.height, q.width*q.height); if (part > 0.03 && part < 0.85) out.push(`${a} and ${b} overlap by ${Math.round(part*100)}% (fine only if one stands in front of the other on purpose)`); }
+            return out; })).forEach(q => say(stage, 'B11?', `${v}: ${q}`));
           /* no picture squashed or stretched to fake a view: the tape was a front-on roll at scaleY(.45), a flat disc on the desk (MOTH-117) */
           (await p.evaluate(squashed, '#scene')).forEach(q => say(stage, 'E35', `${v}: ${q}`));
           await p.screenshot({path:path.join(OUT, `${stage}-${v}.png`), clip:await p.locator('#scene').boundingBox()});
