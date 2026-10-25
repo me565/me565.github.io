@@ -38,7 +38,7 @@ This wall is {w['name']}. Only the objects in the numbered list below, each exac
 
 {sides}
 
-Light on this wall: {w['light']}.
+Light on this wall: {w['light']}.{(chr(10)+chr(10)+'Floor on this wall: '+w['floor']+'.') if w.get('floor') else ''}
 
 Checks: the picture fills the whole frame edge to edge, no border, no margin, no frame, no dark surround. No arrows, boxes, panels or buttons anywhere. {wordline} Every object stands against the back wall in the position listed; the side walls show only the two named ends. Nothing is drawn that is not in the numbered list: no extra chair, blind, rug, plant, poster, box or bin.
 """

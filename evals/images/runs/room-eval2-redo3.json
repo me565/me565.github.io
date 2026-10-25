@@ -1,0 +1,112 @@
+{
+ "name": "room-eval2-redo3: nine edits after the owner's third review (MOTH-106 to MOTH-112) and Claude's full consistency check, 25 Oct 2026",
+ "defaults": {
+  "aspect_ratio": "16:9",
+  "n": 1
+ },
+ "notes": [
+  "Each approved wall edited with its one set of changes and the neighbour it must agree with attached. The specifications now carry a plan block (doors: hinge, swing, open angle, where the leaf lies; the floor pattern's direction; flat walls), checked by roomcheck.py (checklist 72 to 74).",
+  "The real charge lands in results and goes in the level file's ledger as re-dos."
+ ],
+ "est_total_usd": 0.36,
+ "cases": [
+  {
+   "id": "mary-room-m3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "Attached picture 1 is this very wall, finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours and light, except for these changes: (Attached picture 2 is the door wall of the same room, where this door hangs on the right-hand jamb and swings open toward this wall; match it.) (1) Mary's door: the open doorway is on the narrow left-hand side wall right at the back corner, a dark honey wood frame, and through it the corridor's opposite wall close behind it, plain white with a dark wood skirting board and stone tiles; the dark honey wooden door leaf is hinged at that back-left corner and stands fully open into the room, lying flat against the back wall at its far left, its handle at the leaf's right edge; the planets poster sits just to the right of the open leaf, not covered by it. (2) The striped rug stays as it is, stripes running away from the viewer. Keep the drawing's style exactly: a polished, finished illustration drawn for a game, clean dark-ink outlines, soft shading, paper grain, the same palette and light. No words or letters anywhere, no arrows, no border. The picture fills the whole 16:9 frame.",
+   "references": [
+    "evals/images/refs/eval2-m3-v3.jpg",
+    "evals/images/refs/eval2-m4-v3.jpg"
+   ],
+   "est_usd": 0.04,
+   "note": "MOTH-106"
+  },
+  {
+   "id": "mary-room-m2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "Attached picture 1 is this very wall, finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours and light, except for these changes: (Attached picture 2 is the loft wall of the same room, which shows this ladder from the front; match it.) (1) The striped rug's stripes lie across the picture, horizontal, parallel to this wall, not running away from the viewer. (2) On the narrow right-hand side wall, the dark wooden loft bed's end, and its ladder seen in profile from the side: the ladder stands on the bed's front edge at this end and leans out into the room, its two dark wooden rails slanting from the top of the bed down and out toward the viewer's left, rungs seen edge-on; no rungs across the bed's end. (3) The left-hand corner is a plain corner: the side wall meets the back wall directly, with no pier, column or step. Keep the drawing's style exactly: a polished, finished illustration drawn for a game, clean dark-ink outlines, soft shading, paper grain, the same palette and light. No words or letters anywhere, no arrows, no border. The picture fills the whole 16:9 frame.",
+   "references": [
+    "evals/images/refs/eval2-m2-v3.jpg",
+    "evals/images/refs/eval2-m1-v3.jpg"
+   ],
+   "est_usd": 0.04,
+   "note": "MOTH-107, MOTH-108, and the corner pier found in Claude's check"
+  },
+  {
+   "id": "mary-room-m1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "Attached picture 1 is this very wall, finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours and light, except for these changes: (Attached picture 2 is the window wall of the same room, to the left of this wall; match it.) On the narrow left-hand side wall, replace the grey sofa with the near end of the window wall: a cream curtain hanging against the edge of a white window frame, a sliver of the rainy window and its deep white ledge, plain wall below; no sofa anywhere in this picture (the sofa is on the opposite wall, behind the viewer). Everything else, the loft, the ladder, the stool, the cube unit, the desk, the rug with its stripes running away from the viewer, stays exactly as it is. Keep the drawing's style exactly: a polished, finished illustration drawn for a game, clean dark-ink outlines, soft shading, paper grain, the same palette and light. No words or letters anywhere, no arrows, no border. The picture fills the whole 16:9 frame.",
+   "references": [
+    "evals/images/refs/eval2-m1-v3.jpg",
+    "evals/images/refs/eval2-m2-v3.jpg"
+   ],
+   "est_usd": 0.04,
+   "note": "Claude's check: the sofa on the loft wall's side wall"
+  },
+  {
+   "id": "mary-room-m4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "Attached picture 1 is this very wall, finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours and light, except for these changes: (Attached picture 2 is the corridor's wall opposite this door, which is what the doorway shows; match it.) (1) The striped rug's stripes lie across the picture, horizontal, parallel to this wall. (2) Through the open doorway, instead of a long corridor with a window at its end, the corridor's opposite wall close behind the doorway: a plain white wall with a low dark honey wood skirting board and one small white light switch, pale stone tiles with a faint sheen on the floor, the corridor running off out of view to both sides. The door itself stays as it is, hinged on the right and swung open toward the right. Keep the drawing's style exactly: a polished, finished illustration drawn for a game, clean dark-ink outlines, soft shading, paper grain, the same palette and light. No words or letters anywhere, no arrows, no border. The picture fills the whole 16:9 frame.",
+   "references": [
+    "evals/images/refs/eval2-m4-v3.jpg",
+    "evals/images/refs/eval2-c4-v3.jpg"
+   ],
+   "est_usd": 0.04,
+   "note": "MOTH-108, and the glimpse found in Claude's check"
+  },
+  {
+   "id": "flat-corridor-c1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "Attached picture 1 is this very wall, finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours and light, except for these changes: (Attached picture 2 is the children's room's door wall, where this door hangs on the left-hand jamb seen from inside; match it.) (1) The narrow left-hand side wall is flat plain white wall with its dark wood skirting, meeting the back wall at a plain corner: no pier, column, step or return. (2) The children's door is hinged on the right-hand jamb and stands fully open, swung away from the corridor into the room toward the right, so the doorway on the left of the leaf shows the room: the glass wall with rain and a white sticker-covered bunk bed's end; the leaf is not on the left. Keep the drawing's style exactly: a polished, finished illustration drawn for a game, clean dark-ink outlines, soft shading, paper grain, the same palette and light. No words or letters anywhere, no arrows, no border. The picture fills the whole 16:9 frame.",
+   "references": [
+    "evals/images/refs/eval2-c1-v3.jpg",
+    "evals/images/refs/eval2-k3-v3.jpg"
+   ],
+   "est_usd": 0.04,
+   "note": "MOTH-109, MOTH-112"
+  },
+  {
+   "id": "flat-corridor-c2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "Attached picture 1 is this very wall, finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours and light, except for these changes: Rearrange the wall's things into this order, left to right, keeping each one's look: Mary's open doorway at the far left (the dark honey wood frame, the leaf hinged on the left-hand jamb swung away into her room toward the left, her room's grey sofa end, striped rug and rainy window seen through it), then the small framed picture on the wall between the two doors, then the second closed dark wooden door at the right. Nothing to the left of Mary's doorway but a short stretch of plain wall. Keep the drawing's style exactly: a polished, finished illustration drawn for a game, clean dark-ink outlines, soft shading, paper grain, the same palette and light. No words or letters anywhere, no arrows, no border. The picture fills the whole 16:9 frame.",
+   "references": [
+    "evals/images/refs/eval2-c2-v3.jpg"
+   ],
+   "est_usd": 0.04,
+   "note": "MOTH-110"
+  },
+  {
+   "id": "flat-corridor-c4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "Attached picture 1 is this very wall, finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours and light, except for these changes: (Attached picture 2 is the children's-door wall of the same corridor; match it.) On the narrow right-hand side wall, the children's doorway at the far end is open: its dark honey wood frame with the leaf swung away out of sight into the room, and through it a glimpse of the children's room, a grey rug and the white sticker-covered bunk end; no closed door leaf in the frame. Keep the drawing's style exactly: a polished, finished illustration drawn for a game, clean dark-ink outlines, soft shading, paper grain, the same palette and light. No words or letters anywhere, no arrows, no border. The picture fills the whole 16:9 frame.",
+   "references": [
+    "evals/images/refs/eval2-c4-v3.jpg",
+    "evals/images/refs/eval2-c1-v3.jpg"
+   ],
+   "est_usd": 0.04,
+   "note": "Claude's check: the children's door shut on c4's side wall"
+  },
+  {
+   "id": "kids-room-k2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "Attached picture 1 is this very wall, finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours and light, except for these changes: (Attached picture 2 is the door wall of the same room, where this door hangs on the left-hand jamb and swings open toward this wall; match it.) On the far right of the back wall, the room's dark honey wooden door stands fully open into the room and lies flat against this back wall, its hinge edge at the right corner and its handle at its left edge; the narrow right-hand side wall shows the open doorway right at the corner, its dark wood frame, and a sliver of the corridor's white wall and stone floor through it. The partly open door on the side wall is gone. Everything else, the bunk, the stickers, the toys, the canvases, the lower bunk left bare, stays exactly as it is. Keep the drawing's style exactly: a polished, finished illustration drawn for a game, clean dark-ink outlines, soft shading, paper grain, the same palette and light. No words or letters anywhere, no arrows, no border. The picture fills the whole 16:9 frame.",
+   "references": [
+    "evals/images/refs/eval2-k2-v3.jpg",
+    "evals/images/refs/eval2-k3-v3.jpg"
+   ],
+   "est_usd": 0.04,
+   "note": "MOTH-111"
+  },
+  {
+   "id": "kids-room-k3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "Attached picture 1 is this very wall, finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours and light, except for these changes: (Attached picture 2 is the corridor's far end, with the double doors; match it.) Through the open doorway, the corridor seen down its length: white walls with dark honey wood skirting boards, pale stone tiles, Mary's dark wooden door standing open on the corridor's left-hand wall near the doorway, and at the corridor's far end a pair of closed dark wooden double doors. The door itself stays as it is, hinged on the left and swung open toward the left. Keep the drawing's style exactly: a polished, finished illustration drawn for a game, clean dark-ink outlines, soft shading, paper grain, the same palette and light. No words or letters anywhere, no arrows, no border. The picture fills the whole 16:9 frame.",
+   "references": [
+    "evals/images/refs/eval2-k3-v3.jpg",
+    "next/art/eval2/c3.jpg"
+   ],
+   "est_usd": 0.04,
+   "note": "Claude's check: the glimpse down the corridor"
+  }
+ ]
+}

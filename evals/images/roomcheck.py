@@ -40,6 +40,36 @@ for key in order:
         for e in ENDED:
             if re.search(r"\b" + e + r"\b", words) and not re.search(r"(left|right|window|door|north|south|east|west) end|at this end|at the (left|right)", words):
                 print(f"   ?  {o['id']}: names a {e} but not which end it is at"); problems += 1
+plan = room.get("plan", {})
+if not re.search(r"no piers|flat plain walls", room.get("box", "")):
+    print("!! the box line does not say the walls are flat with plain corners; the model invents piers and returns otherwise (checklist 74)"); problems += 1
+door_objs = [(k, o) for k in order for o in walls[k]["objects"] if re.search(r"\bdoor\b", o["label"].lower()) and not re.search(r"glass|window|leaf|double|second", o["label"].lower())]
+plan_doors = {d.get("id"): d for d in plan.get("doors", [])}
+for k, o in door_objs:
+    pd = plan_doors.get(o["id"])
+    if not pd:
+        print(f"!! {k}/{o['id']}: a door with no entry in the plan (hinge jamb, swing, open angle, where its leaf lies) (checklist 72)"); problems += 1; continue
+    for f in ("hinge", "swing", "open"):
+        if not pd.get(f): print(f"!! {k}/{o['id']}: the plan's door has no '{f}' (checklist 72)"); problems += 1
+    if pd.get("leaf_on"):
+        if not any("leaf" in x["label"].lower() for x in walls[pd["leaf_on"]]["objects"]):
+            print(f"!! {k}/{o['id']}: the plan says its open leaf lies on {pd['leaf_on']}, but that wall lists no leaf (checklist 72)"); problems += 1
+        else:
+            print(f"   door {o['id']}: hinge {pd['hinge'][:60]}…; leaf on {pd['leaf_on']}")
+floor = plan.get("floor", "")
+if re.search(r"stripe|check|plank|tile pattern|pattern", (room.get("palette", "") + floor).lower()) and "no pattern" not in floor.lower():
+    rows = [(k, walls[k].get("floor", "")) for k in order]
+    if not all(f for _, f in rows):
+        print("!! a patterned floor with no per-wall floor line saying how it reads from that wall (checklist 73)"); problems += 1
+    else:
+        reads = ["vertical" in f for _, f in rows]
+        if not (reads[0] == reads[2] and reads[1] == reads[3] and reads[0] != reads[1]):
+            print(f"!! the floor pattern must read the same on opposite walls and differently on neighbours: {rows} (checklist 73)"); problems += 1
+        else:
+            print("   floor pattern: " + ", ".join(f"{k} {'vertical' if v else 'horizontal'}" for (k, _), v in zip(rows, reads)))
+print("   order along each wall, left to right facing it:")
+for key in order:
+    print(f"     {key}: " + " · ".join(o["label"] for o in sorted(walls[key]["objects"], key=lambda o: o["l"])))
 for b, places in seen.items():
     if len({k for k, _ in places}) > 1:
         print(f"?  '{b}' appears in objects on more than one wall: {places}. If it is one thing, it stands along one wall and the others show only its end; two different things are fine.")

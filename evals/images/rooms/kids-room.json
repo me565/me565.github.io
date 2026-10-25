@@ -2,7 +2,7 @@
  "name": "Elliot and Zaina's room (the family flat, Singapore): test level eval2, Packing Day from scratch; from the owner's photographs of 24 Oct 2026, not kept",
  "setting": "Cosy, warm and lived-in: two small children's shared bedroom in a Singapore flat on a rainy December afternoon, empty of people.",
  "palette": "the walls are plain white, with no painted band; the band line is only the height of the bunk bed's lower rail, 42% of the way up the back wall from the floor; the floor is pale honey-coloured wood with a soft grey rug in the middle; white furniture, a white bunk bed, bright toy colours (teal, yellow, lime green, pink); low white skirting boards in this room",
- "box": "a shallow box in one-point perspective: a wide back wall running the full width, narrow side walls, a thin strip of ceiling, a low floor band",
+ "box": "a shallow box in one-point perspective: a wide back wall running the full width, narrow side walls, a thin strip of ceiling, a low floor band; flat plain walls meeting at plain corners, with no piers, columns, recesses, steps or returns anywhere",
  "light": "the only daylight comes through the floor-to-ceiling glass on the window wall, a soft grey-green rainy afternoon light, with a warm ceiling light elsewhere",
  "words": [],
  "order": [
@@ -77,6 +77,17 @@
      "t": 2,
      "w": 12,
      "h": 10
+    },
+    {
+     "id": "doorleaf",
+     "label": "the children's open dark wooden door leaf against the wall",
+     "text": "at the far right of the back wall, the leaf of the room's dark honey wooden door standing fully open and lying flat against this wall, its hinge edge at the right corner and its handle at its left edge",
+     "on": "wall",
+     "l": 86,
+     "t": 6,
+     "w": 12,
+     "h": 80,
+     "size": "the leaf reaches almost to the ceiling strip"
     }
    ]
   },
@@ -87,7 +98,7 @@
     {
      "id": "door",
      "label": "the open dark wooden door to the corridor",
-     "text": "the room's door at the left: a dark honey wooden door standing open into the room on its hinges, and through the doorway, the corridor as its own walls show it: white walls with dark honey wood skirting boards, pale stone tiles with a faint sheen, a small round ceiling light, grey daylight far down it; beside the door frame a long string of small felt elephants and brass bells hanging from the ceiling",
+     "text": "the room's door at the left: a dark honey wooden door hinged on its left-hand jamb, standing fully open into the room toward the left, and through the doorway the corridor seen down its length: white walls with low dark honey wood skirting boards, pale stone tiles with a faint sheen, Mary's dark wooden door standing open on the corridor's left-hand wall near the doorway, and at the corridor's far end a pair of closed dark wooden double doors; beside the door frame a long string of small felt elephants and brass bells hanging from the ceiling",
      "on": "floor",
      "l": 6,
      "t": 4,
@@ -167,5 +178,19 @@
     }
    ]
   }
+ },
+ "plan": {
+  "doors": [
+   {
+    "id": "door",
+    "wall": "k3",
+    "at": "the east (left-hand, seen from inside) end of the south wall, next to the corner with the bunk wall",
+    "hinge": "on its east jamb: the left-hand jamb seen from inside the room, the right-hand jamb seen from the corridor",
+    "swing": "into the room",
+    "open": "fully open, about a right angle, its leaf lying flat against the bunk wall (k2) at that wall's right end, hinge at the corner",
+    "leaf_on": "k2"
+   }
+  ],
+  "floor": "a plain soft grey rug in the middle, no pattern"
  }
 }

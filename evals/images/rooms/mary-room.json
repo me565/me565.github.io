@@ -1,8 +1,8 @@
 {
  "name": "Mary's room (the family flat, Singapore): test level eval2, Packing Day from scratch; from the owner's photographs of 24 Oct 2026, not kept",
  "setting": "Cosy, warm and lived-in: a ten-year-old girl's narrow bedroom in a Singapore flat on a rainy December afternoon, empty of people.",
- "palette": "the walls are plain white, with no painted band; the band line is only the height of the sofa's back, 36% of the way up the back wall from the floor; the floor is pale honey-coloured wood with a striped rug (pale blue, green and cream stripes) down the middle; a dark stained-wood loft bed, a grey sofa, white and black furniture, cream curtains; low white skirting boards in this room",
- "box": "a shallow box in one-point perspective: a wide back wall running the full width, narrow side walls, a thin strip of ceiling, a low floor band",
+ "palette": "the walls are plain white, with no painted band; the band line is only the height of the sofa's back, 36% of the way up the back wall from the floor; the floor is pale honey-coloured wood with a striped rug (pale blue, green and cream stripes) down the middle; a dark stained-wood loft bed, a grey sofa, white and black furniture, cream curtains; low honey wood skirting boards in this room",
+ "box": "a shallow box in one-point perspective: a wide back wall running the full width, narrow side walls, a thin strip of ceiling, a low floor band; flat plain walls meeting at plain corners, with no piers, columns, recesses, steps or returns anywhere",
  "light": "the only daylight comes through the tall window on the window wall, a soft grey-green rainy afternoon light, with a warm ceiling light elsewhere",
  "words": [],
  "order": [
@@ -17,11 +17,22 @@
    "light": "the window is to the right of this wall, so grey daylight comes from the right and shadows lean left; the wall is warm from the ceiling light",
    "objects": [
     {
+     "id": "doorleaf",
+     "label": "Mary's open dark wooden door leaf against the wall",
+     "text": "at the far left of the back wall, the leaf of the room's dark honey wooden door standing fully open and lying flat against this wall, its hinge edge at the left corner and its handle at its right edge",
+     "on": "wall",
+     "l": 2,
+     "t": 6,
+     "w": 13,
+     "h": 80,
+     "size": "the leaf reaches almost to the ceiling strip"
+    },
+    {
      "id": "poster",
      "label": "tall educational poster",
      "text": "high on the wall at the left, a long poster with a dark background and small coloured pictures of planets and rocks, with no readable words",
      "on": "wall",
-     "l": 6,
+     "l": 18,
      "t": 4,
      "w": 14,
      "h": 34
@@ -50,7 +61,8 @@
      "absent": "a low grey sofa bed along the wall, with a cushion printed like an old world map and a green knitted cushion at its left end, and the rest of the seat bare and smooth; nothing propped against its back",
      "cut": "two things, each drawn alone: an open child's suitcase with a purple lid, seen from the front and a little above, empty inside; and a small white whiteboard in a thin frame with a black marker pen clipped to its edge, blank"
     }
-   ]
+   ],
+   "floor": "the striped rug's stripes run away from the viewer, vertical in the picture"
   },
   "m2": {
    "name": "the window wall (east), to the right of the sofa wall",
@@ -81,7 +93,8 @@
      "h": 82,
      "size": "from the floor almost to the ceiling strip"
     }
-   ]
+   ],
+   "floor": "the striped rug's stripes lie across the picture, horizontal, parallel to this wall"
   },
   "m1": {
    "name": "the loft wall (south), opposite the sofa wall",
@@ -96,7 +109,7 @@
      "t": 2,
      "w": 92,
      "h": 84,
-     "size": "the bunk at a grown-up's head height, the posts reaching almost to the ceiling strip; its end is two dark posts and the end of the rail with no ladder across it, because the ladder is on the bed's front face at the window end, climbed from the room"
+     "size": "the bunk at a grown-up's head height, the posts reaching almost to the ceiling strip; its ladder is on the bed's front face at the window (left) end, leaning out into the room, so seen from the window wall it is in profile, rails slanting down and out, rungs edge-on"
     },
     {
      "id": "stool",
@@ -147,7 +160,8 @@
      "h": 54,
      "size": "the desk top at a grown-up's waist"
     }
-   ]
+   ],
+   "floor": "the striped rug's stripes run away from the viewer, vertical in the picture"
   },
   "m4": {
    "name": "the door wall (west), to the left of the sofa wall",
@@ -167,7 +181,7 @@
     {
      "id": "door",
      "label": "the open dark wooden door to the corridor",
-     "text": "the room's door at the right: a dark honey wooden door standing open into the room, and through the doorway, the corridor as its own walls show it: white walls with dark honey wood skirting boards, pale stone tiles with a faint sheen, a small round ceiling light, grey daylight far down it; two white light switches on the wall beside the frame and a few small notes pinned there",
+     "text": "the room's door at the right: a dark honey wooden door hinged on its right-hand jamb, standing fully open into the room toward the right, and through the doorway the corridor's opposite wall close behind the doorway: a plain white wall with a low dark honey wood skirting board and one white light switch, pale stone tiles with a faint sheen on the floor; two white light switches on the wall beside the frame and a few small notes pinned there",
      "on": "floor",
      "l": 60,
      "t": 4,
@@ -185,7 +199,23 @@
      "w": 20,
      "h": 4
     }
-   ]
+   ],
+   "floor": "the striped rug's stripes lie across the picture, horizontal, parallel to this wall"
   }
+ },
+ "plan": {
+  "doors": [
+   {
+    "id": "door",
+    "wall": "m4",
+    "at": "the north (right-hand, seen from inside) end of the west wall, next to the corner with the sofa wall",
+    "hinge": "on its north jamb: the right-hand jamb seen from inside the room, the left-hand jamb seen from the corridor",
+    "swing": "into the room",
+    "open": "fully open, about a right angle, its leaf lying flat against the sofa wall (m3) at that wall's left end, hinge at the corner",
+    "leaf_on": "m3"
+   }
+  ],
+  "floor": "a striped rug (pale blue, green and cream stripes) down the middle; its stripes run north to south, so they read vertical (running away from the viewer) on the sofa wall and the loft wall, and horizontal (lying parallel to the wall) on the window wall and the door wall",
+  "ladder": "the loft's ladder is on the bed's front face (facing the sofa wall across the room), at the window (east) end, leaning out into the room; seen from the window wall it is in profile, its rails slanting from the bed's front edge down and out, rungs edge-on"
  }
 }
