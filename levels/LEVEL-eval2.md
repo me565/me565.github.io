@@ -3,7 +3,7 @@
 *Opened on 24 Oct 2026 at the owner's word: "Do the packing day but built from scratch. Just as a two-room puzzle. Mary needs to find her things before she can take her flight to London for Christmas. Make it interesting." It is the second test level after "Lock-up Duty" (`levels/LEVEL-evalroom.md`), built the same way through the same gates: the room-specification method on Sunburst in the signed-off style, the test room's way of playing, and the owner's materials first (playbook 4x, checklist 8c and 8d). The owner is giving the rooms one at a time as photographs, which are never kept in the repo: each room is written down here in words as it arrives, with what is still missing, and the design is drawn on paper and approved before any picture is made. Room 1 arrived on 24 Oct 2026 (eight pictures) and room 2 the same day (eight pictures, Mary's room); the design below is drawn from both and waits on the owner's Gates A and B. Nothing is signed, nothing is built, no credit is spent. The stage key `eval2` and the hotspot prefix `e2_` are reserved. (An earlier outline for this key, a front-office test room, is parked in commit `731e844` and is not this level.)*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: batch (Gates A to E signed 25 Oct 2026; the other 26 pictures being made)
+Current status: integrating (Gates A to E signed 25 Oct 2026; every picture placed in build 2026-10-25d; the polish walk, stage 7, is next)
 Build id of the latest play link: 2026-10-25a
 Latest play link: https://rawcdn.githack.com/me565/me565.github.io/80b246c97579567192445072e41a68547a9e3197/next/landscape/index.html?stage=eval2
 
@@ -381,6 +381,29 @@ Prompt changes made before sign-off: none.
 Signed off: "sign off gate e" (owner, 25 Oct 2026, in chat), on the six samples as placed in build 2026-10-25c.
 
 ## 6b. Batch
+
+Made 25 Oct 2026 on the GitHub runner (`evals/images/runs/eval2-batch.json`, run 40175653479), GPT Image 2.5 Sunburst, **26 pictures, 39.9¢ billed** against about 40¢ estimated. Results in `evals/images/results/2026-10-25-eval2-batch.results.json` (the samples' in `…-eval2-samples.results.json`). Every picture passed the hard rules first time: nothing written anywhere (the box's label, the folder's label, the sheet's staves and the lock's circles all blank, so the game writes them), each close-up filling its frame, the edits changing only what they were asked to (the organiser's window emptied, the box opened, the parcel taped). Placed in build 2026-10-25d; every labelled stand-in is gone.
+
+| # | Picture | File | Placed as |
+|---|---|---|---|
+| 1 | Whiteboard | `layer-board.png` | on the sofa's seat, the close-up and the wipe; the game writes the list and ticks on its face |
+| 2, 3 | The case, and from above | `layer-case.png`, `closeup-caseup.jpg` | on the sofa (navy, matching `m2`); the close-up shows each packed thing on top |
+| 4 | The folder, open | `closeup-folder.jpg` | the stand's close-up; the game writes "Nana's carol, Christmas Eve" on the label |
+| 5a–c | The three drawers | `closeup-drawer-top/mid/bot.jpg` | each drawer's close-up (the hair clip, the beads, the socks) |
+| 6, 7 | The pen pot; the tape | `closeup-penpot.jpg`, `item-tape.png` | the tape against the pot until taken; the strip icon |
+| 8, 9 | The trundle; the paper roll | `closeup-trundle.jpg`, `item-roll.png` | the roll in the trundle's empty front until taken; the strip icon. The trundle's front is lifted from `k2` (`layer-trundlefront.png`) and slides out in the room |
+| 10a, 10b, 11 | The organiser, with and without Shelly; close up | `layer-org.png`, `layer-org-empty.png`, `closeup-orgup.jpg` | on the loft's post (it swings on a tap); the close-up draws Shelly behind the window's plastic until taken |
+| 12 | Shelly | `item-shelly.png` | the strip icon, on Zaina's lap after the trade, behind the organiser's window |
+| 13, 14, 15 | The drawing; half wrapped; wrapped | `layer-drawing.png`, `item-parcel.png`, `item-present.png` | the drawing on the panel (the game adds its "For Nana" tag) and as its icon; the two stages of the present |
+| 16a, 16b, 17, 18 | The winter box, tied and open; hat and gloves; the ribbon's end | `closeup-box.jpg`, `closeup-box-open.jpg`, `item-hat.png`, `tab-ribbon.png` | the shelf's close-up (the game writes WINTER (London)), the ribbon drag with the real loose end as its tab, the open box after |
+| 19 | Board wiper | `tab-wiper.png` | the wipe's tab; the cloth wipes only the board's face |
+| 24 | Elliot's lock | `closeup-lock.jpg` | the lock's close-up; the game draws the shapes in his four felt-tip circles and the four pressed so far |
+| 25 | Inside the doll's house | `layer-inside.png` | behind the front, which is lifted from `k4` (`layer-housefront.png`) and swings open on its left edge after the windows light; the passport lies on the tiny bed |
+| 27 | Carol sheet | `item-sheet.png` | the strip icon (the clue card stays drawn by the game) |
+
+- Originals copied to Drive folder: **not done**, as in the test room: the Drive connector cannot carry 1–2 MB files. The folder "The Moth House — eval2 originals (Packing Day)" (https://drive.google.com/drive/folders/1UeM-BHxEBwfbHVFClNYYMzi6KkWhUdWS) holds a note naming the runner's artifacts (the walls' runs, samples 40174329425, batch 40175653479), kept until 24 Nov 2026, for the owner to download and drop in.
+- Re-dos and why: none in the samples or the batch.
+- One slip while placing: the play script still dragged along the stand-ins' ribbon and wipe paths, so it caught the new pictures' paths as a failure; the script now follows the real ribbon's end and the board's face.
 ## 7. Integrate and polish
 ## 8. Release
 
@@ -395,8 +418,8 @@ Signed off: "sign off gate e" (owner, 25 Oct 2026, in chat), on the six samples 
 | walls edited after the owner's second review | ~15¢ | 10.0¢ | 5 | MOTH-102 to MOTH-105: doors, glimpses, a ladder's face, a stray curtain; the approved pictures edited with one change each |
 | walls edited after the owner's third review and Claude's check | ~25¢ | 27.5¢ | 10 | MOTH-106 to MOTH-112 and four faults from the full check: door swings, ladder, rug direction, corridor shape and order, glimpses |
 | 6a samples | ~10¢ (six pictures) | 9.5¢ | 0 | all six first time |
-| 6b batch | ~40¢ (the other 26 pictures) | | | |
-| Total | ~$1.50 (the walls about $1.00 already spent, the pictures about 50¢) | $1.094 so far | 20 | all re-dos on the walls, before Gate C |
+| 6b batch | ~40¢ (the other 26 pictures) | 39.9¢ | 0 | all 26 first time |
+| Total | ~$1.50 (the walls about $1.00 already spent, the pictures about 50¢) | $1.493 so far | 20 | all re-dos on the walls, before Gate C |
 
 ## Learning loop
 
@@ -415,6 +438,7 @@ Signed off: "sign off gate e" (owner, 25 Oct 2026, in chat), on the six samples 
 | Same review (MOTH-108) | The rug's stripes the same way on all four walls | The plan gives the stripes a direction and each wall a floor line | Yes: a floor pattern has a direction | Checklist 73; `room_prompts.py`, `roomcheck.py` |
 | Same review (MOTH-109, MOTH-110) | A jutting wall in the corridor; the picture on both sides of Mary's door | The box line says flat walls; the plan lists each wall's order from the photograph | Yes: the room is the plan's shape, and order holds | Checklist 74 |
 | Samples, Claude's look in the level, 25 Oct 2026 | Zaina placed doll-sized on her bunk: her box was guessed by eye | Re-sized against the bunk's length (a four-year-old sitting is about 58 cm, the bed 180 cm), the sum written beside her box in the stage | Yes: a cut-out is sized against a real measure on its wall | Checklist 76; playbook 2 |
+| Batch, the audit's look-lines, 25 Oct 2026 | Once the doll's house opened, Elliot's note's tap target still lay over the passport and took its tap (the note is on the front, which had swung away) | The note's target hides when the house opens; it stays in the notebook | Yes: a tap target on a part that moves away hides with it, and every E32? line is checked against the states, not waved through | Checklist 77 |
 | Claude's full check, 25 Oct 2026 | The sofa on the loft wall's side wall; a pier in the window wall's corner; Mary's doorway showing a long corridor; the children's door shut on c4 | Edited with the neighbour attached | Yes: walk the whole set after any change | Checklist 75 |
 
 ## Notes for this level only

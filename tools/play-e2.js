@@ -55,7 +55,7 @@ const { chromium } = require('playwright');
   // the stool: the bath first is refused, the tub then the bath
   await tap('e2_bath', 300); check(/sitting on it/.test(await msg()), 'bath under the tub'); await tap('e2_tub', 300); await tap('e2_bath', 300); await shot('12-stool'); await tap('e2_stool', 400);
   await hold('step stool'); await tap('e2_cubes', 300); check(/taller/.test(await msg()), 'stool miss line');
-  await turnTo('m4'); await hold('step stool'); await tap('e2_wardrobe', 1200); check(await p.evaluate(() => !!document.getElementById('dragpic')), 'ribbon drag open'); await shot('13-ribbon'); await drag([[52, 44], [64, 50], [80, 62]]); check(await p.evaluate(() => S.got.includes('hat')), 'hat and gloves taken'); await shot('14-stool-at-wardrobe');
+  await turnTo('m4'); await hold('step stool'); await tap('e2_wardrobe', 1200); check(await p.evaluate(() => !!document.getElementById('dragpic')), 'ribbon drag open'); await shot('13-ribbon'); await drag([[64.5, 63], [72, 75], [82, 88]]); check(await p.evaluate(() => S.got.includes('hat')), 'hat and gloves taken'); await shot('14-stool-at-wardrobe');
   // pack three, the stool refused
   await turnTo('m3'); for (const n of ['hat and gloves', 'Nana’s present']){ await hold(n); await tap('e2_case', 400); console.log('packed', n, ':', await msg()); }
   // back to Zaina with Shelly; the chorus; the lock
@@ -71,7 +71,7 @@ const { chromium } = require('playwright');
   check(await p.evaluate(() => Object.keys(S.packed).length === 4), 'four in the case'); await shot('18-four');
   await tap('e2_board', 500); await p.click('#e2wipe'); await p.waitForTimeout(200); check(/lights/i.test(await cufb()), 'the P.S. stops the wipe'); await back();
   await turnTo('m2'); await tap('e2_lights', 300); check(await p.evaluate(() => S.lightsOff), 'lights off'); await shot('19-lights-off');
-  await turnTo('m3'); await tap('e2_board', 500); await p.click('#e2wipe'); await p.waitForTimeout(500); await shot('20-wipe'); await drag([[14, 30], [86, 30], [14, 52], [86, 52], [14, 74], [86, 74]]);
+  await turnTo('m3'); await tap('e2_board', 500); await p.click('#e2wipe'); await p.waitForTimeout(500); await shot('20-wipe'); await drag([[22, 26], [78, 26], [22, 46], [78, 46], [22, 66], [78, 66]]);
   await p.waitForTimeout(6500); check(await p.evaluate(() => S.done && !document.getElementById('endUI').hidden), 'the ending shows'); await shot('21-ending');
   for (const w of [844, 2000]){ await p.setViewportSize({width:w, height:w === 844 ? 390 : 700}); await p.waitForTimeout(300); check(!(await p.evaluate(() => document.documentElement.scrollHeight > innerHeight + 1 || document.documentElement.scrollWidth > innerWidth + 1)), 'no page scroll at ' + w); }
   console.log('errors:', errs.length ? errs : 'none'); console.log(fails ? `${fails} FAILED` : 'ALL PASS'); await b.close(); process.exit(fails || errs.length ? 1 : 0);

@@ -1,9 +1,8 @@
 /* The Moth House, landscape engine: the second test level, "Packing Day, from scratch" (levels/LEVEL-eval2.md), not a level of any
    child's story. Mary's room, the corridor and Elliot and Zaina's room, drawn by GPT Image 2.5 Sunburst on 25 Oct 2026 from
    evals/images/rooms/{mary-room,flat-corridor,kids-room}.json and passed by the owner ("Walls pass", 25 Oct 2026).
-   This is the first playable (Gate C, playbook 4ac): the real puzzle, hints, saves, doors and ending on the twelve real walls, with
-   labelled stand-ins drawn by the game for every picture that does not exist yet (the case, the whiteboard, the organiser,
-   the drawing, the winter box, the doll's house lock and inside, every icon). Gate D replaces them.
+   Every picture is real since the batch (build 2026-10-25d, Gates A to E signed 25 Oct 2026): the game draws only the words,
+   colours and shapes the puzzle reads (the list and its ticks, the labels, the piano's colours, the lock's shapes, the sheet).
    The engine is frozen, so every reward moment is drawn here. Open with ?stage=eval2. */
 'use strict';
 registerStage('eval2', (function(){
@@ -49,35 +48,28 @@ function shape(s, fill = '#fff'){
 }
 const keySvg = (k, cls = '', extra = '') => `<svg viewBox="0 0 10 10" class="${cls}" ${extra} aria-hidden="true"><circle cx="5" cy="5" r="4.8" fill="${KEYS[k].c}" stroke="#2b2836" stroke-width=".35"/><g transform="translate(2 2) scale(.6)">${shape(KEYS[k].s)}</g></svg>`;
 
-/* ---------- stand-ins: labelled boxes where a picture will be (Gate D draws them) ---------- */
+/* ---------- the stage's own styles ---------- */
 (function(){ const st = document.createElement('style'); st.textContent = `
-.e2sb{position:absolute;box-sizing:border-box;border:2px dashed rgba(43,40,54,.7);border-radius:calc(var(--u)*.5);background:rgba(251,244,226,.88);color:#2b2836;font:700 calc(var(--u)*1.15)/1.15 ${FONT};display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:.2em;pointer-events:none;overflow:hidden}
-.e2sb small{display:block;font-weight:400;font-size:.8em;opacity:.75}
-.e2ic{position:absolute;inset:10%;display:flex;align-items:center;justify-content:center;text-align:center;border-radius:calc(var(--u)*.6);font:700 calc(var(--u)*1.2)/1.1 ${FONT};color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.5);border:2px solid rgba(0,0,0,.25)}
 .e2dot{position:absolute;width:1.1%;aspect-ratio:1;border-radius:50%;pointer-events:none}
 .e2dot.on{animation:e2tw 1.6s ease-in-out infinite;box-shadow:0 0 calc(var(--u)*.8) currentColor}
 @keyframes e2tw{0%,100%{opacity:1}50%{opacity:.35}}
 .e2win{position:absolute;pointer-events:none;background:radial-gradient(rgba(255,226,140,.95),rgba(255,200,90,.55));border-radius:40% 40% 8% 8%;opacity:0}
 .e2win.lit{opacity:1}.e2win.go{animation:e2lit .5s ease-out forwards}
 @keyframes e2lit{from{opacity:0}to{opacity:1}}
-.e2key{position:absolute;bottom:6%;height:62%;border-radius:0 0 calc(var(--u)*.6) calc(var(--u)*.6);border:2px solid #2b2836;display:flex;align-items:flex-end;justify-content:center;transition:transform .12s,filter .12s}
-.e2key svg{width:70%;margin-bottom:12%}
-.e2key.lit{transform:translateY(6%);filter:brightness(1.35) drop-shadow(0 0 calc(var(--u)*1.2) #fff6c0)}
 .e2btn{position:absolute;border-radius:50%;border:2px solid #2b2836;cursor:pointer;padding:0;background:#fff;display:grid;place-items:center}
 .e2btn svg{width:100%;height:100%}
 .e2btn.flash{animation:e2fl .35s ease-out}
 @keyframes e2fl{50%{transform:scale(1.18);filter:brightness(1.4)}}
+@keyframes e2swing{from{transform:perspective(calc(var(--u)*60)) rotateY(0)}to{transform:perspective(calc(var(--u)*60)) rotateY(-82deg)}}
 @media (prefers-reduced-motion:reduce){.e2dot.on,.e2win.go,.e2btn.flash{animation:none}.e2win.go{opacity:1}}
 `; document.head.appendChild(st); })();
-const sb = (l, t, w, h, label, small = '', more = '') => `<div class="e2sb" style="left:${l}%;top:${t}%;width:${w}%;height:${h}%;${more}">${label}${small ? `<small>${small}</small>` : ''}</div>`;
 const ov = html => { const d = document.createElement('div'); d.style.cssText = 'position:absolute;inset:0;pointer-events:none'; d.innerHTML = html; return d; };
-const icon = (bg, label) => `<span class="e2ic" style="background:${bg}">${label}</span>`;
 
 /* ---------- tap targets, in picture percentages ---------- */
 const HOTS = {
   m3:[
-    {id:'e2_board', l:43, t:41, w:15, h:24, label:'Mary’s whiteboard', key:true, sound:'paper'},
-    {id:'e2_case', l:58, t:43, w:20, h:27, label:'Mary’s case', sound:'open'},
+    {id:'e2_board', l:42, t:49, w:15, h:17, label:'Mary’s whiteboard', key:true, sound:'paper'},
+    {id:'e2_case', l:58, t:41, w:18, h:30, label:'Mary’s case', sound:'open'},
     {id:'e2_cushions', l:30, t:48, w:12, h:17, label:'Cushions', sound:'tap'},
     {id:'e2_poster', l:17, t:6, w:15, h:41, label:'Planets poster', sound:'paper'},
     {id:'e2_print', l:47, t:17, w:12, h:17, label:'Framed print', sound:'tap'},
@@ -95,7 +87,7 @@ const HOTS = {
     {id:'e2_tub', l:20.5, t:60, w:11.5, h:11, label:'A plastic tub', sound:'knock', anim:'lift', layer:'tub', hideWhen:() => S.tubMoved},
     {id:'e2_bath', l:19, t:71, w:14, h:12, label:'Zaina’s old baby bath', sound:'knock', anim:'lift', layer:'bath', hideWhen:() => S.bathMoved},
     {id:'e2_stool', l:20, t:64, w:11, h:18, label:'A step stool', key:true, sound:'knock', showWhen:() => S.tubMoved && S.bathMoved && !taken('stool')},
-    {id:'e2_drawing', l:56, t:32, w:10, h:15, label:'Framed drawing', key:true, sound:'paper', hideWhen:() => taken('drawing')},
+    {id:'e2_drawing', l:56, t:32, w:9.5, h:16, label:'Framed drawing', key:true, sound:'paper', anim:'lift', layer:'drawing', hideWhen:() => taken('drawing')},
     {id:'e2_postcard', l:50.5, t:36, w:5, h:8, label:'Postcard', sound:'paper'},
     {id:'e2_canvases', l:66, t:35, w:14, h:12, label:'Family pictures', sound:'tap'},
     {id:'e2_penpot', l:72.5, t:46, w:5.5, h:8, label:'Pen pot', sound:'tick'},
@@ -104,7 +96,7 @@ const HOTS = {
     {id:'e2_dtop', l:75.5, t:56, w:9, h:6, label:'Top drawer', sound:'open'},
     {id:'e2_dmid', l:75.5, t:62, w:9, h:6, label:'Middle drawer', sound:'open'},
     {id:'e2_dbot', l:75.5, t:68, w:9, h:6, label:'Bottom drawer', sound:'open'},
-    {id:'e2_organiser', l:84, t:30, w:8, h:21, label:'Pocket organiser', key:true, sound:'leaf'}],
+    {id:'e2_organiser', l:83.5, t:30, w:7.5, h:21, label:'Pocket organiser', key:true, sound:'leaf', anim:'swing', layer:'org'}],
   m4:[
     {id:'e2_wardrobe', l:32, t:4, w:25, h:79, label:'Wardrobe', sound:'knock'},
     {id:'e2_mdoor', l:66, t:12, w:24, h:70, label:'Door to the corridor', sound:'knock'},
@@ -141,9 +133,9 @@ const HOTS = {
     {id:'e2_bricks', l:62, t:66, w:28, h:18, label:'Toys and bricks', sound:'knock'}],
   k4:[
     {id:'e2_house', l:17.5, t:27, w:17, h:57, label:'Zaina’s doll’s house', sound:'knock'},
-    {id:'e2_enote', l:22.5, t:56.5, w:9, h:7, label:'Elliot’s note', key:true, sound:'paper'},
+    {id:'e2_enote', l:22.5, t:56.5, w:9, h:7, label:'Elliot’s note', key:true, sound:'paper', hideWhen:() => S.houseOpen}, /* on the front: it swings away with it, and stays in the notebook */
     {id:'e2_dlock', l:22.5, t:64, w:8.5, h:10, label:'Elliot’s cardboard lock', key:true, sound:'tick', hideWhen:() => S.houseOpen},
-    {id:'e2_passport', l:21, t:66, w:11, h:12, label:'The passport on the tiny bed', key:true, sound:'paper', showWhen:() => S.houseOpen && !taken('passport')},
+    {id:'e2_passport', l:21, t:55, w:9, h:9, label:'The passport on the tiny bed', key:true, sound:'paper', showWhen:() => S.houseOpen && !taken('passport')},
     {id:'e2_kcubes', l:37, t:19, w:37, h:66, label:'Cube shelves', sound:'knock'},
     {id:'e2_ktoys', l:37, t:3, w:37, h:15, label:'Toys on top of the shelves', sound:'squeak'}]
 };
@@ -152,7 +144,9 @@ const CUT = {bath:{l:19.5, t:71.5, w:13, h:11.7}, tub:{l:21, t:61, w:10.5, h:12.
   stool:{l:21.09, t:65.28, w:9.77, h:17.25}, patch:{l:19.99, t:63.31, w:11.98, h:21.18}, zaina:{l:45.5, t:49, w:9, h:23}}; /* sized against the bunk: a four-year-old sitting is about 58 cm, the bed 180 cm */
 const lay = (src, c, more = {}) => Object.assign({src:A + src, l:c.l, t:c.t, w:c.w, h:c.h}, more);
 const LAYERS = {
-  m1:[lay('layer-stoolpatch.png', CUT.patch, {showWhen:() => taken('stool')}), /* the floor and wall where the stool stood, from the m1 edit */
+  m1:[lay('layer-drawing.png', {l:57, t:33, w:7.5, h:12.77}, {group:'drawing', hideWhen:() => taken('drawing')}), /* Mary's drawing for Nana, on the panel's blank space: about 30 cm against the 120 cm desk */
+    lay('layer-org.png', {l:84, t:30, w:6.5, h:20.11}, {group:'org', hideWhen:() => taken('shelly')}), lay('layer-org-empty.png', {l:84, t:30, w:6.5, h:20.08}, {group:'org', showWhen:() => taken('shelly')}),
+    lay('layer-stoolpatch.png', CUT.patch, {showWhen:() => taken('stool')}), /* the floor and wall where the stool stood, from the m1 edit */
     lay('layer-bath.png', CUT.bath, {group:'bath', shadow:.6, hideWhen:() => S.bathMoved}), lay('layer-bath.png', CUT.bathAside, {shadow:.6, showWhen:() => S.bathMoved}),
     lay('layer-tub.png', CUT.tub, {group:'tub', shadow:.5, hideWhen:() => S.tubMoved}), lay('layer-tub.png', CUT.tubAside, {shadow:.5, showWhen:() => S.tubMoved})],
   m4:[lay('layer-stool.png', {l:40, t:66, w:9.77, h:17.25}, {shadow:.6, showWhen:() => S.stoolAt})], /* the same stool, stood at the wardrobe's foot */
@@ -162,22 +156,24 @@ const LAYERS = {
 };
 
 /* ---------- the things Mary finds (stand-in icons until Gate D) ---------- */
+const pic = (f, turn = '') => `<span style="position:absolute;inset:12%;display:grid;place-items:center"><img src="${A}${f}" alt="" style="position:static;width:100%;height:100%;object-fit:contain;transform:${turn || 'none'}"></span>`; /* an icon centred in its slot whatever its shape (MOTH-86's way) */
 const ITEMS = {
-  shelly:{name:'Shelly the mermaid', icon:icon('#ef8fb5', 'Shelly')},
-  sheet:{name:'carol sheet', note:'sheet', usable:true, icon:icon('#fbf4e2;color:#2b2836;text-shadow:none', '♪ carol')},
-  stool:{name:'step stool', icon:`<img src="${A}layer-stool.png" alt="">`},
-  hat:{name:'hat and gloves', icon:icon('#c0392b', 'hat + gloves')},
-  drawing:{name:'framed drawing', icon:icon('#7a5c3e', 'drawing')},
-  paper:{name:'wrapping paper', icon:icon('#2f7c83', 'paper')},
-  tape:{name:'sticky tape', icon:icon('#8a8f99', 'tape')},
-  parcel:{name:'half-wrapped present', icon:icon('#3b8f96', 'wrapped… nearly')},
-  present:{name:'Nana’s present', icon:icon('#2f7c83', 'Nana’s present')},
-  passport:{name:'passport', icon:`<img src="${A}item-passport.png" alt="">`}
+  shelly:{name:'Shelly the mermaid', icon:pic('item-shelly.png', 'rotate(-10deg)')},
+  sheet:{name:'carol sheet', note:'sheet', usable:true, icon:pic('item-sheet.png', 'rotate(-6deg)')},
+  stool:{name:'step stool', icon:pic('layer-stool.png')},
+  hat:{name:'hat and gloves', icon:pic('item-hat.png')},
+  drawing:{name:'framed drawing', icon:pic('layer-drawing.png')},
+  paper:{name:'wrapping paper', icon:pic('item-roll.png')},
+  tape:{name:'sticky tape', icon:pic('item-tape.png')},
+  parcel:{name:'half-wrapped present', icon:pic('item-parcel.png')},
+  present:{name:'Nana’s present', icon:pic('item-present.png')},
+  passport:{name:'passport', icon:pic('item-passport.png', 'rotate(-8deg)')}
 };
 
 /* ---------- the words Mary reads ---------- */
+const boardWrap = big => `<div style="position:relative;width:100%;aspect-ratio:800/533;filter:drop-shadow(calc(var(--u)*${big ? .6 : .3}) calc(var(--u)*${big ? .8 : .4}) calc(var(--u)*${big ? .8 : .4}) rgba(30,25,40,.35))"><img src="${A}layer-board.png?v=${BUILD}" alt="" style="position:absolute;inset:0;width:100%;height:100%"><div class="e2bt" style="position:absolute;left:11%;top:11%;right:10%;bottom:16%;overflow:hidden">${S.wiped ? '' : boardHTML(big)}</div></div>`; /* the face is 7–93% across and 7–90% down the picture */
 function boardHTML(big){ /* the whiteboard, in Mary's hand; the boxes tick as things go in the case */
-  const fs = big ? 2.7 : 1.05;
+  const fs = big ? 2.15 : .62;
   const rows = LIST.map(([k, label]) => `<div style="display:flex;align-items:center;gap:.4em"><span style="display:inline-grid;place-items:center;width:1em;height:1em;border:.12em solid #2f5f8a;border-radius:.12em;color:#2a8a3e;font-size:1em;line-height:1">${packed(k) ? '✓' : ''}</span><span style="${packed(k) ? 'text-decoration:line-through;text-decoration-color:#2a8a3e' : ''}">${label}</span></div>`).join('');
   return `<div style="font-family:${HAND};color:#2f5f8a;font-size:calc(var(--u)*${fs});line-height:1.2;transform:rotate(-1deg)"><div style="color:#c0392b">BEFORE THE TAXI — 6 o’clock!!</div>${rows}<div style="margin-top:.25em;font-size:.85em">P.S. LIGHTS OFF on the stand!!</div></div>`;
 }
@@ -190,30 +186,37 @@ const NOTES = {
 };
 
 /* ---------- what the game draws over the walls (stand-ins and states) ---------- */
-const CASE_IN = () => LIST.filter(([k]) => packed(k)).map(([k, label]) => `<span style="display:inline-block;margin:.1em;padding:.05em .3em;border-radius:.3em;background:#fff;color:#2b2836;font-weight:400">${label}</span>`).join('');
 const gold = () => S.wiped ? '<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 60% 30%,rgba(255,214,140,.32),rgba(255,190,110,.12) 60%,rgba(0,0,0,0));mix-blend-mode:soft-light"></div>' : '';
 const LIGHTS = [[15, 37.5], [17, 40], [19, 42.4], [21, 44.8], [23, 47.2], [20.2, 53], [19.8, 58.5], [20.4, 64], [19.8, 69.5], [20.3, 75]];
 const DOT = ['#ff6b8a', '#ffd34d', '#6fd08c', '#6fb6ff', '#ff9a4d'];
 const WINDOWS = [[24, 36, 3.5, 4.5], [20, 45, 3.5, 10], [28, 45, 3.5, 10], [20, 61, 3.5, 10], [29, 61, 3.5, 10], [20, 75, 2.5, 5], [29.5, 75, 2.2, 5]]; /* the doll's house's windows on k4 */
 const OVERLAYS = {
-  m3:() => ov(gold() + (S.wiped ? `<div class="e2sb" style="left:43%;top:41%;width:15%;height:24%;background:#f7f7f4">board wiped clean</div>` : `<div class="e2sb" style="left:43%;top:41%;width:15%;height:24%;background:#f7f7f4;align-items:flex-start;justify-content:flex-start;padding:.4em">${boardHTML(false)}</div>`)
-    + sb(58, 52, 20, 17, 'Mary’s case', nPacked() ? CASE_IN() : 'open, waiting', 'background:rgba(120,82,170,.88);color:#fff')),
+  m3:() => ov(gold() /* the case (about 60 cm, against the 200 cm sofa) and the board propped on the seat; the game writes on the board */
+    + `<img src="${A}layer-case.png?v=${BUILD}" alt="" style="position:absolute;left:59%;top:42%;width:16%;filter:drop-shadow(calc(var(--u)*.4) calc(var(--u)*.5) calc(var(--u)*.5) rgba(30,25,40,.35))">`
+    + `<div style="position:absolute;left:43%;top:50%;width:13%">${boardWrap(false)}</div>`),
   m2:() => ov(gold() + LIGHTS.map(([l, t], i) => `<span class="e2dot${S.lightsOff ? '' : ' on'}" style="left:${l}%;top:${t}%;background:${S.lightsOff ? '#8a8a8a' : DOT[i % DOT.length]};color:${DOT[i % DOT.length]};animation-delay:${(i*0.37) % 1.6}s"></span>`).join('')),
-  m1:() => ov(gold() + (taken('drawing') ? '' : sb(57, 34, 8, 11, 'drawing', 'For Nana', 'background:#fffaf0;border-style:solid;border-color:#7a5c3e'))
-    + sb(84.5, 31, 7, 19, 'pocket organiser', taken('shelly') ? '' : 'a pink tail in the window', 'background:rgba(150,150,160,.9);color:#fff')),
+  m1:() => ov(gold() + (taken('drawing') ? '' : `<div style="position:absolute;left:58.2%;top:45.6%;padding:0 .3em;background:#fffaf0;border:1px solid #9a8a70;transform:rotate(-3deg);font:400 calc(var(--u)*.6)/1.3 ${HAND};color:#2f5f8a">For Nana</div>`)),
   m4:() => ov(gold()),
   k1:() => ov(gold()),
   k2:() => ov(gold() /* Zaina is a cut-out now; the keys of her piano carry the KEYS colours, baked from the same list */
-    + (S.traded ? sb(54.8, 64, 3.6, 6, 'Shelly', '', 'background:#ef8fb5;color:#fff;font-size:calc(var(--u)*.9)') : (taken('sheet') ? '' : `<div style="position:absolute;left:49.6%;top:66.6%;width:2.2%;height:2.6%;background:#fffaf0;border:1px solid #6a5a44;transform:rotate(-4deg)"></div>`))
-    + (S.trundleOut ? sb(20, 82, 56, 6, 'trundle open', taken('paper') ? 'spare bedding' : 'bedding and a roll of paper', 'background:rgba(255,255,255,.9)') : '')),
-  k4:() => ov(gold() + WINDOWS.map(([l, t, w, h], i) => `<span class="e2win${S.houseOpen ? (S.justLit ? ' go' : ' lit') : ''}" style="left:${l}%;top:${t}%;width:${w}%;height:${h}%;animation-delay:${reduce() ? 0 : i*0.35}s"></span>`).join('')
-    + (S.houseOpen ? (sb(20.5, 64.5, 12, 18, 'front open', taken('passport') ? 'a tiny empty bed' : 'a tiny bed…', 'background:rgba(255,236,200,.95)') + (taken('passport') ? '' : `<img src="${A}item-passport.png?v=${BUILD}" alt="" style="position:absolute;left:24.6%;top:72%;width:3.4%;transform:rotate(-12deg);filter:drop-shadow(1px 2px 2px rgba(0,0,0,.4))">`))
-      : `<div style="position:absolute;left:23.2%;top:65.5%;width:6.6%;height:7%;background:#d9c09a;border:2px solid #6a5a44;border-radius:.2em;display:flex;align-items:center;justify-content:space-evenly;padding:0 .2em;box-sizing:border-box">${BUTTONS.map(k => `<svg viewBox="0 0 10 10" style="width:22%" aria-hidden="true"><circle cx="5" cy="5" r="4.6" fill="${KEYS[k].c}" stroke="#2b2836" stroke-width=".5"/></svg>`).join('')}</div>`)
-    + sb(23.5, 58.5, 5, 5, 'E’s note', '', 'background:#fff;font-weight:400'))
+    + (S.traded ? `<img src="${A}item-shelly.png?v=${BUILD}" alt="" style="position:absolute;left:54.4%;top:62.5%;width:3%;transform:rotate(14deg);filter:drop-shadow(1px 2px 2px rgba(0,0,0,.35))">` : (taken('sheet') ? '' : `<div style="position:absolute;left:49.6%;top:66.6%;width:2.2%;height:2.6%;background:#fffaf0;border:1px solid #6a5a44;transform:rotate(-4deg)"></div>`))
+    + (S.trundleOut ? `<div style="position:absolute;left:20%;top:77.5%;width:56%;height:10%;background:#1c1612;box-shadow:inset 0 0 calc(var(--u)*1.5) #000"></div><img src="${A}layer-trundlefront.png?v=${BUILD}" alt="" style="position:absolute;left:20%;top:77.5%;width:56%;transform:translateY(22%) scale(1.03);filter:drop-shadow(0 calc(var(--u)*.4) calc(var(--u)*.4) rgba(0,0,0,.35))">` : '')),
+  k4:() => ov(gold() + (S.houseOpen ? '' : `<div style="position:absolute;left:24%;top:59.4%;width:4%;text-align:center;font:400 calc(var(--u)*.5)/1.15 ${HAND};color:#c0392b;transform:rotate(-2deg)">KEEP OUT<br>MARY</div>`)
+    + (S.houseOpen ? houseOpen()
+      : `<div style="position:absolute;left:23.2%;top:65.5%;width:6.6%;height:7%;background:#d9c09a;border:2px solid #6a5a44;border-radius:.2em;display:flex;align-items:center;justify-content:space-evenly;padding:0 .2em;box-sizing:border-box">${BUTTONS.map(k => `<svg viewBox="0 0 10 10" style="width:22%" aria-hidden="true"><circle cx="5" cy="5" r="4.6" fill="${KEYS[k].c}" stroke="#2b2836" stroke-width=".5"/></svg>`).join('')}</div>`))
 };
+/* The doll's house opens (the reward moment): the windows on its front light one by one, then the front, lifted from the wall,
+   swings open on its left edge and shows the inside (asset 25) with the passport on the tiny bed. */
+const FRONT = {l:18.5, t:41, w:14.5, h:42.5}, INSIDE = {l:16.5, t:28.5, w:18, h:55.08};
+function houseOpen(){
+  const lit = WINDOWS.slice(1).map(([l, t, w, h], i) => `<span class="e2win${S.justLit ? ' go' : ' lit'}" style="left:${(l - FRONT.l)/FRONT.w*100}%;top:${(t - FRONT.t)/FRONT.h*100}%;width:${w/FRONT.w*100}%;height:${h/FRONT.h*100}%;animation-delay:${reduce() ? 0 : i*0.35}s"></span>`).join('');
+  const swing = S.justLit && !reduce() ? 'animation:e2swing 1.1s cubic-bezier(.3,.7,.3,1) 2.4s both' : 'transform:perspective(calc(var(--u)*60)) rotateY(-82deg)';
+  return `<img src="${A}layer-inside.png?v=${BUILD}" alt="" style="position:absolute;left:${INSIDE.l}%;top:${INSIDE.t}%;width:${INSIDE.w}%">`
+    + (taken('passport') ? '' : `<img src="${A}item-passport.png?v=${BUILD}" alt="" style="position:absolute;left:24.3%;top:57.6%;width:2.2%;transform:rotate(-72deg);filter:drop-shadow(1px 2px 2px rgba(0,0,0,.4))">`)
+    + `<div style="position:absolute;left:${FRONT.l}%;top:${FRONT.t}%;width:${FRONT.w}%;height:${FRONT.h}%;transform-origin:0 50%;${swing};filter:drop-shadow(calc(var(--u)*.6) 0 calc(var(--u)*.8) rgba(0,0,0,.35))"><img src="${A}layer-housefront.png?v=${BUILD}" alt="" style="position:absolute;inset:0;width:100%;height:100%">${S.justLit ? lit : ''}</div>`;
+}
 
 /* ---------- close-ups ---------- */
-const zoomP = (src, l, t, w) => `background-image:url(${src}?v=${BUILD});background-size:${(10000/w).toFixed(1)}% auto;background-position:${(l/(100 - w)*100).toFixed(1)}% ${(t/(100 - w)*100).toFixed(1)}%`;
 const cuTarget = (id, label, [l, t, w, h]) => `<button class="cuhot" data-cu="${id}" aria-label="${label}" style="position:absolute;left:${l}%;top:${t}%;width:${w}%;height:${h}%;background:transparent;border:0;cursor:pointer"></button>`;
 function wireCu(plain){ document.querySelectorAll('#closeup .cuhot').forEach(b => b.onclick = e => { e.stopPropagation(); const id = b.dataset.cu;
   if (S.held){ const item = S.held; S.held = null; if (USES[item + '>' + id]) closeCloseup(); useItem(item, id, null); return; }
@@ -227,7 +230,7 @@ const fb = t => { const el = $('e2fb'); if (el) el.textContent = t; };
 
 function openBoard(again){
   if (!S.seen.list){ S.seen.list = Date.now(); save(); }
-  openCard('Mary’s whiteboard', 'background:#f7f7f4', `<div style="position:absolute;left:8%;top:18%;right:8%">${boardHTML(true)}</div>`,
+  openCard('Mary’s whiteboard', 'background:#e9dccb', `<div style="position:absolute;left:15%;top:8%;width:70%">${boardWrap(true)}</div>`,
     nPacked() === 4 ? (S.lightsOff ? 'Four ticks. Mary’s done. Time to wipe it clean.' : 'Four ticks… and a P.S.') : 'Mary’s list, in her own writing. Everything on it has walked.', row(obtn('e2wipe', 'Wipe it clean')));
   $('e2wipe').onclick = e => { e.stopPropagation(); sfx('tap');
     if (nPacked() < 4){ fb('Not yet. There’s still something to find.'); return; }
@@ -236,64 +239,63 @@ function openBoard(again){
   if (!again){ const c = copyClue('list'); if (c) say('Mary’s list: the carol, hat and gloves, Nana’s present, her passport.' + c); }
 }
 function wipe(){ /* the closing gesture: one drag across the board, the writing erased behind the cloth (MECH-137) */
-  openDrag({pic:WALLS.m3, title:'Wipe the board', tab:A + 'greybox/tab-wiper.png', tabW:9, tabRatio:'200/120', path:[[14, 30], [86, 30], [14, 52], [86, 52], [14, 74], [86, 74]],
+  openDrag({pic:WALLS.m3, title:'Wipe the board', tab:A + 'tab-wiper.png', tabW:9, tabRatio:'300/161', path:[[22, 26], [78, 26], [22, 46], [78, 46], [22, 66], [78, 66]],
     label:'Take the wiper and rub the board clean, side to side.', missLabel:'Take hold of the wiper.', moreLabel:'Keep wiping, all of it.', doneLabel:'Clean!', lineColour:'#f7f7f4', lineLight:'#f7f7f4', lineWidth:150,
     done:() => { S.wiped = true; save(); render(); sfx('pickup'); say('The board is clean. Outside, the rain stops, and the light goes gold.'); setTimeout(() => { say('From the hall, Mum: <b>“Mary! The taxi’s downstairs!”</b>'); setTimeout(ending, 2400); }, 2200); }});
-  const pic = $('dragpic'); pic.style.backgroundImage = 'none'; pic.style.background = '#f7f7f4';
-  pic.insertAdjacentHTML('afterbegin', `<div style="position:absolute;left:8%;top:18%;right:8%;pointer-events:none">${boardHTML(true)}</div>`);
+  const pic = $('dragpic'); pic.style.backgroundImage = 'none'; pic.style.background = '#e9dccb';
+  pic.insertAdjacentHTML('afterbegin', `<div style="position:absolute;left:15%;top:8%;width:70%;pointer-events:none">${boardWrap(true)}</div>`);
+  const sv = pic.querySelector('svg.dline'); if (sv){ sv.style.clipPath = 'inset(13.8% 19.9% 17.3% 19.9%)'; } /* the cloth wipes only the board's face */
 }
 function openCase(){
-  openCard('Mary’s case', 'background:#6d4f99', `<div style="position:absolute;left:8%;top:22%;right:8%;bottom:10%;background:#efe6f7;border-radius:calc(var(--u)*.6);display:flex;flex-wrap:wrap;align-content:flex-start;gap:calc(var(--u)*.8);padding:calc(var(--u)*1.2);font:700 calc(var(--u)*2)/1.2 ${FONT};color:#2b2836">${LIST.map(([k, label]) => `<span style="padding:.2em .6em;border-radius:.4em;border:2px ${packed(k) ? 'solid #2a8a3e;background:#fff' : 'dashed #9a8fb0;opacity:.55'}">${packed(k) ? '✓ ' : ''}${label}</span>`).join('')}</div>`,
+  const IN = {carol:'item-sheet.png', hat:'item-hat.png', present:'item-present.png', passport:'item-passport.png'};
+  openCard('Mary’s case', `background-image:url(${A}closeup-caseup.jpg?v=${BUILD})`, LIST.map(([k], i) => packed(k) ? `<img src="${A}${IN[k]}?v=${BUILD}" alt="${k}" style="position:absolute;left:${9 + i*21}%;top:7%;width:15%;height:26%;object-fit:contain;transform:rotate(${[-6, 4, -3, 8][i]}deg);filter:drop-shadow(calc(var(--u)*.3) calc(var(--u)*.4) calc(var(--u)*.4) rgba(0,0,0,.4))">` : '').join(''),
     nPacked() === 4 ? 'All four in. The case zips shut.' : nPacked() ? `${nPacked()} of 4 in. Clothes folded underneath.` : 'Clothes folded, and room on top for four things. Hold one and tap the case.');
 }
 function pack(item, k, line){ drop(item); if (!S.packed) S.packed = {}; S.packed[k] = true; save(); sfx('knock'); setTimeout(() => sfx('tick'), 300); render();
   say(line + (nPacked() === 4 ? ' Four ticks on the board. Mary’s done… almost.' : ` The board ticks itself: ${nPacked()} of 4.`)); }
 function openFolder(){ if (!S.seen.folder){ S.seen.folder = Date.now(); save(); }
-  openCard('The blue folder', 'background:#3a5f9e', sb(14, 18, 72, 64, 'Nana’s carol — Christmas Eve', 'the folder, flipped open: empty', 'background:#fffaf0;font-size:calc(var(--u)*2.4)'), 'Nana’s carol should be in here. The folder is empty.'); }
+  openCard('The blue folder', `background-image:url(${A}closeup-folder.jpg?v=${BUILD})`, `<div style="position:absolute;left:70.6%;top:9.2%;width:9.6%;height:5.4%;display:grid;place-items:center;text-align:center;font:400 calc(var(--u)*.62)/1.05 ${HAND};color:#2f5f8a">Nana’s carol<br>Christmas Eve</div>`, 'Nana’s carol should be in here. The folder is empty.'); }
 function openOrganiser(){
-  const pockets = [0, 1, 2, 3, 4, 5].map(i => { const l = 10 + (i % 3)*28, t = 20 + Math.floor(i/3)*36;
-    return `<div style="position:absolute;left:${l}%;top:${t}%;width:24%;height:30%;background:#8d8f99;border:2px solid #5a5c66;border-radius:.3em">${i === 4 ? `<div style="position:absolute;left:15%;top:18%;width:70%;height:55%;background:rgba(220,235,245,.55);border:2px solid #cfd8e3"></div>` : ''}</div>`; }).join('');
-  const tail = !taken('shelly') ? takeBtn('takeShelly', 'Shelly the mermaid', [42, 62, 16, 22], `<svg viewBox="0 0 40 40" style="width:100%;height:100%"><path d="M20 2C26 10 26 22 22 30L30 38H10L18 30C14 22 14 10 20 2Z" fill="#ef8fb5" stroke="#9a3f66" stroke-width="2"/></svg>`) : '';
-  openCard('Mary’s pocket organiser', 'background:#d9d2c5', pockets + tail, taken('shelly') ? 'Hair ties, a torch, and an empty window pocket.' : 'Six pockets. Through the clear window of one: a pink tail. Shelly!');
+  /* Shelly behind the window pocket's plastic (as Nutmeg behind glass): her tail shows, the rest is in the pocket */
+  const tail = !taken('shelly') ? takeBtn('takeShelly', 'Shelly the mermaid', [51.2, 42.5, 11.8, 18], `<span style="position:absolute;inset:0;overflow:hidden"><img src="${A}item-shelly.png?v=${BUILD}" alt="" style="position:absolute;left:8%;top:-62%;width:84%;transform:rotate(-8deg)"><span style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.28),rgba(255,255,255,.08) 45%,rgba(255,255,255,.22))"></span></span>`) : '';
+  openCard('Mary’s pocket organiser', `background-image:url(${A}closeup-orgup.jpg?v=${BUILD})`, tail, taken('shelly') ? 'Hair ties, a torch, and an empty window pocket.' : 'Six pockets. Through the clear window of one: a pink tail. Shelly!');
   const b = $('takeShelly'); if (b) b.onclick = e => { e.stopPropagation(); take('shelly'); sfx('pickup'); closeCloseup(); render(); say('Shelly the mermaid, Zaina’s favourite. How did she get in here? She goes in the strip below.'); };
 }
 function openDrawer(which){ /* look-alike things behave alike (MECH-107): all three open and are looked into */
   const D = {top:['The top drawer', 'one of Zaina’s pink hair clips', 'Empty, but for one of Zaina’s hair clips. Mary’s passport was in here. Zaina!'], mid:['The middle drawer', 'beads, glue, pipe cleaners', 'Beads and craft things. Not today.'], bot:['The bottom drawer', 'socks, odd ones', 'Socks. Mary already packed the good ones.']}[which];
   if (which === 'top' && !S.seen.drawer){ S.seen.drawer = Date.now(); save(); }
-  openCard(D[0], 'background:#24382c', `<div style="position:absolute;left:10%;top:22%;width:80%;height:62%;background:#3b2a1e;border:3px solid #1c140e;box-shadow:inset 0 0 calc(var(--u)*2) #000"></div>` + sb(30, 40, 40, 26, D[1], 'looked into from above', 'background:rgba(255,250,240,.9)'), D[2]);
+  openCard(D[0], `background-image:url(${A}closeup-drawer-${which}.jpg?v=${BUILD})`, '', D[2]);
 }
 function openPenpot(){
-  const pens = ['#c0392b', '#2f7c83', '#f2c230', '#3a72c4', '#3f9d4a', '#9b59b6'].map((c, i) => `<div style="position:absolute;left:${36 + i*4.5}%;top:${14 + (i % 2)*5}%;width:2.2%;height:46%;background:${c};border-radius:.3em .3em 0 0;transform:rotate(${(i - 2.5)*5}deg);transform-origin:50% 100%"></div>`).join('');
-  const tape = !taken('tape') ? takeBtn('takeTape', 'Sticky tape', [55, 50, 14, 22], `<svg viewBox="0 0 40 40" style="width:100%;height:100%"><circle cx="20" cy="20" r="16" fill="#d8dde6" stroke="#6a6f7a" stroke-width="3"/><circle cx="20" cy="20" r="8" fill="#f3efe6" stroke="#6a6f7a" stroke-width="2"/></svg>`) : '';
-  openCard('The pen pot', 'background:#e8e1d3', pens + `<div style="position:absolute;left:33%;top:48%;width:30%;height:40%;background:#9aa0aa;border:3px solid #5a5f68;border-radius:0 0 .5em .5em"></div>` + tape, taken('tape') ? 'Pens and pencils.' : 'Pens, pencils… and a roll of sticky tape, jammed in among them.');
+  const tape = !taken('tape') ? takeBtn('takeTape', 'Sticky tape', [12, 62, 15, 27], `<img src="${A}item-tape.png?v=${BUILD}" alt="" style="width:100%;height:100%;object-fit:contain;transform:rotate(-10deg);filter:drop-shadow(calc(var(--u)*.3) calc(var(--u)*.5) calc(var(--u)*.4) rgba(0,0,0,.45))">`) : '';
+  openCard('The pen pot', `background-image:url(${A}closeup-penpot.jpg?v=${BUILD})`, tape, taken('tape') ? 'Pens and pencils.' : 'Pens, pencils… and a roll of sticky tape, rolled up against the pot.');
   const b = $('takeTape'); if (b) b.onclick = e => { e.stopPropagation(); take('tape'); sfx('pickup'); closeCloseup(); render(); say('Sticky tape. It goes in the strip below.'); };
 }
 function openTrundle(){
-  const roll = !taken('paper') ? takeBtn('takePaper', 'A roll of wrapping paper', [24, 46, 52, 18], `<div style="width:100%;height:100%;border-radius:1em;border:2px solid #1f5a60;background:repeating-linear-gradient(90deg,#2f7c83 0 12%,#fff 12% 14%);display:grid;place-items:center;font:700 calc(var(--u)*1.6) ${FONT};color:#fff;text-shadow:0 1px 2px #000">☃ snowmen ☃</div>`) : '';
-  openCard('Inside the trundle', 'background:#f3efe6', sb(8, 18, 84, 70, '', '', 'background:repeating-linear-gradient(0deg,#fbf7ee 0 10%,#efe6d4 10% 12%);border-style:solid') + roll, taken('paper') ? 'Spare sheets and a pillow.' : 'Spare bedding, folded… and a roll of Christmas paper with snowmen on.');
+  const roll = !taken('paper') ? takeBtn('takePaper', 'A roll of wrapping paper', [38, 44, 24, 42], `<img src="${A}item-roll.png?v=${BUILD}" alt="" style="width:100%;height:100%;object-fit:contain;transform:rotate(48deg);filter:drop-shadow(calc(var(--u)*.3) calc(var(--u)*.5) calc(var(--u)*.4) rgba(0,0,0,.4))">`) : '';
+  openCard('Inside the trundle', `background-image:url(${A}closeup-trundle.jpg?v=${BUILD})`, roll, taken('paper') ? 'Spare sheets and a pillow.' : 'Spare bedding, folded… and a roll of Christmas paper with snowmen on.');
   const b = $('takePaper'); if (b) b.onclick = e => { e.stopPropagation(); take('paper'); sfx('paper'); closeCloseup(); render(); say('Wrapping paper with snowmen on. It goes in the strip below.'); };
 }
 function openWardrobe(){
   if (S.stoolAt && !S.boxOpen){ ribbon(); return; }
-  const box = S.boxOpen ? sb(26, 30, 48, 40, 'WINTER (London)', 'open, and empty now', 'background:#d9b98a;border-style:solid') : sb(26, 30, 48, 40, 'WINTER (London)', 'tied with a red ribbon', 'background:#d9b98a;border-style:solid');
-  openCard('The wardrobe, top shelf', zoomP(WALLS.m4, 30, 2, 28), `<div style="position:absolute;left:4%;top:74%;width:92%;height:3%;background:#e8e2d6;border-bottom:2px solid #a89f8e"></div>` + box + cuTarget('e2_wardrobe', 'The winter box on the top shelf', [0, 0, 100, 100]),
+  openCard('The wardrobe, top shelf', `background-image:url(${A}closeup-${S.boxOpen ? 'box-open' : 'box'}.jpg?v=${BUILD})`, (S.boxOpen ? '' : BOXLABEL) + cuTarget('e2_wardrobe', 'The winter box on the top shelf', [0, 0, 100, 100]),
     S.boxOpen ? 'The winter box, open and empty now.' : 'The winter box, top shelf. Mary’s arms are not that long.');
   if (!S.seen.box){ S.seen.box = Date.now(); save(); }
   wireCu({e2_wardrobe:() => fb(S.boxOpen ? 'Empty now.' : taken('stool') ? 'Too high. Hold the stool and tap the wardrobe.' : 'Mary’s arms are not that long.')});
 }
-function ribbon(){ /* stood on the stool: the bow is pulled open by its end (MECH-137) */
-  openDrag({pic:WALLS.m4, title:'Pull the ribbon', tab:A + 'greybox/tab-ribbon.png', tabW:8, tabRatio:'200/120', path:[[52, 44], [64, 50], [80, 62]],
+const BOXLABEL = `<div style="position:absolute;left:42%;top:49.5%;width:13%;height:8%;display:grid;place-items:center;font:400 calc(var(--u)*1.05)/1.05 ${HAND};color:#2b2836;text-align:center;pointer-events:none">WINTER<br>(London)</div>`; /* on the box's blank label */
+function ribbon(){ /* stood on the stool: the bow is pulled open by its loose end (MECH-137) */
+  openDrag({pic:A + 'closeup-box.jpg', title:'Pull the ribbon', tab:A + 'tab-ribbon.png', tabW:6, tabRatio:'300/299', path:[[64.5, 63], [72, 75], [82, 88]],
     label:'Mary’s on the stool. Take the ribbon’s end and pull the bow open.', missLabel:'Take hold of the ribbon’s loose end.', moreLabel:'Keep pulling…', doneLabel:'The bow slips open!', lineColour:'#c0392b', lineLight:'#e8786a', lineWidth:14,
     done:() => { S.boxOpen = true; take('hat'); save(); sfx('pickup'); render(); say('The lid lifts: Mary’s woolly hat and gloves, for a cold London. They go in the strip below.'); }});
-  const pic = $('dragpic'); pic.setAttribute('style', zoomP(WALLS.m4, 30, 2, 28));
-  pic.insertAdjacentHTML('afterbegin', `<div class="e2sb" style="left:26%;top:30%;width:48%;height:40%;background:#d9b98a;border-style:solid">WINTER (London)</div><svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none"><path d="M50 30V70M26 50H74" stroke="#c0392b" stroke-width="2.4"/><path d="M50 44C42 36 40 46 50 44C58 36 62 46 52 44" fill="none" stroke="#c0392b" stroke-width="2.4"/></svg>`);
+  $('dragpic').insertAdjacentHTML('afterbegin', BOXLABEL);
 }
 /* Zaina and her piano: four notes, each key lighting as it sounds (a clue by sound is shown too) */
 const PKEYS = [[14.4, 7.9], [23.3, 7.9], [32.3, 7.9], [41.4, 7.9], [50.5, 7.9], [59.5, 7.9], [68.6, 7.9], [77.7, 7.9]]; /* each key's left and width on closeup-piano.jpg, measured from its pixels */
 function pianoCard(){
   const keys = ORDER.map((k, i) => `<div class="e2pk" data-k="${k}" style="position:absolute;left:${PKEYS[i][0]}%;top:31.2%;width:${PKEYS[i][1]}%;height:30.2%;border-radius:calc(var(--u)*.7);background:${KEYS[k].c};mix-blend-mode:multiply;transition:filter .12s;pointer-events:none"></div><div style="position:absolute;left:${PKEYS[i][0] + PKEYS[i][1]/2 - 2.4}%;top:51%;width:4.8%;aspect-ratio:1;pointer-events:none">${keySvg(k, '', 'style="width:100%;height:100%;filter:drop-shadow(0 1px 1px rgba(0,0,0,.35))"')}</div>`).join('');
   const slot = !S.traded ? `<div style="position:absolute;left:46%;top:3%;width:18%;height:14%;background:#fffaf0;border:1px solid #6a5a44;transform:rotate(-2deg);display:grid;place-items:center;font:700 calc(var(--u)*1.4) ${HAND};color:#2f5f8a;pointer-events:none">♪ the carol ♪</div>` : '';
-  const shelly = S.traded ? sb(2, 52, 11, 26, 'Shelly', 'on her lap', 'background:#ef8fb5;color:#fff') : '';
+  const shelly = S.traded ? `<img src="${A}item-shelly.png?v=${BUILD}" alt="Shelly on Zaina’s lap" style="position:absolute;left:1%;top:40%;width:12%;transform:rotate(-12deg);filter:drop-shadow(calc(var(--u)*.3) calc(var(--u)*.4) calc(var(--u)*.4) rgba(0,0,0,.35));pointer-events:none">` : '';
   return `${slot}${keys}${shelly}${cuTarget('e2_piano', 'The toy piano', [10, 8, 80, 62])}${cuTarget('e2_zaina', 'Zaina', [0, 72, 100, 28])}`;
 }
 function openPiano(){
@@ -319,15 +321,17 @@ function trade(){
 /* Elliot's lock: four felt-tip buttons, then the little knob. Answer: the bit everyone sings */
 function openLock(){
   const pressed = S.pressed || [];
-  const btns = BUTTONS.map((k, i) => `<button class="e2btn" data-k="${k}" aria-label="${k} ${KEYS[k].s} button" style="left:${18 + i*17}%;top:30%;width:13%;aspect-ratio:1">${keySvg(k)}</button>`).join('');
-  const shown = `<div id="e2pressed" style="position:absolute;left:30%;top:66%;width:40%;height:12%;display:flex;gap:4%;justify-content:center">${[0, 1, 2, 3].map(i => `<span style="width:20%;aspect-ratio:1;border:2px dashed #6a5a44;border-radius:50%;display:grid;place-items:center">${pressed[i] ? keySvg(pressed[i], '', 'style="width:90%"') : ''}</span>`).join('')}</div>`;
-  openCard('Elliot’s lock', 'background:#d9c09a', `<p style="position:absolute;left:0;right:0;top:15%;margin:0;text-align:center;font:700 calc(var(--u)*1.7) ${HAND};color:#2b2836">PASSWORD →</p>` + btns + shown + `<button class="e2btn" id="e2knob" aria-label="The little door knob" style="left:84%;top:58%;width:9%;aspect-ratio:1;background:#c9a24a"></button>`,
+  const btns = BUTTONS.map((k, i) => `<button class="e2btn" data-k="${k}" aria-label="${k} ${KEYS[k].s} button" style="left:${LOCKX[i] - 3.4}%;top:41.5%;width:6.8%;aspect-ratio:1;background:transparent;border:0"><svg viewBox="0 0 10 10" aria-hidden="true"><g transform="translate(2.4 2.4) scale(.52)">${shape(KEYS[k].s, 'rgba(255,255,255,.92)')}</g></svg></button>`).join('');
+  const shown = `<div id="e2pressed" style="position:absolute;left:66%;top:5%;width:30%;height:13%;display:flex;gap:4%;justify-content:center;align-items:center;background:rgba(251,244,226,.92);border-radius:calc(var(--u)*.6);padding:0 2%;box-sizing:border-box">${pressedHTML(pressed)}</div>`;
+  openCard('Elliot’s lock', `background-image:url(${A}closeup-lock.jpg?v=${BUILD})`, btns + shown + `<button class="e2btn" id="e2knob" aria-label="The little door knob" style="left:61.5%;top:70.5%;width:7%;aspect-ratio:1;background:transparent;border:0"></button>`,
     S.got.includes('sheet') || packed('carol') ? 'Four buttons, then the knob. The bit everyone sings…' : 'Four felt-tip buttons and a tiny knob. Press four, then turn the knob.');
   document.querySelectorAll('#closeup .e2btn[data-k]').forEach(b => b.onclick = e => { e.stopPropagation(); const k = b.dataset.k; S.pressed = [...(S.pressed || []), k].slice(-4); save(); sfx('tick'); note(KEYS[k].f);
     b.classList.remove('flash'); void b.offsetWidth; b.classList.add('flash'); refreshPressed(); });
   $('e2knob').onclick = e => { e.stopPropagation(); turnKnob(); };
 }
-function refreshPressed(){ const p = S.pressed || []; $('e2pressed').innerHTML = [0, 1, 2, 3].map(i => `<span style="width:20%;aspect-ratio:1;border:2px dashed #6a5a44;border-radius:50%;display:grid;place-items:center">${p[i] ? keySvg(p[i], '', 'style="width:90%"') : ''}</span>`).join(''); }
+const LOCKX = [40.6, 46.8, 53.2, 59.4]; /* the felt-tip circles' centres on closeup-lock.jpg */
+const pressedHTML = p => [0, 1, 2, 3].map(i => `<span style="width:20%;aspect-ratio:1;border:2px dashed #6a5a44;border-radius:50%;display:grid;place-items:center">${p[i] ? keySvg(p[i], '', 'style="width:90%"') : ''}</span>`).join('');
+function refreshPressed(){ $('e2pressed').innerHTML = pressedHTML(S.pressed || []); }
 function turnKnob(){
   const p = (S.pressed || []).join();
   if ((S.pressed || []).length < 4){ sfx('knock'); fb('Four buttons first, then the knob.'); return; }
@@ -486,7 +490,8 @@ return {
   intro:'<b>Packing day.</b> The taxi comes at six, and Mary’s things are all over the flat. Her list is on the whiteboard by the case.',
   start:{room:'mary', view:0},
   fresh:() => ({seen:{}, clues:[], taken:{}, packed:{}, pressed:[], tubMoved:false, bathMoved:false, stoolAt:false, boxOpen:false, traded:false, verses:0, versePlayed:false, chorusHeard:false, trundleOut:false, wrapped:false, houseOpen:false, justLit:false, lightsOff:false, wiped:false}),
-  extra:{mary:[A + 'greybox/tab-wiper.png', A + 'greybox/tab-ribbon.png', A + 'item-passport.png'], kids:[A + 'closeup-piano.jpg', A + 'item-passport.png']},
+  extra:{mary:['caseup', 'folder', 'drawer-top', 'drawer-mid', 'drawer-bot', 'penpot', 'orgup', 'box', 'box-open'].map(n => A + 'closeup-' + n + '.jpg').concat(['tab-wiper.png', 'tab-ribbon.png', 'layer-board.png', 'layer-case.png', 'item-sheet.png', 'item-hat.png', 'item-present.png', 'item-passport.png', 'item-shelly.png', 'item-tape.png'].map(f => A + f)),
+    kids:['closeup-piano.jpg', 'closeup-trundle.jpg', 'closeup-lock.jpg', 'layer-inside.png', 'layer-housefront.png', 'layer-trundlefront.png', 'item-passport.png', 'item-shelly.png', 'item-roll.png'].map(f => A + f)}, /* the close-ups load with the room, so no card opens half drawn (MOTH-76) */
   rooms:ROOMS, walls:WALLS, doors:DOORS, hots:HOTS, layers:LAYERS, notes:NOTES, items:ITEMS, hints:HINTS, uses:USES, overlays:OVERLAYS,
   act, miss, sparkle, rows, noticed, clues, speaker, onRender, helper:() => 'the moth', child:'mary'
 };
