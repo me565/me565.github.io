@@ -1,7 +1,7 @@
 {
  "name": "Mary's room (the family flat, Singapore): test level eval2, Packing Day from scratch; from the owner's photographs of 24 Oct 2026, not kept",
  "setting": "Cosy, warm and lived-in: a ten-year-old girl's narrow bedroom in a Singapore flat on a rainy December afternoon, empty of people.",
- "palette": "the walls are plain white, with no painted band; the band line is only the height of the sofa's back, 36% of the way up the back wall from the floor; the floor is pale honey-coloured wood with a striped rug (pale blue, green and cream stripes) down the middle; a dark stained-wood loft bed, a grey sofa, white and black furniture, cream curtains",
+ "palette": "the walls are plain white, with no painted band; the band line is only the height of the sofa's back, 36% of the way up the back wall from the floor; the floor is pale honey-coloured wood with a striped rug (pale blue, green and cream stripes) down the middle; a dark stained-wood loft bed, a grey sofa, white and black furniture, cream curtains; low white skirting boards in this room",
  "box": "a shallow box in one-point perspective: a wide back wall running the full width, narrow side walls, a thin strip of ceiling, a low floor band",
  "light": "the only daylight comes through the tall window on the window wall, a soft grey-green rainy afternoon light, with a warm ceiling light elsewhere",
  "words": [],
@@ -96,7 +96,7 @@
      "t": 2,
      "w": 92,
      "h": 84,
-     "size": "the bunk at a grown-up's head height, the posts reaching almost to the ceiling strip"
+     "size": "the bunk at a grown-up's head height, the posts reaching almost to the ceiling strip; its end is two dark posts and the end of the rail with no ladder across it, because the ladder is on the bed's front face at the window end, climbed from the room"
     },
     {
      "id": "stool",
@@ -166,14 +166,14 @@
     },
     {
      "id": "door",
-     "label": "the open door to the corridor",
-     "text": "the room's door at the right: a dark wooden door standing open into the room, and through the doorway a short white corridor with a pale stone floor and, far down it, a glimpse of daylight; two white light switches on the wall beside the frame and a few small notes pinned there",
+     "label": "the open dark wooden door to the corridor",
+     "text": "the room's door at the right: a dark honey wooden door standing open into the room, and through the doorway, the corridor as its own walls show it: white walls with dark honey wood skirting boards, pale stone tiles with a faint sheen, a small round ceiling light, grey daylight far down it; two white light switches on the wall beside the frame and a few small notes pinned there",
      "on": "floor",
      "l": 60,
      "t": 4,
      "w": 24,
      "h": 82,
-     "size": "the door reaches almost to the ceiling strip"
+     "size": "the door reaches almost to the ceiling strip; dark honey wood, standing open into the room"
     },
     {
      "id": "aircon",

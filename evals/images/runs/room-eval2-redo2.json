@@ -1,0 +1,66 @@
+{
+ "name": "room-eval2-redo2: five edits after the owner's second review of 25 Oct 2026 (MOTH-102 to MOTH-105): each finished wall redrawn with one change",
+ "defaults": {
+  "aspect_ratio": "16:9",
+  "n": 1
+ },
+ "notes": [
+  "Edits, not redraws: the approved picture is attached and one thing changed (playbook 4r's way), so what the owner liked stays. The specifications carry the same changes for any later full redraw, checked by roomcheck.py (checklist 70 and 71).",
+  "The real charge lands in results and goes in the level file's ledger as re-dos."
+ ],
+ "est_total_usd": 0.2,
+ "cases": [
+  {
+   "id": "mary-room-m3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "Attached picture 1 is this very wall, finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours and light, except for this one change: remove the cream curtain from the narrow right-hand side wall entirely; that side wall is plain wall showing only the near end of the black music stand on its tripod, foreshortened, with bare wall above and behind it. Keep the drawing's style exactly: a polished, finished illustration drawn for a game, clean dark-ink outlines, soft shading, paper grain, the same palette and light. No words or letters anywhere, no arrows, no border. The picture fills the whole 16:9 frame.",
+   "references": [
+    "evals/images/refs/eval2-m3-v2.jpg"
+   ],
+   "est_usd": 0.04,
+   "note": "MOTH-102"
+  },
+  {
+   "id": "mary-room-m2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "Attached picture 1 is this very wall, finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours and light, except for this one change: on the narrow right-hand side wall, the end of the dark wooden loft bed is two thick dark posts and the end of its rail, with NO ladder and no rungs across it (the ladder is on the bed's front face, out of view); everything else, the window, the ledge, the curtains against the frame, the stand, the sofa's end on the left, stays exactly as it is. Keep the drawing's style exactly: a polished, finished illustration drawn for a game, clean dark-ink outlines, soft shading, paper grain, the same palette and light. No words or letters anywhere, no arrows, no border. The picture fills the whole 16:9 frame.",
+   "references": [
+    "evals/images/refs/eval2-m2-v2.jpg"
+   ],
+   "est_usd": 0.04,
+   "note": "MOTH-103"
+  },
+  {
+   "id": "mary-room-m4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "Attached picture 2 is the corridor's own wall, finished: match its skirting, floor and light in the glimpse. Attached picture 1 is this very wall, finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours and light, except for this one change: through the open doorway, the corridor beyond has dark honey wood skirting boards along its white walls (not grey), pale stone tiles with a faint sheen, and a small round ceiling light; the door itself stays dark honey wood, standing open; everything else stays exactly as it is. Keep the drawing's style exactly: a polished, finished illustration drawn for a game, clean dark-ink outlines, soft shading, paper grain, the same palette and light. No words or letters anywhere, no arrows, no border. The picture fills the whole 16:9 frame.",
+   "references": [
+    "evals/images/refs/eval2-m4-v2.jpg",
+    "evals/images/refs/eval2-c4.jpg"
+   ],
+   "est_usd": 0.04,
+   "note": "MOTH-104"
+  },
+  {
+   "id": "kids-room-k2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "Attached picture 1 is this very wall, finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours and light, except for this one change: on the narrow right-hand side wall, the room's door is a dark honey wooden door standing open into the room, seen foreshortened edge-on, not a white closed door; everything else, the bunk, the stickers, the toys, the canvases, the lower bunk left bare, stays exactly as it is. Keep the drawing's style exactly: a polished, finished illustration drawn for a game, clean dark-ink outlines, soft shading, paper grain, the same palette and light. No words or letters anywhere, no arrows, no border. The picture fills the whole 16:9 frame.",
+   "references": [
+    "evals/images/refs/eval2-k2-v2.jpg"
+   ],
+   "est_usd": 0.04,
+   "note": "MOTH-105"
+  },
+  {
+   "id": "kids-room-k3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt": "Attached picture 2 is the corridor's own wall, finished: match its skirting, floor and light in the glimpse. Attached picture 1 is this very wall, finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours and light, except for this one change: through the open doorway, the corridor beyond has dark honey wood skirting boards along its white walls (not grey), pale stone tiles with a faint sheen, and a small round ceiling light; the open door stays dark honey wood; everything else stays exactly as it is. Keep the drawing's style exactly: a polished, finished illustration drawn for a game, clean dark-ink outlines, soft shading, paper grain, the same palette and light. No words or letters anywhere, no arrows, no border. The picture fills the whole 16:9 frame.",
+   "references": [
+    "evals/images/refs/eval2-k3-v2.jpg",
+    "evals/images/refs/eval2-c4.jpg"
+   ],
+   "est_usd": 0.04,
+   "note": "MOTH-104"
+  }
+ ]
+}

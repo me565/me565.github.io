@@ -1,7 +1,7 @@
 {
  "name": "Elliot and Zaina's room (the family flat, Singapore): test level eval2, Packing Day from scratch; from the owner's photographs of 24 Oct 2026, not kept",
  "setting": "Cosy, warm and lived-in: two small children's shared bedroom in a Singapore flat on a rainy December afternoon, empty of people.",
- "palette": "the walls are plain white, with no painted band; the band line is only the height of the bunk bed's lower rail, 42% of the way up the back wall from the floor; the floor is pale honey-coloured wood with a soft grey rug in the middle; white furniture, a white bunk bed, bright toy colours (teal, yellow, lime green, pink)",
+ "palette": "the walls are plain white, with no painted band; the band line is only the height of the bunk bed's lower rail, 42% of the way up the back wall from the floor; the floor is pale honey-coloured wood with a soft grey rug in the middle; white furniture, a white bunk bed, bright toy colours (teal, yellow, lime green, pink); low white skirting boards in this room",
  "box": "a shallow box in one-point perspective: a wide back wall running the full width, narrow side walls, a thin strip of ceiling, a low floor band",
  "light": "the only daylight comes through the floor-to-ceiling glass on the window wall, a soft grey-green rainy afternoon light, with a warm ceiling light elsewhere",
  "words": [],
@@ -86,14 +86,14 @@
    "objects": [
     {
      "id": "door",
-     "label": "the door to the corridor",
-     "text": "the room's door at the left: a dark wooden door standing open against the wall, and through the doorway a glimpse of a short white corridor with a pale stone floor; beside the door frame a long string of small felt elephants and brass bells hanging from the ceiling",
+     "label": "the open dark wooden door to the corridor",
+     "text": "the room's door at the left: a dark honey wooden door standing open into the room on its hinges, and through the doorway, the corridor as its own walls show it: white walls with dark honey wood skirting boards, pale stone tiles with a faint sheen, a small round ceiling light, grey daylight far down it; beside the door frame a long string of small felt elephants and brass bells hanging from the ceiling",
      "on": "floor",
      "l": 6,
      "t": 4,
      "w": 20,
      "h": 82,
-     "size": "the door reaches almost to the ceiling strip"
+     "size": "the door reaches almost to the ceiling strip; dark honey wood, standing open into the room"
     },
     {
      "id": "kitchen",

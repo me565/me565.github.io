@@ -17,6 +17,8 @@ def ends(key):
     return left, lo, right, ro
 problems = 0
 seen = {}
+if "skirting" not in room.get("palette", "").lower():
+    print("!! the palette does not name the skirting board; every wall and every doorway glimpse must carry it (checklist 70)"); problems += 1
 for key in order:
     w = walls[key]; left, lo, right, ro = ends(key)
     print(f"{key}: {w['name']}\n   LEFT side wall shows the end of {left}'s last thing: {lo['label']}\n   RIGHT side wall shows the end of {right}'s first thing: {ro['label']}")
@@ -27,6 +29,14 @@ for key in order:
         for b in BIG:
             if re.search(r"\b" + b + r"\b", o["label"].lower()):
                 seen.setdefault(b, []).append((key, o["id"]))
+        if re.search(r"\bdoor\b", o["label"].lower()) and "doors" not in o["label"].lower().split()[-1:] :
+            lab = o["label"].lower() + " " + o.get("size", "").lower()
+            if not re.search(r"\b(open|closed|shut)\b", lab) or not re.search(r"\b(wood|wooden|white|dark|honey|brown|cream|grey|blue|green)\b", lab):
+                print(f"   !! {o['id']}: a door's label or size line must say whether it stands open or shut and what colour it is, because the side-wall sentence carries only those (checklist 70)"); problems += 1
+        if re.search(r"through the door|through it|beyond|glimpse", words) and "skirting" not in words:
+            print(f"   !! {o['id']}: a doorway glimpse must name the next room's floor and skirting in that room's own words (checklist 70)"); problems += 1
+        if re.search(r"\bcurtain", o["label"].lower()) and not re.search(r"window|glass", o["label"].lower()):
+            print(f"   !! {o['id']}: a curtain is part of its window, never a loose object (checklist 71)"); problems += 1
         for e in ENDED:
             if re.search(r"\b" + e + r"\b", words) and not re.search(r"(left|right|window|door|north|south|east|west) end|at this end|at the (left|right)", words):
                 print(f"   ?  {o['id']}: names a {e} but not which end it is at"); problems += 1
