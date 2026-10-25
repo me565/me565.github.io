@@ -1,0 +1,13 @@
+{
+ "run": "2026-10-25-room-eval2-redo2",
+ "judged_by": "Claude, 25 Oct 2026, against the owner's four points (MOTH-102 to MOTH-105); the owner's eye to come",
+ "sheet": {
+  "m3": "MOTH-102 fixed: no curtain on the right-hand side wall, only the stand's edge; the rest of the approved wall unchanged. Edits 0.",
+  "m2": "MOTH-103 fixed: the loft's end on the right-hand side wall is two posts and the rail, no ladder; the sofa's end with the case on the left; the rest unchanged. Edits 0.",
+  "m4": "MOTH-104 fixed: the corridor seen through the door has dark wood skirting, stone tiles and its ceiling light, as the corridor's own walls; the rest unchanged. Edits 0.",
+  "k2": "MOTH-105 fixed: the door on the right-hand side wall is dark wood and stands open; the bunk wall the owner called perfect otherwise unchanged. Edits 0.",
+  "k3": "MOTH-104 fixed: the corridor seen through the door has dark wood skirting and stone tiles; the rest unchanged. Edits 0."
+ },
+ "verdict": "Edits with the approved picture attached kept everything else as it was; the one change landed on all five. One thing to watch, not raised: the glimpse of the corridor on the sofa wall's left side (m3) shows a wood floor where the corridor's is stone; a side-wall glimpse, left for the owner's eye.",
+ "cost_usd": 0.1004
+}

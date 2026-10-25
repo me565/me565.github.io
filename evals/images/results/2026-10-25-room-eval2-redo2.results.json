@@ -1,0 +1,245 @@
+{
+ "name": "room-eval2-redo2: five edits after the owner's second review of 25 Oct 2026 (MOTH-102 to MOTH-105): each finished wall redrawn with one change",
+ "manifest": "evals/images/runs/room-eval2-redo2.json",
+ "ran_at": "2026-10-25T06:19:42Z",
+ "total_cost_usd": 0.1004,
+ "results": [
+  {
+   "id": "mary-room-m3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-m3-v2.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-102",
+   "seconds": 15.5,
+   "cost_usd": 0.014833,
+   "usage": {
+    "prompt_tokens": 1469,
+    "completion_tokens": 120,
+    "total_tokens": 1589,
+    "cost": 0.014833,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.014833,
+     "upstream_inference_prompt_cost": 0.011233,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "mary-room-m3.png",
+     "bytes": 1763407,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "mary-room-m2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-m2-v2.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-103",
+   "seconds": 15.5,
+   "cost_usd": 0.015028,
+   "usage": {
+    "prompt_tokens": 1508,
+    "completion_tokens": 120,
+    "total_tokens": 1628,
+    "cost": 0.015028,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.015028,
+     "upstream_inference_prompt_cost": 0.011428,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "mary-room-m2.png",
+     "bytes": 1809823,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "mary-room-m4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-m4-v2.jpg",
+    "evals/images/refs/eval2-c4.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-104",
+   "seconds": 15.6,
+   "cost_usd": 0.025431,
+   "usage": {
+    "prompt_tokens": 2811,
+    "completion_tokens": 120,
+    "total_tokens": 2931,
+    "cost": 0.025431,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.025431,
+     "upstream_inference_prompt_cost": 0.021831,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "mary-room-m4.png",
+     "bytes": 1651932,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "kids-room-k2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-k2-v2.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-105",
+   "seconds": 18.2,
+   "cost_usd": 0.019733,
+   "usage": {
+    "prompt_tokens": 1489,
+    "completion_tokens": 280,
+    "total_tokens": 1769,
+    "cost": 0.019733,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.019733,
+     "upstream_inference_prompt_cost": 0.011333,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "kids-room-k2.png",
+     "bytes": 1815958,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "kids-room-k3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-k3-v2.jpg",
+    "evals/images/refs/eval2-c4.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-104",
+   "seconds": 16.9,
+   "cost_usd": 0.025416,
+   "usage": {
+    "prompt_tokens": 2808,
+    "completion_tokens": 120,
+    "total_tokens": 2928,
+    "cost": 0.025416,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.025416,
+     "upstream_inference_prompt_cost": 0.021816,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "kids-room-k3.png",
+     "bytes": 1703825,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}
