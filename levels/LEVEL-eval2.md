@@ -5,7 +5,7 @@
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
 Current status: integrating (Gates A to E signed 25 Oct 2026; the owner's fifth review fixed in build 2026-10-25g; the drawers' design waits on him)
 Build id of the latest play link: 2026-10-25g
-Latest play link: https://rawcdn.githack.com/me565/me565.github.io/fed11d0b0eba30753d3743d61cf2b61352f7e2f8/next/landscape/index.html?stage=eval2
+Latest play link: https://rawcdn.githack.com/me565/me565.github.io/bad8fe7a173ead7c6bce34a0445540538559f2c7/next/landscape/index.html?stage=eval2
 
 ---
 
@@ -447,7 +447,7 @@ The three desk drawers look good and do nothing. A design change, so not built w
 
 ### The owner's fifth recorded review (25 Oct 2026, 10 min 3 s, build 2026-10-25f): MOTH-135 to MOTH-144, and MOTH-115, 117, 124, 125, 130, 131, 132 again
 
-"We're getting there bit by bit, but there are still some recurring issues which you need to really explore and investigate how to fix." Logged first (ten new cards, seven repeats commented), then fixed in build 2026-10-25g, each at the step that made it (playbook 4ag). He liked: the suitcase (better), the lights ("exactly how they should be"), the stool's cleaned-up patch, Shelly, the wardrobe doors' depth ("a really good job"), the box's animation, the lock's look, the zip and the wipe.
+"We're getting there bit by bit, but there are still some recurring issues which you need to really explore and investigate how to fix." Logged first (ten new cards, seven repeats commented), then fixed in build 2026-10-25g (commit `bad8fe7`), each at the step that made it (playbook 4ag). He liked: the suitcase (better), the lights ("exactly how they should be"), the stool's cleaned-up patch, Shelly, the wardrobe doors' depth ("a really good job"), the box's animation, the lock's look, the zip and the wipe.
 
 | Card | His point | The cause | Fixed how |
 |---|---|---|---|
