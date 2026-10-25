@@ -1,0 +1,190 @@
+{
+ "name": "eval2 fixes from the owner's fourth review (MOTH-113 to MOTH-134): lights, the case's states, the wardrobe's inside and the child's view, the empty box, the wheel lock, two wall edits.",
+ "defaults": {
+  "n": 1
+ },
+ "notes": [
+  "Edits keep the picture's geometry so tools/lift.py can lift each change against its base."
+ ],
+ "est_total_usd": 0.56,
+ "cases": [
+  {
+   "id": "lights-on",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "next/art/eval2/m2.jpg"
+   ],
+   "prompt": "The attached picture is this very wall, finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: a string of small felt pompom fairy lights (pompoms in pink, yellow, mint green, pale blue and orange, each with a tiny warm glow, on a thin white wire) is draped along the top edge of the black music stand's desk on the left and wound loosely down round its pole in three or four turns to the tripod. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.04,
+   "note": "MOTH-114: lifted from m2 with tools/lift.py"
+  },
+  {
+   "id": "lights-off",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "case:lights-on"
+   ],
+   "prompt": "The attached picture is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: the pompom fairy lights on the music stand are switched off: the same pompoms on the same wire in exactly the same places, no glow, slightly duller colours. Nothing else changes. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.04,
+   "note": "MOTH-114"
+  },
+  {
+   "id": "case-room",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "next/art/eval2/closeup-caseup.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture looks down into an open dark navy suitcase. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe object: this same suitcase seen from the front and a little above, its lid standing open behind it with the soft grey lining, and inside exactly the same clothes in the same places as the attached picture: the cream cable-knit jumper and the sage green jumper folded at the left, the navy trousers in the middle, the beige and olive trousers at the right.",
+   "est_usd": 0.04,
+   "note": "MOTH-113: the room's case drawn from the close-up so the clothes agree"
+  },
+  {
+   "id": "case-room-packed",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "case:case-room",
+    "next/art/eval2/item-sheet.png",
+    "next/art/eval2/item-hat.png",
+    "next/art/eval2/item-present.png",
+    "next/art/eval2/item-passport.png"
+   ],
+   "prompt": "Attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: four things now lie on top of the clothes in the case: at the left the folded music sheet (picture 2), at the right the red bobble hat and gloves (picture 3), in the middle the flat present wrapped in snowman paper (picture 4), and the navy passport (picture 5) tucked at the front right corner. Keep it alone on the same pure white background. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.04,
+   "note": "MOTH-123: each thing lifted against case-room, so any of them can show"
+  },
+  {
+   "id": "case-room-closed",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "case:case-room"
+   ],
+   "prompt": "The attached picture is finished and approved. Redraw the same dark navy suitcase, same size, same drawing style and light, but closed and zipped shut, standing upright on its base seen from the front and a little above, its handle on top, the lid's grey lining no longer visible. Keep it alone on the same pure white background. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.04,
+   "note": "MOTH-133"
+  },
+  {
+   "id": "caseup-packed",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "next/art/eval2/closeup-caseup.jpg",
+    "next/art/eval2/item-sheet.png",
+    "next/art/eval2/item-hat.png",
+    "next/art/eval2/item-present.png",
+    "next/art/eval2/item-passport.png"
+   ],
+   "prompt": "Attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: four things now lie on top of the clothes in the case, each wholly inside the case and each in its own place: on the cream jumper at the left the folded music sheet (picture 2), on the trousers at the right the red bobble hat and gloves (picture 3), in the middle on the navy trousers the flat present wrapped in snowman paper (picture 4), and the navy passport (picture 5) at the front left corner. The lid's grey lining at the top stays empty. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.04,
+   "note": "MOTH-123: each thing lifted against closeup-caseup"
+  },
+  {
+   "id": "caseup-closed",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "next/art/eval2/closeup-caseup.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture looks down into an open dark navy suitcase on a wooden floor; draw the same case, same colour and drawing style, the same floor. A single picture that fills the whole 16:9 frame edge to edge: no border, no margin, no frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe picture: the same dark navy hard-shell suitcase seen from above, now closed and zipped shut, lying flat on the honey wood floor and filling most of the frame, its handle at the front edge, the zip running all round its sides.",
+   "est_usd": 0.04,
+   "note": "MOTH-133"
+  },
+  {
+   "id": "box-empty",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "next/art/eval2/closeup-box-open.jpg"
+   ],
+   "prompt": "The attached picture is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: the red hat and gloves are gone: the open cardboard box is empty, its tissue paper lining left inside. Nothing else changes. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.04,
+   "note": "MOTH-122"
+  },
+  {
+   "id": "m4-open",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "next/art/eval2/m4.jpg"
+   ],
+   "prompt": "The attached picture is this very wall, finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: the tall white wardrobe in the middle has no doors at all, so its inside shows: white inside walls in soft shadow at the back, a hanging rail with a few children's clothes on hangers, two shelves of folded jumpers below the clothes, and near the ceiling a high top shelf with the bottom edge of a cardboard box just showing on it and the loose end of a red ribbon hanging over the shelf's front edge. The wardrobe's outer frame, size and place stay exactly the same. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.04,
+   "note": "MOTH-121: the inside, under doors lifted from m4 that swing open"
+  },
+  {
+   "id": "wardrobe-up",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "next/art/eval2/closeup-box.jpg",
+    "evals/images/refs/eval2-m4-wardrobe.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. Attached picture 1 is the box on the wardrobe's top shelf; attached picture 2 is the wardrobe in the room. Copy their style, colours and objects. A single picture that fills the whole 16:9 frame edge to edge: no border, no margin, no frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe picture: standing inside an open white wardrobe at a child's height, about a metre from the floor, looking steeply up at the top shelf high above: the shelf's white underside and front edge seen from below, filling the top of the frame; on it only the bottom edge and one corner of the cardboard box show, and the loose end of its red satin ribbon hangs down over the shelf's edge, well out of reach; below, the hanging rail and the shoulders of a few children's clothes on hangers; white inside walls, soft shadow.",
+   "est_usd": 0.04,
+   "note": "MOTH-121: the child's view, before the stool"
+  },
+  {
+   "id": "lock2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "evals/images/refs/eval2-k4-door.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room: the little yellow front door of a blue doll's house; copy its style and colours. A single picture that fills the whole 16:9 frame edge to edge: no border, no margin, no frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe picture: a home-made combination lock that a seven-year-old built, fixed to the little yellow arched front door of the blue doll's house, close up and square on, filling most of the frame: a small brown cardboard box taped to the door with clear tape; across its front four round windows in a row, each showing plain empty white card; under each window the ridged edge of a cardboard wheel sticks out below the box so a finger can turn it; to the right of the windows a big round red push button with a white felt-tip ring round it. Wobbly felt-tip outlines, strips of tape at the corners.",
+   "est_usd": 0.04,
+   "note": "MOTH-127, MOTH-128: the game draws each wheel's colour and shape in its window"
+  },
+  {
+   "id": "lock2-room",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "case:lock2"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a home-made cardboard lock. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe object: exactly the same cardboard lock with its four round windows, the wheels' edges below them and the red push button, alone, seen straight on, its windows plain white.",
+   "est_usd": 0.04,
+   "note": "MOTH-127: the same lock on the door in the room"
+  },
+  {
+   "id": "c4-fix",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "next/art/eval2/c4.jpg",
+    "next/art/eval2/k4.jpg"
+   ],
+   "prompt": "Attached picture 1 is this very wall, finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: through the open doorway on the narrow right-hand side wall, instead of the bunk bed, show a steep sideways slice of the children's room's far side wall (attached picture 2): part of the tall white cube shelf unit with its coloured doors and the edge of the blue doll's house, cream wall and a grey rug, seen at a sharp angle. The door frame, the open door and everything else stay exactly the same. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.04,
+   "note": "MOTH-124"
+  },
+  {
+   "id": "k2-fix",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "next/art/eval2/k2.jpg"
+   ],
+   "prompt": "The attached picture is this very wall, finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: the bunk's ladder at the left keeps its rungs, but its right-hand upright stops at the lower bunk's bottom rail; nothing of the ladder comes down in front of the white trundle drawer under the bed, whose front is clear and unbroken along its whole width. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.04,
+   "note": "MOTH-131"
+  }
+ ]
+}
