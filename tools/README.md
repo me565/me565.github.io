@@ -28,3 +28,7 @@ Proposes a wall's box for the engine-painted side walls (playbook 4z): `python3 
 ## puzzlechart.py
 
 Draws a level's puzzle chart (stage 3 of the level file) as the dependency chart in lanes the playbook asks for: `python3 tools/puzzlechart.py levels/LEVEL-<key>-chart.json` writes `levels/LEVEL-<key>-chart.drawio` (open at app.diagrams.net) and a `.png` beside it for a phone. The JSON (lanes of typed nodes, and the arrows) is the record; the chart of a level drawn by hand before this tool (`LEVEL-school-chart.drawio`) stays as it is.
+
+## keywhite.py
+
+Keys a cut-out or icon drawn on white (playbook 2): `python3 tools/keywhite.py in.png out.png [--holes N] [--max W]`. The white is flood-filled from the edges (white inside the thing survives); `--holes N` clears enclosed white regions of at least N pixels (a key's hole); the rim is keyed soft so no pale fringe shows; cropped, scaled to at most W wide (1024) and quantised. Prints the size and h/w for the layer's box (h = w × h/w × 16/9).

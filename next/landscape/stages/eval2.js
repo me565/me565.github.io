@@ -2,8 +2,8 @@
    child's story. Mary's room, the corridor and Elliot and Zaina's room, drawn by GPT Image 2.5 Sunburst on 25 Oct 2026 from
    evals/images/rooms/{mary-room,flat-corridor,kids-room}.json and passed by the owner ("Walls pass", 25 Oct 2026).
    This is the first playable (Gate C, playbook 4ac): the real puzzle, hints, saves, doors and ending on the twelve real walls, with
-   labelled stand-ins drawn by the game for every picture that does not exist yet (the case, the whiteboard, Zaina, the organiser,
-   the bath and the tub, the drawing, the winter box, the doll's house lock and inside, every icon). Gate D replaces them.
+   labelled stand-ins drawn by the game for every picture that does not exist yet (the case, the whiteboard, the organiser,
+   the drawing, the winter box, the doll's house lock and inside, every icon). Gate D replaces them.
    The engine is frozen, so every reward moment is drawn here. Open with ?stage=eval2. */
 'use strict';
 registerStage('eval2', (function(){
@@ -92,8 +92,8 @@ const HOTS = {
     {id:'e2_loftbed', l:22, t:4, w:64, h:24, label:'Mary’s loft bed', sound:'leaf'},
     {id:'e2_ladder1', l:12, t:4, w:9, h:58, label:'Loft ladder', sound:'knock'},
     {id:'e2_cubes', l:31, t:31, w:16, h:50, label:'Cube shelves', sound:'knock'},
-    {id:'e2_tub', l:20, t:59, w:11, h:10, label:'A plastic tub', sound:'knock', hideWhen:() => S.tubMoved},
-    {id:'e2_bath', l:19.5, t:69, w:12, h:12, label:'Zaina’s old baby bath', sound:'knock', hideWhen:() => S.bathMoved},
+    {id:'e2_tub', l:20.5, t:60, w:11.5, h:11, label:'A plastic tub', sound:'knock', anim:'lift', layer:'tub', hideWhen:() => S.tubMoved},
+    {id:'e2_bath', l:19, t:71, w:14, h:12, label:'Zaina’s old baby bath', sound:'knock', anim:'lift', layer:'bath', hideWhen:() => S.bathMoved},
     {id:'e2_stool', l:20, t:64, w:11, h:18, label:'A step stool', key:true, sound:'knock', showWhen:() => S.tubMoved && S.bathMoved && !taken('stool')},
     {id:'e2_drawing', l:56, t:32, w:10, h:15, label:'Framed drawing', key:true, sound:'paper', hideWhen:() => taken('drawing')},
     {id:'e2_postcard', l:50.5, t:36, w:5, h:8, label:'Postcard', sound:'paper'},
@@ -126,8 +126,8 @@ const HOTS = {
     {id:'e2_kwindow', l:21, t:5, w:46, h:75, label:'Window and balcony door', sound:'tap'},
     {id:'e2_armchair', l:56, t:57, w:20, h:30, label:'Little armchair', sound:'tap'}],
   k2:[
-    {id:'e2_zaina', l:44, t:40, w:15, h:32, label:'Zaina', key:true, sound:'squeak'},
-    {id:'e2_piano', l:45, t:61, w:13, h:7, label:'Zaina’s toy piano', key:true, sound:'tick'},
+    {id:'e2_zaina', l:44.5, t:48, w:11, h:24, label:'Zaina', key:true, sound:'squeak'},
+    {id:'e2_piano', l:46.5, t:63.5, w:7.5, h:6, label:'Zaina’s toy piano', key:true, sound:'tick'},
     {id:'e2_trundle', l:20, t:74, w:56, h:10, label:'Trundle drawer under the bunk', key:true, sound:'open'},
     {id:'e2_toys', l:30, t:21, w:30, h:12, label:'Soft toys on the top bunk', sound:'squeak'},
     {id:'e2_topbunk', l:30, t:33, w:46, h:8, label:'Elliot’s bunk', sound:'leaf'},
@@ -147,7 +147,16 @@ const HOTS = {
     {id:'e2_kcubes', l:37, t:19, w:37, h:66, label:'Cube shelves', sound:'knock'},
     {id:'e2_ktoys', l:37, t:3, w:37, h:15, label:'Toys on top of the shelves', sound:'squeak'}]
 };
+/* the samples (Gate E, 25 Oct 2026): Zaina, the bath and the tub, the stool lifted from m1 with the patch behind it (the m1 edit), the passport */
+const CUT = {bath:{l:19.5, t:71.5, w:13, h:11.7}, tub:{l:21, t:61, w:10.5, h:12.11}, bathAside:{l:1, t:76, w:12, h:10.8}, tubAside:{l:3, t:64.5, w:9, h:10.38},
+  stool:{l:21.09, t:65.28, w:9.77, h:17.25}, patch:{l:19.99, t:63.31, w:11.98, h:21.18}, zaina:{l:45.5, t:49, w:9, h:23}}; /* sized against the bunk: a four-year-old sitting is about 58 cm, the bed 180 cm */
+const lay = (src, c, more = {}) => Object.assign({src:A + src, l:c.l, t:c.t, w:c.w, h:c.h}, more);
 const LAYERS = {
+  m1:[lay('layer-stoolpatch.png', CUT.patch, {showWhen:() => taken('stool')}), /* the floor and wall where the stool stood, from the m1 edit */
+    lay('layer-bath.png', CUT.bath, {group:'bath', shadow:.6, hideWhen:() => S.bathMoved}), lay('layer-bath.png', CUT.bathAside, {shadow:.6, showWhen:() => S.bathMoved}),
+    lay('layer-tub.png', CUT.tub, {group:'tub', shadow:.5, hideWhen:() => S.tubMoved}), lay('layer-tub.png', CUT.tubAside, {shadow:.5, showWhen:() => S.tubMoved})],
+  m4:[lay('layer-stool.png', {l:40, t:66, w:9.77, h:17.25}, {shadow:.6, showWhen:() => S.stoolAt})], /* the same stool, stood at the wardrobe's foot */
+  k2:[lay('layer-zaina.png', CUT.zaina, {group:'zaina', shadow:.5, idle:'breathe', amount:.012, period:2.6})],
   m2:[{draw:'rain', l:37, t:6, w:27, h:68, count:16, hideWhen:() => S.wiped}],
   k1:[{draw:'rain', l:21, t:6, w:46, h:72, count:20, hideWhen:() => S.wiped}]
 };
@@ -156,14 +165,14 @@ const LAYERS = {
 const ITEMS = {
   shelly:{name:'Shelly the mermaid', icon:icon('#ef8fb5', 'Shelly')},
   sheet:{name:'carol sheet', note:'sheet', usable:true, icon:icon('#fbf4e2;color:#2b2836;text-shadow:none', '♪ carol')},
-  stool:{name:'step stool', icon:icon('#b07a3e', 'stool')},
+  stool:{name:'step stool', icon:`<img src="${A}layer-stool.png" alt="">`},
   hat:{name:'hat and gloves', icon:icon('#c0392b', 'hat + gloves')},
   drawing:{name:'framed drawing', icon:icon('#7a5c3e', 'drawing')},
   paper:{name:'wrapping paper', icon:icon('#2f7c83', 'paper')},
   tape:{name:'sticky tape', icon:icon('#8a8f99', 'tape')},
   parcel:{name:'half-wrapped present', icon:icon('#3b8f96', 'wrapped… nearly')},
   present:{name:'Nana’s present', icon:icon('#2f7c83', 'Nana’s present')},
-  passport:{name:'passport', icon:icon('#1f3a6b', 'passport')}
+  passport:{name:'passport', icon:`<img src="${A}item-passport.png" alt="">`}
 };
 
 /* ---------- the words Mary reads ---------- */
@@ -191,19 +200,14 @@ const OVERLAYS = {
     + sb(58, 52, 20, 17, 'Mary’s case', nPacked() ? CASE_IN() : 'open, waiting', 'background:rgba(120,82,170,.88);color:#fff')),
   m2:() => ov(gold() + LIGHTS.map(([l, t], i) => `<span class="e2dot${S.lightsOff ? '' : ' on'}" style="left:${l}%;top:${t}%;background:${S.lightsOff ? '#8a8a8a' : DOT[i % DOT.length]};color:${DOT[i % DOT.length]};animation-delay:${(i*0.37) % 1.6}s"></span>`).join('')),
   m1:() => ov(gold() + (taken('drawing') ? '' : sb(57, 34, 8, 11, 'drawing', 'For Nana', 'background:#fffaf0;border-style:solid;border-color:#7a5c3e'))
-    + sb(84.5, 31, 7, 19, 'pocket organiser', taken('shelly') ? '' : 'a pink tail in the window', 'background:rgba(150,150,160,.9);color:#fff')
-    + (S.bathMoved ? sb(3, 75, 10, 9, 'baby bath', 'set aside') : sb(19.5, 70, 12, 11, 'baby bath', '', 'background:rgba(255,236,170,.95)'))
-    + (S.tubMoved ? sb(3, 64, 9, 10, 'tub', 'set aside') : sb(20.5, 60, 10, 10, 'tub', '', 'background:rgba(220,235,245,.95)'))
-    + (taken('stool') ? sb(20.5, 64, 10, 17, 'stool gone', 'to the wardrobe', 'background:rgba(240,232,220,.9);border-style:dotted') : '')),
-  m4:() => ov(gold() + (S.stoolAt ? sb(39.5, 72, 10, 11, 'stool', '', 'background:#d6a86a') : '')),
+    + sb(84.5, 31, 7, 19, 'pocket organiser', taken('shelly') ? '' : 'a pink tail in the window', 'background:rgba(150,150,160,.9);color:#fff')),
+  m4:() => ov(gold()),
   k1:() => ov(gold()),
-  k2:() => ov(gold() + `<img src="../art/portraits/zaina.png?v=${BUILD}" alt="" style="position:absolute;left:46%;top:41%;width:11%;height:23%;object-fit:contain;filter:drop-shadow(2px 4px 4px rgba(0,0,0,.35))">`
-    + `<div style="position:absolute;left:45.5%;top:62.5%;width:12%;height:4.2%;display:flex;border:2px solid #2b2836;border-radius:.3em;overflow:hidden;background:#ef8fb5">${ORDER.map(k => `<span style="flex:1;background:${KEYS[k].c};border-right:1px solid #2b2836"></span>`).join('')}</div>`
-    + (S.traded ? sb(56.5, 55, 5, 8, 'Shelly', '', 'background:#ef8fb5;color:#fff') : (taken('sheet') ? '' : sb(47, 58, 5, 4.5, '♪', '', 'background:#fff')))
-    + sb(46, 36, 11, 4.5, 'Zaina (stand-in)', '', 'background:rgba(255,255,255,.75);font-weight:400')
+  k2:() => ov(gold() /* Zaina is a cut-out now; the keys of her piano carry the KEYS colours, baked from the same list */
+    + (S.traded ? sb(54.8, 64, 3.6, 6, 'Shelly', '', 'background:#ef8fb5;color:#fff;font-size:calc(var(--u)*.9)') : (taken('sheet') ? '' : `<div style="position:absolute;left:49.6%;top:66.6%;width:2.2%;height:2.6%;background:#fffaf0;border:1px solid #6a5a44;transform:rotate(-4deg)"></div>`))
     + (S.trundleOut ? sb(20, 82, 56, 6, 'trundle open', taken('paper') ? 'spare bedding' : 'bedding and a roll of paper', 'background:rgba(255,255,255,.9)') : '')),
   k4:() => ov(gold() + WINDOWS.map(([l, t, w, h], i) => `<span class="e2win${S.houseOpen ? (S.justLit ? ' go' : ' lit') : ''}" style="left:${l}%;top:${t}%;width:${w}%;height:${h}%;animation-delay:${reduce() ? 0 : i*0.35}s"></span>`).join('')
-    + (S.houseOpen ? sb(20.5, 64.5, 12, 18, 'front open', taken('passport') ? 'a tiny empty bed' : 'a tiny bed… and a passport!', 'background:rgba(255,236,200,.95)')
+    + (S.houseOpen ? (sb(20.5, 64.5, 12, 18, 'front open', taken('passport') ? 'a tiny empty bed' : 'a tiny bed…', 'background:rgba(255,236,200,.95)') + (taken('passport') ? '' : `<img src="${A}item-passport.png?v=${BUILD}" alt="" style="position:absolute;left:24.6%;top:72%;width:3.4%;transform:rotate(-12deg);filter:drop-shadow(1px 2px 2px rgba(0,0,0,.4))">`))
       : `<div style="position:absolute;left:23.2%;top:65.5%;width:6.6%;height:7%;background:#d9c09a;border:2px solid #6a5a44;border-radius:.2em;display:flex;align-items:center;justify-content:space-evenly;padding:0 .2em;box-sizing:border-box">${BUTTONS.map(k => `<svg viewBox="0 0 10 10" style="width:22%" aria-hidden="true"><circle cx="5" cy="5" r="4.6" fill="${KEYS[k].c}" stroke="#2b2836" stroke-width=".5"/></svg>`).join('')}</div>`)
     + sb(23.5, 58.5, 5, 5, 'E’s note', '', 'background:#fff;font-weight:400'))
 };
@@ -285,14 +289,15 @@ function ribbon(){ /* stood on the stool: the bow is pulled open by its end (MEC
   pic.insertAdjacentHTML('afterbegin', `<div class="e2sb" style="left:26%;top:30%;width:48%;height:40%;background:#d9b98a;border-style:solid">WINTER (London)</div><svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none"><path d="M50 30V70M26 50H74" stroke="#c0392b" stroke-width="2.4"/><path d="M50 44C42 36 40 46 50 44C58 36 62 46 52 44" fill="none" stroke="#c0392b" stroke-width="2.4"/></svg>`);
 }
 /* Zaina and her piano: four notes, each key lighting as it sounds (a clue by sound is shown too) */
+const PKEYS = [[14.4, 7.9], [23.3, 7.9], [32.3, 7.9], [41.4, 7.9], [50.5, 7.9], [59.5, 7.9], [68.6, 7.9], [77.7, 7.9]]; /* each key's left and width on closeup-piano.jpg, measured from its pixels */
 function pianoCard(){
-  const keys = ORDER.map((k, i) => `<div class="e2key" data-k="${k}" style="left:${36 + i*7.3}%;width:6.6%;background:${KEYS[k].c}">${keySvg(k)}</div>`).join('');
-  const slot = !S.traded ? `<div style="position:absolute;left:52%;top:12%;width:20%;height:22%;background:#fffaf0;border:1px solid #6a5a44;transform:rotate(-3deg);display:grid;place-items:center;font:700 calc(var(--u)*1.4) ${HAND};color:#2f5f8a">♪ the carol ♪</div>` : '';
-  const shelly = S.traded ? sb(4, 66, 12, 24, 'Shelly', 'on her lap', 'background:#ef8fb5;color:#fff') : '';
-  return `<img src="../art/portraits/zaina.png?v=${BUILD}" alt="" style="position:absolute;left:3%;top:8%;height:86%;pointer-events:none">${shelly}<div style="position:absolute;left:33%;top:30%;width:63%;height:58%;background:#f6b8cf;border:3px solid #2b2836;border-radius:calc(var(--u)*1)"></div>${slot}${keys}${cuTarget('e2_zaina', 'Zaina', [2, 6, 30, 88])}${cuTarget('e2_piano', 'The toy piano', [33, 30, 63, 58])}`;
+  const keys = ORDER.map((k, i) => `<div class="e2pk" data-k="${k}" style="position:absolute;left:${PKEYS[i][0]}%;top:31.2%;width:${PKEYS[i][1]}%;height:30.2%;border-radius:calc(var(--u)*.7);background:${KEYS[k].c};mix-blend-mode:multiply;transition:filter .12s;pointer-events:none"></div><div style="position:absolute;left:${PKEYS[i][0] + PKEYS[i][1]/2 - 2.4}%;top:51%;width:4.8%;aspect-ratio:1;pointer-events:none">${keySvg(k, '', 'style="width:100%;height:100%;filter:drop-shadow(0 1px 1px rgba(0,0,0,.35))"')}</div>`).join('');
+  const slot = !S.traded ? `<div style="position:absolute;left:46%;top:3%;width:18%;height:14%;background:#fffaf0;border:1px solid #6a5a44;transform:rotate(-2deg);display:grid;place-items:center;font:700 calc(var(--u)*1.4) ${HAND};color:#2f5f8a;pointer-events:none">♪ the carol ♪</div>` : '';
+  const shelly = S.traded ? sb(2, 52, 11, 26, 'Shelly', 'on her lap', 'background:#ef8fb5;color:#fff') : '';
+  return `${slot}${keys}${shelly}${cuTarget('e2_piano', 'The toy piano', [10, 8, 80, 62])}${cuTarget('e2_zaina', 'Zaina', [0, 72, 100, 28])}`;
 }
 function openPiano(){
-  openCard('Zaina’s piano', 'background:#f3e6d6', pianoCard(), '', row(obtn('e2again', 'Play it again')));
+  openCard('Zaina’s piano', `background-image:url(${A}closeup-piano.jpg?v=${BUILD})`, pianoCard(), '', row(obtn('e2again', 'Play it again')));
   $('e2again').onclick = e => { e.stopPropagation(); play(); };
   wireCu({e2_zaina:() => fb(zainaLine()), e2_piano:play});
   play();
@@ -303,7 +308,7 @@ function play(){
   const seq = S.traded ? CHORUS : VERSE, gap = 620;
   if (!S.traded){ S.verses = (S.verses || 0) + 1; S.versePlayed = true; } else S.chorusHeard = true; save();
   fb(S.traded ? 'Zaina, with Shelly on her lap: “Everyone sings this one!”' : (S.verses > 1 ? 'Zaina plays the same four again. “I only know the first bit.”' : 'Zaina plays four notes. “That’s Mary’s song. It’s MY song now.”'));
-  playing = seq.map((k, i) => setTimeout(() => { const el = document.querySelector(`#closeup .e2key[data-k="${k}"]`); note(KEYS[k].f); if (el){ el.classList.add('lit'); setTimeout(() => el.classList.remove('lit'), gap*0.8); } if (i === seq.length - 1) setTimeout(() => { playing = null; fb(S.traded ? 'Blue moon, red heart, red heart, green leaf. “Everyone sings this one!”' : 'Yellow star, yellow star, green leaf, blue moon. “You can have Mary’s song for Shelly.”'); }, gap); }, 300 + i*gap));
+  playing = seq.map((k, i) => setTimeout(() => { const el = document.querySelector(`#closeup .e2pk[data-k="${k}"]`); note(KEYS[k].f); if (el){ el.style.filter = 'brightness(1.6) saturate(1.3)'; el.style.mixBlendMode = 'normal'; setTimeout(() => { el.style.filter = ''; el.style.mixBlendMode = 'multiply'; }, gap*0.8); } if (i === seq.length - 1) setTimeout(() => { playing = null; fb(S.traded ? 'Blue moon, red heart, red heart, green leaf. “Everyone sings this one!”' : 'Yellow star, yellow star, green leaf, blue moon. “You can have Mary’s song for Shelly.”'); }, gap); }, 300 + i*gap));
 }
 const zainaLine = () => S.traded ? 'Zaina hugs Shelly. “Shelly likes the bit everyone sings.” Tap her piano.' : 'Zaina, on her bunk with her piano: “I’m practising Mary’s song. It’s MY song now.” The carol sheet sticks out of the piano’s slot. “You can have it… for Shelly.”';
 function trade(){
@@ -481,7 +486,7 @@ return {
   intro:'<b>Packing day.</b> The taxi comes at six, and Mary’s things are all over the flat. Her list is on the whiteboard by the case.',
   start:{room:'mary', view:0},
   fresh:() => ({seen:{}, clues:[], taken:{}, packed:{}, pressed:[], tubMoved:false, bathMoved:false, stoolAt:false, boxOpen:false, traded:false, verses:0, versePlayed:false, chorusHeard:false, trundleOut:false, wrapped:false, houseOpen:false, justLit:false, lightsOff:false, wiped:false}),
-  extra:{mary:['../art/portraits/zaina.png', A + 'greybox/tab-wiper.png', A + 'greybox/tab-ribbon.png']},
+  extra:{mary:[A + 'greybox/tab-wiper.png', A + 'greybox/tab-ribbon.png', A + 'item-passport.png'], kids:[A + 'closeup-piano.jpg', A + 'item-passport.png']},
   rooms:ROOMS, walls:WALLS, doors:DOORS, hots:HOTS, layers:LAYERS, notes:NOTES, items:ITEMS, hints:HINTS, uses:USES, overlays:OVERLAYS,
   act, miss, sparkle, rows, noticed, clues, speaker, onRender, helper:() => 'the moth', child:'mary'
 };

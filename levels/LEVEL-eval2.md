@@ -3,7 +3,7 @@
 *Opened on 24 Oct 2026 at the owner's word: "Do the packing day but built from scratch. Just as a two-room puzzle. Mary needs to find her things before she can take her flight to London for Christmas. Make it interesting." It is the second test level after "Lock-up Duty" (`levels/LEVEL-evalroom.md`), built the same way through the same gates: the room-specification method on Sunburst in the signed-off style, the test room's way of playing, and the owner's materials first (playbook 4x, checklist 8c and 8d). The owner is giving the rooms one at a time as photographs, which are never kept in the repo: each room is written down here in words as it arrives, with what is still missing, and the design is drawn on paper and approved before any picture is made. Room 1 arrived on 24 Oct 2026 (eight pictures) and room 2 the same day (eight pictures, Mary's room); the design below is drawn from both and waits on the owner's Gates A and B. Nothing is signed, nothing is built, no credit is spent. The stage key `eval2` and the hotspot prefix `e2_` are reserved. (An earlier outline for this key, a front-office test room, is parked in commit `731e844` and is not this level.)*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: samples (Gates A to D signed 25 Oct 2026; the sample pack is being made)
+Current status: samples (Gates A to D signed 25 Oct 2026; the sample pack placed in build 2026-10-25c and waiting on the owner's Gate E)
 Build id of the latest play link: 2026-10-25a
 Latest play link: https://rawcdn.githack.com/me565/me565.github.io/80b246c97579567192445072e41a68547a9e3197/next/landscape/index.html?stage=eval2
 
@@ -362,6 +362,24 @@ Signed off: "Sign off" (owner, 25 Oct 2026, in chat, in answer to "reply 'sign o
 ---
 
 ## 6a. Sample pack
+
+Made on 25 Oct 2026 after Gate D, in run `eval2-samples` (GitHub Actions run 40174329425, artifact kept until 24 Nov 2026), **9.5¢ billed for six pictures, all usable first time**, placed in build 2026-10-25c:
+
+| Sample | What it is | Why this one | Result |
+|---|---|---|---|
+| Cut-out | Zaina on her bunk with her piano (asset 22): `layer-zaina.png`, from her portrait | the hardest: a person, drawn from a portrait, sitting on a bed drawn by another call | her face, hair and cat T-shirt as in the portrait; keyed clean. Placed first too small (a doll on the bed); re-sized against the bunk's length (learning loop). Her piano's white keys carry the eight colours, baked by script from the same list the game uses |
+| Close-up | Zaina's piano (asset 23): `closeup-piano.jpg` | the code's carrier: its keys must agree with the sheet and the lock | eight plain white keys as asked; the game colours each key (by multiply, so the picture's shading stays) and puts its shape sticker on; the carol card sticks out of the slot until the trade |
+| Cut-outs over a passed wall | The baby bath and the tub (20a, 20b) over the painted stool, and the stool's empty place (21, an edit of `m1`) | they touch a wall the owner passed | the edit removed only the stool; `tools/lift.py` lifted the stool from `m1` against it (`layer-stool.png`, also its icon and the stool at the wardrobe) and its patch (`layer-stoolpatch.png`) shows the floor and wall once it is taken, seamless |
+| Icon | The passport (26): `item-passport.png` | the strip's look | a plain navy booklet, no emblem; in the strip and on the tiny bed |
+| Voice ×2–3 | none: text only (Gate D, point 2) | — | — |
+| Track | none: the flat's track | — | — |
+
+Judged in the level, not as loose files: the scripted playthrough passes on build 2026-10-25c, audit clean. Waiting on the owner's tablet.
+Prompt changes made before sign-off: none.
+
+### Gate E — samples
+Signed off:
+
 ## 6b. Batch
 ## 7. Integrate and polish
 ## 8. Release
@@ -376,8 +394,9 @@ Signed off: "Sign off" (owner, 25 Oct 2026, in chat, in answer to "reply 'sign o
 | walls redrawn after the owner's review | ~15¢ | 20.9¢ | 5 | MOTH-94 to MOTH-101: the specifications placed neighbouring walls' things on the wrong walls; corrected from the floor plan, with a compass check added so it does not happen again |
 | walls edited after the owner's second review | ~15¢ | 10.0¢ | 5 | MOTH-102 to MOTH-105: doors, glimpses, a ladder's face, a stray curtain; the approved pictures edited with one change each |
 | walls edited after the owner's third review and Claude's check | ~25¢ | 27.5¢ | 10 | MOTH-106 to MOTH-112 and four faults from the full check: door swings, ladder, rug direction, corridor shape and order, glimpses |
-| 6a + 6b pictures | ~50¢ (33 pictures, Gate D list) | | | |
-| Total | ~$1.50 (the walls about $1.00 already spent, the pictures about 50¢) | 99.9¢ so far | 20 | all re-dos on the walls, before Gate C |
+| 6a samples | ~10¢ (six pictures) | 9.5¢ | 0 | all six first time |
+| 6b batch | ~40¢ (the other 27 pictures) | | | |
+| Total | ~$1.50 (the walls about $1.00 already spent, the pictures about 50¢) | $1.094 so far | 20 | all re-dos on the walls, before Gate C |
 
 ## Learning loop
 
@@ -395,6 +414,7 @@ Signed off: "Sign off" (owner, 25 Oct 2026, in chat, in answer to "reply 'sign o
 | Same review (MOTH-107) | The ladder removed from the window wall by the fix for MOTH-103 | The fix says what the ladder is from that wall: in profile, leaning out | Yes: a fix says what a thing is, not only what it is not | Checklist 69; playbook 4aa |
 | Same review (MOTH-108) | The rug's stripes the same way on all four walls | The plan gives the stripes a direction and each wall a floor line | Yes: a floor pattern has a direction | Checklist 73; `room_prompts.py`, `roomcheck.py` |
 | Same review (MOTH-109, MOTH-110) | A jutting wall in the corridor; the picture on both sides of Mary's door | The box line says flat walls; the plan lists each wall's order from the photograph | Yes: the room is the plan's shape, and order holds | Checklist 74 |
+| Samples, Claude's look in the level, 25 Oct 2026 | Zaina placed doll-sized on her bunk: her box was guessed by eye | Re-sized against the bunk's length (a four-year-old sitting is about 58 cm, the bed 180 cm), the sum written beside her box in the stage | Yes: a cut-out is sized against a real measure on its wall | Checklist 76; playbook 2 |
 | Claude's full check, 25 Oct 2026 | The sofa on the loft wall's side wall; a pier in the window wall's corner; Mary's doorway showing a long corridor; the children's door shut on c4 | Edited with the neighbour attached | Yes: walk the whole set after any change | Checklist 75 |
 
 ## Notes for this level only
