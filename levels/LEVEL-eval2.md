@@ -3,9 +3,9 @@
 *Opened on 24 Oct 2026 at the owner's word: "Do the packing day but built from scratch. Just as a two-room puzzle. Mary needs to find her things before she can take her flight to London for Christmas. Make it interesting." It is the second test level after "Lock-up Duty" (`levels/LEVEL-evalroom.md`), built the same way through the same gates: the room-specification method on Sunburst in the signed-off style, the test room's way of playing, and the owner's materials first (playbook 4x, checklist 8c and 8d). The owner is giving the rooms one at a time as photographs, which are never kept in the repo: each room is written down here in words as it arrives, with what is still missing, and the design is drawn on paper and approved before any picture is made. Room 1 arrived on 24 Oct 2026 (eight pictures) and room 2 the same day (eight pictures, Mary's room); the design below is drawn from both and waits on the owner's Gates A and B. Nothing is signed, nothing is built, no credit is spent. The stage key `eval2` and the hotspot prefix `e2_` are reserved. (An earlier outline for this key, a front-office test room, is parked in commit `731e844` and is not this level.)*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: integrating (Gates A to E signed 25 Oct 2026; the owner's fourth review fixed in build 2026-10-25e; the drawers' design waits on him)
-Build id of the latest play link: 2026-10-25a
-Latest play link: https://rawcdn.githack.com/me565/me565.github.io/80b246c97579567192445072e41a68547a9e3197/next/landscape/index.html?stage=eval2
+Current status: integrating (Gates A to E signed 25 Oct 2026; the owner's fourth review fixed in build 2026-10-25f; the drawers' design waits on him)
+Build id of the latest play link: 2026-10-25f
+Latest play link: https://rawcdn.githack.com/me565/me565.github.io/fed11d0b0eba30753d3743d61cf2b61352f7e2f8/next/landscape/index.html?stage=eval2
 
 ---
 
@@ -408,7 +408,7 @@ Made 25 Oct 2026 on the GitHub runner (`evals/images/runs/eval2-batch.json`, run
 
 ### The owner's fourth recorded review (25 Oct 2026, 11 min 31 s, build 2026-10-25d): MOTH-113 to MOTH-134
 
-Logged first (22 cards), then fixed in build 2026-10-25e. What each got:
+Logged first (22 cards), then fixed in build 2026-10-25f (commit `fed11d0`). What each got:
 
 | Card | His point | Fixed how |
 |---|---|---|
@@ -435,7 +435,7 @@ Logged first (22 cards), then fixed in build 2026-10-25e. What each got:
 | MOTH-133 | "Zips shut" but the case stays open | A "Zip it shut" button with all four in; the case shown closed, in the room and close up |
 | MOTH-134 | The wipe looks broken | A tap: the wiper crosses the board once and the writing goes behind it |
 
-Pictures made (`evals/images/runs/eval2-fix4.json`, `-fix4b`, `-fix4c`; runs 40180983187, 40181067963, 40181314763; results in `evals/images/results/2026-10-25-eval2-fix4*.results.json`): **36.4¢ for 16 pictures**, of which one failed (the `k2` edit, 4.3¢) and one was refused by the model's safety filter at no cost (the room's lock alone; the crop of the close-up was better anyway). Checks on build 2026-10-25e: scripted playthrough passes (normal and reduced motion), audit below.
+Pictures made (`evals/images/runs/eval2-fix4.json`, `-fix4b`, `-fix4c`; runs 40180983187, 40181067963, 40181314763; results in `evals/images/results/2026-10-25-eval2-fix4*.results.json`): **36.4¢ for 16 pictures**, of which one failed (the `k2` edit, 4.3¢) and one was refused by the model's safety filter at no cost (the room's lock alone; the crop of the close-up was better anyway). Checks on build 2026-10-25f: scripted playthrough passes (normal and reduced motion); audit of eval2 and the test room: no failures (its new icon check, E33, found the same off-centre fault in the test room's torn-note icons, fixed the same way).
 
 ### Proposal for the owner: what the drawers could do (MOTH-120)
 
