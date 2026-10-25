@@ -1,0 +1,182 @@
+{
+ "name": "eval2 fixes from the owner's fifth review (MOTH-115, 117, 131, 132, 135, 141, 143, 144): the tape, Elliot's note, Singapore clothes in the wardrobe and its close-up, the bath on the tub, the trundle drawer out with the paper inside, each packed thing in its own edit.",
+ "defaults": {
+  "n": 1
+ },
+ "notes": [
+  "Edits keep the picture's geometry so tools/lift.py can lift each change against its base.",
+  "Linted with evals/images/promptlint.py."
+ ],
+ "est_total_usd": 0.46,
+ "cases": [
+  {
+   "id": "tape",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe object: a roll of clear sticky tape on its own, with no dispenser, lying flat on its side as it lies on a desk, seen from the front and a little above, the way a ten-year-old standing at her desk sees it: a squat ring, its top face an oval, the shiny layered band of clear tape round its outside clearly showing its thickness all along the front, the pale brown cardboard core inside it and the hole through the middle. A short loose end of tape curls off the front.",
+   "est_usd": 0.03,
+   "note": "MOTH-117: one picture for the room, the pen-pot close-up and the strip; never squashed to fake a desk"
+  },
+  {
+   "id": "note",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "evals/images/refs/eval2-style-kids.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe object: a small piece of white lined notebook paper, taller than it is wide, torn from a pad with a slightly ragged top edge, a little creased, seen straight on and lying flat, held by a short strip of clear sticky tape across its top edge whose ends overhang the paper on both sides. The paper is blank: only faint pale blue ruled lines, no writing at all.",
+   "est_usd": 0.03,
+   "note": "MOTH-141: Elliot's note as paper with tape; the game writes on it",
+   "lint_ok": "flat paper seen straight on, as on the house front"
+  },
+  {
+   "id": "m4-open2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "evals/images/refs/eval2-m4-open.jpg"
+   ],
+   "prompt": "The attached picture is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: the clothes inside the open wardrobe are now a ten-year-old girl's clothes for hot, sunny Singapore. On the hanging rail hang exactly seven summer clothes on wooden hangers, from left to right: (1) a sunny yellow cotton sundress with thin straps; (2) a pale pink short-sleeved blouse with a frilled collar; (3) a sky blue short-sleeved cotton T-shirt with no hood; (4) a white short-sleeved T-shirt printed with small pink hearts; (5) a lilac short-sleeved cotton dress; (6) a coral pink T-shirt with a small white star; (7) a light denim pinafore dress. The two shelves below the rail hold neat folded piles of light summer clothes: T-shirts in white, pale pink, yellow and pale blue, and cotton shorts in light denim, khaki and pink; no jumpers, no knitwear, no coats. The top shelf, the box's edge and the red ribbon stay exactly as they are. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.04,
+   "note": "MOTH-135: the rail named thing by thing, the same words as the close-up"
+  },
+  {
+   "id": "wardrobe-up2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "next/art/eval2/closeup-wardrobe-up.jpg",
+    "case:m4-open2"
+   ],
+   "prompt": "The attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: the four clothes on hangers along the rail, seen from below, are exactly garments 2 to 5 of this rail, in this order from left to right, with the same colours and fabrics as in attached picture 2: (2) the pale pink short-sleeved blouse with a frilled collar; (3) the sky blue short-sleeved cotton T-shirt with no hood; (4) the white short-sleeved T-shirt printed with small pink hearts; (5) the lilac short-sleeved cotton dress. The whole rail is exactly seven summer clothes on wooden hangers, from left to right: (1) a sunny yellow cotton sundress with thin straps; (2) a pale pink short-sleeved blouse with a frilled collar; (3) a sky blue short-sleeved cotton T-shirt with no hood; (4) a white short-sleeved T-shirt printed with small pink hearts; (5) a lilac short-sleeved cotton dress; (6) a coral pink T-shirt with a small white star; (7) a light denim pinafore dress, so the yellow sundress's hanger may just show at the far left edge. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.04,
+   "note": "MOTH-135: the close-up is a part of the room's rail"
+  },
+  {
+   "id": "m1-tub",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "next/art/eval2/m1.jpg"
+   ],
+   "prompt": "The attached picture is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: a tall white plastic storage tub with a white snap-on lid and two moulded side handles now stands on the floor right in front of the little wooden step stool under the loft, hiding the stool completely: the tub is a little wider and a little taller than the stool. It is drawn from the same eye level as the rest of the room, mostly its front side with only a thin sliver of its lid showing, and it casts a soft shadow on the floor. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.04,
+   "note": "MOTH-115: the bottom of the stack, its own edit so its top is whole when the bath comes off"
+  },
+  {
+   "id": "m1-stack",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "case:m1-tub"
+   ],
+   "prompt": "The attached picture is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: Zaina's old yellow plastic baby bath now sits the right way up on top of the white tub's lid, resting flat on it and overhanging it a little on both sides. It is drawn from the same eye level as the rest of the room, mostly its rounded front side with only a sliver of its rim and inside showing, and it casts a soft shadow onto the lid. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.04,
+   "note": "MOTH-115: the yellow bath on top of the white tub, as you would stack them"
+  },
+  {
+   "id": "k2-out-empty",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "evals/images/refs/eval2-k2-v4.jpg"
+   ],
+   "prompt": "The attached picture is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: the white trundle drawer under the lower bunk is pulled out towards us, about a third of its depth: its front panel stands lower in the picture and a little nearer, the tops of its two white side panels show, and inside it, seen a little from above, lie a neatly folded striped sheet at the left and a striped pillow at the right, the same stripes as the bed. The bed, the ladder and everything else stay exactly as they are. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.04,
+   "note": "MOTH-131: the drawer out, drawn, not a dark box and a shifted front",
+   "lint_ok": "the drawer's inside is seen a little from above, as from standing"
+  },
+  {
+   "id": "k2-out",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "case:k2-out-empty",
+    "next/art/eval2/item-roll.png"
+   ],
+   "prompt": "The attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: a roll of Christmas wrapping paper (attached picture 2: white with small friendly snowmen in red scarves and pale blue snowflakes) now lies inside the pulled-out drawer, along its front, in front of the sheet and the pillow, wholly inside the drawer's sides and below its top edge. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.04,
+   "note": "MOTH-132: the paper kept inside the drawer"
+  },
+  {
+   "id": "trundle-roll",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "next/art/eval2/closeup-trundle.jpg",
+    "next/art/eval2/item-roll.png"
+   ],
+   "prompt": "The attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: a roll of Christmas wrapping paper (attached picture 2: white with small friendly snowmen in red scarves and pale blue snowflakes) now lies inside the drawer, in the empty space at the front, lengthways along the drawer's front panel, wholly inside the drawer's sides and below the front panel's top edge, resting on the drawer's floor with a soft shadow. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.04,
+   "note": "MOTH-132: the paper kept inside the drawer, close up"
+  },
+  {
+   "id": "caser-sheet",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "evals/images/refs/eval2-case-room.jpg",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-sheet.png"
+   ],
+   "prompt": "The attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: the folded music sheet (attached picture 3) lies on the cream cable-knit jumper at the left, in the same place in the case as in attached picture 2, which shows this same case packed, looked down into from above. Only this one thing is added; nothing else is in the case but the clothes. Keep it alone on the same pure white background. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.03,
+   "note": "MOTH-143, MOTH-144: each packed thing in its own edit of the empty case, placed as in the close-up, so none is cut where another overlapped it"
+  },
+  {
+   "id": "caser-present",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "evals/images/refs/eval2-case-room.jpg",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-present.png"
+   ],
+   "prompt": "The attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: the flat present wrapped in snowman paper (attached picture 3) lies on the navy trousers in the middle, in the same place in the case as in attached picture 2, which shows this same case packed, looked down into from above. Only this one thing is added; nothing else is in the case but the clothes. Keep it alone on the same pure white background. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.03,
+   "note": "MOTH-143, MOTH-144: each packed thing in its own edit of the empty case, placed as in the close-up, so none is cut where another overlapped it"
+  },
+  {
+   "id": "caser-hat",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "evals/images/refs/eval2-case-room.jpg",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-hat.png"
+   ],
+   "prompt": "The attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: the red bobble hat and the red gloves (attached picture 3) lie on the beige trousers at the right, in the same place in the case as in attached picture 2, which shows this same case packed, looked down into from above. Only this one thing is added; nothing else is in the case but the clothes. Keep it alone on the same pure white background. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.03,
+   "note": "MOTH-143, MOTH-144: each packed thing in its own edit of the empty case, placed as in the close-up, so none is cut where another overlapped it"
+  },
+  {
+   "id": "caser-passport",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "evals/images/refs/eval2-case-room.jpg",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-passport.png"
+   ],
+   "prompt": "The attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: the navy passport (attached picture 3) lies on the sage green jumper at the front left, near the case's front edge, in the same place in the case as in attached picture 2, which shows this same case packed, looked down into from above. Only this one thing is added; nothing else is in the case but the clothes. Keep it alone on the same pure white background. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.03,
+   "note": "MOTH-143, MOTH-144: each packed thing in its own edit of the empty case, placed as in the close-up, so none is cut where another overlapped it"
+  }
+ ]
+}
