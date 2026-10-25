@@ -3,8 +3,8 @@
 *Opened on 24 Oct 2026 at the owner's word: "Do the packing day but built from scratch. Just as a two-room puzzle. Mary needs to find her things before she can take her flight to London for Christmas. Make it interesting." It is the second test level after "Lock-up Duty" (`levels/LEVEL-evalroom.md`), built the same way through the same gates: the room-specification method on Sunburst in the signed-off style, the test room's way of playing, and the owner's materials first (playbook 4x, checklist 8c and 8d). The owner is giving the rooms one at a time as photographs, which are never kept in the repo: each room is written down here in words as it arrives, with what is still missing, and the design is drawn on paper and approved before any picture is made. Room 1 arrived on 24 Oct 2026 (eight pictures) and room 2 the same day (eight pictures, Mary's room); the design below is drawn from both and waits on the owner's Gates A and B. Nothing is signed, nothing is built, no credit is spent. The stage key `eval2` and the hotspot prefix `e2_` are reserved. (An earlier outline for this key, a front-office test room, is parked in commit `731e844` and is not this level.)*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: integrating (Gates A to E signed 25 Oct 2026; the owner's fifth review fixed in build 2026-10-25g; the drawers, his option 1, in 2026-10-25h)
-Build id of the latest play link: 2026-10-25h
+Current status: integrating (Gates A to E signed 25 Oct 2026; the owner's fifth review fixed in build 2026-10-25g; the drawers, his option 1, in 2026-10-25h; his screenshots in 2026-10-25i)
+Build id of the latest play link: 2026-10-25i
 Latest play link: https://rawcdn.githack.com/me565/me565.github.io/bad8fe7a173ead7c6bce34a0445540538559f2c7/next/landscape/index.html?stage=eval2
 
 ---
@@ -473,6 +473,18 @@ The three desk drawers look good and do nothing. A design change, so not built w
 
 Pictures made (`evals/images/runs/eval2-fix5.json`, run 40189249187, linted clean first): **44.8¢ for 13 pictures**, all first time. Two glimpses, the ladder's foot, the button's cap and the hat's re-lift were done from pictures already made, at no cost. The working for the glimpses: the corridor is about 3.8 m across (its end wall, 888 px at 236 px/m); the children's room runs about 4 m west from its door, so `k4` stands about 1.5 times as far as `c4` (scale 0.877/1.5 = 0.585, its south corner at x 1083); from the children's room the corridor's far wall is about 3.8 m beyond the door, about 2.3 times the door's distance (153 px/m against `c3`'s 315: scale 0.486), the door 1 m left of the view's middle, so the white wall and the left of the double doors show. Old pictures no longer used were removed (`layer-trundlefront.png`, `item-roll-flat.png`, `closeup-lock.jpg`, `closeup-box-open.jpg`, `tab-ribbon.png`). Checks on build 2026-10-25g: scripted playthrough passes (normal and reduced motion); audit of eval2 and the test room: no failures, with the two new checks (E35 found the old squashed tape when run on build f; E36 found the door's back face and its `face` both named after engine styles).
 
+### The owner's screenshots (25 Oct 2026, build 2026-10-25h): MOTH-145, MOTH-146, MOTH-142 again
+
+"Could of final things to amend." Logged first, his four screenshots attached to the cards, then fixed in build 2026-10-25i.
+
+| Card | His point | The cause | Fixed how |
+|---|---|---|---|
+| MOTH-145 | The shut case has its handle on top; the close-up has it at the front | The shut state was an edit that moved the handle | Redrawn shut from the open case, the prompt naming the handle's place; the same in the room and close up |
+| MOTH-146 | The open case on the sofa is seen far too steeply | Drawn alone on white with the look-down close-up attached, then laid on the sofa | Drawn in place as an edit of `m3` at the room's eye level; each packed thing its own edit of it, pasted where it lies (`CASEP`, `CASEROOM` in room percentages) |
+| MOTH-142 (again) | The corridor through the children's door is steep | Its far wall placed 3.8 m beyond the door, so a long floor was carried down to the threshold | Placed about 2 m beyond (scale 0.661, at −1,77): the double doors near, the corridor's own floor; `glimpse.py` now stops (STRETCH) when a floor would be carried more than a tenth of the opening, which also moved `c4`'s glimpse a little nearer (scale 0.626, at 1040,120) |
+
+Pictures (`evals/images/runs/eval2-case-eye.json`, run 40199368282): **29.4¢ for 6**, all first time. Checks on build 2026-10-25i: scripted playthrough passes (normal and reduced motion); audit of eval2: no failures.
+
 ## 8. Release
 
 (the template's sections, filled in order as the gates open; see `levels/LEVEL-TEMPLATE.md`)
@@ -490,7 +502,8 @@ Pictures made (`evals/images/runs/eval2-fix5.json`, run 40189249187, linted clea
 | 7 polish: the fourth review's pictures | ~56¢ (14 listed) | 36.4¢ | 1 (+1 refused, free) | the `k2` edit left the ladder's leg (4.3¢); the room's lock refused by the safety filter |
 | 7 polish: the fifth review's pictures | ~46¢ (13 listed) | 44.8¢ | 13 (re-dos of earlier pictures, all made first time) | the tape and the wardrobe's rail (prompts that said "from above" and "a few clothes"), the bath and tub (drawn alone from above), the room's case pieces (one all-in edit: cut and misplaced), the trundle (a leg and a laid-on roll), Elliot's note (a code label) |
 | 7 polish: the drawers (MOTH-120, option 1) | ~12¢ (three pictures) | 15.3¢ | 1 | the room's drawer drawn without the socks close-up attached (pastel socks): redrawn with it, 5.4¢ |
-| Total | ~$1.50 (the walls about $1.00 already spent, the pictures about 50¢) | $2.458 so far | 34 | the walls' re-dos before Gate C; 15 pictures redone in polish |
+| 7 polish: the case at the room's eye level (MOTH-145, MOTH-146) | ~25¢ (six pictures) | 29.4¢ | 6 (re-dos of the room's case) | drawn alone on white from the close-up's view; the shut edit moved the handle |
+| Total | ~$1.50 (the walls about $1.00 already spent, the pictures about 50¢) | $2.752 so far | 40 | the walls' re-dos before Gate C; 21 pictures redone in polish |
 
 ## Learning loop
 
@@ -526,6 +539,7 @@ Pictures made (`evals/images/runs/eval2-fix5.json`, run 40189249187, linted clea
 | Same review (MOTH-125, 136) | White left in keyed things | `--holes`, `--holes-in` | Yes | Checklist 92; `keycheck.py` |
 | Same review (MOTH-139; the door's blob) | Overlays placed by eye; a stage part named after an engine style | Measured on a grid; renamed | Yes | Checklist 93; `grid.py`; audit E36 |
 | Same review (MOTH-115, 130, 131, 132, 138, 140, 141) | Things not behaving as what they are; a refused tap that moved | Rolling wheels, a pressing button, doors with backs, a drawer that keeps its roll, movement only on yes | Yes | Checklist 94; playbook 4ag |
+| Owner's screenshots, 25 Oct 2026 (MOTH-145, MOTH-146, MOTH-142) | A room thing drawn alone on white kept the close-up's steep view; a state edit moved the handle; a glimpse placed too far carried a long floor | Drawn in place in the room; states name what stays; `glimpse.py` STRETCH | Yes | Checklist 95; playbook 4ag; `glimpse.py` |
 | The drawers' pictures, Claude's look, 25 Oct 2026 | The room's socks drawer drawn without its close-up attached: different socks | Redrawn with the close-up as picture 2 and the socks named | Already a rule (checklist 78): a manifest that draws one thing in two pictures attaches the first to the second; I broke it and caught it before the owner | this file |
 | Claude's full check, 25 Oct 2026 | The sofa on the loft wall's side wall; a pier in the window wall's corner; Mary's doorway showing a long corridor; the children's door shut on c4 | Edited with the neighbour attached | Yes: walk the whole set after any change | Checklist 75 |
 

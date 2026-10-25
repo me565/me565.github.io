@@ -79,7 +79,7 @@ const BOTOUT = {l:70.96, t:57.41, w:17.32}, BOTFLOOR = {l:72, t:73.5, w:15, h:17
 const HOTS = {
   m3:[
     {id:'e2_board', l:42, t:49, w:15, h:17, label:'Mary’s whiteboard', key:true, sound:'paper'},
-    {id:'e2_case', l:58, t:41, w:18, h:30, label:'Mary’s case', sound:'open'},
+    {id:'e2_case', l:55, t:40, w:19, h:27, label:'Mary’s case', sound:'open'},
     {id:'e2_cushions', l:30, t:48, w:12, h:17, label:'Cushions', sound:'tap'},
     {id:'e2_poster', l:17, t:6, w:15, h:41, label:'Planets poster', sound:'paper'},
     {id:'e2_print', l:47, t:17, w:12, h:17, label:'Framed print', sound:'tap'},
@@ -258,13 +258,13 @@ function wardrobeRoom(){
 function setWardrobe(open){ swingFrom.wdl = swingFrom.wdr = !!S.wardOpen; S.wardOpen = open; save(); sfx(open ? 'open' : 'close'); render(); animateDoor('wdl', open); animateDoor('wdr', open); }
 /* The case in the room (MOTH-113, MOTH-123, MOTH-133): drawn from the close-up so the clothes agree; each packed thing is lifted from an
    edit with all four in, so any of them shows in its own place; zipped shut, it is the closed case. */
-const CASEROOM = {sheet:[4.53, 49.79, 30.25], present:[32.71, 46.89, 33.3], hat:[65.48, 49.0, 30.87], passport:[4.93, 70.72, 13.91]}; /* hat and passport each from their own edit of the empty case, placed as in the close-up: nothing cut where another overlapped it (MOTH-143, MOTH-144) */
+const CASEROOM = {sheet:[54.56, 52.43, 6.71], present:[59.77, 54.17, 7.23], hat:[65.69, 50.93, 7.1], passport:[54.75, 57.06, 4.3]}, CASEP = [52.99, 24.42, 22.98]; /* the case drawn in place on the sofa at the room's eye level (MOTH-146), open and shut (the handle at the front: MOTH-145), and each packed thing from its own edit of it, pasted where it lies: all in room percentages */
 const CASEUP = {sheet:[9.64, 36.0, 22.33], passport:[6.32, 61.0, 12.63], present:[36.26, 42.82, 25.72], hat:[63.41, 34.14, 30.01]};
 const PACKFILE = {carol:'sheet', hat:'hat', present:'present', passport:'passport'};
 function caseRoom(){
-  const sh = 'filter:drop-shadow(calc(var(--u)*.4) calc(var(--u)*.5) calc(var(--u)*.5) rgba(30,25,40,.35))';
-  if (S.caseShut) return `<img src="${A}layer-case-closed.png?v=${BUILD}" alt="" style="position:absolute;left:59%;top:52%;width:16%;${sh}">`;
-  return `<div style="position:absolute;left:59%;top:42%;width:16%;aspect-ratio:800/760;${sh}"><img src="${A}layer-case.png?v=${BUILD}" alt="" style="position:absolute;inset:0;width:100%;height:100%">${LIST.map(([k]) => { if (!packed(k)) return ''; const f = PACKFILE[k], [l, t, w] = CASEROOM[f]; return `<img src="${A}case-${f}.png?v=${BUILD}" alt="" style="position:absolute;left:${l}%;top:${t}%;width:${w}%">`; }).join('')}</div>`;
+  const at = ([l, t, w]) => `position:absolute;left:${l}%;top:${t}%;width:${w}%`;
+  if (S.caseShut) return `<img src="${A}layer-case-closed.png?v=${BUILD}" alt="" style="${at(CASEP)}">`;
+  return `<img src="${A}layer-case.png?v=${BUILD}" alt="" style="${at(CASEP)}">` + LIST.map(([k]) => { if (!packed(k)) return ''; const f = PACKFILE[k]; return `<img src="${A}case-${f}.png?v=${BUILD}" alt="" style="${at(CASEROOM[f])}">`; }).join('');
 }
 /* Elliot's lock (MOTH-127, MOTH-128): a cardboard box with four wheels, each turned through the piano's eight colours and shapes, and a
    big red button to try them. The room shows the same lock (a crop of the close-up), with the wheels as they were left. */

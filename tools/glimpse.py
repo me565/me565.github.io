@@ -8,7 +8,9 @@ far away down a long hall, and the owner saw both. The glimpse is the next room'
 - it sits on the same horizon (eye height), so its floor line is nearer the horizon the farther it is: Y follows from that;
 - which part shows comes from the plan too: the lateral offset of the opening's edges, at the next wall's depth (X).
 The opening (in pixels of wall.jpg) is the inside of the frame, measured on a grid of the picture; nothing outside it changes.
-Above the next wall's picture the ceiling continues in its own colour; below it the floor's last rows are carried down to the threshold.
+Above the next wall's picture the ceiling continues in its own colour; below it the floor's last rows are carried down to the threshold, but
+never more than a tenth of the opening: a long carried floor looks steep and smeared (the owner, MOTH-142), and it means the next wall was
+placed too far, so the tool stops with STRETCH. Distances are taken from the plan's real sizes; a corridor seen across is a couple of metres.
 The working for each doorway is written beside the call in the level file (eval2: c4's right doorway, k3's doorway)."""
 import sys
 import numpy as np
@@ -26,6 +28,9 @@ comp = Image.new('RGB', (W, H)); top = np.array(ns)[2:8].reshape(-1, 3).mean(0)
 comp.paste(tuple(int(v) for v in top), (0, 0, W, y + 3))  # the ceiling above the next wall's picture
 comp.paste(ns, (x, y))
 bottom = y + ns.height
+stretch = max(0, y1 - bottom); limit = 0.1*(y1 - y0)
+if stretch > limit and '--force' not in args:  # a long carried floor reads as a steep, smeared one (MOTH-142, second report)
+    sys.exit(f'STRETCH: the floor would be carried {stretch}px down to the threshold (over {limit:.0f}px, a tenth of the opening): the next wall is placed too far; check the plan\'s distance (or --force)')
 if bottom < y1:  # the floor nearer than the next picture shows, carried down to the threshold
     strip = ns.crop((0, ns.height - 24, ns.width, ns.height)).resize((ns.width, y1 - bottom + 24)); comp.paste(strip, (x, bottom - 24))
 comp = Image.fromarray((np.array(comp).astype(float)*dim).clip(0, 255).astype('uint8'))  # the next room, a touch dimmer through the door
