@@ -56,3 +56,11 @@ Run by `run.py` before any call: stops on a viewpoint the player never has or a 
 ## patch.py
 
 `python3 tools/patch.py base.jpg edit.png out.png x0 x1 y0 y1 [--feather 6]` pastes a state drawn as an edit of a wall as a soft-edged rectangle (box in picture percentages). It finds the thing as the edit's largest strong change against the base and exits with CUT when the box's soft edge would fade part of it out; it prints the box for the stage and the thing's own box, for placing neighbours clear of it (checklist 96).
+
+## liftcolour.py
+
+`python3 tools/liftcolour.py base edit out.png red|paper|cream|navy x0 x1 y0 y1` lifts a thing an edit added where the edit also redrew what lies under it: a pixel is kept only if it changed and has the thing's colour family; then the largest piece, holes filled. Look at the result on a keycheck sheet. For a thing the same colour as what it lies on (a navy passport on a navy case), cut it by its outline measured on a grid instead.
+
+## polish-e2.js
+
+The polish walk for eval2: every view in four states at the owner's three shapes, every close-up at 2000×700, with overflow and off-screen checks; a copy is made for each level (checklist 36, 43, 97).

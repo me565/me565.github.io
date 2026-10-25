@@ -1,0 +1,359 @@
+{
+ "name": "eval2: the window wall agrees with the sofa wall (the polish walk): the cushions at the far end, the room's case open and shut.",
+ "runs": [
+  40204404291,
+  40204805117,
+  40204996893
+ ],
+ "total_cost_usd": 0.3085,
+ "results": [
+  {
+   "id": "m2-case-open",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval2/m2.jpg",
+    "evals/images/refs/eval2-m3-case.jpg"
+   ],
+   "params": {},
+   "note": "Polish walk: m2 agreed with m3 (cushions at the far end; the room's open case)",
+   "seconds": 18.7,
+   "cost_usd": 0.024541,
+   "usage": {
+    "prompt_tokens": 2105,
+    "completion_tokens": 280,
+    "total_tokens": 2385,
+    "cost": 0.024541,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.024541,
+     "upstream_inference_prompt_cost": 0.016141,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "m2-case-open.png",
+     "bytes": 1657445,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "m2-case-shut",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "case:m2-case-open",
+    "next/art/eval2/closeup-caseclosed.jpg"
+   ],
+   "params": {},
+   "note": "Polish walk: m2's case shut, for the shut state",
+   "seconds": 20.9,
+   "cost_usd": 0.029916,
+   "usage": {
+    "prompt_tokens": 2748,
+    "completion_tokens": 280,
+    "total_tokens": 3028,
+    "cost": 0.029916,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.029916,
+     "upstream_inference_prompt_cost": 0.021516,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "m2-case-shut.png",
+     "bytes": 1604053,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "m2-case-sheet",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-m2-case-open.jpg",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-sheet.png"
+   ],
+   "params": {},
+   "note": "Polish walk: each packed thing its own edit of the window wall's case (checklist 90)",
+   "seconds": 29.0,
+   "cost_usd": 0.057816,
+   "usage": {
+    "prompt_tokens": 3255,
+    "completion_tokens": 1078,
+    "total_tokens": 4333,
+    "cost": 0.057816,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.057816,
+     "upstream_inference_prompt_cost": 0.025476,
+     "upstream_inference_completions_cost": 0.03234
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1078
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "m2-case-sheet.png",
+     "bytes": 1588966,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "m2-case-present",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-m2-case-open.jpg",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-present.png"
+   ],
+   "params": {},
+   "note": "Polish walk: each packed thing its own edit of the window wall's case (checklist 90)",
+   "seconds": 28.0,
+   "cost_usd": 0.057836,
+   "usage": {
+    "prompt_tokens": 3259,
+    "completion_tokens": 1078,
+    "total_tokens": 4337,
+    "cost": 0.057836,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.057836,
+     "upstream_inference_prompt_cost": 0.025496,
+     "upstream_inference_completions_cost": 0.03234
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1078
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "m2-case-present.png",
+     "bytes": 1568471,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "m2-case-hat",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-m2-case-open.jpg",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-hat.png"
+   ],
+   "params": {},
+   "note": "Polish walk: each packed thing its own edit of the window wall's case (checklist 90)",
+   "seconds": 20.5,
+   "cost_usd": 0.041301,
+   "usage": {
+    "prompt_tokens": 3435,
+    "completion_tokens": 480,
+    "total_tokens": 3915,
+    "cost": 0.041301,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.041301,
+     "upstream_inference_prompt_cost": 0.026901,
+     "upstream_inference_completions_cost": 0.0144
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 480
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "m2-case-hat.png",
+     "bytes": 1612437,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "m2-case-passport",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-m2-case-open.jpg",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-passport.png"
+   ],
+   "params": {},
+   "note": "Polish walk: each packed thing its own edit of the window wall's case (checklist 90)",
+   "seconds": 29.8,
+   "cost_usd": 0.060411,
+   "usage": {
+    "prompt_tokens": 3579,
+    "completion_tokens": 1078,
+    "total_tokens": 4657,
+    "cost": 0.060411,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.060411,
+     "upstream_inference_prompt_cost": 0.028071,
+     "upstream_inference_completions_cost": 0.03234
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1078
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "m2-case-passport.png",
+     "bytes": 1616575,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "m2-case-passport2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-m2-case-open.jpg",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-passport.png"
+   ],
+   "params": {},
+   "note": "Polish walk: redrawn, the first had a gold emblem the icon does not have (checklist 82)",
+   "seconds": 17.8,
+   "cost_usd": 0.036631,
+   "usage": {
+    "prompt_tokens": 3611,
+    "completion_tokens": 280,
+    "total_tokens": 3891,
+    "cost": 0.036631,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.036631,
+     "upstream_inference_prompt_cost": 0.028231,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "m2-case-passport2.png",
+     "bytes": 1630264,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}

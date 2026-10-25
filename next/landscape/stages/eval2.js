@@ -209,7 +209,7 @@ const OVERLAYS = {
   m3:() => ov(gold() /* the case (about 60 cm, against the 200 cm sofa) and the board propped on the seat; the game writes on the board */
     + caseRoom()
     + `<div style="position:absolute;left:39.2%;top:50%;width:13%">${boardWrap(false)}</div>`),
-  m2:() => ov(gold() + (S.lightsOff ? '' : `<img class="e2tw" src="${A}layer-lights-on.png?v=${BUILD}" alt="" style="position:absolute;left:13.74%;top:36.23%;width:12.43%">`)),
+  m2:() => ov(gold() + m2Case() + (S.lightsOff ? '' : `<img class="e2tw" src="${A}layer-lights-on.png?v=${BUILD}" alt="" style="position:absolute;left:13.74%;top:36.23%;width:12.43%">`)),
   m1:() => ov(gold()
     + (taken('shelly') ? '' : `<div style="position:absolute;left:87.45%;top:38.9%;width:1.8%;height:2.4%;overflow:hidden"><img src="${A}item-shelly.png?v=${BUILD}" alt="" style="position:absolute;left:22%;top:4%;width:56%"><span style="position:absolute;inset:0;background:rgba(255,255,255,.18)"></span></div>`)
     + (S.botOut ? `<img src="${A}layer-botout.png?v=${BUILD}" alt="" style="position:absolute;left:${BOTOUT.l}%;top:${BOTOUT.t}%;width:${BOTOUT.w}%">` : '') /* the socks drawer out on the floor, its slot dark: an edit of m1 pasted as a soft patch (MOTH-120) */
@@ -261,6 +261,14 @@ function setWardrobe(open){ swingFrom.wdl = swingFrom.wdr = !!S.wardOpen; S.ward
 const CASEROOM = {sheet:[54.56, 52.43, 6.71], present:[59.77, 54.17, 7.23], hat:[65.69, 50.93, 7.1], passport:[54.75, 57.06, 4.3]}, CASEP = [52.34, 40.39, 23.63]; /* the case drawn in place on the sofa at the room's eye level (MOTH-146), open and shut (the handle at the front: MOTH-145), and each packed thing from its own edit of it, pasted where it lies: all in room percentages */
 const CASEUP = {sheet:[9.64, 36.0, 22.33], passport:[6.32, 61.0, 12.63], present:[36.26, 42.82, 25.72], hat:[63.41, 34.14, 30.01]};
 const PACKFILE = {carol:'sheet', hat:'hat', present:'present', passport:'passport'};
+/* The case seen from the window wall, at the sofa's near end (polish walk, 25 Oct 2026): the wall itself carries the open, empty case;
+   shut, and each packed thing, are edits of it (patch.py, liftcolour.py), in room percentages, so this wall agrees with the sofa wall */
+const M2CASE = {sheet:[0, 63.89, 8.85], present:[0, 62.5, 9.9], hat:[0.13, 60.88, 9.11], passport:[2.15, 66.67, 3.71]};
+function m2Case(){
+  const at = ([l, t, w]) => `position:absolute;left:${l}%;top:${t}%;width:${w}%`;
+  if (S.caseShut) return `<img src="${A}layer-m2-shut.png?v=${BUILD}" alt="" style="${at([0, 37.96, 29.95])}">`;
+  return ['present', 'carol', 'hat', 'passport'].map(k => { if (!packed(k)) return ''; const f = PACKFILE[k]; return `<img src="${A}m2case-${f}.png?v=${BUILD}" alt="" style="${at(M2CASE[f])}">`; }).join(''); /* the flat present at the bottom, the hat and passport on top, as you'd pack them, so each still shows */
+}
 function caseRoom(){
   const at = ([l, t, w]) => `position:absolute;left:${l}%;top:${t}%;width:${w}%`;
   if (S.caseShut) return `<img src="${A}layer-case-closed.png?v=${BUILD}" alt="" style="${at(CASEP)}">`;
@@ -571,7 +579,7 @@ return {
   intro:'<b>Packing day.</b> The taxi comes at six, and Mary’s things are all over the flat. Her list is on the whiteboard by the case.',
   start:{room:'mary', view:0},
   fresh:() => ({seen:{}, clues:[], taken:{}, packed:{}, wheels:[0, 2, 3, 4], wardOpen:false, caseShut:false, tubMoved:false, bathMoved:false, stoolAt:false, boxOpen:false, traded:false, verses:0, versePlayed:false, chorusHeard:false, trundleOut:false, wrapped:false, houseOpen:false, lightsOff:false, wiped:false, botOut:false}),
-  extra:{mary:['caseup', 'caseclosed', 'folder', 'drawer-top', 'drawer-mid', 'drawer-mid-tape', 'drawer-bot-full', 'penpot', 'orgup', 'box', 'box-empty', 'wardrobe-up'].map(n => A + 'closeup-' + n + '.jpg').concat(['tab-wiper.png', 'layer-board.png', 'layer-case.png', 'layer-case-closed.png', 'layer-lights-on.png', 'layer-lights-off.png', 'layer-wardrobe-inside.png', 'layer-wdoor-l.png', 'layer-wdoor-r.png', 'box-hat.png', 'item-stool.png', 'item-sheet.png', 'item-hat.png', 'item-present.png', 'item-passport.png', 'item-shelly.png', 'item-tape.png', 'layer-botout.png', ...['sheet', 'present', 'hat', 'passport'].flatMap(k => ['case-' + k + '.png', 'caseup-' + k + '.png'])].map(f => A + f)),
+  extra:{mary:['caseup', 'caseclosed', 'folder', 'drawer-top', 'drawer-mid', 'drawer-mid-tape', 'drawer-bot-full', 'penpot', 'orgup', 'box', 'box-empty', 'wardrobe-up'].map(n => A + 'closeup-' + n + '.jpg').concat(['tab-wiper.png', 'layer-board.png', 'layer-case.png', 'layer-case-closed.png', 'layer-lights-on.png', 'layer-lights-off.png', 'layer-wardrobe-inside.png', 'layer-wdoor-l.png', 'layer-wdoor-r.png', 'box-hat.png', 'item-stool.png', 'item-sheet.png', 'item-hat.png', 'item-present.png', 'item-passport.png', 'item-shelly.png', 'item-tape.png', 'layer-botout.png', 'layer-m2-shut.png', ...['sheet', 'present', 'hat', 'passport'].map(k => 'm2case-' + k + '.png'), ...['sheet', 'present', 'hat', 'passport'].flatMap(k => ['case-' + k + '.png', 'caseup-' + k + '.png'])].map(f => A + f)),
     kids:['closeup-piano.jpg', 'closeup-trundle.jpg', 'closeup-lock2.jpg', 'layer-lock2.png', 'layer-inside.png', 'layer-housefront.png', 'layer-trundle-out.png', 'layer-trundle-outroll.png', 'closeup-trundle-roll.jpg', 'layer-enote.png', 'lock-cap.png', 'item-passport.png', 'item-shelly.png', 'item-sheet.png'].map(f => A + f)}, /* the close-ups load with the room, so no card opens half drawn (MOTH-76) */
   rooms:ROOMS, walls:WALLS, doors:DOORS, hots:HOTS, layers:LAYERS, notes:NOTES, items:ITEMS, hints:HINTS, uses:USES, overlays:OVERLAYS,
   act, miss, sparkle, rows, noticed, clues, speaker, onRender, helper:() => 'the moth', child:'mary'

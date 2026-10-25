@@ -23,10 +23,13 @@ wall_p, next_p, out_p = [a for i, a in enumerate(args) if not a.startswith('--')
 s = float(opt('--scale')); x, y = (int(round(float(v))) for v in opt('--at').split(',')); x0, y0, x1, y1 = (int(v) for v in opt('--opening').split(','))
 dim = float(opt('--dim', '0.93'))
 wall = Image.open(wall_p).convert('RGB'); W, H = wall.size; nxt = Image.open(next_p).convert('RGB')
-ns = nxt.resize((round(nxt.width*s), round(nxt.height*s)), Image.LANCZOS)
+trim = round(nxt.height*0.025); nxt = nxt.crop((0, trim, nxt.width, nxt.height))  # the style's vignette darkens a picture's top rows: trimmed, or it shows as a seam above the glimpse
+ns = nxt.resize((round(nxt.width*s), round(nxt.height*s)), Image.LANCZOS); y += round(trim*s)
 comp = Image.new('RGB', (W, H)); top = np.array(ns)[2:8].reshape(-1, 3).mean(0)
-comp.paste(tuple(int(v) for v in top), (0, 0, W, y + 3))  # the ceiling above the next wall's picture
-comp.paste(ns, (x, y))
+comp.paste(tuple(int(v) for v in top), (0, 0, W, y + 28))  # the ceiling above the next wall's picture, and under its faded top edge
+fade = Image.linear_gradient('L').resize((ns.width, 256)).crop((0, 0, ns.width, min(24, ns.height)))  # the next wall's top edge fades into the ceiling, so no seam shows above it
+fade = fade.resize((ns.width, min(24, ns.height))); mask = Image.new('L', ns.size, 255); mask.paste(fade.point(lambda v: min(255, v*10)), (0, 0))
+comp.paste(ns, (x, y), mask)
 bottom = y + ns.height
 stretch = max(0, y1 - bottom); limit = 0.1*(y1 - y0)
 if stretch > limit and '--force' not in args:  # a long carried floor reads as a steep, smeared one (MOTH-142, second report)
