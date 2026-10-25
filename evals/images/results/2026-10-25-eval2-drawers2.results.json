@@ -1,0 +1,57 @@
+{
+ "name": "eval2: the desk drawers (MOTH-120, the owner's choice of option 1): the socks drawer out on the floor, stuffed full, the tape in the middle drawer.",
+ "manifest": "evals/images/runs/eval2-drawers.json",
+ "ran_at": "2026-10-25T13:14:50Z",
+ "total_cost_usd": 0.0544,
+ "results": [
+  {
+   "id": "m1-botout2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval2/m1.jpg",
+    "next/art/eval2/closeup-drawer-bot-full.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-120: redrawn with the socks drawer close-up attached, so the socks agree (checklist 78)",
+   "seconds": 30.0,
+   "cost_usd": 0.054416,
+   "usage": {
+    "prompt_tokens": 2860,
+    "completion_tokens": 1078,
+    "total_tokens": 3938,
+    "cost": 0.054416,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.054416,
+     "upstream_inference_prompt_cost": 0.022076,
+     "upstream_inference_completions_cost": 0.03234
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1078
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "m1-botout2.png",
+     "bytes": 1708399,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}

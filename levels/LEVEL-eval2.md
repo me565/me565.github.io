@@ -3,8 +3,8 @@
 *Opened on 24 Oct 2026 at the owner's word: "Do the packing day but built from scratch. Just as a two-room puzzle. Mary needs to find her things before she can take her flight to London for Christmas. Make it interesting." It is the second test level after "Lock-up Duty" (`levels/LEVEL-evalroom.md`), built the same way through the same gates: the room-specification method on Sunburst in the signed-off style, the test room's way of playing, and the owner's materials first (playbook 4x, checklist 8c and 8d). The owner is giving the rooms one at a time as photographs, which are never kept in the repo: each room is written down here in words as it arrives, with what is still missing, and the design is drawn on paper and approved before any picture is made. Room 1 arrived on 24 Oct 2026 (eight pictures) and room 2 the same day (eight pictures, Mary's room); the design below is drawn from both and waits on the owner's Gates A and B. Nothing is signed, nothing is built, no credit is spent. The stage key `eval2` and the hotspot prefix `e2_` are reserved. (An earlier outline for this key, a front-office test room, is parked in commit `731e844` and is not this level.)*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: integrating (Gates A to E signed 25 Oct 2026; the owner's fifth review fixed in build 2026-10-25g; the drawers' design waits on him)
-Build id of the latest play link: 2026-10-25g
+Current status: integrating (Gates A to E signed 25 Oct 2026; the owner's fifth review fixed in build 2026-10-25g; the drawers, his option 1, in 2026-10-25h)
+Build id of the latest play link: 2026-10-25h
 Latest play link: https://rawcdn.githack.com/me565/me565.github.io/bad8fe7a173ead7c6bce34a0445540538559f2c7/next/landscape/index.html?stage=eval2
 
 ---
@@ -439,6 +439,8 @@ Pictures made (`evals/images/runs/eval2-fix4.json`, `-fix4b`, `-fix4c`; runs 401
 
 ### Proposal for the owner: what the drawers could do (MOTH-120)
 
+**Decided: option 1** (owner, 25 Oct 2026, in chat: "Default"). Built in build 2026-10-25h: the tape is in the middle drawer, which sticks a finger's width ("Something underneath is pushing up on it", a Noticed line) until the socks drawer, stuffed over its rim, is slid right out; it then stands on the floor in front of the desk, its slot dark. The pen pot is only a pen pot. Three pictures, each an edit of the one before (`closeup-drawer-bot-full.jpg`, `closeup-drawer-mid-tape.jpg`, `layer-botout.png` pasted from an edit of `m1`); runs 40196507026 and 40196678172 (the first, 40196003419, stopped at no cost on an empty OpenRouter balance until the owner topped it up). The room's drawer was drawn once without the close-up attached and its socks came out pastel: redrawn with it attached (checklist 78), caught before the owner saw it.
+
 The three desk drawers look good and do nothing. A design change, so not built without your word. Default first:
 
 1. **The tape is in the middle drawer, and it's stuck** (default). The middle drawer jams after a finger's width; the bottom drawer, full of socks, is pushing up on it from below. Take the socks drawer out first (it slides right out onto the floor) and the middle one opens: the tape is inside. A small "which drawer first" step, real-world logic, and the pen pot stays a pen pot. It uses the "drawer looked into" type a second time (the cap is two).
@@ -487,7 +489,8 @@ Pictures made (`evals/images/runs/eval2-fix5.json`, run 40189249187, linted clea
 | 6b batch | ~40¢ (the other 26 pictures) | 39.9¢ | 0 | all 26 first time |
 | 7 polish: the fourth review's pictures | ~56¢ (14 listed) | 36.4¢ | 1 (+1 refused, free) | the `k2` edit left the ladder's leg (4.3¢); the room's lock refused by the safety filter |
 | 7 polish: the fifth review's pictures | ~46¢ (13 listed) | 44.8¢ | 13 (re-dos of earlier pictures, all made first time) | the tape and the wardrobe's rail (prompts that said "from above" and "a few clothes"), the bath and tub (drawn alone from above), the room's case pieces (one all-in edit: cut and misplaced), the trundle (a leg and a laid-on roll), Elliot's note (a code label) |
-| Total | ~$1.50 (the walls about $1.00 already spent, the pictures about 50¢) | $2.305 so far | 33 | the walls' re-dos before Gate C; 14 pictures redone in polish |
+| 7 polish: the drawers (MOTH-120, option 1) | ~12¢ (three pictures) | 15.3¢ | 1 | the room's drawer drawn without the socks close-up attached (pastel socks): redrawn with it, 5.4¢ |
+| Total | ~$1.50 (the walls about $1.00 already spent, the pictures about 50¢) | $2.458 so far | 34 | the walls' re-dos before Gate C; 15 pictures redone in polish |
 
 ## Learning loop
 
@@ -523,6 +526,7 @@ Pictures made (`evals/images/runs/eval2-fix5.json`, run 40189249187, linted clea
 | Same review (MOTH-125, 136) | White left in keyed things | `--holes`, `--holes-in` | Yes | Checklist 92; `keycheck.py` |
 | Same review (MOTH-139; the door's blob) | Overlays placed by eye; a stage part named after an engine style | Measured on a grid; renamed | Yes | Checklist 93; `grid.py`; audit E36 |
 | Same review (MOTH-115, 130, 131, 132, 138, 140, 141) | Things not behaving as what they are; a refused tap that moved | Rolling wheels, a pressing button, doors with backs, a drawer that keeps its roll, movement only on yes | Yes | Checklist 94; playbook 4ag |
+| The drawers' pictures, Claude's look, 25 Oct 2026 | The room's socks drawer drawn without its close-up attached: different socks | Redrawn with the close-up as picture 2 and the socks named | Already a rule (checklist 78): a manifest that draws one thing in two pictures attaches the first to the second; I broke it and caught it before the owner | this file |
 | Claude's full check, 25 Oct 2026 | The sofa on the loft wall's side wall; a pier in the window wall's corner; Mary's doorway showing a long corridor; the children's door shut on c4 | Edited with the neighbour attached | Yes: walk the whole set after any change | Checklist 75 |
 
 ## Notes for this level only

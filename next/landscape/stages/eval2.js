@@ -75,7 +75,7 @@ const keySvg = (k, cls = '', extra = '') => `<svg viewBox="0 0 10 10" class="${c
 const ov = html => { const d = document.createElement('div'); d.style.cssText = 'position:absolute;inset:0;pointer-events:none;perspective:calc(var(--u)*140);perspective-origin:50% 45%;transform-style:preserve-3d'; d.innerHTML = html; return d; };
 
 /* ---------- tap targets, in picture percentages ---------- */
-const BOTOUT = {l:0, t:0, w:0}, BOTFLOOR = {l:0, t:0, w:0, h:0}, TAPEIN = [0, 0, 0, 0]; /* filled from the drawers' pictures */
+const BOTOUT = {l:70.96, t:57.41, w:17.32}, BOTFLOOR = {l:72, t:73.5, w:15, h:17.5}, TAPEIN = [12.5, 56, 14, 23.5]; /* the patch (m1-botout2, the socks drawer close-up attached so the socks agree), the drawer on the floor, the tape in closeup-drawer-mid-tape.jpg: measured on grids */
 const HOTS = {
   m3:[
     {id:'e2_board', l:42, t:49, w:15, h:17, label:'Mary’s whiteboard', key:true, sound:'paper'},
