@@ -3,7 +3,7 @@
 *Opened on 24 Oct 2026 at the owner's word: "Do the packing day but built from scratch. Just as a two-room puzzle. Mary needs to find her things before she can take her flight to London for Christmas. Make it interesting." It is the second test level after "Lock-up Duty" (`levels/LEVEL-evalroom.md`), built the same way through the same gates: the room-specification method on Sunburst in the signed-off style, the test room's way of playing, and the owner's materials first (playbook 4x, checklist 8c and 8d). The owner is giving the rooms one at a time as photographs, which are never kept in the repo: each room is written down here in words as it arrives, with what is still missing, and the design is drawn on paper and approved before any picture is made. Room 1 arrived on 24 Oct 2026 (eight pictures) and room 2 the same day (eight pictures, Mary's room); the design below is drawn from both and waits on the owner's Gates A and B. Nothing is signed, nothing is built, no credit is spent. The stage key `eval2` and the hotspot prefix `e2_` are reserved. (An earlier outline for this key, a front-office test room, is parked in commit `731e844` and is not this level.)*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: greybox (Gates A and B signed 25 Oct 2026; the twelve walls passed by the owner the same day; the first playable built as build 2026-10-25a and played by the owner on the tablet the same day; Gate C waits on his sign-off)
+Current status: assets listed is next (Gates A, B and C signed 25 Oct 2026; the twelve walls passed by the owner the same day; the first playable, build 2026-10-25a, signed at Gate C; the asset and script list, Gate D, is being drawn up)
 Build id of the latest play link: 2026-10-25a
 Latest play link: https://rawcdn.githack.com/me565/me565.github.io/80b246c97579567192445072e41a68547a9e3197/next/landscape/index.html?stage=eval2
 
@@ -290,7 +290,8 @@ Result (Claude Code, 25 Oct 2026, build 2026-10-25a): **scripted playthrough pas
 - What stands in at this build: Zaina is her portrait (labelled "stand-in") with a drawn eight-colour piano; the whiteboard, the case, the drawing, the organiser, the bath, the tub, the empty stool space, the stool at the wardrobe, the winter box, the trundle's inside, the doll's house's open front and Elliot's card lock are labelled boxes drawn by the stage; the piano, the carol sheet, Elliot's lock, the organiser, the pen pot and the drawers' insides are code-drawn close-ups; every icon is a labelled tile; the pompom lights are drawn dots; the two drags use greybox tabs (`next/art/eval2/greybox/`). No voice; the music is the flat's track and the ambient is the engine's rain. Gate D lists the real pictures for each.
 
 ### Gate C — it plays right
-Signed off:
+Checked: scripted playthrough passes (normal and reduced motion) · audit clean · no soft-lock · the owner played it on the tablet ("Just played. It's fine") · one play on a real Android phone still to do (checklist 44), carried to the polish walk
+Signed off: "Sign off gate c" (owner, 25 Oct 2026, in chat), on build 2026-10-25a.
 
 ---
 
