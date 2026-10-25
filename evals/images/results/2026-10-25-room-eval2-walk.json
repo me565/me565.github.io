@@ -1,0 +1,31 @@
+{
+ "runs": [
+  "2026-10-25-room-eval2-redo3",
+  "2026-10-25-room-eval2-redo4"
+ ],
+ "judged_by": "Claude, 25 Oct 2026, the whole set walked pair by pair (checklist 75)",
+ "turns": {
+  "m3>m2": "pass: the stand on m3's right; the sofa end with the case, the stand and the curtain on m2's left; plain corner",
+  "m2>m1": "pass: the ladder in profile leaning out on m2's right (MOTH-107); the curtain and window edge on m1's left, no sofa",
+  "m1>m4": "pass: the loft's door end without a ladder on m4's left",
+  "m4>m3": "pass: the door hinged on the right, swung toward the sofa wall (m4); on m3 the doorway at the corner and the leaf open against the back wall, hinge at the corner, the poster clear of it (MOTH-106)",
+  "c4>c1": "pass: the children's doorway open with the bunk on c4's right; c1's left flat, no pier (MOTH-109)",
+  "c1>c2": "pass: Mary's door frame then the picture on c1's right; on c2 the open frame at the corner, Mary's door, the picture, the second door (MOTH-110)",
+  "c2>c3": "pass: a double-door leaf on c2's right; the second door on c3's left",
+  "c3>c4": "pass: the opening to the dining end on both",
+  "k1>k2": "pass: the bunk's end on k1's right; the armchair on k2's left",
+  "k2>k3": "pass: the leaf open flat against k2's back wall at the right, hinge at the corner (MOTH-111); the bunk's foot end on k3's left",
+  "k3>k4": "pass: the doll's house on k3's right; the brick box and tub on k4's left",
+  "k4>k1": "pass: the curtain and glass on both"
+ },
+ "doorways": {
+  "m4": "pass: the corridor's opposite wall close behind, switch, wood skirting, stone",
+  "k3": "pass: down the corridor to the double doors",
+  "c1": "pass: hinged right, swung into the room right, window and bunk (MOTH-112)",
+  "c2": "pass: hinged left, swung into Mary's room left, sofa at the left, rug across the view",
+  "c4": "pass: the children's doorway open"
+ },
+ "floor": "Mary's rug: m3 vertical, m2 horizontal, m1 vertical, m4 horizontal (MOTH-108); the children's rug plain; the corridor stone",
+ "skirting": "Mary's room honey wood, the children's room white, the corridor dark honey wood on its walls and in every glimpse",
+ "cost_usd": 0.275
+}
