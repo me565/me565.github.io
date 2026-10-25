@@ -3,8 +3,8 @@
 *Opened on 24 Oct 2026 at the owner's word: "Do the packing day but built from scratch. Just as a two-room puzzle. Mary needs to find her things before she can take her flight to London for Christmas. Make it interesting." It is the second test level after "Lock-up Duty" (`levels/LEVEL-evalroom.md`), built the same way through the same gates: the room-specification method on Sunburst in the signed-off style, the test room's way of playing, and the owner's materials first (playbook 4x, checklist 8c and 8d). The owner is giving the rooms one at a time as photographs, which are never kept in the repo: each room is written down here in words as it arrives, with what is still missing, and the design is drawn on paper and approved before any picture is made. Room 1 arrived on 24 Oct 2026 (eight pictures) and room 2 the same day (eight pictures, Mary's room); the design below is drawn from both and waits on the owner's Gates A and B. Nothing is signed, nothing is built, no credit is spent. The stage key `eval2` and the hotspot prefix `e2_` are reserved. (An earlier outline for this key, a front-office test room, is parked in commit `731e844` and is not this level.)*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: integrating (Gates A to E signed 25 Oct 2026; the owner's fifth review fixed in build 2026-10-25g; the drawers, his option 1, in 2026-10-25h; his screenshots in 2026-10-25i and 2026-10-25j)
-Build id of the latest play link: 2026-10-25j
+Current status: integrating (Gates A to E signed 25 Oct 2026; the owner's fifth review fixed in build 2026-10-25g; the drawers, his option 1, in 2026-10-25h; his screenshots in 2026-10-25i, j and k)
+Build id of the latest play link: 2026-10-25k
 Latest play link: https://rawcdn.githack.com/me565/me565.github.io/bad8fe7a173ead7c6bce34a0445540538559f2c7/next/landscape/index.html?stage=eval2
 
 ---
@@ -493,6 +493,8 @@ Pictures (`evals/images/runs/eval2-case-eye.json`, run 40199368282): **29.4¢ fo
 | MOTH-148 | The case's close-ups lie on a wooden floor; the case is on the sofa | The close-ups were drawn before the case's place was set | Edited onto the sofa's fabric (with a crop of `m3`'s sofa attached), then the old case kept pixel for pixel and only the floor round it replaced, so the packed pieces still line up |
 
 Pictures (`evals/images/runs/eval2-case-sofa.json`, run 40200819195): **3.6¢ for 2**, first time. Build 2026-10-25j: playthrough passes (normal and reduced motion); audit: no failures, no overlaps.
+
+**Regression, the owner's screenshot (build 2026-10-25j):** "The suitcase is now cut off on the left." To clear the board I had trimmed the case's patch to a left edge I guessed (54.5%); measured on a grid, the case begins at 53.4%, so the patch's soft edge faded its side. Fixed in build 2026-10-25k: both case patches made from a measured box with the new `tools/patch.py`, which refuses a box that cuts the thing (it refuses the old one), and the board moved to 39.2% to stand clear of the case's real edge. No credit spent. Learning loop: checklist 96 (a patch box is measured and checked, never guessed).
 
 ## 8. Release
 

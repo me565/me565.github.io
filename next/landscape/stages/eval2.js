@@ -78,7 +78,7 @@ const ov = html => { const d = document.createElement('div'); d.style.cssText = 
 const BOTOUT = {l:70.96, t:57.41, w:17.32}, BOTFLOOR = {l:72, t:73.5, w:15, h:17.5}, TAPEIN = [12.5, 56, 14, 23.5]; /* the patch (m1-botout2, the socks drawer close-up attached so the socks agree), the drawer on the floor, the tape in closeup-drawer-mid-tape.jpg: measured on grids */
 const HOTS = {
   m3:[
-    {id:'e2_board', l:40, t:49, w:14.5, h:17, label:'Mary’s whiteboard', key:true, sound:'paper'},
+    {id:'e2_board', l:38.5, t:49, w:14, h:17, label:'Mary’s whiteboard', key:true, sound:'paper'},
     {id:'e2_case', l:55, t:40, w:19, h:27, label:'Mary’s case', sound:'open'},
     {id:'e2_cushions', l:30, t:48, w:12, h:17, label:'Cushions', sound:'tap'},
     {id:'e2_poster', l:17, t:6, w:15, h:41, label:'Planets poster', sound:'paper'},
@@ -208,7 +208,7 @@ const gold = () => S.wiped ? '<div style="position:absolute;inset:0;background:r
 const OVERLAYS = {
   m3:() => ov(gold() /* the case (about 60 cm, against the 200 cm sofa) and the board propped on the seat; the game writes on the board */
     + caseRoom()
-    + `<div style="position:absolute;left:40.8%;top:50%;width:13%">${boardWrap(false)}</div>`),
+    + `<div style="position:absolute;left:39.2%;top:50%;width:13%">${boardWrap(false)}</div>`),
   m2:() => ov(gold() + (S.lightsOff ? '' : `<img class="e2tw" src="${A}layer-lights-on.png?v=${BUILD}" alt="" style="position:absolute;left:13.74%;top:36.23%;width:12.43%">`)),
   m1:() => ov(gold()
     + (taken('shelly') ? '' : `<div style="position:absolute;left:87.45%;top:38.9%;width:1.8%;height:2.4%;overflow:hidden"><img src="${A}item-shelly.png?v=${BUILD}" alt="" style="position:absolute;left:22%;top:4%;width:56%"><span style="position:absolute;inset:0;background:rgba(255,255,255,.18)"></span></div>`)
@@ -258,7 +258,7 @@ function wardrobeRoom(){
 function setWardrobe(open){ swingFrom.wdl = swingFrom.wdr = !!S.wardOpen; S.wardOpen = open; save(); sfx(open ? 'open' : 'close'); render(); animateDoor('wdl', open); animateDoor('wdr', open); }
 /* The case in the room (MOTH-113, MOTH-123, MOTH-133): drawn from the close-up so the clothes agree; each packed thing is lifted from an
    edit with all four in, so any of them shows in its own place; zipped shut, it is the closed case. */
-const CASEROOM = {sheet:[54.56, 52.43, 6.71], present:[59.77, 54.17, 7.23], hat:[65.69, 50.93, 7.1], passport:[54.75, 57.06, 4.3]}, CASEP = [54.49, 24.42, 21.48]; /* the case drawn in place on the sofa at the room's eye level (MOTH-146), open and shut (the handle at the front: MOTH-145), and each packed thing from its own edit of it, pasted where it lies: all in room percentages */
+const CASEROOM = {sheet:[54.56, 52.43, 6.71], present:[59.77, 54.17, 7.23], hat:[65.69, 50.93, 7.1], passport:[54.75, 57.06, 4.3]}, CASEP = [52.34, 40.39, 23.63]; /* the case drawn in place on the sofa at the room's eye level (MOTH-146), open and shut (the handle at the front: MOTH-145), and each packed thing from its own edit of it, pasted where it lies: all in room percentages */
 const CASEUP = {sheet:[9.64, 36.0, 22.33], passport:[6.32, 61.0, 12.63], present:[36.26, 42.82, 25.72], hat:[63.41, 34.14, 30.01]};
 const PACKFILE = {carol:'sheet', hat:'hat', present:'present', passport:'passport'};
 function caseRoom(){

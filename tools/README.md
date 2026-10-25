@@ -52,3 +52,7 @@ Lifts what an edit added to a picture, by difference with the picture before it:
 ## evals/images/promptlint.py
 
 Run by `run.py` before any call: stops on a viewpoint the player never has or a vague set seen twice (checklist 88). `python3 evals/images/promptlint.py <manifest>` to check one by hand.
+
+## patch.py
+
+`python3 tools/patch.py base.jpg edit.png out.png x0 x1 y0 y1 [--feather 6]` pastes a state drawn as an edit of a wall as a soft-edged rectangle (box in picture percentages). It finds the thing as the edit's largest strong change against the base and exits with CUT when the box's soft edge would fade part of it out; it prints the box for the stage and the thing's own box, for placing neighbours clear of it (checklist 96).
