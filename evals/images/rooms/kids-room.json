@@ -1,0 +1,203 @@
+{
+ "name": "Elliot and Zaina's room (the family flat, Singapore): test level eval2, Packing Day from scratch; from the owner's photographs of 24 Oct 2026, not kept",
+ "setting": "Cosy, warm and lived-in: two small children's shared bedroom in a Singapore flat on a rainy December afternoon, empty of people.",
+ "palette": "the walls are plain white, with no painted band; the band line is only the height of the bunk bed's lower rail, 42% of the way up the back wall from the floor; the floor is pale honey-coloured wood with a soft grey rug in the middle; white furniture, a white bunk bed, bright toy colours (teal, yellow, lime green, pink)",
+ "box": "a shallow box in one-point perspective: a wide back wall running the full width, narrow side walls, a thin strip of ceiling, a low floor band",
+ "light": "the only daylight comes through the floor-to-ceiling glass on the window wall, a soft grey-green rainy afternoon light, with a warm ceiling light elsewhere",
+ "words": [],
+ "order": [
+  "k1",
+  "k2",
+  "k3",
+  "k4"
+ ],
+ "walls": {
+  "k1": {
+   "name": "the window wall (north)",
+   "light": "grey rainy daylight fills this wall from the glass itself and lies in a long soft patch on the rug; everything in front of the glass is a little dark against it",
+   "objects": [
+    {
+     "id": "bunkend",
+     "label": "the foot end of the bunk bed",
+     "text": "the foot end of a white wooden bunk bed, its two end rails covered edge to edge in a dense band of tiny colourful stickers of animals, stars and dinosaurs, a ladder on its far side",
+     "on": "floor",
+     "l": 2,
+     "t": 8,
+     "w": 16,
+     "h": 78,
+     "size": "the top rail at a grown-up's shoulder"
+    },
+    {
+     "id": "glass",
+     "label": "floor-to-ceiling window and glass door",
+     "text": "floor-to-ceiling glass in two tall panes and a glass door with a thin white frame, rain streaming down the glass, cream curtains drawn back to either side; beyond the glass, a narrow balcony rail, the pale towers of neighbouring blocks with rows of balconies, and one big tree with dark glossy leaves close to the glass, all soft in the rain",
+     "on": "wall",
+     "l": 22,
+     "t": 4,
+     "w": 56,
+     "h": 82,
+     "size": "from the floor almost to the ceiling strip"
+    },
+    {
+     "id": "armchair",
+     "label": "small patchwork armchair",
+     "text": "a small low child's armchair upholstered in patchwork squares of floral and striped cloth in pink, green and cream, on pale wooden legs, standing in front of the glass at the right",
+     "on": "floor",
+     "l": 66,
+     "t": 52,
+     "w": 16,
+     "h": 30,
+     "size": "its back at a child's shoulder"
+    }
+   ]
+  },
+  "k2": {
+   "name": "the bunk wall (east), to the right of the window wall",
+   "light": "the glass is to the left of this wall, so grey daylight comes from the left and shadows lean right; the wall is warm from the ceiling light",
+   "objects": [
+    {
+     "id": "bunk",
+     "label": "the bunk bed, side on",
+     "text": "a white wooden bunk bed along the whole wall, side on: a ladder at the left end, every long rail covered edge to edge in a dense band of tiny colourful stickers of animals, stars and dinosaurs, a pull-out trundle drawer in its base with a small cut-out handle; the lower bunk made with a thin striped duvet (cream with fine red, blue and yellow stripes), a pillow at the right end, a cream ribbed padded headboard panel against the wall at the right, a small white clip-on reading light with a bendy arm on the right-hand rail; the upper bunk made with a teal duvet with a pink pattern, a row of small soft toys lined along its rail against the wall; nobody on either bunk",
+     "on": "floor",
+     "l": 6,
+     "t": 10,
+     "w": 76,
+     "h": 76,
+     "size": "the top rail at a grown-up's shoulder; the lower rail at a child's waist",
+     "moves": "single (Zaina: a cut-out sitting cross-legged on the lower bunk with the toy piano on her knees; breathe)",
+     "absent": "a white wooden bunk bed along the whole wall, side on: a ladder at the left end, every long rail covered edge to edge in a dense band of tiny colourful stickers of animals, stars and dinosaurs, a pull-out trundle drawer in its base with a small cut-out handle; the lower bunk made with a thin striped duvet (cream with fine red, blue and yellow stripes), its middle bare and smooth where a child could sit, a pillow at the right end, a cream ribbed padded headboard panel against the wall at the right, a small white clip-on reading light with a bendy arm on the right-hand rail; the upper bunk made with a teal duvet with a pink pattern, a row of small soft toys lined along its rail against the wall; nobody on either bunk",
+     "cut": "a small girl of four sitting cross-legged on a bed with a wooden toy piano across her knees, seen from the front, made from the game's own portrait of Zaina (wispy dark hair in two little bunches, big dark-brown eyes, round cheeks, a navy dress with tiny white cats and rainbows), never from the photograph; the piano a plain pale wooden toy with eight coloured keys, red, orange, yellow, green, blue, indigo, violet, pink, and a slot at its back holding a small card"
+    },
+    {
+     "id": "canvases",
+     "label": "five family pictures",
+     "text": "on the wall above the upper bunk, a loose cluster of five small square canvas prints of family photographs, their faces soft and unreadable at this size",
+     "on": "wall",
+     "l": 24,
+     "t": 2,
+     "w": 30,
+     "h": 8
+    },
+    {
+     "id": "print",
+     "label": "framed print with a little bunting",
+     "text": "to the right of the canvases, a small framed print with a short string of tiny paper bunting across it and a sheet of paper tucked into its frame",
+     "on": "wall",
+     "l": 60,
+     "t": 2,
+     "w": 12,
+     "h": 10
+    },
+    {
+     "id": "curtain",
+     "label": "the edge of the curtain",
+     "text": "at the far right, where this wall meets the glass, the edge of a cream curtain hanging from ceiling to floor",
+     "on": "wall",
+     "l": 90,
+     "t": 4,
+     "w": 8,
+     "h": 82
+    }
+   ]
+  },
+  "k3": {
+   "name": "the door wall (south), opposite the window wall",
+   "light": "the glass is behind the viewer, so this wall is lit evenly by the grey daylight from behind, with faint shadows straight back, and warm from the ceiling light",
+   "objects": [
+    {
+     "id": "door",
+     "label": "the door to the corridor",
+     "text": "the room's door at the left: a dark wooden door standing open against the wall, and through the doorway a glimpse of a short white corridor with a pale stone floor; beside the door frame a long string of small felt elephants and brass bells hanging from the ceiling",
+     "on": "floor",
+     "l": 6,
+     "t": 4,
+     "w": 20,
+     "h": 82,
+     "size": "the door reaches almost to the ceiling strip"
+    },
+    {
+     "id": "kitchen",
+     "label": "white toy kitchen",
+     "text": "a child's toy kitchen in white with a pale wooden top: a little hob with two knobs, a small sink with a tap, a microwave door above, a cupboard and a drawer below; standing on top of it a small wooden teaching clock with a blank face",
+     "on": "floor",
+     "l": 34,
+     "t": 36,
+     "w": 22,
+     "h": 48,
+     "size": "its top at a child's chest"
+    },
+    {
+     "id": "pockets",
+     "label": "hanging pocket organiser with soft toys",
+     "text": "above and to the right of the kitchen, a grey fabric organiser hanging on the wall with a grid of pockets, a soft toy peeping out of three of them (a koala, a fox, a dog)",
+     "on": "wall",
+     "l": 58,
+     "t": 16,
+     "w": 14,
+     "h": 30
+    },
+    {
+     "id": "bricks",
+     "label": "tub and box of bricks",
+     "text": "on the floor at the right, a clear plastic tub of toys and a box of brightly coloured building bricks",
+     "on": "floor",
+     "l": 74,
+     "t": 66,
+     "w": 14,
+     "h": 18,
+     "size": "at a child's knee"
+    },
+    {
+     "id": "ladder",
+     "label": "the head end of the bunk with its ladder",
+     "text": "at the far right, the head end of the white bunk bed with its ladder, the end rails covered in the dense band of tiny stickers",
+     "on": "floor",
+     "l": 88,
+     "t": 8,
+     "w": 10,
+     "h": 78,
+     "size": "the top rail at a grown-up's shoulder"
+    }
+   ]
+  },
+  "k4": {
+   "name": "the cube wall (west), to the left of the window wall",
+   "light": "the glass is to the right of this wall, so grey daylight comes from the right and shadows lean left; the wall is warm from the ceiling light",
+   "objects": [
+    {
+     "id": "dollhouse",
+     "label": "tall blue doll's house",
+     "text": "a tall wooden doll's house standing on the floor at the left: blue walls, a pink roof, a yellow front door, small windows, its whole front closed; a small plain white card taped above its door, with nothing written on it",
+     "on": "floor",
+     "l": 8,
+     "t": 30,
+     "w": 18,
+     "h": 54,
+     "size": "as tall as a child"
+    },
+    {
+     "id": "cubes",
+     "label": "white cube shelf unit",
+     "text": "a tall white cube shelf unit, four cubes wide and five high: some cubes open with rows of children's books, some with coloured drawer fronts and doors (yellow, lime green, teal, white), one cube holding a round teal clock with a blank face at child height, a row of fabric boxes along the bottom (grey, dotted, white, blue); along its top a row of toys: a cat-shaped box with ears, a red box with a cat's face, a plush dinosaur, a toy aeroplane, a straw bag",
+     "on": "floor",
+     "l": 30,
+     "t": 6,
+     "w": 46,
+     "h": 78,
+     "size": "reaching almost to the ceiling strip"
+    },
+    {
+     "id": "curtain2",
+     "label": "the edge of the curtain and the glass",
+     "text": "at the far right, the edge of a cream curtain and a sliver of the rainy glass",
+     "on": "wall",
+     "l": 84,
+     "t": 4,
+     "w": 12,
+     "h": 82
+    }
+   ]
+  }
+ }
+}

@@ -3,7 +3,7 @@
 *Opened on 24 Oct 2026 at the owner's word: "Do the packing day but built from scratch. Just as a two-room puzzle. Mary needs to find her things before she can take her flight to London for Christmas. Make it interesting." It is the second test level after "Lock-up Duty" (`levels/LEVEL-evalroom.md`), built the same way through the same gates: the room-specification method on Sunburst in the signed-off style, the test room's way of playing, and the owner's materials first (playbook 4x, checklist 8c and 8d). The owner is giving the rooms one at a time as photographs, which are never kept in the repo: each room is written down here in words as it arrives, with what is still missing, and the design is drawn on paper and approved before any picture is made. Room 1 arrived on 24 Oct 2026 (eight pictures) and room 2 the same day (eight pictures, Mary's room); the design below is drawn from both and waits on the owner's Gates A and B. Nothing is signed, nothing is built, no credit is spent. The stage key `eval2` and the hotspot prefix `e2_` are reserved. (An earlier outline for this key, a front-office test room, is parked in commit `731e844` and is not this level.)*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: outline (Gate A signed 25 Oct 2026; Gate B waits on the owner)
+Current status: greybox (Gates A and B signed 25 Oct 2026; the first playable is next, playbook 4ac; the room specifications are written and the walls wait on the owner's agreed cost)
 Build id of the latest play link: none
 Latest play link: none
 
@@ -241,8 +241,8 @@ Checked: every thing that moves is listed · every lock has a reward moment · n
 
 ### Gate B — level outline
 Checked: map walk-through passed · paper playtest passed · motion sheet done · no puzzle type more than twice · every answer has a visible clue · difficulty matches the brief
-Walked 24 Oct 2026 on paper: all six pass as recorded above.
-Signed off:
+Walked 24 Oct 2026 on paper: all six pass as recorded above; walked again against the design library's full entries on 25 Oct 2026 (the review below), with the five changes made.
+Signed off: "Sign off gate b" (owner, 25 Oct 2026, in chat). The start view stays the sofa (review point 2's default) and there is no Night Moth bonus, as the defaults said.
 
 ---
 
@@ -318,4 +318,4 @@ Signed off:
 ## Notes for this level only
 
 - Opened in a Claude Code session started from `me565/core-skills`, with read access to this repo only: committed on the local branch `claude/level-eval2`; pushing waits on the owner's permission.
-- The room specifications (`evals/images/rooms/kids-room.json` and `mary-room.json`) are written once Gate B is signed, from the words above, with the moving things left off the walls per the motion sheet, and their run manifest after that.
+- The room specifications `evals/images/rooms/kids-room.json`, `mary-room.json` and `flat-corridor.json` were written on 25 Oct 2026 after Gate B, from the words above, with the moving things left off the walls per the motion sheet (Zaina, the whiteboard, the case, the organiser, the bath and tub, the drawing); their sketches and prompts are built by the repo's scripts, and `evals/images/runs/room-eval2.json` is the manifest to draw the twelve walls on Sunburst once the owner agrees the cost (about 30¢; playbook 4ac).
