@@ -31,8 +31,24 @@ Draws a level's puzzle chart (stage 3 of the level file) as the dependency chart
 
 ## keywhite.py
 
-Keys a cut-out or icon drawn on white (playbook 2): `python3 tools/keywhite.py in.png out.png [--holes N] [--max W]`. The white is flood-filled from the edges (white inside the thing survives); `--holes N` clears enclosed white regions of at least N pixels (a key's hole); the rim is keyed soft so no pale fringe shows; cropped, scaled to at most W wide (1024) and quantised. Prints the size and h/w for the layer's box (h = w × h/w × 16/9). It also grows the background three pixels into the pale, unsaturated halo the model leaves round a figure (MOTH-125).
+Keys a cut-out or icon drawn on white (playbook 2): `python3 tools/keywhite.py in.png out.png [--holes N] [--holes-in x0,x1,y0,y1] [--max W]`. `--holes-in` limits the clearing of enclosed white (pale, inside the box) to a region: the pockets a stray hair walls off go, the eyes' whites stay (MOTH-125). An RGBA input is laid on white first, so a keyed cut-out can be cleaned again. The white is flood-filled from the edges (white inside the thing survives); `--holes N` clears enclosed white regions of at least N pixels (a key's hole); the rim is keyed soft so no pale fringe shows; cropped, scaled to at most W wide (1024) and quantised. Prints the size and h/w for the layer's box (h = w × h/w × 16/9). It also grows the background three pixels into the pale, unsaturated halo the model leaves round a figure (MOTH-125).
 
 ## lift.py
 
-Lifts what an edit added to a picture, by difference with the picture before it: `python3 tools/lift.py base.png edited.png name x0 x1 y0 y1 out.png [--tight]`, the window in fractions. Prints the box in picture percentages and writes a `-check.jpg` of it in place. `--tight` keeps the gaps inside the thing (no big closing of the mask) and is the one to use for states: each thing that goes into or out of a container is lifted from an edit of the empty container, so any mix of them shows in the one picture (playbook 4af). Never use a lifted thing as an icon: it brings its floor and shadow along (MOTH-116); icons are drawn on white.
+Lifts what an edit added to a picture, by difference with the picture before it: `python3 tools/lift.py base.png edited.png name x0 x1 y0 y1 out.png [--tight]`, the window in fractions. Prints the box in picture percentages and writes a `-check.jpg` of it in place. `--tight` keeps the gaps inside the thing (no big closing of the mask) and is the one to use for states: each thing that goes into or out of a container is lifted from an edit of the empty container, so any mix of them shows in the one picture (playbook 4af). Never use a lifted thing as an icon: it brings its floor and shadow along (MOTH-116); icons are drawn on white. It exits 2 with "CUT" when the thing touches its window (other than at the picture's edge): widen the window (the bobble: MOTH-137). Lift each thing from its own edit, never from one where another overlaps it (the hat under the passport: MOTH-144); where the edit redrew what lies under the thing, cut it by its colours or paste a soft rectangle of the state instead (playbook 4ag).
+
+## keycheck.py
+
+`python3 tools/keycheck.py sheet.jpg a.png b.png ...` draws every cut-out over a dark and a mid wall on one contact sheet, with its pale-rim share and its enclosed white regions, to look at before placing (checklist 92).
+
+## grid.py
+
+`python3 tools/grid.py picture.jpg out.jpg [x0 x1 y0 y1]` draws the picture's own percentages (every 1% on a crop under 40% wide) for measuring anything laid over it (checklist 93).
+
+## glimpse.py
+
+`python3 tools/glimpse.py wall.jpg next.jpg out.jpg --scale S --at X,Y --opening x0,y0,x1,y1 [--dim 0.93]` pastes the next room's wall into a doorway: face-on, scaled for its distance, on the same horizon (checklist 91; the working in the docstring and the level file).
+
+## evals/images/promptlint.py
+
+Run by `run.py` before any call: stops on a viewpoint the player never has or a vague set seen twice (checklist 88). `python3 evals/images/promptlint.py <manifest>` to check one by hand.

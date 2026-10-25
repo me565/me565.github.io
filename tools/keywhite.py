@@ -1,6 +1,8 @@
-"""Key a cut-out or icon drawn on white (playbook 2): keywhite.py in.png out.png [--holes N] [--max W]
+"""Key a cut-out or icon drawn on white (playbook 2): keywhite.py in.png out.png [--holes N] [--holes-in x0,x1,y0,y1] [--max W]
 The white is flood-filled away from the picture's edges, so white inside the thing survives; with --holes N, any enclosed
-near-white region of at least N pixels is cleared too (a handle's loop, a key's hole: MOTH-70). The rim is keyed soft
+near-white region of at least N pixels is cleared too (a handle's loop, a key's hole: MOTH-70); --holes-in limits that to regions
+lying wholly inside a box (fractions of the picture), so the white pockets a stray hair walls off go and the eyes' whites stay (MOTH-125).
+An RGBA input is laid on white first, so a cut-out already keyed can be cleaned again. The rim is keyed soft
 (MOTH-85; a pale halo round a figure is grown into first, MOTH-125): every opaque pixel within two of transparency takes its alpha from its whiteness and has the white pulled out of
 its colour, so no pale fringe shows on a dark surface. Then cropped to the content, scaled to at most --max pixels wide
 (default 1024) and quantised to 256 colours. Prints the size and the ratio (h/w) for the layer's box."""
@@ -10,8 +12,11 @@ from PIL import Image, ImageFilter
 args = [a for a in sys.argv[1:]]
 holes = int(args[args.index('--holes') + 1]) if '--holes' in args else 0
 maxw = int(args[args.index('--max') + 1]) if '--max' in args else 1024
+box = [float(v) for v in args[args.index('--holes-in') + 1].split(',')] if '--holes-in' in args else None
 src, out = [a for i, a in enumerate(args) if not a.startswith('--') and (i == 0 or not args[i-1].startswith('--'))][:2]
-im = Image.open(src).convert('RGB'); W, H = im.size; px = im.load()
+im = Image.open(src)
+if im.mode in ('RGBA', 'LA', 'P'): im = im.convert('RGBA'); bgw = Image.new('RGBA', im.size, (255, 255, 255, 255)); bgw.alpha_composite(im); im = bgw
+im = im.convert('RGB'); W, H = im.size; px = im.load()
 white = lambda p: p[0] > 232 and p[1] > 232 and p[2] > 232
 bg = bytearray(W*H); q = deque()
 for x in range(W):
@@ -29,13 +34,15 @@ if holes:
     for y in range(H):
         for x in range(W):
             i = y*W+x
-            if bg[i] or seen[i] or not white(px[x, y]): continue
+            hw = (lambda q: min(q) > 165 and max(q) - min(q) < 40) if box and box[2]*H <= y <= box[3]*H and box[0]*W <= x <= box[1]*W else white  # inside the box a pale pocket counts too
+            if bg[i] or seen[i] or not hw(px[x, y]): continue
             reg = [(x, y)]; seen[i] = 1; k = 0
             while k < len(reg):
                 cx, cy = reg[k]; k += 1
                 for nx, ny in ((cx-1, cy), (cx+1, cy), (cx, cy-1), (cx, cy+1)):
                     j = ny*W+nx
-                    if 0 <= nx < W and 0 <= ny < H and not seen[j] and not bg[j] and white(px[nx, ny]): seen[j] = 1; reg.append((nx, ny))
+                    if 0 <= nx < W and 0 <= ny < H and not seen[j] and not bg[j] and hw(px[nx, ny]): seen[j] = 1; reg.append((nx, ny))
+            if box and not all(box[0]*W <= cx <= box[1]*W and box[2]*H <= cy <= box[3]*H for cx, cy in reg): continue
             if len(reg) >= holes:
                 for cx, cy in reg: bg[cy*W+cx] = 1
 # the halo (MOTH-125): a ring of pale grey, too dark to count as white, is left round a figure by the model's anti-aliasing. Grow the

@@ -1,10 +1,20 @@
 /* The Moth House: the checklist's automatic lines (next/CHECKLIST.md), run over every stage.
    usage: node tools/audit.js [stage ...]   (needs the local server: cd <repo> && python3 -m http.server 8765)
-   Checks: cut-out proportions (B9), icons centred inside their slots (E33), close-ups that take what their hotspot takes (E34), a shadow on things that stand (B10, listed for a look), pictures that fail to load (G38),
+   Checks: cut-out proportions (B9), icons centred inside their slots (E33), close-ups that take what their hotspot takes (E34), no picture squashed or stretched in a room or close-up (E35),
+   no stage part named after an engine style (E36), a shadow on things that stand (B10, listed for a look), pictures that fail to load (G38),
    hotspot bounds, size and the turn-arrow strips (E32), unique hotspot ids, close-up overflow and page scroll at three sizes (G36, G37),
    unrecorded voice keys (F34), targets low enough to sit under the caption band (32d), and an error-free run with reduced motion at the owner's screen shape (G36).
    Writes screenshots of every view to tools/audit-out/<stage>-<view>.png for the visual lines. */
 const { chromium } = require('playwright');
+/* run in the page: every picture under a root drawn at its own proportions (box against natural size, unless it is contained or
+   cropped on purpose with object-fit), and no flat scale that differs across and down on it or anything above it */
+const squashed = root => { const out = [], R = document.querySelector(root); if (!R || R.hidden) return out;
+  const flat = el => { const t = getComputedStyle(el).transform; if (!t || t === 'none' || t.startsWith('matrix3d')) return 0; const [a, b, c, d] = t.slice(7, -1).split(',').map(Number); const sx = Math.hypot(a, b), sy = Math.hypot(c, d); return Math.abs(sx - sy)/Math.max(sx, sy); };
+  R.querySelectorAll('img').forEach(im => { if (!im.complete || !im.naturalWidth || im.closest('#inv')) return; const r = im.getBoundingClientRect(); if (r.width < 4 || r.height < 4) return; const name = im.getAttribute('src').split('/').pop().split('?')[0];
+    for (let el = im; el && el !== R; el = el.parentElement) if (flat(el) > 0.06){ out.push(`${name} is squashed by a transform (${getComputedStyle(el).transform})`); return; }
+    const fit = getComputedStyle(im).objectFit; if (fit === 'contain' || fit === 'cover' || im.closest('.d3')) return;
+    const want = im.naturalHeight/im.naturalWidth, got = im.clientHeight/im.clientWidth; if (Math.abs(got - want)/want > 0.06) out.push(`${name} is drawn ${Math.round(im.clientWidth)}×${Math.round(im.clientHeight)}, ${Math.round((got/want - 1)*100)}% off its own proportions`); });
+  return out; };
 const fs = require('fs'), path = require('path');
 const OUT = path.join(__dirname, 'audit-out'); fs.mkdirSync(OUT, {recursive:true});
 const base = 'http://localhost:8765/next/landscape/';
@@ -40,6 +50,14 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
       /* the strip, the scene and the caption all inside the window (the body hides overflow, so a scroll test misses it): the inventory's second column was off the owner's tablet, 24 Oct 2026 */
       const off = await p.evaluate(() => ['inv', 'scene', 'msg'].map(id => { const r = document.getElementById(id).getBoundingClientRect(); return [id, Math.round(r.left), Math.round(r.right), Math.round(r.bottom)]; }).filter(([id, l, r, b]) => l < -1 || r > innerWidth + 1 || b > innerHeight + 1)); if (off.length) say(stage, 'G37', `off the screen at ${name}: ${off.map(o => o.join(' ')).join('; ')}`);
       const views = await p.evaluate(() => Object.entries(ROOMS).flatMap(([r, R]) => R.views.map((v, i) => [r, i, v])));
+      /* a stage's own part named like an engine style picks the engine's look: the doll's house front's back face was ".d3 .back", and the
+         engine's round back button turned it into a small blob, two builds running (MOTH-130, MOTH-141, 25 Oct 2026) */
+      if (name === 'tablet'){ const clash = await p.evaluate(() => { const sheets = [...document.styleSheets], cls = sel => (sel.match(/\.[A-Za-z][\w-]*/g) || []).map(c => c.slice(1));
+          const rules = sh => { try { return [...sh.cssRules].flatMap(r => r.selectorText ? [r] : r.cssRules ? [...r.cssRules] : []).filter(r => r.selectorText); } catch(e){ return []; } };
+          const readable = sheets.filter(sh => rules(sh).length), engine = new Set(rules(readable[0]).flatMap(r => cls(r.selectorText))), out = []; /* the engine's own sheet is the page's first readable one; the stages add theirs after it */
+          readable.slice(1).forEach(sh => rules(sh).forEach(r => r.selectorText.split(',').forEach(sel => { const c = cls(sel); if (c.length > 1 && !engine.has(c[0])) c.slice(1).filter(x => engine.has(x)).forEach(x => out.push(`${sel.trim()} (".${x}" is an engine style)`)); })));
+          return [...new Set(out)]; });
+        clash.forEach(c => say(stage, 'E36', `a stage part is named after an engine style: ${c}; give it the stage's own name`)); }
       /* every icon inside its slot and centred in it (MOTH-119: a tall picture overflowed its slot and sat low, eval2, 25 Oct 2026) */
       if (name === 'tablet'){ const keys = await p.evaluate(() => Object.keys(ITEMS));
         for (let k = 0; k < keys.length; k += 10){
@@ -74,6 +92,8 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
           /* a smaller target drawn over the middle of a bigger one takes the bigger one's tap (the engine puts small things on top): fine for a mug on a desk, wrong for a window on the stairs (14 Oct 2026) */
           for (const h of hs) for (const g of hs){ if (g === h || g.w*g.h <= h.w*h.h) continue; const gx = g.l + g.w/2, gy = g.t + g.h/2;
             if (gx > h.l && gx < h.l + h.w && gy > h.t && gy < h.t + h.h) say(stage, 'E32?', `${v}: ${h.id} covers the middle of ${g.id}, so a tap on ${g.id}'s centre goes to ${h.id} (fine only if that is the intent)`); }
+          /* no picture squashed or stretched to fake a view: the tape was a front-on roll at scaleY(.45), a flat disc on the desk (MOTH-117) */
+          (await p.evaluate(squashed, '#scene')).forEach(q => say(stage, 'E35', `${v}: ${q}`));
           await p.screenshot({path:path.join(OUT, `${stage}-${v}.png`), clip:await p.locator('#scene').boundingBox()});
         }
       }
@@ -89,6 +109,7 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
             const r = await p.evaluate(() => { const c = document.querySelector('#closeup .card'); if (!c || document.getElementById('closeup').hidden) return null; const cu = document.getElementById('closeup').getBoundingClientRect(), r = c.getBoundingClientRect(); const inner = c.scrollHeight > c.clientHeight + 1 || c.scrollWidth > c.clientWidth + 1; const outer = r.bottom > cu.bottom + 1 || r.right > cu.right + 1 || r.top < cu.top - 1;
               const spans = [...c.querySelectorAll('.book span, .ofb, .otitle, .cbox, .head, .big')].filter(s => s.scrollWidth > s.clientWidth + 2 || s.scrollHeight > s.clientHeight + 2).map(s => s.textContent.slice(0, 30)); return {inner, outer, spans}; });
             if (r && (r.inner || r.outer)) say(stage, 'E29', `${v}: ${id} close-up overflows at ${name} (${r.inner ? 'inside' : 'outside'})`);
+            if (name === 'owner') (await p.evaluate(squashed, '#closeup')).forEach(q => say(stage, 'E35', `${v}: ${id} close-up: ${q}`));
             /* what the room takes, its close-up takes (MOTH-51, MOTH-123): a hotspot that takes an item and opens a close-up must carry a close-up target that takes the same item (stages built with close-up targets) */
             if (usesCu && name === 'owner'){ const miss = await p.evaluate(id => { if (document.getElementById('closeup').hidden) return null; const items = Object.keys(USES).filter(k => k.endsWith('>' + id)).map(k => k.split('>')[0]); if (!items.length) return null;
                 const targets = [...document.querySelectorAll('#closeup .cuhot')].map(b => b.dataset.cu); return items.filter(it => !targets.some(t => USES[it + '>' + t])); }, id);

@@ -52,16 +52,25 @@ const keySvg = (k, cls = '', extra = '') => `<svg viewBox="0 0 10 10" class="${c
 .e2btn{position:absolute;border-radius:50%;border:2px solid #2b2836;cursor:pointer;padding:0;background:#fff;display:grid;place-items:center}
 .e2btn svg{width:100%;height:100%}
 .e2btn.flash{animation:e2fl .35s ease-out}
+.e2win{overflow:hidden}
+.e2sym{position:absolute;inset:8%;display:block;transition:transform .3s cubic-bezier(.4,.1,.3,1)}
+.e2sym.from{transform:translateX(120%) rotate(40deg)}
+.e2sym.gone{transform:translateX(-120%) rotate(-40deg)}
+.e2hole{position:absolute;border-radius:50%;background:#1d1714;pointer-events:none}
+.e2cap{position:absolute;pointer-events:none;transition:transform .09s ease-out,filter .09s}
+.e2cap.down{transform:translateY(7%) scale(.95);filter:brightness(.8)}
 @keyframes e2fl{50%{transform:scale(1.18);filter:brightness(1.4)}}
 .d3{position:absolute;transform-style:preserve-3d;pointer-events:none} /* the view's perspective is on the overlay, so every door shares the room's one viewpoint */
 .d3 .leaf{position:absolute;inset:0;transform-style:preserve-3d;transition:transform 1.05s cubic-bezier(.3,.7,.3,1)}
-.d3 .face{position:absolute;inset:0}
-.d3 .face img{position:absolute;inset:0;width:100%;height:100%;display:block}
+.d3 .d3face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.d3 .d3back{position:absolute;inset:0;transform:rotateY(180deg);backface-visibility:hidden;-webkit-backface-visibility:hidden;background:linear-gradient(90deg,rgba(0,0,0,.18),rgba(0,0,0,0) 40%,rgba(255,255,255,.08)),var(--back);box-shadow:inset 0 0 0 calc(var(--u)*.22) rgba(55,38,28,.7),inset 0 0 calc(var(--u)*1.2) rgba(55,38,28,.25);-webkit-mask-size:100% 100%;mask-size:100% 100%} /* turned past square, a door shows its plain inside face, never its outside mirrored (the note through the doll's house front: MOTH-141) */
+.d3 .d3face img{position:absolute;inset:0;width:100%;height:100%;display:block}
 .d3 .edge{position:absolute;top:0;bottom:0;width:var(--t);background:var(--edge);box-shadow:inset 0 0 calc(var(--u)*.3) rgba(0,0,0,.35)}
 .d3 .shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,15,10,.42),rgba(20,15,10,.12));transition:opacity 1.05s}
 .e2tw{animation:e2tw2 2.2s ease-in-out infinite}
 @keyframes e2tw2{0%,100%{filter:brightness(1.05) drop-shadow(0 0 calc(var(--u)*.35) rgba(255,220,150,.9))}50%{filter:brightness(1.3) drop-shadow(0 0 calc(var(--u)*.7) rgba(255,220,150,1))}}
-@media (prefers-reduced-motion:reduce){.e2btn.flash,.e2tw{animation:none}.d3 .leaf,.d3 .shade{transition:none}}
+.e2win.flash{animation:none}
+@media (prefers-reduced-motion:reduce){.e2btn.flash,.e2tw{animation:none}.e2sym,.e2cap{transition:none}.d3 .leaf,.d3 .shade{transition:none}}
 `; document.head.appendChild(st); })();
 const ov = html => { const d = document.createElement('div'); d.style.cssText = 'position:absolute;inset:0;pointer-events:none;perspective:calc(var(--u)*140);perspective-origin:50% 45%;transform-style:preserve-3d'; d.innerHTML = html; return d; };
 
@@ -84,8 +93,8 @@ const HOTS = {
     {id:'e2_loftbed', l:22, t:4, w:64, h:24, label:'Mary’s loft bed', sound:'leaf'},
     {id:'e2_ladder1', l:12, t:4, w:9, h:58, label:'Loft ladder', sound:'knock'},
     {id:'e2_cubes', l:31, t:31, w:16, h:50, label:'Cube shelves', sound:'knock'},
-    {id:'e2_tub', l:20.5, t:60, w:11.5, h:11, label:'A plastic tub', sound:'knock', anim:'lift', layer:'tub', hideWhen:() => S.tubMoved},
-    {id:'e2_bath', l:19, t:71, w:14, h:12, label:'Zaina’s old baby bath', sound:'knock', anim:'lift', layer:'bath', hideWhen:() => S.bathMoved},
+    {id:'e2_bath', l:20.5, t:54, w:11.5, h:10.5, label:'Zaina’s old baby bath', sound:'knock', anim:'lift', layer:'bath', hideWhen:() => S.bathMoved},
+    {id:'e2_tub', l:20.5, t:64.5, w:11.5, h:18.5, label:'A plastic tub', sound:'knock', get anim(){ return S.bathMoved ? 'lift' : null; }, layer:'tub', hideWhen:() => S.tubMoved}, /* no lift while the bath sits on it: a refused tap never shows what it refuses (the stool peeped out) */
     {id:'e2_stool', l:20, t:64, w:11, h:18, label:'A step stool', key:true, sound:'knock', showWhen:() => S.tubMoved && S.bathMoved && !taken('stool')},
     {id:'e2_drawing', l:56, t:32, w:9.5, h:16, label:'Framed drawing', key:true, sound:'paper', anim:'lift', layer:'drawing', hideWhen:() => taken('drawing')},
     {id:'e2_postcard', l:50.5, t:36, w:5, h:8, label:'Postcard', sound:'paper'},
@@ -122,7 +131,7 @@ const HOTS = {
   k2:[
     {id:'e2_zaina', l:44.5, t:48, w:11, h:24, label:'Zaina', key:true, sound:'squeak'},
     {id:'e2_piano', l:46.5, t:63.5, w:7.5, h:6, label:'Zaina’s toy piano', key:true, sound:'tick'},
-    {id:'e2_trundle', l:20, t:74, w:56, h:10, label:'Trundle drawer under the bunk', key:true, sound:'open'},
+    {id:'e2_trundle', l:20, t:74, w:58, h:14, label:'Trundle drawer under the bunk', key:true, sound:'open'},
     {id:'e2_toys', l:30, t:21, w:30, h:12, label:'Soft toys on the top bunk', sound:'squeak'},
     {id:'e2_topbunk', l:30, t:33, w:46, h:8, label:'Elliot’s bunk', sound:'leaf'},
     {id:'e2_kcanvases', l:36, t:5, w:19, h:18, label:'Family pictures', sound:'tap'},
@@ -142,15 +151,20 @@ const HOTS = {
     {id:'e2_ktoys', l:37, t:3, w:37, h:15, label:'Toys on top of the shelves', sound:'squeak'}]
 };
 /* the samples (Gate E, 25 Oct 2026): Zaina, the bath and the tub, the stool lifted from m1 with the patch behind it (the m1 edit), the passport */
-const CUT = {bath:{l:19.5, t:71.5, w:13, h:11.7}, tub:{l:21, t:61, w:10.5, h:12.11}, bathAside:{l:31, t:74.5, w:13, h:11.7}, tubAside:{l:32.3, t:64.6, w:10.5, h:12.11}, /* set aside together on the floor in front of the cube shelves, the tub back in the bath (MOTH-115) */
+/* the bath and the tub (MOTH-115, fifth review): the yellow bath stacked on the white tub, as you would stack them, each drawn at the room's
+   eye level in its own edit of m1 (the tub, then the bath on it) and cut from it, so the tub is whole when the bath comes off. Set aside
+   they stand on the same floor line in front of the cube shelves (bottom 82.4%, the stool's), the bath first on the floor, then back on
+   the tub once the tub has moved: nothing hangs in the air. */
+const CUT = {tub:{l:21.55, t:62.38, w:9.05, h:20.02}, bath:{l:21.88, t:55.09, w:8.98, h:9.14}, tubAside:{l:33.2, t:62.38, w:9.05, h:20.02}, bathFloor:{l:33.3, t:73.26, w:8.98, h:9.14}, bathAside:{l:33.53, t:55.09, w:8.98, h:9.14},
   stool:{l:21.09, t:65.28, w:9.77, h:17.25}, patch:{l:19.99, t:63.31, w:11.98, h:21.18}, zaina:{l:45.5, t:49, w:9, h:23}}; /* sized against the bunk: a four-year-old sitting is about 58 cm, the bed 180 cm */
 const lay = (src, c, more = {}) => Object.assign({src:A + src, l:c.l, t:c.t, w:c.w, h:c.h}, more);
 const LAYERS = {
   m1:[lay('layer-drawing.png', {l:57, t:33, w:7.5, h:12.77}, {group:'drawing', hideWhen:() => taken('drawing')}), /* Mary's drawing for Nana, on the panel's blank space: about 30 cm against the 120 cm desk */
     lay('layer-org-empty.png', {l:84, t:30, w:6.5, h:20.08}, {group:'org'}), /* Shelly is drawn whole behind its window by the overlay, as in the close-up (MOTH-118) */
     lay('layer-stoolpatch.png', CUT.patch, {showWhen:() => taken('stool')}), /* the floor and wall where the stool stood, from the m1 edit */
-    lay('layer-bath.png', CUT.bath, {group:'bath', shadow:.6, hideWhen:() => S.bathMoved}), lay('layer-bath.png', CUT.bathAside, {shadow:.6, showWhen:() => S.bathMoved}),
-    lay('layer-tub.png', CUT.tub, {group:'tub', shadow:.5, hideWhen:() => S.tubMoved}), lay('layer-tub.png', CUT.tubAside, {shadow:.5, showWhen:() => S.tubMoved})],
+    lay('layer-tub.png', CUT.tub, {group:'tub', shadow:.5, hideWhen:() => S.tubMoved}), lay('layer-tub.png', CUT.tubAside, {shadow:.5, showWhen:() => S.tubMoved}),
+    lay('layer-bath.png', CUT.bath, {group:'bath', shadow:.4, hideWhen:() => S.bathMoved}), lay('layer-bath.png', CUT.bathFloor, {shadow:.6, showWhen:() => S.bathMoved && !S.tubMoved}),
+    lay('layer-bath.png', CUT.bathAside, {shadow:.4, showWhen:() => S.bathMoved && S.tubMoved})],
   k2:[lay('layer-zaina.png', CUT.zaina, {group:'zaina', shadow:.5, idle:'breathe', amount:.012, period:2.6})],
   m2:[{draw:'rain', l:37, t:6, w:27, h:68, count:16, hideWhen:() => S.wiped},
     lay('layer-lights-off.png', {l:15.04, t:36.23, w:11.07, h:48.5}, {showWhen:() => S.lightsOff})], /* the pompom lights, lifted from an edit of m2 (MOTH-114); on, they are drawn by the overlay so they can twinkle */
@@ -196,33 +210,38 @@ const OVERLAYS = {
   m2:() => ov(gold() + (S.lightsOff ? '' : `<img class="e2tw" src="${A}layer-lights-on.png?v=${BUILD}" alt="" style="position:absolute;left:13.74%;top:36.23%;width:12.43%">`)),
   m1:() => ov(gold()
     + (taken('shelly') ? '' : `<div style="position:absolute;left:87.45%;top:38.9%;width:1.8%;height:2.4%;overflow:hidden"><img src="${A}item-shelly.png?v=${BUILD}" alt="" style="position:absolute;left:22%;top:4%;width:56%"><span style="position:absolute;inset:0;background:rgba(255,255,255,.18)"></span></div>`)
-    + (taken('tape') ? '' : `<img src="${A}item-tape.png?v=${BUILD}" alt="" style="position:absolute;left:70.4%;top:52.2%;width:2.6%;transform:scaleY(.45);transform-origin:50% 100%;filter:drop-shadow(0 1px 1px rgba(0,0,0,.4))">`) /* the tape lies on the desk by the pot, where the close-up has it (MOTH-117) */
+    + (taken('tape') ? '' : `<img src="${A}item-tape.png?v=${BUILD}" alt="" style="position:absolute;left:70.2%;top:53.6%;width:2.4%;filter:drop-shadow(0 1px 1px rgba(0,0,0,.4))">`) /* the tape lies on the desk by the pot, where the close-up has it (MOTH-117): the roll drawn lying on its side at the child's eye level, never squashed to fake it */
     + (taken('drawing') ? '' : `<div style="position:absolute;left:58.2%;top:45.6%;padding:0 .3em;background:#fffaf0;border:1px solid #9a8a70;transform:rotate(-3deg);font:400 calc(var(--u)*.6)/1.3 ${HAND};color:#2f5f8a">For Nana</div>`)),
   m4:() => ov(gold() + wardrobeRoom()),
   k1:() => ov(gold()),
   k2:() => ov(gold() /* Zaina is a cut-out now; the keys of her piano carry the KEYS colours, baked from the same list */
     + (S.traded ? `<img src="${A}item-shelly.png?v=${BUILD}" alt="" style="position:absolute;left:54.4%;top:62.5%;width:3%;transform:rotate(14deg);filter:drop-shadow(1px 2px 2px rgba(0,0,0,.35))">` : (taken('sheet') ? '' : `<div style="position:absolute;left:48.3%;top:61.6%;width:3.2%;height:2.9%;overflow:hidden;pointer-events:none"><img src="${A}item-sheet.png?v=${BUILD}" alt="" style="position:absolute;left:0;top:8%;width:100%;transform:rotate(-4deg)"></div>`)) /* the carol sheet's own picture, standing in the piano's slot (MOTH-126) */
-    + (S.trundleOut ? `<div style="position:absolute;left:29.6%;top:77.5%;width:46.4%;height:10%;background:#1c1612;box-shadow:inset 0 0 calc(var(--u)*1.5) #000"></div><img src="${A}layer-trundlefront.png?v=${BUILD}" alt="" style="position:absolute;left:29.6%;top:77.5%;width:46.4%;transform:translateY(22%) scale(1.03);filter:drop-shadow(0 calc(var(--u)*.4) calc(var(--u)*.4) rgba(0,0,0,.35))">` : '')),
-  k4:() => ov(gold() + (S.houseOpen ? '' : `<div style="position:absolute;left:24%;top:59.4%;width:4%;text-align:center;font:400 calc(var(--u)*.5)/1.15 ${HAND};color:#c0392b;transform:rotate(-2deg)">KEEP OUT<br>MARY</div>`)
+    + (S.trundleOut ? `<img src="${A}${taken('paper') ? 'layer-trundle-out.png' : 'layer-trundle-outroll.png'}?v=${BUILD}" alt="" style="position:absolute;left:16.99%;top:72.45%;width:65.95%">` : '')), /* the drawer out, drawn as an edit of k2 (the ladder's foot painted out first) and pasted as a soft-edged patch, the paper lying inside it (MOTH-131, MOTH-132) */
+  k4:() => ov(gold() + (S.houseOpen ? '' : enote(false))
     + (S.houseOpen ? houseOpen()
       : lockRoom()))
 };
 /* The doll's house opens (the reward moment): the front, lifted from the wall, swings open in 3D on its left edge and shows the
    inside (asset 25) with the passport on the tiny bed. No windows light up (MOTH-129). */
+/* Elliot's note (MOTH-141): a picture of lined paper taped on, covering the plain patch on the house front, with his words written on it by
+   the game; on the front in the room and on the front as it swings open, so it is never a blank label. Measured on a grid of k4. */
+const NOTE = {l:23.8, t:58.4, w:4.0};
+const enote = onFront => { const l = onFront ? (NOTE.l - FRONT.l)/FRONT.w*100 : NOTE.l, t = onFront ? (NOTE.t - FRONT.t)/FRONT.h*100 : NOTE.t, w = onFront ? NOTE.w/FRONT.w*100 : NOTE.w;
+  return `<div style="position:absolute;left:${l}%;top:${t}%;width:${w}%;transform:rotate(-2deg);filter:drop-shadow(0 calc(var(--u)*.1) calc(var(--u)*.15) rgba(0,0,0,.35))"><img src="${A}layer-enote.png?v=${BUILD}" alt="" style="display:block;width:100%"><div style="position:absolute;left:0;right:0;top:34%;text-align:center;font:400 calc(var(--u)*.46)/1.1 ${HAND};color:#c0392b">KEEP OUT<br>MARY</div></div>`; };
 const FRONT = {l:18.5, t:41, w:14.5, h:42.5}, INSIDE = {l:16.5, t:28.5, w:18, h:55.08};
 function houseOpen(){
   return `<img src="${A}layer-inside.png?v=${BUILD}" alt="" style="position:absolute;left:${INSIDE.l}%;top:${INSIDE.t}%;width:${INSIDE.w}%">`
     + (taken('passport') ? '' : `<img src="${A}item-passport.png?v=${BUILD}" alt="" style="position:absolute;left:24.3%;top:57.6%;width:2.2%;transform:rotate(-72deg);filter:drop-shadow(1px 2px 2px rgba(0,0,0,.4))">`)
-    + door3d('hfront', FRONT, A + 'layer-housefront.png', 'left', 118, true, '#6f97bd', '#d9c7a8');
+    + door3d('hfront', FRONT, A + 'layer-housefront.png', 'left', 118, true, '#6f97bd', '#d9c7a8', 1.7, enote(true)); /* a doll's house front is a thick panel (MOTH-130) */
 }
 /* A door that opens with depth (MOTH-130): the front is the picture lifted from the wall (seen from behind once it has turned past
    square, shaded); along its free edge its thickness, its own plane in 3D; a shadow deepens on the front as it turns away from the light. The engine's doors
    are flat (a picture turned on one axis); this belongs in the engine for every level (backlog), and lives here until then. */
 const swingFrom = {}; /* a door id here is drawn at that state first, then animated to its own (animateDoor) */
-function door3d(id, b, src, hinge, angle, open, edge, back){
+function door3d(id, b, src, hinge, angle, open, edge, back, t = .75, extra = ''){
   const st = id in swingFrom ? swingFrom[id] : open, deg = st ? (hinge === 'left' ? -angle : angle) : 0;
   const edgeCss = hinge === 'left' ? 'left:100%;transform-origin:0 50%;transform:rotateY(90deg)' : 'right:100%;transform-origin:100% 50%;transform:rotateY(-90deg)';
-  return `<div class="d3" id="${id}" style="left:${b.l}%;top:${b.t}%;width:${b.w}%;height:${b.h}%;--t:calc(var(--u)*.75);--edge:${edge}"><div class="leaf" data-hinge="${hinge}" data-angle="${angle}" style="transform-origin:${hinge === 'left' ? '0' : '100%'} 50%;transform:rotateY(${deg}deg)"><div class="face"><img src="${src}?v=${BUILD}" alt=""><div class="shade" style="opacity:${st ? 1 : 0}"></div></div><div class="edge" style="${edgeCss}"></div></div></div>`;
+  return `<div class="d3" id="${id}" style="left:${b.l}%;top:${b.t}%;width:${b.w}%;height:${b.h}%;--t:calc(var(--u)*${t});--edge:${edge}"><div class="leaf" data-hinge="${hinge}" data-angle="${angle}" style="transform-origin:${hinge === 'left' ? '0' : '100%'} 50%;transform:rotateY(${deg}deg)"><div class="d3face"><img src="${src}?v=${BUILD}" alt="">${extra}<div class="shade" style="opacity:${st ? 1 : 0}"></div></div><div class="d3back" style="--back:${back};-webkit-mask-image:url(${src}?v=${BUILD});mask-image:url(${src}?v=${BUILD})"></div><div class="edge" style="${edgeCss}"></div></div></div>`;
 }
 function animateDoor(id, open){ delete swingFrom[id]; requestAnimationFrame(() => requestAnimationFrame(() => { const d = $(id); if (!d) return; const leaf = d.querySelector('.leaf'), a = +leaf.dataset.angle;
   leaf.style.transform = `rotateY(${open ? (leaf.dataset.hinge === 'left' ? -a : a) : 0}deg)`; d.querySelector('.shade').style.opacity = open ? 1 : 0; })); }
@@ -231,13 +250,13 @@ function animateDoor(id, open){ delete swingFrom[id]; requestAnimationFrame(() =
 const WDL = {l:32.0, t:4.4, w:12.1, h:76.8}, WDR = {l:44.1, t:4.4, w:12.2, h:76.8}, WIN = {l:31.8, t:4.2, w:24.8, h:79.6};
 function wardrobeRoom(){
   return `<img src="${A}layer-wardrobe-inside.png?v=${BUILD}" alt="" style="position:absolute;left:${WIN.l}%;top:${WIN.t}%;width:${WIN.w}%;height:${WIN.h}%">`
-    + (S.stoolAt ? `<img src="${A}item-stool.png?v=${BUILD}" alt="" style="position:absolute;left:39.7%;top:67.6%;width:8.9%;filter:drop-shadow(calc(var(--u)*.4) calc(var(--u)*.5) calc(var(--u)*.4) rgba(30,25,20,.45))">` : '') /* about 40 cm against the 200 cm wardrobe */
+    + (S.stoolAt ? `<img src="${A}item-stool.png?v=${BUILD}" alt="" style="position:absolute;left:39.6%;top:72.4%;width:9.2%;filter:drop-shadow(calc(var(--u)*.4) calc(var(--u)*.5) calc(var(--u)*.4) rgba(30,25,20,.45))">` : '') /* about 40 cm against the 200 cm wardrobe, standing on the floor in front of it, not on its shelf (MOTH-136) */
     + door3d('wdl', WDL, A + 'layer-wdoor-l.png', 'left', 122, !!S.wardOpen, '#d8d0c0', '#f2ede3') + door3d('wdr', WDR, A + 'layer-wdoor-r.png', 'right', 122, !!S.wardOpen, '#d8d0c0', '#f2ede3');
 }
 function setWardrobe(open){ swingFrom.wdl = swingFrom.wdr = !!S.wardOpen; S.wardOpen = open; save(); sfx(open ? 'open' : 'close'); render(); animateDoor('wdl', open); animateDoor('wdr', open); }
 /* The case in the room (MOTH-113, MOTH-123, MOTH-133): drawn from the close-up so the clothes agree; each packed thing is lifted from an
    edit with all four in, so any of them shows in its own place; zipped shut, it is the closed case. */
-const CASEROOM = {sheet:[4.53, 49.79, 30.25], present:[32.71, 46.89, 33.3], hat:[61.97, 44.61, 33.89], passport:[76.16, 66.38, 20.89]};
+const CASEROOM = {sheet:[4.53, 49.79, 30.25], present:[32.71, 46.89, 33.3], hat:[65.48, 49.0, 30.87], passport:[4.93, 70.72, 13.91]}; /* hat and passport each from their own edit of the empty case, placed as in the close-up: nothing cut where another overlapped it (MOTH-143, MOTH-144) */
 const CASEUP = {sheet:[9.64, 36.0, 22.33], passport:[6.32, 61.0, 12.63], present:[36.26, 42.82, 25.72], hat:[63.41, 34.14, 30.01]};
 const PACKFILE = {carol:'sheet', hat:'hat', present:'present', passport:'passport'};
 function caseRoom(){
@@ -247,7 +266,9 @@ function caseRoom(){
 }
 /* Elliot's lock (MOTH-127, MOTH-128): a cardboard box with four wheels, each turned through the piano's eight colours and shapes, and a
    big red button to try them. The room shows the same lock (a crop of the close-up), with the wheels as they were left. */
-const WHEELX = [26.9, 39.2, 51.4, 63.7], WHEELY = 41.8, START = [0, 2, 3, 4]; /* red, yellow, green, blue: how Elliot left it */
+const WHEELX = [27.5, 39.75, 51.75, 63.4], WHEELY = 43.9, START = [0, 2, 3, 4]; /* red, yellow, green, blue: how Elliot left it. The windows' centres measured
+   on a grid of closeup-lock2.jpg (tools/grid.py), never by eye: they were 0.6 left and 2 high (MOTH-139) */
+const CAP = {l:71.74, t:35.76, w:8.85, h:14.81}; /* the red button's cap, lifted from the close-up (lock-cap.png): it presses in (MOTH-140) */
 const wheels = () => S.wheels || START;
 function lockRoom(){
   return `<div style="position:absolute;left:22.9%;top:66%;width:6.8%;aspect-ratio:1014/423;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35))"><img src="${A}layer-lock2.png?v=${BUILD}" alt="" style="position:absolute;inset:0;width:100%;height:100%">${wheels().map((w, i) => `<span style="position:absolute;left:${(WHEELX[i] - 17)/66*100 - 4.6}%;top:${(WHEELY - 18.5)/49*100 - 11}%;width:9.2%;aspect-ratio:1;border-radius:50%;background:${KEYS[ORDER[w]].c}"></span>`).join('')}</div>`;
@@ -312,13 +333,13 @@ function openDrawer(which){ /* look-alike things behave alike (MECH-107): all th
   openCard(D[0], `background-image:url(${A}closeup-drawer-${which}.jpg?v=${BUILD})`, '', D[2]);
 }
 function openPenpot(){
-  const tape = !taken('tape') ? takeBtn('takeTape', 'Sticky tape', [10, 66, 17, 30], `<img src="${A}item-tape.png?v=${BUILD}" alt="" style="width:100%;height:100%;object-fit:contain;transform:scaleY(.48);filter:drop-shadow(calc(var(--u)*.3) calc(var(--u)*.5) calc(var(--u)*.4) rgba(0,0,0,.45))">`) : '';
+  const tape = !taken('tape') ? takeBtn('takeTape', 'Sticky tape', [10, 66, 17, 30], `<img src="${A}item-tape.png?v=${BUILD}" alt="" style="width:100%;height:100%;object-fit:contain;object-position:50% 100%;filter:drop-shadow(calc(var(--u)*.3) calc(var(--u)*.5) calc(var(--u)*.4) rgba(0,0,0,.45))">`) : '';
   openCard('The pen pot', `background-image:url(${A}closeup-penpot.jpg?v=${BUILD})`, tape, taken('tape') ? 'Pens and pencils.' : 'Pens, pencils… and a roll of sticky tape lying on the desk beside the pot.');
   const b = $('takeTape'); if (b) b.onclick = e => { e.stopPropagation(); take('tape'); sfx('pickup'); closeCloseup(); render(); say('Sticky tape. It goes in the strip below.'); };
 }
 function openTrundle(){
-  const roll = !taken('paper') ? takeBtn('takePaper', 'A roll of wrapping paper', [20, 58, 54, 30], `<img src="${A}item-roll-flat.png?v=${BUILD}" alt="" style="width:100%;height:100%;object-fit:contain;filter:drop-shadow(calc(var(--u)*.3) calc(var(--u)*.5) calc(var(--u)*.4) rgba(0,0,0,.4))">`) : '';
-  openCard('Inside the trundle', `background-image:url(${A}closeup-trundle.jpg?v=${BUILD})`, roll, taken('paper') ? 'Spare sheets and a pillow.' : 'Spare bedding, folded… and a roll of Christmas paper with snowmen on.');
+  const roll = !taken('paper') ? takeBtn('takePaper', 'A roll of wrapping paper', [4.7, 60.4, 91.1, 19.9], '') : ''; /* the roll is in the picture, inside the drawer (an edit of the close-up): kept inside, never creeping out (MOTH-132) */
+  openCard('Inside the trundle', `background-image:url(${A}${taken('paper') ? 'closeup-trundle.jpg' : 'closeup-trundle-roll.jpg'}?v=${BUILD})`, roll, taken('paper') ? 'Spare sheets and a pillow.' : 'Spare bedding, folded… and a roll of Christmas paper with snowmen on.');
   const b = $('takePaper'); if (b) b.onclick = e => { e.stopPropagation(); take('paper'); sfx('paper'); closeCloseup(); render(); say('Wrapping paper with snowmen on. It goes in the strip below.'); };
 }
 function openWardrobe(){ /* the doors open in the room first; then, from a child's height, the box is only an edge on the top shelf */
@@ -333,7 +354,7 @@ function openBox(){ /* standing on the stool: the box tied up; a tap opens it, a
   if (!S.boxOpen){
     openCard('The winter box', `background-image:url(${A}closeup-box.jpg?v=${BUILD})`, BOXLABEL + cuTarget('e2_box', 'The winter box', [20, 10, 62, 80]), 'Up on the stool, Mary can reach. The winter box, tied with a red ribbon.');
     wireCu({e2_box:() => { S.boxOpen = true; save(); sfx('open'); openBox(); }}); return; }
-  const hat = !taken('hat') ? takeBtn('takeHat', 'Hat and gloves', [29.95, 25.0, 45.05, 26.85], `<img src="${A}box-hat.png?v=${BUILD}" alt="" style="width:100%;height:100%">`) : '';
+  const hat = !taken('hat') ? takeBtn('takeHat', 'Hat and gloves', [32.55, 21.06, 38.09, 30.79], `<img src="${A}box-hat.png?v=${BUILD}" alt="" style="width:100%;height:100%">`) : '';
   openCard('The winter box', `background-image:url(${A}closeup-box-empty.jpg?v=${BUILD})`, hat, taken('hat') ? 'The winter box, empty now.' : 'The bow slips loose and the lid lifts: Mary’s woolly hat and gloves.');
   const b = $('takeHat'); if (b) b.onclick = e => { e.stopPropagation(); take('hat'); sfx('pickup'); closeCloseup(); render(); say('Hat and gloves, for a cold London. They go in the strip below.'); };
 }
@@ -365,14 +386,24 @@ function trade(){
   say('“SHELLY!” Zaina hugs her tight. The carol sheet slides out of the piano’s slot and into Mary’s hand.' + copyClue('carol'));
   setTimeout(() => openNote('sheet'), 900);
 }
+/* a wheel's disc turns behind its window: the old sign rolls out to the left as the next rolls in from the right, the way the thumb-wheel
+   under it turns (MOTH-138); with reduced motion it simply changes */
+const sym = k => `<span class="e2sym">${keySvg(k, '', 'style="width:100%;height:100%"')}</span>`;
+function roll(face, k){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches){ face.innerHTML = sym(k); return; }
+  [...face.querySelectorAll('.e2sym')].slice(0, -1).forEach(n => n.remove());
+  const old = face.querySelector('.e2sym'); face.insertAdjacentHTML('beforeend', sym(k)); const nu = face.lastElementChild; nu.classList.add('from');
+  requestAnimationFrame(() => requestAnimationFrame(() => { if (old) old.classList.add('gone'); nu.classList.remove('from'); }));
+  setTimeout(() => { if (old && old.parentNode) old.remove(); }, 320);
+}
 function openLock(){
-  const ws = wheels().map((w, i) => `<button class="e2btn e2wheel" data-i="${i}" aria-label="Wheel ${i + 1}: ${ORDER[w]} ${KEYS[ORDER[w]].s}" style="left:${WHEELX[i] - 4.6}%;top:${WHEELY - 8.2}%;width:9.2%;aspect-ratio:1;background:transparent;border:0">${keySvg(ORDER[w], '', 'style="width:84%;height:84%"')}</button>`).join('')
+  const ws = wheels().map((w, i) => `<button class="e2btn e2wheel e2win" data-i="${i}" aria-label="Wheel ${i + 1}: ${ORDER[w]} ${KEYS[ORDER[w]].s}" style="left:${WHEELX[i] - 4.2}%;top:${WHEELY - 7.47}%;width:8.4%;aspect-ratio:1;background:transparent;border:0">${sym(ORDER[w])}</button>`).join('')
     + WHEELX.map((x, i) => `<button class="e2btn e2wheel" data-i="${i}" aria-label="Turn wheel ${i + 1}" style="left:${x - 4.6}%;top:57%;width:9.2%;height:10%;border-radius:calc(var(--u)*.4);background:transparent;border:0"></button>`).join('');
-  openCard('Elliot’s lock', `background-image:url(${A}closeup-lock2.jpg?v=${BUILD})`, ws + `<button class="e2btn" id="e2go" aria-label="The red button: try the lock" style="left:70.6%;top:33%;width:9.8%;aspect-ratio:1;background:transparent;border:0"></button>`,
+  openCard('Elliot’s lock', `background-image:url(${A}closeup-lock2.jpg?v=${BUILD})`, ws + `<span class="e2hole" style="left:${CAP.l + .2}%;top:${CAP.t + .5}%;width:${CAP.w - .4}%;height:${CAP.h - .6}%"></span><img class="e2cap" src="${A}lock-cap.png?v=${BUILD}" alt="" style="left:${CAP.l}%;top:${CAP.t}%;width:${CAP.w}%;height:${CAP.h}%"><button class="e2btn" id="e2go" aria-label="The red button: try the lock" style="left:70.6%;top:33%;width:11.2%;aspect-ratio:1;background:transparent;border:0"></button>`,
     'Turn each wheel to a colour, then press the big red button.');
   document.querySelectorAll('#closeup .e2wheel').forEach(b => b.onclick = e => { e.stopPropagation(); const i = +b.dataset.i, w = [...wheels()]; w[i] = (w[i] + 1) % ORDER.length; S.wheels = w; save(); sfx('tick');
-    const face = document.querySelector(`#closeup .e2wheel[data-i="${i}"]`); face.innerHTML = keySvg(ORDER[w[i]], '', 'style="width:84%;height:84%"'); face.setAttribute('aria-label', `Wheel ${i + 1}: ${ORDER[w[i]]} ${KEYS[ORDER[w[i]]].s}`); face.classList.remove('flash'); void face.offsetWidth; face.classList.add('flash'); fb(''); });
-  $('e2go').onclick = e => { e.stopPropagation(); tryLock(); };
+    const face = document.querySelector(`#closeup .e2win[data-i="${i}"]`); roll(face, ORDER[w[i]]); face.setAttribute('aria-label', `Wheel ${i + 1}: ${ORDER[w[i]]} ${KEYS[ORDER[w[i]]].s}`); fb(''); });
+  $('e2go').onclick = e => { e.stopPropagation(); const cap = document.querySelector('#closeup .e2cap'); cap.classList.add('down'); sfx('tick'); setTimeout(() => cap.classList.remove('down'), 220); setTimeout(tryLock, 160); };
 }
 function tryLock(){
   const p = wheels().map(w => ORDER[w]).join();
@@ -392,7 +423,7 @@ function ending(){
 }
 
 /* ---------- using things ---------- */
-const PACK = {sheet:['carol', 'Nana’s carol goes in the case.'], hat:['hat', 'Hat and gloves, in. London will be cold.'], present:['present', 'Nana’s present, wrapped, goes in on top.'], passport:['passport', 'The passport goes in the case’s front pocket.']};
+const PACK = {sheet:['carol', 'Nana’s carol goes in the case.'], hat:['hat', 'Hat and gloves, in. London will be cold.'], present:['present', 'Nana’s present, wrapped, goes in on top.'], passport:['passport', 'The passport goes in the case, on top at the front.']};
 const USES = {
   'shelly>e2_zaina':trade, 'shelly>e2_piano':trade,
   'stool>e2_wardrobe':() => { drop('stool'); S.stoolAt = true; save(); sfx('knock'); if (!S.wardOpen) setWardrobe(true); else render(); say('Mary stands the stool in the wardrobe and climbs up. Now she can reach the top shelf.'); setTimeout(openBox, 900); },
@@ -425,10 +456,10 @@ function act(id){
     case 'e2_mladder': case 'e2_ladder1': say('Up to Mary’s loft bed. Nothing of hers up there today.'); return;
     case 'e2_loftbed': say('Mary’s bed, way up high, with Zaina’s fairy dress hung on the rail. Of course.'); return;
     case 'e2_cubes': say('Books, craft boxes, and a pink handbag Zaina “lent” her.'); return;
-    case 'e2_tub': S.tubMoved = true; save(); render(); say(S.bathMoved ? 'The tub, set aside.' : 'The tub comes off the top and goes to one side. Under it, Zaina’s old baby bath.'); return;
-    case 'e2_bath':
-      if (!S.tubMoved){ say('The tub is sitting on it.'); return; }
-      S.bathMoved = true; save(); render(); say('The baby bath lifts aside… and there underneath is the little step stool.'); return;
+    case 'e2_bath': S.bathMoved = true; save(); render(); say('Zaina’s old baby bath comes off the top and goes down by the shelves.'); return;
+    case 'e2_tub':
+      if (!S.bathMoved){ say('The baby bath is sitting on it.'); return; }
+      S.tubMoved = true; save(); render(); say('The tub slides along to the shelves, the bath back on top… and behind it is the little step stool.'); return;
     case 'e2_stool': take('stool'); sfx('pickup'); render(); say('A sturdy little step stool. It goes in the strip below.'); return;
     case 'e2_drawing': take('drawing'); sfx('pickup'); render(); say('Mary’s drawing of all of them, framed, labelled “For Nana”. It needs wrapping. It goes in the strip below.'); return;
     case 'e2_postcard': say('A postcard of a lake, from Nana and Jedi.'); return;
@@ -482,7 +513,7 @@ const HINTS = [
   /* 0 */ {goal:() => !!S.seen.list, target:'e2_board', tips:['Mary wrote herself a list.', 'The whiteboard, propped by the case.', 'Read the whiteboard by the case.']},
   /* 1 */ {trail:'a', goal:() => !!S.seen.zaina || S.traded, target:'e2_mdoor', tips:['The folder on the stand is empty. Who likes Mary’s things?', 'Through the door and down the corridor.', 'Zaina has it, in her room.']},
   /* 2 */ {trail:'a', goal:() => S.traded, target:'e2_organiser', tips:['Zaina wants her mermaid. Where would Mary have put her?', 'The pocket organiser under the loft.', 'Shelly is in the pocket organiser under the loft. Take her to Zaina: hold Shelly and tap Zaina.']},
-  /* 3 */ {trail:'b', goal:() => taken('stool'), target:'e2_tub', tips:['The winter box is too high. Mary needs something safe to stand on.', 'Under the loft, by the ladder: the tubs.', 'Lift the tub, then the bath aside: the stool is under them.']},
+  /* 3 */ {trail:'b', goal:() => taken('stool'), target:'e2_bath', tips:['The winter box is too high. Mary needs something safe to stand on.', 'Under the loft, by the ladder: the bath on the tub.', 'Lift the bath off, then slide the tub aside: the stool is behind them.']},
   /* 4 */ {trail:'b', goal:() => taken('hat'), target:'e2_wardrobe', tips:['Stand on the stool at the wardrobe.', 'Hold the stool and tap the wardrobe.', 'Open the wardrobe, use the stool on it, then open the box and take the hat and gloves.']},
   /* 5 */ {trail:'c', goal:() => taken('drawing'), target:'e2_drawing', tips:['Nana’s present is something Mary made.', 'The panel under the loft, above the desk.', 'Take the framed drawing from the panel under the loft.']},
   /* 6 */ {trail:'c', goal:() => taken('paper'), target:'e2_trundle', tips:['Wrapping paper lives where spare things live.', 'Under the children’s bunk.', 'Open the trundle under the bunk: the paper is inside.']},
@@ -531,7 +562,7 @@ return {
   start:{room:'mary', view:0},
   fresh:() => ({seen:{}, clues:[], taken:{}, packed:{}, wheels:[0, 2, 3, 4], wardOpen:false, caseShut:false, tubMoved:false, bathMoved:false, stoolAt:false, boxOpen:false, traded:false, verses:0, versePlayed:false, chorusHeard:false, trundleOut:false, wrapped:false, houseOpen:false, lightsOff:false, wiped:false}),
   extra:{mary:['caseup', 'caseclosed', 'folder', 'drawer-top', 'drawer-mid', 'drawer-bot', 'penpot', 'orgup', 'box', 'box-empty', 'wardrobe-up'].map(n => A + 'closeup-' + n + '.jpg').concat(['tab-wiper.png', 'layer-board.png', 'layer-case.png', 'layer-case-closed.png', 'layer-lights-on.png', 'layer-lights-off.png', 'layer-wardrobe-inside.png', 'layer-wdoor-l.png', 'layer-wdoor-r.png', 'box-hat.png', 'item-stool.png', 'item-sheet.png', 'item-hat.png', 'item-present.png', 'item-passport.png', 'item-shelly.png', 'item-tape.png', ...['sheet', 'present', 'hat', 'passport'].flatMap(k => ['case-' + k + '.png', 'caseup-' + k + '.png'])].map(f => A + f)),
-    kids:['closeup-piano.jpg', 'closeup-trundle.jpg', 'closeup-lock2.jpg', 'layer-lock2.png', 'layer-inside.png', 'layer-housefront.png', 'layer-trundlefront.png', 'item-passport.png', 'item-shelly.png', 'item-roll-flat.png', 'item-sheet.png'].map(f => A + f)}, /* the close-ups load with the room, so no card opens half drawn (MOTH-76) */
+    kids:['closeup-piano.jpg', 'closeup-trundle.jpg', 'closeup-lock2.jpg', 'layer-lock2.png', 'layer-inside.png', 'layer-housefront.png', 'layer-trundle-out.png', 'layer-trundle-outroll.png', 'closeup-trundle-roll.jpg', 'layer-enote.png', 'lock-cap.png', 'item-passport.png', 'item-shelly.png', 'item-sheet.png'].map(f => A + f)}, /* the close-ups load with the room, so no card opens half drawn (MOTH-76) */
   rooms:ROOMS, walls:WALLS, doors:DOORS, hots:HOTS, layers:LAYERS, notes:NOTES, items:ITEMS, hints:HINTS, uses:USES, overlays:OVERLAYS,
   act, miss, sparkle, rows, noticed, clues, speaker, onRender, helper:() => 'the moth', child:'mary'
 };

@@ -3,8 +3,8 @@
 *Opened on 24 Oct 2026 at the owner's word: "Do the packing day but built from scratch. Just as a two-room puzzle. Mary needs to find her things before she can take her flight to London for Christmas. Make it interesting." It is the second test level after "Lock-up Duty" (`levels/LEVEL-evalroom.md`), built the same way through the same gates: the room-specification method on Sunburst in the signed-off style, the test room's way of playing, and the owner's materials first (playbook 4x, checklist 8c and 8d). The owner is giving the rooms one at a time as photographs, which are never kept in the repo: each room is written down here in words as it arrives, with what is still missing, and the design is drawn on paper and approved before any picture is made. Room 1 arrived on 24 Oct 2026 (eight pictures) and room 2 the same day (eight pictures, Mary's room); the design below is drawn from both and waits on the owner's Gates A and B. Nothing is signed, nothing is built, no credit is spent. The stage key `eval2` and the hotspot prefix `e2_` are reserved. (An earlier outline for this key, a front-office test room, is parked in commit `731e844` and is not this level.)*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: integrating (Gates A to E signed 25 Oct 2026; the owner's fourth review fixed in build 2026-10-25f; the drawers' design waits on him)
-Build id of the latest play link: 2026-10-25f
+Current status: integrating (Gates A to E signed 25 Oct 2026; the owner's fifth review fixed in build 2026-10-25g; the drawers' design waits on him)
+Build id of the latest play link: 2026-10-25g
 Latest play link: https://rawcdn.githack.com/me565/me565.github.io/fed11d0b0eba30753d3743d61cf2b61352f7e2f8/next/landscape/index.html?stage=eval2
 
 ---
@@ -445,6 +445,32 @@ The three desk drawers look good and do nothing. A design change, so not built w
 2. **Zaina's hair clip opens something.** The hair clip in the top drawer is the one Zaina used to hide the passport ("It was here. Zaina."); it becomes the key that pops the doll's house's back panel as a second way in, for players who can't get the carol. A kinder route, but two ways to one passport weakens the lock.
 3. **A Night Moth secret.** Each drawer has a tiny paper moth sticker under its lining for the grown-up bonus (none planned so far).
 
+### The owner's fifth recorded review (25 Oct 2026, 10 min 3 s, build 2026-10-25f): MOTH-135 to MOTH-144, and MOTH-115, 117, 124, 125, 130, 131, 132 again
+
+"We're getting there bit by bit, but there are still some recurring issues which you need to really explore and investigate how to fix." Logged first (ten new cards, seven repeats commented), then fixed in build 2026-10-25g, each at the step that made it (playbook 4ag). He liked: the suitcase (better), the lights ("exactly how they should be"), the stool's cleaned-up patch, Shelly, the wardrobe doors' depth ("a really good job"), the box's animation, the lock's look, the zip and the wipe.
+
+| Card | His point | The cause | Fixed how |
+|---|---|---|---|
+| MOTH-115 (again) | The yellow bath should be on the white tub, seen at eye level; the tub still floats when moved | The two cut-outs drawn alone "from above", stacked the wrong way, set aside in the air | Two edits of `m1` at the room's own eye level (the tub in front of the stool, then the bath on it), each cut from its edit; the bath comes off onto the floor, then the tub slides along with the bath back on top, both on the stool's floor line; the tub no longer lifts on a refused tap |
+| MOTH-117 (again) | The tape is a flat disc | Its prompt said "seen from directly above", and the room squashed it (`scaleY .45`) | Drawn lying on its side at a child's eye level; one picture for the room, the close-up and the strip, never squashed (audit E35) |
+| MOTH-124 (again) | Through the corridor's right doorway the cube shelves face left | The model's patch drew the glimpse at its own angle | `tools/glimpse.py`: `k4` pasted face-on (it is parallel to `c4`), at its distance (scale 0.585), on the same horizon, the shelves on the line of sight |
+| MOTH-125 (again) | White at the top of Zaina's hair | Stray hairs wall off pockets of white the flood fill cannot reach | Re-keyed with `keywhite.py --holes 3 --holes-in 0,1,0,0.24` (the hair, not the eyes); `keycheck.py` sheet looked at |
+| MOTH-130 (again) | The doll's house front needs more thickness | The edge was as thin as a wardrobe door's | `door3d` takes a thickness: 1.7 for the doll's house front |
+| MOTH-131 (again) | Remove the ladder's foot; the drawer out looks off | The leg painted across the drawer; the "out" state a dark box and a shifted front | The foot painted out of `k2`; the drawer out drawn as an edit of the cleaned wall, pasted as a soft patch |
+| MOTH-132 (again) | Keep the paper inside the drawer | The roll laid over the close-up, crossing the drawer's edge | The roll drawn inside the drawer, in the room and close up (edits), taken from there |
+| MOTH-135 | The wardrobe's clothes differ room to close-up; dress for Singapore | Both prompts said "a few children's clothes" | The rail named garment by garment (seven summer clothes) in both prompts; the close-up shows garments 2 to 5; the shelves hold T-shirts and shorts |
+| MOTH-136 | The stool has a white middle and sits inside the wardrobe | Keyed without `--holes`; placed on the bottom shelf's line | Re-keyed; stands on the floor in front of the wardrobe |
+| MOTH-137 | The bobble is cut off | The lift's window started below the bobble | Re-lifted through a window that holds it; `lift.py` now refuses a window that cuts |
+| MOTH-138 | The lock's wheels imply rolling but the signs blink | A tap swapped the sign | The disc turns: the old sign rolls out to the left as the next rolls in (instant with reduced motion) |
+| MOTH-139 | The signs sit up and left | Placed by eye | Measured on a grid of the close-up (`tools/grid.py`) |
+| MOTH-140 | The red button should press in | It was a flat spot on the picture | The cap lifted from the picture presses in over its dark well |
+| MOTH-141 | A note pinned to the outside | A plain white patch with code words, and the outside face shown mirrored once the front swings past square | The note a picture (lined paper, tape) with Elliot's words, on the front in both states; a door turned past square shows its plain inside face (`.d3back`) |
+| MOTH-142 | The corridor seen from the children's door isn't the corridor | The model drew a long hall with the double doors far off | `tools/glimpse.py`: `c3` pasted face-on at its distance (scale 0.486): white wall, then the double doors |
+| MOTH-143 | The passport is bottom right in the room, left close up | The room's all-in edit was told "front right corner" | Each packed thing its own edit of the empty case, placed as in the close-up |
+| MOTH-144 | The hat is cut off in the room | The passport overlapped it in the all-in edit, so its lift was cut | As MOTH-143 |
+
+Pictures made (`evals/images/runs/eval2-fix5.json`, run 40189249187, linted clean first): **44.8¢ for 13 pictures**, all first time. Two glimpses, the ladder's foot, the button's cap and the hat's re-lift were done from pictures already made, at no cost. The working for the glimpses: the corridor is about 3.8 m across (its end wall, 888 px at 236 px/m); the children's room runs about 4 m west from its door, so `k4` stands about 1.5 times as far as `c4` (scale 0.877/1.5 = 0.585, its south corner at x 1083); from the children's room the corridor's far wall is about 3.8 m beyond the door, about 2.3 times the door's distance (153 px/m against `c3`'s 315: scale 0.486), the door 1 m left of the view's middle, so the white wall and the left of the double doors show. Old pictures no longer used were removed (`layer-trundlefront.png`, `item-roll-flat.png`, `closeup-lock.jpg`, `closeup-box-open.jpg`, `tab-ribbon.png`). Checks on build 2026-10-25g: scripted playthrough passes (normal and reduced motion); audit of eval2 and the test room: no failures, with the two new checks (E35 found the old squashed tape when run on build f; E36 found the door's back face and its `face` both named after engine styles).
+
 ## 8. Release
 
 (the template's sections, filled in order as the gates open; see `levels/LEVEL-TEMPLATE.md`)
@@ -460,7 +486,8 @@ The three desk drawers look good and do nothing. A design change, so not built w
 | 6a samples | ~10¢ (six pictures) | 9.5¢ | 0 | all six first time |
 | 6b batch | ~40¢ (the other 26 pictures) | 39.9¢ | 0 | all 26 first time |
 | 7 polish: the fourth review's pictures | ~56¢ (14 listed) | 36.4¢ | 1 (+1 refused, free) | the `k2` edit left the ladder's leg (4.3¢); the room's lock refused by the safety filter |
-| Total | ~$1.50 (the walls about $1.00 already spent, the pictures about 50¢) | $1.857 so far | 20 | all re-dos on the walls, before Gate C |
+| 7 polish: the fifth review's pictures | ~46¢ (13 listed) | 44.8¢ | 13 (re-dos of earlier pictures, all made first time) | the tape and the wardrobe's rail (prompts that said "from above" and "a few clothes"), the bath and tub (drawn alone from above), the room's case pieces (one all-in edit: cut and misplaced), the trundle (a leg and a laid-on roll), Elliot's note (a code label) |
+| Total | ~$1.50 (the walls about $1.00 already spent, the pictures about 50¢) | $2.305 so far | 33 | the walls' re-dos before Gate C; 14 pictures redone in polish |
 
 ## Learning loop
 
@@ -489,6 +516,13 @@ The three desk drawers look good and do nothing. A design change, so not built w
 | Same review (MOTH-122, 129, 134) | Drags and effects that looked wrong | Taps and the thing itself | Yes | Checklist 85 |
 | Same review (MOTH-124, 131, 133) | A glimpse along the wrong line; a leg in front of a drawer; "zips shut" not shown | Patched, the drawer gives way, a zip button | Yes | Checklist 86 |
 | Same review (MOTH-127, 128, 130) | A paper lock, no try button, flat doors | A wheel lock with a red button; `door3d` | Yes (the engine's doors: backlog 31) | Checklist 87; playbook backlog 31 |
+| Owner's fifth review, 25 Oct 2026 (MOTH-117, 135, 115) | Faults that came back: prompts asking for a view nobody has ("from directly above") or a vague set ("a few clothes") | Prompts rewritten; `promptlint.py` stops a run on either | Yes | Checklist 88; playbook 4ag; `run.py` |
+| Same review (MOTH-117) | A picture squashed to fake lying flat | Drawn lying flat | Yes | Checklist 89; audit E35 |
+| Same review (MOTH-137, 143, 144) | Pieces cut by an overlap or by the lift's window | Own edits; cut by colour | Yes | Checklist 90; `lift.py` CUT |
+| Same review (MOTH-124, 142) | Doorway glimpses at the model's angle | Pasted from the next wall | Yes | Checklist 91; `glimpse.py` |
+| Same review (MOTH-125, 136) | White left in keyed things | `--holes`, `--holes-in` | Yes | Checklist 92; `keycheck.py` |
+| Same review (MOTH-139; the door's blob) | Overlays placed by eye; a stage part named after an engine style | Measured on a grid; renamed | Yes | Checklist 93; `grid.py`; audit E36 |
+| Same review (MOTH-115, 130, 131, 132, 138, 140, 141) | Things not behaving as what they are; a refused tap that moved | Rolling wheels, a pressing button, doors with backs, a drawer that keeps its roll, movement only on yes | Yes | Checklist 94; playbook 4ag |
 | Claude's full check, 25 Oct 2026 | The sofa on the loft wall's side wall; a pier in the window wall's corner; Mary's doorway showing a long corridor; the children's door shut on c4 | Edited with the neighbour attached | Yes: walk the whole set after any change | Checklist 75 |
 
 ## Notes for this level only

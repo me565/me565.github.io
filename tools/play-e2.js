@@ -54,7 +54,7 @@ const { chromium } = require('playwright');
   await hold('sticky tape'); await hold('framed drawing'); console.log('tape on the frame:', await msg()); check(/Nothing to stick/.test(await msg()), 'tape-first line');
   await hold('wrapping paper'); await hold('framed drawing'); await hold('sticky tape'); await hold('half-wrapped present'); check(await p.evaluate(() => S.got.includes('present')), 'present wrapped');
   // the stool: the bath first is refused, the tub then the bath
-  await tap('e2_bath', 300); check(/sitting on it/.test(await msg()), 'bath under the tub'); await tap('e2_tub', 300); await tap('e2_bath', 300); await shot('12-stool'); await tap('e2_stool', 400);
+  await tap('e2_tub', 300); check(/sitting on it/.test(await msg()), 'the bath sits on the tub (MOTH-115)'); await tap('e2_bath', 300); await shot('12a-bath-down'); await tap('e2_tub', 300); await shot('12-stool'); await tap('e2_stool', 400);
   await hold('step stool'); await tap('e2_cubes', 300); check(/taller/.test(await msg()), 'stool miss line');
   await turnTo('m4'); await hold('step stool'); await tap('e2_wardrobe', 1600); check(await p.evaluate(() => S.stoolAt && !document.getElementById('closeup').hidden), 'stool in the wardrobe, the box close-up open'); await shot('13-box'); await p.evaluate(() => document.querySelector('#closeup .cuhot[data-cu="e2_box"]').click()); await p.waitForTimeout(500); check((await p.locator('#takeHat').count()) === 1, 'box open, hat and gloves inside (MOTH-122)'); await shot('13b-box-open'); await p.click('#takeHat'); await p.waitForTimeout(500); check(await p.evaluate(() => S.got.includes('hat')), 'hat and gloves taken'); await shot('14-stool-at-wardrobe');
   // pack three, the stool refused
