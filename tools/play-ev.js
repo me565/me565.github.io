@@ -18,6 +18,10 @@ const { chromium } = require('playwright');
 
   await p.goto('http://localhost:8765/next/landscape/?stage=evalroom&fresh', {waitUntil:'networkidle'}); await p.waitForTimeout(900);
   await p.evaluate(() => { const f = document.getElementById('fsask'); if (f && !f.hidden){ const bt = f.querySelector('button:last-of-type'); if (bt) bt.click(); else f.hidden = true; } });
+  /* the comic intro (MOTH-157): three pages, two lines each, a tap per line and one to turn; then the title card */
+  { const opened = await p.evaluate(() => !document.getElementById('comic').hidden); let taps = 0;
+    while (await p.evaluate(() => !document.getElementById('comic').hidden) && taps < 20){ await p.evaluate(() => document.getElementById('comic').click()); await p.waitForTimeout(450); taps++; }
+    console.log('comic:', opened ? `played through in ${taps} taps, remembered ${await p.evaluate(() => S.comicSeen)}` : 'MISSING'); }
   if (!(await p.evaluate(() => document.getElementById('stagecard').hidden))) await p.evaluate(() => document.getElementById('cardGo').click()); await p.waitForTimeout(800);
   console.log('start:', JSON.stringify(await st())); await shot('01-start');
   console.log('MOTH-76 close-ups preloaded with the room?', await p.evaluate(() => roomArt('classroom').filter(s => /closeup-bin|closeup-hat|rub-|skey|tab-key/.test(s)).length), '(9) | MOTH-67 doors span', await p.evaluate(() => { const L = LAYERS.c1.find(l => l.group === 'doors'); return [L.l, +(L.l + L.w).toFixed(1), +(L.t + L.h).toFixed(1)]; }), '| envelope', await p.evaluate(() => { const L = LAYERS.c4.find(l => l.group === 'envelope'); return [L.w, L.h]; }));

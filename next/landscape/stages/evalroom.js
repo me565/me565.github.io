@@ -447,6 +447,10 @@ return {
   title:'Lock Up Day', blurb:'Mary’s last day of school: lock up Classroom 5H. One room, three trails, one hard code.',
   track:'../art/music/classroom.mp3', ambient:'school', next:'eval2',
   postcard:{pic:'../art/postcards/school.jpg'},
+  /* the comic intro (MOTH-157, playbook 4n): three single panels from the room's own walls and Mary's portrait; text only, like the level */
+  comic:[{pic:'../art/comic/evalroom-1.jpg', lines:['The last day of term at Knightsbrook.', 'In two days, the plane to London.']},
+    {pic:'../art/comic/evalroom-2.jpg', lines:['Everyone went down to the hall for the last assembly.', 'Mary ran back for her water bottle…']},
+    {pic:'../art/comic/evalroom-3.jpg', lines:['…and found a note on her desk.', 'Mr Hollis had one last job for her.']}],
   intro:'<b>Lock Up Day.</b> Mr Hollis has left Mary to lock up 5H, and the key is in his desk behind a code. There is a note on her desk.',
   start:{room:'classroom', view:0},
   fresh:() => ({seen:{}, clues:[], taken:{}, keyDown:false, binMoved:[], binDone:false, popped:false, measured:0, heights:[], rulerAt:null, cabUnlocked:false, cabOut:false, dials:[0,0,0,0], deskOpen:false, deskOut:false, locked:false}),
