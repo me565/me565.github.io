@@ -530,7 +530,7 @@ Signed off: "I've played it on an Android device and it has my final sign off" (
 
 ## 8. Release
 
-Merged on: 26 Oct 2026, release build 2026-10-26r (branch `release/2026-10-26`, the release pull request to `main`), with the 60 cards MOTH-94 to MOTH-153 moved to Shipped. Live at https://me565.github.io/next/landscape/?stage=eval2 (a test level, not in `LITE`, so it is reached by its address).
+Merged on: 26 Oct 2026, release build 2026-10-26r (branch `release/2026-10-26`, the release pull request to `main`), with the 60 cards MOTH-94 to MOTH-153 moved to Shipped (and, in the same release, MOTH-154 and MOTH-155: The Last Bell removed). Live at https://me565.github.io/next/landscape/?stage=eval2 (a test level, not in `LITE`, so it is reached by its address).
 
 Playtester notes: none yet.
 

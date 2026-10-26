@@ -3,7 +3,7 @@
    from the wall it is on to the room it leads to, labelled with the wall you arrive facing. Writes tools/map.html.
    Run: node tools/map.js */
 const fs = require('fs'), vm = require('vm');
-const STAGES = [['school', 'Mary 1: last day of school'], ['school3', 'Mary 1, version 3: The Last Bell (greybox)'], ['packing', 'Mary 2: packing day'], ['flight', 'Mary 3: the flight'], ['nana', 'Mary 4: Nana and Jedi’s'], ['park', 'Mary 5: Trent Park'], ['eschool', 'Elliot 1: last day of school'], ['zschool', 'Zaina 1: the goodbye party']];
+const STAGES = [['school', 'Mary 1: last day of school'], ['packing', 'Mary 2: packing day'], ['flight', 'Mary 3: the flight'], ['nana', 'Mary 4: Nana and Jedi’s'], ['park', 'Mary 5: Trent Park'], ['eschool', 'Elliot 1: last day of school'], ['zschool', 'Zaina 1: the goodbye party']];
 const noop = () => {};
 function load(st){
   const src = fs.readFileSync(`${__dirname}/../next/landscape/stages/${st}.js`, 'utf8');
