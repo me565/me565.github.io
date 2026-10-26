@@ -115,7 +115,7 @@ Every story passes through six stages in the same order. The finale and epilogue
 
 Decided on 28 Sept 2026 (the owner left it to Claude):
 
-- **The MVP is a "lite" game** (owner, 17 Oct 2026): one or two levels, no ads, so a child can finish it and a grown-up can judge it. The full version follows later and carries ads. Decided 17 Oct 2026: the lite game is **Mary's last day of school and packing day**. Elliot's and Zaina's cards are greyed out and say "Coming soon" until the full version.
+- **The MVP is a "lite" game** (owner, 17 Oct 2026): one or two levels, no ads, so a child can finish it and a grown-up can judge it. The full version follows later and carries ads. Decided 17 Oct 2026: the lite game is **Mary's last day of school and packing day**; since 26 Oct 2026 (owner, MOTH-156) those two are **Lock Up Day** and **Packing Day**, the two levels rebuilt in the test room's style. Elliot's and Zaina's cards are greyed out and say "Coming soon" until the full version.
 - **Part 1: Leaving Singapore** is the first release: stages 1 to 3 for all three children, so nine small rooms. Each story ends with a small magical moment on the plane, and all three end with a short shared teaser: as the plane comes down over London at dusk, a glow flickers in the woods below.
 - **Part 2: The Moth House** follows as an update: stages 4 to 6, the finale and the epilogue.
 - Build order: the choose-a-child screen and shared systems (hints, saves, postcards), then Mary's stages 1 to 3 (her packing draft already exists), then Elliot's, then Zaina's. Owner testing after each room.
@@ -124,6 +124,8 @@ Decided on 28 Sept 2026 (the owner left it to Claude):
 ## Mary's story (age 10)
 
 ### Stage 1: Last day of school — Knightsbrook International School — difficulty 4
+
+**Now "Lock Up Day" (owner, 26 Oct 2026, MOTH-156): the test room "Lock-up Duty" became Mary's last day of school. Mr Hollis has gone to the hall and left Mary to lock up Classroom 5H; the key is in his desk behind a code. One room, three trails, one hard code; the design is in `levels/LEVEL-evalroom.md` and the stage is `next/landscape/stages/evalroom.js`. Its end card leads into Packing Day. Versions 2 and 3 below were removed from the game at the owner's word (26 Oct 2026, MOTH-155 and MOTH-156) and are kept here as the record of what was tried.**
 
 **Version 3, "The Last Bell" (owner, 17 Oct 2026), designed to the standard of the puzzles in the games the owner plays: the room is a machine, the same thing is used twice in two states, every clue goes through a transformation before it fits a lock, books are references to consult and never boxes with the answer in, one moment changes the whole room, and the ending is an act.** Version 2 (below) is the lite release until version 3 is built through the gates (`levels/LEVEL-school.md`).
 
@@ -163,6 +165,8 @@ Decided on 28 Sept 2026 (the owner left it to Claude):
 - Mr Hollis is Mary's (invented) teacher; Mrs Ng the (invented) librarian. Everyone else is at the goodbye party. The moth gives the hints everywhere (tapping Nutmeg opens the notebook too).
 
 ### Stage 2: Packing day — the family flat — for players of 12 to 15
+
+**Now "Packing Day" (owner, 26 Oct 2026, MOTH-156): the second test level became Mary's packing day. Mary's room, the corridor and Elliot and Zaina's room on 22 December; four things to find before the taxi. The design is in `levels/LEVEL-eval2.md` and the stage is `next/landscape/stages/eval2.js`. Version 2 below was removed from the game at the owner's word (26 Oct 2026, MOTH-156) and is kept here as the record of what was tried.**
 
 Version 2 (16 Oct 2026): the first level built from the owner's own materials (the flat's floor plan, photographs of every room and the view, and of Mum, Dad, Nana and Jedi; none of it kept in the repo), and the model for every level after: materials first, the design on paper approved, then the pictures. Built to the playbook (4c, 4t, 4u, 4v) and aimed above Mary's age, at 12 to 15, so the three stages after it are not easier than the one before.
 

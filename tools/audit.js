@@ -22,13 +22,13 @@ const lines = JSON.parse(fs.readFileSync(path.join(__dirname, 'lines.json'), 'ut
 const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/art/voice/index.json'), 'utf8')));
 (async () => {
   const b = await chromium.launch({executablePath:'/opt/pw-browsers/chromium'});
-  const probe = await b.newPage(); await probe.goto(base + '?stage=school', {waitUntil:'networkidle'});
+  const probe = await b.newPage(); await probe.goto(base + '?stage=evalroom', {waitUntil:'networkidle'});
   const all = await probe.evaluate(() => Object.keys(STAGES)); await probe.close();
   const stages = process.argv.slice(2).length ? process.argv.slice(2) : all;
   const report = [];
   const say = (stage, line, what) => report.push(`${stage}\t${line}\t${what}`);
   /* hotspot ids unique across stages */
-  { const p = await b.newPage(); await p.goto(base + '?stage=school', {waitUntil:'networkidle'});
+  { const p = await b.newPage(); await p.goto(base + '?stage=evalroom', {waitUntil:'networkidle'});
     const ids = await p.evaluate(() => { const out = []; for (const [k, st] of Object.entries(STAGES)) for (const v of Object.keys(st.hots)) for (const h of st.hots[v]) out.push([k, h.id]); return out; });
     const SUP = await p.evaluate(() => Object.fromEntries(Object.entries(STAGES).map(([k, st]) => [k, st.supersedes || null]))); /* a stage built to replace another (as school3 was for school) may share its ids: they never load together */
     const sup = (a, b) => SUP[a] === b || SUP[b] === a;

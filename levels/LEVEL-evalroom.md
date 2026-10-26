@@ -3,7 +3,7 @@
 *Outline only, written in claude.ai on 22 Oct 2026 from a discussion with the owner, recorded here the same day from `EVALROOM-HANDOVER.md` with the owner's two changes made in chat after the review (the lock-up duty premise and the falling key) and the review's findings listed under "Review against the repo". Nothing here is built yet. Do not build, generate art or change the engine until the owner signs Gate B, and then follow the gates as for any level. The stage stays `?stage=evalroom` (`next/landscape/stages/evalroom.js`); its current "one room, no puzzle" content is replaced by this design once it reaches the greybox.*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: sample pack placed and played by the owner (build 2026-10-24b carries his notes); Gate E waits on his word
+Current status: released (final sign-off 24 Oct 2026, build 2026-10-24r). Since 26 Oct 2026 it is Mary's first level, **"Lock Up Day"**, her last day of school (owner: "The level that replaces last bell should be called lock up day", and the test room becomes it; MOTH-156, build 2026-10-26c): renamed, the "test room" wording taken off its card, on the title screen as Mary's first stage, and its end card leads into Packing Day (`eval2`). The puzzle and art are unchanged.
 Build id of the latest play link: 2026-10-22f (the first playable, with everything from the owner's three plays built in: MOTH-49 to 68)
 Latest play link: `?stage=evalroom`
 
@@ -303,7 +303,8 @@ Signed off: 24 Oct 2026, the owner, in chat: "Final sign off" (on build 2026-10-
 ## 8. Release
 
 - Not released as a level: a test room. "Release" here means merged to `main` for the owner's own play.
-- Merged on:
+- Since 26 Oct 2026, Mary's first level, "Lock Up Day" (MOTH-156). Joining a story, it took the frame a story level has: a three-page comic intro (MOTH-157, owner's "Go" on about 15¢; `evals/images/runs/evalroom-comic.json`, runs 40311287400 and 40311766214; pages `next/art/comic/evalroom-1..3.jpg`, from the room's own walls and Mary's portrait, words added by the game). The originals are in those runs' artifacts until 25 Nov 2026.
+- Merged on: 26 Oct 2026 as Mary's first level, release build 2026-10-26rb (branch `release/2026-10-26b`), with MOTH-156 and MOTH-157 moved to Shipped. Live at https://me565.github.io/next/landscape/ (choose Mary).
 - Playtester notes (who, what, fix now or later):
 
 ---
@@ -315,7 +316,8 @@ Signed off: 24 Oct 2026, the owner, in chat: "Final sign off" (on build 2026-10-
 | 6a samples | 32¢ | 7.6¢ + 1.8¢ | 1 | Sunburst bills about 1¢ a picture, a quarter of the playbook's estimate. Re-do: the hat (asset 14), whose prompt put the cap on "a plain pale wooden surface" when it lies in a cardboard box; the surround, not the cap, failed |
 | 6b batch | 14¢ (16¢ for ten; Nutmeg's pose not made) | 12.4¢ | 0 | nine pictures, all passed first time |
 | 7 polish | | | | |
-| Total | ~46¢ | 21.8¢ | 1 | samples 9.4¢ (with the hat redone), batch 12.4¢ |
+| Comic intro, on joining Mary's story (MOTH-157) | ~15¢ | 13.3¢ + 5.3¢ | 1 | page 2 hung the classroom door on its right jamb, where the level's door hinges on the left; redrawn with the hinge side named, and promptlint now asks every open door for it |
+| Total | ~61¢ | 40.4¢ | 2 | samples 9.4¢ (with the hat redone), batch 12.4¢, comic 18.6¢ |
 
 ## Learning loop
 
@@ -379,6 +381,8 @@ Every fault found in this level, where it was found, and what happened to it.
 | Owner's second look, 22 Oct 2026 (MOTH-54) | Both drawers stayed open for ever once unlocked | Open and shut on each tap, in the room and close up, by a stage overlay; the ruler and the key inside only while out | Yes: what opens, shuts | Playbook 4ad; checklist 61; backlog 26 |
 | Play script, 22 Oct 2026 | The close-up's tap target lay over the ruler inside the open drawer, so the ruler could not be taken | The target goes under the drawer, and the drawer's own parts let taps through to the things inside | Only this stage's wiring until backlog 25 | this file |
 | Owner's video, 22 Oct 2026 (MOTH-55) | The small key lay on the floor again after it had opened the cabinet, and was picked up a second time during the ending | A taken flag for both keys; the floor and the drawer test the flag, never the strip | Yes: taken things stay taken | Checklist 41b; the play script checks the floor after the key is used |
+| Joining Mary's story, 26 Oct 2026 (MOTH-157) | No comic intro: the owner's first play as Mary went straight to the title card, then Packing Day opened with a comic | Three comic pages, made the way Packing Day's were | Yes: a level that joins a story is walked against the story level's frame | Checklist 98; playbook log 79 |
+| Comic page 2, 26 Oct 2026 (MOTH-157) | The model hung 5H's door on the wrong jamb; the prompt never said which side it hinges | Redrawn with the hinge named | Yes: every open door in a prompt names its hinge side | `evals/images/promptlint.py`; playbook log 79 |
 
 ## Notes for this level only
 
