@@ -644,7 +644,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-10-26r';
+const BUILD = '2026-10-26d';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, the inventory strip under it, or beside it on a wide screen (backlog 24) ---------- */
@@ -1066,12 +1066,12 @@ if (new URLSearchParams(location.search).has('fresh')){ try{ Object.keys(localSt
 /* the three stories: one save each, keyed by child; the title screen's Continue picks up the last one played */
 /* the lite release (owner, 17 Oct 2026): only these stages are playable from the title; a child whose first stage is not
    in the list is greyed out as "Coming soon" on the choose screen and in the Family tab. ?stage=<key> still opens any stage for testing. */
-const LITE = ['school', 'packing'];
+const LITE = ['evalroom', 'eval2'];
 const released = key => !!CHILDREN[key] && LITE.includes(CHILDREN[key].first);
 // the stage a stage's end card leads into, or null while that stage is not in the lite release (the card then says "Coming soon")
 const nextStage = () => STAGE && STAGE.next && LITE.includes(STAGE.next) ? STAGE.next : null;
 const CHILDREN = {
-  mary:{name:'Mary', age:10, level:'for ages 10 and up, with puzzles for grown-ups', colour:'#8a5cc2', line:'Notices patterns, reads everything.', first:'school', portrait:'../art/portraits/mary.png', grin:'../art/portraits/mary-grin.png'},
+  mary:{name:'Mary', age:10, level:'for ages 10 and up, with puzzles for grown-ups', colour:'#8a5cc2', line:'Notices patterns, reads everything.', first:'evalroom', portrait:'../art/portraits/mary.png', grin:'../art/portraits/mary-grin.png'},
   elliot:{name:'Elliot', age:7, level:'for ages 7 and up', colour:'#2f7c83', line:'Wants to know how things work.', first:'eschool', portrait:'../art/portraits/elliot.png', grin:'../art/portraits/elliot-grin.png'},
   zaina:{name:'Zaina', age:4, level:'for ages 4 and up, nothing to read', colour:'#d9a622', line:'Sees the small things. Animals trust her.', first:'zschool', portrait:'../art/portraits/zaina.png', grin:'../art/portraits/zaina-grin.png'}
 };
@@ -1755,7 +1755,7 @@ addEventListener('keydown', e => { if (e.key === 'ArrowLeft') turn(-1); if (e.ke
 
 function boot(){
   try{ const last = localStorage.getItem(KEY + '.last'); if (last && CHILDREN[last]) CHILD = last; }catch(e){}
-  /* ?stage=packing in the address jumps straight to that stage (fresh) of whichever child's story it belongs to, for testing a later stage without playing
+  /* ?stage=eval2 in the address jumps straight to that stage (fresh) of whichever child's story it belongs to, for testing a later stage without playing
      the earlier ones; once you are on it, reloading the same address keeps your progress. It skips the start-up and title. */
   const want = new URLSearchParams(location.search).get('stage');
   if (want && STAGES[want]){ CHILD = STAGES[want].child || 'mary'; S = load(); if (S.stage !== want){ loadStage(want); S = fresh(want); save(); } enterGame(); return; }
@@ -1764,15 +1764,13 @@ function boot(){
   playSplash().then(showTitle);
 }
 </script>
-<script src="stages/school.js?v=2026-10-26r"></script>
-<script src="stages/packing.js?v=2026-10-26r"></script>
-<script src="stages/evalroom.js?v=2026-10-26r"></script>
-<script src="stages/eval2.js?v=2026-10-26r"></script>
-<script src="stages/eschool.js?v=2026-10-26r"></script>
-<script src="stages/zschool.js?v=2026-10-26r"></script>
-<script src="stages/flight.js?v=2026-10-26r"></script>
-<script src="stages/nana.js?v=2026-10-26r"></script>
-<script src="stages/park.js?v=2026-10-26r"></script>
+<script src="stages/evalroom.js?v=2026-10-26d"></script>
+<script src="stages/eval2.js?v=2026-10-26d"></script>
+<script src="stages/eschool.js?v=2026-10-26d"></script>
+<script src="stages/zschool.js?v=2026-10-26d"></script>
+<script src="stages/flight.js?v=2026-10-26d"></script>
+<script src="stages/nana.js?v=2026-10-26d"></script>
+<script src="stages/park.js?v=2026-10-26d"></script>
 <script>boot();</script>
 <script>if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('../../sw.js').catch(() => {});</script>
 </body>

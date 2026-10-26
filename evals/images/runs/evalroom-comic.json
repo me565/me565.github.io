@@ -1,0 +1,52 @@
+{
+ "name": "evalroom: the comic intro for Lock Up Day, three pages (MOTH-157).",
+ "defaults": {
+  "n": 1
+ },
+ "notes": [
+  "Playbook 4n: single panels, no lettering, Mary from her portrait, the room from its own walls (nothing added to the room). Linted. Agreed with the owner, 26 Oct 2026: \"Go\" on about 15 cents.",
+  "comic-2 redrawn (26 Oct 2026): the door's hinge side named, after the first draw hung it on the wrong jamb; promptlint now asks for it."
+ ],
+ "est_total_usd": 0.2,
+ "cases": [
+  {
+   "id": "comic-1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "est_usd": 0.05,
+   "references": [
+    "next/art/eval/c5h/c4.jpg",
+    "next/art/portraits/mary.png"
+   ],
+   "prompt": "A single comic-strip panel, ONE single picture filling the whole 16:9 frame, drawn in exactly the style of the first attached picture (its ink outlines, colours, light and paper grain): no text or lettering anywhere, no speech bubbles, no frames or borders, no panel gutters; any whiteboard, poster, timetable, sign or paper in the picture is blank or turned away. The girl in the scene is the child shown in the second attached picture, drawn small in the scene, never a close-up of the face: Mary, ten, long dark wavy hair in a low ponytail, a rust-orange T-shirt with a cream collar. Any other children are classmates of about ten, in everyday clothes, drawn small and mostly from behind or the side, no faces in close-up. No grown-ups in the picture. The scene: Classroom 5H on the last morning of term, the same room and wall as the first attached picture, seen from the same place: Mary sits at her desk in front of the timetable, zipping up her schoolbag on the desk; two classmates pass behind her carrying their own bags and a rolled-up painting; the hamster cage stands on the blue cabinet, a small golden hamster inside watching. Bright morning sun on the floor. Cheerful, end-of-term bustle.",
+   "note": "MOTH-157: page 1, the last morning of term"
+  },
+  {
+   "id": "comic-2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "est_usd": 0.05,
+   "references": [
+    "next/art/eval/c5h/c3.jpg",
+    "next/art/portraits/mary.png"
+   ],
+   "prompt": "A single comic-strip panel, ONE single picture filling the whole 16:9 frame, drawn in exactly the style of the first attached picture (its ink outlines, colours, light and paper grain): no text or lettering anywhere, no speech bubbles, no frames or borders, no panel gutters; any whiteboard, poster, timetable, sign or paper in the picture is blank or turned away. The girl in the scene is the child shown in the second attached picture, drawn small in the scene, never a close-up of the face: Mary, ten, long dark wavy hair in a low ponytail, a rust-orange T-shirt with a cream collar. Any other children are classmates of about ten, in everyday clothes, drawn small and mostly from behind or the side, no faces in close-up. No grown-ups in the picture. The scene: the same room and wall as the first attached picture, seen from the same place: the blue classroom door stands wide open into the bright corridor: the door is hinged on its LEFT side, as in the first attached picture where its round handle is on the right, and it swings into the room towards the left, so the open door leaf stands at the LEFT edge of the doorway, its handle side towards the green bin, and the doorway's right edge is clear; and a line of four or five classmates files out through it towards the hall, seen from behind; Mary is last in the line, just at the door, glancing back over her shoulder into the empty classroom. The green bin and the lost-property box stay where they are. Lively, a little hurried.",
+   "note": "MOTH-157: page 2, everyone goes down to the hall; redrawn: the first draw hung the door on its right jamb, the level's hinges on the left"
+  },
+  {
+   "id": "comic-3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "est_usd": 0.05,
+   "references": [
+    "next/art/eval/c5h/c4.jpg",
+    "next/art/portraits/mary.png"
+   ],
+   "prompt": "A single comic-strip panel, ONE single picture filling the whole 16:9 frame, drawn in exactly the style of the first attached picture (its ink outlines, colours, light and paper grain): no text or lettering anywhere, no speech bubbles, no frames or borders, no panel gutters; any whiteboard, poster, timetable, sign or paper in the picture is blank or turned away. The girl in the scene is the child shown in the second attached picture, drawn small in the scene, never a close-up of the face: Mary, ten, long dark wavy hair in a low ponytail, a rust-orange T-shirt with a cream collar. The scene: the same room and wall as the first attached picture, seen from the same place, now empty and quiet: Mary stands alone beside her desk in front of the timetable, holding up a plain cream envelope she has just found on the desk, its front turned away from us so nothing on it shows; her water bottle stands on the desk; in the cage on the blue cabinet the small golden hamster presses its nose to the bars, watching her. Afternoon light, still and curious.",
+   "note": "MOTH-157: page 3, the note on her desk"
+  }
+ ]
+}

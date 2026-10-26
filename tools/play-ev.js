@@ -18,6 +18,10 @@ const { chromium } = require('playwright');
 
   await p.goto('http://localhost:8765/next/landscape/?stage=evalroom&fresh', {waitUntil:'networkidle'}); await p.waitForTimeout(900);
   await p.evaluate(() => { const f = document.getElementById('fsask'); if (f && !f.hidden){ const bt = f.querySelector('button:last-of-type'); if (bt) bt.click(); else f.hidden = true; } });
+  /* the comic intro (MOTH-157): three pages, two lines each, a tap per line and one to turn; then the title card */
+  { const opened = await p.evaluate(() => !document.getElementById('comic').hidden); let taps = 0;
+    while (await p.evaluate(() => !document.getElementById('comic').hidden) && taps < 20){ await p.evaluate(() => document.getElementById('comic').click()); await p.waitForTimeout(450); taps++; }
+    console.log('comic:', opened ? `played through in ${taps} taps, remembered ${await p.evaluate(() => S.comicSeen)}` : 'MISSING'); }
   if (!(await p.evaluate(() => document.getElementById('stagecard').hidden))) await p.evaluate(() => document.getElementById('cardGo').click()); await p.waitForTimeout(800);
   console.log('start:', JSON.stringify(await st())); await shot('01-start');
   console.log('MOTH-76 close-ups preloaded with the room?', await p.evaluate(() => roomArt('classroom').filter(s => /closeup-bin|closeup-hat|rub-|skey|tab-key/.test(s)).length), '(9) | MOTH-67 doors span', await p.evaluate(() => { const L = LAYERS.c1.find(l => l.group === 'doors'); return [L.l, +(L.l + L.w).toFixed(1), +(L.t + L.h).toFixed(1)]; }), '| envelope', await p.evaluate(() => { const L = LAYERS.c4.find(l => l.group === 'envelope'); return [L.w, L.h]; }));
@@ -70,6 +74,8 @@ const { chromium } = require('playwright');
   await turnTo('c3'); await hold('classroom key'); await tap('ev_door', 900); console.log('drag open?', !(await p.evaluate(() => document.getElementById('closeup').hidden))); await shot('16-turn-key');
   { await p.waitForTimeout(1100); await shot('16a-key-in-lock'); console.log('MOTH-93 key drawn in the lock?', (await p.locator('#keyin').count()) === 1, '|', await p.textContent('#turnFb')); await p.click('#turnpic'); await p.waitForTimeout(450); await shot('16c-key-turning'); await p.waitForTimeout(1800); console.log('MOTH-93 after the tap:', await p.evaluate(() => document.getElementById('turnFb') ? document.getElementById('turnFb').textContent : 'card closed')); }
   await p.waitForTimeout(1300); await shot('16b-door-swing'); await p.waitForTimeout(3900); console.log('ending shown:', await p.evaluate(() => !document.getElementById('endUI').hidden), JSON.stringify(await st())); await shot('17-ending');
+  /* Lock Up Day is Mary's first level and its end card leads into Packing Day (MOTH-156) */
+  console.log('end card leads to:', await p.evaluate(() => [document.getElementById('endNext').textContent, nextStage()].join(' → ')));
   for (const w of [844, 2000]){ await p.setViewportSize({width:w, height:w === 844 ? 390 : 700}); await p.waitForTimeout(300); console.log('page overflow', w, await p.evaluate(() => document.documentElement.scrollHeight > innerHeight + 1 || document.documentElement.scrollWidth > innerWidth + 1)); }
   console.log('errors:', errs.length ? errs : 'none'); await b.close();
 })();

@@ -163,3 +163,7 @@ Character sheets on magenta with two references, the existing cut-out for the st
 ## eval2, the comic intro (25 Oct 2026)
 
 Three single panels, 16:9 at 2K, saved 1600×900 as `next/art/comic/eval2-1..3.jpg`, from `evals/images/runs/eval2-comic.json`: the level's own wall as the style reference (m2, m3, c3), then the children's portraits, and the case's room crop for page two. The fixed text of the earlier comics with "any whiteboard, poster or paper in the picture is blank or turned away". All three first time (9.2¢).
+
+## Lock Up Day, the comic intro (26 Oct 2026)
+
+Three single panels, 16:9 at 2K, saved 1600×900 as `next/art/comic/evalroom-1..3.jpg`, from `evals/images/runs/evalroom-comic.json` (MOTH-157): the room's own wall as the style reference (c4, c3, c4), then Mary's portrait; nothing is added to the room, the classmates are drawn small and from behind, no grown-ups. Page 2 names the door's hinge side (left, as the level's door), after a first draw hung it on the right jamb. The words are the stage's `comic` lines.

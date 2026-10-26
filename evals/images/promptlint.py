@@ -6,6 +6,9 @@ run.py runs it first and stops on a finding. Two faults it catches, both made in
   little above, its thickness clear), unless she really looks down into it (an open case, a drawer, a box on a low shelf).
 - a vague set: "a few children's clothes" in the room and again in the close-up gave seven garments in one and four different ones in
   the other. Anything seen in more than one picture is named thing by thing, in order, the same words in every prompt.
+- an open door with no hinge side: Lock Up Day's comic drew 5H's door hanging from its right jamb, where the level's door hinges on the
+  left (MOTH-157; the same fault as MOTH-106 and MOTH-112 on eval2's walls). A prompt that shows a door open says which side it hinges
+  on, the side the level's own door uses, and which way it swings.
 A case that means it says so with "lint_ok": "<why>" (for example a close-up looking down into a drawer)."""
 import json, re, sys
 
@@ -24,6 +27,9 @@ def lint(manifest):
         for pat, why in RULES:
             m = re.search(pat, text)
             if m: found.append((c.get("id"), m.group(0), why))
+        m = re.search(r"\bdoors?\b[^.;]{0,80}\b(open|ajar|swings?)\b|\b(open|ajar)\b[^.;]{0,40}\bdoors?\b", text)
+        if m and "hinge" not in text:
+            found.append((c.get("id"), m.group(0), 'open door: say which side it hinges on (the side the level\'s own door uses) and which way it swings'))
     return found
 
 if __name__ == "__main__":

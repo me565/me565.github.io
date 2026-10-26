@@ -1,5 +1,5 @@
-/* The Moth House, landscape engine: the second test level, "Packing Day, from scratch" (levels/LEVEL-eval2.md), not a level of any
-   child's story. Mary's room, the corridor and Elliot and Zaina's room, drawn by GPT Image 2.5 Sunburst on 25 Oct 2026 from
+/* The Moth House, landscape engine: "Packing Day", Mary's second level, after Lock Up Day (owner, 26 Oct 2026, MOTH-156; built as the
+   second test level, "Packing Day, from scratch", levels/LEVEL-eval2.md). Mary's room, the corridor and Elliot and Zaina's room, drawn by GPT Image 2.5 Sunburst on 25 Oct 2026 from
    evals/images/rooms/{mary-room,flat-corridor,kids-room}.json and passed by the owner ("Walls pass", 25 Oct 2026).
    Every picture is real since the batch (build 2026-10-25d, Gates A to E signed 25 Oct 2026): the game draws only the words,
    colours and shapes the puzzle reads (the list and its ticks, the labels, the piano's colours, the lock's shapes, the sheet).
@@ -571,10 +571,10 @@ function copyClue(key){ if (!S.clues) S.clues = []; if (S.clues.includes(key)) r
 const sparkle = () => false; /* no sparkles (owner, 17 Oct 2026): the second hint tier pulses the thing */
 const speaker = () => 'The moth whispers';
 return {
-  card:{place:'THE FLAT · 22 DECEMBER · A TEST LEVEL', text:'The taxi to the airport comes at six. Mary’s case is open on her sofa, her list beside it, and everything on the list has walked.'},
+  card:{place:'THE FLAT · 22 DECEMBER', text:'The taxi to the airport comes at six. Mary’s case is open on her sofa, her list beside it, and everything on the list has walked.'},
   meanwhile:'Meanwhile, at home, Mary is still packing.',
-  title:'Packing Day', blurb:'A test level: two rooms and a corridor. Four things to find before the taxi.',
-  track:'../art/music/flat.mp3', ambient:'rain',
+  title:'Packing Day', blurb:'Two rooms and a corridor. Four things to find before the taxi.',
+  track:'../art/music/flat.mp3', ambient:'rain', next:'flight',
   postcard:{pic:'../art/postcards/packing.jpg'},
   /* the comic intro (MOTH-153, playbook 4n): three single panels from the walls and the children's portraits; text only, like the level (Gate D) */
   comic:[{pic:'../art/comic/eval2-1.jpg', lines:['Rain on the window all afternoon. The taxi to the airport came at six.', 'Christmas in London, at Nana and Jedi’s.']},

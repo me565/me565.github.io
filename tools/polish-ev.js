@@ -13,6 +13,8 @@ const OUT = (process.env.SHOTS || '/tmp') + '/polish-ev-';
     const turnTo = async v => { for (let i = 0; i < 5; i++){ if ((await p.evaluate(() => ROOMS[S.room].views[S.view])) === v) return; await p.evaluate(() => document.getElementById('right').click()); await p.waitForTimeout(320); } };
     await p.goto('http://localhost:8765/next/landscape/?stage=evalroom&fresh', {waitUntil:'networkidle'}); await p.waitForTimeout(900);
     await p.evaluate(() => { const f = document.getElementById('fsask'); if (f && !f.hidden){ const bt = f.querySelector('button:last-of-type'); if (bt) bt.click(); else f.hidden = true; } });
+    /* the comic intro (MOTH-157): each page shot and checked, then the title card */
+    for (let k = 0; k < 20 && !(await p.evaluate(() => document.getElementById('comic').hidden)); k++){ if (k % 2 === 1){ await p.waitForTimeout(350); await shot(`00-comic-${(k + 1)/2}`); await check(`comic page ${(k + 1)/2}`); } await p.evaluate(() => document.getElementById('comic').click()); await p.waitForTimeout(350); }
     await shot('00-card'); await check('title card');
     if (!(await p.evaluate(() => document.getElementById('stagecard').hidden))) await p.evaluate(() => document.getElementById('cardGo').click()); await p.waitForTimeout(800);
     for (const v of ['c4', 'c1', 'c3', 'c2']){ await turnTo(v); await p.waitForTimeout(300); await shot(`01-${v}`); await check(v); }
