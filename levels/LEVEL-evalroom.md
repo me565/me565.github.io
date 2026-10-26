@@ -304,7 +304,7 @@ Signed off: 24 Oct 2026, the owner, in chat: "Final sign off" (on build 2026-10-
 
 - Not released as a level: a test room. "Release" here means merged to `main` for the owner's own play.
 - Since 26 Oct 2026, Mary's first level, "Lock Up Day" (MOTH-156). Joining a story, it took the frame a story level has: a three-page comic intro (MOTH-157, owner's "Go" on about 15¢; `evals/images/runs/evalroom-comic.json`, runs 40311287400 and 40311766214; pages `next/art/comic/evalroom-1..3.jpg`, from the room's own walls and Mary's portrait, words added by the game). The originals are in those runs' artifacts until 25 Nov 2026.
-- Merged on:
+- Merged on: 26 Oct 2026 as Mary's first level, release build 2026-10-26rb (branch `release/2026-10-26b`), with MOTH-156 and MOTH-157 moved to Shipped. Live at https://me565.github.io/next/landscape/ (choose Mary).
 - Playtester notes (who, what, fix now or later):
 
 ---
