@@ -3,7 +3,7 @@
 - `extract-lines.js` — pulls every story-led line out of `next/landscape/stages/*.js` into `lines.json`, keyed the way the engine plays them (`speak(key)`).
 - `voice.py <voiceName>` — records each line with Google's speech model through `GEMINI_API_KEY` (`pip install lameenc` first) into `next/art/voice/<key>.mp3`, skipping lines whose text has not changed (`voice-done.json`). The moth's voice is `Vindemiatrix`.
 
-A note may carry `voice:` with what the moth reads out instead of its words (the backwards note on the flight). The play scripts (`play.js` Mary's school day, `play-s3.js` its version 3, `play-h.js` packing day, `play-f.js` the flight, `play-n.js` Nana and Jedi's, `play-t.js` Trent Park, `play-e.js` Elliot, `play-z.js` Zaina) play each stage through by script; keep one for every stage. `play-pack.js`, which played packing day version 1, went with that version (18 Oct 2026).
+A note may carry `voice:` with what the moth reads out instead of its words (the backwards note on the flight). The play scripts (`play.js` Mary's school day, `play-h.js` packing day, `play-f.js` the flight, `play-n.js` Nana and Jedi's, `play-t.js` Trent Park, `play-e.js` Elliot, `play-z.js` Zaina) play each stage through by script; keep one for every stage. `play-pack.js`, which played packing day version 1, went with that version (18 Oct 2026).
 
 After changing any hint, note, card, intro or postcard text: `node tools/extract-lines.js && python3 tools/voice.py Vindemiatrix`.
 
