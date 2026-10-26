@@ -70,6 +70,8 @@ const { chromium } = require('playwright');
   await turnTo('c3'); await hold('classroom key'); await tap('ev_door', 900); console.log('drag open?', !(await p.evaluate(() => document.getElementById('closeup').hidden))); await shot('16-turn-key');
   { await p.waitForTimeout(1100); await shot('16a-key-in-lock'); console.log('MOTH-93 key drawn in the lock?', (await p.locator('#keyin').count()) === 1, '|', await p.textContent('#turnFb')); await p.click('#turnpic'); await p.waitForTimeout(450); await shot('16c-key-turning'); await p.waitForTimeout(1800); console.log('MOTH-93 after the tap:', await p.evaluate(() => document.getElementById('turnFb') ? document.getElementById('turnFb').textContent : 'card closed')); }
   await p.waitForTimeout(1300); await shot('16b-door-swing'); await p.waitForTimeout(3900); console.log('ending shown:', await p.evaluate(() => !document.getElementById('endUI').hidden), JSON.stringify(await st())); await shot('17-ending');
+  /* Lock Up Day is Mary's first level and its end card leads into Packing Day (MOTH-156) */
+  console.log('end card leads to:', await p.evaluate(() => [document.getElementById('endNext').textContent, nextStage()].join(' → ')));
   for (const w of [844, 2000]){ await p.setViewportSize({width:w, height:w === 844 ? 390 : 700}); await p.waitForTimeout(300); console.log('page overflow', w, await p.evaluate(() => document.documentElement.scrollHeight > innerHeight + 1 || document.documentElement.scrollWidth > innerWidth + 1)); }
   console.log('errors:', errs.length ? errs : 'none'); await b.close();
 })();

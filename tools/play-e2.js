@@ -83,6 +83,8 @@ const { chromium } = require('playwright');
   await turnTo('m2'); await tap('e2_lights', 300); check(await p.evaluate(() => S.lightsOff), 'lights off'); await shot('19-lights-off');
   await turnTo('m3'); await tap('e2_board', 500); await p.click('#e2wipe'); await p.waitForTimeout(700); await shot('20-wipe');
   await p.waitForTimeout(9000); check(await p.evaluate(() => S.done && !document.getElementById('endUI').hidden), 'the ending shows'); await shot('21-ending');
+  /* Packing Day is Mary's second level; the flight after it is not playable yet, so its end card says so (MOTH-156) */
+  check(await p.evaluate(() => !nextStage() && /Coming soon/.test(document.getElementById('endNext').textContent)), 'the end card says the flight is coming soon');
   for (const w of [844, 2000]){ await p.setViewportSize({width:w, height:w === 844 ? 390 : 700}); await p.waitForTimeout(300); check(!(await p.evaluate(() => document.documentElement.scrollHeight > innerHeight + 1 || document.documentElement.scrollWidth > innerWidth + 1)), 'no page scroll at ' + w); }
   console.log('errors:', errs.length ? errs : 'none'); console.log(fails ? `${fails} FAILED` : 'ALL PASS'); await b.close(); process.exit(fails || errs.length ? 1 : 0);
 })();

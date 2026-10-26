@@ -1,4 +1,5 @@
-/* The Moth House, landscape engine: the test room "Lock-up Duty" (levels/LEVEL-evalroom.md), not a level. Classroom 5H drawn by
+/* The Moth House, landscape engine: "Lock Up Day", Mary's last day of school, her first level (owner, 26 Oct 2026, MOTH-156; built as the
+   test room "Lock-up Duty", levels/LEVEL-evalroom.md; its end card leads into Packing Day, eval2). Classroom 5H drawn by
    GPT Image 2.5 Sunburst on 21 Oct 2026 from evals/images/rooms/classroom5h.json (playbook 4aa, 4ab). Gate E signed and the batch
    placed on 24 Oct 2026 (playbook 4ac → 6b): every picture is real now (the keys, the ruler, the torn note and its halves, the pots,
    both drawers looked into, the door's lock plate); the drawer fronts, the door and the lost-property things are lifted from the walls.
@@ -441,12 +442,12 @@ function copyClue(key){ if (!S.clues) S.clues = []; if (S.clues.includes(key)) r
 const sparkle = () => false; /* no sparkles by default (owner, 17 Oct 2026): the second hint tier pulses the thing */
 const speaker = () => 'The moth whispers';
 return {
-  card:{place:'KNIGHTSBROOK · THE LAST DAY · A TEST ROOM', text:'Mr Hollis has gone to the hall and left Mary to lock up 5H. The classroom key is in his desk, behind a code. He has left a note on her desk.'},
+  card:{place:'KNIGHTSBROOK · THE LAST DAY', text:'Mr Hollis has gone to the hall and left Mary to lock up 5H. The classroom key is in his desk, behind a code. He has left a note on her desk.'},
   meanwhile:'Meanwhile, in 5H, Mary is still looking for the classroom key.',
-  title:'Lock-up Duty', blurb:'A test room: lock up Classroom 5H. One room, three trails, one hard code.',
-  track:'../art/music/classroom.mp3', ambient:'school',
+  title:'Lock Up Day', blurb:'Mary’s last day of school: lock up Classroom 5H. One room, three trails, one hard code.',
+  track:'../art/music/classroom.mp3', ambient:'school', next:'eval2',
   postcard:{pic:'../art/postcards/school.jpg'},
-  intro:'<b>Lock-up duty.</b> Mr Hollis has left Mary to lock up 5H, and the key is in his desk behind a code. There is a note on her desk.',
+  intro:'<b>Lock Up Day.</b> Mr Hollis has left Mary to lock up 5H, and the key is in his desk behind a code. There is a note on her desk.',
   start:{room:'classroom', view:0},
   fresh:() => ({seen:{}, clues:[], taken:{}, keyDown:false, binMoved:[], binDone:false, popped:false, measured:0, heights:[], rulerAt:null, cabUnlocked:false, cabOut:false, dials:[0,0,0,0], deskOpen:false, deskOut:false, locked:false}),
   extra:{classroom:['closeup-bin.jpg', 'closeup-hat.jpg', 'closeup-pots.jpg', 'closeup-desk.jpg', 'closeup-cab.jpg', 'closeup-note.jpg', 'closeup-lock.jpg', 'item-skey.png', 'item-ruler.png', 'item-half1.png', 'item-half2.png', 'item-wnote.jpg', 'item-dkey.png', 'item-dkey-side.png', ...RUBBISH.map(r => r.src)].map(f => '../art/eval/c5h/' + f).concat(['../art/school/h1.jpg'])}, /* the close-ups' pictures load with the room, so no card opens half drawn (MOTH-76) */
