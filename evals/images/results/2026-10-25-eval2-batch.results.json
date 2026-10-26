@@ -1,0 +1,1258 @@
+{
+ "name": "eval2 batch (6b): the other 26 pictures of the Gate D list, matched to the signed-off samples. Level file levels/LEVEL-eval2.md, Gates A to E signed 25 Oct 2026.",
+ "manifest": "evals/images/runs/eval2-batch.json",
+ "ran_at": "2026-10-25T08:14:28Z",
+ "total_cost_usd": 0.3994,
+ "results": [
+  {
+   "id": "board",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "params": {},
+   "note": "asset 1",
+   "seconds": 11.6,
+   "cost_usd": 0.013093,
+   "usage": {
+    "prompt_tokens": 1001,
+    "completion_tokens": 196,
+    "total_tokens": 1197,
+    "cost": 0.013093,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.013093,
+     "upstream_inference_prompt_cost": 0.007213,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "board.png",
+     "bytes": 930173,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "case",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-m2-case.jpg"
+   ],
+   "params": {},
+   "note": "asset 2, navy to match m2 (Gate D point 1)",
+   "seconds": 13.8,
+   "cost_usd": 0.009027,
+   "usage": {
+    "prompt_tokens": 495,
+    "completion_tokens": 196,
+    "total_tokens": 691,
+    "cost": 0.009027,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.009027,
+     "upstream_inference_prompt_cost": 0.003147,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "case.png",
+     "bytes": 1874369,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "caseup",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-m2-case.jpg"
+   ],
+   "params": {},
+   "note": "asset 3; the game draws the packed things in the space",
+   "seconds": 16.0,
+   "cost_usd": 0.011462,
+   "usage": {
+    "prompt_tokens": 478,
+    "completion_tokens": 280,
+    "total_tokens": 758,
+    "cost": 0.011462,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.011462,
+     "upstream_inference_prompt_cost": 0.003062,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "caseup.png",
+     "bytes": 2531021,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "folder",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-m2-folder.jpg"
+   ],
+   "params": {},
+   "note": "asset 4; the game writes the label",
+   "seconds": 12.7,
+   "cost_usd": 0.00713,
+   "usage": {
+    "prompt_tokens": 538,
+    "completion_tokens": 120,
+    "total_tokens": 658,
+    "cost": 0.00713,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.00713,
+     "upstream_inference_prompt_cost": 0.00353,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "folder.png",
+     "bytes": 1924730,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "drawer-top",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-m1-drawers.jpg"
+   ],
+   "params": {},
+   "note": "asset 5a",
+   "seconds": 11.9,
+   "cost_usd": 0.007238,
+   "usage": {
+    "prompt_tokens": 544,
+    "completion_tokens": 120,
+    "total_tokens": 664,
+    "cost": 0.007238,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.007238,
+     "upstream_inference_prompt_cost": 0.003638,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "drawer-top.png",
+     "bytes": 1823237,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "drawer-mid",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-m1-drawers.jpg"
+   ],
+   "params": {},
+   "note": "asset 5b",
+   "seconds": 19.8,
+   "cost_usd": 0.012028,
+   "usage": {
+    "prompt_tokens": 542,
+    "completion_tokens": 280,
+    "total_tokens": 822,
+    "cost": 0.012028,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.012028,
+     "upstream_inference_prompt_cost": 0.003628,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "drawer-mid.png",
+     "bytes": 2013045,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "drawer-bot",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-m1-drawers.jpg"
+   ],
+   "params": {},
+   "note": "asset 5c",
+   "seconds": 16.5,
+   "cost_usd": 0.007198,
+   "usage": {
+    "prompt_tokens": 536,
+    "completion_tokens": 120,
+    "total_tokens": 656,
+    "cost": 0.007198,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.007198,
+     "upstream_inference_prompt_cost": 0.003598,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "drawer-bot.png",
+     "bytes": 2117534,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "penpot",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-m1-penpot.jpg"
+   ],
+   "params": {},
+   "note": "asset 6; the game draws the tape in the gap",
+   "seconds": 18.2,
+   "cost_usd": 0.007077,
+   "usage": {
+    "prompt_tokens": 537,
+    "completion_tokens": 120,
+    "total_tokens": 657,
+    "cost": 0.007077,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.007077,
+     "upstream_inference_prompt_cost": 0.003477,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "penpot.png",
+     "bytes": 1737131,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "tape",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "params": {},
+   "note": "asset 7",
+   "seconds": 11.6,
+   "cost_usd": 0.012958,
+   "usage": {
+    "prompt_tokens": 974,
+    "completion_tokens": 196,
+    "total_tokens": 1170,
+    "cost": 0.012958,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.012958,
+     "upstream_inference_prompt_cost": 0.007078,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "tape.png",
+     "bytes": 1257415,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "trundle",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-k2-trundle.jpg"
+   ],
+   "params": {},
+   "note": "asset 8; the game draws the roll in the space",
+   "seconds": 13.7,
+   "cost_usd": 0.007661,
+   "usage": {
+    "prompt_tokens": 601,
+    "completion_tokens": 120,
+    "total_tokens": 721,
+    "cost": 0.007661,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.007661,
+     "upstream_inference_prompt_cost": 0.004061,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "trundle.png",
+     "bytes": 2000310,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "roll",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "params": {},
+   "note": "asset 9",
+   "seconds": 12.9,
+   "cost_usd": 0.013038,
+   "usage": {
+    "prompt_tokens": 990,
+    "completion_tokens": 196,
+    "total_tokens": 1186,
+    "cost": 0.013038,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.013038,
+     "upstream_inference_prompt_cost": 0.007158,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "roll.png",
+     "bytes": 1126266,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "org",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "3:4",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "params": {},
+   "note": "asset 10a",
+   "seconds": 16.5,
+   "cost_usd": 0.012688,
+   "usage": {
+    "prompt_tokens": 1010,
+    "completion_tokens": 181,
+    "total_tokens": 1191,
+    "cost": 0.012688,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.012688,
+     "upstream_inference_prompt_cost": 0.007258,
+     "upstream_inference_completions_cost": 0.00543
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 181
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "org.png",
+     "bytes": 2665661,
+     "size": [
+      1152,
+      1536
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "shelly",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-style-kids.jpg"
+   ],
+   "params": {},
+   "note": "asset 12",
+   "seconds": 13.6,
+   "cost_usd": 0.012777,
+   "usage": {
+    "prompt_tokens": 957,
+    "completion_tokens": 196,
+    "total_tokens": 1153,
+    "cost": 0.012777,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.012777,
+     "upstream_inference_prompt_cost": 0.006897,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "shelly.png",
+     "bytes": 1330845,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "drawing",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "3:4",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "params": {},
+   "note": "asset 13; also the strip icon",
+   "seconds": 18.8,
+   "cost_usd": 0.019458,
+   "usage": {
+    "prompt_tokens": 1002,
+    "completion_tokens": 408,
+    "total_tokens": 1410,
+    "cost": 0.019458,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.019458,
+     "upstream_inference_prompt_cost": 0.007218,
+     "upstream_inference_completions_cost": 0.01224
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 408
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "drawing.png",
+     "bytes": 2561564,
+     "size": [
+      1152,
+      1536
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "box",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-m4-wardrobe.jpg"
+   ],
+   "params": {},
+   "note": "asset 16a; the game writes WINTER (London)",
+   "seconds": 11.9,
+   "cost_usd": 0.009439,
+   "usage": {
+    "prompt_tokens": 833,
+    "completion_tokens": 120,
+    "total_tokens": 953,
+    "cost": 0.009439,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.009439,
+     "upstream_inference_prompt_cost": 0.005839,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "box.png",
+     "bytes": 1776217,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "wiper",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "params": {},
+   "note": "asset 19, the drag tab",
+   "seconds": 13.3,
+   "cost_usd": 0.012933,
+   "usage": {
+    "prompt_tokens": 969,
+    "completion_tokens": 196,
+    "total_tokens": 1165,
+    "cost": 0.012933,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.012933,
+     "upstream_inference_prompt_cost": 0.007053,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "wiper.png",
+     "bytes": 1368318,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "lock",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-k4-door.jpg"
+   ],
+   "params": {},
+   "note": "asset 24; the game draws the shapes in the buttons",
+   "seconds": 14.1,
+   "cost_usd": 0.007213,
+   "usage": {
+    "prompt_tokens": 563,
+    "completion_tokens": 120,
+    "total_tokens": 683,
+    "cost": 0.007213,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.007213,
+     "upstream_inference_prompt_cost": 0.003613,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "lock.png",
+     "bytes": 1993449,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "inside",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "3:4",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-k4-house.jpg"
+   ],
+   "params": {},
+   "note": "asset 25; the game lays the passport on the bed",
+   "seconds": 17.2,
+   "cost_usd": 0.012477,
+   "usage": {
+    "prompt_tokens": 987,
+    "completion_tokens": 181,
+    "total_tokens": 1168,
+    "cost": 0.012477,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.012477,
+     "upstream_inference_prompt_cost": 0.007047,
+     "upstream_inference_completions_cost": 0.00543
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 181
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "inside.png",
+     "bytes": 2175436,
+     "size": [
+      1152,
+      1536
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "sheet",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "params": {},
+   "note": "asset 27",
+   "seconds": 12.5,
+   "cost_usd": 0.012998,
+   "usage": {
+    "prompt_tokens": 982,
+    "completion_tokens": 196,
+    "total_tokens": 1178,
+    "cost": 0.012998,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.012998,
+     "upstream_inference_prompt_cost": 0.007118,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "sheet.png",
+     "bytes": 1157707,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "org-empty",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "3:4",
+    "n": 1
+   },
+   "references": [
+    "case:org"
+   ],
+   "params": {},
+   "note": "asset 10b",
+   "seconds": 26.1,
+   "cost_usd": 0.033791,
+   "usage": {
+    "prompt_tokens": 1543,
+    "completion_tokens": 724,
+    "total_tokens": 2267,
+    "cost": 0.033791,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.033791,
+     "upstream_inference_prompt_cost": 0.012071,
+     "upstream_inference_completions_cost": 0.02172
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 724
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "org-empty.png",
+     "bytes": 2632585,
+     "size": [
+      1152,
+      1536
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "orgup",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "case:org",
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "params": {},
+   "note": "asset 11; the game draws Shelly behind the window until taken",
+   "seconds": 18.2,
+   "cost_usd": 0.027234,
+   "usage": {
+    "prompt_tokens": 2454,
+    "completion_tokens": 280,
+    "total_tokens": 2734,
+    "cost": 0.027234,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.027234,
+     "upstream_inference_prompt_cost": 0.018834,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "orgup.png",
+     "bytes": 2041113,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "parcel",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "case:drawing",
+    "case:roll"
+   ],
+   "params": {},
+   "note": "asset 14",
+   "seconds": 27.3,
+   "cost_usd": 0.044508,
+   "usage": {
+    "prompt_tokens": 2730,
+    "completion_tokens": 781,
+    "total_tokens": 3511,
+    "cost": 0.044508,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.044508,
+     "upstream_inference_prompt_cost": 0.021078,
+     "upstream_inference_completions_cost": 0.02343
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 781
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "parcel.png",
+     "bytes": 1522640,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "box-open",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "case:box"
+   ],
+   "params": {},
+   "note": "asset 16b",
+   "seconds": 18.0,
+   "cost_usd": 0.019273,
+   "usage": {
+    "prompt_tokens": 1397,
+    "completion_tokens": 280,
+    "total_tokens": 1677,
+    "cost": 0.019273,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.019273,
+     "upstream_inference_prompt_cost": 0.010873,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "box-open.png",
+     "bytes": 1677156,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "ribbon",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "case:box"
+   ],
+   "params": {},
+   "note": "asset 18, the drag tab",
+   "seconds": 15.2,
+   "cost_usd": 0.017258,
+   "usage": {
+    "prompt_tokens": 1498,
+    "completion_tokens": 196,
+    "total_tokens": 1694,
+    "cost": 0.017258,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.017258,
+     "upstream_inference_prompt_cost": 0.011378,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "ribbon.png",
+     "bytes": 1086017,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "present",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "case:parcel"
+   ],
+   "params": {},
+   "note": "asset 15",
+   "seconds": 22.1,
+   "cost_usd": 0.032142,
+   "usage": {
+    "prompt_tokens": 1128,
+    "completion_tokens": 781,
+    "total_tokens": 1909,
+    "cost": 0.032142,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.032142,
+     "upstream_inference_prompt_cost": 0.008712,
+     "upstream_inference_completions_cost": 0.02343
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 781
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "present.png",
+     "bytes": 1359798,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "hat",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "case:box-open"
+   ],
+   "params": {},
+   "note": "asset 17",
+   "seconds": 16.3,
+   "cost_usd": 0.017283,
+   "usage": {
+    "prompt_tokens": 1503,
+    "completion_tokens": 196,
+    "total_tokens": 1699,
+    "cost": 0.017283,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.017283,
+     "upstream_inference_prompt_cost": 0.011403,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "hat.png",
+     "bytes": 1704376,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}

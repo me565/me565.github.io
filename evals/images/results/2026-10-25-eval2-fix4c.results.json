@@ -1,0 +1,57 @@
+{
+ "name": "eval2 fix: the open box with the hat and gloves, from the empty box (MOTH-122)",
+ "manifest": "evals/images/runs/eval2-fix4c.json",
+ "ran_at": "2026-10-25T09:36:29Z",
+ "total_cost_usd": 0.0246,
+ "results": [
+  {
+   "id": "box-full",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval2/closeup-box-empty.jpg",
+    "next/art/eval2/item-hat.png"
+   ],
+   "params": {},
+   "note": "MOTH-122: the full box drawn as an edit of the empty one, so the hat is lifted and the two states match",
+   "seconds": 16.1,
+   "cost_usd": 0.024608,
+   "usage": {
+    "prompt_tokens": 2074,
+    "completion_tokens": 280,
+    "total_tokens": 2354,
+    "cost": 0.024608,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.024608,
+     "upstream_inference_prompt_cost": 0.016208,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "box-full.png",
+     "bytes": 1633674,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}

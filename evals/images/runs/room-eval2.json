@@ -1,0 +1,162 @@
+{
+ "name": "room-eval2: Mary's room, the corridor and Elliot and Zaina's room, twelve walls, Sunburst, for the test level Packing Day from scratch (levels/LEVEL-eval2.md)",
+ "defaults": {
+  "aspect_ratio": "16:9",
+  "n": 1
+ },
+ "notes": [
+  "Walls drawn before Gate C under playbook 4ac: only once the owner has agreed the cost and accepted that a puzzle change can send them back. Gates A and B signed 25 Oct 2026.",
+  "Three rooms from the owner's photographs (checklist 8d: the rooms kept, the people lost, brands and characters painted out): the bunk wall is the children's anchor, the loft wall Mary's, the double doors the corridor's. The moving things are left off the walls per the room files (Zaina, the whiteboard and the case, the organiser and the drawing, the bath and the tub, the pompom lights); the trundle front, the doll's house front, the wardrobe doors, the three drawer fronts and the music folder are painted in and lifted by crop (playbook 4r).",
+  "Two things the method has not drawn before: a corridor as a narrow deep box lit from its far end, and walls from photographs of a real home under the Sunburst style. The real charge lands in results and goes in the level file's ledger."
+ ],
+ "est_total_usd": 0.48,
+ "cases": [
+  {
+   "id": "kids-room-k2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-kids-room/k2.txt",
+   "references": [
+    "evals/images/rooms/kids-room/layout-k2.png"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\n",
+   "est_usd": 0.04,
+   "note": "the bunk wall (east), to the right of the window wall"
+  },
+  {
+   "id": "kids-room-k1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-kids-room/k1.txt",
+   "references": [
+    "evals/images/rooms/kids-room/layout-k1.png",
+    "case:kids-room-k2"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the bunk wall (east), to the right of the window wall of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the window wall (north)"
+  },
+  {
+   "id": "kids-room-k3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-kids-room/k3.txt",
+   "references": [
+    "evals/images/rooms/kids-room/layout-k3.png",
+    "case:kids-room-k2"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the bunk wall (east), to the right of the window wall of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the door wall (south), opposite the window wall"
+  },
+  {
+   "id": "kids-room-k4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-kids-room/k4.txt",
+   "references": [
+    "evals/images/rooms/kids-room/layout-k4.png",
+    "case:kids-room-k1",
+    "case:kids-room-k3",
+    "case:kids-room-k2"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the window wall (north) of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 3 is the door wall (south), opposite the window wall of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 4 is the bunk wall (east), to the right of the window wall of this same room, finished, drawn by you a moment ago; it is OPPOSITE this wall, behind the viewer. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the cube wall (west), to the left of the window wall"
+  },
+  {
+   "id": "mary-room-m1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-mary-room/m1.txt",
+   "references": [
+    "evals/images/rooms/mary-room/layout-m1.png"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\n",
+   "est_usd": 0.04,
+   "note": "the loft wall (south), opposite the sofa wall"
+  },
+  {
+   "id": "mary-room-m2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-mary-room/m2.txt",
+   "references": [
+    "evals/images/rooms/mary-room/layout-m2.png",
+    "case:mary-room-m1"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the loft wall (south), opposite the sofa wall of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the window wall (east), to the right of the sofa wall"
+  },
+  {
+   "id": "mary-room-m4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-mary-room/m4.txt",
+   "references": [
+    "evals/images/rooms/mary-room/layout-m4.png",
+    "case:mary-room-m1"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the loft wall (south), opposite the sofa wall of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the door wall (west), to the left of the sofa wall"
+  },
+  {
+   "id": "mary-room-m3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-mary-room/m3.txt",
+   "references": [
+    "evals/images/rooms/mary-room/layout-m3.png",
+    "case:mary-room-m2",
+    "case:mary-room-m4",
+    "case:mary-room-m1"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the window wall (east), to the right of the sofa wall of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 3 is the door wall (west), to the left of the sofa wall of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 4 is the loft wall (south), opposite the sofa wall of this same room, finished, drawn by you a moment ago; it is OPPOSITE this wall, behind the viewer. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the sofa wall (north)"
+  },
+  {
+   "id": "flat-corridor-c3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-flat-corridor/c3.txt",
+   "references": [
+    "evals/images/rooms/flat-corridor/layout-c3.png"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\n",
+   "est_usd": 0.04,
+   "note": "the double doors (south), the far end of the corridor and the turn to the dining end"
+  },
+  {
+   "id": "flat-corridor-c2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-flat-corridor/c2.txt",
+   "references": [
+    "evals/images/rooms/flat-corridor/layout-c2.png",
+    "case:flat-corridor-c3"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the double doors (south), the far end of the corridor and the turn to the dining end of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "Mary's door (east), the first on the left walking in"
+  },
+  {
+   "id": "flat-corridor-c4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-flat-corridor/c4.txt",
+   "references": [
+    "evals/images/rooms/flat-corridor/layout-c4.png",
+    "case:flat-corridor-c3"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the double doors (south), the far end of the corridor and the turn to the dining end of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the wall opposite Mary's door (west)"
+  },
+  {
+   "id": "flat-corridor-c1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-flat-corridor/c1.txt",
+   "references": [
+    "evals/images/rooms/flat-corridor/layout-c1.png",
+    "case:flat-corridor-c2",
+    "case:flat-corridor-c4",
+    "case:flat-corridor-c3"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is Mary's door (east), the first on the left walking in of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 3 is the wall opposite Mary's door (west) of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 4 is the double doors (south), the far end of the corridor and the turn to the dining end of this same room, finished, drawn by you a moment ago; it is OPPOSITE this wall, behind the viewer. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the children's door (north), the end of the corridor"
+  }
+ ]
+}

@@ -1,0 +1,64 @@
+{
+ "name": "eval2: the desk drawers (MOTH-120, the owner's choice of option 1): the socks drawer out on the floor, stuffed full, the tape in the middle drawer.",
+ "defaults": {
+  "n": 1
+ },
+ "notes": [
+  "Each state an edit of the picture before it (playbook 4af, 4ag). Linted."
+ ],
+ "est_total_usd": 0.12,
+ "cases": [
+  {
+   "id": "m1-botout",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "next/art/eval2/m1.jpg"
+   ],
+   "est_usd": 0.04,
+   "prompt": "The attached picture is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: the bottom one of the three dark green drawers in the desk's drawer unit has been pulled right out of the unit: where it was, a dark empty slot now shows between the middle drawer and the patterned fabric box below. The drawer itself now stands on the floor just in front of the drawer unit, on the honey wooden floor between the desk chair and the loft's post, the same dark green with the same handle cut-out, crammed with rolled-up colourful socks heaped above its rim. It is drawn from the same eye level as the rest of the room, mostly its front with a sliver of its top, and casts a soft shadow on the floor. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "note": "MOTH-120: the socks drawer out on the floor (the room shows what happened)"
+  },
+  {
+   "id": "drawer-bot-full",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "next/art/eval2/closeup-drawer-bot.jpg"
+   ],
+   "est_usd": 0.04,
+   "prompt": "The attached picture is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: the drawer is crammed far too full: the same rolled-up colourful socks, and many more of them, are heaped up high above the drawer's rim and bulging upwards in a mound, squashed in so tightly that they would press on anything above the drawer. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "note": "MOTH-120: why the middle drawer sticks",
+   "lint_ok": "looking down into an open drawer, as she stands over it"
+  },
+  {
+   "id": "drawer-mid-tape",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "next/art/eval2/closeup-drawer-mid.jpg",
+    "next/art/eval2/item-tape.png"
+   ],
+   "est_usd": 0.04,
+   "prompt": "The attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: the roll of clear sticky tape from attached picture 2, the same roll with its pale brown cardboard core, now lies flat on its side among the beads and pipe cleaners at the front left of the drawer, in plain view, lit and shaded like everything else in the drawer. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "note": "MOTH-120: the tape in the middle drawer",
+   "lint_ok": "looking down into an open drawer, as she stands over it"
+  },
+  {
+   "id": "m1-botout2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "next/art/eval2/m1.jpg",
+    "next/art/eval2/closeup-drawer-bot-full.jpg"
+   ],
+   "est_usd": 0.04,
+   "prompt": "Attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: the bottom one of the three dark green drawers in the desk's drawer unit has been pulled right out of the unit: where it was, a dark empty slot now shows between the middle drawer and the patterned fabric box below. The drawer itself now stands on the floor just in front of the drawer unit, on the honey wooden floor between the desk chair and the loft's post, the same dark green with the same handle cut-out, crammed with exactly the socks of attached picture 2 (the same rolled socks: red and white stripes, green with white dots, navy with white dots, mustard, purple stripes, pink, grey with orange dots), heaped above its rim. It is drawn from the same eye level as the rest of the room, mostly its front with a sliver of its top, and casts a soft shadow on the floor. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "note": "MOTH-120: redrawn with the socks drawer close-up attached, so the socks agree (checklist 78)"
+  }
+ ]
+}

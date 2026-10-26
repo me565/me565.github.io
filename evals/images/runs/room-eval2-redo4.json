@@ -1,0 +1,24 @@
+{
+ "name": "room-eval2-redo4: the corridor's Mary's-door wall, from Claude's walk after redo3",
+ "defaults": {
+  "aspect_ratio": "16:9",
+  "n": 1
+ },
+ "notes": [
+  "Checklist 75: the whole set walked after redo3 found one turn still disagreeing (c2's left side wall showed a closed door at the corner; the children's doorway on c1 is open and further along) and the rug glimpsed through Mary's door running the wrong way for that view (checklist 73)."
+ ],
+ "est_total_usd": 0.04,
+ "cases": [
+  {
+   "id": "flat-corridor-c2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "references": [
+    "evals/images/refs/eval2-c2-v4.jpg",
+    "next/art/eval2/c1.jpg"
+   ],
+   "est_usd": 0.04,
+   "note": "Claude's walk after redo3",
+   "prompt": "Attached picture 1 is this very wall, finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours and light, except for these changes: (1) the narrow left-hand side wall is plain white wall with its low dark honey wood skirting board running to the corner; at its far end, by the back corner, only the edge of a dark honey wood door frame, an open doorway with no door leaf in it; no closed door and no hinges on this side wall. (Attached picture 2 is the corridor's end wall, where that doorway is open and its door swung away into the room.) (2) Through Mary's open doorway, the striped rug in her room lies with its stripes horizontal, across the view, parallel to the window. Keep the drawing's style exactly: a polished, finished illustration drawn for a game, clean dark-ink outlines, soft shading, paper grain, the same palette and light. No words or letters anywhere, no arrows, no border. The picture fills the whole 16:9 frame."
+  }
+ ]
+}

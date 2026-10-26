@@ -1,0 +1,64 @@
+{
+ "name": "room-office: the front office of Knightsbrook, four walls, Sunburst, for the second test room \"Back in Five Minutes\" (levels/LEVEL-eval2.md)",
+ "defaults": {
+  "aspect_ratio": "16:9",
+  "n": 1
+ },
+ "notes": [
+  "Walls drawn before Gate C under playbook 4ac: only once the owner has agreed the cost and accepted that a puzzle change can send them back. The anchor is the entrance wall (o3), the busiest; the head's-door wall (o2) and the cupboard wall (o4) follow with the anchor attached; the counter wall (o1) last with all three.",
+  "Two things this room tests that the method has not drawn: a grey rainy daylight from a window beside a doorway (the classroom and the kitchen had sun), and a carpeted floor. The moving things are left off the walls per the room file (the counter-top things, the gecko, the palm); the drawer front, the handset, the cupboard door and the copier lid are painted in and lifted by crop (playbook 4r).",
+  "The real charge lands in results and goes in the level file's ledger."
+ ],
+ "est_total_usd": 0.16,
+ "cases": [
+  {
+   "id": "office-o3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-office/o3.txt",
+   "references": [
+    "evals/images/rooms/office/layout-o3.png"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\n",
+   "est_usd": 0.04,
+   "note": "the entrance wall (south), opposite the counter wall"
+  },
+  {
+   "id": "office-o2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-office/o2.txt",
+   "references": [
+    "evals/images/rooms/office/layout-o2.png",
+    "case:office-o3"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the entrance wall (south), opposite the counter wall of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the head's-door wall (east), to the right of the counter wall"
+  },
+  {
+   "id": "office-o4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-office/o4.txt",
+   "references": [
+    "evals/images/rooms/office/layout-o4.png",
+    "case:office-o3"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the entrance wall (south), opposite the counter wall of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the cupboard wall (west), to the left of the counter wall"
+  },
+  {
+   "id": "office-o1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "prompt_file": "../prompts/room-office/o1.txt",
+   "references": [
+    "evals/images/rooms/office/layout-o1.png",
+    "case:office-o4",
+    "case:office-o2",
+    "case:office-o3"
+   ],
+   "prompt_prefix": "Attached picture 1 is a plain layout sketch of this wall: grey boxes mark exactly where each item in the list below stands, in the same left-to-right order as the list; the grey blocks on the two side walls mark where the neighbouring walls' ends show; the line across the back wall is the top of the painted band. Follow its positions exactly and ignore its look entirely; it is a plan, not the style.\n\nAttached picture 2 is the cupboard wall (west), to the left of the counter wall of this same room, finished, drawn by you a moment ago; it is immediately to the LEFT of this wall (a player turning left from this wall sees it); the left corner of this picture is the right corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 3 is the head's-door wall (east), to the right of the counter wall of this same room, finished, drawn by you a moment ago; it is immediately to the RIGHT of this wall (a player turning right from this wall sees it); the right corner of this picture is the left corner of that one. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\nAttached picture 4 is the entrance wall (south), opposite the counter wall of this same room, finished, drawn by you a moment ago; it is OPPOSITE this wall, behind the viewer. Match its style, hand, palette, the height of its band, its floor and its light exactly, so the room is one room. Do not copy its furniture; draw only what is listed below.\n\n",
+   "est_usd": 0.04,
+   "note": "the counter wall (north)"
+  }
+ ]
+}

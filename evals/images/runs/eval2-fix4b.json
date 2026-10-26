@@ -1,0 +1,21 @@
+{
+ "name": "eval2 fix: the stool drawn alone on white (MOTH-116)",
+ "defaults": {
+  "n": 1
+ },
+ "est_total_usd": 0.04,
+ "cases": [
+  {
+   "id": "stool",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "evals/images/refs/eval2-m1-stool.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture shows the step stool in the room: draw exactly this stool, same wood, same shape, same angle. Draw it alone on a pure flat white background: no floor, no wall, no shadow on the ground, no frame, nothing else in the picture; the gaps between its legs and under its steps are white. The object fills most of the frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe object: the small two-step wooden step stool from the attached picture, seen from the front and a little to the side.",
+   "est_usd": 0.04,
+   "note": "MOTH-116: the stool's icon and the stool at the wardrobe, drawn on white, never lifted from a wall"
+  }
+ ]
+}

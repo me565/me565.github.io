@@ -121,6 +121,10 @@ def main():
     ap.add_argument("--workers", type=int, default=3)
     a = ap.parse_args()
     m = json.load(open(a.manifest))
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from promptlint import lint  # before any credit is spent
+    bad = [b for b in lint(m) if not a.only or b[0] in {s.strip() for s in a.only.split(",")}]
+    for cid, hit, why in bad: log(f"promptlint {cid}: \"{hit}\": {why}")
+    if bad: log("stopped: fix the prompts or mark the case lint_ok with the reason"); sys.exit(1)
     base = os.path.dirname(a.manifest)
     def prompt_for(c):
         if "prompt" in c: return c.get("prompt_prefix", "") + c["prompt"]

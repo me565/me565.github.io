@@ -1,0 +1,22 @@
+{
+ "name": "eval2 fix: the open box with the hat and gloves, from the empty box (MOTH-122)",
+ "defaults": {
+  "n": 1
+ },
+ "est_total_usd": 0.04,
+ "cases": [
+  {
+   "id": "box-full",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "next/art/eval2/closeup-box-empty.jpg",
+    "next/art/eval2/item-hat.png"
+   ],
+   "prompt": "Attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same box, lid, tissue paper, shelf and walls in the same places at the same sizes, the same colours, light and drawing style, except for this one change: the red woolly bobble hat and red knitted gloves of attached picture 2 now lie inside the open box, on the tissue paper. No words, letters, numbers or symbols anywhere in the picture.",
+   "est_usd": 0.04,
+   "note": "MOTH-122: the full box drawn as an edit of the empty one, so the hat is lifted and the two states match"
+  }
+ ]
+}

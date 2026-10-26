@@ -1,0 +1,643 @@
+{
+ "name": "eval2 fixes from the owner's fifth review (MOTH-115, 117, 131, 132, 135, 141, 143, 144): the tape, Elliot's note, Singapore clothes in the wardrobe and its close-up, the bath on the tub, the trundle drawer out with the paper inside, each packed thing in its own edit.",
+ "manifest": "evals/images/runs/eval2-fix5.json",
+ "ran_at": "2026-10-25T11:33:59Z",
+ "total_cost_usd": 0.4482,
+ "results": [
+  {
+   "id": "tape",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-117: one picture for the room, the pen-pot close-up and the strip; never squashed to fake a desk",
+   "seconds": 15.9,
+   "cost_usd": 0.013188,
+   "usage": {
+    "prompt_tokens": 1020,
+    "completion_tokens": 196,
+    "total_tokens": 1216,
+    "cost": 0.013188,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.013188,
+     "upstream_inference_prompt_cost": 0.007308,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "tape.png",
+     "bytes": 1136364,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "note",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-style-kids.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-141: Elliot's note as paper with tape; the game writes on it",
+   "seconds": 14.2,
+   "cost_usd": 0.012817,
+   "usage": {
+    "prompt_tokens": 965,
+    "completion_tokens": 196,
+    "total_tokens": 1161,
+    "cost": 0.012817,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.012817,
+     "upstream_inference_prompt_cost": 0.006937,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "note.png",
+     "bytes": 1220063,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "m4-open2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-m4-open.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-135: the rail named thing by thing, the same words as the close-up",
+   "seconds": 26.1,
+   "cost_usd": 0.044178,
+   "usage": {
+    "prompt_tokens": 1590,
+    "completion_tokens": 1078,
+    "total_tokens": 2668,
+    "cost": 0.044178,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.044178,
+     "upstream_inference_prompt_cost": 0.011838,
+     "upstream_inference_completions_cost": 0.03234
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1078
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "m4-open2.png",
+     "bytes": 1515522,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "m1-tub",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval2/m1.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-115: the bottom of the stack, its own edit so its top is whole when the bath comes off",
+   "seconds": 28.0,
+   "cost_usd": 0.043608,
+   "usage": {
+    "prompt_tokens": 1476,
+    "completion_tokens": 1078,
+    "total_tokens": 2554,
+    "cost": 0.043608,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.043608,
+     "upstream_inference_prompt_cost": 0.011268,
+     "upstream_inference_completions_cost": 0.03234
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1078
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "m1-tub.png",
+     "bytes": 1674512,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "k2-out-empty",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-k2-v4.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-131: the drawer out, drawn, not a dark box and a shifted front",
+   "seconds": 23.5,
+   "cost_usd": 0.025658,
+   "usage": {
+    "prompt_tokens": 1474,
+    "completion_tokens": 480,
+    "total_tokens": 1954,
+    "cost": 0.025658,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.025658,
+     "upstream_inference_prompt_cost": 0.011258,
+     "upstream_inference_completions_cost": 0.0144
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 480
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "k2-out-empty.png",
+     "bytes": 1851763,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "trundle-roll",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval2/closeup-trundle.jpg",
+    "next/art/eval2/item-roll.png"
+   ],
+   "params": {},
+   "note": "MOTH-132: the paper kept inside the drawer, close up",
+   "seconds": 15.2,
+   "cost_usd": 0.019833,
+   "usage": {
+    "prompt_tokens": 2094,
+    "completion_tokens": 120,
+    "total_tokens": 2214,
+    "cost": 0.019833,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.019833,
+     "upstream_inference_prompt_cost": 0.016233,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "trundle-roll.png",
+     "bytes": 1966790,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "caser-sheet",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-case-room.jpg",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-sheet.png"
+   ],
+   "params": {},
+   "note": "MOTH-143, MOTH-144: each packed thing in its own edit of the empty case, placed as in the close-up, so none is cut where another overlapped it",
+   "seconds": 23.1,
+   "cost_usd": 0.0467,
+   "usage": {
+    "prompt_tokens": 2977,
+    "completion_tokens": 781,
+    "total_tokens": 3758,
+    "cost": 0.0467,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.0467,
+     "upstream_inference_prompt_cost": 0.02327,
+     "upstream_inference_completions_cost": 0.02343
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 781
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "caser-sheet.png",
+     "bytes": 1846997,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "caser-present",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-case-room.jpg",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-present.png"
+   ],
+   "params": {},
+   "note": "MOTH-143, MOTH-144: each packed thing in its own edit of the empty case, placed as in the close-up, so none is cut where another overlapped it",
+   "seconds": 19.2,
+   "cost_usd": 0.03645,
+   "usage": {
+    "prompt_tokens": 2979,
+    "completion_tokens": 439,
+    "total_tokens": 3418,
+    "cost": 0.03645,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.03645,
+     "upstream_inference_prompt_cost": 0.02328,
+     "upstream_inference_completions_cost": 0.01317
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 439
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "caser-present.png",
+     "bytes": 1803265,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "caser-hat",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-case-room.jpg",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-hat.png"
+   ],
+   "params": {},
+   "note": "MOTH-143, MOTH-144: each packed thing in its own edit of the empty case, placed as in the close-up, so none is cut where another overlapped it",
+   "seconds": 19.9,
+   "cost_usd": 0.037855,
+   "usage": {
+    "prompt_tokens": 3155,
+    "completion_tokens": 439,
+    "total_tokens": 3594,
+    "cost": 0.037855,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.037855,
+     "upstream_inference_prompt_cost": 0.024685,
+     "upstream_inference_completions_cost": 0.01317
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 439
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "caser-hat.png",
+     "bytes": 1805247,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "caser-passport",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-case-room.jpg",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-passport.png"
+   ],
+   "params": {},
+   "note": "MOTH-143, MOTH-144: each packed thing in its own edit of the empty case, placed as in the close-up, so none is cut where another overlapped it",
+   "seconds": 21.9,
+   "cost_usd": 0.03907,
+   "usage": {
+    "prompt_tokens": 3308,
+    "completion_tokens": 439,
+    "total_tokens": 3747,
+    "cost": 0.03907,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.03907,
+     "upstream_inference_prompt_cost": 0.0259,
+     "upstream_inference_completions_cost": 0.01317
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 439
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "caser-passport.png",
+     "bytes": 1813598,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "wardrobe-up2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval2/closeup-wardrobe-up.jpg",
+    "case:m4-open2"
+   ],
+   "params": {},
+   "note": "MOTH-135: the close-up is a part of the room's rail",
+   "seconds": 21.4,
+   "cost_usd": 0.036851,
+   "usage": {
+    "prompt_tokens": 2935,
+    "completion_tokens": 480,
+    "total_tokens": 3415,
+    "cost": 0.036851,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.036851,
+     "upstream_inference_prompt_cost": 0.022451,
+     "upstream_inference_completions_cost": 0.0144
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 480
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "wardrobe-up2.png",
+     "bytes": 1494142,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "m1-stack",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "case:m1-tub"
+   ],
+   "params": {},
+   "note": "MOTH-115: the yellow bath on top of the white tub, as you would stack them",
+   "seconds": 34.4,
+   "cost_usd": 0.043533,
+   "usage": {
+    "prompt_tokens": 1461,
+    "completion_tokens": 1078,
+    "total_tokens": 2539,
+    "cost": 0.043533,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.043533,
+     "upstream_inference_prompt_cost": 0.011193,
+     "upstream_inference_completions_cost": 0.03234
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1078
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "m1-stack.png",
+     "bytes": 1599221,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "k2-out",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "case:k2-out-empty",
+    "next/art/eval2/item-roll.png"
+   ],
+   "params": {},
+   "note": "MOTH-132: the paper kept inside the drawer",
+   "seconds": 29.9,
+   "cost_usd": 0.048493,
+   "usage": {
+    "prompt_tokens": 2078,
+    "completion_tokens": 1078,
+    "total_tokens": 3156,
+    "cost": 0.048493,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.048493,
+     "upstream_inference_prompt_cost": 0.016153,
+     "upstream_inference_completions_cost": 0.03234
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1078
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "k2-out.png",
+     "bytes": 1748334,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}

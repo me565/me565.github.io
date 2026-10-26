@@ -1,0 +1,39 @@
+{
+ "name": "eval2: the case's close-ups on the sofa, not a wooden floor (MOTH-148).",
+ "defaults": {
+  "n": 1
+ },
+ "notes": [
+  "Only the background changes; the old case pixels are kept by script so the packed pieces still line up. Linted."
+ ],
+ "est_total_usd": 0.08,
+ "cases": [
+  {
+   "id": "caseup-sofa",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "est_usd": 0.04,
+   "references": [
+    "next/art/eval2/closeup-caseup.jpg",
+    "evals/images/refs/eval2-m3-sofa.jpg"
+   ],
+   "prompt": "Attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: the suitcase now lies on the seat of a sofa instead of a wooden floor: everywhere around the case, the wooden floorboards become the sofa's soft grey-brown woven fabric seat cushion, exactly the fabric and colour of the sofa in attached picture 2, with the cushion's seam and its gentle dip under the case's weight and the case's soft shadow on the fabric. The suitcase itself, and everything in or on it, stays exactly as it is. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "note": "MOTH-148: the open case close up on the sofa, as in the room",
+   "lint_ok": "the close-up looks down into the open case, as she stands over it"
+  },
+  {
+   "id": "caseclosed-sofa",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "est_usd": 0.04,
+   "references": [
+    "next/art/eval2/closeup-caseclosed.jpg",
+    "evals/images/refs/eval2-m3-sofa.jpg"
+   ],
+   "prompt": "Attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: the suitcase now lies on the seat of a sofa instead of a wooden floor: everywhere around the case, the wooden floorboards become the sofa's soft grey-brown woven fabric seat cushion, exactly the fabric and colour of the sofa in attached picture 2, with the cushion's seam and its gentle dip under the case's weight and the case's soft shadow on the fabric. The suitcase itself, and everything in or on it, stays exactly as it is. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "note": "MOTH-148: the shut case close up on the sofa"
+  }
+ ]
+}

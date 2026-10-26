@@ -1,0 +1,108 @@
+{
+ "name": "eval2: the window wall agrees with the sofa wall (the polish walk): the cushions at the far end, the room's case open and shut.",
+ "defaults": {
+  "n": 1
+ },
+ "notes": [
+  "Linted. Patches pasted with tools/patch.py."
+ ],
+ "est_total_usd": 0.24,
+ "cases": [
+  {
+   "id": "m2-case-open",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "est_usd": 0.04,
+   "references": [
+    "next/art/eval2/m2.jpg",
+    "evals/images/refs/eval2-m3-case.jpg"
+   ],
+   "prompt": "Attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: at the left edge, on the end of the grey sofa nearest the window, the two cushions (green and world map) are gone, because they sit at the sofa's far end, out of this view; and the small open case there is replaced by the room's own suitcase from attached picture 2: the same dark navy hard case with its lid standing open upright, lying flat on the seat, seen from its short end, so its side panel and the open lid's grey lining show and its handle is on the long side facing into the room. Drawn from the same eye level as the rest of the room, the same size it would be on that seat. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "note": "Polish walk: m2 agreed with m3 (cushions at the far end; the room's open case)"
+  },
+  {
+   "id": "m2-case-shut",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "est_usd": 0.04,
+   "references": [
+    "case:m2-case-open",
+    "next/art/eval2/closeup-caseclosed.jpg"
+   ],
+   "prompt": "Attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: the suitcase on the sofa's end is now zipped shut: its lid closed down flat onto its base, lying flat and closed on the seat, the same navy hard case like attached picture 2, its handle staying exactly where it is on the long side facing into the room, never on top. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "note": "Polish walk: m2's case shut, for the shut state"
+  },
+  {
+   "id": "m2-case-sheet",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "est_usd": 0.04,
+   "references": [
+    "evals/images/refs/eval2-m2-case-open.jpg",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-sheet.png"
+   ],
+   "prompt": "Attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: inside the open navy suitcase on the end of the sofa at the left, the folded music sheet (attached picture 3) now lies on top of the clothes, in the same place in the case as in attached picture 2 (which shows this case packed, looked down into; here it is seen from the case's short end, at the room's eye level). Only this one thing is added. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "note": "Polish walk: each packed thing its own edit of the window wall's case (checklist 90)"
+  },
+  {
+   "id": "m2-case-present",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "est_usd": 0.04,
+   "references": [
+    "evals/images/refs/eval2-m2-case-open.jpg",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-present.png"
+   ],
+   "prompt": "Attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: inside the open navy suitcase on the end of the sofa at the left, the flat present wrapped in snowman paper (attached picture 3) now lies on top of the clothes, in the same place in the case as in attached picture 2 (which shows this case packed, looked down into; here it is seen from the case's short end, at the room's eye level). Only this one thing is added. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "note": "Polish walk: each packed thing its own edit of the window wall's case (checklist 90)"
+  },
+  {
+   "id": "m2-case-hat",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "est_usd": 0.04,
+   "references": [
+    "evals/images/refs/eval2-m2-case-open.jpg",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-hat.png"
+   ],
+   "prompt": "Attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: inside the open navy suitcase on the end of the sofa at the left, the red bobble hat and the red gloves (attached picture 3) now lies on top of the clothes, in the same place in the case as in attached picture 2 (which shows this case packed, looked down into; here it is seen from the case's short end, at the room's eye level). Only this one thing is added. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "note": "Polish walk: each packed thing its own edit of the window wall's case (checklist 90)"
+  },
+  {
+   "id": "m2-case-passport",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "est_usd": 0.04,
+   "references": [
+    "evals/images/refs/eval2-m2-case-open.jpg",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-passport.png"
+   ],
+   "prompt": "Attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: inside the open navy suitcase on the end of the sofa at the left, the navy passport (attached picture 3) now lies on top of the clothes, in the same place in the case as in attached picture 2 (which shows this case packed, looked down into; here it is seen from the case's short end, at the room's eye level). Only this one thing is added. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "note": "Polish walk: each packed thing its own edit of the window wall's case (checklist 90)"
+  },
+  {
+   "id": "m2-case-passport2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "est_usd": 0.04,
+   "references": [
+    "evals/images/refs/eval2-m2-case-open.jpg",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-passport.png"
+   ],
+   "prompt": "Attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: inside the open navy suitcase on the end of the sofa at the left, the navy passport (attached picture 3), exactly as drawn there: a plain dark navy cover with no emblem, crest, pattern or gold marks of any kind, small, about the size of a hand now lies on top of the clothes, in the same place in the case as in attached picture 2 (which shows this case packed, looked down into; here it is seen from the case's short end, at the room's eye level). Only this one thing is added. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "note": "Polish walk: redrawn, the first had a gold emblem the icon does not have (checklist 82)"
+  }
+ ]
+}

@@ -1,0 +1,56 @@
+{
+ "name": "eval2 fix: the stool drawn alone on white (MOTH-116)",
+ "manifest": "evals/images/runs/eval2-fix4b.json",
+ "ran_at": "2026-10-25T09:32:52Z",
+ "total_cost_usd": 0.009,
+ "results": [
+  {
+   "id": "stool",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-m1-stool.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-116: the stool's icon and the stool at the wardrobe, drawn on white, never lifted from a wall",
+   "seconds": 11.9,
+   "cost_usd": 0.008985,
+   "usage": {
+    "prompt_tokens": 468,
+    "completion_tokens": 196,
+    "total_tokens": 664,
+    "cost": 0.008985,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.008985,
+     "upstream_inference_prompt_cost": 0.003105,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "stool.png",
+     "bytes": 1132314,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}

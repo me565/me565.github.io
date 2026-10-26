@@ -3,9 +3,9 @@
 Version 2 of this level is live as the lite release (built 28–30 Sept 2026, walked back through the gates on paper on 17 Oct 2026; its brief, map and chart are in this file's history before commit `v3`). On 17 Oct 2026 the owner asked for puzzles to the standard of Rusty Lake and Dark Dome, young-adult difficulty, no sparkles by default and a longer level, and said "go" to version 3 below. Version 3 is built through the gates as stage `school3` beside the live stage and replaces `school` when its final sign-off is given. Sign-off lines are the owner's; none has been written.
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: greybox (version 3 playable as `school3`; build 2026-10-18b, which also brought in the other line of work; Gate C waits on the owner's next play)
-Build id of the latest play link: 2026-10-18a
-Latest play link: see the chat of 17 Oct 2026 (a githack link pinned to the commit, with `?stage=school3`); version 2 stays live at https://me565.github.io/next/landscape/?stage=school
+Current status: version 3 removed (owner, 26 Oct 2026: "Remove this version of the last bell. We should only have the rebuilt version."; MOTH-155, build 2026-10-26b). Its greybox never passed Gate C and was not rebuilt after the style decision of 24 Oct 2026; the stage `school3`, its play script and its grey tabs are gone from the files, and this file below is kept as the record of what was tried. Mary's school is the live version 2 (`stages/school.js`) until the owner gives the level's fresh brief, which starts a new pass through the gates from Gate A in the test room's style.
+Build id of the latest play link: none (version 3 removed)
+Latest play link: none for version 3; version 2 stays live at https://me565.github.io/next/landscape/?stage=school
 
 ---
 

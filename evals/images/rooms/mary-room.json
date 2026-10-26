@@ -1,0 +1,221 @@
+{
+ "name": "Mary's room (the family flat, Singapore): test level eval2, Packing Day from scratch; from the owner's photographs of 24 Oct 2026, not kept",
+ "setting": "Cosy, warm and lived-in: a ten-year-old girl's narrow bedroom in a Singapore flat on a rainy December afternoon, empty of people.",
+ "palette": "the walls are plain white, with no painted band; the band line is only the height of the sofa's back, 36% of the way up the back wall from the floor; the floor is pale honey-coloured wood with a striped rug (pale blue, green and cream stripes) down the middle; a dark stained-wood loft bed, a grey sofa, white and black furniture, cream curtains; low honey wood skirting boards in this room",
+ "box": "a shallow box in one-point perspective: a wide back wall running the full width, narrow side walls, a thin strip of ceiling, a low floor band; flat plain walls meeting at plain corners, with no piers, columns, recesses, steps or returns anywhere",
+ "light": "the only daylight comes through the tall window on the window wall, a soft grey-green rainy afternoon light, with a warm ceiling light elsewhere",
+ "words": [],
+ "order": [
+  "m3",
+  "m2",
+  "m1",
+  "m4"
+ ],
+ "walls": {
+  "m3": {
+   "name": "the sofa wall (north)",
+   "light": "the window is to the right of this wall, so grey daylight comes from the right and shadows lean left; the wall is warm from the ceiling light",
+   "objects": [
+    {
+     "id": "doorleaf",
+     "label": "Mary's open dark wooden door leaf against the wall",
+     "text": "at the far left of the back wall, the leaf of the room's dark honey wooden door standing fully open and lying flat against this wall, its hinge edge at the left corner and its handle at its right edge",
+     "on": "wall",
+     "l": 2,
+     "t": 6,
+     "w": 13,
+     "h": 80,
+     "size": "the leaf reaches almost to the ceiling strip"
+    },
+    {
+     "id": "poster",
+     "label": "tall educational poster",
+     "text": "high on the wall at the left, a long poster with a dark background and small coloured pictures of planets and rocks, with no readable words",
+     "on": "wall",
+     "l": 18,
+     "t": 4,
+     "w": 14,
+     "h": 34
+    },
+    {
+     "id": "print",
+     "label": "small framed print",
+     "text": "a small framed print with a wide white mat and a thin black frame, hanging above the middle of the sofa",
+     "on": "wall",
+     "l": 46,
+     "t": 16,
+     "w": 10,
+     "h": 12
+    },
+    {
+     "id": "sofa",
+     "label": "grey sofa with two cushions and an open suitcase",
+     "text": "a low grey sofa bed along the wall, with a cushion printed like an old world map and a green knitted cushion at its left end; on the seat at the right, an open child's suitcase with a purple lid, empty, its lid leaning against the sofa back",
+     "on": "floor",
+     "l": 10,
+     "t": 44,
+     "w": 78,
+     "h": 42,
+     "size": "its back at a grown-up's waist",
+     "moves": "single (the whiteboard: lifted and read, wiped at the end; the case: the lid pops as each thing goes in)",
+     "absent": "a low grey sofa bed along the wall, with a cushion printed like an old world map and a green knitted cushion at its left end, and the rest of the seat bare and smooth; nothing propped against its back",
+     "cut": "two things, each drawn alone: an open child's suitcase with a purple lid, seen from the front and a little above, empty inside; and a small white whiteboard in a thin frame with a black marker pen clipped to its edge, blank"
+    }
+   ],
+   "floor": "the striped rug's stripes run away from the viewer, vertical in the picture"
+  },
+  "m2": {
+   "name": "the window wall (east), to the right of the sofa wall",
+   "light": "grey rainy daylight fills this wall from the glass itself and lies in a soft patch on the floor; everything in front of the window is a little dark against it",
+   "objects": [
+    {
+     "id": "stand",
+     "label": "black music stand with a folder",
+     "text": "a black metal music stand on a tripod at the left, seen from the side, its desk turned toward the room's left (toward the sofa, out of view), holding a closed blue cardboard folder; nothing wound round the stand",
+     "on": "floor",
+     "l": 10,
+     "t": 30,
+     "w": 16,
+     "h": 56,
+     "size": "the folder at a child's eye height",
+     "moves": "single (the pompom lights: code-drawn twinkle, switched off by a tap; the folder: flips open, lifted from the wall)",
+     "absent": "a black metal music stand on a tripod at the left, seen from the side, its desk turned toward the room's left (toward the sofa, out of view), holding a closed blue cardboard folder; nothing wound round the stand, nothing hanging from it",
+     "cut": "a short string of small round pompom fairy lights in pastel colours, drawn alone as a loose loop, for the game to wind round the stand"
+    },
+    {
+     "id": "window",
+     "label": "tall window with a deep ledge",
+     "text": "a tall window with a thin white frame in two parts: an upper pair of panes and a lower pane that opens, rain streaming down the glass; a deep white ledge between them with a row of books standing between two photo frames (their pictures unreadable) and a small blue-and-white patterned box; a cream curtain hanging close against each side of the window's frame, from the rail to the floor, with no curtain anywhere else on the wall; beyond the glass the pale towers of neighbouring blocks and one big tree with dark glossy leaves close to the glass, soft in the rain",
+     "on": "wall",
+     "l": 28,
+     "t": 4,
+     "w": 52,
+     "h": 82,
+     "size": "from the floor almost to the ceiling strip"
+    }
+   ],
+   "floor": "the striped rug's stripes lie across the picture, horizontal, parallel to this wall"
+  },
+  "m1": {
+   "name": "the loft wall (south), opposite the sofa wall",
+   "light": "the window is to the left of this wall, so grey daylight comes from the left and shadows lean right; under the loft bed it is dimmer, warmed by the ceiling light",
+   "objects": [
+    {
+     "id": "loft",
+     "label": "dark wooden loft bed along the wall",
+     "text": "a loft bed in dark stained wood running the whole width of the wall: four thick square posts, a rail round the high bunk, a ladder at the left (window) end and none at the right (door) end, a mattress and a teal floral duvet up top, a rainbow and a white costume hung over the rail; small stickers on the posts; under it a cream ribbed padded panel on the wall at the right half",
+     "on": "floor",
+     "l": 4,
+     "t": 2,
+     "w": 92,
+     "h": 84,
+     "size": "the bunk at a grown-up's head height, the posts reaching almost to the ceiling strip; its ladder is on the bed's front face at the window (left) end, leaning out into the room, so seen from the window wall it is in profile, rails slanting down and out, rungs edge-on"
+    },
+    {
+     "id": "stool",
+     "label": "under the loft's left end: a step stool and a stack of boxes",
+     "text": "under the loft at the far left, on the floor: a small low wooden step stool, and beside it two clear plastic storage tubs stacked one on the other",
+     "on": "floor",
+     "l": 6,
+     "t": 58,
+     "w": 12,
+     "h": 26,
+     "size": "the stool at a child's knee",
+     "moves": "single (the baby bath and the top tub: lifted aside to show the stool)",
+     "absent": "under the loft at the far left, on the floor: a small low wooden step stool standing in plain view, with nothing on or in front of it",
+     "cut": "two things, each drawn alone: a white plastic baby bath, seen from the side and a little above; and a clear plastic storage tub with a white lid, with soft toys faintly visible inside"
+    },
+    {
+     "id": "cubes",
+     "label": "white cube unit under the loft",
+     "text": "under the loft, a white cube shelf unit two cubes wide and four high, full of children's books standing in rows, craft boxes, a wicker basket, plastic tubs and a pink sequinned handbag",
+     "on": "floor",
+     "l": 20,
+     "t": 22,
+     "w": 20,
+     "h": 62,
+     "size": "its top just under the bunk"
+    },
+    {
+     "id": "panel",
+     "label": "the padded panel with a drawing and a postcard",
+     "text": "on the ribbed padded panel under the loft, at the left above the desk: a small postcard pinned up, and beside it a blank space where a framed picture would hang; nothing hanging from the bunk's rail above it",
+     "on": "wall",
+     "l": 42,
+     "t": 28,
+     "w": 14,
+     "h": 18,
+     "moves": "single (the pocket organiser: swings, then its close-up; the framed drawing: lifted)",
+     "absent": "on the ribbed padded panel under the loft, at the left above the desk: a small postcard pinned up, and beside it a blank space where a framed picture would hang; nothing hanging from the bunk's rail above it",
+     "cut": "two things, each drawn alone: a grey fabric hanging organiser with two rows of pockets, the lower pockets with round clear windows, hung from a short loop; and a child's drawing of a grandmother and three children in felt-tip in a plain white frame"
+    },
+    {
+     "id": "desk",
+     "label": "black desk with green drawers and a white chair",
+     "text": "a black desk under the loft at the right, with three dark green drawers down its right side and a patterned fabric box in the cubby under them; on it a metal pot of pens and pencils, a yellow mug of paintbrushes and a sheet of paper; a white swivel chair with a purple seat cushion on wheels in front of it; above it on the padded panel two small square canvas family pictures, their faces soft and unreadable",
+     "on": "floor",
+     "l": 56,
+     "t": 30,
+     "w": 34,
+     "h": 54,
+     "size": "the desk top at a grown-up's waist"
+    }
+   ],
+   "floor": "the striped rug's stripes run away from the viewer, vertical in the picture"
+  },
+  "m4": {
+   "name": "the door wall (west), to the left of the sofa wall",
+   "light": "the window is behind the viewer, so this wall is lit evenly by the grey daylight from behind, with faint shadows straight back, and warm from the ceiling light",
+   "objects": [
+    {
+     "id": "wardrobe",
+     "label": "tall white wardrobe",
+     "text": "a tall white wardrobe with two plain doors and two small silver handles, closed, reaching almost to the ceiling strip",
+     "on": "floor",
+     "l": 20,
+     "t": 4,
+     "w": 30,
+     "h": 82,
+     "size": "reaching almost to the ceiling strip"
+    },
+    {
+     "id": "door",
+     "label": "the open dark wooden door to the corridor",
+     "text": "the room's door at the right: a dark honey wooden door hinged on its right-hand jamb, standing fully open into the room toward the right, and through the doorway the corridor's opposite wall close behind the doorway: a plain white wall with a low dark honey wood skirting board and one white light switch, pale stone tiles with a faint sheen on the floor; two white light switches on the wall beside the frame and a few small notes pinned there",
+     "on": "floor",
+     "l": 60,
+     "t": 4,
+     "w": 24,
+     "h": 82,
+     "size": "the door reaches almost to the ceiling strip; dark honey wood, standing open into the room"
+    },
+    {
+     "id": "aircon",
+     "label": "air-conditioning unit",
+     "text": "a white air-conditioning unit high on the wall above the door, in the ceiling strip",
+     "on": "wall",
+     "l": 62,
+     "t": 0,
+     "w": 20,
+     "h": 4
+    }
+   ],
+   "floor": "the striped rug's stripes lie across the picture, horizontal, parallel to this wall"
+  }
+ },
+ "plan": {
+  "doors": [
+   {
+    "id": "door",
+    "wall": "m4",
+    "at": "the north (right-hand, seen from inside) end of the west wall, next to the corner with the sofa wall",
+    "hinge": "on its north jamb: the right-hand jamb seen from inside the room, the left-hand jamb seen from the corridor",
+    "swing": "into the room",
+    "open": "fully open, about a right angle, its leaf lying flat against the sofa wall (m3) at that wall's left end, hinge at the corner",
+    "leaf_on": "m3"
+   }
+  ],
+  "floor": "a striped rug (pale blue, green and cream stripes) down the middle; its stripes run north to south, so they read vertical (running away from the viewer) on the sofa wall and the loft wall, and horizontal (lying parallel to the wall) on the window wall and the door wall",
+  "ladder": "the loft's ladder is on the bed's front face (facing the sofa wall across the room), at the window (east) end, leaning out into the room; seen from the window wall it is in profile, its rails slanting from the bed's front edge down and out, rungs edge-on"
+ }
+}

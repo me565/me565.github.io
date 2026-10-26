@@ -1,0 +1,20 @@
+{
+ "run": "2026-10-25-room-eval2",
+ "judged_by": "Claude, 25 Oct 2026, on the pictures at full size; the owner's mark (S10) on the tablet to come",
+ "sheet": {
+  "k1": "H1-H7 pass. Glass, curtains, door, towers and tree in rain, patchwork armchair, bunk end, rug. S1 2, S7 2. Edits 0.",
+  "k2": "H1-H7 pass. The bunk side on with its sticker bands, trundle, striped lower bunk left bare for Zaina, reading light, headboard panel, teal upper bunk with the toy row, five faceless canvases and the bunting print. S1 2, S4 2 (the trundle front and the bare bunk are clean for lifting). Edits 0.",
+  "k3": "H1-H7 pass. Open door with the corridor beyond, the elephant string, the toy kitchen with its clock, the pocket organiser (koala, fox, dog), the toy tub and brick box, the bunk's head end. S1 2. Edits 0.",
+  "k4": "H1-H7 pass. Doll's house with the blank card above its door, the cube unit with books, coloured doors, fabric boxes and the toy row on top. S7 1: a teddy, stacking rings and blocks in the cubes that were not asked for; the teal clock drew hands and marks (asked blank; decor only, not read by the puzzle). Edits 0.",
+  "m3": "H1-H7 pass. The planets poster without words, the small print, the sofa with the map and knitted cushions and its seat bare for the whiteboard and the case, the striped rug. S1 2, S4 2. Edits 0.",
+  "m2": "H1-H7 pass. The music stand with the blue folder and nothing wound round it, the window in two parts with the ledge of books, frames and the patterned box, the rain, the tree, the sofa's end. S1 2. Edits 0.",
+  "m1": "H1-H7 pass. The loft bed with ladder, rainbow and costume, the stool in plain view, the cube unit, the panel with its postcard and a bare space for the drawing, the desk with three green drawers, the patterned box, the pen pot, the mug and the chair; two small canvases above the desk, faces generic. S1 2, S4 2. Edits 0.",
+  "m4": "H1-H7 pass. The loft's end with the tubs, the wardrobe, the air-conditioning unit, the open door with the corridor beyond, the switches and notes. S1 2. Edits 0.",
+  "c1": "H1-H7 pass. The children's door open on the bunk and window. S1 1: rendered and glossy, closer to a 3D render than the ink style; the tiles shine. Edits 0, but the owner's eye is needed.",
+  "c2": "H1-H7 pass. The framed picture, Mary's door open on her sofa and rug, the closed second door. S1 1 as c1. Edits 0.",
+  "c3": "H1-H7 pass. The double doors, the turn to the dining end with the table and chair in daylight. S1 1 as c1. Edits 0.",
+  "c4": "H1-H7 pass. The plain wall with its switch and skirting, the dining end at the left, the children's door at the right. S1 1 as c1. Edits 0."
+ },
+ "verdict": "All twelve usable as they stand, no edits. The two bedrooms hold the signed-off style and the corners agree (every side wall shows the right neighbour's end). The corridor's four read as a different, more photographic hand: a question for the owner on the tablet, since the corridor is a passage and may be allowed its plainness, or redrawn with the style paragraph strengthened (about 10 cents).",
+ "cost_usd": 0.4154
+}

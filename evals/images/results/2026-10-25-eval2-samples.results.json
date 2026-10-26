@@ -1,0 +1,298 @@
+{
+ "name": "eval2 sample pack (Gate E): Zaina with her piano, the piano close up, the bath and the tub over the stool with its empty place, the passport. Level file levels/LEVEL-eval2.md, Gates A to D signed 25 Oct 2026.",
+ "manifest": "evals/images/runs/eval2-samples.json",
+ "ran_at": "2026-10-25T07:53:29Z",
+ "total_cost_usd": 0.0946,
+ "results": [
+  {
+   "id": "zaina",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "next/art/portraits/zaina.png",
+    "evals/images/refs/eval2-style-kids.jpg"
+   ],
+   "params": {},
+   "note": "asset 22, Zaina's cut-out on the lower bunk (k2)",
+   "seconds": 139.5,
+   "cost_usd": 0.019231,
+   "usage": {
+    "prompt_tokens": 1787,
+    "completion_tokens": 196,
+    "total_tokens": 1983,
+    "cost": 0.019231,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.019231,
+     "upstream_inference_prompt_cost": 0.013351,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "zaina.png",
+     "bytes": 1199394,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "piano",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-style-kids.jpg",
+    "next/art/portraits/zaina.png"
+   ],
+   "params": {},
+   "note": "asset 23; the game colours the keys and adds the shape stickers",
+   "seconds": 16.4,
+   "cost_usd": 0.016916,
+   "usage": {
+    "prompt_tokens": 1780,
+    "completion_tokens": 120,
+    "total_tokens": 1900,
+    "cost": 0.016916,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.016916,
+     "upstream_inference_prompt_cost": 0.013316,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "piano.png",
+     "bytes": 1891770,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "bath",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "params": {},
+   "note": "asset 20a, set over the stool on m1, lifted aside on a tap",
+   "seconds": 13.2,
+   "cost_usd": 0.012973,
+   "usage": {
+    "prompt_tokens": 977,
+    "completion_tokens": 196,
+    "total_tokens": 1173,
+    "cost": 0.012973,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.012973,
+     "upstream_inference_prompt_cost": 0.007093,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "bath.png",
+     "bytes": 871124,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "tub",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "params": {},
+   "note": "asset 20b, stacked on the bath",
+   "seconds": 11.6,
+   "cost_usd": 0.012988,
+   "usage": {
+    "prompt_tokens": 980,
+    "completion_tokens": 196,
+    "total_tokens": 1176,
+    "cost": 0.012988,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.012988,
+     "upstream_inference_prompt_cost": 0.007108,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "tub.png",
+     "bytes": 993555,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "stoolgone",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval2/m1.jpg"
+   ],
+   "params": {},
+   "note": "asset 21: only the patch under the stool is used (tools/lift.py lifts the stool from m1 against it); the passed wall is unchanged",
+   "seconds": 20.5,
+   "cost_usd": 0.019473,
+   "usage": {
+    "prompt_tokens": 1437,
+    "completion_tokens": 280,
+    "total_tokens": 1717,
+    "cost": 0.019473,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.019473,
+     "upstream_inference_prompt_cost": 0.011073,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "stoolgone.png",
+     "bytes": 1795374,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "passport",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "1K",
+    "aspect_ratio": "1:1",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "params": {},
+   "note": "asset 26",
+   "seconds": 13.2,
+   "cost_usd": 0.013038,
+   "usage": {
+    "prompt_tokens": 990,
+    "completion_tokens": 196,
+    "total_tokens": 1186,
+    "cost": 0.013038,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.013038,
+     "upstream_inference_prompt_cost": 0.007158,
+     "upstream_inference_completions_cost": 0.00588
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 196
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "passport.png",
+     "bytes": 1571900,
+     "size": [
+      1024,
+      1024
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}
