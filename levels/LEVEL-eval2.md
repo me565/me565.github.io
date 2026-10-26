@@ -3,7 +3,7 @@
 *Opened on 24 Oct 2026 at the owner's word: "Do the packing day but built from scratch. Just as a two-room puzzle. Mary needs to find her things before she can take her flight to London for Christmas. Make it interesting." It is the second test level after "Lock-up Duty" (`levels/LEVEL-evalroom.md`), built the same way through the same gates: the room-specification method on Sunburst in the signed-off style, the test room's way of playing, and the owner's materials first (playbook 4x, checklist 8c and 8d). The owner is giving the rooms one at a time as photographs, which are never kept in the repo: each room is written down here in words as it arrives, with what is still missing, and the design is drawn on paper and approved before any picture is made. Room 1 arrived on 24 Oct 2026 (eight pictures) and room 2 the same day (eight pictures, Mary's room); the design below is drawn from both and waits on the owner's Gates A and B. Nothing is signed, nothing is built, no credit is spent. The stage key `eval2` and the hotspot prefix `e2_` are reserved. (An earlier outline for this key, a front-office test room, is parked in commit `731e844` and is not this level.)*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: integrating (Gates A to E signed 25 Oct 2026; the owner's fifth review fixed in build 2026-10-25g; the drawers, his option 1, in 2026-10-25h; his screenshots in 2026-10-25i, j and k; the polish walk in 2026-10-25l; the comic intro in 2026-10-25m)
+Current status: signed off, waiting to be released (Gates A to E signed 25 Oct 2026; the owner's fifth review fixed in build 2026-10-25g; the drawers, his option 1, in 2026-10-25h; his screenshots in 2026-10-25i, j and k; the polish walk in 2026-10-25l; the comic intro in 2026-10-25m)
 Build id of the latest play link: 2026-10-25m
 Latest play link: https://rawcdn.githack.com/me565/me565.github.io/bad8fe7a173ead7c6bce34a0445540538559f2c7/next/landscape/index.html?stage=eval2
 
@@ -515,7 +515,18 @@ Also for the owner, not built: the test levels have no comic intro (the test roo
 
 "Keep the art style. Generate the comic intro." The walls stay (MOTH-152 closed as a decision). The comic (playbook 4n) is three single panels drawn from the level's own walls with the children's portraits as references (`evals/images/runs/eval2-comic.json`, run 40241965342, **9.2¢ for 3**, all first time, no lettering): Mary at her rainy window with the case open and empty on the sofa ("Rain on the window all afternoon. The taxi to the airport came at six." / "Christmas in London, at Nana and Jedi's."); Mary kneeling on the sofa writing her list beside the case, the board turned so its writing is hidden ("Mary wrote her list on the whiteboard, in her best capitals." / "Four things to find. Then lights off, and wipe it clean."); Elliot and Zaina tiptoeing round the corridor's corner with a little blue book and a sheet of music while Mary, from behind in her doorway, has not noticed ("But in a flat with a brother of seven and a sister of four…" / "…things have a way of walking."). Text only, like the level (Gate D): the lines are not voiced. Saved in `next/art/comic/eval2-1..3.jpg`; `comic` in the stage; the play script now taps through it (six taps, remembered in the save) and the polish walk shoots each page at the three shapes. Build 2026-10-25m.
 
-The owner played build 2026-10-25m from the comic through: "Ok it's good." (26 Oct 2026, in chat). Not yet the final sign-off: still owed, one play on a real Android phone (checklist 44), then his words for the final sign-off.
+The owner played build 2026-10-25m from the comic through: "Ok it's good." (26 Oct 2026, in chat).
+
+### Final sign-off
+
+- Checklist walk at 2000×700, 740×360, 2200×1300 (`tools/polish-e2.js`, 204 screenshots, all clear) and reduced motion (`REDUCE=1 node tools/play-e2.js`, passes).
+- Feedback rounds on the tablet (playbook 4ae): the fourth review (MOTH-113 to MOTH-134, answered in 2026-10-25f), the fifth (MOTH-135 to MOTH-144, 2026-10-25g), the drawers (MOTH-120, 2026-10-25h), the screenshots (MOTH-145 to MOTH-148, 2026-10-25i to k), the polish walk (MOTH-149 to MOTH-152, 2026-10-25l), the comic (MOTH-153, 2026-10-25m).
+- Audit: no failures.
+- Art side by side with the test room's (checklist 43): looked at; softer than the test room's, kept by the owner (MOTH-152).
+- Voice: none; the level is text only (Gate D).
+- A real Android phone (checklist 44): played by the owner, 26 Oct 2026.
+
+Signed off: "I've played it on an Android device and it has my final sign off" (owner, 26 Oct 2026, in chat), on build 2026-10-25m (commit `86edc0d`).
 
 ## 8. Release
 
