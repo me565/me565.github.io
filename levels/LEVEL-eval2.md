@@ -3,8 +3,8 @@
 *Opened on 24 Oct 2026 at the owner's word: "Do the packing day but built from scratch. Just as a two-room puzzle. Mary needs to find her things before she can take her flight to London for Christmas. Make it interesting." It is the second test level after "Lock-up Duty" (`levels/LEVEL-evalroom.md`), built the same way through the same gates: the room-specification method on Sunburst in the signed-off style, the test room's way of playing, and the owner's materials first (playbook 4x, checklist 8c and 8d). The owner is giving the rooms one at a time as photographs, which are never kept in the repo: each room is written down here in words as it arrives, with what is still missing, and the design is drawn on paper and approved before any picture is made. Room 1 arrived on 24 Oct 2026 (eight pictures) and room 2 the same day (eight pictures, Mary's room); the design below is drawn from both and waits on the owner's Gates A and B. Nothing is signed, nothing is built, no credit is spent. The stage key `eval2` and the hotspot prefix `e2_` are reserved. (An earlier outline for this key, a front-office test room, is parked in commit `731e844` and is not this level.)*
 
 Status: `brief` | `outline` | `greybox` | `assets listed` | `samples` | `batch` | `integrating` | `released`
-Current status: signed off, waiting to be released (Gates A to E signed 25 Oct 2026; the owner's fifth review fixed in build 2026-10-25g; the drawers, his option 1, in 2026-10-25h; his screenshots in 2026-10-25i, j and k; the polish walk in 2026-10-25l; the comic intro in 2026-10-25m)
-Build id of the latest play link: 2026-10-25m
+Current status: released (Gates A to E signed 25 Oct 2026; final sign-off 26 Oct 2026 on build 2026-10-25m; live in release build 2026-10-26r, 26 Oct 2026)
+Build id of the latest play link: 2026-10-25m (released as 2026-10-26r; live at https://me565.github.io/next/landscape/?stage=eval2)
 Latest play link: https://rawcdn.githack.com/me565/me565.github.io/bad8fe7a173ead7c6bce34a0445540538559f2c7/next/landscape/index.html?stage=eval2
 
 ---
@@ -530,7 +530,9 @@ Signed off: "I've played it on an Android device and it has my final sign off" (
 
 ## 8. Release
 
-(the template's sections, filled in order as the gates open; see `levels/LEVEL-TEMPLATE.md`)
+Merged on: 26 Oct 2026, release build 2026-10-26r (branch `release/2026-10-26`, the release pull request to `main`), with the 60 cards MOTH-94 to MOTH-153 moved to Shipped. Live at https://me565.github.io/next/landscape/?stage=eval2 (a test level, not in `LITE`, so it is reached by its address).
+
+Playtester notes: none yet.
 
 ## Credit ledger
 
