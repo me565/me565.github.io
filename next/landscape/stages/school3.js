@@ -520,7 +520,7 @@ function feed(){
 }
 /* the blind: the opening gesture pulls it up; after that a tap lowers or raises it, and the room darkens or brightens */
 function openBlindDrag(then){
-  openDrag({pic:WALLS.c2, title:'Pull the blind up', tab:'../art/greybox/tab-cord.png', tabW:4, tabRatio:'300/120', path:[[70, 22], [70, 62]], label:'Take hold of the pull and drag it down.', missLabel:'Take hold of the pull on the cord.', moreLabel:'Keep pulling, all the way down.', doneLabel:'Up it goes!', lineColour:'#7a6a4a', lineWidth:8,
+  openDrag({pic:WALLS.c2, title:'Pull the blind up', tab:'../art/greybox/tab-cord.png', tabW:4, tabRatio:'120/300', path:[[70, 22], [70, 62]], label:'Take hold of the pull and drag it down.', missLabel:'Take hold of the pull on the cord.', moreLabel:'Keep pulling, all the way down.', doneLabel:'Up it goes!', lineColour:'#7a6a4a', lineWidth:8,
     done:() => { S.blind = 'up'; S.lit = true; save(); render(); sfx('leaf'); if (then) then(); }});
 }
 function toggleBlind(){
@@ -532,7 +532,7 @@ function toggleBlind(){
 /* the bell: the ending. Held and used in the corridor after the locker has opened; a swing, then the clock strikes three */
 function ringBell(){
   if (!S.lockerOpen){ sfx('knock'); say('Not yet. Mr Hollis said the bell comes last: the locker first.'); return; }
-  openDrag({pic:WALLS.h1, title:'Ring the last bell', tab:'../art/greybox/tab-bell.png', tabW:7, tabRatio:'200/160', path:[[30, 55], [50, 40], [70, 55]], label:'Take the bell and swing it right across.', missLabel:'Take hold of the bell.', moreLabel:'A proper swing, all the way across.', doneLabel:'DING!', lineColour:'#a8844a', lineWidth:10,
+  openDrag({pic:WALLS.h1, title:'Ring the last bell', tab:'../art/greybox/tab-bell.png', tabW:7, tabRatio:'160/200', path:[[30, 55], [50, 40], [70, 55]], label:'Take the bell and swing it right across.', missLabel:'Take hold of the bell.', moreLabel:'A proper swing, all the way across.', doneLabel:'DING!', lineColour:'#a8844a', lineWidth:10,
     done:() => { S.rung = true; drop('bell'); save(); chime(1046.5); setTimeout(() => chime(1318.5), 300); setTimeout(() => chime(1567.98), 600); say('The bell rings out down the corridor, and far away the classroom clock strikes three.'); setTimeout(ending, 1800); }});
 }
 const INSIDE = {stem:{pic:'../art/school/closeup-stem.jpg', title:'Inside the STEM cabinet', slip:'slipSc', box:[53, 83, 67, 95]}, paint:{pic:'../art/school/closeup-paint.jpg', title:'Inside the paint cupboard', slip:'slipAr', box:[57, 80, 71, 91]}};

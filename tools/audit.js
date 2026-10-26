@@ -23,6 +23,21 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
     const SUP = await p.evaluate(() => Object.fromEntries(Object.entries(STAGES).map(([k, st]) => [k, st.supersedes || null]))); /* a stage built to replace another (school3 for school) may share its ids: they never load together */
     const sup = (a, b) => SUP[a] === b || SUP[b] === a;
     const seen = new Map(); ids.forEach(([k, id]) => { if (seen.has(id) && seen.get(id) !== k && !sup(k, seen.get(id))) say(k, 'E32', `hotspot id ${id} also in ${seen.get(id)}`); seen.set(id, k); }); await p.close(); }
+  /* every drag's tab drawn at its picture's own proportions (E35), read from the stage files, so a drag behind a later state is checked
+     too: openDrag's tabRatio is width/height, and The Last Bell gave its cord and bell height/width (MOTH-154; the audit only reached the cord) */
+  { const dir = path.join(__dirname, '../next/landscape'), pngSize = f => { const b = fs.readFileSync(f); return [b.readUInt32BE(16), b.readUInt32BE(20)]; };
+    for (const file of fs.readdirSync(path.join(dir, 'stages')).filter(f => f.endsWith('.js'))){
+      const key = file.replace(/\.js$/, ''); if (process.argv.slice(2).length && !stages.includes(key)) continue;
+      const src = fs.readFileSync(path.join(dir, 'stages', file), 'utf8'), consts = {};
+      for (const m of src.matchAll(/\b([A-Z]\w*)\s*=\s*'([^']*)'/g)) consts[m[1]] = m[2];
+      for (const m of src.matchAll(/tab:\s*(?:([A-Z]\w*)\s*\+\s*)?'([^']+)'[^}]*?tabRatio:\s*'([\d.]+)\/([\d.]+)'/g)){
+        const rel = (m[1] ? consts[m[1]] || '' : '') + m[2], f = path.join(dir, rel);
+        if (!fs.existsSync(f)){ say(key, 'G38', `drag tab ${rel} not found`); continue; }
+        const [w, h] = pngSize(f), off = (m[3]/m[4])/(w/h) - 1;
+        if (Math.abs(off) > 0.03) say(key, 'E35', `drag tab ${path.basename(rel)} has tabRatio ${m[3]}/${m[4]} but the picture is ${w}×${h} (tabRatio is width/height: ${w}/${h})`);
+      }
+    }
+  }
   for (const stage of stages){
     /* voice */
     Object.keys(lines).filter(k => k.startsWith(stage + '.')).forEach(k => { if (!voiced.has(k)) say(stage, 'F34', `unrecorded: ${k}`); });
