@@ -515,6 +515,8 @@ Also for the owner, not built: the test levels have no comic intro (the test roo
 
 "Keep the art style. Generate the comic intro." The walls stay (MOTH-152 closed as a decision). The comic (playbook 4n) is three single panels drawn from the level's own walls with the children's portraits as references (`evals/images/runs/eval2-comic.json`, run 40241965342, **9.2¢ for 3**, all first time, no lettering): Mary at her rainy window with the case open and empty on the sofa ("Rain on the window all afternoon. The taxi to the airport came at six." / "Christmas in London, at Nana and Jedi's."); Mary kneeling on the sofa writing her list beside the case, the board turned so its writing is hidden ("Mary wrote her list on the whiteboard, in her best capitals." / "Four things to find. Then lights off, and wipe it clean."); Elliot and Zaina tiptoeing round the corridor's corner with a little blue book and a sheet of music while Mary, from behind in her doorway, has not noticed ("But in a flat with a brother of seven and a sister of four…" / "…things have a way of walking."). Text only, like the level (Gate D): the lines are not voiced. Saved in `next/art/comic/eval2-1..3.jpg`; `comic` in the stage; the play script now taps through it (six taps, remembered in the save) and the polish walk shoots each page at the three shapes. Build 2026-10-25m.
 
+The owner played build 2026-10-25m from the comic through: "Ok it's good." (26 Oct 2026, in chat). Not yet the final sign-off: still owed, one play on a real Android phone (checklist 44), then his words for the final sign-off.
+
 ## 8. Release
 
 (the template's sections, filled in order as the gates open; see `levels/LEVEL-TEMPLATE.md`)
