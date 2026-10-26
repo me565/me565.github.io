@@ -1,0 +1,95 @@
+{
+ "name": "eval2: the case in Mary's room redrawn in place at the room's eye level (MOTH-146), closed with its handle at the front (MOTH-145), each packed thing its own edit.",
+ "defaults": {
+  "n": 1
+ },
+ "notes": [
+  "Edits of m3 keep its geometry, so each state is pasted as a soft patch. Linted."
+ ],
+ "est_total_usd": 0.25,
+ "cases": [
+  {
+   "id": "m3-case",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "est_usd": 0.05,
+   "references": [
+    "next/art/eval2/m3.jpg",
+    "next/art/eval2/closeup-caseup.jpg",
+    "next/art/eval2/closeup-caseclosed.jpg"
+   ],
+   "prompt": "Attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: an open dark navy suitcase, about as wide as one seat cushion, now lies flat on the sofa's seat at its right-hand end, to the right of the small whiteboard, with its lid standing open upright behind it against the sofa back showing its soft grey lining. Inside it lie exactly the clothes of attached picture 2 in the same places: a cream cable-knit jumper and a sage green jumper folded at the left, navy trousers in the middle, beige and olive trousers at the right. Its carry handle is in the middle of its front edge, as on the case in attached picture 3. It is drawn from the same eye level as the rest of the room, a child standing a few steps back: we see mostly the case's front side and only a shallow view in over its front rim, so whatever lies inside is seen at a low angle, never from above. It rests on the seat cushion with a soft shadow. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "note": "MOTH-146: the case drawn in the room at the room's eye level, not alone on white from above"
+  },
+  {
+   "id": "m3-case-closed",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "est_usd": 0.04,
+   "references": [
+    "case:m3-case",
+    "next/art/eval2/closeup-caseclosed.jpg"
+   ],
+   "prompt": "Attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: the suitcase on the sofa is now zipped shut: its lid is closed down flat onto its base, so the case lies flat and closed on the seat, its zip running round its side. The carry handle stays exactly where it is, in the middle of the case's front edge, never on its top, like the closed case in attached picture 2. The same navy, the same size and place, from the same eye level. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "note": "MOTH-145: closed from the open case, the handle kept at the front"
+  },
+  {
+   "id": "m3-case-sheet",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "est_usd": 0.04,
+   "references": [
+    "case:m3-case",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-sheet.png"
+   ],
+   "prompt": "Attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: inside the open suitcase on the sofa, the folded music sheet (attached picture 3) lies on the cream cable-knit jumper at the left, at the back, in the same place in the case as in attached picture 2, which shows this case packed, looked down into. Only this one thing is added. It is seen from the room's eye level, at the same low angle as the clothes it lies on. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "note": "MOTH-146: each packed thing its own edit of the case in the room (checklist 90)"
+  },
+  {
+   "id": "m3-case-present",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "est_usd": 0.04,
+   "references": [
+    "case:m3-case",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-present.png"
+   ],
+   "prompt": "Attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: inside the open suitcase on the sofa, the flat present wrapped in snowman paper (attached picture 3) lies on the navy trousers in the middle, in the same place in the case as in attached picture 2, which shows this case packed, looked down into. Only this one thing is added. It is seen from the room's eye level, at the same low angle as the clothes it lies on. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "note": "MOTH-146: each packed thing its own edit of the case in the room (checklist 90)"
+  },
+  {
+   "id": "m3-case-hat",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "est_usd": 0.04,
+   "references": [
+    "case:m3-case",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-hat.png"
+   ],
+   "prompt": "Attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: inside the open suitcase on the sofa, the red bobble hat and the red gloves (attached picture 3) lie on the beige trousers at the right, in the same place in the case as in attached picture 2, which shows this case packed, looked down into. Only this one thing is added. It is seen from the room's eye level, at the same low angle as the clothes it lies on. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "note": "MOTH-146: each packed thing its own edit of the case in the room (checklist 90)"
+  },
+  {
+   "id": "m3-case-passport",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "est_usd": 0.04,
+   "references": [
+    "case:m3-case",
+    "evals/images/refs/eval2-caseup-packed.jpg",
+    "next/art/eval2/item-passport.png"
+   ],
+   "prompt": "Attached picture 1 is finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours, light and drawing style, except for this one change: inside the open suitcase on the sofa, the navy passport (attached picture 3) lies on the sage green jumper at the front left, in the same place in the case as in attached picture 2, which shows this case packed, looked down into. Only this one thing is added. It is seen from the room's eye level, at the same low angle as the clothes it lies on. Nothing else changes anywhere. No words, letters, numbers or symbols anywhere in the picture.",
+   "note": "MOTH-146: each packed thing its own edit of the case in the room (checklist 90)"
+  }
+ ]
+}

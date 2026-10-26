@@ -1,0 +1,147 @@
+{
+ "name": "The flat's corridor between the bedrooms (Singapore): test level eval2, Packing Day from scratch; from the owner's photograph of 24 Oct 2026, not kept",
+ "setting": "Cosy and plain: a short narrow corridor in a Singapore flat on a rainy December afternoon, empty of people.",
+ "palette": "the walls are plain white, with no painted band; the band line is only the height of a door handle, 36% of the way up the back wall from the floor; the floor is pale stone tiles with a faint sheen; dark honey-coloured wooden doors, frames and skirting boards along every wall",
+ "box": "a narrow deep box in one-point perspective: a back wall only as wide as a corridor, long side walls, a thin strip of ceiling with one small round light, a floor band; flat plain walls meeting at plain corners, with no piers, columns, recesses, steps or returns anywhere",
+ "light": "no window of its own: a small round ceiling light, and grey daylight reaching in from the dining end at the far end of the corridor and through the two open bedroom doors",
+ "words": [],
+ "order": [
+  "c1",
+  "c2",
+  "c3",
+  "c4"
+ ],
+ "walls": {
+  "c1": {
+   "name": "the children's door (north), the end of the corridor",
+   "light": "grey daylight comes out of the open doorway itself, from the children's window beyond; the corridor walls either side are lit by the ceiling light",
+   "objects": [
+    {
+     "id": "kdoor",
+     "label": "the children's open dark wooden door",
+     "text": "at the end of the corridor, the children's doorway with a dark honey wood frame; the dark honey wooden door is hinged on the right-hand jamb and stands fully open, swung away into the room toward the right, and through the doorway a glimpse of the children's room as its own walls show it: white walls with low white skirting boards, a pale honey wood floor and a grey rug, the glass wall with rain and a white bunk bed's end covered in tiny stickers at the right, grey daylight",
+     "on": "floor",
+     "l": 28,
+     "t": 4,
+     "w": 44,
+     "h": 82,
+     "size": "the door reaches almost to the ceiling strip"
+    }
+   ]
+  },
+  "c2": {
+   "name": "Mary's door (east), the first on the left walking in",
+   "light": "grey daylight comes out of Mary's open doorway at the left, from her window beyond; the rest of the wall is lit by the ceiling light",
+   "objects": [
+    {
+     "id": "mdoor",
+     "label": "Mary's open dark wooden door",
+     "text": "Mary's doorway at the left: a dark honey wood frame, the dark honey wooden door hinged on the left-hand jamb and standing fully open, swung away into her room toward the left, and through the doorway a glimpse of her room as its own walls show it: white walls with low honey wood skirting boards, a pale honey wood floor, the end of a grey sofa at the left, a striped rug, the window with rain ahead, grey daylight",
+     "on": "floor",
+     "l": 8,
+     "t": 4,
+     "w": 24,
+     "h": 82,
+     "size": "the door reaches almost to the ceiling strip"
+    },
+    {
+     "id": "picture",
+     "label": "framed picture",
+     "text": "a small framed picture with a dark frame on the white wall, between Mary's door and the second door, at a grown-up's eye height",
+     "on": "wall",
+     "l": 40,
+     "t": 20,
+     "w": 10,
+     "h": 14
+    },
+    {
+     "id": "frame2",
+     "label": "a second dark wooden door, closed",
+     "text": "further along at the right, a second dark wooden door, closed, with a brass handle",
+     "on": "floor",
+     "l": 62,
+     "t": 4,
+     "w": 22,
+     "h": 82,
+     "size": "the door reaches almost to the ceiling strip"
+    }
+   ]
+  },
+  "c3": {
+   "name": "the double doors (south), the far end of the corridor and the turn to the dining end",
+   "light": "grey daylight comes round the corner from the dining end at the right, bright on the stone floor there; the double doors at the end are in softer ceiling light",
+   "objects": [
+    {
+     "id": "doubledoors",
+     "label": "closed double doors",
+     "text": "at the end of the corridor, a pair of tall dark wooden double doors, closed, with two small brass handles meeting in the middle",
+     "on": "floor",
+     "l": 14,
+     "t": 4,
+     "w": 44,
+     "h": 82,
+     "size": "reaching almost to the ceiling strip"
+    },
+    {
+     "id": "turn",
+     "label": "the turn to the dining end",
+     "text": "at the right the corridor opens into the dining end: bright grey daylight, the same pale stone tiles and dark honey wood skirting boards continuing round the corner, the corner of a pine dining table and a wooden chair, a white wall beyond",
+     "on": "floor",
+     "l": 64,
+     "t": 4,
+     "w": 34,
+     "h": 82,
+     "size": "an opening the full height of the wall"
+    }
+   ]
+  },
+  "c4": {
+   "name": "the wall opposite Mary's door (west)",
+   "light": "lit by the ceiling light, with grey daylight from Mary's doorway behind the viewer",
+   "objects": [
+    {
+     "id": "switch",
+     "label": "a light switch",
+     "text": "a single white light switch on the plain white wall at a grown-up's shoulder height",
+     "on": "wall",
+     "l": 46,
+     "t": 34,
+     "w": 6,
+     "h": 6
+    },
+    {
+     "id": "skirting",
+     "label": "plain wall and wood skirting",
+     "text": "a plain white wall with a low dark honey wood skirting board, nothing else on it",
+     "on": "wall",
+     "l": 4,
+     "t": 4,
+     "w": 92,
+     "h": 82
+    }
+   ]
+  }
+ },
+ "plan": {
+  "doors": [
+   {
+    "id": "kdoor",
+    "wall": "c1",
+    "hinge": "on the right-hand jamb seen from the corridor (the children's room's east jamb)",
+    "swing": "away from the corridor, into the children's room, toward the right",
+    "open": "fully open"
+   },
+   {
+    "id": "mdoor",
+    "wall": "c2",
+    "hinge": "on the left-hand jamb seen from the corridor (Mary's room's north jamb)",
+    "swing": "away from the corridor, into Mary's room, toward the left",
+    "open": "fully open"
+   }
+  ],
+  "order": {
+   "c2": "left to right: Mary's door at the north end, then the framed picture, then the second closed door (the owner's photograph, from the children's doorway: Mary's door first on the left)"
+  },
+  "floor": "pale stone tiles, no rug"
+ }
+}

@@ -1,0 +1,13 @@
+{
+ "run": "2026-10-25-room-eval2-redo",
+ "judged_by": "Claude, 25 Oct 2026, against the owner's eight points (MOTH-94 to MOTH-101); the owner's eye to come",
+ "sheet": {
+  "k1": "MOTH-94 fixed: no bunk on the back wall; the bunk's end on the right-hand side wall, a bed's width (MOTH-97). Glass, curtains, armchair, rug. Edits 0.",
+  "k3": "MOTH-95 fixed: no bunk on the back wall; its foot end on the left-hand side wall; the door, elephants, kitchen with clock, pockets, tub and bricks; the doll's house edge at the right. Edits 0.",
+  "k4": "MOTH-96 fixed: the left side wall shows the brick box and tub, the right the glass; no bunk. S7 1: a pencil pot, a rainbow and two toy houses in the cubes not asked for; the clock still has hands (decor). Edits 0.",
+  "m2": "MOTH-98, 99, 100 fixed: the sofa's end on the left-hand side wall only (with the open case on it, which the game also draws on the sofa wall, so the two agree); curtains against the window's frame; the stand seen from the side, turned to the room; the loft's ladder end on the right-hand side wall, as m1. Edits 0.",
+  "m4": "MOTH-101 fixed: the loft's end on the left-hand side wall, posts and rail, no ladder; wardrobe, switches and notes, the open door with the corridor, the air-conditioning unit, the poster's edge at the right. Edits 0."
+ },
+ "verdict": "All five agree with the approved walls now: one bunk, one sofa, one ladder end. The children's room and Mary's room are twelve walls that turn as one room each.",
+ "cost_usd": 0.2091
+}

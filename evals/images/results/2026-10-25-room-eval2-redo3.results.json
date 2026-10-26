@@ -1,0 +1,439 @@
+{
+ "name": "room-eval2-redo3: nine edits after the owner's third review (MOTH-106 to MOTH-112) and Claude's full consistency check, 25 Oct 2026",
+ "manifest": "evals/images/runs/room-eval2-redo3.json",
+ "ran_at": "2026-10-25T06:45:52Z",
+ "total_cost_usd": 0.2494,
+ "results": [
+  {
+   "id": "mary-room-m3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-m3-v3.jpg",
+    "evals/images/refs/eval2-m4-v3.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-106",
+   "seconds": 16.7,
+   "cost_usd": 0.030636,
+   "usage": {
+    "prompt_tokens": 2892,
+    "completion_tokens": 280,
+    "total_tokens": 3172,
+    "cost": 0.030636,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.030636,
+     "upstream_inference_prompt_cost": 0.022236,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "mary-room-m3.png",
+     "bytes": 1777210,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "mary-room-m2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-m2-v3.jpg",
+    "evals/images/refs/eval2-m1-v3.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-107, MOTH-108, and the corner pier found in Claude's check",
+   "seconds": 19.0,
+   "cost_usd": 0.030656,
+   "usage": {
+    "prompt_tokens": 2896,
+    "completion_tokens": 280,
+    "total_tokens": 3176,
+    "cost": 0.030656,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.030656,
+     "upstream_inference_prompt_cost": 0.022256,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "mary-room-m2.png",
+     "bytes": 1762805,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "mary-room-m1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-m1-v3.jpg",
+    "evals/images/refs/eval2-m2-v3.jpg"
+   ],
+   "params": {},
+   "note": "Claude's check: the sofa on the loft wall's side wall",
+   "seconds": 18.6,
+   "cost_usd": 0.030471,
+   "usage": {
+    "prompt_tokens": 2859,
+    "completion_tokens": 280,
+    "total_tokens": 3139,
+    "cost": 0.030471,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.030471,
+     "upstream_inference_prompt_cost": 0.022071,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "mary-room-m1.png",
+     "bytes": 1834094,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "mary-room-m4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-m4-v3.jpg",
+    "evals/images/refs/eval2-c4-v3.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-108, and the glimpse found in Claude's check",
+   "seconds": 16.4,
+   "cost_usd": 0.025691,
+   "usage": {
+    "prompt_tokens": 2863,
+    "completion_tokens": 120,
+    "total_tokens": 2983,
+    "cost": 0.025691,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.025691,
+     "upstream_inference_prompt_cost": 0.022091,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "mary-room-m4.png",
+     "bytes": 1652715,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "flat-corridor-c1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-c1-v3.jpg",
+    "evals/images/refs/eval2-k3-v3.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-109, MOTH-112",
+   "seconds": 16.6,
+   "cost_usd": 0.030486,
+   "usage": {
+    "prompt_tokens": 2862,
+    "completion_tokens": 280,
+    "total_tokens": 3142,
+    "cost": 0.030486,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.030486,
+     "upstream_inference_prompt_cost": 0.022086,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "flat-corridor-c1.png",
+     "bytes": 1595378,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "flat-corridor-c2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-c2-v3.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-110",
+   "seconds": 14.3,
+   "cost_usd": 0.015123,
+   "usage": {
+    "prompt_tokens": 1527,
+    "completion_tokens": 120,
+    "total_tokens": 1647,
+    "cost": 0.015123,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.015123,
+     "upstream_inference_prompt_cost": 0.011523,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "flat-corridor-c2.png",
+     "bytes": 1529907,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "flat-corridor-c4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-c4-v3.jpg",
+    "evals/images/refs/eval2-c1-v3.jpg"
+   ],
+   "params": {},
+   "note": "Claude's check: the children's door shut on c4's side wall",
+   "seconds": 25.6,
+   "cost_usd": 0.030226,
+   "usage": {
+    "prompt_tokens": 2810,
+    "completion_tokens": 280,
+    "total_tokens": 3090,
+    "cost": 0.030226,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.030226,
+     "upstream_inference_prompt_cost": 0.021826,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "flat-corridor-c4.png",
+     "bytes": 1583961,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "kids-room-k2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-k2-v3.jpg",
+    "evals/images/refs/eval2-k3-v3.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-111",
+   "seconds": 17.7,
+   "cost_usd": 0.030581,
+   "usage": {
+    "prompt_tokens": 2881,
+    "completion_tokens": 280,
+    "total_tokens": 3161,
+    "cost": 0.030581,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.030581,
+     "upstream_inference_prompt_cost": 0.022181,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "kids-room-k2.png",
+     "bytes": 1851654,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "kids-room-k3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-k3-v3.jpg",
+    "next/art/eval2/c3.jpg"
+   ],
+   "params": {},
+   "note": "Claude's check: the glimpse down the corridor",
+   "seconds": 15.5,
+   "cost_usd": 0.025506,
+   "usage": {
+    "prompt_tokens": 2826,
+    "completion_tokens": 120,
+    "total_tokens": 2946,
+    "cost": 0.025506,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.025506,
+     "upstream_inference_prompt_cost": 0.021906,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "kids-room-k3.png",
+     "bytes": 1699540,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}

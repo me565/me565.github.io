@@ -1,0 +1,56 @@
+{
+ "name": "room-eval2-redo4: the corridor's Mary's-door wall, from Claude's walk after redo3",
+ "manifest": "evals/images/runs/room-eval2-redo4.json",
+ "ran_at": "2026-10-25T06:49:42Z",
+ "total_cost_usd": 0.0256,
+ "results": [
+  {
+   "id": "flat-corridor-c2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/refs/eval2-c2-v4.jpg",
+    "next/art/eval2/c1.jpg"
+   ],
+   "params": {},
+   "note": "Claude's walk after redo3",
+   "seconds": 13.5,
+   "cost_usd": 0.025636,
+   "usage": {
+    "prompt_tokens": 2852,
+    "completion_tokens": 120,
+    "total_tokens": 2972,
+    "cost": 0.025636,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.025636,
+     "upstream_inference_prompt_cost": 0.022036,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "flat-corridor-c2.png",
+     "bytes": 1459511,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}

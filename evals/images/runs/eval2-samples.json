@@ -1,0 +1,87 @@
+{
+ "name": "eval2 sample pack (Gate E): Zaina with her piano, the piano close up, the bath and the tub over the stool with its empty place, the passport. Level file levels/LEVEL-eval2.md, Gates A to D signed 25 Oct 2026.",
+ "defaults": {
+  "n": 1
+ },
+ "notes": [
+  "Judged in the level on the tablet, never as loose files. A failed sample goes back to its prompt, not to the batch.",
+  "Cut-outs keyed on white with tools/keywhite.py; the stool lifted with tools/lift.py against the stoolgone edit; close-ups saved at 1920x1080 JPEG 88."
+ ],
+ "est_total_usd": 0.24,
+ "cases": [
+  {
+   "id": "zaina",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "next/art/portraits/zaina.png",
+    "evals/images/refs/eval2-style-kids.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. Attached picture 1 is the character: draw exactly this girl, the same face, hair, colouring and clothes. Attached picture 2 is a crop from the room she sits in: copy only its style, hand and palette. Palette of the room: warm cream walls, white painted wood, honey wood floor, cheerful sticker colours, soft rainy-afternoon light. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe character: the girl from picture 1, aged four, sitting cross-legged facing us, a small pink toy piano resting on her knees, both hands on its keys, smiling down at it. Her whole body shows, sitting, as if on a bed (the bed itself is not drawn). The toy piano has eight plain white keys in a row and a thin slot along its top.",
+   "est_usd": 0.04,
+   "note": "asset 22, Zaina's cut-out on the lower bunk (k2)"
+  },
+  {
+   "id": "piano",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "evals/images/refs/eval2-style-kids.jpg",
+    "next/art/portraits/zaina.png"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. Attached picture 1 is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Attached picture 2 is the girl whose hands and sleeves show at the bottom: match her skin and sleeves. Palette of the room: warm cream walls, white painted wood, honey wood floor, cheerful sticker colours, soft rainy-afternoon light. A single picture that fills the whole 16:9 frame edge to edge: no border, no margin, no frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe picture: a pink plastic toy piano close up and square on, filling most of the frame, resting on a cream striped duvet: eight wide keys in one row, every key plain white with nothing on it, a thin empty card slot running along the piano's top edge, two small round speaker holes at one end. A little girl's two hands rest just in frame at the bottom corners. Soft warm light from the left.",
+   "est_usd": 0.04,
+   "note": "asset 23; the game colours the keys and adds the shape stickers"
+  },
+  {
+   "id": "bath",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Palette of the room: warm cream walls, honey wood floor and furniture, dark stained wood, soft rainy-afternoon light from a window. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe object: a pale yellow plastic baby bath, oval, empty, seen from the front and a little above so its inside rim shows, about seventy centimetres long.",
+   "est_usd": 0.04,
+   "note": "asset 20a, set over the stool on m1, lifted aside on a tap"
+  },
+  {
+   "id": "tub",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Palette of the room: warm cream walls, honey wood floor and furniture, dark stained wood, soft rainy-afternoon light from a window. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe object: a clear plastic storage tub with a white snap-on lid, empty, rectangular with rounded corners, seen from the front and a little above, about fifty centimetres long.",
+   "est_usd": 0.04,
+   "note": "asset 20b, stacked on the bath"
+  },
+  {
+   "id": "stoolgone",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "references": [
+    "next/art/eval2/m1.jpg"
+   ],
+   "prompt": "The attached picture is this very wall, finished and approved. Redraw it as the same picture, keeping absolutely everything exactly as it is, the same objects in the same places at the same sizes, the same colours and light, except for one change: the small low wooden step stool on the floor under the loft at the left, between the ladder and the white cube shelves, is gone; the floor, the skirting board and the wall behind where it stood simply continue, empty. Keep the drawing's style exactly. No words or letters anywhere, no border. The picture fills the whole 16:9 frame.",
+   "est_usd": 0.04,
+   "note": "asset 21: only the patch under the stool is used (tools/lift.py lifts the stool from m1 against it); the passed wall is unchanged"
+  },
+  {
+   "id": "passport",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "aspect_ratio": "1:1",
+   "resolution": "1K",
+   "references": [
+    "evals/images/refs/eval2-style-mary.jpg"
+   ],
+   "prompt": "Style: a polished, finished illustration drawn for a game, not a picture book for toddlers; clean dark-ink outlines on everything, a shadow side on every object and soft cast shadows from one light source, so things sit solidly on their surfaces; smooth colour with gentle shading, a faint paper-grain texture and a gentle vignette at the edges. Bright and clear, not hazy or dark. The attached picture is a crop from the room this belongs to: copy only its style, hand and palette, not its objects. Palette of the room: warm cream walls, honey wood floor and furniture, dark stained wood, soft rainy-afternoon light from a window. Draw it alone on a pure flat white background: no surface, no shadow on the ground, no frame, no border, no text, nothing else in the picture. The object fills most of the frame. No words, letters, numbers or symbols anywhere in the picture.\n\nThe object: a small plain dark blue passport booklet, closed, lying flat, seen from directly above, its cover completely blank, with no emblem, crest, words or pattern of any kind, the page edges pale at one side.",
+   "est_usd": 0.04,
+   "note": "asset 26"
+  }
+ ]
+}

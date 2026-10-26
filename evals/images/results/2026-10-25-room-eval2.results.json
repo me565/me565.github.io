@@ -1,0 +1,587 @@
+{
+ "name": "room-eval2: Mary's room, the corridor and Elliot and Zaina's room, twelve walls, Sunburst, for the test level Packing Day from scratch (levels/LEVEL-eval2.md)",
+ "manifest": "evals/images/runs/room-eval2.json",
+ "ran_at": "2026-10-25T03:57:06Z",
+ "total_cost_usd": 0.4154,
+ "results": [
+  {
+   "id": "kids-room-k2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/kids-room/layout-k2.png"
+   ],
+   "params": {},
+   "note": "the bunk wall (east), to the right of the window wall",
+   "seconds": 20.2,
+   "cost_usd": 0.023475,
+   "usage": {
+    "prompt_tokens": 2370,
+    "completion_tokens": 280,
+    "total_tokens": 2650,
+    "cost": 0.023475,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.023475,
+     "upstream_inference_prompt_cost": 0.015075,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "kids-room-k2.png",
+     "bytes": 1866157,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "mary-room-m1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/mary-room/layout-m1.png"
+   ],
+   "params": {},
+   "note": "the loft wall (south), opposite the sofa wall",
+   "seconds": 21.4,
+   "cost_usd": 0.024105,
+   "usage": {
+    "prompt_tokens": 2496,
+    "completion_tokens": 280,
+    "total_tokens": 2776,
+    "cost": 0.024105,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.024105,
+     "upstream_inference_prompt_cost": 0.015705,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "mary-room-m1.png",
+     "bytes": 1975073,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "flat-corridor-c3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/flat-corridor/layout-c3.png"
+   ],
+   "params": {},
+   "note": "the double doors (south), the far end of the corridor and the turn to the dining end",
+   "seconds": 12.6,
+   "cost_usd": 0.0173,
+   "usage": {
+    "prompt_tokens": 2095,
+    "completion_tokens": 120,
+    "total_tokens": 2215,
+    "cost": 0.0173,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.0173,
+     "upstream_inference_prompt_cost": 0.0137,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "flat-corridor-c3.png",
+     "bytes": 1645949,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "kids-room-k1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/kids-room/layout-k1.png",
+    "case:kids-room-k2"
+   ],
+   "params": {},
+   "note": "the window wall (north)",
+   "seconds": 23.1,
+   "cost_usd": 0.033988,
+   "usage": {
+    "prompt_tokens": 3695,
+    "completion_tokens": 280,
+    "total_tokens": 3975,
+    "cost": 0.033988,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.033988,
+     "upstream_inference_prompt_cost": 0.025588,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "kids-room-k1.png",
+     "bytes": 2045722,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "kids-room-k3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/kids-room/layout-k3.png",
+    "case:kids-room-k2"
+   ],
+   "params": {},
+   "note": "the door wall (south), opposite the window wall",
+   "seconds": 21.8,
+   "cost_usd": 0.034393,
+   "usage": {
+    "prompt_tokens": 3776,
+    "completion_tokens": 280,
+    "total_tokens": 4056,
+    "cost": 0.034393,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.034393,
+     "upstream_inference_prompt_cost": 0.025993,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "kids-room-k3.png",
+     "bytes": 1718461,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "mary-room-m2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/mary-room/layout-m2.png",
+    "case:mary-room-m1"
+   ],
+   "params": {},
+   "note": "the window wall (east), to the right of the sofa wall",
+   "seconds": 18.7,
+   "cost_usd": 0.029223,
+   "usage": {
+    "prompt_tokens": 3702,
+    "completion_tokens": 120,
+    "total_tokens": 3822,
+    "cost": 0.029223,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.029223,
+     "upstream_inference_prompt_cost": 0.025623,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "mary-room-m2.png",
+     "bytes": 1971119,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "mary-room-m4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/mary-room/layout-m4.png",
+    "case:mary-room-m1"
+   ],
+   "params": {},
+   "note": "the door wall (west), to the left of the sofa wall",
+   "seconds": 21.3,
+   "cost_usd": 0.040018,
+   "usage": {
+    "prompt_tokens": 3701,
+    "completion_tokens": 480,
+    "total_tokens": 4181,
+    "cost": 0.040018,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.040018,
+     "upstream_inference_prompt_cost": 0.025618,
+     "upstream_inference_completions_cost": 0.0144
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 480
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "mary-room-m4.png",
+     "bytes": 1683790,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "flat-corridor-c2",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/flat-corridor/layout-c2.png",
+    "case:flat-corridor-c3"
+   ],
+   "params": {},
+   "note": "Mary's door (east), the first on the left walking in",
+   "seconds": 17.7,
+   "cost_usd": 0.028473,
+   "usage": {
+    "prompt_tokens": 3552,
+    "completion_tokens": 120,
+    "total_tokens": 3672,
+    "cost": 0.028473,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.028473,
+     "upstream_inference_prompt_cost": 0.024873,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "flat-corridor-c2.png",
+     "bytes": 1605563,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "flat-corridor-c4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/flat-corridor/layout-c4.png",
+    "case:flat-corridor-c3"
+   ],
+   "params": {},
+   "note": "the wall opposite Mary's door (west)",
+   "seconds": 15.9,
+   "cost_usd": 0.027983,
+   "usage": {
+    "prompt_tokens": 3454,
+    "completion_tokens": 120,
+    "total_tokens": 3574,
+    "cost": 0.027983,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.027983,
+     "upstream_inference_prompt_cost": 0.024383,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "flat-corridor-c4.png",
+     "bytes": 1623634,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "kids-room-k4",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/kids-room/layout-k4.png",
+    "case:kids-room-k1",
+    "case:kids-room-k3",
+    "case:kids-room-k2"
+   ],
+   "params": {},
+   "note": "the cube wall (west), to the left of the window wall",
+   "seconds": 22.8,
+   "cost_usd": 0.055819,
+   "usage": {
+    "prompt_tokens": 6506,
+    "completion_tokens": 280,
+    "total_tokens": 6786,
+    "cost": 0.055819,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.055819,
+     "upstream_inference_prompt_cost": 0.047419,
+     "upstream_inference_completions_cost": 0.0084
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 280
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "kids-room-k4.png",
+     "bytes": 1732661,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "mary-room-m3",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/mary-room/layout-m3.png",
+    "case:mary-room-m2",
+    "case:mary-room-m4",
+    "case:mary-room-m1"
+   ],
+   "params": {},
+   "note": "the sofa wall (north)",
+   "seconds": 22.6,
+   "cost_usd": 0.050869,
+   "usage": {
+    "prompt_tokens": 6476,
+    "completion_tokens": 120,
+    "total_tokens": 6596,
+    "cost": 0.050869,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.050869,
+     "upstream_inference_prompt_cost": 0.047269,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "mary-room-m3.png",
+     "bytes": 1820170,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "flat-corridor-c1",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "evals/images/rooms/flat-corridor/layout-c1.png",
+    "case:flat-corridor-c2",
+    "case:flat-corridor-c4",
+    "case:flat-corridor-c3"
+   ],
+   "params": {},
+   "note": "the children's door (north), the end of the corridor",
+   "seconds": 18.3,
+   "cost_usd": 0.049709,
+   "usage": {
+    "prompt_tokens": 6244,
+    "completion_tokens": 120,
+    "total_tokens": 6364,
+    "cost": 0.049709,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.049709,
+     "upstream_inference_prompt_cost": 0.046109,
+     "upstream_inference_completions_cost": 0.0036
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 120
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "flat-corridor-c1.png",
+     "bytes": 1566170,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}

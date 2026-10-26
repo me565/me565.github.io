@@ -1,0 +1,153 @@
+{
+ "name": "eval2: the desk drawers (MOTH-120, the owner's choice of option 1): the socks drawer out on the floor, stuffed full, the tape in the middle drawer.",
+ "manifest": "evals/images/runs/eval2-drawers.json",
+ "ran_at": "2026-10-25T13:12:34Z",
+ "total_cost_usd": 0.0988,
+ "results": [
+  {
+   "id": "m1-botout",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval2/m1.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-120: the socks drawer out on the floor (the room shows what happened)",
+   "seconds": 29.4,
+   "cost_usd": 0.043808,
+   "usage": {
+    "prompt_tokens": 1516,
+    "completion_tokens": 1078,
+    "total_tokens": 2594,
+    "cost": 0.043808,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.043808,
+     "upstream_inference_prompt_cost": 0.011468,
+     "upstream_inference_completions_cost": 0.03234
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 1078
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "m1-botout.png",
+     "bytes": 1711118,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "drawer-bot-full",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval2/closeup-drawer-bot.jpg"
+   ],
+   "params": {},
+   "note": "MOTH-120: why the middle drawer sticks",
+   "seconds": 22.8,
+   "cost_usd": 0.025468,
+   "usage": {
+    "prompt_tokens": 1436,
+    "completion_tokens": 480,
+    "total_tokens": 1916,
+    "cost": 0.025468,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.025468,
+     "upstream_inference_prompt_cost": 0.011068,
+     "upstream_inference_completions_cost": 0.0144
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 480
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "drawer-bot-full.png",
+     "bytes": 2284606,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  },
+  {
+   "id": "drawer-mid-tape",
+   "model": "openai/gpt-image-2.5-sunburst",
+   "route": "images",
+   "settings": {
+    "resolution": "2K",
+    "aspect_ratio": "16:9",
+    "n": 1
+   },
+   "references": [
+    "next/art/eval2/closeup-drawer-mid.jpg",
+    "next/art/eval2/item-tape.png"
+   ],
+   "params": {},
+   "note": "MOTH-120: the tape in the middle drawer",
+   "seconds": 26.4,
+   "cost_usd": 0.029533,
+   "usage": {
+    "prompt_tokens": 1949,
+    "completion_tokens": 480,
+    "total_tokens": 2429,
+    "cost": 0.029533,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.029533,
+     "upstream_inference_prompt_cost": 0.015133,
+     "upstream_inference_completions_cost": 0.0144
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 480
+    }
+   },
+   "provider": null,
+   "files": [
+    {
+     "file": "drawer-mid-tape.png",
+     "bytes": 1859763,
+     "size": [
+      1536,
+      864
+     ]
+    }
+   ],
+   "ok": true
+  }
+ ]
+}

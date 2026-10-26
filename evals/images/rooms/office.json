@@ -1,0 +1,245 @@
+{
+ "name": "The front office (Knightsbrook International School), evaluation room 4: the second test room, \"Back in Five Minutes\"",
+ "setting": "Cosy, warm and tidy: the small front office of a Singapore international primary school at ten past three on the last afternoon of term, with an afternoon rainstorm outside, empty of people.",
+ "palette": "the walls are warm white above a pale teal painted band; the band's top edge is at a child's shoulder height, 42% of the way up the back wall from the floor; the floor is a soft grey carpet; the counter and furniture are pale birch wood with white tops; accents teal and a warm mustard yellow; brass on the hooks",
+ "box": "a shallow box in one-point perspective: a wide back wall running the full width, narrow side walls, a thin strip of ceiling, a low floor band",
+ "light": "the only daylight comes through the window beside the doorway on the entrance wall, a soft grey rainy-afternoon light, with warm even light from the ceiling elsewhere",
+ "words": [],
+ "order": [
+  "o1",
+  "o2",
+  "o3",
+  "o4"
+ ],
+ "walls": {
+  "o1": {
+   "name": "the counter wall (north)",
+   "light": "soft daylight comes from behind the viewer (the window is on the opposite wall), so the counter's front is lit evenly and faint shadows fall straight back under its top; the ceiling light warms the pigeonholes",
+   "objects": [
+    {
+     "id": "counter",
+     "label": "reception counter with a hinged flap",
+     "text": "a long reception counter in pale birch with a white top and a hinged flap at its right-hand end; one shallow drawer with a small round wooden knob under the top at the left; on the counter top, at the left, an open visitors' book with a pen on a short string, and nothing else",
+     "on": "floor",
+     "l": 8,
+     "t": 50,
+     "w": 76,
+     "h": 36,
+     "size": "the counter top at a grown-up's waist, a little above the top of the painted band"
+    },
+    {
+     "id": "pigeonholes",
+     "label": "wall of pigeonholes",
+     "text": "behind the counter, a wall-mounted grid of twelve wooden pigeonholes, three rows of four, most holding a few plain envelopes and papers, every label slot blank",
+     "on": "wall",
+     "l": 12,
+     "t": 10,
+     "w": 44,
+     "h": 30,
+     "size": "each hole a little bigger than an envelope"
+    },
+    {
+     "id": "things",
+     "label": "the middle of the counter top",
+     "text": "on the middle of the counter top, a folded note, a brass counter bell and a small sign on a stand",
+     "on": "wall",
+     "l": 40,
+     "t": 44,
+     "w": 22,
+     "h": 8,
+     "moves": "single (the note: lift; the bell: pop; the sign: wobble)",
+     "absent": "the middle of the counter top is bare, nothing standing on it",
+     "cut": "three things, each drawn alone: a folded sheet of cream notepaper with nothing written on it; a round brass counter bell with a button on top; a small white sign on a short stand with a blank face"
+    },
+    {
+     "id": "chair",
+     "label": "office chair with a cardigan",
+     "text": "behind the counter at the right, the top of a grey office chair showing above the counter, a soft mustard-yellow cardigan draped over its back",
+     "on": "wall",
+     "l": 62,
+     "t": 30,
+     "w": 16,
+     "h": 20,
+     "size": "its back a little above the counter top"
+    }
+   ]
+  },
+  "o2": {
+   "name": "the head's-door wall (east), to the right of the counter wall",
+   "light": "the window is to the right and behind, so a soft grey light comes from the right and shadows lean gently left; the ceiling light keeps the wall warm",
+   "objects": [
+    {
+     "id": "headdoor",
+     "label": "the head's door, closed",
+     "text": "a closed pale wooden door with a large panel of frosted glass in its upper half and a brass handle, nothing written on the glass",
+     "on": "floor",
+     "l": 8,
+     "t": 8,
+     "w": 20,
+     "h": 78,
+     "size": "the door reaches almost to the ceiling strip"
+    },
+    {
+     "id": "clock",
+     "label": "round wall clock",
+     "text": "a round white wall clock with a plain blank face and no hands, above and to the right of the door",
+     "on": "wall",
+     "l": 33,
+     "t": 8,
+     "w": 9,
+     "h": 15,
+     "size": "the clock the width of two hands"
+    },
+    {
+     "id": "cabinet",
+     "label": "low filing cabinet with an answering machine on top",
+     "text": "a low two-drawer grey filing cabinet, and on its top a small cream answering machine with a blank dark display strip and one large round button, no lead attached to it; on the wall beside the cabinet, at the height of the band, a single white electric socket with nothing plugged in",
+     "on": "floor",
+     "l": 36,
+     "t": 48,
+     "w": 22,
+     "h": 38,
+     "size": "the cabinet top level with the top of the band"
+    },
+    {
+     "id": "staffboard",
+     "label": "staff board with six empty frames",
+     "text": "a framed board on the wall at the right, with six small empty photograph frames in two rows of three and a blank label slot under each, nothing in any frame",
+     "on": "wall",
+     "l": 66,
+     "t": 14,
+     "w": 26,
+     "h": 28,
+     "size": "each frame the size of a postcard"
+    }
+   ]
+  },
+  "o3": {
+   "name": "the entrance wall (south), opposite the counter wall",
+   "light": "grey rainy daylight comes through the window at the left of this wall and lies in a soft pale patch on the carpet below it; the open doorway in the middle shows the corridor beyond, lit the same grey; the rest of the wall is warm from the ceiling light",
+   "objects": [
+    {
+     "id": "window",
+     "label": "window with rain",
+     "text": "a window with a white frame, rain streaming down the glass, showing a covered school walkway and dark green trees in heavy rain beyond",
+     "on": "wall",
+     "l": 8,
+     "t": 12,
+     "w": 24,
+     "h": 34,
+     "size": "its sill at the top of the band"
+    },
+    {
+     "id": "doorway",
+     "label": "open doorway to the corridor",
+     "text": "a wide open doorway in the middle of the wall with no door in it, and through it a glimpse of a school corridor: cream wall, a strip of mint band, a row of lockers",
+     "on": "floor",
+     "l": 38,
+     "t": 6,
+     "w": 24,
+     "h": 80,
+     "size": "the doorway reaches almost to the ceiling strip"
+    },
+    {
+     "id": "phone",
+     "label": "old wall telephone with a dial",
+     "text": "an old-fashioned cream wall telephone with a round dial that has no numbers on it and a handset resting on its hook, mounted on the wall to the right of the doorway at a grown-up's shoulder height",
+     "on": "wall",
+     "l": 66,
+     "t": 20,
+     "w": 8,
+     "h": 18,
+     "size": "the handset the length of a hand and a half"
+    },
+    {
+     "id": "gecko",
+     "label": "a small gecko high on the wall",
+     "text": "a small pale house gecko on the wall above the telephone",
+     "on": "wall",
+     "l": 68,
+     "t": 8,
+     "w": 4,
+     "h": 6,
+     "moves": "single (hop, then it slips out of sight)",
+     "absent": "the wall above the telephone is plain and empty",
+     "cut": "a small pale house gecko, seen from above as it clings to a wall, head up, tail curled a little"
+    },
+    {
+     "id": "bench",
+     "label": "wooden bench",
+     "text": "a low pale birch bench with nothing on it, against the wall under the telephone",
+     "on": "floor",
+     "l": 62,
+     "t": 62,
+     "w": 22,
+     "h": 20,
+     "size": "its seat at a child's knee"
+    },
+    {
+     "id": "cooler",
+     "label": "water cooler",
+     "text": "a white water cooler with a clear blue bottle on top, standing at the far right",
+     "on": "floor",
+     "l": 86,
+     "t": 34,
+     "w": 8,
+     "h": 52,
+     "size": "as tall as a grown-up's chest"
+    }
+   ]
+  },
+  "o4": {
+   "name": "the cupboard wall (west), to the left of the counter wall",
+   "light": "the window is to the left and behind, so a soft grey light comes from the left and shadows lean gently right; the ceiling light keeps the wall warm",
+   "objects": [
+    {
+     "id": "copier",
+     "label": "photocopier",
+     "text": "a large cream photocopier with its flat lid closed, a small blank control panel on its top edge, standing against the wall at the left",
+     "on": "floor",
+     "l": 8,
+     "t": 44,
+     "w": 24,
+     "h": 42,
+     "size": "its top at a grown-up's waist, level with the top of the band"
+    },
+    {
+     "id": "cupboard",
+     "label": "tall post cupboard with a keypad",
+     "text": "a tall cupboard painted sage green with a single door, closed, and a small white keypad panel on the door at a grown-up's chest height with ten blank buttons in three rows and one green button below; the cupboard top reaches almost to the ceiling strip",
+     "on": "floor",
+     "l": 40,
+     "t": 6,
+     "w": 22,
+     "h": 80,
+     "size": "reaching almost to the ceiling strip"
+    },
+    {
+     "id": "palm",
+     "label": "potted palm",
+     "text": "a potted palm in a plain terracotta pot standing on the carpet",
+     "on": "floor",
+     "l": 64,
+     "t": 40,
+     "w": 12,
+     "h": 46,
+     "moves": "single (bend, pinned at the pot)",
+     "absent": "bare grey carpet at the right, where a pot plant will stand: nothing there",
+     "cut": "a potted palm with five or six arching fronds in a plain terracotta pot",
+     "size": "as tall as a grown-up's shoulder"
+    },
+    {
+     "id": "umbrellas",
+     "label": "shelf of lost umbrellas",
+     "text": "a short wooden shelf on the wall at the right with four folded umbrellas on it in different plain colours, a small blank label slot on the shelf's edge",
+     "on": "wall",
+     "l": 74,
+     "t": 16,
+     "w": 20,
+     "h": 12,
+     "size": "the shelf at a grown-up's eye height"
+    }
+   ]
+  }
+ }
+}
