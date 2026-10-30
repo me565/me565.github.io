@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Play Store Pack</title>
+<meta name="robots" content="noindex">
+<style>
+:root{--bg:#0f1b26;--paper:#fffaf0;--ink:#2b2622;--line:#4a3b2a;--muted:#6b5f55;--gold:#f3c26a;--pen:#2f7c83}
+*{box-sizing:border-box} html,body{background:var(--bg)}
+body{margin:0;padding:20px 16px 48px;color:var(--ink);font:16px/1.5 system-ui,sans-serif}
+main{max-width:980px;margin:0 auto;background:var(--paper);border:3px solid var(--line);border-radius:6px;padding:22px 20px}
+h1{margin:0 0 4px;font-size:26px} h2{margin:26px 0 8px;font-size:19px;color:var(--line)}
+p{margin:0 0 10px} .muted{color:var(--muted)}
+.box{white-space:pre-wrap;background:#f4ead8;border:1px solid #d9c9a8;border-radius:4px;padding:12px;margin:0 0 8px;font-size:15px}
+button{font:inherit;background:var(--gold);border:2px solid var(--line);border-radius:999px;padding:8px 18px;cursor:pointer;min-height:44px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+figure{margin:0} figure img{width:100%;display:block;border:2px solid var(--line);border-radius:3px}
+figcaption{padding:6px 0;font-size:15px} a{color:var(--pen);font-weight:600}
+.row{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}
+.row img{border:2px solid var(--line);border-radius:3px;max-width:100%}
+</style></head><body><main>
+<h1>The Moth House: Google Play pack</h1>
+<p class="muted">Everything for Play Console's main store listing. Copy the words with the buttons, download each picture, then upload it in the matching box.</p>
+<h2>App name</h2><div class="box" id="name">The Moth House</div><button data-copy="name">Copy</button>
+<h2>Short description</h2><div class="box" id="short">A cosy point-and-click mystery for children, with puzzles for grown-ups too.</div><button data-copy="short">Copy</button>
+<h2>Full description</h2><div class="box" id="full">The Moth House is a cosy point-and-click mystery for children, with puzzles that grown-ups enjoy too.
+
+It is Mary&#x27;s last day of school in Singapore, and soon she flies to her grandparents in London. Before she goes, there are things to find, codes to crack and small mysteries to solve. And somewhere in the story waits a house that only appears at dusk, to people who are looking.
+
+WHAT&#x27;S IN THIS FIRST RELEASE
+• Lock Up Day: Mr Hollis has asked Mary to lock up Classroom 5H, and the key is in his desk behind a code. Read his note, search the room and work out what the beans on the windowsill are telling you.
+• Packing Day: the taxi comes at six, and Mary&#x27;s things are all over the flat. Search the bedrooms, strike a deal with her little sister and open the lock her brother made for the doll&#x27;s house.
+Elliot&#x27;s story (age 7) and Zaina&#x27;s (age 4) are coming in later updates, each with rooms and puzzles made for their age.
+
+HOW IT PLAYS
+• Tap to look around, collect things and use them where they belong.
+• Turn around each room with the arrows at the sides.
+• Stuck? The moth opens Mary&#x27;s notebook, with hints that start gentle and get clearer.
+• Hold a finger on the room to see everything you can tap.
+• No timers and no failing: a wrong try just gets a friendly word.
+
+MADE FOR FAMILIES
+• No ads, no in-app purchases and no accounts.
+• Collects no personal information. Progress is saved on your device.
+• Played in landscape, on phones and tablets.
+
+All characters, places and events are fictional.</div><button data-copy="full">Copy</button>
+<h2>App icon</h2><div class="row"><figure style="width:160px"><img src="icon-512.png" alt="App icon"><figcaption><a href="icon-512.png" download>Download</a> (512 × 512 PNG)</figcaption></figure></div>
+<h2>Feature graphic</h2><div class="row"><figure style="max-width:520px"><img src="feature-graphic.jpg" alt="Feature graphic"><figcaption><a href="feature-graphic.jpg" download>Download</a> (1024 × 500)</figcaption></figure></div>
+<h2>Screenshots</h2><p class="muted">1920 × 1080. Upload all eight, in this order, under Phone. Use the same eight for 7-inch and 10-inch tablets.</p>
+<div class="grid"><figure><img src="screenshot-1-title.jpg" alt="Screenshot 1" loading="lazy"><figcaption>1. <a href="screenshot-1-title.jpg" download>Download</a></figcaption></figure><figure><img src="screenshot-2-lock-up-day.jpg" alt="Screenshot 2" loading="lazy"><figcaption>2. <a href="screenshot-2-lock-up-day.jpg" download>Download</a></figcaption></figure><figure><img src="screenshot-3-mr-hollis-note.jpg" alt="Screenshot 3" loading="lazy"><figcaption>3. <a href="screenshot-3-mr-hollis-note.jpg" download>Download</a></figcaption></figure><figure><img src="screenshot-4-the-beans.jpg" alt="Screenshot 4" loading="lazy"><figcaption>4. <a href="screenshot-4-the-beans.jpg" download>Download</a></figcaption></figure><figure><img src="screenshot-5-comic.jpg" alt="Screenshot 5" loading="lazy"><figcaption>5. <a href="screenshot-5-comic.jpg" download>Download</a></figcaption></figure><figure><img src="screenshot-6-packing-day.jpg" alt="Screenshot 6" loading="lazy"><figcaption>6. <a href="screenshot-6-packing-day.jpg" download>Download</a></figcaption></figure><figure><img src="screenshot-7-elliot-and-zaina.jpg" alt="Screenshot 7" loading="lazy"><figcaption>7. <a href="screenshot-7-elliot-and-zaina.jpg" download>Download</a></figcaption></figure><figure><img src="screenshot-8-elliots-lock.jpg" alt="Screenshot 8" loading="lazy"><figcaption>8. <a href="screenshot-8-elliots-lock.jpg" download>Download</a></figcaption></figure></div>
+</main>
+<script>
+document.querySelectorAll('[data-copy]').forEach(b => b.onclick = async () => {
+  const t = document.getElementById(b.dataset.copy).textContent;
+  try { await navigator.clipboard.writeText(t); b.textContent = 'Copied'; }
+  catch (e) { const r = document.createRange(); r.selectNodeContents(document.getElementById(b.dataset.copy)); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Selected: copy it'; }
+  setTimeout(() => b.textContent = 'Copy', 2500);
+});
+</script>
+</body></html>
