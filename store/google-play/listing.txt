@@ -1,0 +1,38 @@
+THE MOTH HOUSE: GOOGLE PLAY STORE LISTING
+Copy each part into Play Console: Grow users > Store presence > Main store listing.
+
+APP NAME (30 characters max)
+The Moth House
+
+SHORT DESCRIPTION (80 characters max)
+A cosy point-and-click mystery for children, with puzzles for grown-ups too.
+
+FULL DESCRIPTION (4,000 characters max)
+The Moth House is a cosy point-and-click mystery for children, with puzzles that grown-ups enjoy too.
+
+It is Mary's last day of school in Singapore, and soon she flies to her grandparents in London. Before she goes, there are things to find, codes to crack and small mysteries to solve. And somewhere in the story waits a house that only appears at dusk, to people who are looking.
+
+WHAT'S IN THIS FIRST RELEASE
+• Lock Up Day: Mr Hollis has asked Mary to lock up Classroom 5H, and the key is in his desk behind a code. Read his note, search the room and work out what the beans on the windowsill are telling you.
+• Packing Day: the taxi comes at six, and Mary's things are all over the flat. Search the bedrooms, strike a deal with her little sister and open the lock her brother made for the doll's house.
+Elliot's story (age 7) and Zaina's (age 4) are coming in later updates, each with rooms and puzzles made for their age.
+
+HOW IT PLAYS
+• Tap to look around, collect things and use them where they belong.
+• Turn around each room with the arrows at the sides.
+• Stuck? The moth opens Mary's notebook, with hints that start gentle and get clearer.
+• Hold a finger on the room to see everything you can tap.
+• No timers and no failing: a wrong try just gets a friendly word.
+
+MADE FOR FAMILIES
+• No ads, no in-app purchases and no accounts.
+• Collects no personal information. Progress is saved on your device.
+• Played in landscape, on phones and tablets.
+
+All characters, places and events are fictional.
+
+PICTURES (in this folder)
+App icon: icon-512.png (512 x 512, with transparency)
+Feature graphic: feature-graphic-1024x500.png
+Phone screenshots: the eight screenshot-*.png files, in number order (1920 x 1080)
+7-inch and 10-inch tablet screenshots: the same eight files
