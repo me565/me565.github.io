@@ -12,7 +12,7 @@ The owner is a non-technical but AI-savvy builder working from a Chromebook. Exp
 
 - Hosted on GitHub Pages at https://me565.github.io (this repo, `me565.github.io`, branch `main`, root folder).
 - Shipped to Android as a Trusted Web Activity built with PWABuilder. The Android app simply loads this website, so **anything merged to `main` is live to every player within minutes**.
-- Android package ID: `io.github.me565.mothhouse` — permanent, never change it.
+- Android package ID: `io.github.me565.themothhouse` — permanent, never change it (since 29 Oct 2026, MOTH-158; the first ID, `io.github.me565.mothhouse`, was lost when its Play draft was locked to a signing key whose files no longer existed, and Google never reuses a deleted app's ID).
 
 ## Working rules
 
@@ -120,14 +120,14 @@ The interface (everything read or pressed) is drawn as a page of the comic: one 
 - Typeface: IM Fell English (Google Fonts) with Georgia fallback. Sentence case, short, dry, unsettling copy.
 - Darkness overlay before the lamp is lit; warm radial glow after.
 
-## Launch status (as of 30 Sept 2026)
+## Launch status (as of 29 Oct 2026)
 
-1. Google Play developer account (personal, developer name "OG Entertainment Studios", on the owner's own Google account) — created 30 Sept; identity, device and phone verification in progress. The app cannot be created in the Console until they clear.
+1. Google Play developer account (personal, developer name "OG Entertainment Studios", on the owner's own Google account) — created 30 Sept, verified.
 2. Website live at https://me565.github.io — done.
-3. PWABuilder Android package — built 30 Sept from https://me565.github.io (the landscape game at the root, manifest `landscape`); the zip with the `.aab`, the keystore and `signing-key-info.txt` is kept privately by the owner, never in the repo. Rebuild from the same address with the same key when the manifest changes.
-4. `.well-known/assetlinks.json` and the empty `.nojekyll` file are in place, with the PWABuilder signing key's SHA-256 fingerprint. Still to do: once the app is on Google Play, add Play's app-signing SHA-256 fingerprint (Play Console → Test and release → App integrity → App signing) as a second entry in `sha256_cert_fingerprints`.
-5. Closed test: 12+ testers opted in for 14 continuous days (aim for 14–15 in case some drop out), then apply for production access.
-6. Store listing: icon, feature graphic, screenshots, descriptions, privacy policy page, content rating, data safety form.
+3. The app on Google Play: "The Moth House", package `io.github.me565.themothhouse`, created 29 Oct 2026 (the 1 Oct draft under the old ID was deleted, see "How it is hosted"). PWABuilder Android package built 29 Oct from https://me565.github.io with a new signing key; the zip (`.aab`, `.apk`, `signing.keystore`, `signing-key-info.txt`, `assetlinks.json`) is in the owner's Drive, never in the repo. Rebuild from the same address with the same keystore ("Use mine" in PWABuilder) when the manifest changes; a higher version code each time. "Play automatic protection" is on for the release (the package is for Android 7 and up, API 24).
+4. Internal testing: release 1 (1.0.0.0) live since 29 Oct 2026 to the "Moth House Testers" list; the owner installed it from the Play test link on his tablet and played Lock Up Day through. `.well-known/assetlinks.json` and the empty `.nojekyll` file carry the new package ID with both fingerprints: Play's app-signing key (what players install) and the upload key (the sideloaded `.apk`). Play App Signing is on, so a new fingerprint comes only from Play Console → Test and release → App integrity → Play App Signing.
+5. Still to do, in order: the store-setup tasks on the app's Dashboard (store listing with screenshots and a feature graphic, privacy policy page, app access, ads declaration, advertising ID declaration, content rating, target audience, data safety); then a closed test with 12+ testers opted in for 14 continuous days (aim for 14–15 in case some drop out); then apply for production access.
+6. Store listing assets to make: feature graphic, screenshots, descriptions, privacy policy page (playbook backlog 5).
 
 ## What's next for the game
 

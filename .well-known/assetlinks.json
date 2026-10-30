@@ -2,7 +2,10 @@
       "relation": ["delegate_permission/common.handle_all_urls"],
       "target": {
         "namespace": "android_app",
-        "package_name": "io.github.me565.mothhouse",
-        "sha256_cert_fingerprints": ["23:05:CB:F5:FD:76:D8:E4:9C:46:DB:69:1C:B9:06:4A:E5:E7:C8:1F:1C:2B:E2:3B:78:02:53:45:67:06:0E:FA"]
+        "package_name": "io.github.me565.themothhouse",
+        "sha256_cert_fingerprints": [
+          "AA:7F:15:B4:1C:56:80:ED:00:05:76:4A:28:CC:D1:BD:69:CC:F7:AC:EC:E4:27:C2:09:1F:E0:EC:D5:8D:9A:BF",
+          "65:54:8C:C4:0B:28:AB:78:02:05:DB:E7:A8:80:A1:41:02:2A:56:63:24:41:5D:B5:DC:2C:9B:D1:30:68:08:C7"
+        ]
       }
     }]
