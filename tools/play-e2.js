@@ -1,6 +1,7 @@
+/* Layer: game. Play script for stage eval2; part of the testing kit (tools/kit/README.md). */
 /* Plays the second test level "Packing Day" (stage eval2), start to ending, with the wrong tries, by script. node tools/play-e2.js (server on 8765).
    REDUCE=1 plays it with prefers-reduced-motion (checklist 36); SHOTS=<dir> puts the screenshots there. */
-const { chromium } = require('playwright');
+const { chromium } = require('playwright'); const kit = require('./kit/kit');
 (async () => {
   const b = await chromium.launch({executablePath:'/opt/pw-browsers/chromium'}); const p = await b.newPage({viewport:{width:2000, height:700}}); if (process.env.REDUCE){ await p.emulateMedia({reducedMotion:'reduce'}); console.log('reduced motion on'); } const errs = []; p.on('pageerror', e => errs.push(e.message));
   const OUT = (process.env.SHOTS || '/tmp') + '/e2-'; const shot = async n => p.screenshot({path:OUT + n + '.png', clip:await p.locator('#scene').boundingBox()});
@@ -20,7 +21,7 @@ const { chromium } = require('playwright');
   const setWheels = async seq => { for (let i = 0; i < 4; i++){ const want = ['red','orange','yellow','green','blue','indigo','violet','pink'].indexOf(seq[i]); for (let k = 0; k < 8; k++){ if ((await p.evaluate(i => (S.wheels || [0,2,3,4])[i], i)) === want) break; await p.evaluate(i => document.querySelector(`#closeup .e2wheel[data-i="${i}"]`).click(), i); await p.waitForTimeout(40); } } };
   const press = async seq => { await setWheels(seq); await p.click('#e2go'); await p.waitForTimeout(300); return cufb(); };
 
-  await p.goto('http://localhost:8765/next/landscape/?stage=eval2&fresh', {waitUntil:'networkidle'}); await p.waitForTimeout(900);
+  await kit.watch(p); await p.goto('http://localhost:8765/next/landscape/?stage=eval2&fresh', {waitUntil:'networkidle'}); await p.waitForTimeout(900);
   await p.evaluate(() => { const f = document.getElementById('fsask'); if (f && !f.hidden){ const bt = f.querySelector('button:last-of-type'); if (bt) bt.click(); else f.hidden = true; } });
   /* the comic intro (MOTH-153): three pages, two lines each, a tap per line and one to turn; then the title card */
   check(await p.evaluate(() => !document.getElementById('comic').hidden), 'the comic opens a fresh start'); let taps = 0;
@@ -86,5 +87,5 @@ const { chromium } = require('playwright');
   /* Packing Day is Mary's second level; the flight after it is not playable yet, so its end card says so (MOTH-156) */
   check(await p.evaluate(() => !nextStage() && /Coming soon/.test(document.getElementById('endNext').textContent)), 'the end card says the flight is coming soon');
   for (const w of [844, 2000]){ await p.setViewportSize({width:w, height:w === 844 ? 390 : 700}); await p.waitForTimeout(300); check(!(await p.evaluate(() => document.documentElement.scrollHeight > innerHeight + 1 || document.documentElement.scrollWidth > innerWidth + 1)), 'no page scroll at ' + w); }
-  console.log('errors:', errs.length ? errs : 'none'); console.log(fails ? `${fails} FAILED` : 'ALL PASS'); await b.close(); process.exit(fails || errs.length ? 1 : 0);
+  console.log('errors:', errs.length ? errs : 'none'); console.log(fails ? `${fails} FAILED` : 'ALL PASS'); await kit.finish(p, b, {errors:errs, fails});
 })();

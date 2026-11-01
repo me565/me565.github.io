@@ -9,3 +9,4 @@ node_modules/
 /pn/
 /pt/
 __pycache__/
+tools/kit/out/
