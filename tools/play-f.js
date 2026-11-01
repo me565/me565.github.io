@@ -4,7 +4,7 @@ const { chromium } = require('playwright'); const kit = require('./kit/kit');
   const b = await chromium.launch({executablePath:'/opt/pw-browsers/chromium'});
   const p = await b.newPage({viewport:{width:1180,height:820}});
   const errors = []; p.on('pageerror', e => errors.push(e.message)); p.on('console', m => { if (m.type()==='error' && !/CERT|google|net::/.test(m.text())) errors.push(m.text()); });
-  const failed = []; p.on('requestfailed', r => failed.push(r.url())); p.on('response', r => { if (r.status() >= 400 && r.url().includes('localhost')) failed.push(r.status() + ' ' + r.url()); });
+  const failed = []; p.on('requestfailed', r => { const why = (r.failure() || {}).errorText || ''; if (why === 'net::ERR_ABORTED') return; failed.push(r.url() + ' ' + why); }); /* a download the game cancels on purpose (a voice line cut short by the next hint) is not a fault; a missing file still is, through the 404 check below */ p.on('response', r => { if (r.status() >= 400 && r.url().includes('localhost')) failed.push(r.status() + ' ' + r.url()); });
   await kit.watch(p); await p.goto('http://localhost:8765/next/landscape/?stage=flight', {waitUntil:'networkidle'}); await p.evaluate(() => { try{ localStorage.clear(); }catch(e){} }); await p.reload({waitUntil:'networkidle'}); await p.waitForTimeout(1500);
   if (!(await p.evaluate(() => document.getElementById('comic').hidden))){ await p.screenshot({path:'pf/comic.png'}); await p.click('#cskip'); } await p.waitForTimeout(300);
   if (!(await p.evaluate(() => document.getElementById('stagecard').hidden))){ await p.screenshot({path:'pf/card.png'}); await p.click('#cardGo'); } await p.waitForTimeout(400);
