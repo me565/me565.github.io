@@ -1,13 +1,14 @@
+/* Layer: game. Play script for stage park; part of the testing kit (tools/kit/README.md). */
 /* Plays Mary's Trent Park stage by script, end to end, against the local server; prints each step's state and the moth's line.
    Run: NODE_PATH=<playwright's node_modules> node tools/play-t.js   (writes screenshots to pt/) */
-const { chromium } = require('playwright');
+const { chromium } = require('playwright'); const kit = require('./kit/kit');
 const fs = require('fs'); fs.mkdirSync('pt', {recursive:true});
 (async () => {
   const b = await chromium.launch({executablePath:'/opt/pw-browsers/chromium'});
   const p = await b.newPage({viewport:{width:1180,height:820}});
   const errors = []; p.on('pageerror', e => errors.push(e.message)); p.on('console', m => { if (m.type()==='error' && !/CERT|google|net::|404/.test(m.text())) errors.push(m.text()); });
   const failed = []; p.on('response', r => { if (r.status() >= 400 && r.url().includes('localhost') && !/voice\//.test(r.url())) failed.push(r.status() + ' ' + r.url()); });
-  await p.goto('http://localhost:8765/next/landscape/?stage=park', {waitUntil:'networkidle'}); await p.evaluate(() => { try{ localStorage.clear(); }catch(e){} }); await p.reload({waitUntil:'networkidle'}); await p.waitForTimeout(1500);
+  await kit.watch(p); await p.goto('http://localhost:8765/next/landscape/?stage=park', {waitUntil:'networkidle'}); await p.evaluate(() => { try{ localStorage.clear(); }catch(e){} }); await p.reload({waitUntil:'networkidle'}); await p.waitForTimeout(1500);
   if (!(await p.evaluate(() => document.getElementById('comic').hidden))){ await p.screenshot({path:'pt/comic.png'}); await p.click('#cskip'); } await p.waitForTimeout(300);
   if (!(await p.evaluate(() => document.getElementById('stagecard').hidden))){ await p.screenshot({path:'pt/card.png'}); await p.click('#cardGo'); } await p.waitForTimeout(400);
   const st = () => p.evaluate(() => ({room:S.room, view:ROOMS[S.room].views[S.view], got:S.got.join(','), briefed:S.briefed, lamp:S.lampSeen, card:S.cardSeen, box:S.boxOpen, paper:S.paperRead, map:S.mapSeen, spade:S.spadeGot, dug:S.dug, key:S.keyGot, ring:S.ringSeen, time:S.timeSet, dusk:S.dusk, moved:S.jediMoved, gate:S.gateOpen, house:S.houseSeen, done:S.done, nm:S.nightMoth}));
@@ -56,5 +57,5 @@ const fs = require('fs'); fs.mkdirSync('pt', {recursive:true});
   await tap('pm_house', 800); console.log('end:', JSON.stringify(await st())); await p.waitForTimeout(3000); await shot('end');
   const nb = await p.evaluate(() => { openNotebook(); return document.querySelector('#closeup .card') ? document.querySelector('#closeup .card').innerText.slice(0, 600) : 'none'; }); console.log('notebook:', nb.replace(/\n/g, ' | ')); await back();
   console.log('errors:', errors); console.log('failed:', [...new Set(failed)]);
-  await b.close();
+  await kit.finish(p, b, {errors, failed});
 })();

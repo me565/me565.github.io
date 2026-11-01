@@ -1,0 +1,22 @@
+{
+ "key": "mothhouse.landscape.v1.zaina",
+ "save": {
+  "stage": "zschool",
+  "room": "kindy",
+  "view": 1,
+  "got": [
+   "painting"
+  ],
+  "held": null,
+  "hint": {
+   "0": 0
+  },
+  "done": false,
+  "put": [
+   "bottle"
+  ],
+  "song": false,
+  "v": 1,
+  "comicSeen": true
+ }
+}

@@ -1,9 +1,10 @@
-const { chromium } = require('playwright');
+/* Layer: game. Play script for stage eschool; part of the testing kit (tools/kit/README.md). */
+const { chromium } = require('playwright'); const kit = require('./kit/kit');
 (async () => {
   const b = await chromium.launch({executablePath:'/opt/pw-browsers/chromium'});
   const p = await b.newPage({viewport:{width:1180,height:820}});
   const errors = []; p.on('pageerror', e => errors.push(e.message)); p.on('console', m => { if (m.type()==='error' && !/CERT|google|net::|voice\//.test(m.text())) errors.push(m.text()); });
-  await p.goto('http://localhost:8765/next/landscape/?stage=eschool', {waitUntil:'networkidle'}); await p.evaluate(() => { try{ localStorage.clear(); }catch(e){} }); await p.reload({waitUntil:'networkidle'}); await p.waitForTimeout(900); if (!(await p.evaluate(() => document.getElementById('comic').hidden))) await p.click('#cskip'); await p.waitForTimeout(300);
+  await kit.watch(p); await p.goto('http://localhost:8765/next/landscape/?stage=eschool', {waitUntil:'networkidle'}); await p.evaluate(() => { try{ localStorage.clear(); }catch(e){} }); await p.reload({waitUntil:'networkidle'}); await p.waitForTimeout(900); if (!(await p.evaluate(() => document.getElementById('comic').hidden))) await p.click('#cskip'); await p.waitForTimeout(300);
   console.log('child', await p.evaluate(() => CHILD), 'card hidden?', await p.evaluate(() => document.getElementById('stagecard').hidden)); await p.screenshot({path:'pe-card.png'});
   await p.click('#cardGo'); await p.waitForTimeout(300);
   const st = () => p.evaluate(() => ({room:S.room, view:S.view, got:S.got.join(','), placed:S.placed.join(','), cogs:S.cogs.join(''), card:S.cardRead, chalk:S.chalkSeen, peg:S.pegSeen, bell:S.bell, done:S.done}));
@@ -36,5 +37,5 @@ const { chromium } = require('playwright');
   await p.click('#roll'); await p.waitForTimeout(2200); await shot('rolling'); await p.waitForTimeout(3000); console.log('bell:', JSON.stringify(await st()), await msg()); await shot('after-roll');
   await turnTo('p1'); await tap('e_card', 1200); await noOverflow('cardopen'); await shot('cardopen'); await p.waitForTimeout(6500); await shot('end'); console.log('end shown?', !(await p.evaluate(() => document.getElementById('endUI').hidden)), await p.textContent('#endTitle'), (await p.textContent('.postcard .pmsg')).slice(0,80));
   console.log('errors', errors);
-  await b.close();
+  await kit.finish(p, b, {errors});
 })();
