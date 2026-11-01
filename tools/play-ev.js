@@ -1,5 +1,6 @@
+/* Layer: game. Play script for stage evalroom; part of the testing kit (tools/kit/README.md). */
 /* Plays the test room "Lock-up Duty" (stage evalroom), start to ending, with the wrong tries, by script. node tools/play-ev.js (server on 8765). */
-const { chromium } = require('playwright');
+const { chromium } = require('playwright'); const kit = require('./kit/kit');
 (async () => {
   const b = await chromium.launch({executablePath:'/opt/pw-browsers/chromium'}); const p = await b.newPage({viewport:{width:2000, height:700}}); if (process.env.REDUCE){ await p.emulateMedia({reducedMotion:'reduce'}); console.log('reduced motion on'); } /* REDUCE=1 plays the stage with prefers-reduced-motion, as checklist 36 asks */ const errs = []; p.on('pageerror', e => errs.push(e.message));
   const OUT = (process.env.SHOTS || '/tmp') + '/ev-'; const shot = async n => p.screenshot({path:OUT + n + '.png', clip:await p.locator('#scene').boundingBox()});
@@ -16,7 +17,7 @@ const { chromium } = require('playwright');
   const setDials = async vals => { for (let i = 0; i < 4; i++){ const cur = await p.evaluate(i => S.dials[i], i); for (let k = 0; k < (vals[i] - cur + 10) % 10; k++){ await p.evaluate(i => document.querySelector(`#ddials .dial[data-i="${i}"]`).click(), i); await p.waitForTimeout(30); } } };
   const tryCode = async (vals, label) => { await tap('ev_tdrawer', 500); await setDials(vals); await p.click('#openDesk'); await p.waitForTimeout(300); console.log(label, vals.join(''), '→', await p.textContent('#deskFb')); await back(); };
 
-  await p.goto('http://localhost:8765/next/landscape/?stage=evalroom&fresh', {waitUntil:'networkidle'}); await p.waitForTimeout(900);
+  await kit.watch(p); await p.goto('http://localhost:8765/next/landscape/?stage=evalroom&fresh', {waitUntil:'networkidle'}); await p.waitForTimeout(900);
   await p.evaluate(() => { const f = document.getElementById('fsask'); if (f && !f.hidden){ const bt = f.querySelector('button:last-of-type'); if (bt) bt.click(); else f.hidden = true; } });
   /* the comic intro (MOTH-157): three pages, two lines each, a tap per line and one to turn; then the title card */
   { const opened = await p.evaluate(() => !document.getElementById('comic').hidden); let taps = 0;
@@ -77,5 +78,5 @@ const { chromium } = require('playwright');
   /* Lock Up Day is Mary's first level and its end card leads into Packing Day (MOTH-156) */
   console.log('end card leads to:', await p.evaluate(() => [document.getElementById('endNext').textContent, nextStage()].join(' → ')));
   for (const w of [844, 2000]){ await p.setViewportSize({width:w, height:w === 844 ? 390 : 700}); await p.waitForTimeout(300); console.log('page overflow', w, await p.evaluate(() => document.documentElement.scrollHeight > innerHeight + 1 || document.documentElement.scrollWidth > innerWidth + 1)); }
-  console.log('errors:', errs.length ? errs : 'none'); await b.close();
+  console.log('errors:', errs.length ? errs : 'none'); await kit.finish(p, b, {errors:errs});
 })();
