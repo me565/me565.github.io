@@ -39,12 +39,14 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
   { const p = await b.newPage({viewport:{width:1280, height:720}}); await p.goto(base + '?stage=evalroom&fresh', {waitUntil:'networkidle'});
     await p.waitForTimeout(600); await p.mouse.click(640, 360); await p.waitForTimeout(2500);
     const hide = h => p.evaluate(h => { Object.defineProperty(document, 'hidden', {get:() => h, configurable:true}); document.dispatchEvent(new Event('visibilitychange')); }, h);
-    const playing = await p.evaluate(() => { const k = VOICED && [...VOICED][0]; if (k) speak(k); return !!(trackEl && !trackEl.paused); });
+    const playing = await p.evaluate(() => { const k = VOICED && [...VOICED][0]; if (k) speak(k); window.__was = [trackEl, voiceEl]; return !!(trackEl && !trackEl.paused); });
     if (!playing) say('engine', 'C99?', 'the music did not start in the test browser, so leaving the game was not checked');
     else {
       await p.waitForTimeout(500); await hide(true); await p.waitForTimeout(800);
-      const left = await p.evaluate(() => ({ac: AC && AC.state, loud: [...Object.values(VOICE), trackEl].filter(a => a && !a.paused).map(a => a.src.split('/').pop())}));
-      if (left.ac === 'running' || left.loud.length) say('engine', 'C99', `sound carries on behind the home screen: context ${left.ac}, still playing ${left.loud.join(', ') || 'nothing'}`);
+      /* nothing may play, and no player may still hold its track: Android keeps a media card (with a play button) for a loaded one (MOTH-164) */
+      const left = await p.evaluate(() => ({ac: AC && AC.state, loud: [...Object.values(VOICE), trackEl, ...__was].filter(a => a && (!a.paused || a.getAttribute('src') && __was.includes(a))).map(a => (a.src || '?').split('/').pop()), amb: !!amb}));
+      if (left.ac === 'running' || left.loud.length || left.amb) say('engine', 'C99', `sound carries on behind the home screen: context ${left.ac}, still playing or loaded ${left.loud.join(', ') || 'nothing'}${left.amb ? ', ambient loop running' : ''}`);
+      if (await p.evaluate(() => document.title !== 'The Moth House')) say('engine', 'C99', `the page is named "${await p.title()}", which Android shows on the media card`);
       await hide(false); await p.waitForTimeout(1200);
       if (!(await p.evaluate(() => !!(trackEl && !trackEl.paused)))) say('engine', 'C99', 'the music does not come back when the player returns to the game');
     }

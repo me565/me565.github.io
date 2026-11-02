@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>The Moth House (landscape test)</title>
+<title>The Moth House</title>
 <meta name="theme-color" content="#141a28">
 <link rel="manifest" href="../../manifest.webmanifest">
 <link rel="icon" href="../../icon-192.png">
@@ -644,7 +644,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-11-02r';
+const BUILD = '2026-11-02b';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, the inventory strip under it, or beside it on a wide screen (backlog 24) ---------- */
@@ -1502,7 +1502,8 @@ function readAlong(el, a){
 const TITLE_TRACK = '../art/music/title.mp3';
 let wantTrack = TITLE_TRACK;
 function setTrack(src){ wantTrack = src || ''; if (trackEl && trackEl.dataset.src !== wantTrack){ fadeOut(trackEl); trackEl = null; musicState = 'changing'; } if (wantTrack && soundOn && AC && AC.state === 'running') startMusic(); }
-function fadeOut(el, ms = 1000){ const v0 = el.volume, t0 = performance.now(); const step = () => { const k = Math.min(1, (performance.now() - t0)/ms); el.volume = v0*(1-k); if (k < 1) requestAnimationFrame(step); else el.pause(); }; step(); }
+const fadingOut = new Set(); /* tracks on their way out, released if the game is left mid-fade (the fade runs on frames, which stop in the background) */
+function fadeOut(el, ms = 1000){ fadingOut.add(el); const v0 = el.volume, t0 = performance.now(); const step = () => { const k = Math.min(1, (performance.now() - t0)/ms); el.volume = v0*(1-k); if (k < 1) requestAnimationFrame(step); else { el.pause(); fadingOut.delete(el); } }; step(); }
 function fadeTo(el, target, ms = 1500){ const v0 = el.volume, t0 = performance.now(); el.dataset.fading = '1'; const step = () => { if (el.dataset.fading !== '1') return; const k = Math.min(1, (performance.now() - t0)/ms); el.volume = v0 + (target - v0)*k; if (k < 1) requestAnimationFrame(step); else delete el.dataset.fading; }; step(); }
 const TEMPO = 84, BEATS_PER_BAR = 3;
 const TUNE = {
@@ -1543,9 +1544,11 @@ function startMusic(){
   if (music){ music.stop(); music = null; }
   /* If this attempt is refused (no tap yet), nothing is kept, so the next tap tries again; once it plays, it stays and fades in. */
   const el = new Audio(wantTrack + '?v=' + BUILD); el.loop = true; el.volume = 0; el.preload = 'auto'; el.dataset.src = wantTrack; trackEl = el;
+  if (resumeAt && resumeAt.src === wantTrack){ const t = resumeAt.t; el.addEventListener('loadedmetadata', () => { try{ el.currentTime = t; }catch(e){} }, {once:true}); } /* back from the background: carry on where it stopped */
+  resumeAt = null;
   el.onerror = () => { if (trackEl === el){ musicState = 'file failed, using the built-in tune'; trackEl = null; startTune(); } };
   musicState = 'starting';
-  el.play().then(() => { if (trackEl !== el){ el.pause(); return; } musicState = 'playing'; fadeTo(el, .5*vol.music/10); })
+  el.play().then(() => { if (trackEl !== el){ el.pause(); return; } musicState = 'playing'; nameCard(); fadeTo(el, .5*vol.music/10); })
     .catch(err => { if (trackEl === el) trackEl = null; musicState = 'blocked until a tap (' + (err && err.name) + ')'; });
 }
 let trackEl = null, musicState = 'not started';
@@ -1610,9 +1613,25 @@ function wake(){ if (!soundOn) return; audio(); if (AC && AC.state !== 'running'
 
 ['touchend','click'].forEach(ev => addEventListener(ev, wake, {passive:true})); addEventListener('keydown', wake);
 /* Leaving the game (the home screen, another app, a locked phone) silences everything, and coming back picks the music up again (MOTH-162, a closed-test tester).
-   The Lyria track and the moth's voice are Audio elements outside the Web Audio context, so suspending the context alone left the music playing in the background. */
-function goQuiet(){ if (AC && AC.state === 'running') AC.suspend(); if (trackEl && !trackEl.paused) trackEl.pause(); if (voiceEl) hush(); }
-function comeBack(){ if (!soundOn) return; if (AC && AC.state !== 'running') AC.resume(); if (trackEl && trackEl.paused && vol.music) trackEl.play().catch(() => {}); }
+   The Lyria track and the moth's voice are Audio elements outside the Web Audio context, so suspending the context alone left the music playing in the background.
+   Android also shows a media card for any page whose Audio element still holds a track, even paused, with a play button that could restart the music
+   behind the home screen (MOTH-164). So leaving releases the players (remembering where the track was), stops the ambient loops and anything mid-fade,
+   leaving nothing to run; coming back starts the track again from that spot. While the game is on screen, the card names the game. */
+let resumeAt = null;
+function nameCard(){ if (!('mediaSession' in navigator) || typeof MediaMetadata === 'undefined') return; try{
+  navigator.mediaSession.metadata = new MediaMetadata({title:'The Moth House', artist:'OG Entertainment Studios', artwork:[{src:'../../icon-512.png', sizes:'512x512', type:'image/png'}]});
+  navigator.mediaSession.setActionHandler('play', () => { if (!document.hidden && trackEl) trackEl.play().catch(() => {}); });
+  navigator.mediaSession.setActionHandler('pause', () => { if (trackEl) trackEl.pause(); });
+}catch(e){} }
+function release(el){ try{ el.pause(); el.removeAttribute('src'); el.load(); }catch(e){} }
+function goQuiet(){
+  if (AC && AC.state === 'running') AC.suspend();
+  if (trackEl){ resumeAt = {src:trackEl.dataset.src, t:trackEl.currentTime || 0}; release(trackEl); trackEl = null; musicState = 'away'; }
+  fadingOut.forEach(release); fadingOut.clear();
+  if (voiceEl){ const v = voiceEl, k = voiceKey; hush(); release(v); if (k && VOICE[k] === v) delete VOICE[k]; }
+  if (amb){ amb.stop(); amb = null; }
+}
+function comeBack(){ if (!soundOn || !AC) return; AC.resume().then(() => { startMusic(); startAmbient(); }).catch(() => {}); }
 document.addEventListener('visibilitychange', () => { if (document.hidden) goQuiet(); else comeBack(); });
 addEventListener('pagehide', goQuiet);
 
