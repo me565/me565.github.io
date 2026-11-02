@@ -39,7 +39,7 @@ The checks protect players who are live, so they stay, but each runs once and at
 2. **The audit fits the change.** In full (every view photographed, about 20 minutes) for anything that changes what a room looks like: a picture, a cut-out, a close-up, a hotspot, a room or a level's layout. `--quick` (about 20 seconds) for sound, wording and the engine's behaviour. When unsure, full.
 3. **One release a day.** Approved fixes are bundled into one release, normally in the evening (the release routine), not one release per fix. A fault that is hurting players now (a level that cannot be finished, lost saves, sound that will not stop) is released on its own at once.
 
-This overrides the game-release skill wherever the two differ, until the skill is updated to match.
+The game-release skill says the same from v1.1 (uploaded by the owner on 2 Nov 2026); if the two ever differ, this section wins.
 
 ## Level-building gates (owner, 17 Oct 2026)
 
