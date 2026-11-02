@@ -266,7 +266,7 @@ const potsAria = () => S.rulerAt != null ? `The four bean plants on the sill; th
 function openPots(again){
   const targets = [[6, 0, 22, 100], [28, 0, 21, 100], [48, 0, 21, 100], [70, 0, 22, 100]].map((b, i) => cuTarget('ev_pot' + (i+1), `The ${LESSON[POTS[i][0]][2]} plant`, b)).join('');
   openCloseup(`<div class="card shelf"><div class="shelfpic" id="potspic" role="img" aria-label="${potsAria()}" style="background-image:url(../art/eval/c5h/closeup-pots.jpg?v=${BUILD});container-type:size">${labelsHTML()}<div id="marks">${marksHTML()}</div>${rulerHTML()}${targets}<p class="otitle">The bean pots</p></div><p class="ofb" id="potFb">${potLine()}</p></div>`);
-  const plain = {}; POTS.forEach((p, i) => { plain['ev_pot' + (i+1)] = () => { if (S.rulerAt != null) placeRuler(i); else $('potFb').textContent = S.got.includes('ruler') ? 'Hold the ruler first: tap it in the strip below, then tap the plant.' : 'Four bean plants, four heights. Nothing to measure them with yet.'; }; });
+  const plain = {}; POTS.forEach((p, i) => { plain['ev_pot' + (i+1)] = () => { if (S.rulerAt != null) placeRuler(i); else $('potFb').textContent = where(S.got.includes('ruler') ? 'Hold the ruler first: tap it in the strip below, then tap the plant.' : 'Four bean plants, four heights. Nothing to measure them with yet.'); }; });
   wireCu(plain);
   if (!again) say('');
 }
@@ -283,7 +283,7 @@ function placeRuler(i){ /* the one ruler stands in pot i; the first time it is p
 function openCabinet(){ /* locked: the cabinet close up, with the keyhole the game draws; unlocked: the top drawer close up (MOTH-61), opening and shutting on a tap, the ruler inside while it is out */
   if (!S.cabUnlocked){
     openCloseup(`<div class="card shelf"><div class="shelfpic" style="${zoom(WALLS.c4, 1160, 560, 640)}">${cuTarget('ev_cabinet', 'The top drawer and its lock', [30, 10, 45, 42])}<div style="position:absolute;left:36.5%;top:27%;width:3.6%;aspect-ratio:1;pointer-events:none">${KEYHOLE}</div><p class="otitle">Filing cabinet</p></div><p class="ofb" id="cabFb">The top drawer has a tiny lock. A small key would fit it.</p></div>`);
-    wireCu({ev_cabinet:() => { $('cabFb').textContent = S.got.includes('skey') ? 'A tiny lock. Hold the small key: tap it in the strip below, then tap the lock.' : 'A tiny lock on the top drawer. It wants a small key.'; }});
+    wireCu({ev_cabinet:() => { $('cabFb').textContent = where(S.got.includes('skey') ? 'A tiny lock. Hold the small key: tap it in the strip below, then tap the lock.' : 'A tiny lock on the top drawer. It wants a small key.'); }});
     return;
   }
   if (S.cabOut){ /* looked into (asset 15b, MOTH-80): the ruler lies along the front until it is taken; a tap on the rim shuts it */

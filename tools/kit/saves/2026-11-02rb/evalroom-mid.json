@@ -1,0 +1,61 @@
+{
+ "key": "mothhouse.landscape.v1.mary",
+ "save": {
+  "stage": "evalroom",
+  "room": "classroom",
+  "view": 1,
+  "got": [
+   "ev_env",
+   "wnote"
+  ],
+  "held": null,
+  "hint": {
+   "9": 1
+  },
+  "done": false,
+  "seen": {
+   "heights": 1793597461972,
+   "wnote": 1793597474651,
+   "day": 1793597477299,
+   "thu": 1793597479545
+  },
+  "clues": [
+   "pots",
+   "board",
+   "timetable"
+  ],
+  "taken": {
+   "skey": true,
+   "ruler": true
+  },
+  "keyDown": true,
+  "binMoved": [
+   "r1",
+   "r4",
+   "r5"
+  ],
+  "binDone": true,
+  "popped": true,
+  "measured": 1793597461972,
+  "heights": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "rulerAt": 3,
+  "cabUnlocked": true,
+  "cabOut": true,
+  "dials": [
+   2,
+   8,
+   4,
+   2
+  ],
+  "deskOpen": false,
+  "deskOut": false,
+  "locked": false,
+  "v": 1,
+  "comicSeen": true
+ }
+}
