@@ -1,0 +1,55 @@
+{
+ "key": "mothhouse.landscape.v1.mary",
+ "save": {
+  "stage": "park",
+  "room": "moat",
+  "view": 3,
+  "got": [
+   "map",
+   "spade",
+   "watch",
+   "card",
+   "paper"
+  ],
+  "held": null,
+  "hint": {},
+  "done": true,
+  "briefed": true,
+  "mapSeen": true,
+  "spadeGot": true,
+  "lampSeen": true,
+  "pipeSeen": true,
+  "listening": true,
+  "cardSeen": true,
+  "taps": [
+   1,
+   5,
+   1,
+   1,
+   4,
+   2
+  ],
+  "cur": 0,
+  "boxOpen": true,
+  "paperTaken": true,
+  "paperRead": true,
+  "tapeSeen": true,
+  "tapeHeard": false,
+  "dug": true,
+  "keyGot": true,
+  "ringSeen": true,
+  "watch": {
+   "h": 7,
+   "m": 45
+  },
+  "timeSet": true,
+  "dusk": true,
+  "jediMoved": true,
+  "carvingsSeen": true,
+  "arrowSeen": true,
+  "gateOpen": true,
+  "houseSeen": true,
+  "nightMoth": true,
+  "v": 1
+ }
+}

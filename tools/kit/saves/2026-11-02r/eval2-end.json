@@ -1,0 +1,69 @@
+{
+ "key": "mothhouse.landscape.v1.mary",
+ "save": {
+  "stage": "eval2",
+  "room": "mary",
+  "view": 0,
+  "got": [],
+  "held": null,
+  "hint": {},
+  "done": true,
+  "seen": {
+   "list": 1793593146141,
+   "folder": 1793593147817,
+   "drawer": 1793593149302,
+   "jam": 1793593150070,
+   "box": 1793593152292,
+   "mum": 1793593160085,
+   "zaina": 1793593165026,
+   "enote": 1793593171997
+  },
+  "clues": [
+   "list",
+   "enote",
+   "carol"
+  ],
+  "taken": {
+   "paper": true,
+   "shelly": true,
+   "drawing": true,
+   "tape": true,
+   "parcel": true,
+   "present": true,
+   "stool": true,
+   "hat": true,
+   "sheet": true,
+   "passport": true
+  },
+  "packed": {
+   "hat": true,
+   "present": true,
+   "carol": true,
+   "passport": true
+  },
+  "wheels": [
+   4,
+   0,
+   0,
+   3
+  ],
+  "wardOpen": true,
+  "caseShut": true,
+  "tubMoved": true,
+  "bathMoved": true,
+  "stoolAt": true,
+  "boxOpen": true,
+  "traded": true,
+  "verses": 2,
+  "versePlayed": true,
+  "chorusHeard": true,
+  "trundleOut": true,
+  "wrapped": true,
+  "houseOpen": true,
+  "lightsOff": true,
+  "wiped": true,
+  "botOut": true,
+  "v": 1,
+  "comicSeen": true
+ }
+}
