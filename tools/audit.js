@@ -1,5 +1,8 @@
 /* The Moth House: the checklist's automatic lines (next/CHECKLIST.md), run over every stage.
-   usage: node tools/audit.js [stage ...]   (needs the local server: cd <repo> && python3 -m http.server 8765)
+   usage: node tools/audit.js [--quick] [stage ...]   (needs the local server: cd <repo> && python3 -m http.server 8765)
+   --quick runs only the checks over the engine and the stage files (C99, C100, E32 ids, E35 drag tabs), in a couple of minutes, for a change
+   that touches no picture, room or level layout (sound, wording, the engine's behaviour); the full run, with every view photographed, is for
+   anything that changes what a room looks like (owner, 2 Nov 2026).
    Checks: cut-out proportions (B9), icons centred inside their slots (E33), close-ups that take what their hotspot takes (E34), no picture squashed or stretched in a room or close-up (E35), things on a wall that partly overlap (B11, for a look),
    no stage part named after an engine style (E36), a shadow on things that stand (B10, listed for a look), pictures that fail to load (G38),
    hotspot bounds, size and the turn-arrow strips (E32), unique hotspot ids, close-up overflow and page scroll at three sizes (G36, G37),
@@ -25,7 +28,8 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
   const b = await chromium.launch({executablePath:'/opt/pw-browsers/chromium'});
   const probe = await b.newPage(); await probe.goto(base + '?stage=evalroom', {waitUntil:'networkidle'});
   const all = await probe.evaluate(() => Object.keys(STAGES)); await probe.close();
-  const stages = process.argv.slice(2).length ? process.argv.slice(2) : all;
+  const args = process.argv.slice(2), QUICK = args.includes('--quick'), named = args.filter(a => !a.startsWith('--'));
+  const stages = named.length ? named : all;
   const report = [];
   const say = (stage, line, what) => report.push(`${stage}\t${line}\t${what}`);
   /* hotspot ids unique across stages */
@@ -54,7 +58,7 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
   /* a line naming where the strip of things is goes through say(), a hint's tips or where(), which turn "the strip below" into
      "the strip on the right" when the strip sits beside the room (checklist 100, MOTH-165); a line written straight into the page would not */
   for (const file of fs.readdirSync(path.join(__dirname, '../next/landscape/stages')).filter(f => f.endsWith('.js'))){
-    const key = file.replace(/\.js$/, ''); if (process.argv.slice(2).length && !stages.includes(key)) continue;
+    const key = file.replace(/\.js$/, ''); if (named.length && !stages.includes(key)) continue;
     fs.readFileSync(path.join(__dirname, '../next/landscape/stages', file), 'utf8').split('\n').forEach((ln, i) => {
       if (!/strip (below|under|at the bottom|beneath)/.test(ln)) return;
       if (/strip (under|at the bottom|beneath)/.test(ln)) say(key, 'C100', `line ${i + 1} says where the strip is in its own words; write "the strip below" so where() can correct it`);
@@ -65,7 +69,7 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
      too: openDrag's tabRatio is width/height, and The Last Bell gave its cord and bell height/width (MOTH-154; the audit only reached the cord) */
   { const dir = path.join(__dirname, '../next/landscape'), pngSize = f => { const b = fs.readFileSync(f); return [b.readUInt32BE(16), b.readUInt32BE(20)]; };
     for (const file of fs.readdirSync(path.join(dir, 'stages')).filter(f => f.endsWith('.js'))){
-      const key = file.replace(/\.js$/, ''); if (process.argv.slice(2).length && !stages.includes(key)) continue;
+      const key = file.replace(/\.js$/, ''); if (named.length && !stages.includes(key)) continue;
       const src = fs.readFileSync(path.join(dir, 'stages', file), 'utf8'), consts = {};
       for (const m of src.matchAll(/\b([A-Z]\w*)\s*=\s*'([^']*)'/g)) consts[m[1]] = m[2];
       for (const m of src.matchAll(/tab:\s*(?:([A-Z]\w*)\s*\+\s*)?'([^']+)'[^}]*?tabRatio:\s*'([\d.]+)\/([\d.]+)'/g)){
@@ -76,7 +80,7 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
       }
     }
   }
-  for (const stage of stages){
+  for (const stage of QUICK ? [] : stages){ /* the per-view checks and photographs: skipped by --quick */
     let usesCu = false; try{ usesCu = fs.readFileSync(path.join(__dirname, '../next/landscape/stages', stage + '.js'), 'utf8').includes('cuhot'); }catch(e){}
     /* voice */
     Object.keys(lines).filter(k => k.startsWith(stage + '.')).forEach(k => { if (!voiced.has(k)) say(stage, 'F34', `unrecorded: ${k}`); });

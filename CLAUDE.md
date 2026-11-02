@@ -4,7 +4,7 @@ A point-and-click adventure for children: a warm, cosy mystery that works as a f
 
 **The story plan lives in `STORY.md`, and the building rules in `next/PLAYBOOK.md`.** Read both before designing or building any room; the playbook holds every rule and every piece of the owner's feedback, and is the standard each room must meet. Build new rooms from it, update it when the owner changes the story, and never fill in its "TO DECIDE" items without asking him.
 
-**`next/CHECKLIST.md` is the owner's feedback turned into checks.** Read it at the start of any update and mark the lines the work touches; walk it over every amended or new thing, close up at the owner's screen shape, before showing it; run `node tools/audit.js` (with the local server up) before every commit and fix what it reports. A fault the owner reports gets reproduced, confirmed in words, fixed at its cause, and added to the checklist.
+**`next/CHECKLIST.md` is the owner's feedback turned into checks.** Read it at the start of any update and mark the lines the work touches; walk it over every amended or new thing, close up at the owner's screen shape, before showing it; run the audit (with the local server up) before every commit and fix what it reports: `node tools/audit.js` in full when the change touches a picture, a room or a level's layout, `node tools/audit.js --quick` (about 20 seconds: the engine and stage-file checks) when it touches only sound, wording or the engine's behaviour (owner, 2 Nov 2026; see "Checks and releases" below). A fault the owner reports gets reproduced, confirmed in words, fixed at its cause, and added to the checklist.
 
 The owner is a non-technical but AI-savvy builder working from a Chromebook. Explain what you are about to do in plain language, and keep him in the loop before anything goes live.
 
@@ -30,6 +30,16 @@ The owner is a non-technical but AI-savvy builder working from a Chromebook. Exp
 - Any clue given by sound must also be shown visually.
 - Before putting real Trent Park or Enfield history into the game, check the facts and tell the owner what you checked.
 - Legal safety: follow "Fiction and legal safety" in `STORY.md`. Use the fictional school names (Knightsbrook International School, Little Waves Kindergarten), never the real ones. No real brands, logos or airline names, and never the Merlion, which is a protected symbol in Singapore. Keep the fiction notice in the game's credits.
+
+## Checks and releases (owner, 2 Nov 2026)
+
+The checks protect players who are live, so they stay, but each runs once and at the size of the change:
+
+1. **Once per change.** A change is checked on its branch before the owner gets its play link: the testing kit (`node tools/kit/run.js`, every level end to end, and `node tools/kit/save-check.js`) and the audit sized as below. At release the same checks run again only if `main` has moved since the branch was checked (another release or branch went in, or a merge needed resolving); when the release is the checked branch plus the build id, the branch's results stand and are quoted in the pull request.
+2. **The audit fits the change.** In full (every view photographed, about 20 minutes) for anything that changes what a room looks like: a picture, a cut-out, a close-up, a hotspot, a room or a level's layout. `--quick` (about 20 seconds) for sound, wording and the engine's behaviour. When unsure, full.
+3. **One release a day.** Approved fixes are bundled into one release, normally in the evening (the release routine), not one release per fix. A fault that is hurting players now (a level that cannot be finished, lost saves, sound that will not stop) is released on its own at once.
+
+This overrides the game-release skill wherever the two differ, until the skill is updated to match.
 
 ## Level-building gates (owner, 17 Oct 2026)
 

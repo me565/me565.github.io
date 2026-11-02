@@ -42,4 +42,4 @@ The first saves, `2026-10-30r`, were taken from the build live on 1 Nov 2026. Af
 
 ## Before a release
 
-`node tools/kit/run.js` and `node tools/kit/save-check.js` both pass, alongside `node tools/audit.js`. A failure stops the release.
+`node tools/kit/run.js` and `node tools/kit/save-check.js` both pass, alongside the audit (`node tools/audit.js`, or `--quick` for a change that touches no picture, room or layout). A failure stops the release. They run once per change, on its branch; at release they run again only if `main` has moved since (owner, 2 Nov 2026; `CLAUDE.md`, "Checks and releases").
