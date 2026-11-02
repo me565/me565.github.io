@@ -1,0 +1,46 @@
+{
+ "key": "mothhouse.landscape.v1.mary",
+ "save": {
+  "stage": "nana",
+  "room": "kitchen",
+  "view": 0,
+  "got": [
+   "torch",
+   "map"
+  ],
+  "held": null,
+  "hint": {},
+  "done": true,
+  "hatchSeen": true,
+  "jediAsked": true,
+  "caseOpen": true,
+  "torchTaken": true,
+  "presentTaken": true,
+  "presentGiven": true,
+  "biscuitGiven": true,
+  "poleGot": true,
+  "jediMoved": true,
+  "hatchOpen": true,
+  "lit": true,
+  "photosSeen": true,
+  "tinSeen": true,
+  "dials": [
+   1,
+   9,
+   6,
+   7
+  ],
+  "tinOpen": true,
+  "mapTaken": true,
+  "keySeen": true,
+  "cipher": [
+   "D",
+   "U",
+   "S",
+   "K"
+  ],
+  "nightMoth": true,
+  "v": 1,
+  "comicSeen": true
+ }
+}

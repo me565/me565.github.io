@@ -4,7 +4,7 @@
    no stage part named after an engine style (E36), a shadow on things that stand (B10, listed for a look), pictures that fail to load (G38),
    hotspot bounds, size and the turn-arrow strips (E32), unique hotspot ids, close-up overflow and page scroll at three sizes (G36, G37),
    unrecorded voice keys (F34), targets low enough to sit under the caption band (32d), an error-free run with reduced motion at the owner's screen shape (G36),
-   and leaving the game silencing every sound and coming back resuming the music (C99).
+   leaving the game silencing every sound and coming back resuming the music (C99), and lines naming the strip's place through where() (C100).
    Writes screenshots of every view to tools/audit-out/<stage>-<view>.png for the visual lines. */
 const { chromium } = require('playwright');
 /* run in the page: every picture under a root drawn at its own proportions (box against natural size, unless it is contained or
@@ -51,6 +51,16 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
       if (!(await p.evaluate(() => !!(trackEl && !trackEl.paused)))) say('engine', 'C99', 'the music does not come back when the player returns to the game');
     }
     await p.close(); }
+  /* a line naming where the strip of things is goes through say(), a hint's tips or where(), which turn "the strip below" into
+     "the strip on the right" when the strip sits beside the room (checklist 100, MOTH-165); a line written straight into the page would not */
+  for (const file of fs.readdirSync(path.join(__dirname, '../next/landscape/stages')).filter(f => f.endsWith('.js'))){
+    const key = file.replace(/\.js$/, ''); if (process.argv.slice(2).length && !stages.includes(key)) continue;
+    fs.readFileSync(path.join(__dirname, '../next/landscape/stages', file), 'utf8').split('\n').forEach((ln, i) => {
+      if (!/strip (below|under|at the bottom|beneath)/.test(ln)) return;
+      if (/strip (under|at the bottom|beneath)/.test(ln)) say(key, 'C100', `line ${i + 1} says where the strip is in its own words; write "the strip below" so where() can correct it`);
+      else if (!/\bsay\(|\bwhere\(|tips:\s*\[/.test(ln)) say(key, 'C100', `line ${i + 1} names "the strip below" outside say(), where() or a hint, so a phone would read "below" with the strip on the right`);
+    });
+  }
   /* every drag's tab drawn at its picture's own proportions (E35), read from the stage files, so a drag behind a later state is checked
      too: openDrag's tabRatio is width/height, and The Last Bell gave its cord and bell height/width (MOTH-154; the audit only reached the cord) */
   { const dir = path.join(__dirname, '../next/landscape'), pngSize = f => { const b = fs.readFileSync(f); return [b.readUInt32BE(16), b.readUInt32BE(20)]; };

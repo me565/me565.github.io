@@ -1,0 +1,42 @@
+{
+ "key": "mothhouse.landscape.v1.mary",
+ "save": {
+  "stage": "flight",
+  "room": "seat",
+  "view": 0,
+  "got": [
+   "flightcard",
+   "mag",
+   "noteread",
+   "lens"
+  ],
+  "held": null,
+  "hint": {},
+  "done": true,
+  "noteSeen": true,
+  "cardRead": true,
+  "magTaken": true,
+  "magRead": true,
+  "noteRead": true,
+  "clocksSeen": true,
+  "priyaTip": true,
+  "screenTried": true,
+  "awake": true,
+  "time": {
+   "h": 6,
+   "m": 40
+  },
+  "lensGiven": true,
+  "lensUsed": true,
+  "zoomed": true,
+  "xw": [
+   "KITTEN",
+   "ABOVE",
+   "YELLOW",
+   "APPLE"
+  ],
+  "nightMoth": true,
+  "v": 1,
+  "comicSeen": true
+ }
+}
