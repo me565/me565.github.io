@@ -1,0 +1,33 @@
+{
+ "key": "mothhouse.landscape.v1.elliot",
+ "save": {
+  "stage": "eschool",
+  "room": "classroom",
+  "view": 0,
+  "got": [
+   "jumper"
+  ],
+  "held": null,
+  "hint": {
+   "1": 0
+  },
+  "done": true,
+  "placed": [
+   "straight",
+   "curve",
+   "zigzag"
+  ],
+  "cogs": [
+   1,
+   2,
+   3
+  ],
+  "cardRead": true,
+  "chalkSeen": true,
+  "pegSeen": true,
+  "bell": true,
+  "v": 1,
+  "comicSeen": true,
+  "tankTold": true
+ }
+}
