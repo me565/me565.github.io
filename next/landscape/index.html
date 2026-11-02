@@ -644,7 +644,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-11-02rb';
+const BUILD = '2026-11-02c';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, the inventory strip under it, or beside it on a wide screen (backlog 24) ---------- */
@@ -1085,7 +1085,11 @@ function save(){ try{ S.v = SAVE_VERSION; localStorage.setItem(keyFor(CHILD), JS
 const curView = () => ROOMS[S.room].views[S.view];
 
 /* ---------- drawing ---------- */
-function say(html){ $('msg').innerHTML = html; }
+/* Where the strip of things is: under the room on a tablet, on the right of it on a phone or any wide screen (fit(), .stage.side).
+   Lines are written with "the strip below" and say where it really is when shown (MOTH-165: a tester on a phone found it on the right). */
+const stripAt = () => $('stage').classList.contains('side') ? 'on the right' : 'below';
+const where = s => String(s).replace(/the strip below/g, () => 'the strip ' + stripAt());
+function say(html){ $('msg').innerHTML = where(html); }
 /* Corners that agree (backlog 19, 17 Oct 2026). Every wall picture was generated as its own shallow box, so its side walls were the
    image model's guess. Where a stage gives `sides` for a view, the engine paints the side walls itself from the neighbouring views:
    the left side wall from the near end of the previous view's back wall, the right from the near end of the next view's, each
@@ -1353,7 +1357,7 @@ function tip(name, delay = 0){
     if (tipsSeen.has(name)) return;
     if (!$('closeup').hidden || !$('menu').hidden || !$('stagecard').hidden || !$('loading').hidden || comicOn || (voiceEl && !voiceEl.paused) || !$('endUI').hidden){ tip(name, 1500); return; } /* not now: try again shortly */
     tipsSeen.add(name); try{ localStorage.setItem('mothhouse.tips', JSON.stringify([...tipsSeen])); }catch(e){}
-    say(`<b>The moth says:</b> ${TIPS[name]}`); speak('tip.' + name, $('msg'));
+    say(`<b>The moth says:</b> ${TIPS[name]}`); if (!(stripAt() !== 'below' && /the strip below/.test(TIPS[name]))) speak('tip.' + name, $('msg')); /* the recording says "below": where the strip is on the right, the words show without it (MOTH-165) */
   }, delay);
 }
 function hint(){ if (STAGE.hintStyle === 'point') pointNext(); else openNotebook(); }
@@ -1381,7 +1385,7 @@ function pointAt(id, html, voiceKey){
   setTimeout(glow, 900); setTimeout(() => m.classList.add('away'), 3000); setTimeout(() => m.remove(), 3800);
 }
 let pendingPoint = null;
-function hintText(i){ S.hint[i] = Math.min((S.hint[i] ?? -1) + 1, 2); save(); speak(`${S.stage}.hint.${i}.${S.hint[i]}`, () => $('nbFb')); if (S.hint[i] >= 1 && HINTS[i].target) pendingPoint = HINTS[i].target; return `<b>${STAGE.speaker()}:</b> ${HINTS[i].tips[S.hint[i]]}`; }
+function hintText(i){ S.hint[i] = Math.min((S.hint[i] ?? -1) + 1, 2); save(); speak(`${S.stage}.hint.${i}.${S.hint[i]}`, () => $('nbFb')); if (S.hint[i] >= 1 && HINTS[i].target) pendingPoint = HINTS[i].target; return where(`<b>${STAGE.speaker()}:</b> ${HINTS[i].tips[S.hint[i]]}`); }
 function pointAt(id){ const el = document.querySelector(`.hs[data-id="${id}"]`); if (!el) return false; el.classList.remove('point'); void el.offsetWidth; el.classList.add('point'); setTimeout(() => el.classList.remove('point'), 3400); return true; }
 function openNotebook(){
   if (!tipsSeen.has('help')){ tipsSeen.add('help'); tipsSeen.add('helpPoint'); clearTimeout(tipTimers.help); clearTimeout(tipTimers.helpPoint); try{ localStorage.setItem('mothhouse.tips', JSON.stringify([...tipsSeen])); }catch(e){} }
