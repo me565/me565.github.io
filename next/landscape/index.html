@@ -644,7 +644,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 'use strict';
-const BUILD = '2026-10-30r';
+const BUILD = '2026-11-02a';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, the inventory strip under it, or beside it on a wide screen (backlog 24) ---------- */
@@ -1609,7 +1609,12 @@ function setVolume(which, v){
 function wake(){ if (!soundOn) return; audio(); if (AC && AC.state !== 'running') AC.resume(); startMusic(); startAmbient(); }
 
 ['touchend','click'].forEach(ev => addEventListener(ev, wake, {passive:true})); addEventListener('keydown', wake);
-document.addEventListener('visibilitychange', () => { if (!AC) return; if (document.hidden) AC.suspend(); else if (soundOn) AC.resume(); });
+/* Leaving the game (the home screen, another app, a locked phone) silences everything, and coming back picks the music up again (MOTH-162, a closed-test tester).
+   The Lyria track and the moth's voice are Audio elements outside the Web Audio context, so suspending the context alone left the music playing in the background. */
+function goQuiet(){ if (AC && AC.state === 'running') AC.suspend(); if (trackEl && !trackEl.paused) trackEl.pause(); if (voiceEl) hush(); }
+function comeBack(){ if (!soundOn) return; if (AC && AC.state !== 'running') AC.resume(); if (trackEl && trackEl.paused && vol.music) trackEl.play().catch(() => {}); }
+document.addEventListener('visibilitychange', () => { if (document.hidden) goQuiet(); else comeBack(); });
+addEventListener('pagehide', goQuiet);
 
 /* ---------- wiring ---------- */
 $('left').onclick = () => turn(-1); $('right').onclick = () => turn(1);

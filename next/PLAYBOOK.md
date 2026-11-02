@@ -141,6 +141,7 @@ The working rules for every room in the landscape game, distilled from the owner
 - A cog sits top-right on the title screen and in every room and opens one panel with three tabs: Settings (music and sound effects as separate sliders, full screen, show what I can tap), Help (how to play in four lines, back to the title, start this stage again, start the story again) and About (what the game is, the fiction notice, the studio credit). Tap outside, ×, or Escape closes it. The room-only rows hide on the title.
 - Anything that wipes progress asks first, inside the panel ("Yes, start again" / "No, keep going"). Never a bare wipe.
 - Volumes are 0–10 and kept on the device (`mothhouse.vol`); effects run through one gain node so a slider takes effect at once; music at 0 stops the track and any other value restarts it. The old on/off switch is read once and turned into the two volumes.
+- Going to the background (the home screen, another app, a locked phone) silences everything: `goQuiet` suspends the Web Audio context, pauses the music track and hushes the moth's voice; `comeBack` resumes the context and the track unless the music is switched off (MOTH-162, from the closed test, 2 Nov 2026). Any new sound source is added to both, or it plays on behind the home screen and drains the battery; checklist 99.
 - The build id and sound state still appear only with `?debug`, in the panel's corner.
 
 
