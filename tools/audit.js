@@ -3,7 +3,8 @@
    Checks: cut-out proportions (B9), icons centred inside their slots (E33), close-ups that take what their hotspot takes (E34), no picture squashed or stretched in a room or close-up (E35), things on a wall that partly overlap (B11, for a look),
    no stage part named after an engine style (E36), a shadow on things that stand (B10, listed for a look), pictures that fail to load (G38),
    hotspot bounds, size and the turn-arrow strips (E32), unique hotspot ids, close-up overflow and page scroll at three sizes (G36, G37),
-   unrecorded voice keys (F34), targets low enough to sit under the caption band (32d), and an error-free run with reduced motion at the owner's screen shape (G36).
+   unrecorded voice keys (F34), targets low enough to sit under the caption band (32d), an error-free run with reduced motion at the owner's screen shape (G36),
+   and leaving the game silencing every sound and coming back resuming the music (C99).
    Writes screenshots of every view to tools/audit-out/<stage>-<view>.png for the visual lines. */
 const { chromium } = require('playwright');
 /* run in the page: every picture under a root drawn at its own proportions (box against natural size, unless it is contained or
@@ -33,6 +34,21 @@ const voiced = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '../next/
     const SUP = await p.evaluate(() => Object.fromEntries(Object.entries(STAGES).map(([k, st]) => [k, st.supersedes || null]))); /* a stage built to replace another (as school3 was for school) may share its ids: they never load together */
     const sup = (a, b) => SUP[a] === b || SUP[b] === a;
     const seen = new Map(); ids.forEach(([k, id]) => { if (seen.has(id) && seen.get(id) !== k && !sup(k, seen.get(id))) say(k, 'E32', `hotspot id ${id} also in ${seen.get(id)}`); seen.set(id, k); }); await p.close(); }
+  /* leaving the game silences it and coming back resumes the music (checklist 99, MOTH-162): the page is sent to the background
+     with the music track and a voice line playing; every Audio element must stop and the Web Audio context suspend, then the track come back */
+  { const p = await b.newPage({viewport:{width:1280, height:720}}); await p.goto(base + '?stage=evalroom&fresh', {waitUntil:'networkidle'});
+    await p.waitForTimeout(600); await p.mouse.click(640, 360); await p.waitForTimeout(2500);
+    const hide = h => p.evaluate(h => { Object.defineProperty(document, 'hidden', {get:() => h, configurable:true}); document.dispatchEvent(new Event('visibilitychange')); }, h);
+    const playing = await p.evaluate(() => { const k = VOICED && [...VOICED][0]; if (k) speak(k); return !!(trackEl && !trackEl.paused); });
+    if (!playing) say('engine', 'C99?', 'the music did not start in the test browser, so leaving the game was not checked');
+    else {
+      await p.waitForTimeout(500); await hide(true); await p.waitForTimeout(800);
+      const left = await p.evaluate(() => ({ac: AC && AC.state, loud: [...Object.values(VOICE), trackEl].filter(a => a && !a.paused).map(a => a.src.split('/').pop())}));
+      if (left.ac === 'running' || left.loud.length) say('engine', 'C99', `sound carries on behind the home screen: context ${left.ac}, still playing ${left.loud.join(', ') || 'nothing'}`);
+      await hide(false); await p.waitForTimeout(1200);
+      if (!(await p.evaluate(() => !!(trackEl && !trackEl.paused)))) say('engine', 'C99', 'the music does not come back when the player returns to the game');
+    }
+    await p.close(); }
   /* every drag's tab drawn at its picture's own proportions (E35), read from the stage files, so a drag behind a later state is checked
      too: openDrag's tabRatio is width/height, and The Last Bell gave its cord and bell height/width (MOTH-154; the audit only reached the cord) */
   { const dir = path.join(__dirname, '../next/landscape'), pngSize = f => { const b = fs.readFileSync(f); return [b.readUInt32BE(16), b.readUInt32BE(20)]; };
