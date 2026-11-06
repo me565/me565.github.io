@@ -642,10 +642,10 @@ button{font:inherit;color:inherit;cursor:pointer}
   </defs>
 </svg>
 
-<script src="game.js?v=2026-11-06a"></script>
+<script src="game.js?v=2026-11-06b"></script>
 <script>
 'use strict';
-const BUILD = '2026-11-06a';
+const BUILD = '2026-11-06b';
 const $ = id => document.getElementById(id);
 
 /* ---------- sizing: the scene fills the screen in landscape, the inventory strip under it, or beside it on a wide screen (backlog 24) ---------- */
@@ -1456,7 +1456,8 @@ function chime(f){ if (!vol.fx || !audio()) return; if (AC.state !== 'running') 
 /* The moth's voice: every story-led line (hints, notes, cards, postcards) was recorded once into art/voice/<key>.mp3
    and is played by key; the moth appears beside the message line while it speaks. One line at a time; a new line stops the last. */
 let voiceEl = null, voiceKey = null, VOICED = null;
-fetch((GAME.voiceDir || '../art/voice/') + 'index.json?v=' + BUILD).then(r => r.json()).then(list => { VOICED = new Set(list); }).catch(() => { VOICED = new Set(); });
+if (GAME.voiceDir === null) VOICED = new Set(); /* a game with no recorded lines yet */
+else fetch((GAME.voiceDir || '../art/voice/') + 'index.json?v=' + BUILD).then(r => r.json()).then(list => { VOICED = new Set(list); }).catch(() => { VOICED = new Set(); });
 /* Every line is an Audio element kept once it has been made ready, so a tap never waits for the network (owner, 12 Oct 2026). */
 const VOICE = {};
 function voiceAudio(key){ if (VOICE[key]) return VOICE[key]; const a = new Audio(); a.preload = 'auto'; a.src = `${GAME.voiceDir || '../art/voice/'}${key}.mp3?v=${BUILD}`; VOICE[key] = a; return a; }
@@ -1504,7 +1505,7 @@ function readAlong(el, a){
    It plays only if a track file fails to load. */
 /* Tracks are mp3s made with Google's Lyria through the Gemini key (art/music/README.md): one for the title, one per stage.
    The game keeps one wanted track; changing it cross-fades from the old one. A track needs a real tap before the browser lets it play. */
-const TITLE_TRACK = GAME.titleTrack || '../art/music/title.mp3';
+const TITLE_TRACK = 'titleTrack' in GAME ? GAME.titleTrack : '../art/music/title.mp3'; /* a game may give '' for no title music */
 let wantTrack = TITLE_TRACK;
 function setTrack(src){ wantTrack = src || ''; if (trackEl && trackEl.dataset.src !== wantTrack){ fadeOut(trackEl); trackEl = null; musicState = 'changing'; } if (wantTrack && soundOn && AC && AC.state === 'running') startMusic(); }
 const fadingOut = new Set(); /* tracks on their way out, released if the game is left mid-fade (the fade runs on frames, which stop in the background) */
