@@ -10,7 +10,8 @@ async function watch(p){
     window.__kitSaves = [];
     const set = Storage.prototype.setItem;
     Storage.prototype.setItem = function(k, v){
-      try{ if (this === window.localStorage && /^mothhouse\.landscape\.v\d+\.(?!last$)/.test(k)) window.__kitSaves.push([k, v]); }catch(e){}
+      try{ const pre = (window.GAME && window.GAME.saveKey) || 'mothhouse.landscape.v1'; /* the game's own save name (MOTH-166) */
+        if (this === window.localStorage && k.startsWith(pre + '.') && !k.endsWith('.last')) window.__kitSaves.push([k, v]); }catch(e){}
       return set.call(this, k, v);
     };
   });

@@ -11,6 +11,7 @@ Layer: engine. Built 1 Nov 2026, the first job in the studio plan (`docs/studio-
 | `tools/kit/kit.js` | engine | The one verdict every play script ends with. A stage passes only if its end card was drawn, the stage counts as done, the script's own checks found nothing, and the page threw no error. Prints `KIT PASS <stage>` or `KIT FAIL <stage>: <why>`. |
 | `tools/kit/run.js` | engine | Plays every stage (or the ones named) and prints one line each. Fails if any stage in `next/landscape/stages/` has no play script. |
 | `tools/kit/save-check.js` | engine | The save rule: a save from the previous release must load and play. |
+| `tools/kit/other-game.js` | engine | The engine runs a game other than The Moth House (MOTH-166): it serves a made-up one-player game's `game.js` and checks the engine takes that game's name, title screen, hint button, save name and plain end card, and skips the choose screen. Run it after any engine change. |
 | `tools/play-*.js` | game | One play script per stage. Each starts with `/* Layer: game. Play script for stage <key> ... */`, which is how the runner finds it. |
 
 ## Commands
@@ -22,6 +23,7 @@ node tools/kit/run.js                 # every stage
 node tools/kit/run.js eval2 park      # just these
 node tools/kit/save-check.js          # saves from the last release, loaded into this build
 node tools/kit/save-check.js capture  # keep this build's saves (run on main right after a release)
+node tools/kit/other-game.js          # the engine runs another game's settings (server up first)
 ```
 
 Logs and screenshots go to `tools/kit/out/` (not in git).
@@ -31,6 +33,8 @@ Logs and screenshots go to `tools/kit/out/` (not in git).
 1. Copy the closest play script to `tools/play-<x>.js` and change its label line to the new stage key.
 2. Make it play the level the way the walkthrough does, and end with `await kit.finish(p, b, {errors, failed});`, with `await kit.watch(p);` before its `p.goto`.
 3. `node tools/kit/run.js <stage>` until it says PASS. Only then is Gate C asked for.
+
+A check that reads the message line straight after a tap can lose to a first-time tip (`tip()` in the engine): a tip that was held back while a close-up was open shows the moment it shuts. Where a script reads the line after closing a close-up, tap again if the line is the helper's tip, as a player would (`tools/play-e2.js`, the socks drawer, MOTH-166). Never drop the check.
 
 ## Saves
 

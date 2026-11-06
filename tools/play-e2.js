@@ -58,7 +58,8 @@ const { chromium } = require('playwright'); const kit = require('./kit/kit');
   await tap('e2_drawing', 400); await tap('e2_penpot', 500); check((await p.locator('#takeTape').count()) === 0, 'the pen pot is only a pen pot (MOTH-120)'); await back();
   await tap('e2_dmid', 400); check(/sticks/.test(await msg()), 'the middle drawer sticks while the socks drawer is in'); check(await p.evaluate(() => document.getElementById('closeup').hidden), 'no close-up for a stuck drawer');
   await tap('e2_dbot', 500); await shot('11a-socks'); await cu('e2_botcu'); check(await p.evaluate(() => S.botOut), 'the socks drawer comes out'); await shot('11b-drawer-out');
-  await tap('e2_botfloor', 300); check(/Socks/.test(await msg()), 'the socks drawer on the floor');
+  await tap('e2_botfloor', 300); if (/moth says/i.test(await msg())) await tap('e2_botfloor', 300); /* a first-time tip held back by the drawer's close-up can take the line just as it shuts; a player taps again (MOTH-166) */
+  check(/Socks/.test(await msg()), 'the socks drawer on the floor');
   await tap('e2_dmid', 500); await shot('11c-tape'); await p.click('#takeTape'); await p.waitForTimeout(400); check(await p.evaluate(() => S.got.includes('tape')), 'the tape from the middle drawer');
   await hold('sticky tape'); await hold('framed drawing'); console.log('tape on the frame:', await msg()); check(/Nothing to stick/.test(await msg()), 'tape-first line');
   await hold('wrapping paper'); await hold('framed drawing'); await hold('sticky tape'); await hold('half-wrapped present'); check(await p.evaluate(() => S.got.includes('present')), 'present wrapped');
